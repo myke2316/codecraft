@@ -1,11 +1,11 @@
 
-import './App.css'
+
 
 function App() {
  
   return (
     <>
-     hi
+     <h1 className="bg-red-300">Hey</h1>
     </>
   )
 }
