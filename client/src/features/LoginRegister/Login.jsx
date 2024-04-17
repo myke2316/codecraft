@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function Login() {
   return (
     <div className="text-textprimarycolor1">
-      <h1>Login</h1>
+      <h1>{"<Login>"}</h1>
       <Formik
         initialValues={{
           email: "",
@@ -24,12 +24,7 @@ function Login() {
           <div>
             <p className="mt-1">
               Forgot Password?{" "}
-              <span
-                className="text-yellow-100 cursor-pointer"
-           
-              >
-                Click here
-              </span>
+              <span className="text-yellow-100 cursor-pointer">Click here</span>
             </p>
             <p>
               Don't have an account?{" "}
@@ -40,6 +35,7 @@ function Login() {
           </div>
         </div>
       </Formik>
+      <h1> {"</Login>"}</h1>
     </div>
   );
 }
