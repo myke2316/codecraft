@@ -68,7 +68,7 @@ function SignUpForm() {
       <div className={formStyle}>
         <label htmlFor="role">Role:</label>
         <Field
-          className=""
+          className="text-slate-800"
           name="role"
           type="text"
           as="select"
