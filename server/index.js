@@ -4,7 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import connectDb from "./config/database.js";
 import passportUtil from "./utils/passport.js";
-
+import { userRouter } from "./routes/userRoutes.js";
 
 dotenv.config();
 connectDb();
@@ -32,4 +32,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.send("Server or api is running.");
+});
+
+app.use("/auth", userRouter);
+
+
+app.listen(PORT, () => {
+  console.log(`Server Running on port ${PORT}`);
 });
