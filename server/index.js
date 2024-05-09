@@ -5,11 +5,16 @@ import cookieParser from "cookie-parser";
 import connectDb from "./config/database.js";
 import passportUtil from "./utils/passport.js";
 import { userRouter } from "./routes/userRoutes.js";
+import { authRoutes } from "./routes/authRoutes.js";
 
 dotenv.config();
 connectDb();
 const PORT = process.env.SERVER_PORT || 8000;
 const app = express();
+
+app.listen(PORT, () => {
+  console.log(`Server Running on port ${PORT}`);
+});
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:5173");
@@ -20,23 +25,19 @@ app.use((req, res, next) => {
 app.use(
   cors({
     origin: "http://localhost:5173",
-    methods: "GET, POST, PATCH, DELETE, PUT",
     credentials: true,
+    methods: "GET, POST, PATCH, DELETE, PUT",
   })
 );
-
 app.use(cookieParser());
 passportUtil(app);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/api/users", userRouter);
+app.use("/auth", authRoutes);
+
 app.get("/", (req, res) => {
   res.send("Server or api is running.");
-});
-
-app.use("/auth", userRouter);
-
-
-app.listen(PORT, () => {
-  console.log(`Server Running on port ${PORT}`);
 });

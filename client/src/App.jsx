@@ -4,9 +4,10 @@ import AppLayout from "./ui/AppLayout";
 import Course from "./pages/Course";
 import About from "./pages/About";
 
-
 import Login from "./features/LoginRegister/Login";
 import SignUp from "./features/LoginRegister/SignUp";
+import ResetPassword from "./features/LoginRegister/ResetPassword";
+import GoogleRedirect from "./ui/GoogleRedirectPage";
 
 function App() {
   return (
@@ -18,6 +19,11 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
+          <Route path="redirect" element={<GoogleRedirect />} />
+          <Route
+            path="reset-password/:resetToken"
+            element={<ResetPassword />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

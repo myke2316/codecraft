@@ -1,8 +1,36 @@
 import { Formik } from "formik";
 import SignUpForm from "./SignUpForm";
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRegisterMutation } from "./userService";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { setCredentials } from "./userSlice";
 function SignUp() {
+  // handle Register
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  //handles registration process
+  const [register, { isLoading }] = useRegisterMutation();
+  async function handleRegister(values) {
+    const { emailaddress, username, password, role } = values;
+    console.log(values);
+    try {
+      const res = await register({
+        email: emailaddress,
+        username,
+        password,
+        role,
+      }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate("/");
+      toast.success("Register Complete!");
+    } catch (error) {
+      toast.error(error?.data?.error || error?.error);
+    }
+  }
+
   return (
     <div className="text-textprimarycolor1">
       <h1> {"<SignUp>"}</h1>
@@ -31,6 +59,7 @@ function SignUp() {
             .required("Required"),
           role: Yup.string().required("Required"),
         })}
+        onSubmit={handleRegister}
       >
         <div>
           <SignUpForm />

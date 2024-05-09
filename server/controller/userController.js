@@ -1,41 +1,59 @@
-import { UserModel } from "../models/userModel.js";
+import UserModel from "../models/userModel.js";
 import asyncHandler from "express-async-handler";
 import generateToken from "../utils/generateToken.js";
 import sendEmail from "../utils/sendEmail.js";
 import crypto from "crypto";
-import dotenv from "dotenv";
-dotenv.config();
 
 //login user
+// const loginUser = asyncHandler(async (req, res) => {
+//   //getting the posted json or the message
+//   const { username, email, password } = req.body;
+
+//   //validate or find user based on email || username & password
+//   let loggedInUser;
+//   const user = await UserModel.findOne({ email });
+//   const user1 = await UserModel.findOne({ username });
+//   if (user && (await user.matchPassword(password))) {
+//     loggedInUser = user;
+//   } else if (user1 && (await user1.matchPassword(password))) {
+//     loggedInUser = user1;
+//   }
+
+//   if (loggedInUser) {
+//     generateToken(res, loggedInUser._id);
+
+//     // console.log("Cookies being set:", req.getResponseHeader("SetCookie"));
+//     res.json({
+//       _id: loggedInUser._id,
+//       username: loggedInUser.username,
+//       email: loggedInUser.email,
+//       role: loggedInUser.role,
+//     });
+//   } else {
+//     res.status(401).json({
+//       message: "Invalid Username or Password.",
+//     });
+//   }
+// });
 const loginUser = asyncHandler(async (req, res) => {
-  //getting the posted json or the message
-  const { username, email, password } = req.body;
+  const { email, password } = req.body;
 
-  //validate or find user based on email || username & password
-  let loggedInUser;
   const user = await UserModel.findOne({ email });
-  const user1 = await UserModel.findOne({ username });
-  if (user && (await user.matchPassword(password))) {
-    loggedInUser = user;
-  } else if (user1 && (await user1.matchPassword(password))) {
-    loggedInUser = user1;
-  }
 
-  if (loggedInUser) {
-    generateToken(res, loggedInUser._id);
+  if (user && (await user.matchPassword(password))) {
+    generateToken(res, user._id);
+
     res.json({
-      _id: loggedInUser._id,
-      username: loggedInUser.username,
-      email: loggedInUser.email,
-      role: loggedInUser.role,
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
     });
   } else {
-    res.status(401).json({
-      message: "Invalid Username or Password.",
-    });
+    res.status(401).json({ error: "Invalid email or password!" });
+    throw new Error("Invalid email or password");
   }
 });
-
 //register user
 const registerUser = asyncHandler(async (req, res) => {
   //getting the posted json or the messag
@@ -45,11 +63,11 @@ const registerUser = asyncHandler(async (req, res) => {
   const emailExists = await UserModel.findOne({ email });
   const userExists = await UserModel.findOne({ username });
   if (userExists) {
-    res.status(400);
+    res.status(400).json({ error: "The username is already taken." });
     throw new Error("The username is already taken.");
   }
   if (emailExists) {
-    res.status(400);
+    res.status(400).json({ error: "The email is already taken." });
     throw new Error("This email is already taken.");
   }
 
@@ -63,7 +81,7 @@ const registerUser = asyncHandler(async (req, res) => {
       role: user.role,
     });
   } else {
-    res.status(401);
+    res.status(401).json({ error: "Invalid User Credentials." });
     throw new Error("Invalid User Credentials");
   }
 });
@@ -91,9 +109,17 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
 //logout user
 const logoutUser = asyncHandler(async (req, res) => {
-  res.cookie("jwt", "", { httpOnly: true, expires: new Date(0) });
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+
+  res.cookie("connect.sid", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
   res.status(200).json({
-    message: "Logged Out User Successfully!",
+    message: "Logged Out Successfully",
   });
 });
 

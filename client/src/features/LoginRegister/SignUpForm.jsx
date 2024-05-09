@@ -1,19 +1,29 @@
 import { ErrorMessage, Field, Form } from "formik";
 import Button from "../../Components/Button";
-import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   buttonStyle,
   formStyle,
   googleButtonStyle,
 } from "../../stylesConstants";
+import { BACKEND_URL } from "../../constants";
 
 function SignUpForm() {
+  // handle Google Sign up or login
+  function handleGoogleAuth() {
+    try {
+      window.location.href = `${BACKEND_URL}/auth/google/callback`;
+    } catch (error) {
+      toast.error(error?.data?.message || error?.error);
+    }
+  }
+
   return (
     <Form className="">
       <div className={formStyle}>
         <label htmlFor="emailaddress">Email Address:</label>
         <Field
-          className=""
+          className="text-slate-700"
           name="emailaddress"
           type="text"
           placeholder="Email Address"
@@ -28,7 +38,7 @@ function SignUpForm() {
       <div className={formStyle}>
         <label htmlFor="">Username:</label>
         <Field
-          className=""
+          className="text-slate-700"
           name="username"
           type="text"
           placeholder="Username"
@@ -42,7 +52,7 @@ function SignUpForm() {
       <div className={formStyle}>
         <label htmlFor="password">Password:</label>
         <Field
-          className=""
+          className="text-slate-700"
           name="password"
           type="password"
           placeholder="Password"
@@ -57,7 +67,7 @@ function SignUpForm() {
       <div className={formStyle}>
         <label htmlFor="">Confirm Password:</label>
         <Field
-          className=""
+          className="text-slate-700"
           name="confirmpassword"
           type="password"
           placeholder="Confirm Password"
@@ -82,10 +92,15 @@ function SignUpForm() {
 
       <div className="flex gap-3">
         <Button className={buttonStyle}>Register</Button>
-        <Button className={googleButtonStyle}> Register with Google</Button>
+        <Button
+          className={googleButtonStyle}
+          type="button"
+          onClick={handleGoogleAuth}
+        >
+          {" "}
+          Register with Google
+        </Button>
       </div>
-
-   
     </Form>
   );
 }
