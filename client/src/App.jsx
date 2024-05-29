@@ -8,6 +8,11 @@ import Login from "./features/LoginRegister/Login";
 import SignUp from "./features/LoginRegister/SignUp";
 import ResetPassword from "./features/LoginRegister/ResetPassword";
 import GoogleRedirect from "./ui/GoogleRedirectPage";
+import RoleSelection from "./ui/RoleSelection";
+import PrivateRoutes from "./Components/PrivateRoutes";
+import AuthorizedLayout from "./ui/AuthorizedLayout";
+import CreateClassForm from "./features/Teacher/CreateClassForm";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -24,6 +29,12 @@ function App() {
             path="reset-password/:resetToken"
             element={<ResetPassword />}
           />
+
+          <Route path="" element={<PrivateRoutes />}>
+            <Route path="role-selection" element={<RoleSelection />} />
+            <Route path="create-class" element={<CreateClassForm />} />
+            <Route path="profile" element={<Profile />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

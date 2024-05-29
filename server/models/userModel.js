@@ -20,8 +20,8 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      required: true,
-      default: "student",
+      // required: true,
+      // default: "student"
     },
     passwordResetToken: String,
     passwordResetExpires: Date,

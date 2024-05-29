@@ -39,7 +39,7 @@ function SignUp() {
           emailaddress: "",
           username: "",
           password: "",
-          role: "student",
+          role: "",
           confirmpassword: "",
         }}
         validationSchema={Yup.object({

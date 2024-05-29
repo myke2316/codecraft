@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Form } from "formik";
+import { ErrorMessage, Field, Form, useFormikContext } from "formik";
 import Button from "../../Components/Button";
 import { toast } from "react-toastify";
 import {
@@ -8,11 +8,14 @@ import {
 } from "../../stylesConstants";
 import { BACKEND_URL } from "../../constants";
 
+
 function SignUpForm() {
+  const { values } = useFormikContext();
   // handle Google Sign up or login
   function handleGoogleAuth() {
     try {
       window.location.href = `${BACKEND_URL}/auth/google/callback`;
+     
     } catch (error) {
       toast.error(error?.data?.message || error?.error);
     }
@@ -72,7 +75,11 @@ function SignUpForm() {
           type="password"
           placeholder="Confirm Password"
         />
-        <ErrorMessage component="div" className="" name="confirmpassword" />
+        <ErrorMessage
+          component="div"
+          className="text-textColorRed"
+          name="confirmpassword"
+        />
       </div>
 
       <div className={formStyle}>
@@ -84,10 +91,15 @@ function SignUpForm() {
           as="select"
           placeholder="Confirm Password"
         >
+          <option value="">Choose a Role..</option>
           <option value="student">Student</option>
           <option value="teacher">Teacher</option>
         </Field>
-        <ErrorMessage component="div" className="" name="role" />
+        <ErrorMessage
+          component="div"
+          className="text-textColorRed"
+          name="role"
+        />
       </div>
 
       <div className="flex gap-3">

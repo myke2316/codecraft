@@ -86,7 +86,31 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-//update profile
+// Update user's role
+const updateRole = asyncHandler(async (req, res) => {
+  const { userId, role } = req.body;
+  try {
+    const user = await UserModel.findByIdAndUpdate(
+      userId,
+      { role: role },
+      { new: true }
+    );
+    if (user) {
+      res.status(200).json({
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+      });
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+//update profile password
 const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await UserModel.findById(req.body._id);
 
@@ -106,6 +130,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     throw new Error("User not found.");
   }
 });
+
 
 //logout user
 const logoutUser = asyncHandler(async (req, res) => {
@@ -201,4 +226,5 @@ export {
   logoutUser,
   forgotPassword,
   resetPassword,
+  updateRole
 };

@@ -21,6 +21,7 @@ const userSlice = createSlice({
       state.userDetails = null;
       localStorage.removeItem("userDetails");
       localStorage.removeItem("expirationTime");
+      
     },
   },
 });

@@ -17,6 +17,13 @@ export const userService = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    updateRole: builder.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/update-role`,
+        method: "POST",
+        body: data,
+      }),
+    }),
     logout: builder.mutation({
       query: () => ({
         url: `${USER_URL}/logout`,
@@ -46,5 +53,5 @@ export const {
   useLogoutMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
-  useGoogleLogoutMutation,
+  useUpdateRoleMutation,
 } = userService;
