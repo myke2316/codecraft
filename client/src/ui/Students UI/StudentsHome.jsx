@@ -3,13 +3,15 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { useLogoutMutation } from "../../features/LoginRegister/userService";
 import { logout } from "../../features/LoginRegister/userSlice";
+import StudentClass from "./StudentClass";
 
 function StudentsHome() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userClass = useSelector((state) => state.user.userDetails);
 
-  const user = useSelector((state) => state.user.userDetails);
   const [logoutApi] = useLogoutMutation();
+
   async function handleLogout() {
     try {
       await logoutApi().unwrap();
@@ -24,8 +26,13 @@ function StudentsHome() {
   }
 
   return (
-    <div>
-      <button className="p-3 bg-slate-50 mt-2" onClick={handleLogout}>
+    <div className="text-white">
+      <StudentClass />
+
+      <button
+        className="text-black p-3 bg-slate-50 mt-2"
+        onClick={handleLogout}
+      >
         Logout
       </button>
     </div>

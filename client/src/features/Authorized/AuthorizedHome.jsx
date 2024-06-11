@@ -1,19 +1,16 @@
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import StudentsHome from "../../ui/Students UI/StudentsHome";
+import TeachersHome from "../../ui/Teacher UI/TeachersHome";
 
-import HomeContent from "./HomeContent";
-import StudentsHome from "./Students UI/StudentsHome";
-import TeachersHome from "./Teacher UI/TeachersHome";
-
-function Home() {
+function AuthorizedHome() {
   const isAuthenticated = localStorage.getItem("userDetails");
   const user = useSelector((state) => state.user.userDetails);
-
   return (
     <div>
+      {" "}
       {isAuthenticated && user.role === "student" && <StudentsHome />}
       {isAuthenticated && user.role === "teacher" && <TeachersHome />}
-      {!isAuthenticated && <HomeContent />}
     </div>
   );
 }
-export default Home;
+export default AuthorizedHome;

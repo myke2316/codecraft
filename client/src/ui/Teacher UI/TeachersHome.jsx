@@ -10,6 +10,7 @@ function TeachersHome() {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user.userDetails);
+  const classDetails = useSelector(state => state.class.class)
   const [logoutApi] = useLogoutMutation();
   async function handleLogout() {
     try {
@@ -28,7 +29,7 @@ function TeachersHome() {
   return (
     <div>
       <div className="text-white grid grid-cols-5 gap-2 w-100%">
-        <ClassList />
+        {classDetails ? <ClassList /> : null}
       </div>
       <button
         className="flex gap-3 text-white"

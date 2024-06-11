@@ -27,6 +27,10 @@ const classSlice = createSlice({
       state.class.push(action.payload);
       localStorage.setItem("class", JSON.stringify(state.class));
     },
+    addStudent: (state, action) => {
+      state.class = action.payload;
+      localStorage.setItem("class", JSON.stringify(state.class));
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(logout, (state) => {
@@ -36,5 +40,5 @@ const classSlice = createSlice({
   },
 });
 
-export const { setClass, addClass } = classSlice.actions;
+export const { setClass, addClass, addStudent } = classSlice.actions;
 export default classSlice.reducer;

@@ -10,10 +10,14 @@ import ResetPassword from "./features/LoginRegister/ResetPassword";
 import GoogleRedirect from "./ui/GoogleRedirectPage";
 import RoleSelection from "./ui/RoleSelection";
 import PrivateRoutes from "./Components/PrivateRoutes";
-import AuthorizedLayout from "./ui/AuthorizedLayout";
+import AuthorizedLayout from "./features/Authorized/AuthorizedLayout";
 import CreateClassForm from "./features/Teacher/CreateClassForm";
 import Profile from "./pages/Profile";
-
+import JoinClassForm from "./features/Student/JoinClassForm";
+import NormalRedirect from "./features/LoginRegister/NormalRedirect";
+import ClassLayout from "./features/Class/ClassLayout";
+import ClassHome from "./features/Class/ClassHome";
+import AuthorizedHome from "./features/Authorized/AuthorizedHome";
 function App() {
   return (
     <BrowserRouter>
@@ -25,12 +29,24 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="redirect" element={<GoogleRedirect />} />
-          <Route
-            path="reset-password/:resetToken"
-            element={<ResetPassword />}
-          />
 
           <Route path="" element={<PrivateRoutes />}>
+            <Route
+              path="reset-password/:resetToken"
+              element={<ResetPassword />}
+            />
+            <Route path="normal-redirect" element={<NormalRedirect />} />
+          </Route>
+        </Route>
+        <Route element={<ClassLayout />}>
+          <Route path="" element={<PrivateRoutes />}>
+            <Route path="studentClass/:classId" element={<ClassHome />} />
+          </Route>
+        </Route>
+        <Route element={<AuthorizedLayout />}>
+          <Route path="" element={<PrivateRoutes />}>
+            <Route path=":studentId" element={<AuthorizedHome />} />
+            <Route path="join-class" element={<JoinClassForm />} />
             <Route path="role-selection" element={<RoleSelection />} />
             <Route path="create-class" element={<CreateClassForm />} />
             <Route path="profile" element={<Profile />} />

@@ -5,9 +5,9 @@ function ClassList() {
   console.log(classDetails);
   return (
     <>
-      {classDetails.map((classDetail) => (
-        <div className="border p-5">{classDetail.className}</div>
-      ))}
+      {classDetails ? classDetails.map((classDetail, index) => (
+        <div key = {index} className="border p-5">{classDetail.className}</div>
+      )) : <h1>No Class</h1>}
     </>
   );
 }

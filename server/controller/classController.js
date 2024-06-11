@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import ClassModel from "../models/classModel.js";
+import UserModel from "../models/userModel.js";
 
 const createClass = asyncHandler(async (req, res) => {
   const { className, inviteCode, teacher } = req.body;
@@ -29,25 +30,54 @@ const createClass = asyncHandler(async (req, res) => {
 });
 
 const fetchClass = asyncHandler(async (req, res) => {
-  const { teacherId } = req.params;
+  const { userId } = req.params;
   try {
-    let classData;
-    console.log(teacherId)
-    if (teacherId) {
-      classData = await ClassModel.find({ teacher: teacherId });
-      if (!classData) {
-        res.status(404).json({ error: "Class not found" });
-        return;
-      }
+    const user = await UserModel.findById(userId);
+
+    let classData = [];
+
+    if (user.role === "teacher") {
+      classData = await ClassModel.find({ teacher: userId });
+      console.log(classData)
+    } else if (user.role === "student") {
+      classData = await ClassModel.find({ students: userId });
+      console.log(classData)
     } else {
-      classData = await ClassModel.find({});
+      return res.status(400).json({ error: "Invalid user role" });
     }
 
+    // console.log(user.role);
     res.status(200).json(classData);
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch class(es)" });
+    res.status(500).json({ error: "Failed to fetch class(es)" }); 
     throw new Error("Failed to fetch class(es)");
   }
 });
 
-export { createClass, fetchClass };
+const joinClass = asyncHandler(async (req, res) => {
+  const { inviteCode } = req.body;
+  const { studentId } = req.body;
+
+  try {
+    const classData = await ClassModel.findOne({ inviteCode });
+
+    if (!classData) {
+      res.status(404).json({ error: "Invalid invite code" });
+      return;
+    }
+
+    if (!classData.students.includes(studentId)) {
+      classData.students.push(studentId);
+      await classData.save();
+    }
+
+    res
+      .status(200)
+      .json({ message: "Successfully joined class", class: classData });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to join class" });
+    throw new Error("Failed to join class");
+  }
+});
+
+export { createClass, fetchClass, joinClass };

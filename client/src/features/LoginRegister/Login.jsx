@@ -3,47 +3,34 @@ import * as Yup from "yup";
 import LoginForm from "./LoginForm";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "./userService";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "./userSlice";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { BACKEND_URL } from "../../constants";
+import { setClass } from "../Teacher/classSlice";
+import { useFetchClassMutation } from "../Teacher/classService";
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const classDetails = useSelector((state) => state.class);
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
     withCredentials: true,
   };
+
   //For Handling Login Button
   const [login, { isLoading }] = useLoginMutation();
-
-  // async function handleLogin(value) {
-  //   try {
-  //     const res = await axios.post(
-  //       `${BACKEND_URL}/api/users/login`,
-  //       {
-  //         email: value.email,
-  //         password: value.password,
-  //       },
-  //       { withCredentials: true }
-  //     );
-  //     dispatch(setCredentials({ ...res }));
-  //     console.log("Logged in successfully:", res.data);
-  //     navigate("/");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
   async function handleLogin(value) {
     const { email, password } = value;
     try {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
-      navigate("/");
+
+      navigate('/normal-redirect')
+    
       toast.success("Login Successful");
     } catch (error) {
       toast.error(error?.data?.error || error?.error);

@@ -8,14 +8,12 @@ import {
 } from "../../stylesConstants";
 import { BACKEND_URL } from "../../constants";
 
-
 function SignUpForm() {
   const { values } = useFormikContext();
   // handle Google Sign up or login
   function handleGoogleAuth() {
     try {
       window.location.href = `${BACKEND_URL}/auth/google/callback`;
-     
     } catch (error) {
       toast.error(error?.data?.message || error?.error);
     }
@@ -103,7 +101,9 @@ function SignUpForm() {
       </div>
 
       <div className="flex gap-3">
-        <Button className={buttonStyle}>Register</Button>
+        <Button type="submit" className={buttonStyle}>
+          Register
+        </Button>
         <Button
           className={googleButtonStyle}
           type="button"

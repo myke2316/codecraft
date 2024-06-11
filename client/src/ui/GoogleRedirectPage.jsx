@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { setCredentials } from "../features/LoginRegister/userSlice";
@@ -13,6 +13,7 @@ function GoogleRedirect() {
   const navigate = useNavigate();
   const [fetchClass, { isLoading }] = useFetchClassMutation();
   const isAuthenticated = localStorage.getItem("userDetails");
+  const userDetails = useSelector((state) => state.user.user);
   async function getUser(values) {
     try {
       const res = await axios.get(`${BACKEND_URL}/auth/login/success`, {
@@ -31,17 +32,17 @@ function GoogleRedirect() {
 
       if (!user.role) {
         navigate("/role-selection");
-      } else if (user.role === "teacher") {
-        getClass();
       } else {
-        navigate("/");
+        getClass(user.role);
       }
     } catch (error) {
       toast.error(error?.data?.message || error?.error);
     }
   }
 
-  async function getClass(values) {
+
+
+  async function getClass(role) {
     try {
       // Ensure user details exist in localStorage
       const userDetails = JSON.parse(localStorage.getItem("userDetails"));
@@ -54,14 +55,15 @@ function GoogleRedirect() {
       const userId = userDetails._id;
 
       // Fetch class using the user ID
-
-      const res = await fetchClass(userId);
-      const classData = res.data
-      if (res) {
+      const classData = await fetchClass(userId).unwrap();
+      if (classData && classData.length > 0) {
         dispatch(setClass(classData));
+      } else {
+        dispatch(setClass([]));
+        // toast.error("No classess fetched");
       }
-      console.log(classData);
-      navigate("/");
+
+      navigate(`/${userDetails._id}`);
     } catch (error) {
       console.error("Error fetching class:", error);
       toast.error(error?.data?.message || error?.error);
@@ -75,6 +77,7 @@ function GoogleRedirect() {
       console.log("already authenticated(user info wont reload or redispatch)");
     }
   }, [isAuthenticated]);
+
   return <>Redirecting</>;
 }
 export default GoogleRedirect;

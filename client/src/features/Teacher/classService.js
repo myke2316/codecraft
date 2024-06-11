@@ -16,7 +16,18 @@ export const classService = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    joinClass: builder.mutation({
+      query: (data) => ({
+        url: `${CLASS_URL}/joinClass`,
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useCreateClassMutation , useFetchClassMutation} = classService;
+export const {
+  useCreateClassMutation,
+  useFetchClassMutation,
+  useJoinClassMutation,
+} = classService;

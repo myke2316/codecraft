@@ -1,8 +1,13 @@
 import express from "express";
-import { createClass, fetchClass } from "../controller/classController.js";
+import {
+  createClass,
+  fetchClass,
+  joinClass,
+} from "../controller/classController.js";
 
 const router = express.Router();
 
 router.post("/createClass", createClass);
-router.get("/fetchClass/:teacherId", fetchClass);
+router.get("/fetchClass/:userId", fetchClass);
+router.post("/joinClass", joinClass);
 export { router as classRouter };
