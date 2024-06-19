@@ -7,7 +7,7 @@ function StudentClassContainer() {
   const userClass = useSelector((state) => state.class.class);
 
   function handleClick() {
-    navigate(`studentClass/${userClass[0]._id}`);
+    navigate(`/studentClass/${userClass[0]._id}`);
   }
 
   return (
