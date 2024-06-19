@@ -5,9 +5,9 @@ function StudentClassContainer() {
   const navigate = useNavigate();
 
   const userClass = useSelector((state) => state.class.class);
-
+  const classId = userClass[0]?._id || userClass?._id
   function handleClick() {
-    navigate(`/studentClass/${userClass[0]._id}`);
+    navigate(`/studentClass/${classId}`);
   }
 
   return (

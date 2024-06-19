@@ -29,8 +29,8 @@ function Login() {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
 
-      navigate('/normal-redirect')
-    
+      navigate("/normal-redirect");
+
       toast.success("Login Successful");
     } catch (error) {
       toast.error(error?.data?.error || error?.error);

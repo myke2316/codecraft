@@ -29,13 +29,12 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="redirect" element={<GoogleRedirect />} />
-
+          <Route path="normal-redirect" element={<NormalRedirect />} />
           <Route path="" element={<PrivateRoutes />}>
             <Route
               path="reset-password/:resetToken"
               element={<ResetPassword />}
             />
-            <Route path="normal-redirect" element={<NormalRedirect />} />
           </Route>
         </Route>
         <Route element={<ClassLayout />}>

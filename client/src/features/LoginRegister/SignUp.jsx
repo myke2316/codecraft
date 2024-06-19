@@ -6,6 +6,7 @@ import { useRegisterMutation } from "./userService";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { setCredentials } from "./userSlice";
+import { useEffect } from "react";
 function SignUp() {
   // handle Register
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function SignUp() {
   const userDetails = useSelector((state) => state.user.userDetails);
   async function handleRegister(values) {
     const { emailaddress, username, password, role } = values;
-    
+
     try {
       const res = await register({
         email: emailaddress,
@@ -25,12 +26,17 @@ function SignUp() {
         role,
       }).unwrap();
       dispatch(setCredentials({ ...res }));
-      navigate(`/${userDetails._id}`);console.log(userDetails._id);
-      toast.success("Register Complete!");
     } catch (error) {
       toast.error(error?.data?.error || error?.error);
     }
   }
+
+  useEffect(() => {
+    if (userDetails) {
+      toast.success("Register Complete!");
+      navigate(`/${userDetails._id}`);
+    }
+  }, [userDetails]);
 
   return (
     <div className="text-textprimarycolor1">

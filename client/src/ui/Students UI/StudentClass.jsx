@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 function StudentClass() {
   const navigate = useNavigate();
   const userClass = useSelector((state) => state.class.class);
-  const classes = userClass.length === 0;
+  const classes = !userClass ? [] :userClass.length === 0;
   return (
     <div className="text-white">
       {!classes && <StudentClassContainer />}
