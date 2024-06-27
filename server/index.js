@@ -7,6 +7,7 @@ import passportUtil from "./utils/passport.js";
 import { userRouter } from "./routes/userRoutes.js";
 import { authRoutes } from "./routes/authRoutes.js";
 import { classRouter } from "./routes/classRoutes.js";
+import { courseRouter } from "./routes/courseRoute.js";
 
 dotenv.config();
 connectDb();
@@ -39,6 +40,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/users", userRouter);
 app.use("/class", classRouter);
 app.use("/auth", authRoutes);
+app.use("/course", courseRouter);
 
 app.get("/", (req, res) => {
   res.send("Server or api is running.");

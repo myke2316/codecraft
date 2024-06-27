@@ -18,6 +18,8 @@ import NormalRedirect from "./features/LoginRegister/NormalRedirect";
 import ClassLayout from "./features/Class/ClassLayout";
 import ClassHome from "./features/Class/ClassHome";
 import AuthorizedHome from "./features/Authorized/AuthorizedHome";
+import CourseContent from "./features/Course/CourseContent";
+import CourseLayout from "./features/Course/CourseLayout";
 function App() {
   return (
     <BrowserRouter>
@@ -49,6 +51,12 @@ function App() {
             <Route path="role-selection" element={<RoleSelection />} />
             <Route path="create-class" element={<CreateClassForm />} />
             <Route path="profile" element={<Profile />} />
+          </Route>
+        </Route>
+
+        <Route element={<CourseLayout />}>
+          <Route path="" element={<PrivateRoutes />}>
+            <Route path="course/:courseId" element={<CourseContent />} />
           </Route>
         </Route>
       </Routes>

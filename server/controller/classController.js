@@ -38,10 +38,10 @@ const fetchClass = asyncHandler(async (req, res) => {
 
     if (user.role === "teacher") {
       classData = await ClassModel.find({ teacher: userId });
-      console.log(classData)
+     // console.log(classData)
     } else if (user.role === "student") {
       classData = await ClassModel.find({ students: userId });
-      console.log(classData)
+     // console.log(classData)
     } else {
       return res.status(400).json({ error: "Invalid user role" });
     }

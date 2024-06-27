@@ -1,13 +1,13 @@
+import CourseList from "./CourseList";
+
 function ClassHome() {
   return (
-    <div>COURSE CONTENT:
+    <div>
+      COURSE CONTENT:
       <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>JS</li>
-        <li>PHP</li>  
+        <CourseList />
       </ul>
     </div>
-  )
+  );
 }
-export default ClassHome
+export default ClassHome;
