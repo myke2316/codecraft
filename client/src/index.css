@@ -3,7 +3,34 @@
 @tailwind utilities;
 
 * {
-    font-family: "Roboto Mono", monospace;
+  font-family: "Roboto Mono", monospace;
 }
 
+/* FOR THE COURSE CONTENT SIDEBAR RESIZEABLE */
+.resizable {
+  position: relative;
+  user-select: none; /* add this property */
+}
 
+.resizer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 5px;
+  background-color: #ccc;
+  cursor: ew-resize;
+  z-index: 1;
+}
+.overflow-hidden {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
