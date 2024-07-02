@@ -8,7 +8,7 @@ function NavItems() {
         <NavLink  to="">home.jsx</NavLink>
       </li>
       <li>
-        <NavLink to="course">course.css</NavLink>
+        <NavLink to="aboutCourse">course.css</NavLink>
       </li>
       <li>
         <NavLink to="about">about.html</NavLink>

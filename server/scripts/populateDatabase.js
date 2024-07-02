@@ -1,46 +1,47 @@
 import mongoose from "mongoose";
+import { CourseModel } from "../models/courseModel.js";
 import fs from "fs";
-import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
-import CourseModel from "../models/courseModel.js";
-dotenv.config();
-// Resolve __dirname in ES module
+
+// Get the current file path
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Function to populate the database
-const populateDatabase = async () => {
-  const conn = await mongoose.connect(
-    "mongodb+srv://codecraft:leianmyke@codecraft.3m6wuiq.mongodb.net/codecraft?retryWrites=true&w=majority"
-  );
+// Read and parse the JSON file
+const jsonData = fs.readFileSync(
+  path.resolve(__dirname, "../data/courses.json"),
+  "utf-8"
+);
+const coursesData = JSON.parse(jsonData);
+
+// Connect to MongoDB
+mongoose.connect(
+  "mongodb+srv://codecraft:leianmyke@codecraft.3m6wuiq.mongodb.net/codecraft?retryWrites=true&w=majority"
+);
+
+const db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", async () => {
+  console.log("Connected to MongoDB");
 
   try {
-    // Read the JSON file
-    const dataPath = path.join(__dirname, "../data/courses.json");
-    const courseData = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
-
-    // Clear the existing data
+    // Clear existing data
     await CourseModel.deleteMany({});
+    console.log("Existing data cleared");
 
-    // Insert the new data
-    for (const courseName in courseData) {
-      if (courseData.hasOwnProperty(courseName)) {
-        const course = new CourseModel({
-          name: courseName,
-          lessons: courseData[courseName].lessons,
-        });
-        await course.save();
-      }
+    // Populate database with course data
+    for (const courseData of coursesData.courses) {
+      const course = new CourseModel(courseData);
+      await course.save();
     }
 
-    console.log("Database populated successfully");
+    console.log("Database populated with course data");
   } catch (error) {
     console.error("Error populating database:", error);
   } finally {
-    await mongoose.disconnect();
+    // Close the connection
+    mongoose.connection.close();
   }
-};
-
-// Call the populate function
-populateDatabase();
+});

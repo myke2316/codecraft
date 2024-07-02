@@ -5,25 +5,24 @@ function CourseList() {
   const courseName = useSelector((state) => state.course.courseData);
   const navigate = useNavigate();
 
-  function handleOnClick(courseId) {
-    navigate(`/course/${courseId}`);
+  function handleOnClick() {
+    navigate(`/course`);
   }
 
   return (
     <>
       {courseName.map((course) => {
         return (
-          <li className="text-white">
-            <button
-              type="button"
-              onClick={() => handleOnClick(course._id)}
-              key={course._id}
-            >
+      
+            <li className="text-white" key={course._id}>
               {course.name}
-            </button>
-          </li>
+            </li>
+      
         );
       })}
+      <button type="button" onClick={handleOnClick}>
+        START NOW
+      </button>
     </>
   );
 }

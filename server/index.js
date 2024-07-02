@@ -9,6 +9,7 @@ import { authRoutes } from "./routes/authRoutes.js";
 import { classRouter } from "./routes/classRoutes.js";
 import { courseRouter } from "./routes/courseRoute.js";
 
+
 dotenv.config();
 connectDb();
 const PORT = process.env.SERVER_PORT || 8000;

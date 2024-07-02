@@ -1,306 +1,664 @@
 {
-  "HTML": {
-    "lessons": [
-      {
-        "title": "Lesson 1: Introduction to HTML",
-        "documents": [
-          {
-            "title": "What is HTML?",
-            "description": "HTML stands for HyperText Markup Language and is the standard language for creating web pages."
-          },
-          {
-            "title": "HTML Structure",
-            "description": "HTML documents have a structure that includes elements such as doctype, html, head, and body tags."
-          },
-          {
-            "title": "Basic HTML Tags",
-            "description": "Learn about basic HTML tags like <p>, <a>, <div>, and more."
-          }
-        ],
-        "codingActivity": "Create a basic HTML page with a header, paragraph, and list.",
-        "quiz": [
-          {
-            "question": "What does HTML stand for?",
-            "options": [
-              "HyperText Markup Language",
-              "HyperText Markdown Language",
-              "HyperLoop Machine Language"
-            ],
-            "correctAnswer": "HyperText Markup Language"
-          },
-          {
-            "question": "What tag is used to create a hyperlink in HTML?",
-            "options": ["<link>", "<a>", "<href>"],
-            "correctAnswer": "<a>"
-          }
-        ]
-      },
-      {
-        "title": "Lesson 2: HTML Elements",
-        "documents": [
-          {
-            "title": "HTML Elements Overview",
-            "description": "HTML elements are the building blocks of HTML pages. They are represented by tags."
-          },
-          {
-            "title": "Inline vs Block Elements",
-            "description": "Understand the difference between inline and block elements in HTML."
-          },
-          {
-            "title": "HTML Attributes",
-            "description": "HTML attributes provide additional information about HTML elements."
-          }
-        ],
-        "codingActivity": "Create an HTML page with different inline and block elements.",
-        "quiz": [
-          {
-            "question": "What is an HTML element?",
-            "options": [
-              "A piece of HTML code",
-              "A style applied to HTML",
-              "A JavaScript function"
-            ],
-            "correctAnswer": "A piece of HTML code"
-          },
-          {
-            "question": "How do you add an attribute to an HTML tag?",
-            "options": [
-              "By using a colon",
-              "By using an equals sign",
-              "By using a comma"
-            ],
-            "correctAnswer": "By using an equals sign"
-          }
-        ]
-      }
-    ]
-  },
-  "CSS": {
-    "lessons": [
-      {
-        "title": "Lesson 1: Introduction to CSS",
-        "documents": [
-          {
-            "title": "What is CSS?",
-            "description": "CSS stands for Cascading Style Sheets and is used to style and layout web pages."
-          },
-          {
-            "title": "CSS Syntax",
-            "description": "Learn about the syntax of CSS including selectors, properties, and values."
-          },
-          {
-            "title": "CSS Selectors",
-            "description": "CSS selectors are used to 'select' the HTML elements you want to style."
-          }
-        ],
-        "codingActivity": "Create a basic CSS stylesheet and apply it to an HTML page.",
-        "quiz": [
-          {
-            "question": "What does CSS stand for?",
-            "options": [
-              "Cascading Style Sheets",
-              "Creative Style Sheets",
-              "Colorful Style Sheets"
-            ],
-            "correctAnswer": "Cascading Style Sheets"
-          },
-          {
-            "question": "How do you link a CSS file to an HTML document?",
-            "options": [
-              "<link rel='stylesheet' href='style.css'>",
-              "<style src='style.css'>",
-              "<stylesheet>style.css</stylesheet>"
-            ],
-            "correctAnswer": "<link rel='stylesheet' href='style.css'>"
-          }
-        ]
-      },
-      {
-        "title": "Lesson 2: CSS Properties",
-        "documents": [
-          {
-            "title": "Common CSS Properties",
-            "description": "Learn about common CSS properties like color, font, and border."
-          },
-          {
-            "title": "Color and Background",
-            "description": "How to set colors and backgrounds in CSS."
-          },
-          {
-            "title": "Box Model",
-            "description": "The CSS box model describes the rectangular boxes that are generated for elements in the document tree."
-          }
-        ],
-        "codingActivity": "Style an HTML page using various CSS properties.",
-        "quiz": [
-          {
-            "question": "What is the box model in CSS?",
-            "options": ["A layout model", "A design pattern", "A CSS property"],
-            "correctAnswer": "A layout model"
-          },
-          {
-            "question": "How do you change the background color of an element in CSS?",
-            "options": [
-              "background-color: value;",
-              "color-background: value;",
-              "bg-color: value;"
-            ],
-            "correctAnswer": "background-color: value;"
-          }
-        ]
-      }
-    ]
-  },
-  "JavaScript": {
-    "lessons": [
-      {
-        "title": "Lesson 1: Introduction to JavaScript",
-        "documents": [
-          {
-            "title": "What is JavaScript?",
-            "description": "JavaScript is a programming language commonly used to create interactive effects within web browsers."
-          },
-          {
-            "title": "JavaScript Syntax",
-            "description": "Learn about the basic syntax of JavaScript, including statements, expressions, and comments."
-          },
-          {
-            "title": "Variables and Data Types",
-            "description": "Understand how to declare variables and the different data types in JavaScript."
-          }
-        ],
-        "codingActivity": "Write a JavaScript program that outputs 'Hello, World!' to the console.",
-        "quiz": [
-          {
-            "question": "What is JavaScript primarily used for?",
-            "options": [
-              "Styling web pages",
-              "Creating interactive web elements",
-              "Structuring web content"
-            ],
-            "correctAnswer": "Creating interactive web elements"
-          },
-          {
-            "question": "How do you declare a variable in JavaScript?",
-            "options": ["var myVar;", "variable myVar;", "v myVar;"],
-            "correctAnswer": "var myVar;"
-          }
-        ]
-      },
-      {
-        "title": "Lesson 2: JavaScript Functions",
-        "documents": [
-          {
-            "title": "Defining Functions",
-            "description": "Learn how to define functions in JavaScript."
-          },
-          {
-            "title": "Function Parameters",
-            "description": "Understand how to pass parameters to functions in JavaScript."
-          },
-          {
-            "title": "Return Values",
-            "description": "Learn how to return values from functions in JavaScript."
-          }
-        ],
-        "codingActivity": "Create a JavaScript function that takes two numbers and returns their sum.",
-        "quiz": [
-          {
-            "question": "How do you define a function in JavaScript?",
-            "options": [
-              "function myFunction() {}",
-              "def myFunction() {}",
-              "func myFunction() {}"
-            ],
-            "correctAnswer": "function myFunction() {}"
-          },
-          {
-            "question": "What is the purpose of the return statement in a function?",
-            "options": [
-              "To exit the function",
-              "To specify the value to be returned",
-              "To declare a variable"
-            ],
-            "correctAnswer": "To specify the value to be returned"
-          }
-        ]
-      }
-    ]
-  },
-  "PHP": {
-    "lessons": [
-      {
-        "title": "Lesson 1: Introduction to PHP",
-        "documents": [
-          {
-            "title": "What is PHP?",
-            "description": "PHP is a popular general-purpose scripting language that is especially suited to web development."
-          },
-          {
-            "title": "PHP Syntax",
-            "description": "Learn about the basic syntax of PHP, including how to embed PHP in HTML."
-          },
-          {
-            "title": "PHP Variables",
-            "description": "Understand how to declare and use variables in PHP."
-          }
-        ],
-        "codingActivity": "Write a PHP script that outputs 'Hello, World!' to the browser.",
-        "quiz": [
-          {
-            "question": "What does PHP stand for?",
-            "options": [
-              "Personal Home Page",
-              "PHP: Hypertext Preprocessor",
-              "Private Home Page"
-            ],
-            "correctAnswer": "PHP: Hypertext Preprocessor"
-          },
-          {
-            "question": "How do you declare a variable in PHP?",
-            "options": ["$myVar;", "var myVar;", "myVar;"],
-            "correctAnswer": "$myVar;"
-          }
-        ]
-      },
-      {
-        "title": "Lesson 2: PHP Functions",
-        "documents": [
-          {
-            "title": "Defining Functions",
-            "description": "Learn how to define functions in PHP."
-          },
-          {
-            "title": "Function Parameters",
-            "description": "Understand how to pass parameters to functions in PHP."
-          },
-          {
-            "title": "Return Values",
-            "description": "Learn how to return values from functions in PHP."
-          }
-        ],
-        "codingActivity": "Create a PHP function that takes two numbers and returns their sum.",
-        "quiz": [
-          {
-            "question": "How do you define a function in PHP?",
-            "options": [
-              "function myFunction() {}",
-              "def myFunction() {}",
-              "func myFunction() {}"
-            ],
-            "correctAnswer": "function myFunction() {}"
-          },
-          {
-            "question": "What is the purpose of the return statement in a function?",
-            "options": [
-              "To exit the function",
-              "To specify the value to be returned",
-              "To declare a variable"
-            ],
-            "correctAnswer": "To specify the value to be returned"
-          }
-        ]
-      }
-    ]
-  }
+  "courses": [
+    {
+      "title": "HTML",
+      "lessons": [
+        {
+          "title": "Lesson 1: Introduction to HTML",
+          "documents": [
+            {
+              "title": "What is HTML?",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "HTML stands for HyperText Markup Language."
+                },
+                {
+                  "type": "sentence",
+                  "text": "It is the standard language for creating web pages."
+                },
+                {
+                  "type": "snippet",
+                  "code": "<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n</body>\n</html>"
+                }
+              ]
+            },
+            {
+              "title": "HTML Structure",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "HTML documents have a structure that includes elements such as doctype, html, head, and body tags."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The doctype declaration defines the document type."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The html element is the root element of an HTML page."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The head element contains meta-information about the HTML document."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The body element contains the visible page content."
+                },
+                {
+                  "type": "snippet",
+                  "code": "<!DOCTYPE html>\n<html>\n<head>\n<title>HTML Structure</title>\n</head>\n<body>\n<p>This is a paragraph.</p>\n</body>\n</html>"
+                }
+              ]
+            },
+            {
+              "title": "Basic HTML Tags",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Learn about basic HTML tags like <p>, <a>, <div>, and more."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <p> tag defines a paragraph."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <a> tag defines a hyperlink."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <div> tag defines a division or a section in an HTML document."
+                },
+                {
+                  "type": "snippet",
+                  "code": "<div>\n<p>This is a paragraph.</p>\n<a href=\"https://www.example.com\">This is a link</a>\n</div>"
+                }
+              ]
+            }
+          ],
+          "codingActivity": [
+            {
+              "description": "Create a basic HTML page with a header, paragraph, and list.",
+              "points": 5
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What does HTML stand for?",
+              "options": [
+                "HyperText Markup Language",
+                "HyperText Markdown Language",
+                "HyperLoop Machine Language"
+              ],
+              "correctAnswer": "HyperText Markup Language",
+              "points": 1
+            },
+            {
+              "question": "What tag is used to create a hyperlink in HTML?",
+              "options": ["<link>", "<a>", "<href>"],
+              "correctAnswer": "<a>",
+              "points": 1
+            }
+          ],
+          "totalPoints": 10
+        },
+        {
+          "title": "Lesson 2: HTML Elements",
+          "documents": [
+            {
+              "title": "HTML Elements Overview",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "HTML elements are the building blocks of HTML pages."
+                },
+                {
+                  "type": "sentence",
+                  "text": "They are represented by tags."
+                },
+                {
+                  "type": "snippet",
+                  "code": "<div>\n<p>This is a paragraph.</p>\n</div>"
+                }
+              ]
+            },
+            {
+              "title": "Inline vs Block Elements",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Understand the difference between inline and block elements in HTML."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Inline elements do not start on a new line and take up only necessary width."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Block elements start on a new line and take up the full width available."
+                },
+                {
+                  "type": "snippet",
+                  "code": "<span>This is an inline element.</span>\n<div>This is a block element.</div>"
+                }
+              ]
+            },
+            {
+              "title": "HTML Attributes",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "HTML attributes provide additional information about HTML elements."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Attributes are always included in the opening tag."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Common attributes include id, class, and style."
+                },
+                {
+                  "type": "snippet",
+                  "code": "<p id=\"myParagraph\" class=\"text\">This is a paragraph with attributes.</p>"
+                }
+              ]
+            }
+          ],
+          "codingActivity": [
+            {
+              "description": "Create an HTML page with different inline and block elements.",
+              "points": 5
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What is an HTML element?",
+              "options": [
+                "A piece of HTML code",
+                "A style applied to HTML",
+                "A JavaScript function"
+              ],
+              "correctAnswer": "A piece of HTML code",
+              "points": 1
+            },
+            {
+              "question": "How do you add an attribute to an HTML tag?",
+              "options": [
+                "By using a colon",
+                "By using an equals sign",
+                "By using a comma"
+              ],
+              "correctAnswer": "By using an equals sign",
+              "points": 1
+            }
+          ],
+          "totalPoints": 10
+        }
+      ]
+    },
+    {
+      "title": "CSS",
+      "lessons": [
+        {
+          "title": "Lesson 1: Introduction to CSS",
+          "documents": [
+            {
+              "title": "What is CSS?",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "CSS stands for Cascading Style Sheets."
+                },
+                {
+                  "type": "sentence",
+                  "text": "It is used to style and layout web pages."
+                },
+                {
+                  "type": "snippet",
+                  "code": "body {\n  background-color: lightblue;\n}"
+                }
+              ]
+            },
+            {
+              "title": "CSS Syntax",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Learn about the syntax of CSS including selectors, properties, and values."
+                },
+                {
+                  "type": "snippet",
+                  "code": "p {\n  color: red;\n  text-align: center;\n}"
+                }
+              ]
+            },
+            {
+              "title": "CSS Selectors",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "CSS selectors are used to 'select' the HTML elements you want to style."
+                },
+                {
+                  "type": "snippet",
+                  "code": "h1 {\n  color: blue;\n}\n\n.myClass {\n  font-size: 20px;\n}"
+                }
+              ]
+            }
+          ],
+          "codingActivity": [
+            {
+              "description": "Create a basic CSS stylesheet and apply it to an HTML page.",
+              "points": 5
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What does CSS stand for?",
+              "options": [
+                "Cascading Style Sheets",
+                "Creative Style Sheets",
+                "Colorful Style Sheets"
+              ],
+              "correctAnswer": "Cascading Style Sheets",
+              "points": 1
+            },
+            {
+              "question": "How do you link a CSS file to an HTML document?",
+              "options": [
+                "<link rel='stylesheet' href='style.css'>",
+                "<style src='style.css'>",
+                "<stylesheet>style.css</stylesheet>"
+              ],
+              "correctAnswer": "<link rel='stylesheet' href='style.css'>",
+              "points": 1
+            }
+          ],
+          "totalPoints": 10
+        },
+        {
+          "title": "Lesson 2: CSS Properties",
+          "documents": [
+            {
+              "title": "Common CSS Properties",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Learn about common CSS properties like color, font, and border."
+                },
+                {
+                  "type": "snippet",
+                  "code": "p {\n  color: red;\n  font-family: Arial, sans-serif;\n  border: 1px solid black;\n}"
+                }
+              ]
+            },
+            {
+              "title": "Color and Background",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "How to set colors and backgrounds in CSS."
+                },
+                {
+                  "type": "snippet",
+                  "code": "body {\n  background-color: lightgrey;\n}\nh1 {\n  color: darkblue;\n}"
+                }
+              ]
+            },
+            {
+              "title": "Box Model",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Understand the CSS box model: margin, border, padding, and content."
+                },
+                {
+                  "type": "snippet",
+                  "code": "div {\n  margin: 10px;\n  border: 5px solid black;\n  padding: 10px;\n  width: 100px;\n}"
+                }
+              ]
+            }
+          ],
+          "codingActivity": [
+            {
+              "description": "Create a styled HTML page using various CSS properties.",
+              "points": 5
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What is the CSS property used to change the text color?",
+              "options": ["font-color", "text-color", "color"],
+              "correctAnswer": "color",
+              "points": 1
+            },
+            {
+              "question": "Which property is used to set the background color of an element?",
+              "options": [
+                "bgcolor",
+                "background-color",
+                "color"
+              ],
+              "correctAnswer": "background-color",
+              "points": 1
+            }
+          ],
+          "totalPoints": 10
+        }
+      ]
+    },
+    {
+      "title": "JavaScript",
+      "lessons": [
+        {
+          "title": "Lesson 1: Introduction to JavaScript",
+          "documents": [
+            {
+              "title": "What is JavaScript?",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "JavaScript is a programming language used to create dynamic website content."
+                },
+                {
+                  "type": "sentence",
+                  "text": "It is one of the core technologies of the web, alongside HTML and CSS."
+                },
+                {
+                  "type": "snippet",
+                  "code": "console.log('Hello, World!');"
+                }
+              ]
+            },
+            {
+              "title": "JavaScript Syntax",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Learn about the syntax of JavaScript including variables, functions, and loops."
+                },
+                {
+                  "type": "snippet",
+                  "code": "let x = 5;\nfunction myFunction() {\n  return x * 2;\n}"
+                }
+              ]
+            },
+            {
+              "title": "JavaScript Variables",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Variables in JavaScript are used to store data values."
+                },
+                {
+                  "type": "snippet",
+                  "code": "var name = 'John';\nlet age = 30;\nconst isStudent = true;"
+                }
+              ]
+            }
+          ],
+          "codingActivity": [
+            {
+              "description": "Create a JavaScript program that displays a message in the console.",
+              "points": 5
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What does JavaScript primarily do in web development?",
+              "options": [
+                "Styles the web page",
+                "Structures the web page",
+                "Adds interactivity to the web page"
+              ],
+              "correctAnswer": "Adds interactivity to the web page",
+              "points": 1
+            },
+            {
+              "question": "How do you write a comment in JavaScript?",
+              "options": [
+                "// This is a comment",
+                "<!-- This is a comment -->",
+                "# This is a comment"
+              ],
+              "correctAnswer": "// This is a comment",
+              "points": 1
+            }
+          ],
+          "totalPoints": 10
+        },
+        {
+          "title": "Lesson 2: JavaScript Functions",
+          "documents": [
+            {
+              "title": "Defining Functions",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Functions in JavaScript are defined with the function keyword."
+                },
+                {
+                  "type": "snippet",
+                  "code": "function myFunction(p1, p2) {\n  return p1 * p2;\n}"
+                }
+              ]
+            },
+            {
+              "title": "Calling Functions",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "A JavaScript function is executed when something invokes it."
+                },
+                {
+                  "type": "snippet",
+                  "code": "myFunction(5, 10);"
+                }
+              ]
+            },
+            {
+              "title": "Function Expressions",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Functions can also be defined using expressions."
+                },
+                {
+                  "type": "snippet",
+                  "code": "const x = function (a, b) {return a * b};"
+                }
+              ]
+            }
+          ],
+          "codingActivity": [
+            {
+              "description": "Create a JavaScript function that calculates the area of a rectangle.",
+              "points": 5
+            }
+          ],
+          "quiz": [
+            {
+              "question": "How do you define a function in JavaScript?",
+              "options": [
+                "function myFunction()",
+                "def myFunction()",
+                "void myFunction()"
+              ],
+              "correctAnswer": "function myFunction()",
+              "points": 1
+            },
+            {
+              "question": "How do you call a function named 'myFunction'?",
+              "options": [
+                "call myFunction()",
+                "myFunction()",
+                "invoke myFunction()"
+              ],
+              "correctAnswer": "myFunction()",
+              "points": 1
+            }
+          ],
+          "totalPoints": 10
+        }
+      ]
+    },
+    {
+      "title": "PHP",
+      "lessons": [
+        {
+          "title": "Lesson 1: Introduction to PHP",
+          "documents": [
+            {
+              "title": "What is PHP?",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "PHP is a server-side scripting language designed for web development."
+                },
+                {
+                  "type": "sentence",
+                  "text": "It is also used as a general-purpose programming language."
+                },
+                {
+                  "type": "snippet",
+                  "code": "<?php\n  echo 'Hello, World!';\n?>"
+                }
+              ]
+            },
+            {
+              "title": "PHP Syntax",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Learn about the basic syntax of PHP including variables, functions, and loops."
+                },
+                {
+                  "type": "snippet",
+                  "code": "<?php\n  $x = 5;\n  function myFunction() {\n    return $x * 2;\n  }\n?>"
+                }
+              ]
+            },
+            {
+              "title": "PHP Variables",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Variables in PHP start with a $ sign, followed by the name of the variable."
+                },
+                {
+                  "type": "snippet",
+                  "code": "<?php\n  $name = 'John';\n  $age = 30;\n  $isStudent = true;\n?>"
+                }
+              ]
+            }
+          ],
+          "codingActivity": [
+            {
+              "description": "Create a PHP script that displays a message on a web page.",
+              "points": 5
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What does PHP stand for?",
+              "options": [
+                "Personal Home Page",
+                "Hypertext Preprocessor",
+                "Preprocessor Hypertext"
+              ],
+              "correctAnswer": "Hypertext Preprocessor",
+              "points": 1
+            },
+            {
+              "question": "How do you write a comment in PHP?",
+              "options": [
+                "// This is a comment",
+                "# This is a comment",
+                "/* This is a comment */"
+              ],
+              "correctAnswer": "/* This is a comment */",
+              "points": 1
+            }
+          ],
+          "totalPoints": 10
+        },
+        {
+          "title": "Lesson 2: PHP Functions",
+          "documents": [
+            {
+              "title": "Defining Functions",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Functions in PHP are defined with the function keyword."
+                },
+                {
+                  "type": "snippet",
+                  "code": "<?php\n  function myFunction($param1, $param2) {\n    return $param1 * $param2;\n  }\n?>"
+                }
+              ]
+            },
+            {
+              "title": "Calling Functions",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "A PHP function is executed when it is called."
+                },
+                {
+                  "type": "snippet",
+                  "code": "<?php\n  echo myFunction(5, 10);\n?>"
+                }
+              ]
+            },
+            {
+              "title": "Function Arguments",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Functions can take arguments to perform operations."
+                },
+                {
+                  "type": "snippet",
+                  "code": "<?php\n  function addNumbers($a, $b) {\n    return $a + $b;\n  }\n?>"
+                }
+              ]
+            }
+          ],
+          "codingActivity": [
+            {
+              "description": "Create a PHP function that calculates the sum of two numbers.",
+              "points": 5
+            }
+          ],
+          "quiz": [
+            {
+              "question": "How do you define a function in PHP?",
+              "options": [
+                "function myFunction()",
+                "def myFunction()",
+                "void myFunction()"
+              ],
+              "correctAnswer": "function myFunction()",
+              "points": 1
+            },
+            {
+              "question": "How do you call a function named 'myFunction' in PHP?",
+              "options": [
+                "call myFunction()",
+                "myFunction()",
+                "invoke myFunction()"
+              ],
+              "correctAnswer": "myFunction()",
+              "points": 1
+            }
+          ],
+          "totalPoints": 10
+        }
+      ]
+    }
+  ]
 }

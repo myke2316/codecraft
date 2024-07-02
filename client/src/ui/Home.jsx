@@ -17,7 +17,7 @@ function Home() {
 
   return (
     <div>
-      {isAuthenticated && navigate(`/${user._id}`)}
+      
 
       {!isAuthenticated && <HomeContent />}
     </div>

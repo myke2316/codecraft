@@ -20,13 +20,18 @@ import ClassHome from "./features/Class/ClassHome";
 import AuthorizedHome from "./features/Authorized/AuthorizedHome";
 import CourseContent from "./features/Course/CourseContent";
 import CourseLayout from "./features/Course/CourseLayout";
+
+import DocumentContent from "./features/Course/Lesson/Documentation/DocumentContent";
+import LessonContent from "./features/Course/Lesson/LessonContent";
+import QuizContent from "./features/Course/Lesson/Quiz/QuizContent";
+import ActivityContent from "./features/Course/Lesson/Activity/ActivityContent";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<AppLayout />}>
           <Route index element={<Home />} />
-          <Route path="course" element={<Course />} />
+          <Route path="aboutCourse" element={<Course />} />
           <Route path="about" element={<About />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
@@ -56,7 +61,9 @@ function App() {
 
         <Route element={<CourseLayout />}>
           <Route path="" element={<PrivateRoutes />}>
-            <Route path="course/:courseId" element={<CourseContent />} />
+            <Route path="course/*" element={<CourseContent />}>
+              
+            </Route>
           </Route>
         </Route>
       </Routes>

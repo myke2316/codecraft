@@ -7,6 +7,8 @@ import { setCredentials } from "../features/LoginRegister/userSlice";
 import { BACKEND_URL } from "../constants";
 import { useFetchClassMutation } from "../features/Teacher/classService";
 import { setClass } from "../features/Teacher/classSlice";
+import { setCourse } from "../features/Class/courseSlice";
+import { useGetCourseDataMutation } from "../features/Class/courseService";
 
 function GoogleRedirect() {
   const dispatch = useDispatch();
@@ -40,8 +42,6 @@ function GoogleRedirect() {
     }
   }
 
-
-
   async function getClass(role) {
     try {
       // Ensure user details exist in localStorage
@@ -69,9 +69,21 @@ function GoogleRedirect() {
       toast.error(error?.data?.message || error?.error);
     }
   }
+  const [fetchCourseData, { isLoading: isLoadingCourse }] =
+    useGetCourseDataMutation();
+  async function getCourse() {
+    try {
+      const courseData = await fetchCourseData().unwrap();
+      dispatch(setCourse(courseData || []));
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+      toast.error(error?.response?.data?.message || error.message);
+    }
+  }
 
   useEffect(() => {
     if (!isAuthenticated || !isAuthenticated.roles) {
+      //getCourse();
       getUser();
     } else {
       console.log("already authenticated(user info wont reload or redispatch)");

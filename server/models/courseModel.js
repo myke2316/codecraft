@@ -1,31 +1,44 @@
 import mongoose from "mongoose";
 
-const documentSchema = new mongoose.Schema({
-  title: String,
-  description: String,
+const Schema = mongoose.Schema;
+const DocumentSchema = new Schema({
+  title: { type: String, required: true },
+  content: [
+    {
+      type: { type: String, required: true },
+      text: { type: String },
+      code: { type: String },
+    },
+  ],
 });
 
-const quizSchema = new mongoose.Schema({
-  question: String,
-  options: [String],
-  correctAnswer: String,
+const QuizSchema = new Schema({
+  question: { type: String, required: true },
+  options: [{ type: String, required: true }],
+  correctAnswer: { type: String, required: true },
+  points: { type: Number, required: true },
 });
 
-const codingActivitySchema = new mongoose.Schema({
-  activity: String,
+const CodingActivitySchema = new Schema({
+  description: { type: String, required: true },
+  points: { type: Number, required: true },
 });
 
-const lessonSchema = new mongoose.Schema({
-  title: String,
-  documents: [documentSchema],
-  codingActivity: String,
-  quiz: [quizSchema],
-});
-const courseSchema = new mongoose.Schema({
-  name: String,
-  lessons: [lessonSchema],
+const LessonSchema = new Schema({
+  title: { type: String, required: true },
+  documents: [{ type: DocumentSchema, ref: "Document" }],
+  codingActivity: [CodingActivitySchema],
+  quiz: [{ type: QuizSchema, ref: "Quiz" }],
+  totalPoints: { type: Number, required: true },
 });
 
-const CourseModel = mongoose.model("Course", courseSchema);
+const CourseSchema = new Schema({
+  title: { type: String, required: true },
+  lessons: [{ type: LessonSchema, ref: "Lesson" }],
+});
 
-export default CourseModel;
+const CourseModel = mongoose.model("Course", CourseSchema);
+
+export default {
+  CourseModel,
+};

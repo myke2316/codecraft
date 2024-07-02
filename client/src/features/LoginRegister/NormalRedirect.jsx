@@ -50,7 +50,7 @@ function NormalRedirect() {
 
   useEffect(() => {
     if (userDetails && userDetails.role) {
-      getCourse();
+      //getCourse();
       getClass(userDetails.role);
     }
   }, [userDetails]);
