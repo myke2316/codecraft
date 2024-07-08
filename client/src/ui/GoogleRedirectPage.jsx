@@ -9,13 +9,15 @@ import { useFetchClassMutation } from "../features/Teacher/classService";
 import { setClass } from "../features/Teacher/classSlice";
 import { setCourse } from "../features/Class/courseSlice";
 import { useGetCourseDataMutation } from "../features/Class/courseService";
+import { setUserProgress } from "../features/Student/studentCourseProgressSlice";
+import { useFetchUserProgressMutation } from "../features/Student/studentCourseProgressService";
 
 function GoogleRedirect() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [fetchClass, { isLoading }] = useFetchClassMutation();
   const isAuthenticated = localStorage.getItem("userDetails");
-  const userDetails = useSelector((state) => state.user.user);
+  const userDetails = useSelector((state) => state.user.userDetails);
   async function getUser(values) {
     try {
       const res = await axios.get(`${BACKEND_URL}/auth/login/success`, {
@@ -32,6 +34,11 @@ function GoogleRedirect() {
         })
       );
 
+      if (userDetails) {
+        console.log(userDetails);
+        fetchProgress();
+      }
+
       if (!user.role) {
         navigate("/role-selection");
       } else {
@@ -41,7 +48,7 @@ function GoogleRedirect() {
       toast.error(error?.data?.message || error?.error);
     }
   }
-
+  //=============
   async function getClass(role) {
     try {
       // Ensure user details exist in localStorage
@@ -69,9 +76,29 @@ function GoogleRedirect() {
       toast.error(error?.data?.message || error?.error);
     }
   }
+  //=============
+  const [fetchUserProgress, { isLoading: isLoadingFetch }] =
+    useFetchUserProgressMutation();
+  async function fetchProgress() {
+    try {
+      const userProgressData = await fetchUserProgress({
+        userId: userDetails._id,
+      }).unwrap();
+      dispatch(setUserProgress(userProgressData));
+      console.log(userProgressData);
+
+      if (!userProgressData) {
+        console.log("no user progress yet.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(error.message || error.data);
+    }
+  }
+  //==============
   const [fetchCourseData, { isLoading: isLoadingCourse }] =
     useGetCourseDataMutation();
-  async function getCourse() {
+  async function fetchCourse() {
     try {
       const courseData = await fetchCourseData().unwrap();
       dispatch(setCourse(courseData || []));
@@ -80,10 +107,10 @@ function GoogleRedirect() {
       toast.error(error?.response?.data?.message || error.message);
     }
   }
-
+  //============
   useEffect(() => {
     if (!isAuthenticated || !isAuthenticated.roles) {
-      //getCourse();
+      fetchCourse();
       getUser();
     } else {
       console.log("already authenticated(user info wont reload or redispatch)");

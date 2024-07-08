@@ -18,7 +18,7 @@ const courseSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(logout, (state) => {
-      state.courseData = null;
+      state.courseData = [];
       localStorage.removeItem("courseData");
     });
   },

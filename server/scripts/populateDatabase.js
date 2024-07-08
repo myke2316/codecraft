@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { CourseModel } from "../models/courseModel.js";
+import CourseModel  from "../models/courseModel.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";

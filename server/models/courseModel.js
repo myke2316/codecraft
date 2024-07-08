@@ -10,6 +10,7 @@ const DocumentSchema = new Schema({
       code: { type: String },
     },
   ],
+  locked: { type: Boolean, default: true },
 });
 
 const QuizSchema = new Schema({
@@ -17,11 +18,13 @@ const QuizSchema = new Schema({
   options: [{ type: String, required: true }],
   correctAnswer: { type: String, required: true },
   points: { type: Number, required: true },
+  locked: { type: Boolean, default: true },
 });
 
 const CodingActivitySchema = new Schema({
   description: { type: String, required: true },
   points: { type: Number, required: true },
+  locked: { type: Boolean, default: true },
 });
 
 const LessonSchema = new Schema({
@@ -30,15 +33,15 @@ const LessonSchema = new Schema({
   codingActivity: [CodingActivitySchema],
   quiz: [{ type: QuizSchema, ref: "Quiz" }],
   totalPoints: { type: Number, required: true },
+  locked: { type: Boolean, default: true },
 });
 
 const CourseSchema = new Schema({
   title: { type: String, required: true },
   lessons: [{ type: LessonSchema, ref: "Lesson" }],
+  locked: { type: Boolean, default: true },
 });
 
 const CourseModel = mongoose.model("Course", CourseSchema);
 
-export default {
-  CourseModel,
-};
+export default CourseModel;

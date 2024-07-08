@@ -21,7 +21,8 @@
                   "type": "snippet",
                   "code": "<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n</body>\n</html>"
                 }
-              ]
+              ],
+              "locked": false
             },
             {
               "title": "HTML Structure",
@@ -81,7 +82,8 @@
           "codingActivity": [
             {
               "description": "Create a basic HTML page with a header, paragraph, and list.",
-              "points": 5
+              "points": 5,
+              "locked": true
             }
           ],
           "quiz": [
@@ -93,16 +95,19 @@
                 "HyperLoop Machine Language"
               ],
               "correctAnswer": "HyperText Markup Language",
-              "points": 1
+              "points": 1,
+              "locked": true
             },
             {
               "question": "What tag is used to create a hyperlink in HTML?",
               "options": ["<link>", "<a>", "<href>"],
               "correctAnswer": "<a>",
-              "points": 1
+              "points": 1,
+              "locked": true
             }
           ],
-          "totalPoints": 10
+          "totalPoints": 10,
+          "locked": false
         },
         {
           "title": "Lesson 2: HTML Elements",
@@ -122,7 +127,8 @@
                   "type": "snippet",
                   "code": "<div>\n<p>This is a paragraph.</p>\n</div>"
                 }
-              ]
+              ],
+              "locked": true
             },
             {
               "title": "Inline vs Block Elements",
@@ -143,7 +149,8 @@
                   "type": "snippet",
                   "code": "<span>This is an inline element.</span>\n<div>This is a block element.</div>"
                 }
-              ]
+              ],
+              "locked": true
             },
             {
               "title": "HTML Attributes",
@@ -164,13 +171,15 @@
                   "type": "snippet",
                   "code": "<p id=\"myParagraph\" class=\"text\">This is a paragraph with attributes.</p>"
                 }
-              ]
+              ],
+              "locked": true
             }
           ],
           "codingActivity": [
             {
               "description": "Create an HTML page with different inline and block elements.",
-              "points": 5
+              "points": 5,
+              "locked": true
             }
           ],
           "quiz": [
@@ -182,7 +191,8 @@
                 "A JavaScript function"
               ],
               "correctAnswer": "A piece of HTML code",
-              "points": 1
+              "points": 1,
+              "locked": true
             },
             {
               "question": "How do you add an attribute to an HTML tag?",
@@ -192,12 +202,15 @@
                 "By using a comma"
               ],
               "correctAnswer": "By using an equals sign",
-              "points": 1
+              "points": 1,
+              "locked": true
             }
           ],
-          "totalPoints": 10
+          "totalPoints": 10,
+          "locked": true
         }
-      ]
+      ],
+      "locked": false
     },
     {
       "title": "CSS",
@@ -220,7 +233,8 @@
                   "type": "snippet",
                   "code": "body {\n  background-color: lightblue;\n}"
                 }
-              ]
+              ],
+              "locked": true
             },
             {
               "title": "CSS Syntax",
@@ -233,7 +247,8 @@
                   "type": "snippet",
                   "code": "p {\n  color: red;\n  text-align: center;\n}"
                 }
-              ]
+              ],
+              "locked": true
             },
             {
               "title": "CSS Selectors",
@@ -246,13 +261,15 @@
                   "type": "snippet",
                   "code": "h1 {\n  color: blue;\n}\n\n.myClass {\n  font-size: 20px;\n}"
                 }
-              ]
+              ],
+              "locked": true
             }
           ],
           "codingActivity": [
             {
               "description": "Create a basic CSS stylesheet and apply it to an HTML page.",
-              "points": 5
+              "points": 5,
+              "locked": true
             }
           ],
           "quiz": [
@@ -264,7 +281,8 @@
                 "Colorful Style Sheets"
               ],
               "correctAnswer": "Cascading Style Sheets",
-              "points": 1
+              "points": 1,
+              "locked": true
             },
             {
               "question": "How do you link a CSS file to an HTML document?",
@@ -274,10 +292,12 @@
                 "<stylesheet>style.css</stylesheet>"
               ],
               "correctAnswer": "<link rel='stylesheet' href='style.css'>",
-              "points": 1
+              "points": 1,
+              "locked": true
             }
           ],
-          "totalPoints": 10
+          "totalPoints": 10,
+          "locked": true
         },
         {
           "title": "Lesson 2: CSS Properties",
@@ -293,7 +313,8 @@
                   "type": "snippet",
                   "code": "p {\n  color: red;\n  font-family: Arial, sans-serif;\n  border: 1px solid black;\n}"
                 }
-              ]
+              ],
+              "locked": true
             },
             {
               "title": "Color and Background",
@@ -306,7 +327,8 @@
                   "type": "snippet",
                   "code": "body {\n  background-color: lightgrey;\n}\nh1 {\n  color: darkblue;\n}"
                 }
-              ]
+              ],
+              "locked": true
             },
             {
               "title": "Box Model",
@@ -319,13 +341,15 @@
                   "type": "snippet",
                   "code": "div {\n  margin: 10px;\n  border: 5px solid black;\n  padding: 10px;\n  width: 100px;\n}"
                 }
-              ]
+              ],
+              "locked": true
             }
           ],
           "codingActivity": [
             {
               "description": "Create a styled HTML page using various CSS properties.",
-              "points": 5
+              "points": 5,
+              "locked": true
             }
           ],
           "quiz": [
@@ -333,22 +357,22 @@
               "question": "What is the CSS property used to change the text color?",
               "options": ["font-color", "text-color", "color"],
               "correctAnswer": "color",
-              "points": 1
+              "points": 1,
+              "locked": true
             },
             {
               "question": "Which property is used to set the background color of an element?",
-              "options": [
-                "bgcolor",
-                "background-color",
-                "color"
-              ],
+              "options": ["bgcolor", "background-color", "color"],
               "correctAnswer": "background-color",
-              "points": 1
+              "points": 1,
+              "locked": true
             }
           ],
-          "totalPoints": 10
+          "totalPoints": 10,
+          "locked": true
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "title": "JavaScript",
@@ -371,7 +395,8 @@
                   "type": "snippet",
                   "code": "console.log('Hello, World!');"
                 }
-              ]
+              ],
+              "locked": true
             },
             {
               "title": "JavaScript Syntax",
@@ -384,7 +409,8 @@
                   "type": "snippet",
                   "code": "let x = 5;\nfunction myFunction() {\n  return x * 2;\n}"
                 }
-              ]
+              ],
+              "locked": true
             },
             {
               "title": "JavaScript Variables",
@@ -397,13 +423,15 @@
                   "type": "snippet",
                   "code": "var name = 'John';\nlet age = 30;\nconst isStudent = true;"
                 }
-              ]
+              ],
+              "locked": true
             }
           ],
           "codingActivity": [
             {
               "description": "Create a JavaScript program that displays a message in the console.",
-              "points": 5
+              "points": 5,
+              "locked": true
             }
           ],
           "quiz": [
@@ -415,7 +443,8 @@
                 "Adds interactivity to the web page"
               ],
               "correctAnswer": "Adds interactivity to the web page",
-              "points": 1
+              "points": 1,
+              "locked": true
             },
             {
               "question": "How do you write a comment in JavaScript?",
@@ -425,10 +454,12 @@
                 "# This is a comment"
               ],
               "correctAnswer": "// This is a comment",
-              "points": 1
+              "points": 1,
+              "locked": true
             }
           ],
-          "totalPoints": 10
+          "totalPoints": 10,
+          "locked": true
         },
         {
           "title": "Lesson 2: JavaScript Functions",
@@ -444,7 +475,8 @@
                   "type": "snippet",
                   "code": "function myFunction(p1, p2) {\n  return p1 * p2;\n}"
                 }
-              ]
+              ],
+              "locked": true
             },
             {
               "title": "Calling Functions",
@@ -457,7 +489,8 @@
                   "type": "snippet",
                   "code": "myFunction(5, 10);"
                 }
-              ]
+              ],
+              "locked": true
             },
             {
               "title": "Function Expressions",
@@ -470,7 +503,8 @@
                   "type": "snippet",
                   "code": "const x = function (a, b) {return a * b};"
                 }
-              ]
+              ],
+              "locked": true
             }
           ],
           "codingActivity": [
@@ -488,7 +522,8 @@
                 "void myFunction()"
               ],
               "correctAnswer": "function myFunction()",
-              "points": 1
+              "points": 1,
+              "locked": true
             },
             {
               "question": "How do you call a function named 'myFunction'?",
@@ -498,12 +533,15 @@
                 "invoke myFunction()"
               ],
               "correctAnswer": "myFunction()",
-              "points": 1
+              "points": 1,
+              "locked": true
             }
           ],
-          "totalPoints": 10
+          "totalPoints": 10,
+          "locked": true
         }
-      ]
+      ],
+      "locked": true
     },
     {
       "title": "PHP",
@@ -526,7 +564,8 @@
                   "type": "snippet",
                   "code": "<?php\n  echo 'Hello, World!';\n?>"
                 }
-              ]
+              ],
+              "locked": true
             },
             {
               "title": "PHP Syntax",
@@ -539,7 +578,8 @@
                   "type": "snippet",
                   "code": "<?php\n  $x = 5;\n  function myFunction() {\n    return $x * 2;\n  }\n?>"
                 }
-              ]
+              ],
+              "locked": true
             },
             {
               "title": "PHP Variables",
@@ -552,13 +592,15 @@
                   "type": "snippet",
                   "code": "<?php\n  $name = 'John';\n  $age = 30;\n  $isStudent = true;\n?>"
                 }
-              ]
+              ],
+              "locked": true
             }
           ],
           "codingActivity": [
             {
               "description": "Create a PHP script that displays a message on a web page.",
-              "points": 5
+              "points": 5,
+              "locked": true
             }
           ],
           "quiz": [
@@ -570,7 +612,8 @@
                 "Preprocessor Hypertext"
               ],
               "correctAnswer": "Hypertext Preprocessor",
-              "points": 1
+              "points": 1,
+              "locked": true
             },
             {
               "question": "How do you write a comment in PHP?",
@@ -580,10 +623,12 @@
                 "/* This is a comment */"
               ],
               "correctAnswer": "/* This is a comment */",
-              "points": 1
+              "points": 1,
+              "locked": true
             }
           ],
-          "totalPoints": 10
+          "totalPoints": 10,
+          "locked": true
         },
         {
           "title": "Lesson 2: PHP Functions",
@@ -599,7 +644,8 @@
                   "type": "snippet",
                   "code": "<?php\n  function myFunction($param1, $param2) {\n    return $param1 * $param2;\n  }\n?>"
                 }
-              ]
+              ],
+              "locked": true
             },
             {
               "title": "Calling Functions",
@@ -612,7 +658,8 @@
                   "type": "snippet",
                   "code": "<?php\n  echo myFunction(5, 10);\n?>"
                 }
-              ]
+              ],
+              "locked": true
             },
             {
               "title": "Function Arguments",
@@ -625,13 +672,15 @@
                   "type": "snippet",
                   "code": "<?php\n  function addNumbers($a, $b) {\n    return $a + $b;\n  }\n?>"
                 }
-              ]
+              ],
+              "locked": true
             }
           ],
           "codingActivity": [
             {
               "description": "Create a PHP function that calculates the sum of two numbers.",
-              "points": 5
+              "points": 5,
+              "locked": true
             }
           ],
           "quiz": [
@@ -643,7 +692,8 @@
                 "void myFunction()"
               ],
               "correctAnswer": "function myFunction()",
-              "points": 1
+              "points": 1,
+              "locked": true
             },
             {
               "question": "How do you call a function named 'myFunction' in PHP?",
@@ -653,12 +703,15 @@
                 "invoke myFunction()"
               ],
               "correctAnswer": "myFunction()",
-              "points": 1
+              "points": 1,
+              "locked": true
             }
           ],
-          "totalPoints": 10
+          "totalPoints": 10,
+          "locked": true
         }
-      ]
+      ],
+      "locked": true
     }
   ]
 }

@@ -4,6 +4,11 @@ import { useJoinClassMutation } from "../Teacher/classService";
 import { addStudent } from "../Teacher/classSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
+import {
+  useCreateUserProgressMutation,
+  useFetchUserProgressMutation,
+} from "./studentCourseProgressService";
+import { setUserProgress } from "./studentCourseProgressSlice";
 function JoinClassForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,10 +22,29 @@ function JoinClassForm() {
       const classData = res;
       console.log(classData);
       dispatch(addStudent(classData.class));
+      createProgress();
       toast.success("Successfully joined class!");
       navigate(`/${user._id}`);
     } catch (error) {
       toast.error(error?.data?.error || error.message);
+    }
+  }
+
+  const [createUserProgress, { isLoading: isLoadingCreate }] =
+    useCreateUserProgressMutation();
+  const [fetchUserProgress, { isLoading: isLoadingFetch }] =
+    useFetchUserProgressMutation();
+
+  async function createProgress() {
+    try {
+      const userProgressData = await createUserProgress({
+        userId: user._id,
+      }).unwrap();
+      dispatch(setUserProgress(userProgressData ));
+      console.log(userProgressData);
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(error.message || error.data);
     }
   }
 

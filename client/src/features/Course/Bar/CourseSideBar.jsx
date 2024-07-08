@@ -51,8 +51,13 @@ function CourseSideBar() {
               {course.lessons.map((lesson) => (
                 <div key={lesson._id}>
                   <li
-                    className="cursor-pointer text-blue-800 hover:text-black"
-                    onClick={() => handleLessonClick(lesson._id, course._id)}
+                    className={`cursor-pointer text-blue-800 hover:text-black ${
+                      lesson.locked ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
+                    onClick={() =>
+                      !lesson.locked &&
+                      handleLessonClick(lesson._id, course._id)
+                    }
                   >
                     {lesson.title}
                   </li>
@@ -60,8 +65,11 @@ function CourseSideBar() {
                     {lesson.documents.map((document) => (
                       <li
                         key={document._id}
-                        className="cursor-pointer ml-10 text-blue-300 hover:text-blue-700"
+                        className={`cursor-pointer ml-10 text-blue-300 hover:text-blue-700 ${
+                          lesson.locked ? "opacity-50 cursor-not-allowed" : ""
+                        }`}
                         onClick={() =>
+                          !lesson.locked &&
                           handleDocumentClick(
                             course._id,
                             document._id,

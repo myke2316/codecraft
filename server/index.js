@@ -8,7 +8,7 @@ import { userRouter } from "./routes/userRoutes.js";
 import { authRoutes } from "./routes/authRoutes.js";
 import { classRouter } from "./routes/classRoutes.js";
 import { courseRouter } from "./routes/courseRoute.js";
-
+import { progressRouter } from "./routes/studentCourseProgressRoutes.js";
 
 dotenv.config();
 connectDb();
@@ -42,6 +42,7 @@ app.use("/api/users", userRouter);
 app.use("/class", classRouter);
 app.use("/auth", authRoutes);
 app.use("/course", courseRouter);
+app.use("/userProgress", progressRouter);
 
 app.get("/", (req, res) => {
   res.send("Server or api is running.");

@@ -1,4 +1,5 @@
 import { Outlet, useNavigate } from "react-router";
+import { ToastContainer } from "react-toastify";
 
 function CourseLayout() {
   const navigate = useNavigate();
@@ -26,7 +27,10 @@ function CourseLayout() {
           <button type="button">Back</button>
         </div>
       </div>
-      <Outlet />
+      <div>
+        <Outlet />
+        <ToastContainer />
+      </div>
     </div>
   );
 }

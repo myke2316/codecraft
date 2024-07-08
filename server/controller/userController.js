@@ -4,37 +4,6 @@ import generateToken from "../utils/generateToken.js";
 import sendEmail from "../utils/sendEmail.js";
 import crypto from "crypto";
 
-//login user
-// const loginUser = asyncHandler(async (req, res) => {
-//   //getting the posted json or the message
-//   const { username, email, password } = req.body;
-
-//   //validate or find user based on email || username & password
-//   let loggedInUser;
-//   const user = await UserModel.findOne({ email });
-//   const user1 = await UserModel.findOne({ username });
-//   if (user && (await user.matchPassword(password))) {
-//     loggedInUser = user;
-//   } else if (user1 && (await user1.matchPassword(password))) {
-//     loggedInUser = user1;
-//   }
-
-//   if (loggedInUser) {
-//     generateToken(res, loggedInUser._id);
-
-//     // console.log("Cookies being set:", req.getResponseHeader("SetCookie"));
-//     res.json({
-//       _id: loggedInUser._id,
-//       username: loggedInUser.username,
-//       email: loggedInUser.email,
-//       role: loggedInUser.role,
-//     });
-//   } else {
-//     res.status(401).json({
-//       message: "Invalid Username or Password.",
-//     });
-//   }
-// });
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 

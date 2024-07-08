@@ -25,6 +25,7 @@ import DocumentContent from "./features/Course/Lesson/Documentation/DocumentCont
 import LessonContent from "./features/Course/Lesson/LessonContent";
 import QuizContent from "./features/Course/Lesson/Quiz/QuizContent";
 import ActivityContent from "./features/Course/Lesson/Activity/ActivityContent";
+
 function App() {
   return (
     <BrowserRouter>
@@ -61,9 +62,7 @@ function App() {
 
         <Route element={<CourseLayout />}>
           <Route path="" element={<PrivateRoutes />}>
-            <Route path="course/*" element={<CourseContent />}>
-              
-            </Route>
+            <Route path="course/*" element={<CourseContent />}></Route>
           </Route>
         </Route>
       </Routes>

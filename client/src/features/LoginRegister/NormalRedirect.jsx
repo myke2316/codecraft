@@ -7,6 +7,8 @@ import { useFetchClassMutation } from "../Teacher/classService";
 import { setClass } from "../Teacher/classSlice";
 import { useGetCourseDataMutation } from "../Class/courseService";
 import { setCourse } from "../Class/courseSlice";
+import { useFetchUserProgressMutation } from "../Student/studentCourseProgressService";
+import { setUserProgress } from "../Student/studentCourseProgressSlice";
 
 function NormalRedirect() {
   const dispatch = useDispatch();
@@ -26,7 +28,8 @@ function NormalRedirect() {
       const classData = await fetchClass(userId).unwrap();
 
       dispatch(setClass(classData || []));
-
+      fetchProgress();
+      fetchCourse();
       navigate(`/${userDetails._id}`);
     } catch (error) {
       console.error("Error fetching class:", error);
@@ -34,23 +37,38 @@ function NormalRedirect() {
     }
   }
 
+  const [fetchUserProgress, { isLoading: isLoadingFetch }] =
+    useFetchUserProgressMutation();
+  async function fetchProgress() {
+    try {
+      const userProgressData = await fetchUserProgress({
+        userId: userDetails._id,
+      }).unwrap();
+      dispatch(setUserProgress(userProgressData));
+      console.log(userProgressData);
+
+      if (!userProgressData) {
+        console.log("no user progress yet.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(error.message || error.data);
+    }
+  }
+
   const [fetchCourseData, { isLoading: isLoadingCourse }] =
     useGetCourseDataMutation();
-
-  async function getCourse() {
+  async function fetchCourse() {
     try {
       const courseData = await fetchCourseData().unwrap();
-      dispatch(setCourse(courseData || []));
-      
+      dispatch(setCourse(courseData));
     } catch (error) {
       console.error("Error fetching courses:", error);
       toast.error(error?.response?.data?.message || error.message);
     }
   }
-
   useEffect(() => {
     if (userDetails && userDetails.role) {
-      //getCourse();
       getClass(userDetails.role);
     }
   }, [userDetails]);
