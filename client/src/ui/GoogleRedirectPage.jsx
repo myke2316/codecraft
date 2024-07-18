@@ -11,6 +11,8 @@ import { setCourse } from "../features/Class/courseSlice";
 import { useGetCourseDataMutation } from "../features/Class/courseService";
 import { setUserProgress } from "../features/Student/studentCourseProgressSlice";
 import { useFetchUserProgressMutation } from "../features/Student/studentCourseProgressService";
+import { useFetchUserAnalyticsMutation } from "../features/Student/userAnalyticsService";
+import { setUserAnalytics } from "../features/Student/userAnalyticsSlice";
 
 function GoogleRedirect() {
   const dispatch = useDispatch();
@@ -37,6 +39,7 @@ function GoogleRedirect() {
       if (userDetails) {
         console.log(userDetails);
         fetchProgress();
+        fetchAnalytics();
       }
 
       if (!user.role) {
@@ -107,7 +110,28 @@ function GoogleRedirect() {
       toast.error(error?.response?.data?.message || error.message);
     }
   }
+
   //============
+
+  const [fetchUserAnalytics, { isLoading: isLoadingAnalytics }] =
+    useFetchUserAnalyticsMutation();
+  async function fetchAnalytics() {
+    try {
+      const userAnalyticsData = await fetchUserAnalytics({
+        userId: userDetails._id,
+      }).unwrap();
+      dispatch(setUserAnalytics(userAnalyticsData));
+      console.log(userAnalyticsData);
+
+      if (!userAnalyticsData) {
+        console.log("no user analytics yet.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(error.message || error.data);
+    }
+  }
+
   useEffect(() => {
     if (!isAuthenticated || !isAuthenticated.roles) {
       fetchCourse();

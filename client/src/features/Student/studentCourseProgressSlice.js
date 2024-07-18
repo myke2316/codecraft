@@ -20,17 +20,8 @@ const userProgressSlice = createSlice({
       localStorage.setItem("userProgress", JSON.stringify(state.userProgress));
     },
     updateCourseProgress: (state, action) => {
-      const courseId = action.payload.courseId;
-      const courseIndex = state.userProgress.courseProgress.findIndex(
-        (course) => course.courseId === courseId
-      );
-      if (courseIndex !== -1) {
-        state.userProgress.coursesProgress[courseIndex] = action.payload;
-        localStorage.setItem(
-          "userProgress",
-          JSON.stringify(state.userProgress)
-        );
-      }
+      state.userProgress = action.payload;
+      localStorage.setItem("userProgress", JSON.stringify(state.userProgress));
     },
     // Add more reducers for updating lesson progress, quiz progress, etc.
   },

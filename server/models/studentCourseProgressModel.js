@@ -9,8 +9,7 @@ const DocumentProgressSchema = new Schema({
 
 const QuizProgressSchema = new Schema({
   quizId: { type: Schema.Types.ObjectId, ref: "Quiz", required: true },
-  locked: { type: Boolean},
-  pointsEarned: { type: Number, default: 0 },
+  locked: { type: Boolean },
 });
 
 const CodingActivityProgressSchema = new Schema({
@@ -19,8 +18,7 @@ const CodingActivityProgressSchema = new Schema({
     ref: "CodingActivity",
     required: true,
   },
-  locked: { type: Boolean},
-  pointsEarned: { type: Number, default: 0 },
+  locked: { type: Boolean },
 });
 
 const LessonProgressSchema = new Schema({
@@ -28,15 +26,13 @@ const LessonProgressSchema = new Schema({
   documentsProgress: [DocumentProgressSchema],
   quizzesProgress: [QuizProgressSchema],
   codingActivitiesProgress: [CodingActivityProgressSchema],
-  totalPointsEarned: { type: Number, default: 0 },
-  locked: { type: Boolean},
+  locked: { type: Boolean },
 });
 
 const CourseProgressSchema = new Schema({
   courseId: { type: Schema.Types.ObjectId, ref: "Course", required: true },
   lessonsProgress: [LessonProgressSchema],
-  totalPointsEarned: { type: Number, default: 0 },
-  locked: { type: Boolean},
+  locked: { type: Boolean },
 });
 
 const UserProgressSchema = new Schema({
@@ -44,6 +40,6 @@ const UserProgressSchema = new Schema({
   coursesProgress: [CourseProgressSchema],
 });
 
-
 const UserProgressModel = mongoose.model("UserProgress", UserProgressSchema);
+
 export default UserProgressModel;

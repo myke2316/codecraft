@@ -9,6 +9,8 @@ import { useGetCourseDataMutation } from "../Class/courseService";
 import { setCourse } from "../Class/courseSlice";
 import { useFetchUserProgressMutation } from "../Student/studentCourseProgressService";
 import { setUserProgress } from "../Student/studentCourseProgressSlice";
+import { useFetchUserAnalyticsMutation } from "../Student/userAnalyticsService";
+import { setUserAnalytics } from "../Student/userAnalyticsSlice";
 
 function NormalRedirect() {
   const dispatch = useDispatch();
@@ -30,6 +32,7 @@ function NormalRedirect() {
       dispatch(setClass(classData || []));
       fetchProgress();
       fetchCourse();
+      fetchAnalytics();
       navigate(`/${userDetails._id}`);
     } catch (error) {
       console.error("Error fetching class:", error);
@@ -67,6 +70,26 @@ function NormalRedirect() {
       toast.error(error?.response?.data?.message || error.message);
     }
   }
+
+  const [fetchUserAnalytics, { isLoading: isLoadingAnalytics }] =
+    useFetchUserAnalyticsMutation();
+  async function fetchAnalytics() {
+    try {
+      const userAnalyticsData = await fetchUserAnalytics({
+        userId: userDetails._id,
+      }).unwrap();
+      dispatch(setUserAnalytics(userAnalyticsData));
+      console.log(userAnalyticsData);
+
+      if (!userAnalyticsData) {
+        console.log("no user analytics yet.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(error.message || error.data);
+    }
+  }
+
   useEffect(() => {
     if (userDetails && userDetails.role) {
       getClass(userDetails.role);

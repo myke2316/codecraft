@@ -1,6 +1,5 @@
 import asyncHandler from "express-async-handler";
-import ClassModel from "../models/classModel.js";
-import UserModel from "../models/userModel.js";
+
 import CourseModel from "../models/courseModel.js";
 
 const getAllCourse = asyncHandler(async (req, res) => {

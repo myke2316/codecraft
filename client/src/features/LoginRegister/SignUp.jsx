@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { setCredentials } from "./userSlice";
 import { useEffect } from "react";
+import { useGetCourseDataMutation } from "../Class/courseService";
+import { setCourse } from "../Class/courseSlice";
 function SignUp() {
   // handle Register
   const dispatch = useDispatch();
@@ -26,8 +28,21 @@ function SignUp() {
         role,
       }).unwrap();
       dispatch(setCredentials({ ...res }));
+      fetchCourse();
     } catch (error) {
       toast.error(error?.data?.error || error?.error);
+    }
+  }
+
+  const [fetchCourseData, { isLoading: isLoadingCourse }] =
+    useGetCourseDataMutation();
+  async function fetchCourse() {
+    try {
+      const courseData = await fetchCourseData().unwrap();
+      dispatch(setCourse(courseData || []));
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+      toast.error(error?.response?.data?.message || error.message);
     }
   }
 

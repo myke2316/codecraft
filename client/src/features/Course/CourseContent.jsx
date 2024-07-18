@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router";
 import CourseSideBar from "./Bar/CourseSideBar";
-import LessonContent from "./Lesson/LessonContent";
+
 
 function CourseContent() {
 

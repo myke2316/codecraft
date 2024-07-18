@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import UserProgressModel from "../models/studentCourseProgressModel.js";
 import CourseModel from "../models/courseModel.js";
 import UserModel from "../models/userModel.js";
-
+import UserAnalyticsModel from "../models/UserAnalyticsModel.js";
 // Get user progress by user ID
 const getUserProgress = asyncHandler(async (req, res) => {
   const { userId } = req.body;
@@ -15,110 +15,12 @@ const getUserProgress = asyncHandler(async (req, res) => {
 });
 
 // Create User Progress for each student
-const createUserProgress = asyncHandler(async (req, res) => {
-  const userId = req.body.userId;
-
-  try {
-    const user = await UserModel.findById(userId).exec();
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    // Check if the user is a teacher
-    if (user.role === "teacher") {
-      return res
-        .status(400)
-        .json({ message: "Teachers do not need progress tracking" });
-    }
-
-    // Check if user progress already exists
-    const existingUserProgress = await UserProgressModel.findOne({ userId });
-    if (existingUserProgress) {
-      return res.status(400).json({ message: "User progress already exists" });
-    }
-
-    const userProgress = new UserProgressModel({ userId, coursesProgress: [] });
-
-    const courses = await CourseModel.find().exec();
-    courses.forEach((course) => {
-      const courseProgress = {
-        courseId: course._id,
-        lessonsProgress: [],
-        totalPointsEarned: 0,
-        locked: course.locked || false,
-      };
-
-      if (Array.isArray(course.lessons)) {
-        course.lessons.forEach((lesson) => {
-          const lessonProgress = {
-            lessonId: lesson._id,
-            documentsProgress: [],
-            quizzesProgress: [],
-            codingActivitiesProgress: [],
-            totalPointsEarned: 0,
-            locked: lesson.locked,
-          };
-
-          if (Array.isArray(lesson.documents)) {
-            lesson.documents.forEach((document) => {
-              lessonProgress.documentsProgress.push({
-                documentId: document._id,
-                locked: document.locked,
-              });
-            });
-          }
-
-          if (Array.isArray(lesson.quiz)) {
-            // Ensure this is correct
-            lesson.quiz.forEach((quiz) => {
-              // Ensure this is correct
-              lessonProgress.quizzesProgress.push({
-                quizId: quiz._id,
-                locked: quiz.locked,
-                pointsEarned: 0,
-              });
-            });
-          }
-
-          if (Array.isArray(lesson.codingActivity)) {
-            // Ensure this is correct
-            lesson.codingActivity.forEach((activity) => {
-              // Ensure this is correct
-              lessonProgress.codingActivitiesProgress.push({
-                activityId: activity._id,
-                locked: activity.locked,
-                pointsEarned: 0,
-              });
-            });
-          }
-
-          courseProgress.lessonsProgress.push(lessonProgress);
-        });
-      }
-
-      userProgress.coursesProgress.push(courseProgress);
-    });
-
-    await userProgress.save();
-    res.json(userProgress);
-  } catch (err) {
-    console.error("Error creating user progress:", err);
-    res.status(500).json({ message: "Server error" });
-  }
-});
 
 // Update user progress
 const updateUserProgress = asyncHandler(async (req, res) => {
   try {
-    const {
-      userId,
-      courseId,
-      lessonId,
-      documentId,
-      quizId,
-      activityId,
-      pointsEarned,
-    } = req.body;
+    const { userId, courseId, lessonId, documentId, quizId, activityId } =
+      req.body;
 
     const userProgress = await UserProgressModel.findOne({ userId }).exec();
 
@@ -184,7 +86,6 @@ const updateUserProgress = asyncHandler(async (req, res) => {
       );
       if (quizIndex !== -1) {
         lessonProgress.quizzesProgress[quizIndex].locked = false;
-        lessonProgress.quizzesProgress[quizIndex].pointsEarned = pointsEarned;
 
         // Unlock the next quiz if exists
         const nextQuizIndex = quizIndex + 1;
@@ -212,8 +113,6 @@ const updateUserProgress = asyncHandler(async (req, res) => {
       );
       if (activityIndex !== -1) {
         lessonProgress.codingActivitiesProgress[activityIndex].locked = false;
-        lessonProgress.codingActivitiesProgress[activityIndex].pointsEarned =
-          pointsEarned;
 
         // Unlock the next coding activity if exists
         const nextActivityIndex = activityIndex + 1;
@@ -295,9 +194,158 @@ const unlockNextLesson = (
             ].lessonsProgress[0].documentsProgress[0].locked = false;
           }
         }
+      } else {
+        // If no more courses, do something else (e.g., show a completion message)
+        console.log("All courses completed!");
       }
     }
   }
 };
 
-export { getUserProgress, updateUserProgress, createUserProgress };
+//CREATE FOR NEW USERS=========================
+const createUserProgress = asyncHandler(async (req, res) => {
+  const userId = req.body.userId;
+
+  try {
+    const user = await UserModel.findById(userId).exec();
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Check if the user is a teacher
+    if (user.role === "teacher") {
+      return res
+        .status(400)
+        .json({ message: "Teachers do not need progress tracking" });
+    }
+
+    // Check if user progress already exists
+    const existingUserProgress = await UserProgressModel.findOne({ userId });
+    if (existingUserProgress) {
+      return res.status(400).json({ message: "User progress already exists" });
+    }
+
+    const userProgress = new UserProgressModel({ userId, coursesProgress: [] });
+
+    const courses = await CourseModel.find().exec();
+    courses.forEach((course) => {
+      const courseProgress = {
+        courseId: course._id,
+        lessonsProgress: [],
+        locked: course.locked || false,
+      };
+
+      if (Array.isArray(course.lessons)) {
+        course.lessons.forEach((lesson) => {
+          const lessonProgress = {
+            lessonId: lesson._id,
+            documentsProgress: [],
+            quizzesProgress: [],
+            codingActivitiesProgress: [],
+            locked: lesson.locked,
+          };
+
+          if (Array.isArray(lesson.documents)) {
+            lesson.documents.forEach((document) => {
+              lessonProgress.documentsProgress.push({
+                documentId: document._id,
+                locked: document.locked,
+              });
+            });
+          }
+
+          if (Array.isArray(lesson.quiz)) {
+            lesson.quiz.forEach((quiz) => {
+              lessonProgress.quizzesProgress.push({
+                quizId: quiz._id,
+                locked: quiz.locked,
+              });
+            });
+          }
+
+          if (Array.isArray(lesson.codingActivity)) {
+            lesson.codingActivity.forEach((activity) => {
+              lessonProgress.codingActivitiesProgress.push({
+                activityId: activity._id,
+                locked: activity.locked,
+              });
+            });
+          }
+
+          courseProgress.lessonsProgress.push(lessonProgress);
+        });
+      }
+
+      userProgress.coursesProgress.push(courseProgress);
+    });
+
+    await userProgress.save();
+    res.json(userProgress);
+  } catch (err) {
+    console.error("Error creating user progress:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+const createUserAnalytics = async (req, res) => {
+  const { userId } = req.body;
+
+  try {
+    // Check if user progress already exists
+    const existingUserProgress = await UserAnalyticsModel.findOne({ userId });
+    if (existingUserProgress) {
+      return res.status(400).json({ message: "User progress already exists" });
+    }
+
+    const courses = await CourseModel.find().populate({
+      path: "lessons",
+      populate: {
+        path: "documents codingActivity quiz",
+      },
+    });
+
+    const coursesAnalytics = courses.map((course) => ({
+      courseId: course._id,
+      lessonsAnalytics: course.lessons.map((lesson) => ({
+        lessonId: lesson._id,
+        documentsAnalytics: lesson.documents.map((document) => ({
+          documentId: document._id,
+          timeSpent: 0,
+          pointsEarned: 0,
+        })),
+        quizzesAnalytics: lesson.quiz.map((quiz) => ({
+          quizId: quiz._id,
+          timeSpent: 0,
+          pointsEarned: 0,
+        })),
+        codingActivitiesAnalytics: lesson.codingActivity.map((activity) => ({ 
+          activityId: activity._id,
+          timeSpent: 0,
+          pointsEarned: 0,
+        })),
+        totalTimeSpent: 0,
+        totalPointsEarned: 0,
+      })),
+      totalTimeSpent: 0,
+      totalPointsEarned: 0,
+    }));
+
+    const newUserAnalytics = new UserAnalyticsModel({
+      userId,
+      coursesAnalytics,
+      badges: [],
+    });
+
+    const savedUserAnalytics = await newUserAnalytics.save();
+    res.status(201).json(savedUserAnalytics);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export {
+  getUserProgress,
+  updateUserProgress,
+  createUserProgress,
+  createUserAnalytics,
+};

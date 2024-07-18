@@ -9,6 +9,8 @@ import {
   useFetchUserProgressMutation,
 } from "./studentCourseProgressService";
 import { setUserProgress } from "./studentCourseProgressSlice";
+import { useCreateUserAnalyticsMutation } from "./userAnalyticsService";
+import { setUserAnalytics } from "./userAnalyticsSlice";
 function JoinClassForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,6 +25,7 @@ function JoinClassForm() {
       console.log(classData);
       dispatch(addStudent(classData.class));
       createProgress();
+      createUserAnalytics();
       toast.success("Successfully joined class!");
       navigate(`/${user._id}`);
     } catch (error) {
@@ -30,18 +33,32 @@ function JoinClassForm() {
     }
   }
 
-  const [createUserProgress, { isLoading: isLoadingCreate }] =
+  const [createUserProgress, { isLoading: isLoadingProgress }] =
     useCreateUserProgressMutation();
-  const [fetchUserProgress, { isLoading: isLoadingFetch }] =
-    useFetchUserProgressMutation();
 
   async function createProgress() {
     try {
       const userProgressData = await createUserProgress({
         userId: user._id,
       }).unwrap();
-      dispatch(setUserProgress(userProgressData ));
+      dispatch(setUserProgress(userProgressData));
       console.log(userProgressData);
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(error.message || error.data);
+    }
+  }
+
+  const [createAnalytics, { isLoading: isLoadingAnalytics }] =
+    useCreateUserAnalyticsMutation();
+
+  async function createUserAnalytics() {
+    try {
+      const userAnalyticsData = await createAnalytics({
+        userId: user._id,
+      }).unwrap();
+      dispatch(setUserAnalytics(userAnalyticsData));
+      console.log(userAnalyticsData);
     } catch (error) {
       console.error("Error:", error);
       toast.error(error.message || error.data);

@@ -25,6 +25,8 @@ import DocumentContent from "./features/Course/Lesson/Documentation/DocumentCont
 import LessonContent from "./features/Course/Lesson/LessonContent";
 import QuizContent from "./features/Course/Lesson/Quiz/QuizContent";
 import ActivityContent from "./features/Course/Lesson/Activity/ActivityContent";
+import ActivityLayout from "./features/Course/Lesson/Activity/ActivityLayout";
+import DocumentComplete from "./features/Course/Lesson/Documentation/DocumentComplete";
 
 function App() {
   return (
@@ -62,7 +64,40 @@ function App() {
 
         <Route element={<CourseLayout />}>
           <Route path="" element={<PrivateRoutes />}>
-            <Route path="course/*" element={<CourseContent />}></Route>
+            <Route path="course/*" element={<CourseContent />}>
+              <Route
+                path=":courseId/lesson/:lessonId"
+                element={<LessonContent />}
+              />
+              <Route
+                path=":courseId/lesson/:lessonId/document/:documentId"
+                element={<DocumentContent />}
+              />
+              <Route
+                path=":courseId/lesson/:lessonId/quiz/:quizId"
+                element={<DocumentContent />}
+              />
+              <Route
+                path=":courseId/lesson/:lessonId/quiz/results"
+                element={<DocumentContent />}
+              />
+
+              <Route
+                path=":courseId/lesson/:lessonId/document/:documentId/complete"
+                element={<DocumentComplete />}
+              />
+             
+            </Route>
+          </Route>
+        </Route>
+        <Route element={<ActivityLayout />}>
+          <Route path="" element={<PrivateRoutes />}>
+            <Route path="course/*">
+              <Route
+                path=":courseId/lesson/:lessonId/codingActivity/:activityId"
+                element={<ActivityContent />}
+              />
+            </Route>
           </Route>
         </Route>
       </Routes>
