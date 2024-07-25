@@ -4,7 +4,7 @@ import { logout } from "../LoginRegister/userSlice";
 const initialState = {
   userAnalytics: localStorage.getItem("userAnalytics")
     ? JSON.parse(localStorage.getItem("userAnalytics"))
-    : {},
+    : [] ,
 };
 
 const userAnalyticsSlice = createSlice({
@@ -13,27 +13,26 @@ const userAnalyticsSlice = createSlice({
   reducers: {
     setUserAnalytics: (state, action) => {
       state.userAnalytics = { ...state.userAnalytics, ...action.payload };
+      localStorage.setItem(
+        "userAnalytics",
+        JSON.stringify(state.userAnalytics)
+      );
+    },
+    updateUserAnalytics: (state, action) => {
+      state.userAnalytics = action.payload;
       localStorage.setItem("userAnalytics", JSON.stringify(state.userAnalytics));
     },
-    updateUserAnalyticss: (state, action) => {
-      const courseId = action.payload.courseId;
-      const courseIndex = state.userAnalytics.courseAnalytics.findIndex(
-        (course) => course.courseId === courseId
-      );
-      if (courseIndex !== -1) {
-        state.userAnalytics.courseAnalytics[courseIndex] = action.payload;
-        localStorage.setItem(
-          "userAnalytics",
-          JSON.stringify(state.userAnalytics)
-        );
-      }
-    },
+
     updateBadge: (state, action) => {
-        state.userAnalytics.badges.push(action.payload);
-        localStorage.setItem("userAnalytics", JSON.stringify(state.userAnalytics));
-      },
-  
-    
+      if (!state.userAnalytics.badges) {
+        state.userAnalytics.badges = [];
+      }
+      state.userAnalytics.badges.push(action.payload);
+      localStorage.setItem(
+        "userAnalytics",
+        JSON.stringify(state.userAnalytics)
+      );
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(logout, (state) => {
@@ -43,6 +42,9 @@ const userAnalyticsSlice = createSlice({
   },
 });
 
-export const { setUserAnalytics, addCourseProgress, updateCourseProgress,updateBadge } =
-  userAnalyticsSlice.actions;
+export const {
+  setUserAnalytics,
+  updateUserAnalytics,
+  updateBadge,
+} = userAnalyticsSlice.actions;
 export default userAnalyticsSlice.reducer;

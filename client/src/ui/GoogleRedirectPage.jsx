@@ -13,6 +13,8 @@ import { setUserProgress } from "../features/Student/studentCourseProgressSlice"
 import { useFetchUserProgressMutation } from "../features/Student/studentCourseProgressService";
 import { useFetchUserAnalyticsMutation } from "../features/Student/userAnalyticsService";
 import { setUserAnalytics } from "../features/Student/userAnalyticsSlice";
+import { useFetchUserQuizSubmissionMutation } from "../features/Course/Quiz/quizSubmissionService";
+import { getQuizSubmission } from "../utils/quizSubmissionUtil";
 
 function GoogleRedirect() {
   const dispatch = useDispatch();
@@ -20,6 +22,10 @@ function GoogleRedirect() {
   const [fetchClass, { isLoading }] = useFetchClassMutation();
   const isAuthenticated = localStorage.getItem("userDetails");
   const userDetails = useSelector((state) => state.user.userDetails);
+
+  const [fetchUserQuizSubmission, { isLoading: isLoadingFetchQuizSubmission }] =
+    useFetchUserQuizSubmissionMutation();
+
   async function getUser(values) {
     try {
       const res = await axios.get(`${BACKEND_URL}/auth/login/success`, {
@@ -40,6 +46,7 @@ function GoogleRedirect() {
         console.log(userDetails);
         fetchProgress();
         fetchAnalytics();
+        getQuizSubmission(dispatch, fetchUserQuizSubmission, userDetails._id);
       }
 
       if (!user.role) {

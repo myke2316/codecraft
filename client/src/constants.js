@@ -5,4 +5,5 @@ export const CLASS_URL = "/class"
 export const COURSE_URL = "/course"
 export const PROGRESS_URL = '/userProgress'
 export const ANALYTICS_URL = '/analytics'
+export const QUIZSUBMISSION_URL = '/quizSubmission'
 

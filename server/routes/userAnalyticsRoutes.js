@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post("/fetch", getUserAnalytics);
 router.post("/create", createUserAnalytics);
-router.post("/update", updateUserAnalytics);
+router.put("/update", updateUserAnalytics);
 router.post("/addBadge", addBadgeToUser);
 router.post("/fetchBadge", getUserBadges);
 

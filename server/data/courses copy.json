@@ -81,7 +81,16 @@
               ]
             }
           ],
-       
+          "codingActivity": [
+            {
+              "description": "Create a basic HTML page with a header, paragraph, and list.",
+              "question": "Write the HTML code to create a page with a header 'Welcome', a paragraph 'This is an HTML lesson', and an unordered list with three items.",
+              "expectedOutput": "<!DOCTYPE html>\n<html>\n<head>\n<title>HTML Exercise</title>\n</head>\n<body>\n<h1>Welcome</h1>\n<p>This is an HTML lesson</p>\n<ul>\n<li>Item 1</li>\n<li>Item 2</li>\n<li>Item 3</li>\n</ul>\n</body>\n</html>",
+              "points": 5,
+              "language": "html",
+              "locked": true
+            }
+          ],
           "quiz": [
             {
               "question": "What does HTML stand for?",
@@ -173,7 +182,16 @@
               "locked": true
             }
           ],
-      
+          "codingActivity": [
+            {
+              "description": "Create an HTML page with different inline and block elements.",
+              "question": "Write the HTML code to create a page with a span element 'This is inline' and a div element 'This is block'.",
+              "expectedOutput": "<!DOCTYPE html>\n<html>\n<head>\n<title>HTML Elements</title>\n</head>\n<body>\n<span>This is inline</span>\n<div>This is block</div>\n</body>\n</html>",
+              "points": 5,
+              "language": "html",
+              "locked": true
+            }
+          ],
           "quiz": [
             {
               "question": "What is an HTML element?",
@@ -263,7 +281,16 @@
               "locked": true
             }
           ],
-
+          "codingActivity": [
+            {
+              "description": "Create a basic CSS stylesheet and apply it to an HTML page.",
+              "question": "Write a CSS file to style an HTML page with a blue background, centered red text in paragraphs, and a custom font size for elements with the class 'myClass'.",
+              "expectedOutput": "/* CSS File */\nbody {\n  background-color: blue;\n}\np {\n  color: red;\n  text-align: center;\n}\n.myClass {\n  font-size: 20px;\n}",
+              "points": 5,
+              "language": "css",
+              "locked": true
+            }
+          ],
           "quiz": [
             {
               "question": "What does CSS stand for?",
@@ -339,7 +366,16 @@
               "locked": true
             }
           ],
-     
+          "codingActivity": [
+            {
+              "description": "Create an HTML page with styled elements demonstrating the CSS box model.",
+              "question": "Write the HTML and CSS to create a div element with a width of 300px, 10px padding, 5px solid border, and 20px margin. Apply the box-sizing property.",
+              "expectedOutput": "<!DOCTYPE html>\n<html>\n<head>\n<title>CSS Box Model</title>\n<style>\ndiv {\n  width: 300px;\n  padding: 10px;\n  border: 5px solid black;\n  margin: 20px;\n  box-sizing: border-box;\n}\n</style>\n</head>\n<body>\n<div>This is a div element.</div>\n</body>\n</html>",
+              "points": 5,
+              "language": "html",
+              "locked": true
+            }
+          ],
           "quiz": [
             {
               "question": "What property is used to add space inside the border of an element?",

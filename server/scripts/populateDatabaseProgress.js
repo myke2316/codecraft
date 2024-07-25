@@ -38,7 +38,7 @@ db.once("open", async () => {
             lessonId: lesson._id,
             documentsProgress: [],
             quizzesProgress: [],
-            codingActivitiesProgress: [],
+            // codingActivitiesProgress: [],
             totalPointsEarned: 0,
             completed: false,
           };
@@ -58,13 +58,13 @@ db.once("open", async () => {
             });
           });
 
-          lesson.codingActivity.forEach((activity) => {
-            lessonProgress.codingActivitiesProgress.push({
-              activityId: activity._id,
-              completed: false,
-              pointsEarned: 0,
-            });
-          });
+          // lesson.codingActivity.forEach((activity) => {
+          //   lessonProgress.codingActivitiesProgress.push({
+          //     activityId: activity._id,
+          //     completed: false,
+          //     pointsEarned: 0,
+          //   });
+          // });
 
           courseProgress.lessonsProgress.push(lessonProgress);
         });

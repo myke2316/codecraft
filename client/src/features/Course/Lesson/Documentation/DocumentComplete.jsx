@@ -1,11 +1,24 @@
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { useSelector } from "react-redux";
 
 function DocumentComplete() {
   const { courseId, lessonId, documentId } = useParams();
   const navigate = useNavigate();
   const courses = useSelector((state) => state.course.courseData);
+  // const lessonQuizSubmissions = useSelector((state) =>
+  //   state.userQuizSubmission.quizSubmissions.quizSubmissions.filter(
+  //     (submission) => submission.lessonId === lessonId
+  //   )
+  // );
+
+  // const completedQuiz = lessonQuizSubmissions.every(
+  //   (submission) => submission.selectedOption != null || ""
+  // );
+
+  // console.log(completedQuiz);
+  const location = useLocation();
+  const totalTimeSpent = location.state?.formattedTime; // Access the totalTimeSpent state
 
   const course = courses.find((course) => course._id === courseId);
   const lesson = course.lessons.find((lesson) => lesson._id === lessonId);
@@ -15,9 +28,9 @@ function DocumentComplete() {
     (doc) => doc._id === documentId
   );
   const nextDocument = lesson.documents[currentDocumentIndex + 1];
-
   //for quiz
   const quiz = lesson.quiz;
+
   const nextQuizIndex = lesson.quiz.indexOf(quiz) + 1;
   const nextQuiz = lesson.quiz[nextQuizIndex];
 
@@ -35,6 +48,7 @@ function DocumentComplete() {
     <div className="flex-1 p-4">
       <h1 className="text-2xl font-bold mb-4">Document Completed</h1>
       <p className="mb-4">You have completed this document. Great job!</p>
+      <p>You spent {totalTimeSpent} to finish this.</p>
       <button
         className="bg-blue-500 text-white px-4 py-2 rounded"
         onClick={handleNext}

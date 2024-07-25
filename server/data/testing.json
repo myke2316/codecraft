@@ -1,0 +1,661 @@
+{
+  "courses": [
+    {
+      "title": "HTML",
+      "lessons": [
+        {"title": "Lesson 1: Introduction to HTML",
+          "documents": [
+            {
+              "title": "What is HTML?",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "HTML (HyperText Markup Language) is used to structure and format the content of websites on the World Wide Web. Web Developers use it to create a skeleton of modern websites and web apps."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Let's see what HyperText Markup Language means."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HyperText"
+                },
+                {
+                  "type": "sentence",
+                  "text": "HyperText is a way of organizing text that allows the reader to easily navigate and access related information. It takes the reader to a different part of the same web page, or to a different web page altogether."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Markup language"
+                },
+                {
+                  "type": "sentence",
+                  "text": "A markup language is a computer language that is used to add structure and formatting to a text document. Markup languages use a system of tags to define the structure and content of a document. These tags are interpreted by a program or application to display the document in a specific way."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Example of HTML"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Let's see a simple example of HTML."
+                },
+                
+                {
+                  "type": "snippet",
+                  "code": "<!DOCTYPE html>\n<html>\n<head>\n<title>CodeCraft</title>\n</head>\n<body>\n<h1>HTML Tutorial</h1>\n<p>You'll learn about HTML.</p>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above program,"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <!DOCTYPE html> - defines that this document is an HTML document"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <html> - root element of an HTML page which encloses all other elements in the HTML page"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <head> - contains information about the page, such as the title and metadata"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <title> - specifies a title for the HTML page which is shown in the browser's title bar"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <body> - defines the main content of the page and is a container for all the visible contents, such as headings, paragraphs, lists, etc"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <h1> - defines a heading"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <p> - defines a paragraph of HTML document"
+                },
+                
+
+
+              ],
+              "locked": false
+            },
+            {"title": "HTML Structure",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "HTML documents have a structure that includes elements such as doctype, html, head, and body tags."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The doctype declaration defines the document type."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The html element is the root element of an HTML page."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The head element contains meta-information about the HTML document."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The body element contains the visible page content."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p>This is a paragraph.</p>"
+                }
+              ]
+            },
+            {
+              "title": "Basic HTML Tags",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Learn about basic HTML tags like <p>, <a>, <div>, and more."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <p> tag defines a paragraph."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <a> tag defines a hyperlink."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <div> tag defines a division or a section in an HTML document."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<div>\n<p>This is a paragraph.</p>\n<a href=\"https://www.example.com\">This is a link</a>\n</div>"
+                }
+              ]
+            }
+          ],
+          "codingActivity": [
+            {
+              "description": "Create a basic HTML page with a header, paragraph, and list.",
+              "question": "Write the HTML code to create a page with a header 'Welcome', a paragraph 'This is an HTML lesson', and an unordered list with three items.",
+              "expectedOutput": "<!DOCTYPE html>\n<html>\n<head>\n<title>HTML Exercise</title>\n</head>\n<body>\n<h1>Welcome</h1>\n<p>This is an HTML lesson</p>\n<ul>\n<li>Item 1</li>\n<li>Item 2</li>\n<li>Item 3</li>\n</ul>\n</body>\n</html>",
+              "points": 5,
+              "language": "html",
+              "locked": true
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What does HTML stand for?",
+              "options": [
+                "HyperText Making Language",
+                "HyperText Marking Language",
+                "HyperText Markup Listing",
+                "HyperText Markup Language"
+              ],
+              "correctAnswer": "HyperText Markup Language",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What is the purpose of HTML?",
+              "options": [
+                "To style web pages",
+                "To structure and format the content of websites",
+                "To add interactive features to web pages",
+                "To store data in a database"
+              ],
+              "correctAnswer": "To structure and format the content of websites",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What does the <p> tag define?",
+              "options": [
+                "A link",
+                "A heading",
+                "A paragraph",
+                "A division"
+              ],
+              "correctAnswer": "A paragraph",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which tag is used to define the main content of the HTML page?",
+              "options": [
+                "<html>",
+                "<head>",
+                "<title>",
+                "<body>"
+              ],
+              "correctAnswer": "<body>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What does the <!DOCTYPE html> declaration do?",
+              "options": [
+                "Defines a heading",
+                "Defines a paragraph",
+                "Defines that the document is an HTML document",
+                "Defines a link"
+              ],
+              "correctAnswer": "Defines that the document is an HTML document",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which tag contains information about the HTML page, such as the title and metadata?",
+              "options": [
+                "<body>",
+                "<title>",
+                "<html>",
+                "<head>"
+              ],
+              "correctAnswer": "<head>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which tag defines a hyperlink?",
+              "options": [
+                "<p>",
+                "<a>",
+                "<div>",
+                "<span>"
+              ],
+              "correctAnswer": "<a>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What is the root element of an HTML page?",
+              "options": [
+                "<head>",
+                "<body>",
+                "<html>",
+                "<title>"
+              ],
+              "correctAnswer": "<html>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What does the <div> tag define?",
+              "options": [
+                "A paragraph",
+                "A heading",
+                "A link",
+                "A division or section"
+              ],
+              "correctAnswer": "A division or section",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which of the following is a correct HTML tag for creating a paragraph?",
+              "options": [
+                "<paragraph>",
+                "<p>",
+                "<para>",
+                "<pg>"
+              ],
+              "correctAnswer": "<p>",
+              "points": 1,
+              "locked": true
+            }
+          ],
+          "totalPoints": 10,
+          "locked": false
+        },
+        {"title": "Lesson 2: HTML Basics",
+          "documents": [
+            {
+              "title": "HTML Paragraphs",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "The HTML <p> tag is used to create paragraphs. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p>HTML is fun to learn.</p>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "As we can see, a paragraph starts with the <p> and ends with the </p> tag."
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML paragraphs always start on a new line. To demonstrate this, let's create a webpage with two paragraphs."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p>Paragraph 1: Short Paragraph</p>\n<p>Paragraph 2: Long Paragraph, this is a long paragraph with more text to fill an entire line in the website.</p>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The above HTML code contains two paragraphs. And each paragraph starts on a new line even though there is sufficient space after the first paragraph."
+                },
+                
+              ],
+              "locked": true
+            },
+            {
+              "title": "HTML Paragraphs and Spaces",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Paragraphs automatically remove extra spaces and lines from our text. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p>\nThe paragraph tag removes      all extra spaces. \n\nThe paragraph tag also removes all extra lines.\n</p>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, the output"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• remove all the extra spaces between words"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• remove extra lines between sentences"
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Adding Line Breaks in Paragraphs",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "We can use the HTML line break tag, <br>, to add line breaks within our paragraphs. For example,"
+                },
+                {
+                  "type": "snippet",
+                  "code": "<p>We can use the <br> HTML br tag <br> to add a line break.</p>"
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Pre-formatted Text in HTML",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "As we have discussed, paragraphs cannot preserve extra lines and space. If we need to create content that uses multiple spaces and lines, we can use the HTML <pre> tag."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <pre> tag creates preformatted text. Preformatted texts are displayed as written in the HTML file. For example,"
+                },
+                {
+                  "type": "snippet",
+                  "code": "<pre>\n  This text\n    will be\n      displayed\n\n      in the same manner\n        as it is written\n</pre>"
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Other Elements Inside Paragraphs",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "It's possible to include one HTML element inside another. This is also true for <p> tags. For example,"
+                },
+                {
+                  "type": "snippet",
+                  "code": "<p>\nWe can use other tags like <strong>the strong tag to emphasize text</strong>\n</p>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, we have used the <strong> tag inside the <p> tag."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Browsers automatically make the contents inside <strong> tags bold."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Paragraph is Block-level",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "The <p> tag is a block-level element. It starts on a new line and takes up the full width (of its parent element)."
+                },
+              ],
+              "locked": true
+            },
+            {
+              "title": "Add Extra Space Inside Paragraphs",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "As discussed earlier, we cannot normally add extra empty spaces inside paragraphs. However, we can use a certain HTML entity called non-breaking space to add extra spaces. For example,"
+                },
+                {
+                  "type": "snippet",
+                  "code": "<p>Extra space &nbsp;&nbsp; inside a paragraph</p>"
+                },
+              ],
+              "locked": true
+            }
+          ],
+          "codingActivity": [
+            {
+              "description": "Create an HTML page with different inline and block elements.",
+              "question": "Write the HTML code to create a page with a span element 'This is inline' and a div element 'This is block'.",
+              "expectedOutput": "<!DOCTYPE html>\n<html>\n<head>\n<title>HTML Elements</title>\n</head>\n<body>\n<span>This is inline</span>\n<div>This is block</div>\n</body>\n</html>",
+              "points": 5,
+              "language": "html",
+              "locked": true
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What is the purpose of the HTML <p> tag?",
+              "options": [
+                "To create a link",
+                "To create a heading",
+                "To create a paragraph",
+                "To create a division"
+              ],
+              "correctAnswer": "To create a paragraph",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "How does HTML handle extra spaces and lines within paragraphs?",
+              "options": [
+                "It preserves all spaces and lines",
+                "It removes all extra spaces and lines",
+                "It converts extra spaces to dashes",
+                "It converts extra lines to semicolons"
+              ],
+              "correctAnswer": "It removes all extra spaces and lines",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which HTML tag is used to add a line break within a paragraph?",
+              "options": [
+                "<br>",
+                "<lb>",
+                "<break>",
+                "<line>"
+              ],
+              "correctAnswer": "<br>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What does the <pre> tag do?",
+              "options": [
+                "Creates a paragraph",
+                "Creates a heading",
+                "Creates preformatted text",
+                "Creates a division"
+              ],
+              "correctAnswer": "Creates preformatted text",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "How are contents inside <strong> tags displayed by browsers?",
+              "options": [
+                "Italicized",
+                "Underlined",
+                "Bold",
+                "Strikethrough"
+              ],
+              "correctAnswer": "Bold",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What kind of element is the <p> tag?",
+              "options": [
+                "Inline-level",
+                "Block-level",
+                "Self-closing",
+                "Nested"
+              ],
+              "correctAnswer": "Block-level",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "How can extra empty spaces be added inside paragraphs?",
+              "options": [
+                "Using the space key",
+                "Using the tab key",
+                "Using the &nbsp; entity",
+                "Using the <sp> tag"
+              ],
+              "correctAnswer": "Using the &nbsp; entity",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What happens when you include another tag like <strong> inside a <p> tag?",
+              "options": [
+                "It causes an error",
+                "The content inside the nested tag is ignored",
+                "The nested tag is displayed as text",
+                "The nested tag is applied within the paragraph"
+              ],
+              "correctAnswer": "The nested tag is applied within the paragraph",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What happens to the text within a <pre> tag?",
+              "options": [
+                "It is converted to uppercase",
+                "It is displayed as written in the HTML file",
+                "It is converted to lowercase",
+                "It is centered on the page"
+              ],
+              "correctAnswer": "It is displayed as written in the HTML file",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which tag would you use to emphasize text within a paragraph?",
+              "options": [
+                "<strong>",
+                "<em>",
+                "<b>",
+                "<i>"
+              ],
+              "correctAnswer": "<strong>",
+              "points": 1,
+              "locked": true
+            }
+          ],
+          "totalPoints": 10,
+          "locked": true
+        },
+        {"title": "Lesson 3: HTML Inline",
+          "documents": [
+            {
+              "title": "HTML Elements Overview",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "HTML elements are the building blocks of HTML pages."
+                },
+                {
+                  "type": "sentence",
+                  "text": "They are represented by tags."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<div>\n<p>This is a paragraph.</p>\n</div>"
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Inline vs Block Elements",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Understand the difference between inline and block elements in HTML."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Inline elements do not start on a new line and take up only necessary width."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Block elements start on a new line and take up the full width available."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<span>This is an inline element.</span>\n<div>This is a block element.</div>"
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "HTML Attributes",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "HTML attributes provide additional information about HTML elements."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Attributes are always included in the opening tag."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Common attributes include id, class, and style."
+                },
+                {
+                  "type": "snippet",
+                  "code": "<p id=\"myParagraph\" class=\"text\">This is a paragraph with attributes.</p>"
+                }
+              ],
+              "locked": true
+            }
+          ],
+          "codingActivity": [
+            {
+              "description": "Create an HTML page with different inline and block elements.",
+              "question": "Write the HTML code to create a page with a span element 'This is inline' and a div element 'This is block'.",
+              "expectedOutput": "<!DOCTYPE html>\n<html>\n<head>\n<title>HTML Elements</title>\n</head>\n<body>\n<span>This is inline</span>\n<div>This is block</div>\n</body>\n</html>",
+              "points": 5,
+              "language": "html",
+              "locked": true
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What is an HTML element?",
+              "options": [
+                "A piece of HTML code",
+                "A style applied to HTML",
+                "A JavaScript function"
+              ],
+              "correctAnswer": "A piece of HTML code",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "How do you add an attribute to an HTML tag?",
+              "options": [
+                "By using a colon",
+                "By using an equals sign",
+                "By using a comma"
+              ],
+              "correctAnswer": "By using an equals sign",
+              "points": 1,
+              "locked": true
+            }
+          ],
+          "totalPoints": 10,
+          "locked": true
+        }
+      ],
+      "locked": false
+    }
+  ]
+}

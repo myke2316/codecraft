@@ -21,7 +21,7 @@ export const courseService = apiSlice.injectEndpoints({
     updateUserAnalytics: builder.mutation({
       query: (data) => ({
         url: `${ANALYTICS_URL}/update`,
-        method: "POST",
+        method: "PUT",
         body: data,
       }),
     }),

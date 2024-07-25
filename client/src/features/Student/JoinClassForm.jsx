@@ -11,11 +11,18 @@ import {
 import { setUserProgress } from "./studentCourseProgressSlice";
 import { useCreateUserAnalyticsMutation } from "./userAnalyticsService";
 import { setUserAnalytics } from "./userAnalyticsSlice";
+import { createQuizSubmission } from "../../utils/quizSubmissionUtil";
+import { useCreateUserQuizSubmissionMutation } from "../Course/Quiz/quizSubmissionService";
 function JoinClassForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.userDetails);
   const [joinClass, { isLoading }] = useJoinClassMutation();
+
+  const [
+    createUserQuizSubmissions,
+    { isLoading: isLoadingCreateQuizSubmissions },
+  ] = useCreateUserQuizSubmissionMutation();
 
   async function handleJoinClass(values) {
     const { inviteCode } = values;
@@ -26,6 +33,7 @@ function JoinClassForm() {
       dispatch(addStudent(classData.class));
       createProgress();
       createUserAnalytics();
+      createQuizSubmission(dispatch, createUserQuizSubmissions, user._id);
       toast.success("Successfully joined class!");
       navigate(`/${user._id}`);
     } catch (error) {
