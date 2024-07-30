@@ -75,7 +75,7 @@ const QuizAnalyticsSchema = new Schema({
  // add soon : answer:{type:String}
 });
 
-const CodingActivityAnalyticsSchema = new Schema({
+const activityAnalyticsSchema = new Schema({
   activityId: {
     type: Schema.Types.ObjectId,
     ref: "CodingActivity",
@@ -89,7 +89,7 @@ const LessonAnalyticsSchema = new Schema({
   lessonId: { type: Schema.Types.ObjectId, ref: "Lesson", required: true },
   documentsAnalytics: [DocumentAnalyticsSchema],
   quizzesAnalytics: [QuizAnalyticsSchema],
-  codingActivitiesAnalytics: [CodingActivityAnalyticsSchema],
+  activitiesAnalytics: [activityAnalyticsSchema],
   totalTimeSpent: { type: Number, default: 0 }, // in seconds
   totalPointsEarned: { type: Number, default: 0 },
 });

@@ -1,0 +1,245 @@
+[
+  {
+    "activityId": "html101",
+    "courseId": "courseHTML",
+    "lessonId": "lesson1",
+    "title": "Create a Basic HTML Page",
+    "description": "Build a basic HTML structure.",
+    "language": "HTML",
+    "difficulty": "easy",
+    "problemStatement": "Create a webpage with a title and a heading.",
+    "expectedOutput": "<!DOCTYPE html><html><head><title>My Page</title></head><body><h1>Welcome</h1></body></html>",
+    "codeEditor": {
+      "html": "<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n</head>\n<body>\n</body>\n</html>",
+      "css": "",
+      "js": ""
+    },
+    "testCases": [
+      {
+        "input": "",
+        "output": "<!DOCTYPE html><html><head><title>My Page</title></head><body><h1>Welcome</h1></body></html>",
+        "required": [
+          "<title>My Page</title>",
+          "<h1>Welcome</h1>",
+          "<h1>My name is secret</h1>"
+        ],
+        "isHidden": false
+      }
+    ],
+    "manualReview": {
+      "required": false,
+      "criteria": []
+    }
+  },
+  {
+    "activityId": "html102",
+    "courseId": "courseHTML",
+    "lessonId": "lesson1",
+    "title": "Create a Complex HTML Page",
+    "description": "Add more elements to your HTML page.",
+    "language": "HTML",
+    "difficulty": "medium",
+    "problemStatement": "Include a paragraph and an image.",
+    "expectedOutput": "<!DOCTYPE html><html><head><title>Complex Page</title></head><body><h1>Welcome</h1><p>This is a paragraph.</p><img src='image.jpg' alt='Example Image'></body></html>",
+    "codeEditor": {
+      "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>\nComplex Page\n</title>\n</head>\n<body>\n\n</body>\n</html>",
+      "css": "",
+      "js": ""
+    },
+    "testCases": [
+      {
+        "input": "",
+        "output": "<!DOCTYPE html><html><head><title>Complex Page</title></head><body><h1>Welcome</h1><p>This is a paragraph.</p><img src='image.jpg' alt='Example Image'></body></html>",
+        "required": ["<p>This is a paragraph.</p>", "<img src='/cat.png'"],
+        "isHidden": false
+      }
+    ],
+    "manualReview": {
+      "required": false,
+      "criteria": []
+    }
+  },
+  {
+    "activityId": "html103",
+    "courseId": "courseHTML",
+    "lessonId": "lesson1",
+    "title": "Image Handling Practice",
+    "description": "Create an HTML page that includes an image with specific attributes. The image file should be named 'cat.png' and located in the same directory as your HTML file.",
+    "language": "HTML",
+    "difficulty": "medium",
+    "problemStatement": "Include an image with specific attributes in your HTML page. The image file should be named 'cat.png' and located in the same directory as your HTML file.",
+    "expectedOutput": "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Image Handling Activity</title></head><body><h1>Check out this cat!</h1><img src='cat.png' alt='A cute cat' width='300' height='200'></body></html>",
+    "codeEditor": {
+      "html": "<!DOCTYPE html>\n<html lang='en'>\n<head>\n    <meta charset='UTF-8'>\n    <meta name='viewport' content='width=device-width, initial-scale=1.0'>\n    <title>Image Handling Activity</title>\n</head>\n<body>\n    \n</body>\n</html>",
+      "css": "",
+      "js": ""
+    },
+    "testCases": [
+      {
+        "input": "",
+        "output": "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Image Handling Activity</title></head><body><h1>Check out this cat!</h1><img src='cat.png' alt='A cute cat' width='300' height='200'></body></html>",
+        "required": [
+          "<h1>Check out this cat!</h1>",
+          "<img src='/cat.png' alt='cat'"
+        ],
+        "isHidden": false
+      }
+    ],
+    "manualReview": {
+      "required": true,
+      "criteria": [
+        "Ensure that the image file 'cat.png' is present in the same directory as the HTML file.",
+        "Check if the image is correctly displayed with the specified attributes (width, height, alt text)."
+      ]
+    }
+  }, 
+  {
+    "activityId": "css101",
+    "courseId": "courseCSS",
+    "lessonId": "lesson1",
+    "title": "Style a Simple Webpage",
+    "description": "Apply basic CSS styles.",
+    "language": "CSS",
+    "difficulty": "easy",
+    "problemStatement": "Style the page with a blue background and red heading.",
+    "expectedOutput": "<!DOCTYPE html><html><head><title>Styled Page</title><style>body { background-color: blue; } h1 { color: red; }</style></head><body><h1>Hello World</h1></body></html>",
+    "codeEditor": {
+      "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Styled Page</title>\n</head>\n<body>\n<h1>Hello World</h1>\n</body>\n</html>",
+      "css": "",
+      "js": ""
+    },
+    "testCases": [
+      {
+        "input": "",
+        "output": "<!DOCTYPE html><html><head><title>Styled Page</title><style>body { background-color: blue; } h1 { color: red; }</style></head><body><h1>Hello World</h1></body></html>",
+        "required": ["body { background-color: blue; }", "h1 { color: red; }"],
+        "isHidden": false
+      }
+    ],
+    "manualReview": {
+      "required": false,
+      "criteria": []
+    }
+  },
+  {
+    "activityId": "css102",
+    "courseId": "courseCSS",
+    "lessonId": "lesson1",
+    "title": "Advanced CSS Styling",
+    "description": "Style a page with additional elements.",
+    "language": "CSS",
+    "difficulty": "medium",
+    "problemStatement": "Add styles for a paragraph and image.",
+    "expectedOutput": "<!DOCTYPE html><html><head><title>Advanced Styled Page</title><style>body { background-color: blue; } h1 { color: red; } p { font-size: 16px; } img { width: 100px; }</style></head><body><h1>Hello World</h1><p>This is a paragraph.</p><img src='image.jpg' alt='Example Image'></body></html>",
+    "codeEditor": {
+      "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Advanced Styled Page</title>\n</head>\n<body>\n<h1>Hello World</h1>\n<p>This is a paragraph.</p>\n<img src='image.jpg' alt='Example Image'>\n</body>\n</html>",
+      "css": "",
+      "js": ""
+    },
+    "testCases": [
+      {
+        "input": "",
+        "output": "<!DOCTYPE html><html><head><title>Advanced Styled Page</title><style>body { background-color: blue; } h1 { color: red; } p { font-size: 16px; } img { width: 100px; }</style></head><body><h1>Hello World</h1><p>This is a paragraph.</p><img src='image.jpg' alt='Example Image'></body></html>",
+        "required": ["p { font-size: 16px; }", "img { width: 100px; }"],
+        "isHidden": false
+      }
+    ],
+    "manualReview": {
+      "required": false,
+      "criteria": []
+    }
+  },
+  {
+    "activityId": "js101",
+    "courseId": "courseJS",
+    "lessonId": "lesson1",
+    "title": "Add Interaction with JavaScript",
+    "description": "Create an interactive button.",
+    "language": "JavaScriptWeb",
+    "difficulty": "easy",
+    "problemStatement": "Add a button that shows an alert when clicked.",
+    "expectedOutput": "Button clicked!",
+    "codeEditor": {
+      "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Interactive Page</title>\n</head>\n<body>\n<button id='alertButton'>Click me</button>\n</body>\n</html>",
+      "css": "",
+      "js": ""
+    },
+    "testCases": [
+      {
+        "input": "",
+        "output": "Button clicked!",
+        "required": [
+          "document.getElementById('alertButton').addEventListener('click', function() { alert('Button clicked!'); alert('button not clicked'); });"
+         
+        ],
+        "isHidden": false
+      }
+    ],
+    "manualReview": {
+      "required": false,
+      "criteria": []
+    }
+  },
+  {
+    "activityId": "js102",
+    "courseId": "courseJS",
+    "lessonId": "lesson1",
+    "title": "Form Validation with JavaScript",
+    "description": "Add validation to a form.",
+    "language": "JavaScriptWeb",
+    "difficulty": "medium",
+    "problemStatement": "Validate form inputs and display a message.",
+    "expectedOutput": "Form is valid",
+    "codeEditor": {
+      "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Form Validation</title>\n</head>\n<body>\n<form id='myForm'>\n<input type='text' id='name'>\n<button type='submit'>Submit</button>\n</form>\n</body>\n</html>",
+      "css": "",
+      "js": ""
+    },
+    "testCases": [
+      {
+        "input": "",
+        "output": "Form is valid",
+        "required": [
+          "document.getElementById('myForm')",
+          "event.preventDefault()"
+        ],
+        "isHidden": false
+      }
+    ],
+    "manualReview": {
+      "required": false,
+      "criteria": []
+    }
+  },
+  {
+    "activityId": "js103",
+    "courseId": "courseJS",
+    "lessonId": "lesson1",
+    "title": "Log - Javascript",
+    "description": "Log 'Hello' in the terminal.",
+    "language": "JavaScriptConsole",
+    "difficulty": "hard",
+    "problemStatement": "Output: Hello",
+    "expectedOutput": "Hello",
+    "codeEditor": {
+      "html": "",
+      "css": "",
+      "js": ""
+    },
+    "testCases": [
+      {
+        "input": "",
+        "output": "Hello",
+        "required": [
+          "console.log('Hello');",
+          "console.log('Hi');"
+        ],
+        "isHidden": false
+      }
+    ],
+    "manualReview": {
+      "required": false,
+      "criteria": []
+    }
+  }
+]

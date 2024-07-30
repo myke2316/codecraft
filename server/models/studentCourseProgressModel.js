@@ -12,20 +12,20 @@ const QuizProgressSchema = new Schema({
   locked: { type: Boolean },
 });
 
-// const CodingActivityProgressSchema = new Schema({
-//   activityId: {
-//     type: Schema.Types.ObjectId,
-//     ref: "CodingActivity",
-//     required: true,
-//   },
-//   locked: { type: Boolean },
-// });
+const CodingActivityProgressSchema = new Schema({
+  activityId: {
+    type: Schema.Types.ObjectId,
+    ref: "CodingActivity",
+    required: true,
+  },
+  locked: { type: Boolean },
+});
 
 const LessonProgressSchema = new Schema({
   lessonId: { type: Schema.Types.ObjectId, ref: "Lesson", required: true },
   documentsProgress: [DocumentProgressSchema],
   quizzesProgress: [QuizProgressSchema],
-  // codingActivitiesProgress: [CodingActivityProgressSchema],
+  activitiesProgress: [CodingActivityProgressSchema],
   locked: { type: Boolean },
 });
 

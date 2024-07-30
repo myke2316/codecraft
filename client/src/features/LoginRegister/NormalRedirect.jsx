@@ -13,6 +13,8 @@ import { useFetchUserAnalyticsMutation } from "../Student/userAnalyticsService";
 import { setUserAnalytics } from "../Student/userAnalyticsSlice";
 import { useFetchUserQuizSubmissionMutation } from "../Course/Quiz/quizSubmissionService";
 import { getQuizSubmission } from "../../utils/quizSubmissionUtil";
+import { useFetchUserActivitySubmissionMutation } from "../Course/CodingActivity/activitySubmissionService";
+import { getActivitySubmissions } from "../../utils/activitySubmissionUtil";
 
 function NormalRedirect() {
   const dispatch = useDispatch();
@@ -20,6 +22,11 @@ function NormalRedirect() {
 
   const [fetchUserQuizSubmission, { isLoading: isLoadingFetchQuizSubmission }] =
     useFetchUserQuizSubmissionMutation();
+
+  const [
+    fetchUserActivitySubmission,
+    { isLoading: isLoadingFetchActivitySubmission },
+  ] = useFetchUserActivitySubmissionMutation();
 
   const [fetchClass, { isLoading }] = useFetchClassMutation();
   const userDetails = useSelector((state) => state.user.userDetails);
@@ -40,6 +47,11 @@ function NormalRedirect() {
       fetchCourse();
       fetchAnalytics();
       getQuizSubmission(dispatch, fetchUserQuizSubmission, userId);
+      getActivitySubmissions(
+        dispatch,
+        fetchUserActivitySubmission,
+        userDetails._id
+      );
       navigate(`/${userDetails._id}`);
     } catch (error) {
       console.error("Error fetching class:", error);

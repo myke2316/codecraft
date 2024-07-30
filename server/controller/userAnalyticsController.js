@@ -201,8 +201,8 @@ const updateUserAnalytics = async (req, res) => {
               }
 
               // Handle Coding Activity Analytics
-              if (lesson.codingActivitiesAnalytics && Array.isArray(lesson.codingActivitiesAnalytics)) {
-                lesson.codingActivitiesAnalytics.forEach((activity) => {
+              if (lesson.activitiesAnalytics && Array.isArray(lesson.activitiesAnalytics)) {
+                lesson.activitiesAnalytics.forEach((activity) => {
                   if (activity.activityId) {
                     activityIds.push(activity.activityId);
 
@@ -210,10 +210,10 @@ const updateUserAnalytics = async (req, res) => {
                     totalLessonPoints += activity.pointsEarned;
 
                     updateObject[
-                      `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].codingActivitiesAnalytics.$[activity].timeSpent`
+                      `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].activitiesAnalytics.$[activity].timeSpent`
                     ] = activity.timeSpent;
                     updateObject[
-                      `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].codingActivitiesAnalytics.$[activity].pointsEarned`
+                      `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].activitiesAnalytics.$[activity].pointsEarned`
                     ] = activity.pointsEarned;
                   }
                 });

@@ -1,661 +1,1023 @@
 {
   "courses": [
     {
-      "title": "HTML",
+      "title": "Learn CSS",
+      "locked": true,
       "lessons": [
-        {"title": "Lesson 1: Introduction to HTML",
+        {
+          "title": "Lesson 5: Exploring CSS Backgrounds",
+          "totalPoints": 30,
+          "locked": true,
           "documents": [
             {
-              "title": "What is HTML?",
+              "title": "CSS: Background Property",
               "content": [
                 {
                   "type": "sentence",
-                  "text": "HTML (HyperText Markup Language) is used to structure and format the content of websites on the World Wide Web. Web Developers use it to create a skeleton of modern websites and web apps."
+                  "text": "<strong>The CSS background property</strong> allows you to set the background color or image of an element. This property is versatile and can significantly enhance the visual appeal of a web page."
                 },
                 {
                   "type": "sentence",
-                  "text": "Let's see what HyperText Markup Language means."
+                  "text": "<strong>Shorthand for Background Properties</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "• HyperText"
+                  "text": "The <strong>background</strong> property can also act as a shorthand for several background-related properties, allowing you to define multiple aspects of an element's background in a single declaration. The syntax for the shorthand property is:"
                 },
-                {
-                  "type": "sentence",
-                  "text": "HyperText is a way of organizing text that allows the reader to easily navigate and access related information. It takes the reader to a different part of the same web page, or to a different web page altogether."
-                },
-                {
-                  "type": "sentence",
-                  "text": "• Markup language"
-                },
-                {
-                  "type": "sentence",
-                  "text": "A markup language is a computer language that is used to add structure and formatting to a text document. Markup languages use a system of tags to define the structure and content of a document. These tags are interpreted by a program or application to display the document in a specific way."
-                },
-                {
-                  "type": "sentence",
-                  "text": "Example of HTML"
-                },
-                {
-                  "type": "sentence",
-                  "text": "Let's see a simple example of HTML."
-                },
-                
                 {
                   "type": "snippet",
-                  "code": "<!DOCTYPE html>\n<html>\n<head>\n<title>CodeCraft</title>\n</head>\n<body>\n<h1>HTML Tutorial</h1>\n<p>You'll learn about HTML.</p>\n</body>\n</html>"
+                  "language": "css",
+                  "code": "background: [background-image] [background-position] / [background-size] [background-repeat] [background-attachment] [background-origin] [background-clip] [background-color];"
                 },
                 {
                   "type": "sentence",
-                  "text": "In the above program,"
+                  "text": "<strong>Components of the Shorthand Property:</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <!DOCTYPE html> - defines that this document is an HTML document"
+                  "text": "1. <strong>background-image:</strong> Sets an image as the background."
                 },
                 {
                   "type": "sentence",
-                  "text": "• <html> - root element of an HTML page which encloses all other elements in the HTML page"
+                  "text": "2. <strong>background-position:</strong> Specifies the position of the background image."
                 },
                 {
                   "type": "sentence",
-                  "text": "• <head> - contains information about the page, such as the title and metadata"
+                  "text": "3. <strong>background-size:</strong> Defines the size of the background image."
                 },
                 {
                   "type": "sentence",
-                  "text": "• <title> - specifies a title for the HTML page which is shown in the browser's title bar"
+                  "text": "4. <strong>background-repeat:</strong> Controls the repeating behavior of the background image."
                 },
                 {
                   "type": "sentence",
-                  "text": "• <body> - defines the main content of the page and is a container for all the visible contents, such as headings, paragraphs, lists, etc"
+                  "text": "5. <strong>background-attachment:</strong> Specifies whether the background image is fixed or scrolls with the content."
                 },
                 {
                   "type": "sentence",
-                  "text": "• <h1> - defines a heading"
+                  "text": "6. <strong>background-origin:</strong> Determines the positioning area of the background image."
                 },
                 {
                   "type": "sentence",
-                  "text": "• <p> - defines a paragraph of HTML document"
+                  "text": "7. <strong>background-clip:</strong> Defines the area within which the background is visible."
                 },
-                
-
-
+                {
+                  "type": "code",
+                  "language": "css",
+                  "code": "h1 {\n  background: lightblue;\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>CodeCraft Background Example</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <h1>Welcome to CodeCraft</h1>\n  <p>Explore a world of coding and creativity.</p>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example Description:</strong> In this example, the background of the <strong>&lt;h1&gt;</strong> element is set to light blue, enhancing its visibility and appeal."
+                }
               ],
-              "locked": false
+              "locked": true
             },
-            {"title": "HTML Structure",
+            {
+              "title": "CSS: Background Color Property",
               "content": [
                 {
                   "type": "sentence",
-                  "text": "HTML documents have a structure that includes elements such as doctype, html, head, and body tags."
+                  "text": "The CSS <strong>background-color</strong> property is used to define the background color of an HTML element."
                 },
                 {
                   "type": "sentence",
-                  "text": "The doctype declaration defines the document type."
+                  "text": "<strong>Syntax</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": "background-color: color-value | transparent | initial | inherit;"
                 },
                 {
                   "type": "sentence",
-                  "text": "The html element is the root element of an HTML page."
+                  "text": "1. <strong>color-value:</strong> Specifies the color for the background using named colors (like red), hexadecimal values (like #ff0000), RGB values (like rgb(255, 0, 0)), etc."
                 },
                 {
                   "type": "sentence",
-                  "text": "The head element contains meta-information about the HTML document."
+                  "text": "2. <strong>transparent:</strong> Makes the background transparent (default value)."
                 },
                 {
                   "type": "sentence",
-                  "text": "The body element contains the visible page content."
+                  "text": "3. <strong>initial:</strong> Sets the property to its default value."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>inherit:</strong> Inherits the property value from its parent element."
                 },
                 {
                   "type": "code",
-                  "language": "html",
-                  "code": "<p>This is a paragraph.</p>"
+                  "language": "css",
+                  "code": "/* General styling */\nbody {\n  font-family: Arial, sans-serif;\n}\n\n/* Header section with CodeCraft branding color */\n.header-section {\n  background-color: #1a1a2e; /* Dark blue for header */\n  color: #f8f9fa; /* Light text color */\n  padding: 20px;\n  text-align: center;\n}\n\n/* Courses section with a vibrant color */\n.courses-section {\n  background-color: #16213e; /* Slightly lighter blue */\n  color: #e94560; /* Bright accent color */\n  padding: 20px;\n  margin: 20px 0;\n}\n\n/* Community section with a welcoming color */\n.community-section {\n  background-color: #0f3460; /* Another shade of blue */\n  color: #f8f9fa; /* Light text color */\n  padding: 20px;\n  margin: 20px 0;\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>CodeCraft Themed Sections</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <div class=\"header-section\">\n    <h1>Welcome to CodeCraft</h1>\n  </div>\n  <div class=\"courses-section\">\n    <p>Explore our wide range of coding courses, from beginner to advanced levels.</p>\n  </div>\n  <div class=\"community-section\">\n    <p>Join our community and collaborate with other learners!</p>\n  </div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Explanation</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• header-section:</strong> Uses a dark blue background to represent the CodeCraft branding. The light text color ensures good contrast and readability."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• courses-section:</strong> The slightly lighter blue background distinguishes this section from the header, while the bright accent color for the text draws attention to the courses offered."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• community-section:</strong> A warm and inviting color scheme encourages users to engage with the community. The consistent use of blue hues maintains a cohesive look across the site."
                 }
-              ]
+              ],
+              "locked": true
             },
             {
-              "title": "Basic HTML Tags",
+              "title": "CSS: Background Image Property",
               "content": [
                 {
                   "type": "sentence",
-                  "text": "Learn about basic HTML tags like <p>, <a>, <div>, and more."
+                  "text": "<strong>The background-image property</strong> is a powerful tool for enhancing the visual appeal of elements on a webpage by applying images as backgrounds."
                 },
                 {
                   "type": "sentence",
-                  "text": "The <p> tag defines a paragraph."
+                  "text": "<strong>Syntax</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": "background-image: url(image-path) | none | initial | inherit;"
                 },
                 {
                   "type": "sentence",
-                  "text": "The <a> tag defines a hyperlink."
+                  "text": "1. <strong>url(image-path):</strong> Specifies the URL of the image file to be used as the background."
                 },
                 {
                   "type": "sentence",
-                  "text": "The <div> tag defines a division or a section in an HTML document."
+                  "text": "2. <strong>none:</strong> Removes any background image."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>initial:</strong> Sets the property to its default value."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>inherit:</strong> Inherits the background image from the parent element."
                 },
                 {
                   "type": "code",
-                  "language": "html",
-                  "code": "<div>\n<p>This is a paragraph.</p>\n<a href=\"https://www.example.com\">This is a link</a>\n</div>"
+                  "language": "css",
+                  "code": ".background-example {\n  height: 100vh; /* Full viewport height */\n  background-image: url(\"https://png.pngtree.com/thumb_back/fh260/back_our/20190617/ourmid/pngtree-blue-technology-e-commerce-learning-education-business-poster-banner-image_123753.jpg\"); /* Path to background image */\n  background-repeat: no-repeat; /* Prevents the image from repeating */\n  background-size: cover; /* Ensures the image covers the entire element */\n  background-position: center; /* Centers the image in the element */\n  color: black; /* Sets text color to ensure readability */\n  text-align: center; /* Centers text horizontally */\n  display: flex; /* Uses flexbox to center content vertically */\n  justify-content: center; /* Centers content horizontally */\n  align-items: center; /* Centers content vertically */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Background Image Example</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <div class=\"background-example\">\n    <h1>Welcome to CodeCraft</h1>\n    <p>Explore CSS properties and enhance your web design skills.</p>\n  </div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Description:</strong> In this example, the background-image property applies an image as the background for the .background-example div. The image is set to cover the entire div, does not repeat, and is centered both vertically and horizontally."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Additional Properties for Background Image Customization</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>background-repeat:</strong> Specifies whether a background image should repeat. Possible values include repeat, no-repeat, repeat-x, and repeat-y."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>background-attachment:</strong> Determines whether the background image scrolls with the page or remains fixed. Values include scroll (default) and fixed."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>background-size:</strong> Defines the size of the background image. Common values include auto, cover, and contain."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>background-position:</strong> Sets the position of the background image within the element. Values include top left, center center, bottom right, etc."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. <strong>background-clip:</strong> Specifies the area within the element where the background image is painted. Values include border-box, padding-box, and content-box."
+                },
+                {
+                  "type": "sentence",
+                  "text": "6. <strong>background-origin:</strong> Determines the background positioning area. Values include padding-box, border-box, and content-box."
                 }
-              ]
-            }
-          ],
-          "codingActivity": [
+              ],
+              "locked": true
+            },
             {
-              "description": "Create a basic HTML page with a header, paragraph, and list.",
-              "question": "Write the HTML code to create a page with a header 'Welcome', a paragraph 'This is an HTML lesson', and an unordered list with three items.",
-              "expectedOutput": "<!DOCTYPE html>\n<html>\n<head>\n<title>HTML Exercise</title>\n</head>\n<body>\n<h1>Welcome</h1>\n<p>This is an HTML lesson</p>\n<ul>\n<li>Item 1</li>\n<li>Item 2</li>\n<li>Item 3</li>\n</ul>\n</body>\n</html>",
-              "points": 5,
-              "language": "html",
+              "title": "CSS Background-Repeat Property",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>The background-repeat property</strong> controls how a background image is repeated within an element. This property is essential for creating visually appealing designs and handling different image sizes and layouts."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Syntax</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": "background-repeat: repeat | repeat-x | repeat-y | no-repeat | space | round | initial | inherit;"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Values:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>repeat:</strong> The default value. The background image repeats both horizontally and vertically."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>repeat-x:</strong> The background image repeats only horizontally."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>repeat-y:</strong> The background image repeats only vertically."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>no-repeat:</strong> The background image does not repeat. Only one instance of the image is shown."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. <strong>space:</strong> The background image repeats, with extra space distributed evenly between images. Images do not overlap or clip."
+                },
+                {
+                  "type": "sentence",
+                  "text": "6. <strong>round:</strong> The background image repeats, with images stretched or squished to fit the available space."
+                },
+                {
+                  "type": "sentence",
+                  "text": "7. <strong>initial:</strong> Sets the property to its default value (repeat)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "8. <strong>inherit:</strong> Inherits the property value from its parent element."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 1: Default Repeat</strong> By default, the background image repeats both horizontally and vertically."
+                },
+                {
+                  "type": "code",
+                  "language": "css",
+                  "code": "body {\n    background-image: url(\"https://img.freepik.com/premium-vector/elearning-concept-laptop-as-book-dark-blue-background-online-education-technology_387612-38.jpg\");\n    background-repeat: repeat; /* Default value, repeats both horizontally and vertically */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Background Repeat Example</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 2: Repeat-X</strong> This example shows how to repeat the background image only horizontally."
+                },
+                {
+                  "type": "code",
+                  "language": "css",
+                  "code": "body {\n    background-image: url(\"https://img.freepik.com/premium-vector/elearning-concept-laptop-as-book-dark-blue-background-online-education-technology_387612-38.jpg\");\n    background-repeat: repeat-x; /* Repeats only horizontally */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Background Repeat-X Example</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 3: No-Repeat</strong> This example ensures the background image does not repeat."
+                },
+                {
+                  "type": "code",
+                  "language": "css",
+                  "code": "body {\n    background-image: url(\"https://img.freepik.com/premium-vector/elearning-concept-laptop-as-book-dark-blue-background-online-education-technology_387612-38.jpg\");\n    background-repeat: no-repeat; /* Image does not repeat */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Background No-Repeat Example</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 4: Space</strong> The space value ensures that the background image repeats without clipping, with equal spacing between images."
+                },
+                {
+                  "type": "code",
+                  "language": "css",
+                  "code": "body {\n    height: 100vh; /* Full viewport height */\n    background-image: url(\"https://img.freepik.com/premium-vector/elearning-concept-laptop-as-book-dark-blue-background-online-education-technology_387612-38.jpg\");\n    background-repeat: space; /* Distributes the space evenly between repeated images */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Background Space Example</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 5: Round</strong> The round value ensures the background image is resized to fit the available space."
+                },
+                {
+                  "type": "code",
+                  "language": "css",
+                  "code": "body {\n    height: 100vh; /* Full viewport height */\n    background-image: url(\"https://img.freepik.com/premium-vector/elearning-concept-laptop-as-book-dark-blue-background-online-education-technology_387612-38.jpg\");\n    background-repeat: round; /* Resizes the image to fill the background area */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Background Round Example</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong>background-repeat</strong> property provides control over how background images are repeated within an element. By understanding and applying different values, you can effectively manage the presentation of background images to enhance the visual design of your webpage."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "CSS: Background-Attachment Property",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>The background-attachment property</strong> in CSS determines how a background image is positioned relative to the viewport or element when scrolling. It can be used to create effects where the background image either scrolls with the content or stays fixed in place."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Syntax</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": "background-attachment: scroll | fixed | local | initial | inherit;"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Values:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>scroll:</strong> The background image scrolls along with the content of the element (default behavior)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>fixed:</strong> The background image remains fixed in place while the content of the element scrolls."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>local:</strong> The background image scrolls with the content of the element itself, not the viewport."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>initial:</strong> Sets the property to its default value (scroll)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. <strong>inherit:</strong> Inherits the background attachment value from its parent element."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 1: Scrolling Background</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In this example, the background image scrolls with the content of the page."
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": "body {\n  background-image: url('https://campuslabs.in/wp-content/uploads/2020/07/e-learning-bg.jpg');\n  background-attachment: scroll; /* Default value: image scrolls with the content */\n  background-repeat: no-repeat; /* Ensures the image does not repeat */\n  background-size: cover; /* Scales the image to cover the entire background */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Background-Attachment Scroll</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Description:</strong> In this example, the background-attachment: scroll property ensures that the background image scrolls along with the page’s content. This is the default behavior where the background image moves in tandem with the scrolling content."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 2: Fixed Background</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, the background image remains fixed in place as you scroll through the page."
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": "body {\n  background-image: url('https://campuslabs.in/wp-content/uploads/2020/07/e-learning-bg.jpg');\n  background-attachment: fixed; /* Background image remains fixed during scrolling */\n  background-repeat: no-repeat; /* Ensures the image does not repeat */\n  background-size: cover; /* Scales the image to cover the entire background */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Background-Attachment Fixed</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n  <p>CodeCraft e-learning</p>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Description:</strong> The background-attachment: fixed property keeps the background image fixed in the viewport. While the content scrolls, the background image stays in a constant position, creating a parallax effect."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 3: Local Background</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In this example, the background image scrolls with the content of the element."
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": ".scrolling-content {\n  height: 200px; /* Define a height for the container */\n  overflow: auto; /* Enable scrolling */\n  background-image: url('https://media.licdn.com/dms/image/D4D12AQHL1tmi-7TC4A/article-cover_image-shrink_720_1280/0/1690022978374?e=2147483647&v=beta&t=YwKKeReRpB5gpkENmHGOi4zjgRuaKJqSKJOKXuNTIMc');\n  background-attachment: local; /* Background image scrolls with the container’s content */\n  background-repeat: no-repeat; /* Ensures the image does not repeat */\n  background-size: cover; /* Scales the image to cover the entire background */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Background-Attachment Local</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <div class=\"scrolling-content\">\n    <p>This is a paragraph within a scrolling container.</p>\n    <p>CODECRAFT</p>\n    <p>CODECRAFT</p>\n    <p>CODECRAFT</p>\n    <p>CODECRAFT</p>\n    <p>CODECRAFT</p>\n    <p>CODECRAFT</p>\n    <p>CODECRAFT</p>\n    <p>CODECRAFT</p>\n    <p>CODECRAFT</p>\n    <p>CODECRAFT</p>\n    <p>CODECRAFT</p>\n    <p>CODECRAFT</p>\n    <p>CODECRAFT</p>\n    <p>This is another paragraph within the same container.</p>\n  </div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Description:</strong> Using background-attachment: local makes the background image scroll with the content of the specific element, rather than the entire page. This is useful for creating effects within scrollable containers."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "CSS: Background-Size Property",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>CSS Background-Size Property</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong>background-size</strong> property is used to control the dimensions of a background image in an element. This property determines how the background image should be scaled and displayed within its container."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Syntax</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": "background-size: auto | length | percentage | cover | contain | initial | inherit;"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Values:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>auto:</strong> Uses the original size of the background image (default value)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>length:</strong> Specifies the size of the background image using length values like pixels (px) or em units."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>percentage:</strong> Scales the background image relative to the container’s size."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>cover:</strong> Scales the background image to cover the entire background area while maintaining its aspect ratio."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. <strong>contain:</strong> Scales the background image to fit within the background area while maintaining its aspect ratio."
+                },
+                {
+                  "type": "sentence",
+                  "text": "6. <strong>initial:</strong> Sets the property to its default value (auto)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "7. <strong>inherit:</strong> Inherits the property value from its parent element."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 1: Using Length Units</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": ".fixed-size {\n  background-image: url('https://c8.alamy.com/comp/2BKM4PB/e-learning-online-school-vector-background-e-learning-online-courses-text-with-computer-devices-and-school-elements-for-digital-home-education-study-2BKM4PB.jpg');\n  background-size: 300px 200px; /* Set background image width to 300px and height to 200px */\n  background-repeat: no-repeat; /* Prevent image from repeating */\n  width: 400px; /* Container width */\n  height: 300px; /* Container height */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Background Size with Length Units</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <div class=\"fixed-size\">Sample Content</div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Explanation:</strong> This example sets the background image to a fixed size of 300px by 200px. The <strong>background-size</strong> property adjusts the image dimensions directly."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 2: Covering the Background</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": ".cover-background {\n  background-image: url('https://www.collegiateparent.com/wp-content/uploads/2020/04/online-learning-terms.jpg');\n  background-size: cover; /* Ensure the image covers the entire container */\n  background-repeat: no-repeat; /* Prevent image from repeating */\n  width: 100vw; /* Full viewport width */\n  height: 100vh; /* Full viewport height */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Background Size Cover</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <div class=\"cover-background\">Content Area</div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Explanation:</strong> Using <strong>background-size: cover</strong> ensures that the image will stretch to cover the entire element, even if it means cropping part of the image."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "CSS: Background-Clip Properties",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>The background-clip property</strong> in CSS determines which parts of an element’s background (color, image, or gradient) are visible. It controls how the background is applied relative to the element’s box model areas."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Syntax</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": "background-clip: border-box | padding-box | content-box | text | initial | inherit;"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Values:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>border-box:</strong> The background extends to the border edge, including the border area."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>padding-box:</strong> The background is visible up to the padding edge, excluding the border."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>content-box:</strong> The background is confined to the content area of the element."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>text:</strong> The background is clipped to the text, making the background visible only within the text’s area."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. <strong>initial:</strong> Resets the property to its default value (border-box)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "6. <strong>inherit:</strong> Inherits the background-clip value from its parent element."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 1: Clipping to border-box</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": ".clip-border {\n  padding: 15px;\n  border: 10px solid black;\n  background-color: lightblue;\n  background-clip: border-box; /* Background extends to the border edge */\n  text-align: center;\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Background Clip Border Box</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"clip-border\">Border Box Background</div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Explanation:</strong> In this example, the <strong>background-clip: border-box </strong>ensures the background color covers the entire area up to and including the border."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 2: Clipping to padding-box</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": ".clip-padding {\n  padding: 15px;\n  border: 10px dashed black; /* Dashed border to show break */\n  background-color: lightcoral;\n  background-clip: padding-box; /* Background stops at the padding edge */\n  text-align: center;\n  width: 200px;\n  margin: 20px;\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Background Clip Padding Box</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"clip-padding\">Padding Box Background</div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Explanation:</strong> In this example, <strong>background-clip: padding-box</strong> confines the background color to the padding area, preventing it from extending into the border."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 3: Clipping to content-box</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": ".clip-content {\n  padding: 15px;\n  border: 10px solid black;\n  background-color: lightgreen;\n  background-clip: content-box; /* Background only in the content area */\n  text-align: center;\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Background Clip Content Box</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"clip-content\">Content Box Background</div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Explanation:</strong> In this example, <strong>background-clip: content-box</strong> restricts the background color to only the content area, excluding padding and borders."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 4: Clipping to text</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": ".clip-text {\n  background-image: url('https://c0.wallpaperflare.com/preview/746/150/495/computer-concept-education-illustration.jpg');\n  background-clip: text; /* Background only in the text area */\n  -webkit-background-clip: text; /* Browser compatibility */\n  -webkit-text-fill-color: transparent; /* Text color transparent */\n  font-size: 36px;\n  font-weight: bold;\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Background Clip Text</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"clip-text\">Text Clipped Background</div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Explanation:</strong> In this example, <strong>background-clip: text</strong> makes the background image visible only within the text, and the -webkit-background-clip: text property ensures browser compatibility."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "CSS: Background-Origin Property",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>The background-origin property</strong> defines the positioning area for a background image. It determines where the background image is placed relative to the element’s box model."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Syntax</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": "background-origin: padding-box | border-box | content-box | initial | inherit;"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Values:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>padding-box:</strong> The background image starts from the padding edge of the element. This is the default value."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>border-box:</strong> The background image starts from the border edge, including the padding and border areas."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>content-box:</strong> The background image starts from the content edge, excluding padding and border areas."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>initial:</strong> Sets the property to its default value (padding-box)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. <strong>inherit:</strong> The property value is inherited from the parent element."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 1: Background Origin at border-box</strong>"
+                },
+                {
+                  "type": "code",
+                  "language": "css",
+                  "code": ".border-box {\n    border: 10px solid black;\n    padding: 20px;\n    background-image: url('https://png.pngtree.com/thumb_back/fh260/back_our/20190617/ourmid/pngtree-blue-technology-e-commerce-learning-education-business-poster-banner-image_123753.jpg');\n    background-repeat: no-repeat;\n    background-origin: border-box; /* Background starts from the border edge */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Background Origin Border Box</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"border-box\">Background Origin at Border Box</div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Description:</strong> In this example, the <srong>background-origin: border-box</strong> value makes the background image start from the top-left corner of the border area, extending into the padding and content areas."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 2: Background Origin at padding-box</strong>"
+                },
+                {
+                  "type": "code",
+                  "language": "css",
+                  "code": ".padding-box {\n    border: 10px dashed black; /* Dashed border to show break */\n    padding: 20px;\n    background-image: url('https://cdn.elearningindustry.com/wp-content/uploads/2023/02/shutterstock_1449924503.jpg');\n    background-repeat: no-repeat;\n    background-origin: padding-box; /* Background starts from the padding edge */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Background Origin Padding Box</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"padding-box\">Background Origin at Padding Box</div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Description:</strong> With <strong>background-origin: padding-box</strong>, the background image is positioned starting from the top-left corner of the padding area, excluding the border."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 3: Background Origin at content-box</strong>"
+                },
+                {
+                  "type": "code",
+                  "language": "css",
+                  "code": ".content-box {\n    border: 10px solid black;\n    padding: 20px;\n    background-image: url('https://www.shutterstock.com/image-photo/banner-homeschooling-workspace-laptop-stationery-260nw-1887490225.jpg');\n    background-repeat: no-repeat;\n    background-origin: content-box; /* Background starts from the content edge */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Background Origin Content Box</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"content-box\">Background Origin at Content Box</div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Description:</strong> Using <strong>background-origin: content-box</strong>, the background image starts at the top-left corner of the content area, excluding both padding and border."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Note on background-attachment</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong>background-origin</strong> property does not influence the background-attachment property when set to fixed. In such cases, the background image remains fixed relative to the viewport, and the origin setting has no visible effect."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example with background-attachment: fixed:</strong>"
+                },
+                {
+                  "type": "code",
+                  "language": "css",
+                  "code": ".fixed-background {\n    border: 10px solid black;\n    padding: 20px;\n    background-image: url('https://img.freepik.com/free-photo/flat-lay-stationary-arrangement-desk-with-yellow-supplies_23-2148404491.jpg');\n    background-repeat: no-repeat;\n    background-size: cover;\n    background-attachment: fixed; /* Background is fixed relative to the viewport */\n    background-origin: content-box; /* This does not affect the fixed background */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Background Attachment Fixed</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"fixed-background\">Fixed Background Attachment</div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Description:</strong> Even though <strong>background-origin is set to content-box, background-attachment: fixed</strong> keeps the background image fixed relative to the viewport, overriding the origin setting."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "CSS: Background Position Property",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>The background-position property</strong> is used to specify the position of a background image within its container. This property allows you to align the image horizontally and vertically."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Syntax</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": "background-position: length | percentage | keyword | initial | inherit;"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Values:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>length:</strong> Specifies the position using length units such as px, em, etc."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>percentage:</strong> Positions the image relative to the container's size, with 0% representing the left or top edge and 100% representing the right or bottom edge."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>keyword:</strong> Uses keywords like top, right, bottom, left, and center to position the image."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>initial:</strong> Sets the property to its default value (0% 0%)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. <strong>inherit:</strong> Inherits the value from its parent element."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 1: Positioning with Length Units</strong>"
+                },
+                {
+                  "type": "code",
+                  "language": "css",
+                  "code": ".position-length {\n  height: 100vh;\n  background-image: url('https://tecnosoluciones.com/wp-content/uploads/2019/03/e-Learning-y-sus-caracteristicas.jpg'); /* Placeholder image URL */\n  background-repeat: no-repeat;\n  background-position: 100px 50px; /* Positions image 100px from the left and 50px from the top */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Background Position Length Units</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"position-length\">Background Position with Length Units</div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Description:</strong> This example positions the background image 100px from the left and 50px from the top of the container. If only one value is specified, it defaults to the center vertically."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 2: Positioning with Percentage Values</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": ".position-percentage {\n  height: 100vh;\n  background-image: url('https://tecnosoluciones.com/wp-content/uploads/2019/03/e-Learning-y-sus-caracteristicas.jpg'); /* Placeholder image URL */\n  background-repeat: no-repeat;\n  background-position: 10% 50%; /* Positions image 10% from the left and 50% from the top */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Background Position Percentage</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"position-percentage\">Background Position with Percentage</div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Description:</strong> In this example, the image is positioned 10% from the left edge and centered vertically. Percentages are relative to the container’s dimensions."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 3: Positioning with Keywords</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": ".position-keywords {\n  height: 100vh;\n  background-image: url('https://tecnosoluciones.com/wp-content/uploads/2019/03/e-Learning-y-sus-caracteristicas.jpg'); /* Placeholder image URL */\n  background-repeat: no-repeat;\n  background-position: top right; /* Positions image at the top-right corner */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Background Position Keywords</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"position-keywords\">Background Position with Keywords</div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Description:</strong> Here, the background-position property is set using keywords. The image is positioned at the top-right corner of the container."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "CSS: Opacity Property",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>The opacity property</strong> controls the transparency level of an element. It affects the entire element, including its child elements."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Syntax</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "language": "css",
+                  "code": "opacity: number | initial | inherit;"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Values:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>number:</strong> Sets the opacity level from 0.0 (fully transparent) to 1.0 (fully opaque)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>initial:</strong> Resets the property to its default value (1.0)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>inherit:</strong> Inherits the opacity from the parent element."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Note:</strong> The value 1.0 corresponds to fully opaque (no transparency)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Examples</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 1: Basic Opacity Adjustment</strong>"
+                },
+                {
+                  "type": "code",
+                  "language": "css",
+                  "code": ".second {\n  opacity: 0.5; /* 50% transparent */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Opacity Example</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <img class=\"second\" src=\"https://varteq.com/wp-content/uploads/2020/05/e-learning.png\">\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Description:</strong> The image has an opacity of 0.5, making it 50% transparent."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 2: Opacity with Background Color</strong>"
+                },
+                {
+                  "type": "code",
+                  "language": "css",
+                  "code": ".box {\n    height: 100px;\n    color: white;\n    text-align: center;\n    line-height: 100px;\n    font-size: 20px;\n}\n\n.box1 {\n    background-color: rgba(173, 216, 230, 1); /* Fully opaque light blue */\n}\n\n.box2 {\n    background-color: rgba(173, 216, 230, 0.7); /* 70% opaque light blue */\n}\n\n.box3 {\n    background-color: rgba(173, 216, 230, 0.3); /* 30% opaque light blue */\n}\n\n.box4 {\n    background-color: rgba(173, 216, 230, 0.1); /* 10% opaque light blue */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Background Opacity Example</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"box box1\">Box 1</div>\n    <div class=\"box box2\">Box 2</div>\n    <div class=\"box box3\">Box 3</div>\n    <div class=\"box box4\">Box 4</div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Description:</strong> The div elements have different levels of background opacity with light blue color, and the text remains fully visible due to using RGBA color values."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example 3: Opacity on Hover</strong>"
+                },
+                {
+                  "type": "code",
+                  "language": "css",
+                  "code": ".hover-image {\n    width: 350px;\n    margin: 8px;\n    opacity: 0.6; /* 60% opaque */\n    transition: opacity 0.3s;\n}\n\n.hover-image:hover {\n    opacity: 1; /* Fully opaque on hover */\n}",
+                  "supportingcode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Hover Opacity Example</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <img class=\"hover-image\" src=\"https://varteq.com/wp-content/uploads/2020/05/e-learning.png\">\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Description:</strong> The image is semi-transparent initially and becomes fully opaque when hovered over."
+                }
+              ],
               "locked": true
             }
           ],
           "quiz": [
             {
-              "question": "What does HTML stand for?",
-              "options": [
-                "HyperText Making Language",
-                "HyperText Marking Language",
-                "HyperText Markup Listing",
-                "HyperText Markup Language"
-              ],
-              "correctAnswer": "HyperText Markup Language",
-              "points": 1,
+              "question": "Which value for the background-color property ensures that the background color is not applied and the element's background blends with its parent's background?",
+              "options": ["color-value", "transparent", "initial", "inherit"],
+              "correctAnswer": "transparent",
+              "points": 2,
               "locked": true
             },
             {
-              "question": "What is the purpose of HTML?",
-              "options": [
-                "To style web pages",
-                "To structure and format the content of websites",
-                "To add interactive features to web pages",
-                "To store data in a database"
-              ],
-              "correctAnswer": "To structure and format the content of websites",
-              "points": 1,
+              "question": "Which value of the background-color property sets the property to its default state?",
+              "options": ["color-value", "transparent", "initial", "inherit"],
+              "correctAnswer": "initial",
+              "points": 2,
               "locked": true
             },
             {
-              "question": "What does the <p> tag define?",
+              "question": "Which property controls whether a background image repeats or not?",
               "options": [
-                "A link",
-                "A heading",
-                "A paragraph",
-                "A division"
+                "background-attachment",
+                "background-size",
+                "background-repeat",
+                "background-position"
               ],
-              "correctAnswer": "A paragraph",
-              "points": 1,
+              "correctAnswer": "background-repeat",
+              "points": 2,
               "locked": true
             },
             {
-              "question": "Which tag is used to define the main content of the HTML page?",
-              "options": [
-                "<html>",
-                "<head>",
-                "<title>",
-                "<body>"
-              ],
-              "correctAnswer": "<body>",
-              "points": 1,
+              "question": "Which value for the background-attachment property ensures that the background image stays in place while scrolling the page?",
+              "options": ["scroll", "fixed", "auto", "cover"],
+              "correctAnswer": "fixed",
+              "points": 2,
               "locked": true
             },
             {
-              "question": "What does the <!DOCTYPE html> declaration do?",
+              "question": "Which property specifies the area within an element where the background image is painted?",
               "options": [
-                "Defines a heading",
-                "Defines a paragraph",
-                "Defines that the document is an HTML document",
-                "Defines a link"
+                "background-origin",
+                "background-clip",
+                "background-position",
+                "background-size"
               ],
-              "correctAnswer": "Defines that the document is an HTML document",
-              "points": 1,
+              "correctAnswer": "background-clip",
+              "points": 2,
               "locked": true
             },
             {
-              "question": "Which tag contains information about the HTML page, such as the title and metadata?",
-              "options": [
-                "<body>",
-                "<title>",
-                "<html>",
-                "<head>"
-              ],
-              "correctAnswer": "<head>",
-              "points": 1,
+              "question": "Which value for the background-repeat property ensures that the background image repeats only horizontally?",
+              "options": ["repeat", "repeat-x", "no-repeat", "round"],
+              "correctAnswer": "repeat-x",
+              "points": 2,
               "locked": true
             },
             {
-              "question": "Which tag defines a hyperlink?",
-              "options": [
-                "<p>",
-                "<a>",
-                "<div>",
-                "<span>"
-              ],
-              "correctAnswer": "<a>",
-              "points": 1,
+              "question": "Which value for the background-repeat property prevents the background image from repeating and shows only one instance of the image?",
+              "options": ["space", "no-repeat", "repeat-y", "repeat"],
+              "correctAnswer": "no-repeat",
+              "points": 2,
               "locked": true
             },
             {
-              "question": "What is the root element of an HTML page?",
-              "options": [
-                "<head>",
-                "<body>",
-                "<html>",
-                "<title>"
-              ],
-              "correctAnswer": "<html>",
-              "points": 1,
+              "question": "Which value of the background-attachment property makes the background image scroll with the content of the specific element, not the viewport?",
+              "options": ["fixed", "scroll", "local", "inherit"],
+              "correctAnswer": "local",
+              "points": 2,
               "locked": true
             },
             {
-              "question": "What does the <div> tag define?",
-              "options": [
-                "A paragraph",
-                "A heading",
-                "A link",
-                "A division or section"
-              ],
-              "correctAnswer": "A division or section",
-              "points": 1,
+              "question": "Which value of the background-attachment property is used to apply the default scrolling behavior for a background image?",
+              "options": ["fixed", "scroll", "local", "inherit"],
+              "correctAnswer": "scroll",
+              "points": 2,
               "locked": true
             },
             {
-              "question": "Which of the following is a correct HTML tag for creating a paragraph?",
+              "question": "What CSS property is used to control the dimensions of a background image applied to an element?",
               "options": [
-                "<paragraph>",
-                "<p>",
-                "<para>",
-                "<pg>"
+                "background-position",
+                "background-repeat",
+                "background-size",
+                "background-attachment"
               ],
-              "correctAnswer": "<p>",
-              "points": 1,
+              "correctAnswer": "background-size",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which value for the background-clip property ensures that the background extends to the border edge, including the border area?",
+              "options": [
+                "content-box",
+                "padding-box",
+                "border-box",
+                "initial"
+              ],
+              "correctAnswer": "border-box",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which value for the background-clip property makes the background visible up to the padding edge, excluding the border?",
+              "options": [
+                "content-box",
+                "padding-box",
+                "border-box",
+                "inherit"
+              ],
+              "correctAnswer": "padding-box",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which property defines the positioning area for a background image relative to the element’s box model?",
+              "options": [
+                "background-size",
+                "background-clip",
+                "background-origin",
+                "background-repeat"
+              ],
+              "correctAnswer": "background-origin",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which property value type uses keywords like top, right, bottom, left, and center to position the background image?",
+              "options": ["keyword", "length", "percentage", "color"],
+              "correctAnswer": "keyword",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which property controls the transparency level of an element, affecting the entire element including its child elements?",
+              "options": [
+                "background-color",
+                "border-color",
+                "opacity",
+                "visibility"
+              ],
+              "correctAnswer": "opacity",
+              "points": 2,
               "locked": true
             }
-          ],
-          "totalPoints": 10,
-          "locked": false
-        },
-        {"title": "Lesson 2: HTML Basics",
-          "documents": [
-            {
-              "title": "HTML Paragraphs",
-              "content": [
-                {
-                  "type": "sentence",
-                  "text": "The HTML <p> tag is used to create paragraphs. For example,"
-                },
-                {
-                  "type": "code",
-                  "language": "html",
-                  "code": "<p>HTML is fun to learn.</p>"
-                },
-                {
-                  "type": "sentence",
-                  "text": "As we can see, a paragraph starts with the <p> and ends with the </p> tag."
-                },
-                {
-                  "type": "sentence",
-                  "text": "HTML paragraphs always start on a new line. To demonstrate this, let's create a webpage with two paragraphs."
-                },
-                {
-                  "type": "code",
-                  "language": "html",
-                  "code": "<p>Paragraph 1: Short Paragraph</p>\n<p>Paragraph 2: Long Paragraph, this is a long paragraph with more text to fill an entire line in the website.</p>"
-                },
-                {
-                  "type": "sentence",
-                  "text": "The above HTML code contains two paragraphs. And each paragraph starts on a new line even though there is sufficient space after the first paragraph."
-                },
-                
-              ],
-              "locked": true
-            },
-            {
-              "title": "HTML Paragraphs and Spaces",
-              "content": [
-                {
-                  "type": "sentence",
-                  "text": "Paragraphs automatically remove extra spaces and lines from our text. For example,"
-                },
-                {
-                  "type": "code",
-                  "language": "html",
-                  "code": "<p>\nThe paragraph tag removes      all extra spaces. \n\nThe paragraph tag also removes all extra lines.\n</p>"
-                },
-                {
-                  "type": "sentence",
-                  "text": "Here, the output"
-                },
-                {
-                  "type": "sentence",
-                  "text": "• remove all the extra spaces between words"
-                },
-                {
-                  "type": "sentence",
-                  "text": "• remove extra lines between sentences"
-                }
-              ],
-              "locked": true
-            },
-            {
-              "title": "Adding Line Breaks in Paragraphs",
-              "content": [
-                {
-                  "type": "sentence",
-                  "text": "We can use the HTML line break tag, <br>, to add line breaks within our paragraphs. For example,"
-                },
-                {
-                  "type": "snippet",
-                  "code": "<p>We can use the <br> HTML br tag <br> to add a line break.</p>"
-                }
-              ],
-              "locked": true
-            },
-            {
-              "title": "Pre-formatted Text in HTML",
-              "content": [
-                {
-                  "type": "sentence",
-                  "text": "As we have discussed, paragraphs cannot preserve extra lines and space. If we need to create content that uses multiple spaces and lines, we can use the HTML <pre> tag."
-                },
-                {
-                  "type": "sentence",
-                  "text": "The <pre> tag creates preformatted text. Preformatted texts are displayed as written in the HTML file. For example,"
-                },
-                {
-                  "type": "snippet",
-                  "code": "<pre>\n  This text\n    will be\n      displayed\n\n      in the same manner\n        as it is written\n</pre>"
-                }
-              ],
-              "locked": true
-            },
-            {
-              "title": "Other Elements Inside Paragraphs",
-              "content": [
-                {
-                  "type": "sentence",
-                  "text": "It's possible to include one HTML element inside another. This is also true for <p> tags. For example,"
-                },
-                {
-                  "type": "snippet",
-                  "code": "<p>\nWe can use other tags like <strong>the strong tag to emphasize text</strong>\n</p>"
-                },
-                {
-                  "type": "sentence",
-                  "text": "In the above example, we have used the <strong> tag inside the <p> tag."
-                },
-                {
-                  "type": "sentence",
-                  "text": "Browsers automatically make the contents inside <strong> tags bold."
-                }
-              ],
-              "locked": true
-            },
-            {
-              "title": "Paragraph is Block-level",
-              "content": [
-                {
-                  "type": "sentence",
-                  "text": "The <p> tag is a block-level element. It starts on a new line and takes up the full width (of its parent element)."
-                },
-              ],
-              "locked": true
-            },
-            {
-              "title": "Add Extra Space Inside Paragraphs",
-              "content": [
-                {
-                  "type": "sentence",
-                  "text": "As discussed earlier, we cannot normally add extra empty spaces inside paragraphs. However, we can use a certain HTML entity called non-breaking space to add extra spaces. For example,"
-                },
-                {
-                  "type": "snippet",
-                  "code": "<p>Extra space &nbsp;&nbsp; inside a paragraph</p>"
-                },
-              ],
-              "locked": true
-            }
-          ],
-          "codingActivity": [
-            {
-              "description": "Create an HTML page with different inline and block elements.",
-              "question": "Write the HTML code to create a page with a span element 'This is inline' and a div element 'This is block'.",
-              "expectedOutput": "<!DOCTYPE html>\n<html>\n<head>\n<title>HTML Elements</title>\n</head>\n<body>\n<span>This is inline</span>\n<div>This is block</div>\n</body>\n</html>",
-              "points": 5,
-              "language": "html",
-              "locked": true
-            }
-          ],
-          "quiz": [
-            {
-              "question": "What is the purpose of the HTML <p> tag?",
-              "options": [
-                "To create a link",
-                "To create a heading",
-                "To create a paragraph",
-                "To create a division"
-              ],
-              "correctAnswer": "To create a paragraph",
-              "points": 1,
-              "locked": true
-            },
-            {
-              "question": "How does HTML handle extra spaces and lines within paragraphs?",
-              "options": [
-                "It preserves all spaces and lines",
-                "It removes all extra spaces and lines",
-                "It converts extra spaces to dashes",
-                "It converts extra lines to semicolons"
-              ],
-              "correctAnswer": "It removes all extra spaces and lines",
-              "points": 1,
-              "locked": true
-            },
-            {
-              "question": "Which HTML tag is used to add a line break within a paragraph?",
-              "options": [
-                "<br>",
-                "<lb>",
-                "<break>",
-                "<line>"
-              ],
-              "correctAnswer": "<br>",
-              "points": 1,
-              "locked": true
-            },
-            {
-              "question": "What does the <pre> tag do?",
-              "options": [
-                "Creates a paragraph",
-                "Creates a heading",
-                "Creates preformatted text",
-                "Creates a division"
-              ],
-              "correctAnswer": "Creates preformatted text",
-              "points": 1,
-              "locked": true
-            },
-            {
-              "question": "How are contents inside <strong> tags displayed by browsers?",
-              "options": [
-                "Italicized",
-                "Underlined",
-                "Bold",
-                "Strikethrough"
-              ],
-              "correctAnswer": "Bold",
-              "points": 1,
-              "locked": true
-            },
-            {
-              "question": "What kind of element is the <p> tag?",
-              "options": [
-                "Inline-level",
-                "Block-level",
-                "Self-closing",
-                "Nested"
-              ],
-              "correctAnswer": "Block-level",
-              "points": 1,
-              "locked": true
-            },
-            {
-              "question": "How can extra empty spaces be added inside paragraphs?",
-              "options": [
-                "Using the space key",
-                "Using the tab key",
-                "Using the &nbsp; entity",
-                "Using the <sp> tag"
-              ],
-              "correctAnswer": "Using the &nbsp; entity",
-              "points": 1,
-              "locked": true
-            },
-            {
-              "question": "What happens when you include another tag like <strong> inside a <p> tag?",
-              "options": [
-                "It causes an error",
-                "The content inside the nested tag is ignored",
-                "The nested tag is displayed as text",
-                "The nested tag is applied within the paragraph"
-              ],
-              "correctAnswer": "The nested tag is applied within the paragraph",
-              "points": 1,
-              "locked": true
-            },
-            {
-              "question": "What happens to the text within a <pre> tag?",
-              "options": [
-                "It is converted to uppercase",
-                "It is displayed as written in the HTML file",
-                "It is converted to lowercase",
-                "It is centered on the page"
-              ],
-              "correctAnswer": "It is displayed as written in the HTML file",
-              "points": 1,
-              "locked": true
-            },
-            {
-              "question": "Which tag would you use to emphasize text within a paragraph?",
-              "options": [
-                "<strong>",
-                "<em>",
-                "<b>",
-                "<i>"
-              ],
-              "correctAnswer": "<strong>",
-              "points": 1,
-              "locked": true
-            }
-          ],
-          "totalPoints": 10,
-          "locked": true
-        },
-        {"title": "Lesson 3: HTML Inline",
-          "documents": [
-            {
-              "title": "HTML Elements Overview",
-              "content": [
-                {
-                  "type": "sentence",
-                  "text": "HTML elements are the building blocks of HTML pages."
-                },
-                {
-                  "type": "sentence",
-                  "text": "They are represented by tags."
-                },
-                {
-                  "type": "code",
-                  "language": "html",
-                  "code": "<div>\n<p>This is a paragraph.</p>\n</div>"
-                }
-              ],
-              "locked": true
-            },
-            {
-              "title": "Inline vs Block Elements",
-              "content": [
-                {
-                  "type": "sentence",
-                  "text": "Understand the difference between inline and block elements in HTML."
-                },
-                {
-                  "type": "sentence",
-                  "text": "Inline elements do not start on a new line and take up only necessary width."
-                },
-                {
-                  "type": "sentence",
-                  "text": "Block elements start on a new line and take up the full width available."
-                },
-                {
-                  "type": "code",
-                  "language": "html",
-                  "code": "<span>This is an inline element.</span>\n<div>This is a block element.</div>"
-                }
-              ],
-              "locked": true
-            },
-            {
-              "title": "HTML Attributes",
-              "content": [
-                {
-                  "type": "sentence",
-                  "text": "HTML attributes provide additional information about HTML elements."
-                },
-                {
-                  "type": "sentence",
-                  "text": "Attributes are always included in the opening tag."
-                },
-                {
-                  "type": "sentence",
-                  "text": "Common attributes include id, class, and style."
-                },
-                {
-                  "type": "snippet",
-                  "code": "<p id=\"myParagraph\" class=\"text\">This is a paragraph with attributes.</p>"
-                }
-              ],
-              "locked": true
-            }
-          ],
-          "codingActivity": [
-            {
-              "description": "Create an HTML page with different inline and block elements.",
-              "question": "Write the HTML code to create a page with a span element 'This is inline' and a div element 'This is block'.",
-              "expectedOutput": "<!DOCTYPE html>\n<html>\n<head>\n<title>HTML Elements</title>\n</head>\n<body>\n<span>This is inline</span>\n<div>This is block</div>\n</body>\n</html>",
-              "points": 5,
-              "language": "html",
-              "locked": true
-            }
-          ],
-          "quiz": [
-            {
-              "question": "What is an HTML element?",
-              "options": [
-                "A piece of HTML code",
-                "A style applied to HTML",
-                "A JavaScript function"
-              ],
-              "correctAnswer": "A piece of HTML code",
-              "points": 1,
-              "locked": true
-            },
-            {
-              "question": "How do you add an attribute to an HTML tag?",
-              "options": [
-                "By using a colon",
-                "By using an equals sign",
-                "By using a comma"
-              ],
-              "correctAnswer": "By using an equals sign",
-              "points": 1,
-              "locked": true
-            }
-          ],
-          "totalPoints": 10,
-          "locked": true
+          ]
         }
-      ],
-      "locked": false
+      ]
     }
   ]
 }

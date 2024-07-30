@@ -318,7 +318,7 @@
 //           timeSpent: 0,
 //           pointsEarned: 0,
 //         })),
-//         codingActivitiesAnalytics: lesson.codingActivity.map((activity) => ({ 
+//         codingActivitiesAnalytics: lesson.codingActivity.map((activity) => ({
 //           activityId: activity._id,
 //           timeSpent: 0,
 //           pointsEarned: 0,
@@ -349,7 +349,6 @@
 //   createUserProgress,
 //   createUserAnalytics,
 // };
-
 
 import asyncHandler from "express-async-handler";
 import UserProgressModel from "../models/studentCourseProgressModel.js";
@@ -557,6 +556,7 @@ const createUserProgress = asyncHandler(async (req, res) => {
             lessonId: lesson._id,
             documentsProgress: [],
             quizzesProgress: [],
+            activitiesProgress:[],
             locked: lesson.locked,
           };
 
@@ -574,6 +574,15 @@ const createUserProgress = asyncHandler(async (req, res) => {
               lessonProgress.quizzesProgress.push({
                 quizId: quiz._id,
                 locked: quiz.locked,
+              });
+            }); 
+          }
+
+          if (Array.isArray(lesson.activities)) {
+            lesson.activities.forEach((activity) => {
+              lessonProgress.activitiesProgress.push({
+                activityId: activity._id,
+                locked: activity.locked,
               });
             });
           }
@@ -621,6 +630,11 @@ const createUserAnalytics = async (req, res) => {
         })),
         quizzesAnalytics: lesson.quiz.map((quiz) => ({
           quizId: quiz._id,
+          timeSpent: 0,
+          pointsEarned: 0,
+        })),
+        activitiesAnalytics: lesson.activities.map(activity => ({
+          activityId: activity._id,
           timeSpent: 0,
           pointsEarned: 0,
         })),

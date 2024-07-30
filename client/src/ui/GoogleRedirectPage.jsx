@@ -15,6 +15,8 @@ import { useFetchUserAnalyticsMutation } from "../features/Student/userAnalytics
 import { setUserAnalytics } from "../features/Student/userAnalyticsSlice";
 import { useFetchUserQuizSubmissionMutation } from "../features/Course/Quiz/quizSubmissionService";
 import { getQuizSubmission } from "../utils/quizSubmissionUtil";
+import { useFetchUserActivitySubmissionMutation } from "../features/Course/CodingActivity/activitySubmissionService";
+import { getActivitySubmissions } from "../utils/activitySubmissionUtil";
 
 function GoogleRedirect() {
   const dispatch = useDispatch();
@@ -25,6 +27,11 @@ function GoogleRedirect() {
 
   const [fetchUserQuizSubmission, { isLoading: isLoadingFetchQuizSubmission }] =
     useFetchUserQuizSubmissionMutation();
+
+  const [
+    fetchUserActivitySubmission,
+    { isLoading: isLoadingFetchActivitySubmission },
+  ] = useFetchUserActivitySubmissionMutation();
 
   async function getUser(values) {
     try {
@@ -47,6 +54,11 @@ function GoogleRedirect() {
         fetchProgress();
         fetchAnalytics();
         getQuizSubmission(dispatch, fetchUserQuizSubmission, userDetails._id);
+        getActivitySubmissions(
+          dispatch,
+          fetchUserActivitySubmission,
+          userDetails._id
+        );
       }
 
       if (!user.role) {

@@ -130,36 +130,36 @@
 //             Quiz - {quizScore}
 //           </div>
 //         </div>
-//         <div>
-//           <h2 className="text-2xl font-semibold mb-4 text-gray-700">
-//             Coding Activities
-//           </h2>
-//           <ul className="space-y-4">
-//             {codingActivities.map((activity) => {
-//               const activityProgress =
-//                 lessonProgress.codingActivitiesProgress.find(
-//                   (cap) => cap.activityId.toString() === activity._id.toString()
-//                 );
-//               // const activityScore = activityProgress?.locked
-//               //   ? "Locked"
-//               //   : `${activityProgress.pointsEarned}/${activity.points} Points Earned`;
-//               return (
-//                 <li key={activity._id}>
-//                   <span
-//                     className={`block p-4 rounded-lg cursor-pointer transition-all duration-300 ${
-//                       activityProgress?.locked
-//                         ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-//                         : "bg-blue-50 text-blue-800 hover:bg-blue-100"
-//                     }`}
-//                     onClick={handleActivityClick}
-//                   >
-//                     Coding Activity - X
-//                   </span>
-//                 </li>
-//               );
-//             })}
-//           </ul>
-//         </div>
+        // <div>
+        //   <h2 className="text-2xl font-semibold mb-4 text-gray-700">
+        //     Coding Activities
+        //   </h2>
+        //   <ul className="space-y-4">
+        //     {codingActivities.map((activity) => {
+        //       const activityProgress =
+        //         lessonProgress.codingActivitiesProgress.find(
+        //           (cap) => cap.activityId.toString() === activity._id.toString()
+        //         );
+        //       // const activityScore = activityProgress?.locked
+        //       //   ? "Locked"
+        //       //   : `${activityProgress.pointsEarned}/${activity.points} Points Earned`;
+        //       return (
+        //         <li key={activity._id}>
+        //           <span
+        //             className={`block p-4 rounded-lg cursor-pointer transition-all duration-300 ${
+        //               activityProgress?.locked
+        //                 ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+        //                 : "bg-blue-50 text-blue-800 hover:bg-blue-100"
+        //             }`}
+        //             onClick={handleActivityClick}
+        //           >
+        //             Coding Activity - X
+        //           </span>
+        //         </li>
+        //       );
+        //     })}
+        //   </ul>
+        // </div>
 //       </div>
 //     </div>
 //   );
@@ -207,7 +207,7 @@ function LessonContent() {
 
   const documents = lesson.documents;
   const quizzes = lesson.quiz;
-  // const codingActivities = lesson.codingActivity;
+  const activities = lesson.activities;
 
   const lessonProgress = userProgress.coursesProgress
     .find((cp) => cp.courseId.toString() === courseId.toString())
@@ -236,9 +236,10 @@ function LessonContent() {
   function handleQuizClick() {
     navigate(`quiz/${quizzes[0]._id}`);
   }
-  // function handleActivityClick() {
-  //   navigate(`codingActivity/${codingActivities[0]._id}`);
-  // }
+
+  function handleActivityClick() {
+    navigate(`codingActivity/${activities[0]._id}`);
+  }
 
   return (
     <div className="flex-1 p-4">
@@ -275,10 +276,10 @@ function LessonContent() {
                   <span
                     className={`block p-4 rounded-lg cursor-pointer transition-all duration-300 ${
                       docProgress?.locked
-                        ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                        ? "bg-gray-100 text-gray-400 cursor-not-allowed disabled:true"
                         : "bg-blue-50 text-blue-800 hover:bg-blue-100"
                     }`}
-                    onClick={() => handleClick(document._id)}
+                    onClick={docProgress?.locked ? null : () => handleClick(document._id)}
                   >
                     {document.title}
                   </span>
@@ -295,12 +296,44 @@ function LessonContent() {
                 ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                 : "bg-blue-50 text-blue-800 hover:bg-blue-100"
             }`}
-            onClick={handleQuizClick}
+            onClick={quizProgress?.locked ? null : handleQuizClick}
           >
             Quiz - {quizScore}
           </div>
         </div>
       
+        <div>
+          <h2 className="text-2xl font-semibold mb-4 text-gray-700">
+            Coding Activities
+          </h2>
+          <ul className="space-y-4">
+            {activities.map((activity) => {
+              const activityProgress =
+                lessonProgress.activitiesProgress.find(
+                  (cap) => cap.activityId.toString() === activity._id.toString()
+                );
+              // const activityScore = activityProgress?.locked
+              //   ? "Locked"
+              //   : `${activityProgress.pointsEarned}/${activity.points} Points Earned`;
+              return (
+                <li key={activity._id}>
+                  
+                  <span
+                    className={`block p-4 rounded-lg cursor-pointer transition-all duration-300 ${
+                      activityProgress?.locked
+                        ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                        : "bg-blue-50 text-blue-800 hover:bg-blue-100"
+                    }`}
+                    onClick={activityProgress?.locked ? null : handleActivityClick}
+                  >
+                    {activity.title} - X
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </div> 
+
       </div>
     </div>
   );

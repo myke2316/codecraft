@@ -28,6 +28,7 @@ import ActivityContent from "./features/Course/Lesson/Activity/ActivityContent";
 import ActivityLayout from "./features/Course/Lesson/Activity/ActivityLayout";
 import DocumentComplete from "./features/Course/Lesson/Documentation/DocumentComplete";
 import QuizResults from "./features/Course/Lesson/Quiz/QuizResults";
+import ActivityPage from "./features/Course/CodingActivity/ActivityPage";
 
 function App() {
   return (
@@ -93,6 +94,11 @@ function App() {
         <Route element={<ActivityLayout />}>
           <Route path="" element={<PrivateRoutes />}>
             <Route path="course/*">
+              <Route
+                path="activity/:activityId"
+                element={<ActivityPage />}
+              />
+
               {/* <Route
                 path=":courseId/lesson/:lessonId/codingActivity/:activityId"
                 element={<ActivityContent />}
