@@ -11,17 +11,14 @@ import { courseRouter } from "./routes/courseRoute.js";
 import { progressRouter } from "./routes/studentCourseProgressRoutes.js";
 import { analyticsRouter } from "./routes/userAnalyticsRoutes.js";
 import { quizSubmissionRouter } from "./routes/quizSubmissionRoute.js";
+import { activitySubmissionRouter } from "./routes/activitySubmissionRoute.js";
 
 import esprima from 'esprima';
 import estraverse from 'estraverse';
 import { runJavaScript } from "./utils/sandbox.js";
-import { exec, spawn } from "child_process";
-import { fileURLToPath } from "url";
-import path from "path";
-import activities from "../client/src/features/Course/CodingActivity/activity.json" assert { type: "json" };
-import bodyParser from "body-parser";
+import {  spawn } from "child_process";
 import { Script, createContext } from "vm";
-import { activitySubmissionRouter } from "./routes/activitySubmissionRoute.js";
+
 dotenv.config();
 connectDb();
 const PORT = process.env.SERVER_PORT || 8000;
@@ -198,10 +195,8 @@ function jsNormalizeCodeWeb(code) {
 //function or api to call to handle the submit for coding activity and check student coede
 //working
 app.post("/submit/html", (req, res) => {
-  const { htmlCode, cssCode, jsCode, activityId } = req.body;
-  const activity = activities.find(
-    (activity) => activity.activityId === activityId
-  );
+  const { htmlCode, cssCode, jsCode, activity } = req.body;
+
 
   if (!activity) {
     return res.status(404).json({ error: "Activity not found" });
@@ -294,14 +289,15 @@ app.post("/submit/html", (req, res) => {
     totalPoints: totalAwardedPoints,
     passed,
     maxPoints: pointsForDifficulty,
+    htmlCode,
+    jsCode,
+    cssCode
   });
 });
 //working 
 app.post("/submit/css", (req, res) => {
-  const { htmlCode, cssCode, jsCode, activityId } = req.body;
-  const activity = activities.find(
-    (activity) => activity.activityId === activityId
-  );
+  const { htmlCode, cssCode, jsCode, activity } = req.body;
+ 
 
   if (!activity) {
     return res.status(404).json({ error: "Activity not found" });
@@ -395,8 +391,8 @@ app.post("/submit/css", (req, res) => {
 
 //working
 app.post('/submit/javascriptweb', (req, res) => {
-  const { jsCode, activityId } = req.body;
-  const activity = activities.find((activity) => activity.activityId === activityId);
+  const { jsCode, activity } = req.body;
+  
   console.log("========================================")
   if (!activity) {
     return res.status(404).json({ error: 'Activity not found' });
@@ -467,8 +463,8 @@ app.post('/submit/javascriptweb', (req, res) => {
 
 //working - pwede ko din integrate dito yung jsNormalizeCodeWeb pero for now ito muna since nagana naman
 app.post("/submit/javascriptconsole", (req, res) => {
-  const { jsCode, activityId } = req.body;
-  const activity = activities.find((activity) => activity.activityId === activityId);
+  const { jsCode, activity } = req.body;
+  // const activity = activities.find((activity) => activity.activityId === activityId);
 
   if (!activity) {
     return res.status(404).json({ error: 'Activity not found' });
@@ -546,6 +542,7 @@ app.post("/submit/javascriptconsole", (req, res) => {
     totalPoints: totalAwardedPoints,
     passed,
     maxPoints: pointsForDifficulty,
+    
   });
 });
 
@@ -627,24 +624,26 @@ app.post("/execute", (req, res) => {
       </html>
     `;
     res.json({ output: htmlContent });
-  }  else if (language === "javascriptconsole") {
+  } else if (language === "javascriptconsole") {
     const child = spawn("node", ["-e", js]);
-
+  
     let output = ""; 
     let errorOutput = "";
-
+  
     child.stdout.on("data", (data) => {
       output += data.toString();
     });
-
+  
     child.stderr.on("data", (data) => {
       errorOutput += data.toString();
     });
-
+  
     child.on("close", (code) => {
       if (code !== 0) {
         res.status(500).json({ output: `Error: ${errorOutput}` });
       } else {
+        // Remove ANSI escape codes
+        output = output.replace(/\x1b\[\d+m/g, '');
         res.json({ output });
       }
     });

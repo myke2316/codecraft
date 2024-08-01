@@ -33,6 +33,29 @@ const activitySubmissionSlice = createSlice({
         JSON.stringify(state.activitySubmissions)
       );
     },
+    setDecrementTries: (state, action) => {
+      const { courseId, lessonId, activityId } = action.payload;
+      const course = state.activitySubmissions.courses.find(
+        (course) => course.courseId === courseId
+      );
+      if (course) {
+        const lesson = course.lessons.find(
+          (lesson) => lesson.lessonId === lessonId
+        );
+        if (lesson) {
+          const activity = lesson.activities.find(
+            (activity) => activity.activityId === activityId
+          );
+          if (activity && activity.tries > 0) {
+            activity.tries -= 1;
+            localStorage.setItem(
+              "activitySubmissions",
+              JSON.stringify(state.activitySubmissions)
+            );
+          }
+        }
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(logout, (state) => {
@@ -42,6 +65,6 @@ const activitySubmissionSlice = createSlice({
   },
 });
 
-export const { setActivitySubmission, updateActivitySubmission } =
+export const { setActivitySubmission, updateActivitySubmission,setDecrementTries } =
   activitySubmissionSlice.actions;
 export default activitySubmissionSlice.reducer;

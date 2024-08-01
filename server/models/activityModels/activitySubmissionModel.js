@@ -11,9 +11,9 @@ const ActivityDetailSchema = new Schema({
   pointsEarned: { type: Number, required: true },
   timeTaken: { type: Number, required: true }, // Time taken in seconds
   tries: { type: Number, required: true, default: 3 },
-  timestamp: { type: Date, default: Date.now },
+  timestamp: { type: Date, default: "" },
 });
-
+ 
 const LessonSchema = new Schema({
   lessonId: {
     type: mongoose.Schema.Types.ObjectId, ref: 'Lesson', required: true,
@@ -36,3 +36,4 @@ const ActivitySubmissionSchema = new Schema({
 const ActivitySubmissionModel = mongoose.model('ActivitySubmission', ActivitySubmissionSchema);
 
 export default ActivitySubmissionModel;
+ 

@@ -25,6 +25,13 @@ export const activityService = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    decrementActivitySubmission: builder.mutation({
+      query: (data) => ({
+        url: `${ACTIVITYSUBMISSION_URL}/decrementTries`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -32,4 +39,5 @@ export const {
   useFetchUserActivitySubmissionMutation,
   useCreateUserActivitySubmissionMutation,
   useUpdateUserActivitySubmissionMutation,
+  useDecrementActivitySubmissionMutation
 } = activityService;

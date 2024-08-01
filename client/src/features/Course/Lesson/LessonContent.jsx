@@ -238,7 +238,7 @@ function LessonContent() {
   }
 
   function handleActivityClick() {
-    navigate(`codingActivity/${activities[0]._id}`);
+    navigate(`activity/${activities[0]._id}`);
   }
 
   return (

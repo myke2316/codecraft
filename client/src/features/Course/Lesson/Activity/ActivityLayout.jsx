@@ -10,7 +10,11 @@ function ActivityLayout() {
     <div className="activity-layout">
       <nav className="navbar">
         <button
-          onClick={() => navigate(`/course/${courseId}/lesson/${lessonId}`)}
+          onClick={() =>
+            navigate(
+              `/course/${courseId}/lesson/${lessonId}/activity/activityList`
+            )
+          }
           className="back-button"
         >
           Back

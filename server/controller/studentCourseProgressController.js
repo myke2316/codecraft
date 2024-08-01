@@ -372,7 +372,7 @@ const getUserProgress = asyncHandler(async (req, res) => {
 // Update user progress
 const updateUserProgress = asyncHandler(async (req, res) => {
   try {
-    const { userId, courseId, lessonId, documentId, quizId } = req.body;
+    const { userId, courseId, lessonId, documentId, quizId, activityId } = req.body;
 
     const userProgress = await UserProgressModel.findOne({ userId }).exec();
 
@@ -416,7 +416,11 @@ const updateUserProgress = asyncHandler(async (req, res) => {
         } else if (lessonProgress.quizzesProgress.length > 0) {
           // If no more documents, unlock the first quiz
           lessonProgress.quizzesProgress[0].locked = false;
-        } else {
+        } 
+        else if(lessonProgress.activitiesProgress.length > 0){
+          lessonProgress.activitiesProgress[0].locked = false;
+        }
+        else {
           // If no more activities, unlock the next lesson
           unlockNextLesson(
             courseProgress,
@@ -440,6 +444,38 @@ const updateUserProgress = asyncHandler(async (req, res) => {
         const nextQuizIndex = quizIndex + 1;
         if (nextQuizIndex < lessonProgress.quizzesProgress.length) {
           lessonProgress.quizzesProgress[nextQuizIndex].locked = false;
+        }else if(lessonProgress.activitiesProgress.length > 0){
+          // If no more quizzes, unlock the next activity
+          lessonProgress.activitiesProgress[0].locked = false;
+        } 
+        else {
+          // If no more activities, unlock the next lesson
+          unlockNextLesson(
+            courseProgress,
+            lessonIndex,
+            userProgress,
+            courseIndex
+          );
+        }
+      }
+    }
+
+    if (activityId) {
+      // Mark the coding activity as completed
+      const activityIndex = lessonProgress.activitiesProgress.findIndex(
+        (activity) => activity.activityId.equals(activityId)
+      );
+      if (activityIndex !== -1) {
+        lessonProgress.activitiesProgress[activityIndex].locked = false;
+
+        // Unlock the next coding activity if exists
+        const nextActivityIndex = activityIndex + 1;
+        if (
+          nextActivityIndex < lessonProgress.activitiesProgress.length
+        ) {
+          lessonProgress.activitiesProgress[
+            nextActivityIndex
+          ].locked = false;
         } else {
           // If no more activities, unlock the next lesson
           unlockNextLesson(
@@ -451,6 +487,7 @@ const updateUserProgress = asyncHandler(async (req, res) => {
         }
       }
     }
+
 
     await userProgress.save();
     res.json(userProgress);

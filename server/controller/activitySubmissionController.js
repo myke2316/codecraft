@@ -67,7 +67,7 @@ const createActivitySubmissions = async (req, res) => {
           pointsEarned: 0,
           timeTaken: 0,
           tries: 3,
-          timestamp: new Date()
+          timestamp: ""
         }))
       }))
     }));
@@ -133,4 +133,46 @@ const updateActivitySubmission = async (req, res) => {
   }
 };
 
-export { createActivitySubmissions, getActivitySubmissions, updateActivitySubmission };
+const decrementTries = async (req, res) => {
+  const { userId, activityId } = req.body;
+
+  if (
+    !mongoose.Types.ObjectId.isValid(userId) ||
+    !mongoose.Types.ObjectId.isValid(activityId)
+  ) {
+    return res.status(400).json({ message: "Invalid userId or activityId" });
+  }
+
+  try {
+    const updatedSubmission = await ActivitySubmissionModel.findOneAndUpdate(
+      { userId, "courses.lessons.activities.activityId": activityId },
+      {
+        $inc: {
+          "courses.$[course].lessons.$[lesson].activities.$[activity].tries": -1,
+        },
+        $set: {
+          "courses.$[course].lessons.$[lesson].activities.$[activity].timestamp": new Date(),
+        },
+      },
+      {
+        arrayFilters: [
+          { "course._id": { $exists: true } },
+          { "lesson._id": { $exists: true } },
+          { "activity.activityId": new mongoose.Types.ObjectId(activityId) },
+        ],
+        new: true,
+      }
+    );
+
+    if (!updatedSubmission) {
+      return res.status(404).json({ message: "Activity submission not found" });
+    }
+
+    return res.status(200).json(updatedSubmission);
+  } catch (error) {
+    console.error("Error decrementing tries count: ", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export { createActivitySubmissions, getActivitySubmissions, updateActivitySubmission,decrementTries };

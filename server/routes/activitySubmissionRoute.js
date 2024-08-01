@@ -1,8 +1,10 @@
 import express from "express";
-import { createActivitySubmissions, getActivitySubmissions, updateActivitySubmission } from "../controller/activitySubmissionController.js";
-
-
-
+import {
+  createActivitySubmissions,
+  decrementTries,
+  getActivitySubmissions,
+  updateActivitySubmission,
+} from "../controller/activitySubmissionController.js";
 
 const router = express.Router();
 
@@ -14,6 +16,5 @@ router.post("/create", createActivitySubmissions);
 
 // Route to update an existing activity submission
 router.put("/update", updateActivitySubmission);
-
+router.put("/decrementTries", decrementTries);
 export { router as activitySubmissionRouter };
- 

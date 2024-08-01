@@ -3,6 +3,7 @@ import { Paper, Typography } from "@mui/material";
 
 const OutputPanel = ({ output, activity }) => {
   const language = activity.language;
+  console.log(language)
   return (
     <div style={{ width: "300px", padding: "20px" }}>
       <Paper elevation={3} style={{ padding: "20px" }}>

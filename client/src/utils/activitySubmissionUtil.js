@@ -1,7 +1,5 @@
 import { setActivitySubmission } from "../features/Course/CodingActivity/activitySubmissionSlice";
 
-
-
 export const createActivitySubmission = async (
   dispatch,
   createActivitySubmission,
@@ -41,20 +39,30 @@ export const updateActivitySubmissionUtil = async (
   dispatch,
   updateActivitySubmission,
   userId,
-  courseId,
-  lessonId,
   activityId,
-  updates
+  htmlCode,
+  cssCode,
+  jsCode,
+  passed,
+  totalPoints,
+  timeTaken,
+  tries
 ) => {
   try {
     const activitySubmissionData = await updateActivitySubmission({
       userId,
-      courseId,
-      lessonId,
       activityId,
-      ...updates
+      html :htmlCode,
+      css: cssCode,
+      js: jsCode,
+      passed,
+      pointsEarned: totalPoints,
+      timeTaken,
+      tries,
     }).unwrap();
     dispatch(setActivitySubmission(activitySubmissionData));
+    console.log(activitySubmissionData);
+
   } catch (error) {
     console.log(error);
   }
