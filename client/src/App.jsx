@@ -30,6 +30,13 @@ import DocumentComplete from "./features/Course/Lesson/Documentation/DocumentCom
 import QuizResults from "./features/Course/Lesson/Quiz/QuizResults";
 import ActivityPage from "./features/Course/CodingActivity/ActivityPage";
 import ActivityList from "./features/Course/CodingActivity/ActivityList";
+import QnA from "./features/QnA/QnA";
+
+import QuestionForm from "./features/QnA/QuestionForm";
+import QuestionDetail from "./features/QnA/QuestionDetail/QuestionDetail";
+import EditQuestionPage from "./features/QnA/QuestionDetail/EditQuestionPage";
+import EditAnswerPage from "./features/QnA/QuestionDetail/EditAnswerPage";
+import StudentDashboard from "./features/Student/StudentDashboard/StudentDashboard";
 
 function App() {
   return (
@@ -62,6 +69,18 @@ function App() {
             <Route path="role-selection" element={<RoleSelection />} />
             <Route path="create-class" element={<CreateClassForm />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="qna/:userId" element={<QnA />} />
+            <Route path="qna/:userId/ask" element={<QuestionForm />} />
+            <Route
+              path="qna/:userId/question/:questionId"
+              element={<QuestionDetail />}
+            />
+            <Route path="/edit-question/:id" element={<EditQuestionPage />} />
+            <Route
+              path="/edit-answer/:questionId/:answerId"
+              element={<EditAnswerPage />}
+            />
+            <Route path="dashboard" element={<StudentDashboard/>} />
           </Route>
         </Route>
 

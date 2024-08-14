@@ -8,46 +8,93 @@ import { useUpdateUserProgressMutation } from "../../../Student/studentCoursePro
 import { updateCourseProgress } from "../../../Student/studentCourseProgressSlice";
 import DocumentComplete from "./DocumentComplete";
 import { formatTime } from "../../../../utils/formatTime";
-import { useUpdateUserAnalyticsMutation } from "../../../Student/userAnalyticsService";
+import {
+  useFetchUserAnalyticsMutation,
+  useUpdateUserAnalyticsMutation,
+} from "../../../Student/userAnalyticsService";
 import { updateUserAnalytics } from "../../../Student/userAnalyticsSlice";
 
 function DocumentContent() {
   const { courseId, lessonId, documentId, quizId } = useParams();
   const navigate = useNavigate();
   const courses = useSelector((state) => state.course.courseData);
-
+  const user = useSelector((state) => state.user.userDetails);
+  const userId = user._id;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayedContent, setDisplayedContent] = useState([]);
   const [documentContent, setDocumentContent] = useState(null);
   const [iframeContent, setIframeContent] = useState("");
   const [showCompletion, setShowCompletion] = useState(false);
 
-  const userAnalytics = useSelector(state => state.userAnalytics.userAnalytics);
+  const userAnalytics = useSelector(
+    (state) => state.userAnalytics.userAnalytics
+  );
+  // const [fetchUserAnalytics, { isLoading, error, data }] =
+  //   useFetchUserAnalyticsMutation();
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (documentId) {
+  //       try {
+  //         const response = await fetchUserAnalytics({
+  //           userId,
+  //         }).unwrap();
+
+  //         // Handle response data
+  //         const existingAnalytics = response.data?.data || {};
+  //         // ... rest of your logic
+  //       } catch (error) {
+  //         console.error("Error fetching user analytics:", error);
+  //         // Handle error
+  //       }
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [documentId, fetchUserAnalytics]);
   useEffect(() => {
     if (courses) {
       const course = courses.find((course) => course._id === courseId);
       if (course) {
         const lesson = course.lessons.find((lesson) => lesson._id === lessonId);
+
         if (lesson) {
           if (documentId) {
             const document = lesson.documents.find(
               (doc) => doc._id === documentId
             );
+
             if (document) {
               setDocumentContent(document.content);
               setCurrentIndex(0);
               setDisplayedContent([document.content[0]]);
               setShowCompletion(false);
 
-              // TIMER
-              const existingAnalytics = userAnalytics.coursesAnalytics.find(
-                (courseAnalytics) => courseAnalytics.courseId === courseId
-              )?.lessonsAnalytics.find(
-                (lessonAnalytics) => lessonAnalytics.lessonId === lessonId
-              )?.documentsAnalytics.find(
-                (docAnalytics) => docAnalytics.documentId === documentId
-              );
+              const existingAnalytics = userAnalytics.coursesAnalytics
+                .find((courseAnalytics) => {
+                  const courseIdValue =
+                    typeof courseAnalytics.courseId === "object" &&
+                    courseAnalytics.courseId._id
+                      ? courseAnalytics.courseId._id
+                      : courseAnalytics.courseId;
+                  return courseIdValue === courseId;
+                })
+                ?.lessonsAnalytics.find((lessonAnalytics) => {
+                  const lessonIdValue =
+                    typeof lessonAnalytics.lessonId === "object" &&
+                    lessonAnalytics.lessonId._id
+                      ? lessonAnalytics.lessonId._id
+                      : lessonAnalytics.lessonId;
+                  return lessonIdValue === lessonId;
+                })
+                ?.documentsAnalytics.find((docAnalytics) => {
+                  const documentIdValue =
+                    typeof docAnalytics.documentId === "object" &&
+                    docAnalytics.documentId._id
+                      ? docAnalytics.documentId._id
+                      : docAnalytics.documentId;
+                  return documentIdValue === documentId;
+                });
 
               if (existingAnalytics && existingAnalytics.timeSpent > 0) {
                 // Skip timer and prevent further updates
@@ -95,8 +142,6 @@ function DocumentContent() {
 
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user.userDetails);
-  const userId = user._id;
   const [updateUserProgress, { isLoading: isLoadingUpdateUserProgress }] =
     useUpdateUserProgressMutation();
 
@@ -155,7 +200,7 @@ function DocumentContent() {
                 ],
               },
             }).unwrap();
-            console.log(updateAnalyticsData);
+
             dispatch(updateUserAnalytics(updateAnalyticsData));
 
             navigate(
@@ -167,7 +212,9 @@ function DocumentContent() {
             console.log(error);
           }
         } else {
-          navigate(`/course/${courseId}/lesson/${lessonId}/document/${nextDocument._id}`);
+          navigate(
+            `/course/${courseId}/lesson/${lessonId}/document/${nextDocument._id}`
+          );
         }
       } else if (nextQuizIndex < lesson.quiz.length) {
         const nextQuiz = lesson.quiz[nextQuizIndex];
@@ -216,7 +263,9 @@ function DocumentContent() {
             console.log(error);
           }
         } else {
-          navigate(`/course/${courseId}/lesson/${lessonId}/quiz/${nextQuiz._id}`);
+          navigate(
+            `/course/${courseId}/lesson/${lessonId}/quiz/${nextQuiz._id}`
+          );
         }
       }
     }

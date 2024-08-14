@@ -13,11 +13,12 @@ import { analyticsRouter } from "./routes/userAnalyticsRoutes.js";
 import { quizSubmissionRouter } from "./routes/quizSubmissionRoute.js";
 import { activitySubmissionRouter } from "./routes/activitySubmissionRoute.js";
 
-import esprima from 'esprima';
-import estraverse from 'estraverse';
+import esprima from "esprima";
+import estraverse from "estraverse";
 import { runJavaScript } from "./utils/sandbox.js";
-import {  spawn } from "child_process";
+import { spawn } from "child_process";
 import { Script, createContext } from "vm";
+import { questionRouter } from "./routes/QuestionRoutes/questionRoutes.js";
 
 dotenv.config();
 connectDb();
@@ -54,7 +55,8 @@ app.use("/course", courseRouter);
 app.use("/userProgress", progressRouter);
 app.use("/analytics", analyticsRouter);
 app.use("/quizSubmission", quizSubmissionRouter);
-app.use("/activitySubmission", activitySubmissionRouter)
+app.use("/activitySubmission", activitySubmissionRouter);
+app.use("/qna", questionRouter);
 
 //for CODING ACTIVITY ===============================================================
 
@@ -87,7 +89,9 @@ const cssNormalizeCode = (code) => {
     .replace(/\s*}\s*/g, "}") // Remove spaces around closing braces
     .replace(/\s*;\s*/g, ";") // Remove spaces around semicolons
     .replace(/:\s+/g, ":") // Remove spaces after colons
+    .replace(/\s*:\s*/g, ":")
     .replace(/\s+/g, " ") // Normalize multiple spaces to single space
+    .trim()
     .toLowerCase(); // Convert to lowercase
 };
 
@@ -127,59 +131,85 @@ const jsNormalizeCode = (code) => {
   code = code.trim();
 
   // Add semicolon where required
-  const lines = code.split('\n');
+  const lines = code.split("\n");
   const normalizedLines = lines.map((line, index) => {
     const trimmedLine = line.trim();
-    if (trimmedLine && !trimmedLine.endsWith(';') && !trimmedLine.endsWith('{') && !trimmedLine.endsWith('}') && !lines[index + 1]?.trim().startsWith('}')) {
-      return trimmedLine + ';';
+    if (
+      trimmedLine &&
+      !trimmedLine.endsWith(";") &&
+      !trimmedLine.endsWith("{") &&
+      !trimmedLine.endsWith("}") &&
+      !lines[index + 1]?.trim().startsWith("}")
+    ) {
+      return trimmedLine + ";";
     }
     return trimmedLine;
   });
 
-  return normalizedLines.join(' ').toLowerCase();
+  return normalizedLines.join(" ").toLowerCase();
 };
 
 function jsNormalizeCodeWeb(code) {
   // Remove comments
-  code = code.replace(/\/\/.*|\/\*[^]*?\*\//g, '');
+  code = code.replace(/\/\/.*|\/\*[^]*?\*\//g, "");
 
   // Parse the code into an AST
-  const ast = esprima.parseScript(code, { comment: true, tokens: true, range: true });
+  const ast = esprima.parseScript(code, {
+    comment: true,
+    tokens: true,
+    range: true,
+  });
 
   // Function to convert the AST to a normalized code string
   function astToCode(astNode) {
-    let codeString = '';
+    let codeString = "";
 
     estraverse.traverse(astNode, {
       enter(node) {
         switch (node.type) {
-          case 'Program':
-          case 'BlockStatement':
-          case 'ExpressionStatement':
+          case "Program":
+          case "BlockStatement":
+          case "ExpressionStatement":
             if (node.body && Array.isArray(node.body)) {
-              codeString += node.body.map(astToCode).join(' ');
+              codeString += node.body.map(astToCode).join(" ");
             }
             break;
-          case 'Literal':
+          case "Literal":
             codeString += node.value;
             break;
-          case 'Identifier':
+          case "Identifier":
             codeString += node.name;
             break;
-          case 'BinaryExpression':
-            codeString += astToCode(node.left) + ' ' + node.operator + ' ' + astToCode(node.right);
+          case "BinaryExpression":
+            codeString +=
+              astToCode(node.left) +
+              " " +
+              node.operator +
+              " " +
+              astToCode(node.right);
             break;
-          case 'CallExpression':
-            codeString += astToCode(node.callee) + '(' + node.arguments.map(astToCode).join(', ') + ')';
+          case "CallExpression":
+            codeString +=
+              astToCode(node.callee) +
+              "(" +
+              node.arguments.map(astToCode).join(", ") +
+              ")";
             break;
-          case 'FunctionDeclaration':
-            codeString += 'function ' + node.id.name + '(' + node.params.map(astToCode).join(', ') + ') {' + astToCode(node.body) + '}';
+          case "FunctionDeclaration":
+            codeString +=
+              "function " +
+              node.id.name +
+              "(" +
+              node.params.map(astToCode).join(", ") +
+              ") {" +
+              astToCode(node.body) +
+              "}";
             break;
           // Add more cases as needed
           default:
-            codeString += '';
+            codeString += "";
         }
-      }
+      },
     });
 
     return codeString.trim();
@@ -187,16 +217,15 @@ function jsNormalizeCodeWeb(code) {
 
   // Generate normalized code string from AST
   const normalizedCode = astToCode(ast);
-  
+
   // Normalize spaces
-  return normalizedCode.replace(/\s+/g, ' ').trim();
+  return normalizedCode.replace(/\s+/g, " ").trim();
 }
 
 //function or api to call to handle the submit for coding activity and check student coede
 //working
 app.post("/submit/html", (req, res) => {
   const { htmlCode, cssCode, jsCode, activity } = req.body;
-
 
   if (!activity) {
     return res.status(404).json({ error: "Activity not found" });
@@ -291,13 +320,12 @@ app.post("/submit/html", (req, res) => {
     maxPoints: pointsForDifficulty,
     htmlCode,
     jsCode,
-    cssCode
+    cssCode,
   });
 });
-//working 
+//working
 app.post("/submit/css", (req, res) => {
   const { htmlCode, cssCode, jsCode, activity } = req.body;
- 
 
   if (!activity) {
     return res.status(404).json({ error: "Activity not found" });
@@ -347,41 +375,35 @@ app.post("/submit/css", (req, res) => {
     // Normalize the HTML content
     const codeUser = cssNormalizeCode(htmlContent);
 
-    let points = 0;
-    let currentIndex = 0;
     let correctCount = 0;
 
     for (const requirement of testCase.required) {
       const normalizedRequirement = cssNormalizeCode(requirement);
-      const index = codeUser.indexOf(normalizedRequirement, currentIndex);
 
-      if (index !== -1) {
+      if (codeUser.includes(normalizedRequirement)) {
         correctCount += 1;
-        points += 1;
-        currentIndex = index + normalizedRequirement.length;
         console.log(
-          normalizedRequirement + " : TAMA ITO : current score : " + points
+          normalizedRequirement +
+            " : TAMA ITO : correct count : " +
+            correctCount
         );
       } else {
         console.log(
-          normalizedRequirement + " : mali ito : current score : " + points
+          normalizedRequirement +
+            " : mali ito : correct count : " +
+            correctCount
         );
       }
     }
 
-    // Award points based on correctness and order
-    if (correctCount === testCase.required.length) {
-      totalAwardedPoints += pointsForDifficulty; // Perfect score for this test case
-    } else if (correctCount > 0) {
-      // Partial credit
-      totalAwardedPoints +=
-        (pointsForDifficulty / testCase.required.length) * correctCount;
-    }
+    // Award points based on the number of correct requirements found
+    totalAwardedPoints +=
+      (pointsForDifficulty / testCase.required.length) * correctCount;
   }
 
   // Determine if the overall submission passed
   const passed = totalAwardedPoints >= pointsForDifficulty / 2;
- 
+
   res.json({
     totalPoints: totalAwardedPoints,
     passed,
@@ -389,13 +411,125 @@ app.post("/submit/css", (req, res) => {
   });
 });
 
+// app.post("/submit/css", (req, res) => {
+//   const { htmlCode, cssCode, jsCode, activity } = req.body;
+
+//   if (!activity) {
+//     return res.status(404).json({ error: "Activity not found" });
+//   }
+
+//   const testCases = activity.testCases || [];
+//   let totalPoints = 0;
+
+//   // Set points based on difficulty
+//   let pointsForDifficulty;
+//   switch (activity.difficulty) {
+//     case "easy":
+//       pointsForDifficulty = 10;
+//       break;
+//     case "medium":
+//       pointsForDifficulty = 15;
+//       break;
+//     case "hard":
+//       pointsForDifficulty = 20;
+//       break;
+//     default:
+//       pointsForDifficulty = 10;
+//   }
+
+//   // Track total points awarded
+//   let totalAwardedPoints = 0;
+
+//   for (const testCase of testCases) {
+//     let htmlContent = htmlCode;
+
+//     // Insert CSS into the HTML content
+//     if (cssCode) {
+//       htmlContent = htmlContent.replace(
+//         "</head>",
+//         `<style>${cssCode}</style></head>`
+//       );
+//     }
+
+//     // Add JavaScript to the HTML content
+//     if (jsCode) {
+//       htmlContent = htmlContent.replace(
+//         "</body>",
+//         `<script>${jsCode}</script></body>`
+//       );
+//     }
+
+//     // Normalize the HTML content
+//     const codeUser = cssNormalizeCode(htmlContent);
+
+//     let points = 0;
+//     let currentIndex = 0;
+//     let correctCount = 0;
+
+//     for (const requirement of testCase.required) {
+//       const normalizedRequirement = cssNormalizeCode(requirement);
+//       const index = codeUser.indexOf(normalizedRequirement, currentIndex);
+
+//       if (index !== -1) {
+//         correctCount += 1;
+//         points += 1;
+//         currentIndex = index + normalizedRequirement.length;
+//         console.log(
+//           normalizedRequirement + " : TAMA ITO : current score : " + points
+//         );
+//       } else {
+//         console.log(
+//           normalizedRequirement + " : mali ito : current score : " + points
+//         );
+//       }
+//     }
+
+//          for (const requirement of testCase.required) {
+//   const normalizedRequirement = cssNormalizeCode(requirement);
+
+//   if (codeUser.includes(normalizedRequirement)) {
+//     correctCount += 1;
+//     console.log(
+//       normalizedRequirement +
+//         " : TAMA ITO : correct count : " +
+//         correctCount
+//     );
+//   } else {
+//     console.log(
+//       normalizedRequirement +
+//         " : mali ito : correct count : " +
+//         correctCount
+//     );
+//   }
+// }
+
+//     // Award points based on correctness and order
+//     if (correctCount === testCase.required.length) {
+//       totalAwardedPoints += pointsForDifficulty; // Perfect score for this test case
+//     } else if (correctCount > 0) {
+//       // Partial credit
+//       totalAwardedPoints +=
+//         (pointsForDifficulty / testCase.required.length) * correctCount;
+//     }
+//   }
+
+//   // Determine if the overall submission passed
+//   const passed = totalAwardedPoints >= pointsForDifficulty / 2;
+
+//   res.json({
+//     totalPoints: totalAwardedPoints,
+//     passed,
+//     maxPoints: pointsForDifficulty,
+//   });
+// });
+
 //working
-app.post('/submit/javascriptweb', (req, res) => {
+app.post("/submit/javascriptweb", (req, res) => {
   const { jsCode, activity } = req.body;
-  
-  console.log("========================================")
+
+  console.log("========================================");
   if (!activity) {
-    return res.status(404).json({ error: 'Activity not found' });
+    return res.status(404).json({ error: "Activity not found" });
   }
 
   const testCases = activity.testCases || [];
@@ -405,13 +539,13 @@ app.post('/submit/javascriptweb', (req, res) => {
   // Set points based on difficulty
   let pointsForDifficulty;
   switch (activity.difficulty) {
-    case 'easy':
+    case "easy":
       pointsForDifficulty = 10;
       break;
-    case 'medium':
+    case "medium":
       pointsForDifficulty = 15;
       break;
-    case 'hard':
+    case "hard":
       pointsForDifficulty = 20;
       break;
     default:
@@ -428,11 +562,11 @@ app.post('/submit/javascriptweb', (req, res) => {
     const normalizedJsCode = jsNormalizeCodeWeb(jsCode);
     let points = 0;
     let correctCount = 0;
-    console.log("Normalized Js Code: "+normalizedJsCode)
+    console.log("Normalized Js Code: " + normalizedJsCode);
 
     for (const requirement of testCase.required) {
       const normalizedRequirement = jsNormalizeCodeWeb(requirement);
-      console.log("Normalized rq Code: "+normalizedRequirement)
+      console.log("Normalized rq Code: " + normalizedRequirement);
       if (normalizedJsCode.includes(normalizedRequirement)) {
         correctCount += 1;
         points += 1;
@@ -447,7 +581,8 @@ app.post('/submit/javascriptweb', (req, res) => {
       totalAwardedPoints += pointsForDifficulty; // Perfect score for this test case
     } else if (correctCount > 0) {
       // Partial credit
-      totalAwardedPoints += (pointsForDifficulty / testCase.required.length) * correctCount;
+      totalAwardedPoints +=
+        (pointsForDifficulty / testCase.required.length) * correctCount;
     }
   }
 
@@ -467,23 +602,22 @@ app.post("/submit/javascriptconsole", (req, res) => {
   // const activity = activities.find((activity) => activity.activityId === activityId);
 
   if (!activity) {
-    return res.status(404).json({ error: 'Activity not found' });
+    return res.status(404).json({ error: "Activity not found" });
   }
 
   const testCases = activity.testCases || [];
   let totalPoints = 0;
-  
 
   // Set points based on difficulty
   let pointsForDifficulty;
   switch (activity.difficulty) {
-    case 'easy':
+    case "easy":
       pointsForDifficulty = 10;
       break;
-    case 'medium':
+    case "medium":
       pointsForDifficulty = 15;
       break;
-    case 'hard':
+    case "hard":
       pointsForDifficulty = 20;
       break;
     default:
@@ -507,11 +641,14 @@ app.post("/submit/javascriptconsole", (req, res) => {
 
     for (const requirement of testCase.required) {
       const normalizedRequirement = jsNormalizeCode(requirement);
-      const index = normalizedJsCode.indexOf(normalizedRequirement, currentIndex);
+      const index = normalizedJsCode.indexOf(
+        normalizedRequirement,
+        currentIndex
+      );
 
       if (index !== -1) {
         correctCount += 1;
-        points += 1; 
+        points += 1;
         currentIndex = index + normalizedRequirement.length;
         console.log(
           normalizedRequirement + " : TAMA ITO : current score : " + points
@@ -528,11 +665,11 @@ app.post("/submit/javascriptconsole", (req, res) => {
       totalAwardedPoints += pointsForDifficulty; // Perfect score for this test case
     } else if (correctCount > 0) {
       // Partial credit
-      totalAwardedPoints += (pointsForDifficulty / testCase.required.length) * correctCount;
+      totalAwardedPoints +=
+        (pointsForDifficulty / testCase.required.length) * correctCount;
     }
 
     // Add points for correct console output
-
   }
 
   // Determine if the overall submission passed
@@ -542,7 +679,6 @@ app.post("/submit/javascriptconsole", (req, res) => {
     totalPoints: totalAwardedPoints,
     passed,
     maxPoints: pointsForDifficulty,
-    
   });
 });
 
@@ -626,24 +762,24 @@ app.post("/execute", (req, res) => {
     res.json({ output: htmlContent });
   } else if (language === "javascriptconsole") {
     const child = spawn("node", ["-e", js]);
-  
-    let output = ""; 
+
+    let output = "";
     let errorOutput = "";
-  
+
     child.stdout.on("data", (data) => {
       output += data.toString();
     });
-  
+
     child.stderr.on("data", (data) => {
       errorOutput += data.toString();
     });
-  
+
     child.on("close", (code) => {
       if (code !== 0) {
         res.status(500).json({ output: `Error: ${errorOutput}` });
       } else {
         // Remove ANSI escape codes
-        output = output.replace(/\x1b\[\d+m/g, '');
+        output = output.replace(/\x1b\[\d+m/g, "");
         res.json({ output });
       }
     });
@@ -652,8 +788,6 @@ app.post("/execute", (req, res) => {
   }
 });
 
-
-
 app.get("/", (req, res) => {
   res.send("Server or api is running.");
-}); 
+});

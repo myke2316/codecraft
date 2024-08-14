@@ -51,20 +51,43 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         (activityDetail) => activityDetail.activityId === activityId
       )
   );
-  const userAnalytics = useSelector((state) =>
-    state.userAnalytics.userAnalytics.coursesAnalytics
-      .find((course) => course.courseId === courseId)
-      .lessonsAnalytics.find((lesson) => lesson.lessonId === lessonId)
-      .activitiesAnalytics.find(
-        (activityDetail) => activityDetail.activityId === activityId
-      )
-  );
+
+
+  const userAnalytics = useSelector((state) => 
+  state.userAnalytics.userAnalytics.coursesAnalytics
+    .find((course) => {
+      const courseIdValue = typeof course.courseId === 'object' && course.courseId._id
+        ? course.courseId._id
+        : course.courseId;
+      return courseIdValue === courseId;
+    })
+    ?.lessonsAnalytics.find((lesson) => {
+      const lessonIdValue = typeof lesson.lessonId === 'object' && lesson.lessonId._id
+        ? lesson.lessonId._id
+        : lesson.lessonId;
+      return lessonIdValue === lessonId;
+    })
+    ?.activitiesAnalytics.find((activityDetail) => {
+      const activityIdValue = typeof activityDetail.activityId === 'object' && activityDetail.activityId._id
+        ? activityDetail.activityId._id
+        : activityDetail.activityId;
+      return activityIdValue === activityId;
+    })
+);
+
+
 
   const tries = activitySubmission.tries;
 
   //timer
   const [timer, setTimer] = useState(0);
   const [startTime, setStartTime] = useState(null);
+  console.log(timer);
+  const resetTimer = () => {
+    setTimer(0);
+    setStartTime(null);
+  };
+
   const formatTime = (totalSeconds) => {
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -76,6 +99,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
   };
 
   const formattedTime = formatTime(timer); // Create a formatted time variable
+
   useEffect(() => {
     if (startTime) {
       const intervalId = setInterval(() => {
@@ -232,6 +256,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
   }
 
   async function handleCheckCode() {
+    console.log(activity.language)
     try {
       let endpoint;
       if (activity.language === "HTML") {
@@ -326,15 +351,25 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
   const courses = useSelector(
     (state) => state.userActivitySubmission.activitySubmissions.courses
   );
+
+  useEffect(() => {
+    return () => {
+      resetTimer();
+    };
+  }, [activityId]);
+
   const handleNextActivity = () => {
+    resetTimer();
     const currentActivityIndex = activities.findIndex(
       (activityDetail) => activityDetail.activityId === activityId
     );
-    
+
     // Check if there's a next activity in the current lesson
     if (currentActivityIndex < activities.length - 1) {
       const nextActivityId = activities[currentActivityIndex + 1].activityId;
-      navigate(`/course/${courseId}/lesson/${lessonId}/activity/${nextActivityId}`);
+      navigate(
+        `/course/${courseId}/lesson/${lessonId}/activity/${nextActivityId}`
+      );
       setFinalResult(false);
       setSubmissionResultDialogOpen(false);
     } else {
@@ -342,10 +377,11 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
       const currentLessonIndex = lessons.findIndex(
         (lesson) => lesson.lessonId === lessonId
       );
-      
+
       if (currentLessonIndex < lessons.length - 1) {
         const nextLessonId = lessons[currentLessonIndex + 1].lessonId;
-        const nextActivityId = lessons[currentLessonIndex + 1].activities[0].activityId;
+        const nextActivityId =
+          lessons[currentLessonIndex + 1].activities[0].activityId;
         navigate(`/course/${courseId}/lesson/${nextLessonId}`);
         setFinalResult(false);
         setSubmissionResultDialogOpen(false);
@@ -354,11 +390,13 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         const currentCourseIndex = courses.findIndex(
           (course) => course.courseId === courseId
         );
-        
+
         if (currentCourseIndex < courses.length - 1) {
           const nextCourseId = courses[currentCourseIndex + 1].courseId;
-          const firstLessonId = courses[currentCourseIndex + 1].lessons[0].lessonId;
-          const firstActivityId = courses[currentCourseIndex + 1].lessons[0].activities[0].activityId;
+          const firstLessonId =
+            courses[currentCourseIndex + 1].lessons[0].lessonId;
+          const firstActivityId =
+            courses[currentCourseIndex + 1].lessons[0].activities[0].activityId;
           navigate(`/course/${nextCourseId}/lesson/${firstLessonId}`);
           setFinalResult(false);
           setSubmissionResultDialogOpen(false);
@@ -368,7 +406,6 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
       }
     }
   };
-  
 
   if (!activity) {
     return <div>Loading...</div>;
@@ -415,7 +452,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
             selectOnLineNumbers: true,
             readOnly:
               activitySubmission?.timeTaken &&
-              (userAnalytics || userAnalytics.timeSpent),
+              (userAnalytics || userAnalytics?.timeSpent),
           }}
         />
         <Button
@@ -441,7 +478,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
           disabled={
             activitySubmission?.tries === 0 ||
             (activitySubmission?.timeTaken &&
-              (userAnalytics || userAnalytics.timeSpent))
+              (userAnalytics || userAnalytics?.timeSpent))
           }
           onClick={
             activitySubmission?.tries > 0 ? handleOpenCheckCodeDialog : null
@@ -458,11 +495,11 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
           }}
           disabled={
             activitySubmission?.timeTaken &&
-            (userAnalytics || userAnalytics.timeSpent)
+            (userAnalytics || userAnalytics?.timeSpent)
           }
           onClick={
             activitySubmission.timeTaken &&
-            (userAnalytics || userAnalytics.timeSpent)
+            (userAnalytics || userAnalytics?.timeSpent)
               ? null
               : handleOpenDialog
           }
@@ -571,7 +608,14 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        <Button onClick={() => navigate(`/course/${courseId}/lesson/${lessonId}/activity/activityList`)} color="primary">
+          <Button
+            onClick={() =>
+              navigate(
+                `/course/${courseId}/lesson/${lessonId}/activity/activityList`
+              )
+            }
+            color="primary"
+          >
             Back
           </Button>
           <Button onClick={handleFinalResultClose} color="primary">

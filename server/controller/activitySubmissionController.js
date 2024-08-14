@@ -66,7 +66,7 @@ const createActivitySubmissions = async (req, res) => {
           passed: false,
           pointsEarned: 0,
           timeTaken: 0,
-          tries: 3,
+          tries: 100, //change to 3 soon
           timestamp: ""
         }))
       }))

@@ -81,7 +81,6 @@
               ]
             }
           ],
-
           "quiz": [
             {
               "question": "What does HTML stand for?",
@@ -182,6 +181,10 @@
               "locked": true,
               "completed": false
             }
+
+            
+            
+             
           ],
           "totalPoints": 10,
           "locked": false
@@ -498,6 +501,88 @@
               ],
               "locked": true,
               "completed": false
+            },
+            {
+              "title": "Internal CSS: Basic HTML Styling",
+              "description": "Create a basic HTML page with internal CSS styles.",
+              "language": "CSS",
+              "difficulty": "easy",
+              "problemStatement": "Create an HTML page with the following elements and styles:\n1. Title: The page title should be 'Internal CSS Example'.\n2. Heading: Include an <h1> element with the text 'Welcome to Internal CSS'. Style this heading to be blue using internal CSS.\n3. Paragraph: Add a <p> element with the text 'This is a paragraph styled with internal CSS.'. Style this paragraph to have a font size of 16px using internal CSS.\n\nAll CSS styles should be written inside a <style> tag in the <head> section.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n    <title></title>\n    <style>\n        /* Add your internal CSS here */\n    </style>\n</head>\n<body>\n    <h1></h1>\n    <p></p>\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head><title>Internal CSS Example</title><style>h1 { color: blue; } p { font-size: 16px; }</style></head><body><h1>Welcome to Internal CSS</h1><p>This is a paragraph styled with internal CSS.</p></body></html>",
+                  "required": [
+                    "<title>Internal CSS Example</title>",
+                    "<h1>Welcome to Internal CSS</h1>",
+                    "h1 { color: blue; }",
+                    "<p>This is a paragraph styled with internal CSS.</p>",
+                    "p { font-size: 16px; }"
+                  ],
+                  "isHidden": false
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },   
+            {
+              "title": "External CSS: Separate Styling",
+              "description": "Apply styles to an HTML page using an external CSS file.",
+              "language": "CSS",
+              "difficulty": "medium",
+              "problemStatement": "Create two files:\n1. HTML File: Create an HTML page with the following elements:\n   - Title: Set the page title to 'External CSS Example'.\n   - Heading: Include an <h1> element with the text 'Styled Heading with External CSS'.\n   - Paragraph: Add a <p> element with the text 'Styled paragraph text with external CSS.'.\n2. CSS File: Create an external CSS file named styles.css with the following styles:\n   - Heading: Set the background color of the <h1> element to lightblue.\n   - Paragraph: Set the margin of the <p> element to 30px.\n\nLink the external CSS file in the HTML document using a <link> tag in the <head> section.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n    <title></title>\n    <link rel='stylesheet' type='text/css' href='styles.css'>\n</head>\n<body>\n    <h1></h1>\n    <p></p>\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head><title>External CSS Example</title><link rel='stylesheet' type='text/css' href='styles.css'></head><body><h1>Styled Heading with External CSS</h1><p>Styled paragraph text with external CSS.</p></body></html>",
+                  "required": [
+                    "<link rel='stylesheet' type='text/css' href='styles.css'>",
+                    "h1 { background-color: lightblue; }",
+                    "p { margin: 30px; }"
+                  ],
+                  "isHidden": false
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },
+            {
+              "title": "Advanced CSS: Combining Methods with Specificity and Inheritance",
+              "description": "Combine internal, inline, and external CSS to test specificity, inheritance, and cascading rules.",
+              "language": "CSS",
+              "difficulty": "hard",
+              "problemStatement": "Create an HTML page with the following elements and styles:\n1. Title: The page title should be 'Advanced CSS Example'.\n2. Heading: Include an <h1> element with the text 'Advanced CSS Styling'. Apply inline CSS to set the font size to 24px.\n3. Subheading: Add an <h2> element with the text 'Understanding CSS Specificity'. Style this element using internal CSS to set its color to green.\n4. Paragraph: Add a <p> element with the text 'Combining different CSS methods in one document.'. Use external CSS to set the background color to lightyellow.\n5. External CSS: Create an external CSS file named styles.css with styles for the <h2> element to set the font size to 20px.\n\nEnsure to link the external CSS file in the HTML document, and use internal CSS to override some styles applied by the external CSS.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n    <title></title>\n    <link rel='stylesheet' type='text/css' href='styles.css'>\n    <style>\n        /* Add your internal CSS here */\n    </style>\n</head>\n<body>\n    <h1 style=''></h1>\n    <h2></h2>\n    <p></p>\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head><title>Advanced CSS Example</title><link rel='stylesheet' type='text/css' href='styles.css'><style>h2 { color: green; }</style></head><body><h1 style='font-size: 24px;'>Advanced CSS Styling</h1><h2>Understanding CSS Specificity</h2><p style='background-color: lightyellow;'>Combining different CSS methods in one document.</p></body></html>",
+                  "required": [
+                    "<h1 style='font-size: 24px;'>Advanced CSS Styling</h1>",
+                    "<h2>Understanding CSS Specificity</h2>",
+                    "<p style='background-color: lightyellow;'>Combining different CSS methods in one document.</p>",
+                    "h2 { color: green; }",
+                    "p { background-color: lightyellow; }"
+                  ],
+                  "isHidden": false
+                }
+              ],
+              "locked": true,
+              "completed": false
             }
           ],
           "totalPoints": 10,
@@ -630,7 +715,7 @@
           "locked": true
         }
       ],
-      "locked": false
+      "locked": true
     },
     {
       "title": "JavaScript",
@@ -654,7 +739,7 @@
                   "code": "console.log('Hello, World!');"
                 }
               ],
-              "locked": false
+              "locked": true
             },
             {
               "title": "JavaScript Syntax",
@@ -673,7 +758,7 @@
                   "code": "let x = 5;\nlet y = 6;\nlet z = x + y;\nconsole.log(z);"
                 }
               ],
-              "locked": false
+              "locked": true
             }
           ],
           "quiz": [
@@ -777,7 +862,7 @@
             }
           ],
           "totalPoints": 10,
-          "locked": false
+          "locked": true
         },
         {
           "title": "Lesson 2: JavaScript DOM Manipulation",
@@ -926,7 +1011,8 @@
           "totalPoints": 20,
           "locked": true
         }
-      ]
+      ],
+      "locked": true
     }
   ]
 }
