@@ -37,6 +37,12 @@ import QuestionDetail from "./features/QnA/QuestionDetail/QuestionDetail";
 import EditQuestionPage from "./features/QnA/QuestionDetail/EditQuestionPage";
 import EditAnswerPage from "./features/QnA/QuestionDetail/EditAnswerPage";
 import StudentDashboard from "./features/Student/StudentDashboard/StudentDashboard";
+import PrivateRoutesTeacher from "./Components/PrivateRoutesTeacher";
+
+import ClassLists from "./features/Teacher/ClassLists";
+import TeacherClassHome from "./features/Teacher/TeacherClassHome";
+import StudentTeacherProfile from "./features/Teacher/StudentTeacherProfile";
+import TeacherEditClass from "./features/Teacher/TeacherEditClass";
 
 function App() {
   return (
@@ -57,11 +63,13 @@ function App() {
             />
           </Route>
         </Route>
+
         <Route element={<ClassLayout />}>
           <Route path="" element={<PrivateRoutes />}>
             <Route path="studentClass/:classId" element={<ClassHome />} />
           </Route>
         </Route>
+
         <Route element={<AuthorizedLayout />}>
           <Route path="" element={<PrivateRoutes />}>
             <Route path=":studentId" element={<AuthorizedHome />} />
@@ -80,7 +88,16 @@ function App() {
               path="/edit-answer/:questionId/:answerId"
               element={<EditAnswerPage />}
             />
-            <Route path="dashboard" element={<StudentDashboard/>} />
+            <Route path="dashboard" element={<StudentDashboard />} />
+          </Route>
+        </Route>
+
+        <Route element={<AuthorizedLayout />}>
+          <Route path="" element={<PrivateRoutesTeacher />}>
+            <Route path="/:classId/students/:studentId" element={<StudentTeacherProfile />} />
+            <Route path="/:classId/class" element={<TeacherClassHome />} />
+            <Route path="/classes" element={<ClassLists />} />
+            <Route path="/:classId/class/class-edit" element={<TeacherEditClass />} />
           </Route>
         </Route>
 

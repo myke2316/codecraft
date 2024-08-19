@@ -1,6 +1,7 @@
 import express from "express";
 import {
   addBadgeToUser,
+  getAllUserAnalytics,
   getUserAnalytics,
   getUserBadges,
   updateUserAnalytics,
@@ -14,5 +15,5 @@ router.post("/create", createUserAnalytics);
 router.put("/update", updateUserAnalytics);
 router.post("/addBadge", addBadgeToUser);
 router.post("/fetchBadge", getUserBadges);
-
+router.get("/fetchAllAnalytics", getAllUserAnalytics);
 export { router as analyticsRouter };

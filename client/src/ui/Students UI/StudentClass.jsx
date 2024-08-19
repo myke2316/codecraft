@@ -7,7 +7,7 @@ function StudentClass() {
   const userClass = useSelector((state) => state.class.class);
   const classes = !userClass ? [] :userClass.length === 0;
   return (
-    <div className="text-white">
+    <div className="text-black">
       {!classes && <StudentClassContainer />}
       {classes && (
         <>

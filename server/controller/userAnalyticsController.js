@@ -1,6 +1,23 @@
 import mongoose from "mongoose";
 import UserAnalyticsModel from "../models/UserAnalyticsModel.js";
+// Get analytics for all users
+const getAllUserAnalytics = async (req, res) => {
+  try {
+    // Fetch all user analytics data
+    const userAnalytics = await UserAnalyticsModel.find();
 
+    if (!userAnalytics || userAnalytics.length === 0) {
+      return res.status(404).json({ message: "No analytics data found" });
+    }
+
+    res.status(200).json(userAnalytics);
+  } catch (error) {
+    console.error("Error fetching user analytics:", error);
+    res
+      .status(500)
+      .json({ message: "An error occurred while fetching user analytics" });
+  }
+};
 // Get analytics for a specific user
 const getUserAnalytics = async (req, res) => {
   try {
@@ -24,7 +41,6 @@ const getUserAnalytics = async (req, res) => {
   }
 };
 
-
 const updateUserAnalytics = async (req, res) => {
   try {
     const { userId, analyticsData } = req.body;
@@ -47,12 +63,19 @@ const updateUserAnalytics = async (req, res) => {
     const quizIds = [];
     const activityIds = [];
 
-    if (analyticsData.coursesAnalytics && Array.isArray(analyticsData.coursesAnalytics)) {
+    if (
+      analyticsData.coursesAnalytics &&
+      Array.isArray(analyticsData.coursesAnalytics)
+    ) {
       analyticsData.coursesAnalytics.forEach((course) => {
         let totalCourseTime = 0;
         let totalCoursePoints = 0;
 
-        if (course.courseId && course.lessonsAnalytics && Array.isArray(course.lessonsAnalytics)) {
+        if (
+          course.courseId &&
+          course.lessonsAnalytics &&
+          Array.isArray(course.lessonsAnalytics)
+        ) {
           courseIds.push(course.courseId);
 
           course.lessonsAnalytics.forEach((lesson) => {
@@ -63,7 +86,10 @@ const updateUserAnalytics = async (req, res) => {
               lessonIds.push(lesson.lessonId);
 
               // Handle Document Analytics
-              if (lesson.documentsAnalytics && Array.isArray(lesson.documentsAnalytics)) {
+              if (
+                lesson.documentsAnalytics &&
+                Array.isArray(lesson.documentsAnalytics)
+              ) {
                 lesson.documentsAnalytics.forEach((document) => {
                   if (document.documentId) {
                     documentIds.push(document.documentId);
@@ -82,7 +108,10 @@ const updateUserAnalytics = async (req, res) => {
               }
 
               // Handle Quiz Analytics
-              if (lesson.quizzesAnalytics && Array.isArray(lesson.quizzesAnalytics)) {
+              if (
+                lesson.quizzesAnalytics &&
+                Array.isArray(lesson.quizzesAnalytics)
+              ) {
                 lesson.quizzesAnalytics.forEach((quiz) => {
                   if (quiz.quizId) {
                     quizIds.push(quiz.quizId);
@@ -101,7 +130,10 @@ const updateUserAnalytics = async (req, res) => {
               }
 
               // Handle Coding Activity Analytics
-              if (lesson.activitiesAnalytics && Array.isArray(lesson.activitiesAnalytics)) {
+              if (
+                lesson.activitiesAnalytics &&
+                Array.isArray(lesson.activitiesAnalytics)
+              ) {
                 lesson.activitiesAnalytics.forEach((activity) => {
                   if (activity.activityId) {
                     activityIds.push(activity.activityId);
@@ -137,8 +169,10 @@ const updateUserAnalytics = async (req, res) => {
         // Update Course Analytics
         totalCourseTimeSpent += totalCourseTime;
         totalCoursePointsEarned += totalCoursePoints;
-        updateObject[`coursesAnalytics.$[course].totalTimeSpent`] = totalCourseTime;
-        updateObject[`coursesAnalytics.$[course].totalPointsEarned`] = totalCoursePoints;
+        updateObject[`coursesAnalytics.$[course].totalTimeSpent`] =
+          totalCourseTime;
+        updateObject[`coursesAnalytics.$[course].totalPointsEarned`] =
+          totalCoursePoints;
       });
     }
 
@@ -147,11 +181,15 @@ const updateUserAnalytics = async (req, res) => {
     updateObject.totalPointsEarned = totalCoursePointsEarned;
 
     const arrayFilters = [];
-    if (courseIds.length) arrayFilters.push({ "course.courseId": { $in: courseIds } });
-    if (lessonIds.length) arrayFilters.push({ "lesson.lessonId": { $in: lessonIds } });
-    if (documentIds.length) arrayFilters.push({ "document.documentId": { $in: documentIds } });
+    if (courseIds.length)
+      arrayFilters.push({ "course.courseId": { $in: courseIds } });
+    if (lessonIds.length)
+      arrayFilters.push({ "lesson.lessonId": { $in: lessonIds } });
+    if (documentIds.length)
+      arrayFilters.push({ "document.documentId": { $in: documentIds } });
     if (quizIds.length) arrayFilters.push({ "quiz.quizId": { $in: quizIds } });
-    if (activityIds.length) arrayFilters.push({ "activity.activityId": { $in: activityIds } });
+    if (activityIds.length)
+      arrayFilters.push({ "activity.activityId": { $in: activityIds } });
 
     const updatedAnalytics = await UserAnalyticsModel.findOneAndUpdate(
       { userId },
@@ -169,8 +207,6 @@ const updateUserAnalytics = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-
 
 // Add a new badge to a specific user
 const addBadgeToUser = async (req, res) => {
@@ -209,4 +245,10 @@ const getUserBadges = async (req, res) => {
   }
 };
 
-export { getUserAnalytics, updateUserAnalytics, addBadgeToUser, getUserBadges };
+export {
+  getUserAnalytics,
+  updateUserAnalytics,
+  addBadgeToUser,
+  getUserBadges,
+  getAllUserAnalytics,
+};

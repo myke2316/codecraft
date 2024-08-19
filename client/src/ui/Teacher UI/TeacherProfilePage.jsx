@@ -24,9 +24,9 @@ function TeacherProfilePage() {
   }
 
   return (
-    <div className="text-white">
+    <div className="text-black">
       This is {"<TeachersHome />"}
-      <div className="text-white">
+      <div className="text-black">
         <img alt="profilepicture" src={user.picture} />
         <h1>ID: {user._id}</h1>
         <h1>Username: {user.username || user.given_name}</h1>

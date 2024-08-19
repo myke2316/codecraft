@@ -46,7 +46,7 @@ const calculateTotals = (items) => {
   };
 };
 
-const OverallPerformanceTable = () => {
+const TeacherOverallPerformanceTable = ({ userAnalytics, userProgress }) => {
   const [selectedCourseId, setSelectedCourseId] = useState(""); // State for the selected course filter
   const [selectedLessonId, setSelectedLessonId] = useState(""); // State for the selected lesson filter
   const [selectedContentType, setSelectedContentType] = useState(""); // State for filtering content type (document/quiz/activity)
@@ -55,12 +55,12 @@ const OverallPerformanceTable = () => {
   const [expandedContent, setExpandedContent] = useState({}); // State for expanded content
 
   const courseData = useSelector((state) => state.course.courseData);
-  const userAnalytics = useSelector(
-    (state) => state.userAnalytics.userAnalytics
-  );
-  const userProgress = useSelector(
-    (state) => state.studentProgress.userProgress
-  );
+  // const userAnalytics = useSelector(
+  //   (state) => state.userAnalytics.userAnalytics
+  // );
+  // const userProgress = useSelector(
+  //   (state) => state.studentProgress.userProgress
+  // );
 
   // Handle course filter change
   const handleCourseFilterChange = (event) => {
@@ -231,7 +231,6 @@ const OverallPerformanceTable = () => {
               const courseProgress = userProgress.coursesProgress.find(
                 (cp) => cp.courseId.toString() === course._id.toString()
               );
-              console.log(courseProgress);
               const courseTotals = calculateTotals(
                 course.lessons.flatMap((lesson) => [
                   ...lesson.documents.map((doc) => ({
@@ -319,7 +318,6 @@ const OverallPerformanceTable = () => {
                     );
                   })
                 : false;
-              console.log(isCourseAllFinished);
               return (
                 <React.Fragment key={course._id}>
                   <tr
@@ -337,7 +335,7 @@ const OverallPerformanceTable = () => {
                       {isCourseAllFinished ? "Finished" : "In Progress"}
                     </td>{" "}
                     <td className="py-3 px-4">
-                      {courseProgress && isCourseAllFinished
+                      {courseProgress?.dateFinished
                         ? formatDate(courseProgress.dateFinished)
                         : "In Progress"}
                     </td>
@@ -355,6 +353,74 @@ const OverallPerformanceTable = () => {
                             lp.lessonId.toString() === lesson._id.toString()
                         );
 
+                      // Calculate totals for documents, quizzes, and activities
+                      const documentTotals = calculateTotals(
+                        lesson.documents.map((doc) => ({
+                          analytics: lessonAnalytics.documentsAnalytics.find(
+                            (da) =>
+                              da.documentId.toString() === doc._id.toString()
+                          ),
+                          progress: lessonProgress.documentsProgress.find(
+                            (dp) =>
+                              dp.documentId.toString() === doc._id.toString()
+                          ),
+                        }))
+                      );
+
+                      const isAllDocumentsFinished = lesson.documents.every(
+                        (doc) => {
+                          const docProgress =
+                            lessonProgress.documentsProgress.find(
+                              (dp) =>
+                                dp.documentId.toString() === doc._id.toString()
+                            );
+                          return docProgress?.dateFinished !== null;
+                        }
+                      );
+                      const quizTotals = calculateTotals(
+                        lesson.quiz.map((quiz) => ({
+                          analytics: lessonAnalytics.quizzesAnalytics.find(
+                            (qa) => qa.quizId.toString() === quiz._id.toString()
+                          ),
+                          progress: lessonProgress.quizzesProgress.find(
+                            (qp) => qp.quizId.toString() === quiz._id.toString()
+                          ),
+                        }))
+                      );
+
+                      const activityTotals = calculateTotals(
+                        lesson.activities.map((activity) => ({
+                          analytics: lessonAnalytics.activitiesAnalytics.find(
+                            (aa) =>
+                              aa.activityId.toString() ===
+                              activity._id.toString()
+                          ),
+                          progress: lessonProgress.activitiesProgress.find(
+                            (ap) =>
+                              ap.activityId.toString() ===
+                              activity._id.toString()
+                          ),
+                        }))
+                      );
+                      const activityMisc = lesson.activities.map((activity) => {
+                        const activityProgress =
+                          lessonProgress.activitiesProgress.find(
+                            (ap) =>
+                              ap.activityId.toString() ===
+                              activity._id.toString()
+                          );
+                        return activityProgress;
+                      });
+
+                      const isActivityAllFinished = activityMisc.every(
+                        (progress) => {
+                          if (progress.dateFinished !== null) {
+                            return true;
+                          } else {
+                            return false;
+                          }
+                        }
+                      );
                       const isAllLessonFinished = lessonProgress
                         ? [
                             // Check if all documents in the lesson are finished
@@ -391,73 +457,6 @@ const OverallPerformanceTable = () => {
                           ].every((finished) => finished) // Check if all progress items have dateFinished
                         : false; // If lessonProgress is not found, set isAllLessonFinished to false
 
-                      // Calculate totals for documents, quizzes, and activities
-                      const documentTotals = calculateTotals(
-                        lesson.documents.map((doc) => ({
-                          analytics: lessonAnalytics.documentsAnalytics.find(
-                            (da) =>
-                              da.documentId.toString() === doc._id.toString()
-                          ),
-                          progress: lessonProgress.documentsProgress.find(
-                            (dp) =>
-                              dp.documentId.toString() === doc._id.toString()
-                          ),
-                        }))
-                      );
-                      const isAllDocumentsFinished = lesson.documents.every(
-                        (doc) => {
-                          const docProgress =
-                            lessonProgress.documentsProgress.find(
-                              (dp) =>
-                                dp.documentId.toString() === doc._id.toString()
-                            );
-                          return docProgress?.dateFinished !== null;
-                        }
-                      );
-
-                      const quizTotals = calculateTotals(
-                        lesson.quiz.map((quiz) => ({
-                          analytics: lessonAnalytics.quizzesAnalytics.find(
-                            (qa) => qa.quizId.toString() === quiz._id.toString()
-                          ),
-                          progress: lessonProgress.quizzesProgress.find(
-                            (qp) => qp.quizId.toString() === quiz._id.toString()
-                          ),
-                        }))
-                      );
-
-                      const activityTotals = calculateTotals(
-                        lesson.activities.map((activity) => ({
-                          analytics: lessonAnalytics.activitiesAnalytics.find(
-                            (aa) =>
-                              aa.activityId.toString() ===
-                              activity._id.toString()
-                          ),
-                          progress: lessonProgress.activitiesProgress.find(
-                            (ap) =>
-                              ap.activityId.toString() ===
-                              activity._id.toString()
-                          ),
-                        }))
-                      );
-                      const activityMisc = lesson.activities.map((activity) => {
-                        const activityProgress =
-                          lessonProgress.activitiesProgress.find(
-                            (ap) =>
-                              ap.activityId.toString() ===
-                              activity._id.toString()
-                          );
-                        return activityProgress;
-                      });
-                      const isActivityAllFinished = activityMisc.every(
-                        (progress) => {
-                          if (progress.dateFinished !== null) {
-                            return true;
-                          } else {
-                            return false;
-                          }
-                        }
-                      );
                       const lessonTotals = calculateTotals([
                         ...lesson.documents.map((doc) => ({
                           analytics: lessonAnalytics?.documentsAnalytics.find(
@@ -490,7 +489,6 @@ const OverallPerformanceTable = () => {
                           ),
                         })),
                       ]);
-                      console.log(documentTotals);
                       return (
                         <React.Fragment key={lesson._id}>
                           <tr
@@ -540,9 +538,11 @@ const OverallPerformanceTable = () => {
                                   {documentTotals.totalPoints}
                                 </td>
                                 <td className="py-3 px-4">
-                                  {isAllDocumentsFinished
-                                    ? "Finished"
-                                    : "In Progress"}
+                                  <td className="py-3 px-4">
+                                    {isAllDocumentsFinished
+                                      ? "Finished"
+                                      : "In Progress"}
+                                  </td>
                                 </td>
                                 <td colSpan="2"></td>
                               </tr>
@@ -560,7 +560,6 @@ const OverallPerformanceTable = () => {
                                         dp.documentId.toString() ===
                                         doc._id.toString()
                                     );
-
                                   console.log(docProgress);
                                   return (
                                     <tr
@@ -658,7 +657,7 @@ const OverallPerformanceTable = () => {
                                       </td>
                                       <td className="py-3 px-4">
                                         {quizProgress
-                                          ? quizProgress.locked
+                                          ? !quizProgress.dateFinished
                                             ? "In progress"
                                             : "Finished"
                                           : "In Progress"}
@@ -772,4 +771,4 @@ const OverallPerformanceTable = () => {
   );
 };
 
-export default OverallPerformanceTable;
+export default TeacherOverallPerformanceTable;

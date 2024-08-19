@@ -88,7 +88,7 @@ function JoinClassForm() {
 
   return (
     <Formik initialValues={{ inviteCode: "" }} onSubmit={handleJoinClass}>
-      <Form className="text-white">
+      <Form className="text-black">
         <div>
           <label htmlFor="inviteCode">Invite Code:</label>
           <Field type="text" name="inviteCode" className="text-black" />

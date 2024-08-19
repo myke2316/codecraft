@@ -29,29 +29,7 @@ function DocumentContent() {
   const userAnalytics = useSelector(
     (state) => state.userAnalytics.userAnalytics
   );
-  // const [fetchUserAnalytics, { isLoading, error, data }] =
-  //   useFetchUserAnalyticsMutation();
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (documentId) {
-  //       try {
-  //         const response = await fetchUserAnalytics({
-  //           userId,
-  //         }).unwrap();
-
-  //         // Handle response data
-  //         const existingAnalytics = response.data?.data || {};
-  //         // ... rest of your logic
-  //       } catch (error) {
-  //         console.error("Error fetching user analytics:", error);
-  //         // Handle error
-  //       }
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [documentId, fetchUserAnalytics]);
   useEffect(() => {
     if (courses) {
       const course = courses.find((course) => course._id === courseId);
@@ -281,6 +259,36 @@ function DocumentContent() {
     }
   };
 
+  const handleRunJavaScriptConsole = (code, supportingCode) => {
+    let iframeContent = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Output</title>
+      </head>
+      <body>
+        <script>
+          (function() {
+            const originalConsoleLog = console.log;
+            let consoleOutput = "";
+            console.log = function(message) {
+              consoleOutput += message + '\\n';
+              originalConsoleLog.apply(console, arguments);
+              document.body.innerHTML = "<pre>" + consoleOutput + "</pre>";
+            };
+            ${supportingCode ? supportingCode : ""}
+            ${code}
+          })();
+        </script>
+      </body>
+      </html>
+    `;
+    setIframeContent(iframeContent);
+};
+
+
   const handleRunCode = (code, supportingCode, language) => {
     console.log(language);
     let iframeContent = `
@@ -295,7 +303,7 @@ function DocumentContent() {
       <body>
       ${language === "html" ? `${code}` : ""}
         ${supportingCode ? supportingCode : ""}
-        ${language === "js" ? `<script>${code}</script>` : ""}
+        ${language === "javascript" ? `<script>${code}</script>` : ""}
       </body>
       </html>
     `;
@@ -363,7 +371,35 @@ function DocumentContent() {
                       className="w-full h-64 mt-4 border"
                     />
                   </div>
-                ) : null}
+                ) : content.type === "codeconsole" ? (
+                  <div className="my-4 bg-gray-200 p-4 rounded">
+                    <Editor
+                      height="200px"
+                      defaultLanguage="javascript"
+                      defaultValue={content.code}
+                      onChange={(value) => {
+                        handleRunJavaScriptConsole(value, content.supportingCode);
+                      }} 
+                    />
+                    <button
+                      className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
+                      onClick={() =>
+                        handleRunJavaScriptConsole(
+                          content.code,
+                          content?.supportingCode
+                        )
+                      }
+                    >
+                      Run
+                    </button>
+                    <iframe
+                      srcDoc={iframeContent}
+                      title="Output"
+                      className="w-full h-64 mt-4 border"
+                    />
+                  </div>
+                ) : null
+                }
               </div>
             </CSSTransition>
           ))}

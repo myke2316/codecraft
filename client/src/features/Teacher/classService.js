@@ -16,6 +16,12 @@ export const classService = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    fetchClassById: builder.mutation({
+      query: (id) => ({
+        url: id ? `${CLASS_URL}/fetchClassId/${id}` : `${CLASS_URL}/fetchClass`,
+        method: "GET",
+      }),
+    }),
     joinClass: builder.mutation({
       query: (data) => ({
         url: `${CLASS_URL}/joinClass`,
@@ -23,10 +29,27 @@ export const classService = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    updateClass: builder.mutation({
+      query: (data) => ({
+        url: `${CLASS_URL}/updateClass`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+    removeStudent: builder.mutation({
+      query: (data) => ({
+        url: `${CLASS_URL}/remove-student`,
+        method: "DELETE",
+        body: data,
+      }),
+    }),
   }),
 });
 
 export const {
+  useFetchClassByIdMutation,
+  useUpdateClassMutation,
+  useRemoveStudentMutation,
   useCreateClassMutation,
   useFetchClassMutation,
   useJoinClassMutation,

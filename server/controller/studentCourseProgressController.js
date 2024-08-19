@@ -1,11 +1,22 @@
-
-
 import asyncHandler from "express-async-handler";
 import UserProgressModel from "../models/studentCourseProgressModel.js";
 import CourseModel from "../models/courseModel.js";
 import UserModel from "../models/userModel.js";
 import UserAnalyticsModel from "../models/UserAnalyticsModel.js";
+const getAllProgress = asyncHandler(async (req, res) => {
+  try {
+    const allProgress = await UserProgressModel.find().exec();
 
+    if (!allProgress.length) {
+      return res.status(404).json({ message: "No user progress found" });
+    }
+
+    res.json(allProgress);
+  } catch (err) {
+    console.error("Error fetching all user progress:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 // Get user progress by user ID
 const getUserProgress = asyncHandler(async (req, res) => {
   const { userId } = req.body;
@@ -22,7 +33,8 @@ const getUserProgress = asyncHandler(async (req, res) => {
 // Update user progress
 const updateUserProgress = asyncHandler(async (req, res) => {
   try {
-    const { userId, courseId, lessonId, documentId, quizId, activityId } = req.body;
+    const { userId, courseId, lessonId, documentId, quizId, activityId } =
+      req.body;
 
     const userProgress = await UserProgressModel.findOne({ userId }).exec();
 
@@ -58,7 +70,8 @@ const updateUserProgress = asyncHandler(async (req, res) => {
       );
       if (documentIndex !== -1) {
         lessonProgress.documentsProgress[documentIndex].locked = false;
-        lessonProgress.documentsProgress[documentIndex].dateFinished = new Date();  // Set dateFinished
+        lessonProgress.documentsProgress[documentIndex].dateFinished =
+          new Date(); // Set dateFinished
 
         // Unlock the next document if exists
         const nextDocumentIndex = documentIndex + 1;
@@ -81,21 +94,50 @@ const updateUserProgress = asyncHandler(async (req, res) => {
       }
     }
 
+    // if (quizId) {
+    //   // Mark the quiz as completed
+    //   const quizIndex = lessonProgress.quizzesProgress.findIndex((quiz) =>
+    //     quiz.quizId.equals(quizId)
+    //   );
+    //   if (quizIndex !== -1) {
+    //     lessonProgress.quizzesProgress[quizIndex].dateFinished = new Date(); // Set dateFinished
+    //     lessonProgress.quizzesProgress[quizIndex].locked = false;
+
+    //     // Unlock the next quiz if exists
+    //     const nextQuizIndex = quizIndex + 1;
+    //     if (nextQuizIndex < lessonProgress.quizzesProgress.length) {
+    //       lessonProgress.quizzesProgress[nextQuizIndex].locked = false;
+    //     } else if (lessonProgress.activitiesProgress.length > 0) {
+    //       // If no more quizzes, unlock the next activity
+    //       lessonProgress.activitiesProgress[0].locked = false;
+    //     } else {
+    //       // If no more activities, unlock the next lesson
+    //       unlockNextLesson(
+    //         courseProgress,
+    //         lessonIndex,
+    //         userProgress,
+    //         courseIndex
+    //       );
+    //     }
+    //   }
+    // }
+
     if (quizId) {
-      // Mark the quiz as completed
-      const quizIndex = lessonProgress.quizzesProgress.findIndex((quiz) =>
-        quiz.quizId.equals(quizId)
+      // Find the quiz group that contains this quizId
+      const quizIndex = lessonProgress.quizzesProgress.findIndex(quizGroup =>
+        quizGroup.quizId.some(id => id.equals(quizId))
       );
       if (quizIndex !== -1) {
+        // Mark the entire quiz group as completed
+        lessonProgress.quizzesProgress[quizIndex].dateFinished = new Date();
         lessonProgress.quizzesProgress[quizIndex].locked = false;
-        lessonProgress.quizzesProgress[quizIndex].dateFinished = new Date();  // Set dateFinished
-
-        // Unlock the next quiz if exists
+    
+        // Unlock the next quiz group if exists
         const nextQuizIndex = quizIndex + 1;
         if (nextQuizIndex < lessonProgress.quizzesProgress.length) {
           lessonProgress.quizzesProgress[nextQuizIndex].locked = false;
         } else if (lessonProgress.activitiesProgress.length > 0) {
-          // If no more quizzes, unlock the next activity
+          // If no more quiz groups, unlock the next activity
           lessonProgress.activitiesProgress[0].locked = false;
         } else {
           // If no more activities, unlock the next lesson
@@ -116,16 +158,13 @@ const updateUserProgress = asyncHandler(async (req, res) => {
       );
       if (activityIndex !== -1) {
         lessonProgress.activitiesProgress[activityIndex].locked = false;
-        lessonProgress.activitiesProgress[activityIndex].dateFinished = new Date();  // Set dateFinished
+        lessonProgress.activitiesProgress[activityIndex].dateFinished =
+          new Date(); // Set dateFinished
 
         // Unlock the next coding activity if exists
         const nextActivityIndex = activityIndex + 1;
-        if (
-          nextActivityIndex < lessonProgress.activitiesProgress.length
-        ) {
-          lessonProgress.activitiesProgress[
-            nextActivityIndex
-          ].locked = false;
+        if (nextActivityIndex < lessonProgress.activitiesProgress.length) {
+          lessonProgress.activitiesProgress[nextActivityIndex].locked = false;
         } else {
           // If no more activities, unlock the next lesson
           unlockNextLesson(
@@ -211,8 +250,6 @@ const unlockNextLesson = (
   }
 };
 
-
-
 //CREATE FOR NEW USERS=========================
 const createUserProgress = asyncHandler(async (req, res) => {
   const userId = req.body.userId;
@@ -243,7 +280,8 @@ const createUserProgress = asyncHandler(async (req, res) => {
       const courseProgress = {
         courseId: course._id,
         lessonsProgress: [],
-        locked: course.locked || false,dateFinished: null,
+        locked: course.locked || false,
+        dateFinished: null,
       };
 
       if (Array.isArray(course.lessons)) {
@@ -252,33 +290,46 @@ const createUserProgress = asyncHandler(async (req, res) => {
             lessonId: lesson._id,
             documentsProgress: [],
             quizzesProgress: [],
-            activitiesProgress:[],
-            locked: lesson.locked,dateFinished: null,
+            activitiesProgress: [],
+            locked: lesson.locked,
+            dateFinished: null,
           };
 
           if (Array.isArray(lesson.documents)) {
             lesson.documents.forEach((document) => {
               lessonProgress.documentsProgress.push({
                 documentId: document._id,
-                locked: document.locked,dateFinished: null,
+                locked: document.locked,
+                dateFinished: null,
               });
             });
           }
 
+          // if (Array.isArray(lesson.quiz)) {
+          //   lesson.quiz.forEach((quiz) => {
+          //     lessonProgress.quizzesProgress.push({
+          //       quizId: quiz._id,
+          //       locked: quiz.locked,
+          //       dateFinished: null,
+          //     });
+          //   });
+          // }
+
           if (Array.isArray(lesson.quiz)) {
-            lesson.quiz.forEach((quiz) => {
-              lessonProgress.quizzesProgress.push({
-                quizId: quiz._id,
-                locked: quiz.locked,dateFinished: null,
-              });
-            }); 
+            const quizId = lesson.quiz.map((quiz) => quiz._id);
+            lessonProgress.quizzesProgress.push({
+              quizId,
+              locked: lesson.locked,
+              dateFinished: null,
+            });
           }
 
           if (Array.isArray(lesson.activities)) {
             lesson.activities.forEach((activity) => {
               lessonProgress.activitiesProgress.push({
                 activityId: activity._id,
-                locked: activity.locked,dateFinished: null,
+                locked: activity.locked,
+                dateFinished: null,
               });
             });
           }
@@ -329,7 +380,7 @@ const createUserAnalytics = async (req, res) => {
           timeSpent: 0,
           pointsEarned: 0,
         })),
-        activitiesAnalytics: lesson.activities.map(activity => ({
+        activitiesAnalytics: lesson.activities.map((activity) => ({
           activityId: activity._id,
           timeSpent: 0,
           pointsEarned: 0,
@@ -359,4 +410,5 @@ export {
   createUserProgress,
   updateUserProgress,
   createUserAnalytics,
+  getAllProgress
 };

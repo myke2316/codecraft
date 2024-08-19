@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 
 // Read and parse the JSON file
 const jsonData = fs.readFileSync(
-  path.resolve(__dirname, "../data/courses-new.json"),//change location if thertes new updated  course data
+  path.resolve(__dirname, "../data/testing.json"),//change location if thertes new updated  course data
   "utf-8"
 );
 const coursesData = JSON.parse(jsonData);

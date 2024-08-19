@@ -188,6 +188,15 @@ const resetPassword = asyncHandler(async (req, res) => {
   });
 });
 
+const getAllUsers = asyncHandler(async (req, res) => {
+  try {
+    const users = await UserModel.find().select("-password"); // Exclude password from the response
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 export {
   loginUser,
   registerUser,
@@ -195,5 +204,5 @@ export {
   logoutUser,
   forgotPassword,
   resetPassword,
-  updateRole
+  updateRole,getAllUsers
 };

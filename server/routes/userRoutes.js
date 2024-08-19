@@ -8,6 +8,7 @@ import {
   resetPassword,
   updateUserProfile,
   updateRole,
+  getAllUsers,
 } from "../controller/userController.js";
 
 const router = express.Router();
@@ -19,5 +20,5 @@ router.post("/update-role", updateRole);
 router.get("/logout", logoutUser);
 router.post("/forgot-password", forgotPassword);
 router.patch("/reset-password/:resetToken", resetPassword);
-
+router.get("/getAllUser", getAllUsers);
 export { router as userRouter };

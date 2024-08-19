@@ -25,6 +25,12 @@ export const courseService = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    getAllProgress: builder.mutation({
+      query: () => ({
+        url: `${PROGRESS_URL}/getAllProgress`,
+        method: "Get",
+      }),
+    }),
   }),
 });
 
@@ -32,4 +38,5 @@ export const {
   useCreateUserProgressMutation,
   useFetchUserProgressMutation,
   useUpdateUserProgressMutation,
+  useGetAllProgressMutation
 } = courseService;

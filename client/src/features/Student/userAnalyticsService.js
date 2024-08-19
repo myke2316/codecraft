@@ -4,6 +4,12 @@ import { apiSlice } from "../apiSlice";
 
 export const courseService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    getAllAnalytics: builder.mutation({
+      query: () => ({
+        url: `${ANALYTICS_URL}/fetchAllAnalytics`,
+        method: "GET",
+      }),
+    }),
     fetchUserAnalytics: builder.mutation({
       query: (data) => ({
         url: `${ANALYTICS_URL}/fetch`,
@@ -29,6 +35,7 @@ export const courseService = apiSlice.injectEndpoints({
 });
 
 export const {
+  useGetAllAnalyticsMutation,
   useCreateUserAnalyticsMutation,
   useFetchUserAnalyticsMutation,
   useUpdateUserAnalyticsMutation,

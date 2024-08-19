@@ -1,12 +1,10 @@
+import ClassStudentHome from "./ClassStudentHome";
 import CourseList from "./CourseList";
 
 function ClassHome() {
   return (
     <div>
-      COURSE CONTENT:
-      <ul>
-        <CourseList />
-      </ul>
+      <ClassStudentHome />
     </div>
   );
 }

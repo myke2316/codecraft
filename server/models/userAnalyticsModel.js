@@ -1,5 +1,3 @@
-
-
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
@@ -14,7 +12,7 @@ const QuizAnalyticsSchema = new Schema({
   quizId: { type: Schema.Types.ObjectId, ref: "Quiz", required: true },
   timeSpent: { type: Number, default: 0 }, // in seconds
   pointsEarned: { type: Number, default: 0 },
- // add soon : answer:{type:String}
+  // add soon : answer:{type:String}
 });
 
 const activityAnalyticsSchema = new Schema({

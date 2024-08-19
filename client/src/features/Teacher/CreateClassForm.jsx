@@ -51,7 +51,7 @@ const CreateClassForm = () => {
       onSubmit={handleCreateClass}
     >
       {({ isSubmitting, setFieldValue }) => (
-        <Form className="text-white">
+        <Form className="text-black">
           <div>
             <label htmlFor="className">Class Name (Unique):</label>
             <Field type="text" name="className" className="text-black" />

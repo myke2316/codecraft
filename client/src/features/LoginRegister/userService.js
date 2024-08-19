@@ -3,6 +3,12 @@ import { apiSlice } from "../apiSlice";
 
 export const userService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    getAllUser: builder.mutation({
+      query: () => ({
+        url: `${USER_URL}/getAllUser`,
+        method: "GET",
+      }),
+    }),
     login: builder.mutation({
       query: (data) => ({
         url: `${USER_URL}/login`,
@@ -48,6 +54,7 @@ export const userService = apiSlice.injectEndpoints({
 });
 
 export const {
+  useGetAllUserMutation,
   useLoginMutation,
   useRegisterMutation,
   useLogoutMutation,
