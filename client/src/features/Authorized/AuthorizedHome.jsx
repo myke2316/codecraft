@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import StudentsHome from "../../ui/Students UI/StudentsHome";
 import TeachersHome from "../../ui/Teacher UI/TeachersHome";
+import AdminsHome from "../Admin/AdminsHome";
 
 function AuthorizedHome() {
   const isAuthenticated = localStorage.getItem("userDetails");
@@ -10,6 +11,7 @@ function AuthorizedHome() {
       {" "}
       {isAuthenticated && user.role === "student" && <StudentsHome />}
       {isAuthenticated && user.role === "teacher" && <TeachersHome />}
+      {isAuthenticated && user.role === "admin" && <AdminsHome/>}
     </div>
   );
 }

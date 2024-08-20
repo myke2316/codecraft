@@ -55,7 +55,9 @@ const activitySubmissionSlice = createSlice({
           }
         }
       }
-    },
+    }, resetActivity: (state, action) => {
+      state.activitySubmissions= {}
+       },
   },
   extraReducers: (builder) => {
     builder.addCase(logout, (state) => {
@@ -65,6 +67,6 @@ const activitySubmissionSlice = createSlice({
   },
 });
 
-export const { setActivitySubmission, updateActivitySubmission,setDecrementTries } =
+export const { resetActivity,setActivitySubmission, updateActivitySubmission,setDecrementTries } =
   activitySubmissionSlice.actions;
 export default activitySubmissionSlice.reducer;

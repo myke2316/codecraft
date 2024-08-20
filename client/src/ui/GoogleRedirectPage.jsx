@@ -61,7 +61,10 @@ function GoogleRedirect() {
         );
       }
 
-      if (!user.role) {
+      if(user.role === 'admin'){
+        navigate('/admin-dashboard')
+      }
+      else if (!user.role) {
         navigate("/role-selection");
       } else {
         getClass(user.role);

@@ -4,7 +4,7 @@ import { logout } from "../LoginRegister/userSlice";
 const initialState = {
   userAnalytics: localStorage.getItem("userAnalytics")
     ? JSON.parse(localStorage.getItem("userAnalytics"))
-    : [] ,
+    : [],
 };
 
 const userAnalyticsSlice = createSlice({
@@ -20,7 +20,10 @@ const userAnalyticsSlice = createSlice({
     },
     updateUserAnalytics: (state, action) => {
       state.userAnalytics = action.payload;
-      localStorage.setItem("userAnalytics", JSON.stringify(state.userAnalytics));
+      localStorage.setItem(
+        "userAnalytics",
+        JSON.stringify(state.userAnalytics)
+      );
     },
 
     updateBadge: (state, action) => {
@@ -33,6 +36,9 @@ const userAnalyticsSlice = createSlice({
         JSON.stringify(state.userAnalytics)
       );
     },
+    resetAnalytics: (state, action) => {
+   state.userAnalytics= []
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(logout, (state) => {
@@ -42,9 +48,6 @@ const userAnalyticsSlice = createSlice({
   },
 });
 
-export const {
-  setUserAnalytics,
-  updateUserAnalytics,
-  updateBadge,
-} = userAnalyticsSlice.actions;
+export const { setUserAnalytics, updateUserAnalytics, updateBadge ,resetAnalytics} =
+  userAnalyticsSlice.actions;
 export default userAnalyticsSlice.reducer;

@@ -4,16 +4,16 @@ import { logout } from "../../LoginRegister/userSlice";
 const initialState = {
   quizSubmissions: localStorage.getItem("quizSubmissions")
     ? JSON.parse(localStorage.getItem("quizSubmissions"))
-    : {}
+    : {},
 };
 
 const quizSubmissionSlice = createSlice({
   name: "quizSubmissions",
   initialState,
   reducers: {
-   setQuizSubmission: (state, action) => {
-    state.quizSubmissions = { ...state.quizSubmissions, ...action.payload };
-     
+    setQuizSubmission: (state, action) => {
+      state.quizSubmissions = { ...state.quizSubmissions, ...action.payload };
+
       localStorage.setItem(
         "quizSubmissions",
         JSON.stringify(state.quizSubmissions)
@@ -31,6 +31,9 @@ const quizSubmissionSlice = createSlice({
         JSON.stringify(state.quizSubmissions)
       );
     },
+    resetQuiz: (state, action) => {
+      state.quizSubmissions = {};
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(logout, (state) => {
@@ -40,6 +43,6 @@ const quizSubmissionSlice = createSlice({
   },
 });
 
-export const { setQuizSubmission, updateQuizSubmission } =
+export const { resetQuiz, setQuizSubmission, updateQuizSubmission } =
   quizSubmissionSlice.actions;
 export default quizSubmissionSlice.reducer;

@@ -39,6 +39,10 @@ const classSlice = createSlice({
         localStorage.setItem("class", JSON.stringify(state.class));
       }
     },
+    updateClassStudent: (state, action) => {
+      state.class = action.payload;
+      localStorage.setItem("class", JSON.stringify(state.class));
+    },
     removeStudentReducer: (state, action) => {
       const { classId, studentId } = action.payload;
       const classToUpdate = state.class.find((c) => c._id === classId);
@@ -60,6 +64,15 @@ const classSlice = createSlice({
         localStorage.setItem("class", JSON.stringify(state.class));
       }
     },
+    
+    leaveClass: (state, action) => {
+      state.class = [];
+      localStorage.removeItem("userAnalytics");
+      localStorage.removeItem("activitySubmissions");
+      localStorage.removeItem("quizSubmissions");
+      localStorage.removeItem("class");
+      localStorage.removeItem("userProgress");
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(logout, (state) => {
@@ -76,5 +89,7 @@ export const {
   updateClassNameReducer,
   removeStudentReducer,
   updateClass,
+  updateClassStudent,
+  leaveClass,
 } = classSlice.actions;
 export default classSlice.reducer;

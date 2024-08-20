@@ -43,6 +43,11 @@ import ClassLists from "./features/Teacher/ClassLists";
 import TeacherClassHome from "./features/Teacher/TeacherClassHome";
 import StudentTeacherProfile from "./features/Teacher/StudentTeacherProfile";
 import TeacherEditClass from "./features/Teacher/TeacherEditClass";
+import AdminLayout from "./features/Admin/AdminLayout";
+import AdminsHome from "./features/Admin/AdminsHome";
+import PrivateRoutesAdmin from "./features/Admin/PrivateRoutesAdmin";
+import AdminDashboard from "./features/Admin/pages/AdminDashboard";
+import AdminUsers from "./features/Admin/pages/AdminUsers";
 
 function App() {
   return (
@@ -94,13 +99,25 @@ function App() {
 
         <Route element={<AuthorizedLayout />}>
           <Route path="" element={<PrivateRoutesTeacher />}>
-            <Route path="/:classId/students/:studentId" element={<StudentTeacherProfile />} />
+            <Route
+              path="/:classId/students/:studentId"
+              element={<StudentTeacherProfile />}
+            />
             <Route path="/:classId/class" element={<TeacherClassHome />} />
             <Route path="/classes" element={<ClassLists />} />
-            <Route path="/:classId/class/class-edit" element={<TeacherEditClass />} />
+            <Route
+              path="/:classId/class/class-edit"
+              element={<TeacherEditClass />}
+            />
           </Route>
         </Route>
-
+        <Route element={<AdminLayout />}>
+          <Route path="" element={<PrivateRoutesAdmin />}>
+            <Route path="/admin-home" element={<AdminsHome />} />
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/admin-users" element={<AdminUsers />} />
+          </Route>
+        </Route>
         <Route element={<CourseLayout />}>
           <Route path="" element={<PrivateRoutes />}>
             <Route path="course/*" element={<CourseContent />}>

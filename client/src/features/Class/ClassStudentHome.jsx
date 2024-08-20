@@ -5,15 +5,39 @@ import {
   useCreateUserProgressMutation,
   useFetchUserProgressMutation,
 } from "../Student/studentCourseProgressService";
-import { setUserProgress } from "../Student/studentCourseProgressSlice";
+import {
+  resetProgress,
+  setUserProgress,
+} from "../Student/studentCourseProgressSlice";
 
 import { toast } from "react-toastify";
-import { useFetchClassByIdMutation } from "../Teacher/classService";
-import { useGetAllUserMutation } from "../LoginRegister/userService";
+import {
+  useFetchClassByIdMutation,
+  useRemoveStudentMutation,
+} from "../Teacher/classService";
+import {
+  useGetAllUserMutation,
+  useLogoutMutation,
+} from "../LoginRegister/userService";
 import { useGetAllAnalyticsMutation } from "../Student/userAnalyticsService";
-import { updateClass } from "../Teacher/classSlice";
+import {
+  leaveClass,
+  updateClass,
+  updateClassStudent,
+} from "../Teacher/classSlice";
 import ClassOverview from "../Teacher/ClassOverview";
 import LeaderboardStudents from "../Teacher/LeaderboardStudents";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
+import { resetAnalytics } from "../Student/userAnalyticsSlice";
+import { resetActivity } from "../Course/CodingActivity/activitySubmissionSlice";
+import { resetQuiz } from "../Course/Quiz/quizSubmissionSlice";
 
 function ClassStudentHome() {
   const dispatch = useDispatch();
@@ -33,6 +57,7 @@ function ClassStudentHome() {
   const [fetchClass] = useFetchClassByIdMutation();
   const [getAllAnalytics] = useGetAllAnalyticsMutation();
   const [createUserProgress, { isLoading }] = useCreateUserProgressMutation();
+
   const [fetchUserProgress, { isLoading: isLoadingFetch }] =
     useFetchUserProgressMutation();
   const user = useSelector((state) => state.user.userDetails);
@@ -42,7 +67,7 @@ function ClassStudentHome() {
         const classResponse = await fetchClass(classId).unwrap();
         setSelectedClass(classResponse);
         console.log(classResponse);
-        dispatch(updateClass({ classId, updatedClass: classResponse }));
+        dispatch(updateClassStudent(classResponse));
 
         const [userResponse, analyticsResponse] = await Promise.all([
           getAllUsers().unwrap(),
@@ -105,6 +130,7 @@ function ClassStudentHome() {
     fetchUsersAndAnalytics();
   }, [classId, getAllUsers, getAllAnalytics]);
 
+  //HANDLE START COURSE
   async function handleOnClick() {
     try {
       const existingProgress = await fetchUserProgress({
@@ -126,6 +152,47 @@ function ClassStudentHome() {
     }
   }
 
+  //HANDLE LEAVE CLASS
+  const [openDialog, setOpenDialog] = useState(false);
+  const [studentToRemove, setStudentToRemove] = useState(null);
+  const [removeStudent] = useRemoveStudentMutation();
+
+  async function handleLeaveClass(studentToRemove) {
+    try {
+      const data = await removeStudent({
+        classId,
+        studentId: studentToRemove,
+      }).unwrap();
+      console.log(data);
+      setStudents(
+        students.filter((student) => student._id !== studentToRemove)
+      );
+      dispatch(updateClassStudent(data.data));
+
+      dispatch(resetQuiz());
+      dispatch(resetAnalytics());
+      dispatch(resetProgress());
+      dispatch(resetActivity());
+      dispatch(leaveClass());
+      toast.success("Leaved class successfully!");
+      navigate("/");
+      setOpenDialog(false); // Close the dialog
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to remove student.");
+    }
+  }
+
+  const handleOpenDialog = (studentId) => {
+    setStudentToRemove(studentId);
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    setStudentToRemove(null);
+  };
+
   if (loading)
     return <div className="text-center text-gray-600 mt-10">Loading...</div>;
   if (error)
@@ -140,12 +207,20 @@ function ClassStudentHome() {
         Invite Code:{" "}
         <span className="font-semibold">{selectedClass.inviteCode}</span>
       </p>{" "}
-      <button
-        onClick={handleOnClick}
-        className="mb-5 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300 ease-in-out transform hover:scale-105"
-      >
-        Start Course Now!
-      </button>
+      <div className="flex space-x-4 mt-6">
+        <button
+          onClick={handleOnClick}
+          className="mb-5 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300 ease-in-out transform hover:scale-105"
+        >
+          Start Course Now!
+        </button>
+        <button
+          onClick={handleOpenDialog}
+          className="mb-5 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 transition duration-300 ease-in-out transform hover:scale-105"
+        >
+          Leave Class
+        </button>
+      </div>
       {/* Overall Class Progress */}
       <ClassOverview
         averagePoints={averagePoints}
@@ -157,6 +232,27 @@ function ClassStudentHome() {
         <h2 className="text-2xl font-semibold mb-4 text-gray-700">Students</h2>
         <LeaderboardStudents students={students} classId={classId} />
       </div>
+      {/* Confirmation Dialog */}
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Confirm Removal</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">
+            Are you sure you want to leave class. Any progress won't be saved.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            Cancel
+          </Button>
+          <Button
+            onClick={() => handleLeaveClass(user._id)}
+            color="secondary"
+            variant="contained"
+          >
+            Remove
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

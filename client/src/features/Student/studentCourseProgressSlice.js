@@ -23,6 +23,9 @@ const userProgressSlice = createSlice({
       state.userProgress = action.payload;
       localStorage.setItem("userProgress", JSON.stringify(state.userProgress));
     },
+    resetProgress: (state, action) => {
+      state.userProgress = {};
+    },
     // Add more reducers for updating lesson progress, quiz progress, etc.
   },
   extraReducers: (builder) => {
@@ -33,6 +36,6 @@ const userProgressSlice = createSlice({
   },
 });
 
-export const { setUserProgress, addCourseProgress, updateCourseProgress } =
+export const { setUserProgress, addCourseProgress, updateCourseProgress,resetProgress } =
   userProgressSlice.actions;
 export default userProgressSlice.reducer;
