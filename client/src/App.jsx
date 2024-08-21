@@ -48,6 +48,7 @@ import AdminsHome from "./features/Admin/AdminsHome";
 import PrivateRoutesAdmin from "./features/Admin/PrivateRoutesAdmin";
 import AdminDashboard from "./features/Admin/pages/AdminDashboard";
 import AdminUsers from "./features/Admin/pages/AdminUsers";
+import TeacherRequest from "./features/Admin/pages/TeacherRequest";
 
 function App() {
   return (
@@ -116,8 +117,10 @@ function App() {
             <Route path="/admin-home" element={<AdminsHome />} />
             <Route path="/admin-dashboard" element={<AdminDashboard />} />
             <Route path="/admin-users" element={<AdminUsers />} />
+            <Route path="/admin-teacherRequest" element={<TeacherRequest />} />
           </Route>
         </Route>
+
         <Route element={<CourseLayout />}>
           <Route path="" element={<PrivateRoutes />}>
             <Route path="course/*" element={<CourseContent />}>
@@ -148,6 +151,7 @@ function App() {
             </Route>
           </Route>
         </Route>
+
         <Route element={<ActivityLayout />}>
           <Route path="" element={<PrivateRoutes />}>
             <Route path="course/*">

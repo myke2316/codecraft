@@ -1,27 +1,58 @@
-import { useNavigate } from "react-router";
-import StudentClassContainer from "./StudentClassContainer";
+
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { Typography, Button, Container, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
+import JoinClassForm from "../../features/Student/JoinClassForm";
+import StudentClassContainer from "./StudentClassContainer";
+
 
 function StudentClass() {
-  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   const userClass = useSelector((state) => state.class.class);
   const classes = !userClass ? [] :userClass.length === 0;
+
+  // Determine if the user has no classes
+  const hasClasses = Array.isArray(userClass) && userClass.length > 0;
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
-    <div className="text-black">
-      {!classes && <StudentClassContainer />}
-      {classes && (
-        <>
-          <h1>No Class Yet: </h1>
-          <button
-            onClick={() => {
-              navigate("/join-class");
-            }}
+    <Container className="text-black" maxWidth="md">
+      {!classes ? (
+        <StudentClassContainer />
+      ) : (
+        <div style={{ textAlign: 'center', marginTop: '20px' }}>
+          <Typography variant="h4" gutterBottom>
+            No Classes Available
+          </Typography>
+          <Typography variant="body1" paragraph>
+            You haven't joined any classes yet. Please join a class to get started.
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleOpen}
           >
             + Join a Class
-          </button>
-        </>
+          </Button>
+
+          {/* Dialog for JoinClassForm */}
+          <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
+            <DialogTitle>Join a Class</DialogTitle>
+            <DialogContent>
+              <JoinClassForm />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="secondary">
+                Close
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
       )}
-    </div>
+    </Container>
   );
 }
+
 export default StudentClass;

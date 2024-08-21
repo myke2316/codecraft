@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -6,33 +6,96 @@ import {
   useFetchClassMutation,
 } from "./classService";
 import { setClass } from "./classSlice";
+import { useUpdateRoleMutation } from "../LoginRegister/userService";
+import { toast } from "react-toastify";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+} from "@mui/material";
+import { logout } from "../LoginRegister/userSlice";
 
 const ClassLists = () => {
   const userInfo = useSelector((state) => state.user.userDetails);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // Initialize the fetchClassById mutation
   const [fetchClassById, { data: classes, isLoading, error }] =
     useFetchClassMutation();
+  const [updateRole] = useUpdateRoleMutation();
+  const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
     const fetchClasses = async () => {
       if (userInfo && userInfo.role === "teacher") {
         try {
-          const data = await fetchClassById(userInfo._id); // Fetch classes for the teacher
-          dispatch(setClass(data.data));
+          const data = await fetchClassById(userInfo._id);
+        
+            console.log(data)
+            dispatch(setClass(data.data));
+      
         } catch (error) {
           console.error("Error fetching classes:", error);
         }
       }
     };
 
-    fetchClasses(); // Call the async function
+    fetchClasses();
   }, [fetchClassById, userInfo, dispatch]);
+
+  const handleChangeRole = async () => {
+    try {
+      await updateRole({ userId: userInfo._id, role: "student" });
+      toast.success("Role changed to student.");
+      dispatch(logout());
+      navigate("/login")
+      setOpenDialog(false); // Close the dialog after successful role change
+    } catch (error) {
+      toast.error("Error changing role.");
+      console.error("Error changing role:", error);
+    }
+  };
+
+  const handleOpenDialog = () => setOpenDialog(true);
+  const handleCloseDialog = () => setOpenDialog(false);
+
   if (!userInfo || userInfo.role !== "teacher") {
     return (
       <div className="text-center text-red-600 mt-10">
         You do not have permission to view this page.
+      </div>
+    );
+  }
+
+  if (!userInfo.approved) {
+    return (
+      <div className="text-center text-gray-600 mt-10">
+        <p>Waiting for approval</p>
+        <button
+          onClick={handleOpenDialog}
+          className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
+        >
+          Change Role to Student
+        </button>
+
+        <Dialog open={openDialog} onClose={handleCloseDialog}>
+          <DialogTitle>Confirm Role Change</DialogTitle>
+          <DialogContent>
+            <p>
+              Are you sure you want to change your role to student? This action
+              is not reversible.
+            </p>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleChangeRole} color="secondary">
+              Confirm
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }
@@ -42,6 +105,7 @@ const ClassLists = () => {
   }
 
   if (error) {
+    console.log(error)
     return (
       <div className="text-center text-red-600 mt-10">
         Error loading classes.
@@ -69,7 +133,6 @@ const ClassLists = () => {
               </div>
             </Link>
           ))}
-          {/* Add New Class Card */}
           <div
             onClick={() => navigate("/create-class")}
             className="flex items-center justify-center bg-white shadow-lg rounded-lg p-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
@@ -81,7 +144,18 @@ const ClassLists = () => {
           </div>
         </div>
       ) : (
-        <p className="text-gray-600">You have not created any classes yet.</p>
+        <>
+          <p className="text-gray-600">You have not created any classes yet.</p>
+          <div
+            onClick={() => navigate("/create-class")}
+            className="flex items-center justify-center bg-white shadow-lg rounded-lg p-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+          >
+            <div className="text-center">
+              <p className="text-5xl text-gray-400 font-bold">+</p>
+              <p className="text-lg text-gray-600 mt-2">Add New Class</p>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );

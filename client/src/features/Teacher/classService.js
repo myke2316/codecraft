@@ -10,6 +10,12 @@ export const classService = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    deleteClass: builder.mutation({
+      query: (classId) => ({
+        url: `${CLASS_URL}/delete-class/${classId}`,
+        method: "DELETE",
+      }),
+    }),
     fetchClass: builder.mutation({
       query: (id) => ({
         url: id ? `${CLASS_URL}/fetchClass/${id}` : `${CLASS_URL}/fetchClass`,
@@ -43,14 +49,23 @@ export const classService = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    fetchAllClasses: builder.mutation({
+      query: (data) => ({
+        url: `${CLASS_URL}/fetchAllClass`,
+        method: "GET",
+        body: data,
+      }),
+    }),
   }),
 });
 
 export const {
+  useDeleteClassMutation,
   useFetchClassByIdMutation,
   useUpdateClassMutation,
   useRemoveStudentMutation,
   useCreateClassMutation,
   useFetchClassMutation,
   useJoinClassMutation,
+  useFetchAllClassesMutation,
 } = classService;

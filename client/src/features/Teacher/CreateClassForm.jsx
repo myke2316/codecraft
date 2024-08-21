@@ -35,7 +35,7 @@ const CreateClassForm = () => {
       dispatch(addClass(res));
       console.log(res)
       toast.success("Successfully created class!");
-      navigate(`/${teacher}`)
+      navigate(`/classes`)
     } catch (error) {
       toast.error(error?.data?.error || error?.error);
     }

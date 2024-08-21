@@ -1,10 +1,10 @@
 // layouts/AdminLayout.jsx
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import AdminHeader from './AdminHeader';
-import AdminSidebar from './AdminSidebar';
-import AdminFooter from './AdminFooter';
-
+import React from "react";
+import { Outlet } from "react-router-dom";
+import AdminHeader from "./AdminHeader";
+import AdminSidebar from "./AdminSidebar";
+import AdminFooter from "./AdminFooter";
+import { ToastContainer } from "react-toastify";
 
 const AdminLayout = () => {
   return (
@@ -13,7 +13,8 @@ const AdminLayout = () => {
       <div className="flex flex-1">
         <AdminSidebar />
         <main className="flex-1 p-6">
-          <Outlet /> {/* Renders the matched child route */}
+          {" "}
+          <Outlet /> {/* Renders the matched child route */} <ToastContainer />
         </main>
       </div>
       <AdminFooter />

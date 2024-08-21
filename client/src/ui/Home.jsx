@@ -12,7 +12,7 @@ function Home() {
   const user = useSelector((state) => state.user.userDetails);
 
   useEffect(() => {
-    isAuthenticated && navigate(`/${user._id}`);
+    isAuthenticated && user.role !== "admin" ? navigate(`/${user._id}`) :navigate('admin-dashboard')
   }, [isAuthenticated]);
 
   return (

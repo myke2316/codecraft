@@ -28,7 +28,7 @@ export const courseService = apiSlice.injectEndpoints({
     getAllProgress: builder.mutation({
       query: () => ({
         url: `${PROGRESS_URL}/getAllProgress`,
-        method: "Get",
+        method: "GET",
       }),
     }),
   }),

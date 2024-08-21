@@ -3,6 +3,12 @@ import { apiSlice } from "../apiSlice";
 
 export const userService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    deleteUser: builder.mutation({
+      query: (userId) => ({
+        url: `${USER_URL}/deleteUser/${userId}`,
+        method: "DELETE",
+      }),
+    }),
     getAllUser: builder.mutation({
       query: () => ({
         url: `${USER_URL}/getAllUser`,
@@ -50,10 +56,19 @@ export const userService = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    approveTeacher: builder.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/approveTeacher`,
+        method: "PATCH",
+        body: data,
+      }),
+    }),
   }),
 });
 
 export const {
+  useApproveTeacherMutation,
+  useDeleteUserMutation,
   useGetAllUserMutation,
   useLoginMutation,
   useRegisterMutation,

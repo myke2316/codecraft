@@ -33,15 +33,15 @@ function TeacherClassHome() {
       try {
         const classResponse = await fetchClass(classId).unwrap();
         setSelectedClass(classResponse);
-        console.log(classResponse)
-        dispatch(updateClass({classId, updatedClass:classResponse}))
+        console.log(classResponse);
+        dispatch(updateClass({ classId, updatedClass: classResponse }));
 
         const [userResponse, analyticsResponse] = await Promise.all([
           getAllUsers().unwrap(),
           getAllAnalytics().unwrap(),
         ]);
 
-        const studentDetails = classResponse.students
+        const studentDetails = (classResponse.students || [])
           .map((studentId) => {
             const student = userResponse.find((user) => user._id === studentId);
             if (student) {
@@ -94,9 +94,7 @@ function TeacherClassHome() {
       }
     };
 
-  
-      fetchUsersAndAnalytics();
-    
+    fetchUsersAndAnalytics();
   }, [classId, getAllUsers, getAllAnalytics]);
   if (!userInfo || userInfo.role !== "teacher") {
     return (
@@ -106,18 +104,11 @@ function TeacherClassHome() {
     );
   }
 
-  // const selectedClass = classes.find((classItem) => classItem._id === classId);
-
-  // if (!selectedClass) {
-  //   return (
-  //     <div className="text-center text-red-600 mt-10">Class not found.</div>
-  //   );
-  // }
-
+  console.log(students, averagePoints, averageTimeSpent);
   if (loading)
     return <div className="text-center text-gray-600 mt-10">Loading...</div>;
-  if (error)
-    return <div className="text-center text-red-600 mt-10">{error}</div>;
+  // if (error)
+  //   return <div className="text-center text-red-600 mt-10">{error}</div>;
 
   return (
     <div className="p-6 max-w-4xl mx-auto">

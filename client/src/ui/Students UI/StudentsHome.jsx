@@ -10,31 +10,31 @@ function StudentsHome() {
   const navigate = useNavigate();
   const userClass = useSelector((state) => state.user.userDetails);
 
-  const [logoutApi] = useLogoutMutation();
+  // const [logoutApi] = useLogoutMutation();
 
-  async function handleLogout() {
-    try {
-      await logoutApi().unwrap();
-      dispatch(logout());
-      // window.location.href = `${BACKEND_URL}/auth/logoutGoogle`;
-      console.log("LOGOUT SUCCESS");
-      toast.success("Logout Successfully");
-      navigate("/login");
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // async function handleLogout() {
+  //   try {
+  //     await logoutApi().unwrap();
+  //     dispatch(logout());
+  //     // window.location.href = `${BACKEND_URL}/auth/logoutGoogle`;
+  //     console.log("LOGOUT SUCCESS");
+  //     toast.success("Logout Successfully");
+  //     navigate("/login");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   return (
     <div className="text-white">
       <StudentClass />
 
-      <button
+      {/* <button
         className="text-black p-3 bg-slate-50 mt-2"
         onClick={handleLogout}
       >
         Logout
-      </button>
+      </button> */}
     </div>
   );
 }

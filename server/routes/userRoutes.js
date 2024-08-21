@@ -9,6 +9,8 @@ import {
   updateUserProfile,
   updateRole,
   getAllUsers,
+  deleteUser,
+  approveTeacher,
 } from "../controller/userController.js";
 
 const router = express.Router();
@@ -21,4 +23,6 @@ router.get("/logout", logoutUser);
 router.post("/forgot-password", forgotPassword);
 router.patch("/reset-password/:resetToken", resetPassword);
 router.get("/getAllUser", getAllUsers);
+router.delete("/deleteUser/:userId", deleteUser);
+router.patch("/approveTeacher", approveTeacher);
 export { router as userRouter };

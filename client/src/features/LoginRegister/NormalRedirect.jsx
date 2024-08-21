@@ -52,7 +52,12 @@ function NormalRedirect() {
         fetchUserActivitySubmission,
         userDetails._id
       );
-      navigate(`/${userDetails._id}`);
+      if(userDetails.role === "teacher"){
+        navigate("/classes")
+      }else{
+
+        navigate(`/${userDetails._id}`);
+      }
     } catch (error) {
       console.error("Error fetching class:", error);
       toast.error(error?.response?.data?.message || error.message);

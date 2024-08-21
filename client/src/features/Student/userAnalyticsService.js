@@ -10,6 +10,12 @@ export const courseService = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    aggregateAllAnalytics: builder.mutation({
+      query: () => ({
+        url: `${ANALYTICS_URL}/aggregateAllAnalytics`,
+        method: "GET",
+      }),
+    }),
     fetchUserAnalytics: builder.mutation({
       query: (data) => ({
         url: `${ANALYTICS_URL}/fetch`,
@@ -36,6 +42,7 @@ export const courseService = apiSlice.injectEndpoints({
 
 export const {
   useGetAllAnalyticsMutation,
+  useAggregateAllAnalyticsMutation,
   useCreateUserAnalyticsMutation,
   useFetchUserAnalyticsMutation,
   useUpdateUserAnalyticsMutation,

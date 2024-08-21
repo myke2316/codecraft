@@ -6,6 +6,15 @@ import ActivitySubmissionModel from "../models/activityModels/activitySubmission
 import QuizSubmissionModel from "../models/quizSubmissionModel.js";
 import UserAnalyticsModel from "../models/UserAnalyticsModel.js";
 
+const fetchAllClass = asyncHandler(async (req, res) => {
+  try {
+    const allClasses = await ClassModel.find();
+    res.status(200).json(allClasses);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch all classes" });
+    throw new Error("Failed to fetch all classes");
+  }
+});
 const removeStudentFromClass = asyncHandler(async (req, res) => {
   const { classId, studentId } = req.body;
 
@@ -40,7 +49,9 @@ const removeStudentFromClass = asyncHandler(async (req, res) => {
       userId: studentId,
     });
 
-    res.status(200).json({ message: "Student removed from class" , data:classData});
+    res
+      .status(200)
+      .json({ message: "Student removed from class", data: classData });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Failed to remove student from class" });
@@ -169,11 +180,47 @@ const joinClass = asyncHandler(async (req, res) => {
   }
 });
 
+const deleteClass = asyncHandler(async (req, res) => {
+  const { classId } = req.params;
+
+  try {
+    // Fetch the class data to get the list of students
+    const classData = await ClassModel.findById(classId);
+
+    if (!classData) {
+      return res.status(404).json({ error: "Class not found" });
+    }
+
+    // Get the list of students in the class
+    const students = classData.students;
+
+    // Remove the class
+    await ClassModel.findByIdAndDelete(classId);
+
+    // Remove related data for each student
+    await UserProgressModel.deleteMany({ userId: { $in: students } });
+    await ActivitySubmissionModel.deleteMany({ userId: { $in: students } });
+    await QuizSubmissionModel.deleteMany({ userId: { $in: students } });
+    await UserAnalyticsModel.deleteMany({ userId: { $in: students } });
+
+    res
+      .status(200)
+      .json({ message: "Class deleted successfully and student data removed" });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "Failed to delete class and remove student data" });
+    throw new Error("Failed to delete class and remove student data");
+  }
+});
 export {
+  deleteClass,
   createClass,
   fetchClass,
   joinClass,
   updateClassName,
   removeStudentFromClass,
   fetchClassById,
+  fetchAllClass,
 };

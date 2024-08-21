@@ -48,8 +48,14 @@ function SignUp() {
 
   useEffect(() => {
     if (userDetails) {
-      toast.success("Register Complete!");
-      navigate(`/${userDetails._id}`);
+      if(userDetails.role === "student"){
+
+        toast.success("Register Complete!");
+        navigate(`/${userDetails._id}`);
+      }else{
+        toast.success("Register Complete!");
+        navigate(`/classes`);
+      }
     }
   }, [userDetails]);
 

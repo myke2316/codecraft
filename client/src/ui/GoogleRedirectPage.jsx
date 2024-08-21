@@ -45,7 +45,8 @@ function GoogleRedirect() {
         setCredentials({
           ...user._json, // Using destructured 'user' instead of 'res.data.user'
           _id: _id,
-          role: user.role, // Using destructured 'user' instead of 'res.data.user'
+          role: user.role,
+          approved: user.approved, // Using destructured 'user' instead of 'res.data.user'
         })
       );
 
@@ -61,10 +62,9 @@ function GoogleRedirect() {
         );
       }
 
-      if(user.role === 'admin'){
-        navigate('/admin-dashboard')
-      }
-      else if (!user.role) {
+      if (user.role === "admin") {
+        navigate("/admin-dashboard");
+      } else if (!user.role) {
         navigate("/role-selection");
       } else {
         getClass(user.role);
@@ -94,8 +94,12 @@ function GoogleRedirect() {
         dispatch(setClass([]));
         // toast.error("No classess fetched");
       }
-
-      navigate(`/${userDetails._id}`);
+      console.log(userDetails);
+      if (userDetails.role === "teacher") {
+        navigate("/classes");
+      } else {
+        navigate(`/${userDetails._id}`);
+      }
     } catch (error) {
       console.error("Error fetching class:", error);
       toast.error(error?.data?.message || error?.error);

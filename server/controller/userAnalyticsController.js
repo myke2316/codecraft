@@ -1,7 +1,29 @@
 import mongoose from "mongoose";
 import UserAnalyticsModel from "../models/UserAnalyticsModel.js";
 // Get analytics for all users
-const getAllUserAnalytics = async (req, res) => {
+//aggregated user analytics
+const getAggregateAllUserAnalytics = async (req, res) => {
+  try {
+    const userAnalytics = await UserAnalyticsModel.aggregate([
+      {
+        $project: {
+          userId: 1,
+          totalPointsEarned: { $sum: "$coursesAnalytics.totalPointsEarned" },
+          totalTimeSpent: { $sum: "$coursesAnalytics.totalTimeSpent" },
+          badges: { $size: "$badges" }
+        }
+      }
+    ]);
+
+    res.status(200).json(userAnalytics);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch user analytics" });
+  }
+};
+
+
+
+const fetchAllUserAnalytics = async (req, res) => {
   try {
     // Fetch all user analytics data
     const userAnalytics = await UserAnalyticsModel.find();
@@ -250,5 +272,6 @@ export {
   updateUserAnalytics,
   addBadgeToUser,
   getUserBadges,
-  getAllUserAnalytics,
+  getAggregateAllUserAnalytics,
+  fetchAllUserAnalytics
 };

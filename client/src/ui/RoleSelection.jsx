@@ -16,7 +16,7 @@ function RoleSelection() {
       // Send role selection data to backend
       const res = await updateRole({
         userId: user._id,
-        role: values.role,
+        role: "teacher",
       });
 
       if (res) {

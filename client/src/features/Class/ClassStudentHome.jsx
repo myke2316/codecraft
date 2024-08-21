@@ -66,7 +66,7 @@ function ClassStudentHome() {
       try {
         const classResponse = await fetchClass(classId).unwrap();
         setSelectedClass(classResponse);
-        console.log(classResponse);
+
         dispatch(updateClassStudent(classResponse));
 
         const [userResponse, analyticsResponse] = await Promise.all([
@@ -74,26 +74,33 @@ function ClassStudentHome() {
           getAllAnalytics().unwrap(),
         ]);
 
+        const analyticsArray = Array.isArray(analyticsResponse)
+          ? analyticsResponse
+          : Object.values(analyticsResponse); // Convert object to array
+        console.log(analyticsArray);
         const studentDetails = classResponse.students
           .map((studentId) => {
             const student = userResponse.find((user) => user._id === studentId);
             if (student) {
-              const analytics = analyticsResponse.find(
+              const analytics = analyticsArray.find(
                 (analytic) => analytic.userId === studentId
               );
-              const totalPoints = analytics
-                ? analytics.coursesAnalytics.reduce(
-                    (total, course) => total + course.totalPointsEarned,
-                    0
-                  )
-                : 0;
-
-              const totalTimeSpent = analytics
-                ? analytics.coursesAnalytics.reduce(
-                    (total, course) => total + course.totalTimeSpent,
-                    0
-                  )
-                : 0;
+             
+              const totalPoints =
+                analytics && analytics.coursesAnalytics
+                  ? analytics.coursesAnalytics.reduce(
+                      (total, course) => total + course.totalPointsEarned,
+                      0
+                    )
+                  : 0;
+                    console.log(totalPoints)
+              const totalTimeSpent =
+                analytics && analytics.coursesAnalytics
+                  ? analytics.coursesAnalytics.reduce(
+                      (total, course) => total + course.totalTimeSpent,
+                      0
+                    )
+                  : 0;
 
               return {
                 ...student,
