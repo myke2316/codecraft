@@ -16,7 +16,7 @@ function RoleSelection() {
       // Send role selection data to backend
       const res = await updateRole({
         userId: user._id,
-        role: "teacher",
+        role: values.role,
       });
 
       if (res) {
@@ -37,7 +37,7 @@ function RoleSelection() {
         initialValues={{
           role: "", // Initial value for role selection
         }}
-        onSubmit={handleSubmit}
+        onSubmit={(values) => handleSubmit(values)}
         validate={(values) => {
           const errors = {};
           // Validation logic can be added here if needed

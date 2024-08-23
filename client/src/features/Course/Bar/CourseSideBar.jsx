@@ -60,7 +60,7 @@ function CourseSidebar() {
                     (lp) => lp.lessonId.toString() === lesson._id.toString()
                   );
                   if (!lessonProgress) return null;
-
+                
                   const isLessonUnlocked = !lessonProgress.locked;
 
                   return (

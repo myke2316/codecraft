@@ -19,6 +19,7 @@ import { runJavaScript } from "./utils/sandbox.js";
 import { spawn } from "child_process";
 import { Script, createContext } from "vm";
 import { questionRouter } from "./routes/QuestionRoutes/questionRoutes.js";
+import { outlinedInputClasses } from "@mui/material";
 
 dotenv.config();
 connectDb();
@@ -94,7 +95,6 @@ const cssNormalizeCode = (code) => {
     .trim()
     .toLowerCase(); // Convert to lowercase
 };
-
 const jsNormalizeCode = (code) => {
   const preserveStringWhitespace = (str) => {
     return str.replace(/(["'`])(?:(?!\1)[\s\S])*?\1/g, (match) =>
@@ -114,7 +114,10 @@ const jsNormalizeCode = (code) => {
   // Standardize quotes to single quotes
   code = code.replace(/["`]/g, "'");
 
-  // Remove extra spaces around certain characters, but preserve some space around operators
+  code = code.replace(/\s*:\s*/g, ":");
+  code = code.replace(/\s*,\s*/g, ", ");
+
+  // Remove extra spaces around certain characters
   code = code
     .replace(/(\s*({|}|;|,|\(|\))\s*)/g, "$1") // Remove spaces around `{}`, `;`, `,`, `()`
     .replace(/\s+(?=\{|\}|\(|\))/g, "") // Remove space before `{`, `}`, `(`, `)`
@@ -130,7 +133,7 @@ const jsNormalizeCode = (code) => {
   // Trim leading and trailing spaces
   code = code.trim();
 
-  // Add semicolon where required
+  // Add semicolon where required, but avoid adding unnecessary semicolons
   const lines = code.split("\n");
   const normalizedLines = lines.map((line, index) => {
     const trimmedLine = line.trim();
@@ -139,15 +142,71 @@ const jsNormalizeCode = (code) => {
       !trimmedLine.endsWith(";") &&
       !trimmedLine.endsWith("{") &&
       !trimmedLine.endsWith("}") &&
-      !lines[index + 1]?.trim().startsWith("}")
+      !lines[index + 1]?.trim().startsWith("}") &&
+      !trimmedLine.endsWith(",") // Avoid adding semicolon after comma
     ) {
       return trimmedLine + ";";
     }
     return trimmedLine;
   });
 
-  return normalizedLines.join(" ").toLowerCase();
+  // Join lines with newline characters to preserve line structure
+  return normalizedLines.join("\n").toLowerCase();
 };
+
+// const jsNormalizeCode = (code) => {
+//   const preserveStringWhitespace = (str) => {
+//     return str.replace(/(["'`])(?:(?!\1)[\s\S])*?\1/g, (match) =>
+//       match.replace(/\s+/g, " ")
+//     );
+//   };
+
+//   // Remove single-line comments
+//   code = code.replace(/\/\/.*$/gm, "");
+
+//   // Remove multi-line comments
+//   code = code.replace(/\/\*[\s\S]*?\*\//g, "");
+
+//   // Preserve and normalize string literals
+//   code = preserveStringWhitespace(code);
+
+//   // Standardize quotes to single quotes
+//   code = code.replace(/["`]/g, "'");
+
+//   // Remove extra spaces around certain characters, but preserve some space around operators
+//   code = code
+//     .replace(/(\s*({|}|;|,|\(|\))\s*)/g, "$1") // Remove spaces around `{}`, `;`, `,`, `()`
+//     .replace(/\s+(?=\{|\}|\(|\))/g, "") // Remove space before `{`, `}`, `(`, `)`
+//     .replace(/(?<=\})\s+/g, "") // Remove space after `}`
+//     .replace(/(?<=\))\s+/g, "") // Remove space after `)`
+//     .replace(/(?<=;)\s+/g, "") // Remove space after `;`
+//     .replace(/\s*([+\-*/%&|^!~=<>])\s*/g, "$1") // Normalize spaces around operators
+//     .replace(/(?<=\d)\s+(?=\d)/g, ""); // Remove spaces between numbers (e.g., 1 000 becomes 1000)
+
+//   // Normalize multiple spaces to a single space
+//   code = code.replace(/\s+/g, " ");
+
+//   // Trim leading and trailing spaces
+//   code = code.trim();
+
+//   // Add semicolon where required
+//   const lines = code.split("\n");
+//   const normalizedLines = lines.map((line, index) => {
+//     const trimmedLine = line.trim();
+//     if (
+//       trimmedLine &&
+//       !trimmedLine.endsWith(";") &&
+//       !trimmedLine.endsWith("{") &&
+//       !trimmedLine.endsWith("}") &&
+//       !lines[index + 1]?.trim().startsWith("}")
+//     ) {
+//       return trimmedLine + ";";
+//     }
+//     return trimmedLine;
+//   });
+
+//   return normalizedLines.join(" ").toLowerCase();
+// };
 
 function jsNormalizeCodeWeb(code) {
   // Remove comments
@@ -595,11 +654,8 @@ app.post("/submit/javascriptweb", (req, res) => {
     maxPoints: pointsForDifficulty,
   });
 });
-
-//working - pwede ko din integrate dito yung jsNormalizeCodeWeb pero for now ito muna since nagana naman
 app.post("/submit/javascriptconsole", (req, res) => {
   const { jsCode, activity } = req.body;
-  // const activity = activities.find((activity) => activity.activityId === activityId);
 
   if (!activity) {
     return res.status(404).json({ error: "Activity not found" });
@@ -626,12 +682,13 @@ app.post("/submit/javascriptconsole", (req, res) => {
 
   // Track total points awarded
   let totalAwardedPoints = 0;
+  let lastTestCase = null;
 
   for (const testCase of testCases) {
     const { output: consoleOutput, error } = runJavaScript(jsCode);
 
     if (error) {
-      return res.status(400).json({ error });
+      return res.json({ error });
     }
 
     const normalizedJsCode = jsNormalizeCode(jsCode);
@@ -641,6 +698,7 @@ app.post("/submit/javascriptconsole", (req, res) => {
 
     for (const requirement of testCase.required) {
       const normalizedRequirement = jsNormalizeCode(requirement);
+
       const index = normalizedJsCode.indexOf(
         normalizedRequirement,
         currentIndex
@@ -669,18 +727,168 @@ app.post("/submit/javascriptconsole", (req, res) => {
         (pointsForDifficulty / testCase.required.length) * correctCount;
     }
 
-    // Add points for correct console output
+    // Store the last test case to use for output comparison
+    lastTestCase = testCase;
+
+    // If the total awarded points exceed 5, perform output comparison
+    if (totalAwardedPoints > 5) {
+      const requiredOutput = runJavaScript(testCase.input);
+      const normalizedUserOutput = normalizeOutput(consoleOutput);
+      const normalizedRequiredOutput = normalizeOutput(requiredOutput.output);
+
+      if (normalizedUserOutput === normalizedRequiredOutput) {
+        // If output matches, award perfect points
+        totalAwardedPoints = pointsForDifficulty; // Reset to full points
+      } else {
+        // User output does not match required output
+        return res.json({
+          totalPoints: totalAwardedPoints,
+          passed: false,
+          maxPoints: pointsForDifficulty,
+          expectedOutput: requiredOutput.output,
+          userOutput: consoleOutput,
+        });
+      }
+    }
   }
 
   // Determine if the overall submission passed
   const passed = totalAwardedPoints >= pointsForDifficulty / 2;
 
+  // Collect final output for the response
+  const finalUserOutput = runJavaScript(jsCode).output;
+  const finalExpectedOutput = lastTestCase
+    ? runJavaScript(lastTestCase.input).output
+    : "";
+
   res.json({
     totalPoints: totalAwardedPoints,
     passed,
     maxPoints: pointsForDifficulty,
+    expectedOutput: finalExpectedOutput,
+    userOutput: finalUserOutput,
   });
 });
+
+//working - pwede ko din integrate dito yung jsNormalizeCodeWeb pero for now ito muna since nagana naman
+// app.post("/submit/javascriptconsole", (req, res) => {
+//   const { jsCode, activity } = req.body;
+//   // const activity = activities.find((activity) => activity.activityId === activityId);
+
+//   if (!activity) {
+//     return res.status(404).json({ error: "Activity not found" });
+//   }
+
+//   const testCases = activity.testCases || [];
+//   let totalPoints = 0;
+
+//   // Set points based on difficulty
+//   let pointsForDifficulty;
+//   switch (activity.difficulty) {
+//     case "easy":
+//       pointsForDifficulty = 10;
+//       break;
+//     case "medium":
+//       pointsForDifficulty = 15;
+//       break;
+//     case "hard":
+//       pointsForDifficulty = 20;
+//       break;
+//     default:
+//       pointsForDifficulty = 10;
+//   }
+
+//   // Track total points awarded
+//   let totalAwardedPoints = 0;
+
+//   for (const testCase of testCases) {
+//     const { output: consoleOutput, error } = runJavaScript(jsCode);
+
+//     if (error) {
+//       return res.json({ error });
+//     }
+
+//     const normalizedJsCode = jsNormalizeCode(jsCode);
+//     let points = 0;
+//     let currentIndex = 0;
+//     let correctCount = 0;
+
+//     for (const requirement of testCase.required) {
+//       // console.log(requirement.join("\n"))
+//       const normalizedRequirement = jsNormalizeCode(requirement);
+
+//       const index = normalizedJsCode.indexOf(
+//         normalizedRequirement,
+//         currentIndex
+//       );
+
+//       if (index !== -1) {
+//         correctCount += 1;
+//         points += 1;
+//         currentIndex = index + normalizedRequirement.length;
+//         console.log(
+//           normalizedRequirement + " : TAMA ITO : current score : " + points
+//         );
+//       } else {
+//         console.log(
+//           normalizedRequirement + " : mali ito : current score : " + points
+//         );
+//       }
+//     }
+
+//     // Award points based on correctness and order
+//     if (correctCount === testCase.required.length) {
+//       totalAwardedPoints += pointsForDifficulty; // Perfect score for this test case
+//     } else if (correctCount > 0) {
+//       // Partial credit
+//       totalAwardedPoints +=
+//         (pointsForDifficulty / testCase.required.length) * correctCount;
+//     }
+
+//     if (totalAwardedPoints > 5) {
+//       const codeTest =
+//         "let person = {name: 'John',age: 30,greet: function() {console.log('Hello, my name is ' + this.name);}};person.greet();console.log('Age of the person: '+  person.age);";
+//       const requiredOutput = runJavaScript(testCase.input);
+//       const userOutput = runJavaScript(jsCode);
+//       const normalizedUserOutput = normalizeOutput(userOutput.output);
+//       const normalizedRequiredOutput = normalizeOutput(requiredOutput.output);
+
+//       console.log("User Output:", normalizedUserOutput);
+//       console.log("Required Output:", normalizedRequiredOutput);
+
+//       if (normalizedUserOutput === normalizedRequiredOutput) {
+//         console.log("User output matches.");
+//         // If output matches, award perfect points
+//         totalAwardedPoints = 0;
+//         totalAwardedPoints += pointsForDifficulty;
+//       } else {
+//         console.log("User output does not match required output.");
+//         return res.json({
+//           totalPoints: totalAwardedPoints,
+//           passed: false,
+//           maxPoints: pointsForDifficulty,
+//         });
+//       }
+//     }
+
+//     // Add points for correct console output
+//   }
+
+//   // Determine if the overall submission passed
+//   const passed = totalAwardedPoints >= pointsForDifficulty / 2;
+
+//   res.json({
+//     totalPoints: totalAwardedPoints,
+//     passed,
+//     maxPoints: pointsForDifficulty,
+//     // expectedOutput,userOutput
+//   });
+// });
+
+function normalizeOutput(output) {
+  // Implement normalization logic here
+  return output.trim().replace(/\s+/g, "");
+}
 
 //when user clicked on run, this code will run to return the expected output of the user's code
 app.post("/execute", (req, res) => {

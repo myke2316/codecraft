@@ -1,0 +1,372 @@
+{
+    "courses":[
+        {
+            "title": "Introduction to PHP and MySQL",
+            "lessons": [
+              {
+                "title": "Setting Up XAMPP and MySQL",
+                "documents": [
+                  {
+                    "title": "Installing XAMPP",
+                    "content": [
+                      {
+                        "type": "sentence",
+                        "text": "<b>XAMPP</b> is a free and open-source cross-platform web server solution stack package developed by Apache Friends. It includes Apache HTTP Server, MySQL database, and interpreters for PHP and Perl.",
+                        "html": true
+                      },
+                      {
+                        "type": "sentence",
+                        "text": "To install XAMPP, follow these steps:",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "1. Download the XAMPP installer from the official XAMPP website.\n2. Run the installer and follow the installation wizard.\n3. Once installed, open the XAMPP Control Panel.\n4. Start the Apache and MySQL services.",
+                        "html": true
+                      }
+                    ],"locked":false
+                  },
+                  {
+                    "title": "Creating a MySQL Database",
+                    "content": [
+                      {
+                        "type": "sentence",
+                        "text": "To create a new MySQL database using XAMPP, follow these steps:",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "<pre>1. Open phpMyAdmin from the XAMPP control panel.\n2. Click on the 'Databases' tab.\n3. Enter a name for your new database in the 'Database name' field.\n4. Click 'Create' to create the database.</pre>",
+                        "html": true
+                      }
+                    ],"locked":true
+                  }
+                ],
+                "quiz": [
+                  {
+                    "question": "What are the main components of XAMPP?",
+                    "options": [
+                      "Apache HTTP Server, MySQL, PHP, Perl",
+                      "Apache HTTP Server, MongoDB, Node.js, PHP",
+                      "Nginx, MySQL, Python, PHP"
+                    ],
+                    "correctAnswer": "Apache HTTP Server, MySQL, PHP, Perl",
+                    "points": 10
+                  }
+                ],
+                "totalPoints": 10,
+                "locked": false
+              },
+              {
+                "title": "Basic PHP Syntax and MySQL Operations",
+                "documents": [
+                  {
+                    "title": "Basic PHP Syntax",
+                    "content": [
+                      {
+                        "type": "sentence",
+                        "text": "<b>PHP</b> (Hypertext Preprocessor) is a server-side scripting language designed primarily for web development. PHP scripts are executed on the server, and the result is returned to the browser as plain HTML.",
+                        "html": true
+                      },
+                      {
+                        "type": "sentence",
+                        "text": "Here’s a basic PHP script to display 'Hello, World!':",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "<pre>&lt;?php\n  echo 'Hello, World!';\n?&gt;</pre>",
+                        "html": true
+                      }
+                    ],"locked":true
+                  },
+                  {
+                    "title": "Connecting to MySQL Using PHP",
+                    "content": [
+                      {
+                        "type": "sentence",
+                        "text": "To connect to a MySQL database using PHP, use the following script:",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "<pre>&lt;?php\n$servername = 'localhost';\n$username = 'root';\n$password = '';\n$dbname = 'your_database_name';\n\n// Create connection\n$conn = new mysqli($servername, $username, $password, $dbname);\n\n// Check connection\nif ($conn->connect_error) {\n    die('Connection failed: ' . $conn->connect_error);\n}\necho 'Connected successfully';\n?&gt;</pre>",
+                        "html": true
+                      }
+                    ],"locked":true
+                  },
+                  {
+                    "title": "Performing Basic CRUD Operations",
+                    "content": [
+                      {
+                        "type": "sentence",
+                        "text": "<b>CRUD</b> stands for Create, Read, Update, and Delete. These are the basic operations you can perform on a MySQL database using PHP.",
+                        "html": true
+                      },
+                      {
+                        "type": "sentence",
+                        "text": "Here's an example of performing a <b>Create</b> operation:",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "<pre>&lt;?php\n// Create connection\n$conn = new mysqli($servername, $username, $password, $dbname);\n\n// Check connection\nif ($conn->connect_error) {\n    die('Connection failed: ' . $conn->connect_error);\n}\n\n// Create operation\n$sql = 'INSERT INTO your_table_name (column1, column2) VALUES ('value1', 'value2')';\nif ($conn->query($sql) === TRUE) {\n    echo 'New record created successfully';\n} else {\n    echo 'Error: ' . $sql . '&lt;br&gt;' . $conn->error;\n}\n\n$conn->close();\n?&gt;</pre>",
+                        "html": true
+                      },
+                      {
+                        "type": "sentence",
+                        "text": "Replace <b>your_table_name</b>, <b>column1</b>, and <b>value1</b> with your actual table and column names, and data to be inserted.",
+                        "html": true
+                      }
+                    ],"locked":true
+                  }
+                ],
+                "quiz": [
+                  {
+                    "question": "What does CRUD stand for?",
+                    "options": [
+                      "Create, Read, Update, Delete",
+                      "Create, Run, Update, Delete",
+                      "Create, Read, Undo, Delete"
+                    ],
+                    "correctAnswer": "Create, Read, Update, Delete",
+                    "points": 10
+                  }
+                ],
+                "totalPoints": 20,
+                "locked": true
+              }
+            ],"locked":false
+          },
+          {
+            "title": "Introduction to PHP",
+            "lessons": [
+              {
+                "title": "PHP Basics",
+                "documents": [
+                  {
+                    "title": "PHP Syntax and Variables",
+                    "content": [
+                      {
+                        "type": "sentence",
+                        "text": "<b>PHP Syntax</b>: PHP code is embedded in HTML files and is executed on the server. PHP scripts start with `&lt;?php` and end with `?&gt;`. Example:",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "<pre>&lt;?php\n  echo 'Hello, World!';\n?&gt;</pre>",
+                        "html": true
+                      },
+                      {
+                        "type": "sentence",
+                        "text": "<b>Variables</b>: Variables in PHP start with a dollar sign (`$`). They can store various data types. Example:",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "<pre>&lt;?php\n$greeting = 'Hello';\n$age = 25;\n?&gt;</pre>",
+                        "html": true
+                      },
+                      {
+                        "type": "sentence",
+                        "text": "<b>Comments</b>: Use `//` for single-line comments and `/* ... */` for multi-line comments. Example:",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "<pre>&lt;?php\n// This is a single-line comment\n/* This is a multi-line comment */\n?&gt;</pre>",
+                        "html": true
+                      }
+                    ],"locked":true
+                  },
+                  {
+                    "title": "Data Types and Operations",
+                    "content": [
+                      {
+                        "type": "sentence",
+                        "text": "<b>Data Types</b>: PHP supports several data types including strings, integers, floats, and arrays. Example:",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "<pre>&lt;?php\n$name = 'John';\n$age = 30;\n$price = 19.99;\n$isStudent = true;\n?&gt;</pre>",
+                        "html": true
+                      },
+                      {
+                        "type": "sentence",
+                        "text": "<b>String Concatenation</b>: Use the `.` operator to concatenate strings. Example:",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "<pre>&lt;?php\n$firstName = 'John';\n$lastName = 'Doe';\n$fullName = $firstName . ' ' . $lastName;\necho $fullName; // Outputs 'John Doe'\n?&gt;</pre>",
+                        "html": true
+                      },
+                      {
+                        "type": "sentence",
+                        "text": "<b>Operators</b>: PHP supports various operators such as arithmetic, comparison, and logical operators. Example:",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "<pre>&lt;?php\n$a = 10;\n$b = 5;\n$sum = $a + $b; // Arithmetic operator\n$comparison = ($a == $b); // Comparison operator\n$logical = ($a > $b) && ($b > 0); // Logical operator\n?&gt;</pre>",
+                        "html": true
+                      }
+                    ],"locked":true
+                  },
+                  {
+                    "title": "Conditionals and Functions",
+                    "content": [
+                      {
+                        "type": "sentence",
+                        "text": "<b>If-Else Conditions</b>: Use `if`, `else if`, and `else` to perform conditional operations. Example:",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "<pre>&lt;?php\n$age = 20;\nif ($age < 18) {\n  echo 'Minor';\n} elseif ($age >= 18 && $age < 65) {\n  echo 'Adult';\n} else {\n  echo 'Senior';\n}\n?&gt;</pre>",
+                        "html": true
+                      },
+                      {
+                        "type": "sentence",
+                        "text": "<b>Functions</b>: Define functions using `function` keyword. Example:",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "<pre>&lt;?php\nfunction greet($name) {\n  return 'Hello, ' . $name;\n}\necho greet('Alice'); // Outputs 'Hello, Alice'\n?&gt;</pre>",
+                        "html": true
+                      }
+                    ],"locked":true
+                  },
+                  {
+                    "title": "Arrays and Loops",
+                    "content": [
+                      {
+                        "type": "sentence",
+                        "text": "<b>Arrays</b>: PHP arrays can store multiple values. Example:",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "<pre>&lt;?php\n$colors = array('red', 'green', 'blue');\necho $colors[0]; // Outputs 'red'\n?&gt;</pre>",
+                        "html": true
+                      },
+                      {
+                        "type": "sentence",
+                        "text": "<b>Loops</b>: Use loops to iterate over arrays or repeat code. Example:",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "<pre>&lt;?php\nforeach ($colors as $color) {\n  echo $color . ' ';\n}\n?&gt;</pre>",
+                        "html": true
+                      }
+                    ],"locked":true
+                  }
+                ],
+                "quiz": [
+                  {
+                    "question": "How do you declare a variable in PHP?",
+                    "options": [
+                      "$variableName",
+                      "var variableName",
+                      "variableName ="
+                    ],
+                    "correctAnswer": "$variableName",
+                    "points": 10
+                  },
+                  {
+                    "question": "Which operator is used for concatenation in PHP?",
+                    "options": [
+                      "+",
+                      ".",
+                      "&"
+                    ],
+                    "correctAnswer": ".",
+                    "points": 10
+                  }
+                ],
+                "totalPoints": 20,
+                "locked": true
+              },
+              {
+                "title": "Form Handling with PHP",
+                "documents": [
+                  {
+                    "title": "Handling Form Submissions",
+                    "content": [
+                      {
+                        "type": "sentence",
+                        "text": "Forms in HTML can be processed by PHP scripts. Here’s how you can handle form submissions:",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "<pre>&lt;form method='post' action='process.php'&gt;\n  Name: &lt;input type='text' name='name' /&gt;\n  Email: &lt;input type='email' name='email' /&gt;\n  &lt;input type='submit' value='Submit' /&gt;\n&lt;/form&gt;</pre>",
+                        "html": true
+                      },
+                      {
+                        "type": "sentence",
+                        "text": "In `process.php`, you can access form data using the `$_POST` superglobal array. Example:",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "<pre>&lt;?php\nif ($_SERVER['REQUEST_METHOD'] == 'POST') {\n  $name = htmlspecialchars($_POST['name']);\n  $email = htmlspecialchars($_POST['email']);\n  echo 'Name: ' . $name . '&lt;br&gt;Email: ' . $email;\n}\n?&gt;</pre>",
+                        "html": true
+                      },
+                      {
+                        "type": "sentence",
+                        "text": "The `htmlspecialchars` function is used to prevent XSS attacks by escaping special characters.",
+                        "html": true
+                      }
+                    ],"locked":true
+                  },
+                  {
+                    "title": "Form Validation",
+                    "content": [
+                      {
+                        "type": "sentence",
+                        "text": "You can validate form data before processing it. Example:",
+                        "html": true
+                      },
+                      {
+                        "type": "snippet",
+                        "text": "<pre>&lt;?php\nif ($_SERVER['REQUEST_METHOD'] == 'POST') {\n  $name = trim(htmlspecialchars($_POST['name']));\n  if (empty($name)) {\n    echo 'Name is required';\n  } else {\n    echo 'Name: ' . $name;\n  }\n}\n?&gt;</pre>",
+                        "html": true
+                      }
+                    ],"locked":true
+                  }
+                ],
+                "quiz": [
+                  {
+                    "question": "What PHP superglobal is used to collect form data?",
+                    "options": [
+                      "$_GET",
+                      "$_POST",
+                      "$_REQUEST"
+                    ],
+                    "correctAnswer": "$_POST",
+                    "points": 10
+                  },
+                  {
+                    "question": "What function is used to escape special characters in form data to prevent XSS?",
+                    "options": [
+                      "htmlspecialchars()",
+                      "escape()",
+                      "filter()"
+                    ],
+                    "correctAnswer": "htmlspecialchars()",
+                    "points": 10
+                  }
+                ],
+                "totalPoints": 20,
+                "locked": true
+              }
+            ],"locked":true
+          }
+          
+          
+    ]
+}

@@ -1,0 +1,1245 @@
+{
+  "courses": [
+    {
+      "title": "JavaScript",
+      "lessons": [
+        {
+          "title": "Lesson 4: JS Objects",
+          "documents": [
+            {
+              "title": "JavaScript Objects",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "JavaScript object is a variable that can store multiple data in key-value pairs."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here's a quick example of the JavaScript object. Read the rest of the tutorial for more."
+                },
+                {
+                 "type":"codeconsole",
+                  "language":"javascript",
+                  "code": "// student object\nconst student = {\n    firstName: \"Jack\",\n    rollNo: 32 \n};\n\nconsole.log(student);\n\n// Output: { firstName: 'Jack', rollNo: 32 }"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, student is an object that stores the first name and the roll number of students as key-value pairs."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The syntax of JavaScript object is:"
+                },
+                {
+                 "type":"snippet",
+                 
+                  "code": "const objectName = {\n    key1: value1,\n    key2: value2,\n    ..., \n    keyN: valueN\n};"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, "
+                },
+                {
+                  "type": "sentence",
+                  "text": "objectName - Name of the object."
+                },
+                {
+                  "type": "sentence",
+                  "text": "key1: value1 - The first key-value pair."
+                },
+                {
+                  "type": "sentence",
+                  "text": "key2: value2 - The second key-value pair."
+                },
+                {
+                  "type": "sentence",
+                  "text": "keyN: valueN - The Nth key-value pair."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Each key-value pair has a colon : between them and is separated by a comma ,."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Example 1: JavaScript Objects"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "// create person object\nconst person = {\n    name: \"John\",\n    age: 20\n};\n\nconsole.log(person);\n\n// Output: { name: \"John\", age: 20 }"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, name: \"John\" and age: 30 are key-value pairs."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: You can also create objects in a single line. For example,"
+                },
+                {
+                 "type":"snippet",
+                
+                  "code": "const person = { name: \"John\", age: 20 };"
+                },
+                {
+                  "type": "sentence",
+                  "text": "However, it's preferable to break down objects into multiple lines for better readability."
+                },
+                {
+                  "type": "sentence",
+                  "text": "JavaScript Object Properties"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In JavaScript, the key-value pairs of an object are referred to as properties."
+                },
+                {
+                 "type":"snippet",
+                  
+                  "code": "const person = {\n    name: \"John\",\n    age: 20,\n};"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, name: \"John\" and age: 30 are the properties of the object person."
+                },
+                {
+                  "type": "sentence",
+                  "text": "You can access the value of a property by using its key."
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. Using Dot Notation"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "const dog = {\n    name: \"Rocky\",\n};\n\n// access property\nconsole.log(dog.name);\n\n// Output: Rocky"
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. Using Bracket Notation"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "const cat = {\n    name: \"Luna\",\n};\n\n// access property\nconsole.log(cat[\"name\"]);\n\n// Output: Luna"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In JavaScript, we can perform various operations on object properties like modifying, adding, deleting, and so on. Let's discuss some of them."
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. Modify Object Properties"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "const person = {\n    name: \"Bobby\",\n    hobby: \"Dancing\",\n};\n\n// modify property\nperson.hobby = \"Singing\";\n\n// display the object\nconsole.log(person);\n\n// Output: { name: 'Bobby', hobby: 'Singing' }"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, we used the dot notation to change the value of the hobby key from Dancing to Singing."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. Add Object Properties"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "const student = {\n    name: \"John\",\n    age: 20,\n};\n\n// add properties\nstudent.rollNo = 14;\nstudent.faculty = \"Science\";\n\n// display the object\nconsole.log(student);\n\n// Output: { name: 'John', age: 20, rollNo: 14, faculty: 'Science' }"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, the keys rollNo and faculty do not exist within the object. Hence, when we assign values to these keys, new properties are added to the object."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. Delete Object Properties"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "const employee = {\n    name: \"Tony\",\n    position: \"Officer\",\n    salary: 30000,\n};\n\n// delete object property\ndelete employee.salary\n\n// display the object\nconsole.log(employee);\n\n// Output: { name: 'Tony', position: 'Officer' }"
+                },
+                {
+                  "type": "sentence",
+                  "text": "We can remove properties from an object using the delete operator."
+                },
+                {
+                  "type": "sentence",
+                  "text": "We can also include functions inside an object. For example,"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "const person = {\n    name: \"Bob\",\n    age: 30,\n\n    // use function as value\n    greet: function () {\n        console.log(\"Bob says Hi!\");\n    }\n};\n\n// call object method\nperson.greet();  // Bob says Hi!"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, we have assigned a function as a value for the greet key."
+                },
+                {
+                  "type": "sentence",
+                  "text": "These functions that are defined inside objects are called methods."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: Just like we use () to call a function, we must use () to call methods."
+                },
+                {
+                  "type": "sentence",
+                  "text": "You will learn more about JavaScript Methods in the next tutorial."
+                }
+              ],
+              "locked": false
+            },
+            {
+              "title": "JavaScript Methods & this",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "A JavaScript method is a function defined within an object."
+                },
+                {
+                  "type": "sentence",
+                  "text": "For example,"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "// dog object\nconst dog = {\n    name: \"Rocky\",\n\n    // bark method\n    bark: function () {\n        console.log(\"Woof!\");\n    }\n};\n\n// access method\ndog.bark();\n\n// Output: Woof!"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, the dog object has two keys: name and bark."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Since the bark key holds a function, we refer to it as a method."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Notice that we accessed the bark() method using dog.bark(). Thus, the syntax to access an object method is:"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "objectName.methodKey()"
+                },
+                {
+                  "type": "sentence",
+                  "text": "We use the this keyword in an object method to access a property of the same object."
+                },
+                {
+                  "type": "sentence",
+                  "text": "For example,"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "// person object\nconst person = {\n    name: \"John\",\n    age: 30,\n\n    // method\n    introduce: function () {\n        console.log(`My name is ${this.name} and I'm ${this.age} years old.`);\n    }\n};\n\n// access the introduce() method\nperson.introduce();\n\n// Output: My name is John and I'm 30 years old."
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, we created the person object with two properties (name and age) and a method introduce()."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Inside the introduce() method, we used this.name and this.age to refer to the name and age keys of the person object."
+                },
+                {
+                  "type": "sentence",
+                  "text": "To learn more, visit JavaScript this."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Add Methods to an Object"
+                },
+                {
+                  "type": "sentence",
+                  "text": "You can add more methods to a JavaScript object even after we've defined it."
+                },
+                {
+                  "type": "sentence",
+                  "text": "For example,"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "// student object\nlet student = {\n    name: \"John\"\n};\n\n// add new method\nstudent.greet = function () {\n    console.log(\"Hello\");\n};\n\n// access greet() method\nstudent.greet();\n\n// Output: Hello"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, we created the student object with the property name: \"John\"."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Initially, student did not have any method. So, we used the dot notation to add a new method to the object:"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "student.greet = function() {\n    console.log(\"Hello\");\n};"
+                },
+                {
+                  "type": "sentence",
+                  "text": "JavaScript provides a wide array of useful methods known as built-in methods. Some commonly used built-in methods (and the respective objects they belong to) are given in the table below:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "A. Method: console.log()"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Object: Console"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Description: Displays messages or variables in the browser's console."
+                },
+                {
+                  "type": "sentence",
+                  "text": "B. Method: prompt()"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Object: Window"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Description: Displays a dialog box that prompts the user for input."
+                },
+                {
+                  "type": "sentence",
+                  "text": "C. Method: concat()"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Object: String"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Description: Concatenates the arguments to the calling string."
+                },
+                {
+                  "type": "sentence",
+                  "text": "D. Method: toFixed()"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Object: Number"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Description: Rounds off a number into a fixed number of digits."
+                },
+                {
+                  "type": "sentence",
+                  "text": "E. Method: sort()"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Object: Array"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Description: Sorts the elements of an array in specific order."
+                },
+                {
+                  "type": "sentence",
+                  "text": "F. Method: random()"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Object: Math"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Description: Returns a pseudo-random float number between 0 and 1."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "JavaScript Constructor",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "JavaScript Constructor Function"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In JavaScript, a constructor function is used to create and initialize objects."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here is a simple example of a constructor function. Read the rest of the tutorial for more."
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "// constructor function\nfunction Person () {\n    this.name = \"John\",\n    this.age = 23\n}\n\n// create an object\nconst person = new Person();\n\n// print object attributes\nconsole.log(person.name);\nconsole.log(person.age);\n\n// Output:\n// John\n// 23"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, Person() is an object constructor function. And, we use the new keyword to create an object from a constructor function."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Create Multiple Objects With Constructor Function"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In JavaScript, you can create multiple objects from a constructor function. For example,"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "// constructor function\nfunction Person () {\n    this.name = \"John\",\n    this.age = 23,\n\n     this.greet = function () {\n        console.log(\"hello\");\n    }\n}\n\n// create objects\nconst person1 = new Person();\nconst person2 = new Person();\n\n// access properties\nconsole.log(person1.name);  // John\nconsole.log(person2.name);  // John"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above program, we created two objects (person1 and person2) using the same constructor function."
+                },
+                {
+                  "type": "sentence",
+                  "text": "JavaScript Constructor Function Parameters"
+                },
+                {
+                  "type": "sentence",
+                  "text": "You can also create a constructor function with parameters. For example,"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "// constructor function with parameters\nfunction Person (person_name, person_age, person_gender) {\n\n   // assign parameter values to the calling object\n    this.name = person_name,\n    this.age = person_age,\n    this.gender = person_gender,\n\n    this.greet = function () {\n        return (`Hi ${this.name}`);\n    }\n}\n\n// create objects and pass arguments\nconst person1 = new Person(\"John\", 23, \"male\");\nconst person2 = new Person(\"Sam\", 25, \"female\");\n\n// access properties\nconsole.log(person1.name); // John\nconsole.log(person2.name); // Sam"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, we have passed arguments to the constructor function during the creation of the object."
+                },
+                {
+                  "type": "sentence",
+                  "text": "const person1 = new Person(\"John\", 23, \"male\");\nconst person2 = new Person(\"Sam\", 25, \"female\");"
+                },
+                {
+                  "type": "sentence",
+                  "text": "This allows each object to have different properties:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "person1: name holds the value John."
+                },
+                {
+                  "type": "sentence",
+                  "text": "person1: age holds the value 23."
+                },
+                {
+                  "type": "sentence",
+                  "text": "person1: gender holds the value male."
+                },
+                {
+                  "type": "sentence",
+                  "text": "person2: name holds the value Sam."
+                },
+                {
+                  "type": "sentence",
+                  "text": "person2: age holds the value 25."
+                },
+                {
+                  "type": "sentence",
+                  "text": "person2: gender holds the value female."
+                },
+                {
+                  "type": "sentence",
+                  "text": "JavaScript Built-In Constructors"
+                },
+                {
+                  "type": "sentence",
+                  "text": "JavaScript also has built-in constructors to create objects of various types. Some of them are:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "A. Constructor: Object()"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Description: Creates a new object with properties and methods."
+                },
+                {
+                  "type": "sentence",
+                  "text": "B. Constructor: String()"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Description: Constructs a string object for manipulating and representing textual data."
+                },
+                {
+                  "type": "sentence",
+                  "text": "C. Constructor: Number()"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Description: Constructs a number object for handling data and operations."
+                },
+                {
+                  "type": "sentence",
+                  "text": "D. Constructor: Boolean()"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Description: Constructs a boolean object representing true or false values for logical operations."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Example: JavaScript Built-In Constructors"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "// use Object() constructor to create object\nconst person = new Object({ name: \"John\", age: 30 });"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "// use String() constructor to create string object\nconst name = new String(\"John\");"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "// use Number() constructor to create number object\nconst number = new Number(57);"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "// use Boolean() constructor to create boolean object\nconst count = new Boolean(true);"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "console.log(person);\nconsole.log(name);\nconsole.log(number);\nconsole.log(count);"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Output"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "{ name: 'John', age: 30 }\n[String: 'John']\n[Number: 57]\n[Boolean: true]"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: You should not declare strings, numbers, and boolean values as objects because they slow down the program. Instead, declare them as primitive types using code such as let name = \"John\", let number = 57, etc."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "JavaScript Getter and Setter",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "In JavaScript, there are two kinds of object properties:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Data properties"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• ccessor properties"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Data Property"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here's an example of data property that we have been using in the previous tutorials."
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "const student = {\n\n    // data property\n    firstName: 'Monica';\n};"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Accessor Property"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In JavaScript, accessor properties are methods that get or set the value of an object. For that, we use these two keywords:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• get - to define a getter method to get the property value"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• set - to define a setter method to set the property value"
+                },
+                {
+                  "type": "sentence",
+                  "text": "JavaScript Getter"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In JavaScript, getter methods are used to access the properties of an object. For example,"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "const student = {\n\n    // data property\n    firstName: 'Monica',\n    \n    // accessor property(getter)\n    get getName() {\n        return this.firstName;\n    }\n};\n\n// accessing data property\nconsole.log(student.firstName); // Monica\n\n// accessing getter methods\nconsole.log(student.getName); // Monica\n\n// trying to access as a method\nconsole.log(student.getName()); // error"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above program, a getter method getName() is created to access the property of an object."
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "get getName() {\n    return this.firstName;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: To create a getter method, the get keyword is used."
+                },
+                {
+                  "type": "sentence",
+                  "text": "And also when accessing the value, we access the value as a property."
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "student.getName;"
+                },
+                {
+                  "type": "sentence",
+                  "text": "When you try to access the value as a method, an error occurs."
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "console.log(student.getName()); // error"
+                },
+                {
+                  "type": "sentence",
+                  "text": "JavaScript Setter"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In JavaScript, setter methods are used to change the values of an object. For example,"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "const student = {\n    firstName: 'Monica',\n    \n    //accessor property(setter)\n    set changeName(newName) {\n        this.firstName = newName;\n    }\n};\n\nconsole.log(student.firstName); // Monica\n\n// change(set) object property using a setter\nstudent.changeName = 'Sarah';\n\nconsole.log(student.firstName); // Sarah"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, the setter method is used to change the value of an object."
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "set changeName(newName) {\n    this.firstName = newName;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: To create a setter method, the set keyword is used."
+                },
+                {
+                  "type": "sentence",
+                  "text": "As shown in the above program, the value of firstName is Monica."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Then the value is changed to Sarah."
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "student.changeName = 'Sarah';"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: Setter must have exactly one formal parameter."
+                },
+                {
+                  "type": "sentence",
+                  "text": "JavaScript Object.defineProperty()"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In JavaScript, you can also use Object.defineProperty() method to add getters and setters. For example,"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "const student = {\n    firstName: 'Monica'\n}\n\n// getting property\nObject.defineProperty(student, \"getName\", {\n    get : function () {\n        return this.firstName;\n    }\n});\n\n// setting property\nObject.defineProperty(student, \"changeName\", {\n    set : function (value) {\n        this.firstName = value;\n    }\n});\n\nconsole.log(student.firstName); // Monica\n\n// changing the property value\nstudent.changeName = 'Sarah';\n\nconsole.log(student.firstName); // Sarah"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, Object.defineProperty() is used to access and change the property of an object."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The syntax for using Object.defineProperty() is:"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "Object.defineProperty(obj, prop, descriptor)"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The Object.defineProperty() method takes three arguments."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• The first argument is the objectName."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• The second argument is the name of the property."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• The third argument is an object that describes the property."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "JavaScript Prototype",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "In JavaScript, prototypes allow properties and methods to be shared among instances of the function or object. For example,"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "function Car() {\n    console.log(\"Car instance created!\");\n};\n\n// add a property to prototype\nCar.prototype.color = \"Red\";\n\n// add a method to the prototype\nCar.prototype.drive = function () {\n    console.log(`Driving the car painted in ${this.color}...`);\n};\n\n// display the added property\nconsole.log(`The car's color is: ${Car.prototype.color}`);\n\n// call the added method\nCar.prototype.drive();"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Output"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "The car's color is: Red\nDriving the car painted in Red..."
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, we have defined a constructor function named Car()."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Add a Property to the Prototype"
+                },
+                {
+                  "type": "sentence",
+                  "text": "We then added a property named color and set its value to Red."
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "Car.prototype.color = \"Red\";"
+                },
+                {
+                  "type": "sentence",
+                  "text": "We can access this property using the code Car.prototype.color."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Add a Method to the Prototype"
+                },
+                {
+                  "type": "sentence",
+                  "text": "We also added a method called drive() to the Car prototype:"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "Car.prototype.drive = function () {\n    console.log(`Driving the car painted in ${this.color}...`);\n};"
+                },
+                {
+                  "type": "sentence",
+                  "text": "We can access this method using the code Car.prototype.drive()."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: The usage of the prototype has decreased significantly since the introduction of classes in ES6. However, you can still learn it to improve your understanding of JavaScript."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Prototype Inheritance"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Properties or methods added to the prototype of a constructor function are accessible to all objects derived from it. For example,"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "function Car(model, year) {\n    this.model = model;\n    this.year = year;\n};\n\n// create multiple objects\nlet c1 = new Car(\"Mustang\", 1964);\nlet c2 = new Car(\"Corolla\", 1966);\n\n// add property\nCar.prototype.color = \"Red\";\n\n// add method\nCar.prototype.drive = function() {\n    console.log(`Driving ${this.model}`);\n};\n\n// display added property using c1 and c2 objects\nconsole.log(`${c1.model} color: ${c1.color}`);  \nconsole.log(`${c2.model} color: ${c2.color}`);  \n\n// display added method using c1 and c2 objects\nc1.drive();\nc2.drive();"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Output"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "Mustang color: Red\nCorolla color: Red\nDriving Mustang\nDriving Corolla"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, we created the objects c1 and c2 using the Car() constructor."
+                },
+                {
+                  "type": "sentence",
+                  "text": "We then added the following to the prototype of Car():"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. The color Property"
+                },
+                {
+                  "type": "sentence",
+                  "text": "It has a value of Red."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Both c1 and c2 can access it using c1.color and c2.color, respectively."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. The drive() Method"
+                },
+                {
+                  "type": "sentence",
+                  "text": "It is a method that displays a message."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Both c1 and c2 can access it using c1.drive() and c2.drive(), respectively."
+                },
+                {
+                  "type": "sentence",
+                  "text": "JavaScript Prototype Chaining"
+                },
+                {
+                  "type": "sentence",
+                  "text": "JavaScript always searches for properties in the objects of the constructor function first. Then, it searches in the prototype."
+                },
+                {
+                  "type": "sentence",
+                  "text": "This process is known as prototype chaining. For example,"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "function Car() {\n    this.color = \"Red\";\n};\n\n// add property that already exists\nCar.prototype.color = \"Blue\";\n\n// add a new property\nCar.prototype.wheels = 4;\n\nconst c1 = new Car();\n\nconsole.log(`The car's color is ${c1.color}.`); \nconsole.log(`The car has ${c1.wheels} wheels.`);"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Output"
+                },
+                {
+                 "type":"codeconsole",
+                  "language": "JavaScriptConsole",
+                  "code": "The car's color is Red.\nThe car has 4 wheels."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, we declared the name property in the Car() constructor. Then, we added the same property with a different value to its prototype."
+                },
+                {
+                  "type": "sentence",
+                  "text": "When we display c1.color, JavaScript searches for color in c1 and then displays it without checking the prototype."
+                },
+                {
+                  "type": "sentence",
+                  "text": "However, JavaScript can't find wheels in c1. So, when we display c1.wheels, it displays the prototype property."
+                }
+              ],
+              "locked": true
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What is a JavaScript object?",
+              "options": [
+                "A data type for numbers",
+                "A variable that stores multiple data in key-value pairs",
+                "A function for manipulating strings",
+                "A method to sort arrays"
+              ],
+              "correctAnswer": "A variable that stores multiple data in key-value pairs",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "How do you access a property of an object using dot notation?",
+              "options": [
+                "object.property",
+                "object[property]",
+                "object::property",
+                "object->property"
+              ],
+              "correctAnswer": "object.property",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which notation is used to access an object property with a variable key?",
+              "options": [
+                "Dot notation",
+                "Bracket notation",
+                "Method notation",
+                "Constructor notation"
+              ],
+              "correctAnswer": "Bracket notation",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "How do you modify an existing property of an object?",
+              "options": [
+                "object.property = newValue",
+                "object.changeProperty(newValue)",
+                "object.modify(property, newValue)",
+                "object.update[property] = newValue"
+              ],
+              "correctAnswer": "object.property = newValue",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What is the output of the following code: `const person = { age: 25 }; person.age = 30; console.log(person.age);`?",
+              "options": ["25", "30", "undefined", "null"],
+              "correctAnswer": "30",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "How do you add a new property to an existing object?",
+              "options": [
+                "object.newProperty = value",
+                "object.addProperty(value)",
+                "object.setProperty('newProperty', value)",
+                "object.insert('newProperty', value)"
+              ],
+              "correctAnswer": "object.newProperty = value",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which method is used to delete a property from an object?",
+              "options": [
+                "delete object.property",
+                "remove object.property",
+                "object.delete(property)",
+                "object.remove(property)"
+              ],
+              "correctAnswer": "delete object.property",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What is a method in a JavaScript object?",
+              "options": [
+                "A property of the object",
+                "A function defined within the object",
+                "A variable of the object",
+                "A string representation of the object"
+              ],
+              "correctAnswer": "A function defined within the object",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "How do you call a method of an object?",
+              "options": [
+                "object.method()",
+                "object::method()",
+                "object.method",
+                "object.method[]"
+              ],
+              "correctAnswer": "object.method()",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What keyword is used to refer to the object itself within a method?",
+              "options": ["self", "this", "object", "that"],
+              "correctAnswer": "this",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "How do you add methods to an existing object after it has been created?",
+              "options": [
+                "object.method = function() {}",
+                "object.addMethod('method', function() {})",
+                "object.createMethod('method', function() {})",
+                "object.insertMethod('method', function() {})"
+              ],
+              "correctAnswer": "object.method = function() {}",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which built-in method is used to display a message in the console?",
+              "options": [
+                "console.log()",
+                "console.display()",
+                "console.print()",
+                "console.alert()"
+              ],
+              "correctAnswer": "console.log()",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What does the `toFixed()` method do?",
+              "options": [
+                "Rounds off a number into a fixed number of digits",
+                "Converts a string to a number",
+                "Formats a date",
+                "Rounds off a number to the nearest integer"
+              ],
+              "correctAnswer": "Rounds off a number into a fixed number of digits",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What is the purpose of a constructor function in JavaScript?",
+              "options": [
+                "To create and initialize objects",
+                "To define object methods",
+                "To sort arrays",
+                "To concatenate strings"
+              ],
+              "correctAnswer": "To create and initialize objects",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "How do you create a new object using a constructor function?",
+              "options": [
+                "new ConstructorFunction()",
+                "ConstructorFunction.create()",
+                "ConstructorFunction.new()",
+                "new Object(ConstructorFunction)"
+              ],
+              "correctAnswer": "new ConstructorFunction()",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which keyword is used to define a constructor function parameter?",
+              "options": ["function", "new", "this", "let"],
+              "correctAnswer": "function",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What does the `Object.defineProperty()` method do?",
+              "options": [
+                "Defines a new property or modifies an existing property",
+                "Creates a new object",
+                "Deletes an object property",
+                "Displays the object in the console"
+              ],
+              "correctAnswer": "Defines a new property or modifies an existing property",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "How does prototype inheritance work in JavaScript?",
+              "options": [
+                "Properties and methods are shared among instances through prototypes",
+                "Objects inherit properties directly from other objects",
+                "Methods are copied to each instance individually",
+                "Each instance has its own copy of properties and methods"
+              ],
+              "correctAnswer": "Properties and methods are shared among instances through prototypes",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What is prototype chaining?",
+              "options": [
+                "Searching for properties in the prototype if not found in the object",
+                "Creating multiple prototypes for an object",
+                "Chaining methods together",
+                "Combining objects into a single prototype"
+              ],
+              "correctAnswer": "Searching for properties in the prototype if not found in the object",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which built-in constructor creates a new number object?",
+              "options": ["Number()", "Object()", "String()", "Boolean()"],
+              "correctAnswer": "Number()",
+              "points": 1,
+              "locked": true
+            }
+          ],
+          "activities": [
+            {
+              "title": "JavaScript Objects and Methods",
+              "description": "Practice working with JavaScript objects, defining methods, and accessing properties. This activity involves creating an object, defining a method within it, and accessing its properties.",
+              "language": "JavaScriptConsole",
+              "difficulty": "easy",
+              "problemStatement": "In this activity, you will create a JavaScript object with properties and methods. You will then call a method of the object and access its properties.\n\n1. Create an Object:\n   - Define an object `person` using `let` with the following properties:\n     - `name`: A string representing the name of the person (e.g., `'John'`).\n     - `age`: A number representing the age of the person (e.g., `30`).\n   - Add a method `greet` to the object that logs a greeting message including the person's name.\n\n2. Call Object Method:\n   - Call the `greet` method of the `person` object to display the greeting message in the console.\n\n3. Access Object Properties:\n   - Print the `age` property of the `person` object to the console.\n\n4. Expected Output:\n   - The `greet` method should output: `'Hello, my name is John'`.\n   - The `age` property should output: `'Age of the person: 30'`.\n\n5. Requirements:\n   - Use `let` to declare the `person` object.",
+              "codeEditor": {
+                "html": "",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "let person = {\n     name: \"John\",\n     age: 30,\n     greet: function() {\n       console.log(\"Hello, my name is \" + this.name);\n     }\n}\nperson.greet();\nconsole.log('Age of the person:', person.age);",
+                  "output": "Hello, my name is John\nAge of the person: 30",
+                  "required": [
+                    "let person = {",
+                    "    name: \"John\",",
+                    "    age: 30,",
+                    "    greet: function() {",
+                    "        console.log(\"Hello, my name is \" + this.name);",
+                    "person.greet();",
+                    "console.log('Age of the person:', person.age);"
+                  ],
+                  "isHidden": false
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "JavaScript Prototypes and Constructor Functions",
+              "description": "Practice using JavaScript constructor functions and prototypes to create and manage objects. This activity involves defining a constructor function, adding a method to its prototype, and creating an instance of the object.",
+              "language": "JavaScriptConsole",
+              "difficulty": "medium",
+              "problemStatement": "In this activity, you will define a JavaScript constructor function to create a `Car` object, add a method to its prototype, and use this method to display information about the car.\n\n1. Define Constructor Function:\n   - Create a constructor function `Car` that takes two parameters: `make` and `model`. Inside the function, set these parameters as properties of the object.\n\n2. Add Method to Prototype:\n   - Add a method `displayInfo` to the `Car` prototype that logs the car’s make and model to the console.\n\n3. Create Object Instance:\n   - Create a new instance of `Car` using the `new` keyword and initialize it with a make and model (e.g., `Toyota` and `Corolla`).\n\n4. Call Prototype Method:\n   - Call the `displayInfo` method on the created instance to display the car’s make and model in the console.\n\n5. Requirements:\n   - Use `let` to declare the car instance variable.",
+              "codeEditor": {
+                "html": "",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "Car Make: Toyota, Model: Corolla",
+                  "required": [
+                    "function Car(make, model) {",
+                    "    this.make = make;",
+                    "    this.model = model;",
+
+                    "Car.prototype.displayInfo = function() {",
+                    "    console.log(\"Car Make: \" + this.make + \", Model: \" + this.model);",
+                    "let myCar = new Car(\"Toyota\", \"Corolla\");",
+                    "myCar.displayInfo();"
+                  ],
+                  "isHidden": false
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "JavaScript Classes, Getters, and Setters",
+              "description": "Practice using JavaScript classes, getters, and setters to manage object properties and calculations. This activity involves creating a class, using a getter to calculate a property, and using a setter to update object properties.",
+              "language": "JavaScriptConsole",
+              "difficulty": "medium",
+              "problemStatement": "In this activity, you will define a JavaScript class `Rectangle` that manages rectangle dimensions and calculates the area. You will use a getter to compute the area and a setter to update the dimensions of the rectangle.\n\n1. Define Class:\n   - Create a class `Rectangle` with a constructor that initializes `width` and `height` properties.\n\n2. Add Getter:\n   - Add a getter method `area` that calculates and returns the area of the rectangle.\n\n3. Add Setter:\n   - Add a setter method `dimensions` that allows updating the `width` and `height` properties by passing an object with `width` and `height` properties.\n\n4. Create Instance:\n   - Create an instance of `Rectangle` with initial dimensions (e.g., `5` for width and `10` for height).\n   - Print the area of the rectangle using the getter.\n\n5. Update Dimensions:\n   - Use the setter to update the dimensions of the rectangle and print the updated area.",
+              "codeEditor": {
+                "html": "",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "Area of rectangle: 50\nUpdated area of rectangle: 98",
+                  "required": [
+                    "class Rectangle {",
+                    "    constructor(width, height) {",
+                    "        this.width = width;",
+                    "        this.height = height;",
+
+                    "    get area() {",
+                    "        return this.width * this.height;",
+
+                    "    set dimensions(dimensions) {",
+                    "        this.width = dimensions.width;",
+                    "        this.height = dimensions.height;",
+
+                    "let rect = new Rectangle(5, 10);",
+                    "console.log(\"Area of rectangle:\", rect.area);",
+
+                    "rect.dimensions = { width: 7, height: 14 };",
+                    "console.log(\"Updated area of rectangle:\", rect.area);"
+                  ],
+                  "isHidden": false
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "JavaScript Inheritance with Constructors and Prototypes",
+              "description": "Practice using JavaScript inheritance with constructors and prototypes. This activity involves creating a base class with methods and extending it with a derived class that adds additional properties and methods.",
+              "language": "JavaScriptConsole",
+              "difficulty": "hard",
+              "problemStatement": "In this activity, you will use JavaScript constructors and prototypes to implement inheritance. Create a base class `Animal` with a method `sayHello` and a derived class `Dog` that extends `Animal` with an additional method `bark`.\n\n1. Define Base Class:\n   - Create a constructor function `Animal` that initializes a `name` property.\n   - Add a method `sayHello` to `Animal`'s prototype that prints a greeting message including the animal's name.\n\n2. Define Derived Class:\n   - Create a constructor function `Dog` that inherits from `Animal` and initializes an additional `breed` property.\n   - Set up `Dog`'s prototype to inherit from `Animal`'s prototype and ensure the `constructor` property of `Dog` is correctly set.\n   - Add a method `bark` to `Dog`'s prototype that prints a message including the dog's breed.\n\n3. Create and Test Instance:\n   - Create an instance of `Dog` with the name 'Rex' and breed 'German Shepherd'.\n   - Call the `sayHello` method from the `Animal` prototype.\n   - Call the `bark` method specific to `Dog`.",
+              "codeEditor": {
+                "html": "",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "Hello, my name is Rex\nWoof! I am a German Shepherd",
+                  "required": [
+                    "function Animal(name) {",
+                    "    this.name = name;",
+
+                    "Animal.prototype.sayHello = function() {",
+                    "    console.log(\"Hello, my name is \" + this.name);",
+
+                    "function Dog(name, breed) {",
+                    "    Animal.call(this, name);",
+                    "    this.breed = breed;",
+
+                    "Dog.prototype = Object.create(Animal.prototype);",
+                    "Dog.prototype.constructor = Dog;",
+
+                    "Dog.prototype.bark = function() {",
+                    "    console.log(\"Woof! I am a \" + this.breed);",
+
+                    "let myDog = new Dog(\"Rex\", \"German Shepherd\");",
+                    "myDog.sayHello();",
+                    "myDog.bark();"
+                  ],
+                  "isHidden": false
+                }
+              ],
+              "locked": true
+            }
+          ],
+          "totalPoints": 0,
+          "locked": false
+        }
+      ],
+      "locked": false
+    }
+  ]
+}

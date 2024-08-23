@@ -52,37 +52,38 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
       )
   );
 
-
-  const userAnalytics = useSelector((state) => 
-  state.userAnalytics.userAnalytics.coursesAnalytics
-    .find((course) => {
-      const courseIdValue = typeof course.courseId === 'object' && course.courseId._id
-        ? course.courseId._id
-        : course.courseId;
-      return courseIdValue === courseId;
-    })
-    ?.lessonsAnalytics.find((lesson) => {
-      const lessonIdValue = typeof lesson.lessonId === 'object' && lesson.lessonId._id
-        ? lesson.lessonId._id
-        : lesson.lessonId;
-      return lessonIdValue === lessonId;
-    })
-    ?.activitiesAnalytics.find((activityDetail) => {
-      const activityIdValue = typeof activityDetail.activityId === 'object' && activityDetail.activityId._id
-        ? activityDetail.activityId._id
-        : activityDetail.activityId;
-      return activityIdValue === activityId;
-    })
-);
-
-
+  const userAnalytics = useSelector((state) =>
+    state.userAnalytics.userAnalytics.coursesAnalytics
+      .find((course) => {
+        const courseIdValue =
+          typeof course.courseId === "object" && course.courseId._id
+            ? course.courseId._id
+            : course.courseId;
+        return courseIdValue === courseId;
+      })
+      ?.lessonsAnalytics.find((lesson) => {
+        const lessonIdValue =
+          typeof lesson.lessonId === "object" && lesson.lessonId._id
+            ? lesson.lessonId._id
+            : lesson.lessonId;
+        return lessonIdValue === lessonId;
+      })
+      ?.activitiesAnalytics.find((activityDetail) => {
+        const activityIdValue =
+          typeof activityDetail.activityId === "object" &&
+          activityDetail.activityId._id
+            ? activityDetail.activityId._id
+            : activityDetail.activityId;
+        return activityIdValue === activityId;
+      })
+  );
 
   const tries = activitySubmission.tries;
 
   //timer
   const [timer, setTimer] = useState(0);
   const [startTime, setStartTime] = useState(null);
-  console.log(timer);
+
   const resetTimer = () => {
     setTimer(0);
     setStartTime(null);
@@ -171,7 +172,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         });
 
         const result = response.data;
-
+        console.log(result);
         const maxPoints = result.maxPoints;
         const passed = result.passed;
         const totalPoints = Math.round(result.totalPoints);
@@ -256,7 +257,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
   }
 
   async function handleCheckCode() {
-    console.log(activity.language)
+    console.log(activity.language);
     try {
       let endpoint;
       if (activity.language === "HTML") {
@@ -279,7 +280,8 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
       const passed = result.passed;
       const maxPoints = result.maxPoints;
       const totalPoints = Math.round(result.totalPoints);
-
+      const expectedOutput = result.expectedOutput;
+      const userOutput = result.userOutput;
       console.log(result);
 
       const decrementData = await decrementTries({
@@ -287,9 +289,17 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         activityId,
       }).unwrap();
       dispatch(setDecrementTries({ courseId, lessonId, activityId }));
-      console.log(decrementData);
+
       setSubmissionResultDialogOpen(true);
-      setSubmissionResult({ passed, maxPoints, totalPoints, tries });
+      setSubmissionResult({
+        passed,
+        maxPoints,
+        totalPoints,
+        tries,
+        error: result?.error,
+        expectedOutput,
+        userOutput,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -406,7 +416,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
       }
     }
   };
-
+  console.log(submissionResult);
   if (!activity) {
     return <div>Loading...</div>;
   }
@@ -553,7 +563,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         </DialogActions>
       </Dialog>
       {/* Check Code Result */}
-      <Dialog
+      {/* <Dialog
         open={submissionResultDialogOpen}
         onClose={handleCloseSubmissionResultDialog}
       >
@@ -561,11 +571,15 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         <DialogContent>
           <DialogContentText>
             {submissionResult?.passed
-              ? "Your Score Passed"
-              : "Some test cases failed. Please review your code."}
+              ? "\nYour Score Passed"
+              : "Kindly Double check your code"}
+            <br /> {submissionResult?.error ? "Error: " : null}
+            {submissionResult?.error && submissionResult.error}
             <br />
-            Score: {submissionResult?.totalPoints} /{" "}
-            {submissionResult?.maxPoints}
+            Score:{" "}
+            {submissionResult?.totalPoints >= 0
+              ? submissionResult.totalPoints + "/" + submissionResult?.maxPoints
+              : submissionResult?.error && 0}
             <br />
             Lives : {submissionResult?.tries - 1}
           </DialogContentText>
@@ -578,7 +592,53 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
             Submit
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
+        <Dialog
+  open={submissionResultDialogOpen}
+  onClose={handleCloseSubmissionResultDialog}
+>
+  <DialogTitle>Check Code Result</DialogTitle>
+  <DialogContent>
+    <DialogContentText>
+      {submissionResult?.passed
+        ? "Your Score Passed"
+        : "Kindly Double check your code"}
+      <br />
+      {submissionResult?.error ? "Error: " : null}
+      {submissionResult?.error && submissionResult.error}
+      <br />
+      Score: {submissionResult?.totalPoints >= 0
+        ? `${submissionResult.totalPoints}/${submissionResult?.maxPoints}`
+        : submissionResult?.error && 0}
+      <br />
+      Lives: {submissionResult?.tries - 1}
+      <br />
+      {submissionResult?.expectedOutput && (
+        <>
+          <br />
+          <strong>Expected Output:</strong>
+          <pre>{submissionResult.expectedOutput}</pre>
+        </>
+      )}
+      {submissionResult?.userOutput && (
+        <>
+          <br />
+          <strong>User Output:</strong>
+          <pre>{submissionResult.userOutput}</pre>
+        </>
+      )}
+    </DialogContentText>
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={handleCloseSubmissionResultDialog} color="primary">
+      Back
+    </Button>
+    <Button onClick={handleSubmitCode} color="primary">
+      Submit
+    </Button>
+  </DialogActions>
+</Dialog>
+
       <Dialog
         open={finalResult}
         onClose={handleFinalResultClose}
