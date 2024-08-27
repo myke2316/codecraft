@@ -71,7 +71,7 @@ const CourseProgress = () => {
       {userProgress.coursesProgress && userProgress.coursesProgress.map((courseProgress, index) => {
         const courseTitle = getCourseTitle(courseProgress.courseId, courses);
         const course = courses.find((c) => c._id === courseProgress.courseId);
-
+      
         if (!course) {
           // Skip rendering if the course is not found
           return null;

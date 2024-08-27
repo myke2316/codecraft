@@ -14,7 +14,7 @@ import {
 } from "../../../Student/userAnalyticsService";
 import { updateUserAnalytics } from "../../../Student/userAnalyticsSlice";
 import ContentRenderer from "../../../../utils/ContentRenderer";
-
+import { Fade, Button, Box, Typography, LinearProgress, Container, Paper } from "@mui/material";
 function DocumentContent() {
   const { courseId, lessonId, documentId, quizId } = useParams();
   const navigate = useNavigate();
@@ -186,7 +186,7 @@ function DocumentContent() {
               `/course/${courseId}/lesson/${lessonId}/document/${documentId}/complete`,
               { state: { formattedTime } }
             );
-            setIframeContent("");
+            setIframeContents("");
           } catch (error) {
             console.log(error);
           }
@@ -329,50 +329,52 @@ function DocumentContent() {
     : 0;
 
   return (
-    <div className="flex-1 p-4">
-     
-      <h1 className="text-2xl font-bold mb-4">{lesson.title}</h1>
-      <h1 className="text-2xl font-bold mb-4">
-        {document ? document.title : "Quiz"}
-        
-      </h1>
-      <hr />
+
+
+    <Box sx={{ p: 4, flex: 1, height: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <Typography variant="h4" fontWeight="bold" mb={2}>
+      {lesson.title}
+    </Typography>
+    <Typography variant="h4" fontWeight="bold" mb={2}>
+      {document ? document.title : "Quiz"}
+    </Typography>
+    <hr />
+
+    <Box sx={{ flex: 1, overflowY: 'auto', mb: '100px' }}> {/* Adjusted container for scrolling */}
       {document ? (
-        <TransitionGroup>
+        <>
           {displayedContent.map((content, index) => (
-            <CSSTransition
-              key={index}
-              classNames="fade"
-              timeout={300}
-              appear={true}
-            >
-              <div>
+            <Fade in={true} timeout={300} key={index}>
+              <Box my={3}>
                 {content.type === "sentence" ? (
-                  // <ContentRenderer><p className="my-4">{content.text}</p>
-                  <ContentRenderer content ={content.text} />
+                  <Typography variant="h5" component="p" sx={{ fontSize: '1.25rem', mb: 2 }}>
+                    <ContentRenderer content={content.text} />
+                  </Typography>
                 ) : content.type === "snippet" ? (
-                  <div className="my-4 bg-gray-200 p-4 rounded">
-                    <pre>
+                  <Paper elevation={3} sx={{ my: 3, p: 3, bgcolor: "grey.100", borderRadius: 2 }}>
+                    <pre style={{ margin: 0, fontSize: '1rem', whiteSpace: 'pre-wrap' }}>
                       <code>{content.code}</code>
                     </pre>
-                  </div>
+                  </Paper>
                 ) : content.type === "code" ? (
-                  <div className="my-4 bg-gray-200 p-4 rounded">
+                  <Paper elevation={3} sx={{ my: 3, p: 3, bgcolor: "grey.100", borderRadius: 2 }}>
                     {content.supportingCode && (
-                      <div className="my-2 bg-gray-100 p-2 rounded">
-                        <pre>
+                      <Box my={2} p={2} sx={{ bgcolor: "grey.200", borderRadius: 2 }}>
+                        <pre style={{ margin: 0, fontSize: '1rem', whiteSpace: 'pre-wrap' }}>
                           <code>{content.supportingCode}</code>
                         </pre>
-                      </div>
+                      </Box>
                     )}
                     <Editor
                       height="200px"
                       defaultLanguage={content.language}
                       defaultValue={content.code}
-                      options={{readOnly:true}}
+                      options={{ readOnly: true }}
                     />
-                    <button
-                      className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      sx={{ mt: 2 }}
                       onClick={() =>
                         handleRunCode(
                           index,
@@ -383,26 +385,31 @@ function DocumentContent() {
                       }
                     >
                       Run
-                    </button>
-                    <iframe
-                       srcDoc={iframeContents[index] || ""}
-                      title="Output"
-                      className="w-full h-64 mt-4 border"
-                    />
-                  </div>
+                    </Button>
+                    <Box mt={2}>
+                      <iframe
+                        srcDoc={iframeContents[index] || ""}
+                        title="Output"
+                        className="w-full h-64 mt-4 border"
+                        style={{ width: "100%", height: "200px", border: "1px solid #ccc" }}
+                      />
+                    </Box>
+                  </Paper>
                 ) : content.type === "codeconsole" ? (
-                  <div className="my-4 bg-gray-200 p-4 rounded">
+                  <Paper elevation={3} sx={{ my: 3, p: 3, bgcolor: "grey.100", borderRadius: 2 }}>
                     <Editor
                       height="200px"
                       defaultLanguage="javascript"
                       defaultValue={content.code}
-                      options={{readOnly:true}}
+                      options={{ readOnly: true }}
                       onChange={(value) => {
                         handleRunJavaScriptConsole(value, content.supportingCode);
-                      }} 
+                      }}
                     />
-                    <button
-                      className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      sx={{ mt: 2 }}
                       onClick={() =>
                         handleRunJavaScriptConsole(
                           index,
@@ -412,19 +419,21 @@ function DocumentContent() {
                       }
                     >
                       Run
-                    </button>
-                    <iframe
-                       srcDoc={iframeContents[index] || ""}
-                      title="Output"
-                      className="w-full h-64 mt-4 border"
-                    />
-                  </div>
-                ) : null
-                }
-              </div>
-            </CSSTransition>
+                    </Button>
+                    <Box mt={2}>
+                      <iframe
+                        srcDoc={iframeContents[index] || ""}
+                        title="Output"
+                        className="w-full h-64 mt-4 border"
+                        style={{ width: "100%", height: "200px", border: "1px solid #ccc" }}
+                      />
+                    </Box>
+                  </Paper>
+                ) : null}
+              </Box>
+            </Fade>
           ))}
-        </TransitionGroup>
+        </>
       ) : (
         <QuizContent
           quizId={quizId}
@@ -433,38 +442,187 @@ function DocumentContent() {
           onBack={handleBack}
         />
       )}
-      {document && (
-        <div
-          className="fixed bottom-0 left-0 w-full bg-white p-4 shadow-md flex justify-between items-center"
-          style={{ zIndex: 1000 }}
-        >
-          <button
-            className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+    </Box>
+
+    {document && (
+      <Box
+        sx={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          width: "100%",
+          bgcolor: "background.paper",
+          py: 2,
+          boxShadow: 3,
+          zIndex: 1000,
+        }}
+      >
+        <Container sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <Button
+            variant="contained"
+            color="primary"
             onClick={handleBack}
             disabled={currentIndex === 0}
           >
             Back
-          </button>
-          <div
-            className="progress-bar"
-            style={{
-              width: `${progressPercentage}%`,
-              backgroundColor: `rgba(0, 128, 0, ${progressPercentage / 100})`,
-              height: 20,
-              borderRadius: 10,
-            }}
+          </Button>
+          <LinearProgress
+            variant="determinate"
+            value={progressPercentage}
+            sx={{ width: "60%", height: 10, borderRadius: 5 }}
           />
-          <button
-            className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+          <Button
+            variant="contained"
+            color="primary"
             onClick={handleNext}
           >
             {documentContent && currentIndex === documentContent.length - 1
               ? "Finish"
               : "Next"}
-          </button>
-        </div>
-      )}
-    </div>
+          </Button>
+        </Container>
+      </Box>
+    )}
+  </Box>
+
+
+    //old design
+    // <div className="flex-1 p-4">
+     
+    //   <h1 className="text-2xl font-bold mb-4">{lesson.title}</h1>
+    //   <h1 className="text-2xl font-bold mb-4">
+    //     {document ? document.title : "Quiz"}
+        
+    //   </h1>
+    //   <hr />
+    //   {document ? (
+    //     <TransitionGroup>
+    //       {displayedContent.map((content, index) => (
+    //         <CSSTransition
+    //           key={index}
+    //           classNames="fade"
+    //           timeout={300}
+    //           appear={true}
+    //         >
+    //           <div>
+    //             {content.type === "sentence" ? (
+    //               // <ContentRenderer><p className="my-4">{content.text}</p>
+    //               <ContentRenderer content ={content.text} />
+    //             ) : content.type === "snippet" ? (
+    //               <div className="my-4 bg-gray-200 p-4 rounded">
+    //                 <pre>
+    //                   <code>{content.code}</code>
+    //                 </pre>
+    //               </div>
+    //             ) : content.type === "code" ? (
+    //               <div className="my-4 bg-gray-200 p-4 rounded">
+    //                 {content.supportingCode && (
+    //                   <div className="my-2 bg-gray-100 p-2 rounded">
+    //                     <pre>
+    //                       <code>{content.supportingCode}</code>
+    //                     </pre>
+    //                   </div>
+    //                 )}
+    //                 <Editor
+    //                   height="200px"
+    //                   defaultLanguage={content.language}
+    //                   defaultValue={content.code}
+    //                   options={{readOnly:true}}
+    //                 />
+    //                 <button
+    //                   className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
+    //                   onClick={() =>
+    //                     handleRunCode(
+    //                       index,
+    //                       content.code,
+    //                       content.supportingCode,
+    //                       content.language
+    //                     )
+    //                   }
+    //                 >
+    //                   Run
+    //                 </button>
+    //                 <iframe
+    //                    srcDoc={iframeContents[index] || ""}
+    //                   title="Output"
+    //                   className="w-full h-64 mt-4 border"
+    //                 />
+    //               </div>
+    //             ) : content.type === "codeconsole" ? (
+    //               <div className="my-4 bg-gray-200 p-4 rounded">
+    //                 <Editor
+    //                   height="200px"
+    //                   defaultLanguage="javascript"
+    //                   defaultValue={content.code}
+    //                   options={{readOnly:true}}
+    //                   onChange={(value) => {
+    //                     handleRunJavaScriptConsole(value, content.supportingCode);
+    //                   }} 
+    //                 />
+    //                 <button
+    //                   className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
+    //                   onClick={() =>
+    //                     handleRunJavaScriptConsole(
+    //                       index,
+    //                       content.code,
+    //                       content?.supportingCode
+    //                     )
+    //                   }
+    //                 >
+    //                   Run
+    //                 </button>
+    //                 <iframe
+    //                    srcDoc={iframeContents[index] || ""}
+    //                   title="Output"
+    //                   className="w-full h-64 mt-4 border"
+    //                 />
+    //               </div>
+    //             ) : null
+    //             }
+    //           </div>
+    //         </CSSTransition>
+    //       ))}
+    //     </TransitionGroup>
+    //   ) : (
+    //     <QuizContent
+    //       quizId={quizId}
+    //       quiz={quiz}
+    //       onNext={handleNext}
+    //       onBack={handleBack}
+    //     />
+    //   )}
+    //   {document && (
+    //     <div
+    //       className="fixed bottom-0 left-0 w-full bg-white p-4 shadow-md flex justify-between items-center"
+    //       style={{ zIndex: 1000 }}
+    //     >
+    //       <button
+    //         className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+    //         onClick={handleBack}
+    //         disabled={currentIndex === 0}
+    //       >
+    //         Back
+    //       </button>
+    //       <div
+    //         className="progress-bar"
+    //         style={{
+    //           width: `${progressPercentage}%`,
+    //           backgroundColor: `rgba(0, 128, 0, ${progressPercentage / 100})`,
+    //           height: 20,
+    //           borderRadius: 10,
+    //         }}
+    //       />
+    //       <button
+    //         className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+    //         onClick={handleNext}
+    //       >
+    //         {documentContent && currentIndex === documentContent.length - 1
+    //           ? "Finish"
+    //           : "Next"}
+    //       </button>
+    //     </div>
+    //   )}
+    // </div>
   );
 }
 

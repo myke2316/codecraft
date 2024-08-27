@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +10,15 @@ import { formatTime } from "../../../../utils/formatTime";
 import { useUpdateUserQuizSubmissionMutation } from "../../Quiz/quizSubmissionService";
 import { updateQuizSubmissionUtil } from "../../../../utils/quizSubmissionUtil";
 import "./quiz.css";
+import {
+  Box,
+  Typography,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  Button,
+  LinearProgress,
+} from "@mui/material";
 
 const QuizContent = ({ quiz }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -82,7 +90,9 @@ const QuizContent = ({ quiz }) => {
   const currentQuestion = quiz[currentQuestionIndex];
   const courses = useSelector((state) => state.course.courseData);
   const courseData = courses.find((course) => course._id === courseId);
-  const lessonData = courseData?.lessons.find((lesson) => lesson._id === lessonId);
+  const lessonData = courseData?.lessons.find(
+    (lesson) => lesson._id === lessonId
+  );
 
   const [score, setScore] = useState(0); // New state for score
 
@@ -264,39 +274,106 @@ const QuizContent = ({ quiz }) => {
   }
 
   return (
-    <div className="quiz-content">
+    <Box
+      sx={{
+        p: 4,
+        maxWidth: "600px",
+        margin: "0 auto",
+        boxShadow: 3,
+        borderRadius: 2,
+        bgcolor: "background.paper",
+      }}
+    >
+      {/* Progress Bar */}
+      <LinearProgress
+        variant="determinate"
+        value={progressBarWidth}
+        sx={{ mb: 4, height: 10, borderRadius: 5 }}
+      />
       <div className="progress-bar">
         <div style={{ width: progressBarWidth }} />
       </div>
-      <h3>{currentQuestion.question}</h3>
-      {currentQuestion.options.map((option, index) => (
-        <div key={index}>
-          <input
-            type="radio"
+      {/* Question */}
+      <Typography variant="h5" fontWeight="bold" mb={3}>
+        {currentQuestion.question}
+      </Typography>
+
+      {/* Options */}
+      <RadioGroup
+        value={selectedOption}
+        onChange={(e) => setSelectedOption(e.target.value)}
+      >
+        {currentQuestion.options.map((option, index) => (
+          <FormControlLabel
+            key={index}
             value={option}
-            checked={selectedOption === option}
-            onChange={() => setSelectedOption(option)}
+            control={<Radio color="primary" />}
+            label={<Typography variant="body1">{option}</Typography>}
+            sx={{
+              mb: 2,
+              borderRadius: 1,
+              p: 2,
+              "&:hover": { bgcolor: "#f0f0f0" },
+            }}
           />
-          <label>{option}</label>
-        </div>
-      ))}
-      <div className="button-group">
-        <button
+        ))}
+      </RadioGroup>
+
+      {/* Button Group */}
+      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4 }}>
+        <Button
+          variant="contained"
+          color="secondary"
           onClick={handleBack}
           disabled={currentQuestionIndex === 0}
-          className="quiz-button"
         >
           Back
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
           onClick={handleNext}
           disabled={selectedOption === null}
-          className="quiz-button"
         >
           {currentQuestionIndex < quiz.length - 1 ? "Next" : "Submit"}
-        </button>
-      </div>
-    </div>
+        </Button>
+      </Box>
+    </Box>
+
+    //old design
+    // <div className="quiz-content">
+    //   <div className="progress-bar">
+    //     <div style={{ width: progressBarWidth }} />
+    //   </div>
+    //   <h3>{currentQuestion.question}</h3>
+    //   {currentQuestion.options.map((option, index) => (
+    //     <div key={index}>
+    //       <input
+    //         type="radio"
+    //         value={option}
+    //         checked={selectedOption === option}
+    //         onChange={() => setSelectedOption(option)}
+    //       />
+    //       <label>{option}</label>
+    //     </div>
+    //   ))}
+    //   <div className="button-group">
+    //     <button
+    //       onClick={handleBack}
+    //       disabled={currentQuestionIndex === 0}
+    //       className="quiz-button"
+    //     >
+    //       Back
+    //     </button>
+    //     <button
+    //       onClick={handleNext}
+    //       disabled={selectedOption === null}
+    //       className="quiz-button"
+    //     >
+    //       {currentQuestionIndex < quiz.length - 1 ? "Next" : "Submit"}
+    //     </button>
+    //   </div>
+    // </div>
   );
 };
 

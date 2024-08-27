@@ -85,7 +85,7 @@ function ClassStudentHome() {
               const analytics = analyticsArray.find(
                 (analytic) => analytic.userId === studentId
               );
-             
+
               const totalPoints =
                 analytics && analytics.coursesAnalytics
                   ? analytics.coursesAnalytics.reduce(
@@ -93,7 +93,7 @@ function ClassStudentHome() {
                       0
                     )
                   : 0;
-                    console.log(totalPoints)
+              console.log(totalPoints);
               const totalTimeSpent =
                 analytics && analytics.coursesAnalytics
                   ? analytics.coursesAnalytics.reduce(
@@ -136,7 +136,9 @@ function ClassStudentHome() {
 
     fetchUsersAndAnalytics();
   }, [classId, getAllUsers, getAllAnalytics]);
-
+  const userProgress = useSelector(
+    (state) => state.studentProgress.userProgress
+  );
   //HANDLE START COURSE
   async function handleOnClick() {
     try {
@@ -150,7 +152,37 @@ function ClassStudentHome() {
         }).unwrap();
         dispatch(setUserProgress(createUserProgress));
       } else {
-        navigate("/course");
+        if (userProgress && userProgress.coursesProgress.length > 0) {
+          // Find the latest course progress
+          const latestCourse = userProgress.coursesProgress.find(
+            (course) => !course.locked && !course.dateFinished
+          );
+    
+          // Ensure the user has progress in a course
+          if (latestCourse) {
+            // Find the latest lesson within the course
+            const latestLesson = latestCourse.lessonsProgress.find(
+              (lesson) => !lesson.locked && !lesson.dateFinished
+            );
+    
+            // Ensure the user has progress in a lesson
+            if (latestLesson) {
+              // Redirect to the latest lesson using navigate
+              navigate(`/course/${latestCourse.courseId}/lesson/${latestLesson.lessonId}`);
+            } else {
+              // If no latest lesson found, navigate to the course overview
+              navigate(`/course/${latestCourse.courseId}`);
+            }
+          } else {
+            // If no course found, navigate to the course overview page
+            navigate("/course");
+          }
+        } else {
+          // If no user progress exists, create a new progress entry
+          await createUserProgress({ userId: user._id }).unwrap();
+          dispatch(setUserProgress(createUserProgress));
+          navigate("/course");
+        }
       }
     } catch (error) {
       console.error("Error:", error);

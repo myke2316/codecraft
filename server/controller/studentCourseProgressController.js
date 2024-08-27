@@ -319,7 +319,7 @@ const createUserProgress = asyncHandler(async (req, res) => {
             const quizId = lesson.quiz.map((quiz) => quiz._id);
             lessonProgress.quizzesProgress.push({
               quizId,
-              locked: lesson.locked,
+              locked: true,
               dateFinished: null,
             });
           }

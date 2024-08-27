@@ -8,11 +8,6 @@ const DocumentProgressSchema = new Schema({
   dateFinished: { type: Date },
 });
 
-// const QuizProgressSchema = new Schema({
-//   quizId: { type: Schema.Types.ObjectId, ref: "Quiz", required: true },
-//   locked: { type: Boolean },
-//   dateFinished: { type: Date },
-// });
 
 const QuizProgressSchema = new Schema({
   quizId: [{ type: Schema.Types.ObjectId, ref: "Quiz", required: true }], // Array to hold all quiz items for the lesson

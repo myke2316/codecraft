@@ -288,6 +288,7 @@ function LessonContent() {
             })}
           </ul>
         </div>
+        
         <div className="mb-6">
           <h2 className="text-2xl font-semibold mb-4 text-gray-700">Quiz</h2>
           <div

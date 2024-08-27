@@ -22,7 +22,8 @@
                   "code": "<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n</body>\n</html>"
                 }
               ],
-              "locked": false
+              "locked": false,
+              "badges": "Document 1"
             },
             {
               "title": "HTML Structure",
@@ -57,7 +58,9 @@
                   "language": "html",
                   "code": "<p>This is a paragraph numbah 2.</p>"
                 }
-              ]
+              ],
+              "locked": true,
+              "badges": "Document 2"
             },
             {
               "title": "Basic HTML Tags",
@@ -83,7 +86,9 @@
                   "language": "html",
                   "code": "<div>\n<p>This is a paragraph.</p>\n<a href=\"https://www.example.com\">This is a link</a>\n</div>"
                 }
-              ]
+              ],
+              "locked": true,
+              "badges": "Document 3"
             }
           ],
           "quiz": [
@@ -123,7 +128,7 @@
               "description": "Build a basic HTML structure.",
               "language": "HTML",
               "difficulty": "easy",
-              "problemStatement": "Create a webpage with a title and a heading.",
+              "problemStatement": "Create a webpage with a title 'My Page' and a heading(h1) 'Welcome'",
 
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n</head>\n<body>\n</body>\n</html>",
@@ -134,23 +139,18 @@
                 {
                   "input": "",
                   "output": "<!DOCTYPE html><html><head><title>My Page</title></head><body><h1>Welcome</h1></body></html>",
-                  "required": [
-                    "<title>My Page</title>",
-                    "<h1>Welcome</h1>",
-                    "<h1>My name is secret</h1>"
-                  ],
+                  "required": ["<title>My Page</title>", "<h1>Welcome</h1>"],
                   "isHidden": false
                 }
               ],
-              "locked": true,
-              "completed": false
+              "locked": true
             },
             {
               "title": "Create a Complex HTML Page",
               "description": "Add more elements to your HTML page.",
               "language": "HTML",
               "difficulty": "medium",
-              "problemStatement": "Include a paragraph and an image.",
+              "problemStatement": "Include a paragraph 'This is a paragraph' and an image ( use '/cat.png' ).",
 
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>\nComplex Page\n</title>\n</head>\n<body>\n\n</body>\n</html>",
@@ -162,21 +162,20 @@
                   "input": "",
                   "output": "<!DOCTYPE html><html><head><title>Complex Page</title></head><body><h1>Welcome</h1><p>This is a paragraph.</p><img src='image.jpg' alt='Example Image'></body></html>",
                   "required": [
-                    "<p>This is a paragraph.</p>",
+                    "<p>This is a paragraph</p>",
                     "<img src='/cat.png'"
                   ],
                   "isHidden": false
                 }
               ],
-              "locked": true,
-              "completed": false
+              "locked": true
             },
             {
               "title": "Image Handling Practice",
               "description": "Create an HTML page that includes an image with specific attributes. The image file should be named 'cat.png' and located in the same directory as your HTML file.",
               "language": "HTML",
               "difficulty": "medium",
-              "problemStatement": "Include an image with specific attributes in your HTML page. The image file should be named 'cat.png' and located in the same directory as your HTML file.",
+              "problemStatement": "Include an image ('/cat.png') with specific attributes in your HTML page, with a heading (h1) 'Check out this cat!'",
 
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html lang='en'>\n<head>\n    <meta charset='UTF-8'>\n    <meta name='viewport' content='width=device-width, initial-scale=1.0'>\n    <title>Image Handling Activity</title>\n</head>\n<body>\n    \n</body>\n</html>",
@@ -194,12 +193,13 @@
                   "isHidden": false
                 }
               ],
-              "locked": true,
-              "completed": false
+              "locked": true
             }
           ],
           "totalPoints": 10,
-          "locked": false
+          "locked": false,
+          "badges": "Beginner",
+          "completed": false
         },
         {
           "title": "Lesson 2: HTML Elements",
@@ -240,7 +240,7 @@
                 },
                 {
                   "type": "code",
-                  "langugae": "html",
+                  "language": "html",
                   "code": "<span>This is an inline element.</span>\n<div>This is a block element.</div>"
                 }
               ],
@@ -311,7 +311,7 @@
               "description": "Build a basic HTML structure.",
               "language": "HTML",
               "difficulty": "easy",
-              "problemStatement": "Create a webpage with a title and a heading.",
+              "problemStatement": "Create a webpage with a title 'My Page' and a heading(h1) 'Welcome'",
 
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n</head>\n<body>\n</body>\n</html>",
@@ -322,23 +322,18 @@
                 {
                   "input": "",
                   "output": "<!DOCTYPE html><html><head><title>My Page</title></head><body><h1>Welcome</h1></body></html>",
-                  "required": [
-                    "<title>My Page</title>",
-                    "<h1>Welcome</h1>",
-                    "<h1>My name is secret</h1>"
-                  ],
+                  "required": ["<title>My Page</title>", "<h1>Welcome</h1>"],
                   "isHidden": false
                 }
               ],
-              "locked": true,
-              "completed": false
+              "locked": true
             },
             {
               "title": "Create a Complex HTML Page",
               "description": "Add more elements to your HTML page.",
               "language": "HTML",
               "difficulty": "medium",
-              "problemStatement": "Include a paragraph and an image.",
+              "problemStatement": "Include a paragraph 'This is a paragraph' and an image ( use '/cat.png' ).",
 
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>\nComplex Page\n</title>\n</head>\n<body>\n\n</body>\n</html>",
@@ -350,21 +345,20 @@
                   "input": "",
                   "output": "<!DOCTYPE html><html><head><title>Complex Page</title></head><body><h1>Welcome</h1><p>This is a paragraph.</p><img src='image.jpg' alt='Example Image'></body></html>",
                   "required": [
-                    "<p>This is a paragraph.</p>",
+                    "<p>This is a paragraph</p>",
                     "<img src='/cat.png'"
                   ],
                   "isHidden": false
                 }
               ],
-              "locked": true,
-              "completed": false
+              "locked": true
             },
             {
               "title": "Image Handling Practice",
               "description": "Create an HTML page that includes an image with specific attributes. The image file should be named 'cat.png' and located in the same directory as your HTML file.",
               "language": "HTML",
               "difficulty": "medium",
-              "problemStatement": "Include an image with specific attributes in your HTML page. The image file should be named 'cat.png' and located in the same directory as your HTML file.",
+              "problemStatement": "Include an image ('/cat.png') with specific attributes in your HTML page, with a heading (h1) 'Check out this cat!'",
 
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html lang='en'>\n<head>\n    <meta charset='UTF-8'>\n    <meta name='viewport' content='width=device-width, initial-scale=1.0'>\n    <title>Image Handling Activity</title>\n</head>\n<body>\n    \n</body>\n</html>",
@@ -382,15 +376,16 @@
                   "isHidden": false
                 }
               ],
-              "locked": true,
-              "completed": false
+              "locked": true
             }
           ],
           "totalPoints": 10,
-          "locked": true
+          "locked": true,
+          "badges": "Consistent!"
         }
       ],
-      "locked": false
+      "locked": false,
+      "badges": "HTML Master"
     },
     {
       "title": "CSS",
@@ -507,15 +502,14 @@
                   "isHidden": false
                 }
               ],
-              "locked": true,
-              "completed": false
+              "locked": true
             },
             {
               "title": "Advanced CSS Styling",
               "description": "Style a page with additional elements.",
               "language": "CSS",
               "difficulty": "medium",
-              "problemStatement": "Add styles for a paragraph and image.",
+              "problemStatement": "Add styles for a paragraph with a font-size of 16 pixels and image with a width of 100 pixels.",
 
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Advanced Styled Page</title>\n</head>\n<body>\n<h1>Hello World</h1>\n<p>This is a paragraph.</p>\n<img src='image.jpg' alt='Example Image'>\n</body>\n</html>",
@@ -525,7 +519,7 @@
               "testCases": [
                 {
                   "input": "",
-                  "output": "<!DOCTYPE html><html><head><title>Advanced Styled Page</title><style>body { background-color: blue; } h1 { color: red; } p { font-size: 16px; } img { width: 100px; }</style></head><body><h1>Hello World</h1><p>This is a paragraph.</p><img src='image.jpg' alt='Example Image'></body></html>",
+                  "output": "<!DOCTYPE html><html><head><title>Advanced Styled Page</title><style>body { background-color: blue; } h1 { color: red; } p { font-size: 16px; } img { width: 100px; }</style></head><body><h1>Hello World</h1><p>This is a paragraph.</p><img src='/cat.png' alt='Example Image'></body></html>",
                   "required": [
                     "p { font-size: 16px; }",
                     "img { width: 100px; }"
@@ -533,12 +527,12 @@
                   "isHidden": false
                 }
               ],
-              "locked": true,
-              "completed": false
+              "locked": true
             }
           ],
           "totalPoints": 10,
-          "locked": true
+          "locked": true,
+          "completed": false
         },
         {
           "title": "Lesson 2: CSS Box Model",
@@ -633,8 +627,7 @@
                   "isHidden": false
                 }
               ],
-              "locked": true,
-              "completed": false
+              "locked": true
             },
             {
               "title": "Advanced CSS Styling",
@@ -659,15 +652,17 @@
                   "isHidden": false
                 }
               ],
-              "locked": true,
-              "completed": false
+              "locked": true
             }
           ],
           "totalPoints": 10,
-          "locked": true
+          "locked": true,
+          "completed": false
         }
       ],
-      "locked": true
+      "locked": true,
+      "badges": "CSS Master",
+      "completed": false
     },
     {
       "title": "JavaScript",
@@ -739,7 +734,7 @@
               "description": "Write a simple JavaScript program to add two numbers and display the result.",
               "language": "JavaScriptConsole",
               "difficulty": "easy",
-              "problemStatement": "Write a JavaScript program to add two numbers and display the result.",
+              "problemStatement": "Write a JavaScript program to add two numbers using 'let' declaration a = 6, and b = 5 and display the result and should give 11 as output.",
 
               "codeEditor": {
                 "html": "",
@@ -748,7 +743,7 @@
               },
               "testCases": [
                 {
-                  "input": "",
+                  "input": "let a =5;\nlet b=6;\nlet sum = a+b\nconsole.log(sum);",
                   "output": "11",
                   "required": [
                     "let a = 5;",
@@ -759,24 +754,23 @@
                   "isHidden": false
                 }
               ],
-              "locked": true,
-              "completed": false
+              "locked": true
             },
             {
               "title": "JavaScript Functions",
               "description": "Create a JavaScript function that takes two parameters and returns their sum.",
               "language": "JavaScriptConsole",
               "difficulty": "medium",
-              "problemStatement": "Create a JavaScript function that takes two parameters and returns their sum.",
+              "problemStatement": "Create a JavaScript function named 'addNumbers' that takes two parameters (a and b) and returns their sum, it should return 11.",
 
               "codeEditor": {
                 "html": "",
                 "css": "",
-                "js": "function addNumbers(a, b) {\n  return a + b;\n}\nconsole.log(addNumbers(5, 6));"
+                "js": ""
               },
               "testCases": [
                 {
-                  "input": "",
+                  "input": "function addNumbers(a, b) {\n  return a + b;\n}\nconsole.log(addNumbers(5, 6));",
                   "output": "11",
                   "required": [
                     "function addNumbers(a, b) {",
@@ -786,8 +780,7 @@
                   "isHidden": false
                 }
               ],
-              "locked": true,
-              "completed": false
+              "locked": true
             },
             {
               "title": "Log - Javascript",
@@ -803,18 +796,18 @@
               },
               "testCases": [
                 {
-                  "input": "",
+                  "input": "console.log('Hello');",
                   "output": "Hello",
-                  "required": ["console.log('Hello');", "console.log('Hi');"],
+                  "required": ["console.log('Hello');"],
                   "isHidden": false
                 }
               ],
-              "locked": true,
-              "completed": false
+              "locked": true
             }
           ],
           "totalPoints": 10,
-          "locked": true
+          "locked": true,
+          "completed": false
         },
         {
           "title": "Lesson 2: JavaScript DOM Manipulation",
@@ -887,7 +880,7 @@
               "description": "Write a JavaScript program to change the content of an HTML element.",
               "language": "JavaScriptWeb",
               "difficulty": "easy",
-              "problemStatement": "Write a JavaScript program to change the content of an HTML element.",
+              "problemStatement": "Write a JavaScript program to change the content of an HTML element, by getting the element's ID and changing its inner HTMl to 'Hello World'",
 
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Change Content with DOM</title>\n</head>\n<body>\n<div id='myElement'>Original Content</div>\n<script>\n// Write your JavaScript code here\n</script>\n</body>\n</html>",
@@ -899,13 +892,12 @@
                   "input": "",
                   "output": "Hello, World!",
                   "required": [
-                    "document.getElementById('myElement').innerHTML = 'Hello, World!';"
+                    "document.getElementById('myElement').innerHTML = 'Hello World!';"
                   ],
                   "isHidden": false
                 }
               ],
-              "locked": true,
-              "completed": false
+              "locked": true
             },
             {
               "title": "Change Style with DOM",
@@ -930,8 +922,7 @@
                   "isHidden": false
                 }
               ],
-              "locked": true,
-              "completed": false
+              "locked": true
             },
             {
               "title": "Form Validation with JavaScript",
@@ -950,21 +941,23 @@
                   "input": "",
                   "output": "Form is valid",
                   "required": [
-                    "document.getElementById('myForm')",
-                    "event.preventDefault()"
+                    "document.getElementById('myForm');",
+                    "event.preventDefault();"
                   ],
                   "isHidden": false
                 }
               ],
-              "locked": true,
-              "completed": false
+              "locked": true
             }
           ],
           "totalPoints": 20,
-          "locked": true
+          "locked": true,
+          "completed": false
         }
       ],
-      "locked": true
+      "locked": true,
+      "badges": "JS Master",
+      "completed": false
     }
   ]
 }

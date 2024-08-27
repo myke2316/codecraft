@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import UserAnalyticsModel from "../models/UserAnalyticsModel.js";
+import CourseModel from "../models/courseModel.js"
+import UserProgressModel from "../models/studentCourseProgressModel.js"
 // Get analytics for all users
 //aggregated user analytics
 const getAggregateAllUserAnalytics = async (req, res) => {
@@ -63,7 +65,15 @@ const getUserAnalytics = async (req, res) => {
   }
 };
 
-const updateUserAnalytics = async (req, res) => {
+
+
+
+
+
+
+
+const updateUserAnalytics = async (req, res) => 
+{
   try {
     const { userId, analyticsData } = req.body;
 
@@ -231,6 +241,9 @@ const updateUserAnalytics = async (req, res) => {
 };
 
 // Add a new badge to a specific user
+
+
+
 const addBadgeToUser = async (req, res) => {
   try {
     const userId = req.params.userId;

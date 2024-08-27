@@ -20,7 +20,7 @@ const getActivitySubmissions = async (req, res) => {
     }
     res.json(activitySubmissions);
   } catch (error) {
-    console.error("Error fetching activity submissions: ", error);
+    console.error("Error fetching activity submissions: ", error); 
     return res.status(500).json({ message: "Internal server error" });
   }
 };

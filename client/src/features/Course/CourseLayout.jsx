@@ -1,13 +1,15 @@
+import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router";
 import { ToastContainer } from "react-toastify";
 
 function CourseLayout() {
   const navigate = useNavigate();
+  const classId = useSelector(state => state.class.class._id)
   return (
     <div>
       <div
         className="bg-gray-800 p-4 flex justify-between"
-        onClick={() => navigate("/")}
+        onClick={() => navigate(`/studentClass/${classId}`)}
       >
         <div className="text-white hover:text-gray-200 flex">
           <svg

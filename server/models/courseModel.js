@@ -1,12 +1,32 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
+//old document schema without the fill-in
+// const DocumentSchema = new Schema({
+//   title: { type: String, required: true },
+//   content: [
+//     {
+//       type: {
+//         type: String,
+//         required: true,
+//         enum: ["sentence", "snippet", "code", "codeconsole"],
+//       },
+//       text: { type: String },
+//       code: { type: String },
+//       supportingCode: { type: String },
+//       language: { type: String },
+//     },
+//   ],
+//   locked: { type: Boolean, default: true },
+// });
+
+//with fill in, testing
 
 const DocumentSchema = new Schema({
   title: { type: String, required: true },
   content: [
     {
-      type: { 
+      type: {
         type: String,
         required: true,
         enum: ["sentence", "snippet", "code", "codeconsole"],
@@ -18,14 +38,15 @@ const DocumentSchema = new Schema({
     },
   ],
   locked: { type: Boolean, default: true },
+  badges: { type: String, required: false },
 });
-
 const QuizSchema = new Schema({
   question: { type: String, required: true },
   options: [{ type: String, required: true }],
   correctAnswer: { type: String, required: true },
   points: { type: Number, required: true },
   locked: { type: Boolean, default: true },
+  badges: { type: String, required: false },
 });
 
 // Define the CodeEditor schema
@@ -49,7 +70,6 @@ const TestCaseSchema = new mongoose.Schema(
   { _id: false }
 );
 
-
 const ActivitySchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
@@ -61,7 +81,7 @@ const ActivitySchema = new mongoose.Schema(
       enum: ["easy", "medium", "hard"],
     },
     problemStatement: { type: String, required: true },
-    
+
     codeEditor: { type: CodeEditorSchema, required: true },
     testCases: { type: [TestCaseSchema], required: true },
     expectedImage: { type: String },
@@ -75,18 +95,19 @@ const LessonSchema = new Schema({
   title: { type: String, required: true },
   documents: [{ type: DocumentSchema, ref: "Document" }],
   quiz: [{ type: QuizSchema, ref: "Quiz" }],
- activities: [{ type: ActivitySchema, ref: "Activity" }],
+  activities: [{ type: ActivitySchema, ref: "Activity" }],
   totalPoints: { type: Number, required: true },
   locked: { type: Boolean, default: true },
+  badges: { type: String, required: false },
 });
 
 const CourseSchema = new Schema({
   title: { type: String, required: true },
   lessons: [{ type: LessonSchema, ref: "Lesson" }],
   locked: { type: Boolean, default: true },
+  badges: { type: String, required: false },
 });
 
 const CourseModel = mongoose.model("Course", CourseSchema);
 
 export default CourseModel;
-

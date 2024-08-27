@@ -1,6 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Card,
+  Typography,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import LockIcon from "@mui/icons-material/Lock";
+import FolderOpenIcon from "@mui/icons-material/FolderOpen";
+import DescriptionIcon from "@mui/icons-material/Description";
+import QuizIcon from "@mui/icons-material/Quiz";
+import AssignmentIcon from "@mui/icons-material/Assignment";
 
 function CourseSidebar() {
   const navigate = useNavigate();
@@ -8,187 +26,224 @@ function CourseSidebar() {
   const userProgress = useSelector(
     (state) => state.studentProgress.userProgress
   );
+  const location = useLocation();
 
-  const [sidebarWidth, setSidebarWidth] = useState("250px");
-  const handleResize = (e) => {
-    const startX = e.clientX;
-    const startWidth = parseInt(sidebarWidth, 10);
-    const minWidth = 50;
-    const maxWidth = 400;
-    const handleMouseMove = (e) => {
-      const newWidth = Math.min(
-        Math.max(startWidth + (e.clientX - startX), minWidth),
-        maxWidth
-      );
-      setSidebarWidth(`${newWidth}px`);
-    };
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-    });
+  const userAnalytics = useSelector(
+    (state) => state.userAnalytics.userAnalytics
+  );
+console.log(userAnalytics)
+  const [expandedCourseId, setExpandedCourseId] = useState(null);
+  const [expandedLessonId, setExpandedLessonId] = useState(null);
+
+  useEffect(() => {
+    const pathSegments = location.pathname.split("/");
+    const courseIdFromUrl = pathSegments[2]; // Extract courseId from URL
+    const lessonIdFromUrl = pathSegments[4]; // Extract lessonId from URL
+
+    if (courseIdFromUrl && lessonIdFromUrl) {
+      setExpandedCourseId(courseIdFromUrl);
+      setExpandedLessonId(lessonIdFromUrl);
+    }
+  }, [location]);
+  const handleCourseToggle = (courseId) => {
+    setExpandedCourseId(expandedCourseId === courseId ? null : courseId);
   };
 
-  function handleLessonClick(lessonId, courseId) {
-    navigate(`/course/${courseId}/lesson/${lessonId}`);
-  }
+  const handleLessonToggle = (lessonId) => {
+    setExpandedLessonId(expandedLessonId === lessonId ? null : lessonId);
+  };
 
-  function handleDocumentClick(courseId, documentId, lessonId) {
+  const handleLessonClick = (lessonId, courseId) => {
+    navigate(`/course/${courseId}/lesson/${lessonId}`);
+    handleLessonToggle(lessonId);
+  };
+
+  const handleDocumentClick = (courseId, documentId, lessonId) => {
     navigate(`/course/${courseId}/lesson/${lessonId}/document/${documentId}`);
-  }
+  };
+
+  const handleQuizClick = (courseId, lessonId) => {
+    const course = courses.find((course) => course._id === courseId);
+    const lesson = course.lessons.find((lesson) => lesson._id === lessonId);
+    const quizzes = lesson.quiz;
+    navigate(`/course/${courseId}/lesson/${lessonId}/quiz/${quizzes[0]._id}`);
+  };
+
+  const handleActivityClick = (courseId, lessonId) => {
+    navigate(`/course/${courseId}/lesson/${lessonId}/activity/activityList`);
+  };
 
   return (
-    <div
-      className="resizable"
-      style={{ width: sidebarWidth }}
-      onMouseDown={handleResize}
-    >
-      <div className="p-4 bg-gray-200 overflow-hidden divide-y divide-blue-200">
-        {courses.map((course) => {
-          const courseProgress = userProgress.coursesProgress.find(
-            (cp) => cp.courseId.toString() === course._id.toString()
-          );
-          if (!courseProgress) return null;
+    <div style={{ width: "300px", padding: "16px" }}>
+      {courses.map((course) => {
+        const courseProgress = userProgress.coursesProgress.find(
+          (cp) => cp.courseId.toString() === course._id.toString()
+        );
+        if (!courseProgress) return null;
 
-          return (
-            <div key={course._id}>
-              <h2 className="text-lg font-bold mb-2 truncate">
-                Course: {course.title}
-              </h2>
-              <ul className="mb-4 ml-5">
-                {course.lessons.map((lesson) => {
-                  const lessonProgress = courseProgress.lessonsProgress.find(
-                    (lp) => lp.lessonId.toString() === lesson._id.toString()
-                  );
-                  if (!lessonProgress) return null;
-                
-                  const isLessonUnlocked = !lessonProgress.locked;
+        const isCourseExpanded = expandedCourseId === course._id;
 
-                  return (
-                    <div key={lesson._id}>
-                      <li
-                        className={`cursor-pointer text-blue-800 hover:text-black ${
-                          isLessonUnlocked
-                            ? ""
-                            : "opacity-50 cursor-not-allowed"
-                        }`}
-                        onClick={() =>
-                          isLessonUnlocked &&
-                          handleLessonClick(lesson._id, course._id)
-                        }
-                      >
-                        {lesson.title}
-                      </li>
-                      {isLessonUnlocked ? (
-                        <ul>
-                          {lesson.documents.map((document) => {
-                            const documentProgress =
-                              lessonProgress.documentsProgress.find(
-                                (dp) =>
-                                  dp.documentId.toString() ===
-                                  document._id.toString()
-                              );
-                            if (!documentProgress) return null;
+        return (
+          <Card key={course._id} sx={{ marginBottom: 2, boxShadow: 3 }}>
+            <Accordion
+              expanded={isCourseExpanded}
+              onChange={() => handleCourseToggle(course._id)}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls={`panel-${course._id}-content`}
+                id={`panel-${course._id}-header`}
+              >
+                <Typography variant="h6">{course.title}</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <List>
+                  {course.lessons.map((lesson) => {
+                    const lessonProgress = courseProgress.lessonsProgress.find(
+                      (lp) => lp.lessonId.toString() === lesson._id.toString()
+                    );
+                    if (!lessonProgress) return null;
 
-                            const isDocumentUnlocked = !documentProgress.locked;
+                    const isLessonUnlocked = !lessonProgress.locked;
+                    const isLessonExpanded = expandedLessonId === lesson._id;
 
-                            return (
-                              <li
-                                key={document._id}
-                                className={`cursor-pointer ml-10 text-blue-800 hover:text-blue-700 ${
-                                  isDocumentUnlocked
-                                    ? ""
-                                    : "opacity-50 cursor-not-allowed"
-                                }`}
+                    const isQuizUnlocked =
+                      !lessonProgress.quizzesProgress[0].locked;
+                    const isActivityUnlocked =
+                      !lessonProgress.activitiesProgress[0].locked;
+
+                    return (
+                      <div key={lesson._id}>
+                        <Accordion
+                          expanded={isLessonExpanded}
+                          onChange={() => handleLessonToggle(lesson._id)}
+                          sx={{ marginBottom: 1, boxShadow: 2 }}
+                        >
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls={`panel-${lesson._id}-content`}
+                            id={`panel-${lesson._id}-header`}
+                            onClick={() =>
+                              isLessonUnlocked &&
+                              handleLessonClick(lesson._id, course._id)
+                            }
+                            sx={{
+                              cursor: isLessonUnlocked
+                                ? "pointer"
+                                : "not-allowed",
+                              opacity: isLessonUnlocked ? 1 : 0.5,
+                            }}
+                          >
+                            <ListItemIcon>
+                              {isLessonUnlocked ? (
+                                <FolderOpenIcon color="primary" />
+                              ) : (
+                                <LockIcon color="disabled" />
+                              )}
+                            </ListItemIcon>
+                            <ListItemText primary={lesson.title} />
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <List>
+                              {/* Lesson Documents */}
+                              {lesson.documents.map((document) => {
+                                const documentProgress =
+                                  lessonProgress.documentsProgress.find(
+                                    (dp) =>
+                                      dp.documentId.toString() ===
+                                      document._id.toString()
+                                  );
+                                if (!documentProgress) return null;
+
+                                const isDocumentUnlocked =
+                                  !documentProgress.locked;
+
+                                return (
+                                  <ListItem
+                                    key={document._id}
+                                    button
+                                    sx={{
+                                      cursor: isDocumentUnlocked
+                                        ? "pointer"
+                                        : "not-allowed",
+                                      opacity: isDocumentUnlocked ? 1 : 0.5,
+                                      paddingLeft: 4,
+                                    }}
+                                    onClick={() =>
+                                      isDocumentUnlocked &&
+                                      handleDocumentClick(
+                                        course._id,
+                                        document._id,
+                                        lesson._id
+                                      )
+                                    }
+                                  >
+                                    <ListItemIcon>
+                                      <DescriptionIcon color="primary" />
+                                    </ListItemIcon>
+                                    <ListItemText primary={document.title} />
+                                  </ListItem>
+                                );
+                              })}
+
+                              {/* Divider between documents and quiz/activity */}
+                              <Divider sx={{ my: 1 }} />
+
+                              {/* Quiz Section */}
+                              <ListItem
+                                button
                                 onClick={() =>
-                                  isDocumentUnlocked &&
-                                  handleDocumentClick(
-                                    course._id,
-                                    document._id,
-                                    lesson._id
-                                  )
+                                  isQuizUnlocked &&
+                                  handleQuizClick(course._id, lesson._id)
                                 }
+                                sx={{
+                                  cursor: isQuizUnlocked
+                                    ? "pointer"
+                                    : "not-allowed",
+                                  opacity: isQuizUnlocked ? 1 : 0.5,
+                                  paddingLeft: 4,
+                                }}
                               >
-                                {document.title}
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      ):
-                      (
-                        <ul>
-                          {lesson.documents.map((document) => {
-                            const documentProgress =
-                              lessonProgress.documentsProgress.find(
-                                (dp) =>
-                                  dp.documentId.toString() ===
-                                  document._id.toString()
-                              );
-                            if (!documentProgress) return null;
+                                <ListItemIcon>
+                                  <QuizIcon color="secondary" />
+                                </ListItemIcon>
+                                <ListItemText primary="Quiz" />
+                              </ListItem>
 
-                            const isDocumentUnlocked = !documentProgress.locked;
-
-                            return (
-                              <li
-                                key={document._id}
-                                className={`cursor-pointer ml-10 text-blue-800 hover:text-blue-700 ${
-                                  isDocumentUnlocked
-                                    ? ""
-                                    : "opacity-50 cursor-not-allowed"
-                                }`}
+                              {/* Activity Section */}
+                              <ListItem
+                                button
                                 onClick={() =>
-                                  isDocumentUnlocked &&
-                                  handleDocumentClick(
-                                    course._id,
-                                    document._id,
-                                    lesson._id
-                                  )
+                                  isActivityUnlocked &&
+                                  handleActivityClick(course._id, lesson._id)
                                 }
+                                sx={{
+                                  cursor: isActivityUnlocked
+                                    ? "pointer"
+                                    : "not-allowed",
+                                  opacity: isActivityUnlocked ? 1 : 0.5,
+                                  paddingLeft: 4,
+                                }}
                               >
-                                {document.title}
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      )
-                      }
-                    </div>
-                  );
-                })}
-              </ul>
-            </div>
-          );
-        })}
-      </div>
-      <div className="resizer" />
+                                <ListItemIcon>
+                                  <AssignmentIcon color="secondary" />
+                                </ListItemIcon>
+                                <ListItemText primary="Activity" />
+                              </ListItem>
+                            </List>
+                          </AccordionDetails>
+                        </Accordion>
+                      </div>
+                    );
+                  })}
+                </List>
+              </AccordionDetails>
+            </Accordion>
+          </Card>
+        );
+      })}
     </div>
   );
-}
-
-function isLessonUnlocked(userProgress, courseId, lessonId) {
-  const courseProgress = userProgress.coursesProgress.find(
-    (cp) => cp.courseId.toString() === courseId.toString()
-  );
-
-  if (!courseProgress) return false;
-  const lessonProgress = courseProgress.lessonsProgress.find(
-    (lp) => lp.lessonId.toString() === lessonId.toString()
-  );
-  return lessonProgress && !lessonProgress.locked;
-}
-
-function isDocumentUnlocked(userProgress, courseId, lessonId, documentId) {
-  const courseProgress = userProgress.coursesProgress.find(
-    (cp) => cp.courseId.toString() === courseId.toString()
-  );
-  if (!courseProgress) return false;
-  const lessonProgress = courseProgress.lessonsProgress.find(
-    (lp) => lp.lessonId.toString() === lessonId.toString()
-  );
-  if (!lessonProgress) return false;
-  const documentProgress = lessonProgress.documentsProgress.find(
-    (dp) => dp.documentId.toString() === documentId.toString()
-  );
-  return documentProgress && !documentProgress.locked;
 }
 
 export default CourseSidebar;
