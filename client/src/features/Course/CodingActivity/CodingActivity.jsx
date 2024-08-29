@@ -14,6 +14,7 @@ import {
   IconButton,
   Snackbar,
 } from "@mui/material";
+
 import { Editor } from "@monaco-editor/react";
 import axios from "axios";
 import { useUpdateUserProgressMutation } from "../../Student/studentCourseProgressService";
@@ -422,6 +423,8 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
   }
 
   return (
+
+
     <Box sx={{ flexGrow: 1, padding: "20px" }}>
       <Paper elevation={3} sx={{ padding: "20px", marginBottom: "20px" }}>
         <Typography variant="h5">

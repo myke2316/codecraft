@@ -1,26 +1,7 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-//old document schema without the fill-in
-// const DocumentSchema = new Schema({
-//   title: { type: String, required: true },
-//   content: [
-//     {
-//       type: {
-//         type: String,
-//         required: true,
-//         enum: ["sentence", "snippet", "code", "codeconsole"],
-//       },
-//       text: { type: String },
-//       code: { type: String },
-//       supportingCode: { type: String },
-//       language: { type: String },
-//     },
-//   ],
-//   locked: { type: Boolean, default: true },
-// });
 
-//with fill in, testing
 
 const DocumentSchema = new Schema({
   title: { type: String, required: true },

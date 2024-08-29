@@ -107,17 +107,13 @@ const CourseProgress = () => {
                     </Typography>
                   </Box>
                 </Box>
-                <Box display="flex" justifyContent="space-between">
+                <Box>
                   <Box display="flex" alignItems="center">
                     <Typography variant="body2" color="textSecondary">
                       Lessons: {course.lessons.length}
                     </Typography>
                   </Box>
-                  <Box display="flex" alignItems="center">
-                    <Typography variant="body2" color="textSecondary">
-                      Students: 99 {/* Placeholder for student count */}
-                    </Typography>
-                  </Box>
+                 
                 </Box>
               </CardContent>
             </CourseCard>

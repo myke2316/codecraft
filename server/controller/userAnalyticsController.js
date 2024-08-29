@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import UserAnalyticsModel from "../models/UserAnalyticsModel.js";
 import CourseModel from "../models/courseModel.js"
 import UserProgressModel from "../models/studentCourseProgressModel.js"
+
+
 // Get analytics for all users
 //aggregated user analytics
 const getAggregateAllUserAnalytics = async (req, res) => {
@@ -71,12 +73,228 @@ const getUserAnalytics = async (req, res) => {
 
 
 
-
-const updateUserAnalytics = async (req, res) => 
-{
+const updateUserAnalytics = async (req, res) => {
   try {
     const { userId, analyticsData } = req.body;
 
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "Invalid user ID" });
+    }
+
+    if (!analyticsData) {
+      return res.status(400).json({ message: "Analytics data is required" });
+    }
+
+    const updateObject = {};
+    const badgesToAward = [];
+
+    const courseIds = [];
+    const lessonIds = [];
+    const documentIds = [];
+    const quizIds = [];
+    const activityIds = [];
+
+    if (
+      analyticsData.coursesAnalytics &&
+      Array.isArray(analyticsData.coursesAnalytics)
+    ) {
+      analyticsData.coursesAnalytics.forEach((course) => {
+        if (
+          course.courseId &&
+          course.lessonsAnalytics &&
+          Array.isArray(course.lessonsAnalytics)
+        ) {
+          courseIds.push(course.courseId);
+
+          course.lessonsAnalytics.forEach((lesson) => {
+            if (lesson.lessonId) {
+              lessonIds.push(lesson.lessonId);
+
+              // Handle Document Analytics
+              if (
+                lesson.documentsAnalytics &&
+                Array.isArray(lesson.documentsAnalytics)
+              ) {
+                lesson.documentsAnalytics.forEach((document) => {
+                  if (document.documentId) {
+                    documentIds.push(document.documentId);
+
+                    updateObject[
+                      `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].documentsAnalytics.$[document].timeSpent`
+                    ] = document.timeSpent;
+                    updateObject[
+                      `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].documentsAnalytics.$[document].pointsEarned`
+                    ] = document.pointsEarned;
+
+                    // Award Document Badge if document timeSpent > 0 and badge is not empty
+                    if (document.timeSpent > 0 && document.badges && document.badges !== "") {
+                      badgesToAward.push({
+                        name: document.badges,
+                        description: `Completed document ${document.documentId}`,
+                      });
+                    }
+                  }
+                });
+              }
+
+              // Handle Quiz Analytics
+              if (
+                lesson.quizzesAnalytics &&
+                Array.isArray(lesson.quizzesAnalytics)
+              ) {
+                lesson.quizzesAnalytics.forEach((quiz) => {
+                  if (quiz.quizId) {
+                    quizIds.push(quiz.quizId);
+
+                    updateObject[
+                      `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].quizzesAnalytics.$[quiz].timeSpent`
+                    ] = quiz.timeSpent;
+                    updateObject[
+                      `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].quizzesAnalytics.$[quiz].pointsEarned`
+                    ] = quiz.pointsEarned;
+
+                    // Award Quiz Badge (if necessary in the future)
+                  }
+                });
+              }
+
+              // Handle Activity Analytics
+              if (
+                lesson.activitiesAnalytics &&
+                Array.isArray(lesson.activitiesAnalytics)
+              ) {
+                lesson.activitiesAnalytics.forEach((activity) => {
+                  if (activity.activityId) {
+                    activityIds.push(activity.activityId);
+
+                    updateObject[
+                      `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].activitiesAnalytics.$[activity].timeSpent`
+                    ] = activity.timeSpent;
+                    updateObject[
+                      `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].activitiesAnalytics.$[activity].pointsEarned`
+                    ] = activity.pointsEarned;
+
+                    // Award Activity Badge (if necessary in the future)
+                  }
+                });
+              }
+            }
+          });
+        }
+      });
+    }
+
+    // Update user analytics with the provided partial data
+    const arrayFilters = [];
+    if (courseIds.length) arrayFilters.push({ "course.courseId": { $in: courseIds } });
+    if (lessonIds.length) arrayFilters.push({ "lesson.lessonId": { $in: lessonIds } });
+    if (documentIds.length) arrayFilters.push({ "document.documentId": { $in: documentIds } });
+    if (quizIds.length) arrayFilters.push({ "quiz.quizId": { $in: quizIds } });
+    if (activityIds.length) arrayFilters.push({ "activity.activityId": { $in: activityIds } });
+
+    const updatedAnalytics = await UserAnalyticsModel.findOneAndUpdate(
+      { userId },
+      { $inc: updateObject }, // Increment values for timeSpent and pointsEarned
+      {
+        new: true,
+        upsert: true,
+        arrayFilters,
+      }
+    );
+
+    // Now check if lessons/courses are fully completed
+    for (const courseId of courseIds) {
+      const userAnalytics = await UserAnalyticsModel.findOne({
+        userId,
+        "coursesAnalytics.courseId": courseId,
+      });
+
+      if (userAnalytics) {
+        const courseData = userAnalytics.coursesAnalytics.find(
+          (c) => c.courseId.toString() === courseId
+        );
+
+        let courseCompleted = true;
+
+        // Check each lesson in the course
+        for (const lesson of courseData.lessonsAnalytics) {
+          let lessonCompleted = true;
+
+          // Check if all documents, quizzes, and activities have timeSpent > 0
+          const allDocsCompleted = lesson.documentsAnalytics.every(
+            (doc) => doc.timeSpent > 0
+          );
+          const allQuizzesCompleted = lesson.quizzesAnalytics.every(
+            (quiz) => quiz.timeSpent > 0
+          );
+          const allActivitiesCompleted = lesson.activitiesAnalytics.every(
+            (activity) => activity.timeSpent > 0
+          );
+
+          if (!allDocsCompleted || !allQuizzesCompleted || !allActivitiesCompleted) {
+            lessonCompleted = false;
+            courseCompleted = false;
+          }
+
+          // Award Lesson Badge if lesson is completed and badge is not already awarded
+          if (lessonCompleted && lesson.badges && lesson.badges !== "") {
+            const existingBadge = userAnalytics.badges.find(
+              (badge) => badge.name === lesson.badges
+            );
+            if (!existingBadge) {
+              badgesToAward.push({
+                name: lesson.badges,
+                description: `Completed lesson ${lesson.lessonId}`,
+              });
+            }
+          }
+        }
+
+        // Award Course Badge if course is completed and badge is not already awarded
+        if (courseCompleted && courseData.badges && courseData.badges !== "") {
+          const existingBadge = userAnalytics.badges.find(
+            (badge) => badge.name === courseData.badges
+          );
+          if (!existingBadge) {
+            badgesToAward.push({
+              name: courseData.badges,
+              description: `Completed course ${courseData.courseId}`,
+            });
+          }
+        }
+      }
+    }
+
+    // Add badges to user analytics if necessary (no duplicates, no empty badges)
+    if (badgesToAward.length > 0) {
+      const badgeUpdates = await UserAnalyticsModel.findOneAndUpdate(
+        { userId },
+        { $push: { badges: { $each: badgesToAward } } }, // Push new badges to the badges array
+        { new: true }
+      );
+
+      return res.status(200).json(badgeUpdates);
+    }
+
+    res.status(200).json(updatedAnalytics);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+
+
+
+
+
+
+
+const updateUserAnalyticsa = async (req, res) => {
+  try {
+    const { userId, analyticsData } = req.body;
+    console.log(JSON.stringify(analyticsData, null, 2))
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json({ message: "Invalid user ID" });
     }
@@ -238,9 +456,9 @@ const updateUserAnalytics = async (req, res) =>
     console.error(error);
     res.status(500).json({ message: error.message });
   }
-};
 
-// Add a new badge to a specific user
+}
+
 
 
 

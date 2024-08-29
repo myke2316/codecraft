@@ -14,7 +14,15 @@ import {
 } from "../../../Student/userAnalyticsService";
 import { updateUserAnalytics } from "../../../Student/userAnalyticsSlice";
 import ContentRenderer from "../../../../utils/ContentRenderer";
-import { Fade, Button, Box, Typography, LinearProgress, Container, Paper } from "@mui/material";
+import {
+  Fade,
+  Button,
+  Box,
+  Typography,
+  LinearProgress,
+  Container,
+  Paper,
+} from "@mui/material";
 function DocumentContent() {
   const { courseId, lessonId, documentId, quizId } = useParams();
   const navigate = useNavigate();
@@ -142,6 +150,24 @@ function DocumentContent() {
       const nextDocumentIndex = lesson.documents.indexOf(document) + 1;
       const nextQuizIndex = lesson.quiz.indexOf(quiz) + 1;
 
+      const courseAnalytics = userAnalytics.coursesAnalytics.find(
+        (course) => course.courseId === courseId
+      );
+      const lessonAnalytics = courseAnalytics
+        ? courseAnalytics.lessonsAnalytics.find(
+            (lesson) => lesson.lessonId === lessonId
+          )
+        : null;
+      const documentAnalytics = lessonAnalytics
+        ? lessonAnalytics.documentsAnalytics.find(
+            (doc) => doc.documentId === documentId
+          )
+        : null;
+
+      const courseBadge = courseAnalytics?.badges || null;
+      const lessonBadge = lessonAnalytics?.badges || null;
+      const documentBadge = documentAnalytics?.badges || null;
+
       if (nextDocumentIndex < lesson.documents.length) {
         const nextDocument = lesson.documents[nextDocumentIndex];
 
@@ -163,14 +189,17 @@ function DocumentContent() {
                 coursesAnalytics: [
                   {
                     courseId,
+                    badges: courseBadge,
                     lessonsAnalytics: [
                       {
                         lessonId,
+                        badges: lessonBadge,
                         documentsAnalytics: [
                           {
                             documentId,
                             timeSpent: timer,
                             pointsEarned: 15,
+                            badges: documentBadge,
                           },
                         ],
                       },
@@ -179,7 +208,7 @@ function DocumentContent() {
                 ],
               },
             }).unwrap();
-
+            console.log(updateAnalyticsData);
             dispatch(updateUserAnalytics(updateAnalyticsData));
 
             navigate(
@@ -214,14 +243,17 @@ function DocumentContent() {
                 coursesAnalytics: [
                   {
                     courseId,
+                    badges: courseBadge,
                     lessonsAnalytics: [
                       {
                         lessonId,
+                        badges: lessonBadge,
                         documentsAnalytics: [
                           {
                             documentId,
                             timeSpent: timer,
                             pointsEarned: 15,
+                            badges: documentBadge,
                           },
                         ],
                       },
@@ -249,6 +281,127 @@ function DocumentContent() {
       }
     }
   }
+
+  // async function handleNext() {
+  //   if (documentContent && currentIndex < documentContent.length - 1) {
+  //     const newIndex = currentIndex + 1;
+  //     setCurrentIndex(newIndex);
+  //     setDisplayedContent((prevContent) => [
+  //       ...prevContent,
+  //       documentContent[newIndex],
+  //     ]);
+  //     setIframeContents("");
+  //   } else {
+  //     const nextDocumentIndex = lesson.documents.indexOf(document) + 1;
+  //     const nextQuizIndex = lesson.quiz.indexOf(quiz) + 1;
+
+  //     if (nextDocumentIndex < lesson.documents.length) {
+  //       const nextDocument = lesson.documents[nextDocumentIndex];
+
+  //       if (!showCompletion) {
+  //         try {
+  //           // FOR UPDATING USER PROGRESS
+  //           const updateProgressData = await updateUserProgress({
+  //             userId,
+  //             courseId,
+  //             lessonId,
+  //             documentId,
+  //           }).unwrap();
+  //           dispatch(updateCourseProgress(updateProgressData));
+
+  //           // FOR SETTING timer, X points for each document
+  //           const updateAnalyticsData = await updateUserAnalyticsMutation({
+  //             userId,
+  //             analyticsData: {
+  //               coursesAnalytics: [
+  //                 {
+  //                   courseId,
+  //                   lessonsAnalytics: [
+  //                     {
+  //                       lessonId,
+  //                       documentsAnalytics: [
+  //                         {
+  //                           documentId,
+  //                           timeSpent: timer,
+  //                           pointsEarned: 15,
+  //                         },
+  //                       ],
+  //                     },
+  //                   ]
+  //                 },
+  //               ],
+  //             },
+  //           }).unwrap();
+  //           console.log(updateAnalyticsData)
+  //           dispatch(updateUserAnalytics(updateAnalyticsData));
+
+  //           navigate(
+  //             `/course/${courseId}/lesson/${lessonId}/document/${documentId}/complete`,
+  //             { state: { formattedTime } }
+  //           );
+  //           setIframeContents("");
+  //         } catch (error) {
+  //           console.log(error);
+  //         }
+  //       } else {
+  //         navigate(
+  //           `/course/${courseId}/lesson/${lessonId}/document/${nextDocument._id}`
+  //         );
+  //       }
+  //     } else if (nextQuizIndex < lesson.quiz.length) {
+  //       const nextQuiz = lesson.quiz[nextQuizIndex];
+
+  //       if (!showCompletion) {
+  //         try {
+  //           const updateProgressData = await updateUserProgress({
+  //             userId,
+  //             courseId,
+  //             lessonId,
+  //             documentId,
+  //           }).unwrap();
+  //           dispatch(updateCourseProgress(updateProgressData));
+
+  //           const updateAnalyticsData = await updateUserAnalyticsMutation({
+  //             userId,
+  //             analyticsData: {
+  //               coursesAnalytics: [
+  //                 {
+  //                   courseId,
+  //                   lessonsAnalytics: [
+  //                     {
+  //                       lessonId,
+  //                       documentsAnalytics: [
+  //                         {
+  //                           documentId,
+  //                           timeSpent: timer,
+  //                           pointsEarned: 15,
+  //                         },
+  //                       ],
+  //                     },
+  //                   ],
+  //                 },
+  //               ],
+  //             },
+  //           }).unwrap();
+  //           console.log(updateAnalyticsData);
+  //           dispatch(updateUserAnalytics(updateAnalyticsData));
+
+  //           setIframeContents("");
+  //           navigate(
+  //             `/course/${courseId}/lesson/${lessonId}/document/${documentId}/complete`,
+  //             { state: { formattedTime } }
+  //           );
+  //         } catch (error) {
+  //           console.log(error);
+  //         }
+  //       } else {
+  //         navigate(
+  //           `/course/${courseId}/lesson/${lessonId}/quiz/${nextQuiz._id}`
+  //         );
+  //       }
+  //     }
+  //   }
+  // }
 
   const handleBack = () => {
     if (currentIndex > 0) {
@@ -298,7 +451,10 @@ function DocumentContent() {
       </body>
       </html>
     `;
-    setIframeContents(prevContents => ({ ...prevContents, [index]: iframeContent }));
+    setIframeContents((prevContents) => ({
+      ...prevContents,
+      [index]: iframeContent,
+    }));
   };
 
   const handleRunCode = (index, code, supportingCode, language) => {
@@ -318,181 +474,230 @@ function DocumentContent() {
       </body>
       </html>
     `;
-    setIframeContents(prevContents => ({ ...prevContents, [index]: iframeContent }));
+    setIframeContents((prevContents) => ({
+      ...prevContents,
+      [index]: iframeContent,
+    }));
   };
-  
-
-
 
   const progressPercentage = documentContent
     ? ((currentIndex + 1) / documentContent.length) * 100
     : 0;
 
   return (
+    <Box
+      sx={{
+        p: 4,
+        flex: 1,
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <Typography variant="h4" fontWeight="bold" mb={2}>
+        {lesson.title}
+      </Typography>
+      <Typography variant="h4" fontWeight="bold" mb={2}>
+        {document ? document.title : "Quiz"}
+      </Typography>
+      <hr />
 
-
-    <Box sx={{ p: 4, flex: 1, height: '100vh', display: 'flex', flexDirection: 'column' }}>
-    <Typography variant="h4" fontWeight="bold" mb={2}>
-      {lesson.title}
-    </Typography>
-    <Typography variant="h4" fontWeight="bold" mb={2}>
-      {document ? document.title : "Quiz"}
-    </Typography>
-    <hr />
-
-    <Box sx={{ flex: 1, overflowY: 'auto', mb: '100px' }}> {/* Adjusted container for scrolling */}
-      {document ? (
-        <>
-          {displayedContent.map((content, index) => (
-            <Fade in={true} timeout={300} key={index}>
-              <Box my={3}>
-                {content.type === "sentence" ? (
-                  <Typography variant="h5" component="p" sx={{ fontSize: '1.25rem', mb: 2 }}>
-                    <ContentRenderer content={content.text} />
-                  </Typography>
-                ) : content.type === "snippet" ? (
-                  <Paper elevation={3} sx={{ my: 3, p: 3, bgcolor: "grey.100", borderRadius: 2 }}>
-                    <pre style={{ margin: 0, fontSize: '1rem', whiteSpace: 'pre-wrap' }}>
-                      <code>{content.code}</code>
-                    </pre>
-                  </Paper>
-                ) : content.type === "code" ? (
-                  <Paper elevation={3} sx={{ my: 3, p: 3, bgcolor: "grey.100", borderRadius: 2 }}>
-                    {content.supportingCode && (
-                      <Box my={2} p={2} sx={{ bgcolor: "grey.200", borderRadius: 2 }}>
-                        <pre style={{ margin: 0, fontSize: '1rem', whiteSpace: 'pre-wrap' }}>
-                          <code>{content.supportingCode}</code>
-                        </pre>
+      <Box sx={{ flex: 1, overflowY: "auto", mb: "100px" }}>
+        {" "}
+        {/* Adjusted container for scrolling */}
+        {document ? (
+          <>
+            {displayedContent.map((content, index) => (
+              <Fade in={true} timeout={300} key={index}>
+                <Box my={3}>
+                  {content.type === "sentence" ? (
+                    <Typography
+                      variant="h5"
+                      component="p"
+                      sx={{ fontSize: "1.25rem", mb: 2 }}
+                    >
+                      <ContentRenderer content={content.text} />
+                    </Typography>
+                  ) : content.type === "snippet" ? (
+                    <Paper
+                      elevation={3}
+                      sx={{ my: 3, p: 3, bgcolor: "grey.100", borderRadius: 2 }}
+                    >
+                      <pre
+                        style={{
+                          margin: 0,
+                          fontSize: "1rem",
+                          whiteSpace: "pre-wrap",
+                        }}
+                      >
+                        <code>{content.code}</code>
+                      </pre>
+                    </Paper>
+                  ) : content.type === "code" ? (
+                    <Paper
+                      elevation={3}
+                      sx={{ my: 3, p: 3, bgcolor: "grey.100", borderRadius: 2 }}
+                    >
+                      {content.supportingCode && (
+                        <Box
+                          my={2}
+                          p={2}
+                          sx={{ bgcolor: "grey.200", borderRadius: 2 }}
+                        >
+                          <pre
+                            style={{
+                              margin: 0,
+                              fontSize: "1rem",
+                              whiteSpace: "pre-wrap",
+                            }}
+                          >
+                            <code>{content.supportingCode}</code>
+                          </pre>
+                        </Box>
+                      )}
+                      <Editor
+                        height="200px"
+                        defaultLanguage={content.language}
+                        defaultValue={content.code}
+                        options={{ readOnly: true }}
+                      />
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        sx={{ mt: 2 }}
+                        onClick={() =>
+                          handleRunCode(
+                            index,
+                            content.code,
+                            content.supportingCode,
+                            content.language
+                          )
+                        }
+                      >
+                        Run
+                      </Button>
+                      <Box mt={2}>
+                        <iframe
+                          srcDoc={iframeContents[index] || ""}
+                          title="Output"
+                          className="w-full h-64 mt-4 border"
+                          style={{
+                            width: "100%",
+                            height: "200px",
+                            border: "1px solid #ccc",
+                          }}
+                        />
                       </Box>
-                    )}
-                    <Editor
-                      height="200px"
-                      defaultLanguage={content.language}
-                      defaultValue={content.code}
-                      options={{ readOnly: true }}
-                    />
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      sx={{ mt: 2 }}
-                      onClick={() =>
-                        handleRunCode(
-                          index,
-                          content.code,
-                          content.supportingCode,
-                          content.language
-                        )
-                      }
+                    </Paper>
+                  ) : content.type === "codeconsole" ? (
+                    <Paper
+                      elevation={3}
+                      sx={{ my: 3, p: 3, bgcolor: "grey.100", borderRadius: 2 }}
                     >
-                      Run
-                    </Button>
-                    <Box mt={2}>
-                      <iframe
-                        srcDoc={iframeContents[index] || ""}
-                        title="Output"
-                        className="w-full h-64 mt-4 border"
-                        style={{ width: "100%", height: "200px", border: "1px solid #ccc" }}
+                      <Editor
+                        height="200px"
+                        defaultLanguage="javascript"
+                        defaultValue={content.code}
+                        options={{ readOnly: true }}
+                        onChange={(value) => {
+                          handleRunJavaScriptConsole(
+                            value,
+                            content.supportingCode
+                          );
+                        }}
                       />
-                    </Box>
-                  </Paper>
-                ) : content.type === "codeconsole" ? (
-                  <Paper elevation={3} sx={{ my: 3, p: 3, bgcolor: "grey.100", borderRadius: 2 }}>
-                    <Editor
-                      height="200px"
-                      defaultLanguage="javascript"
-                      defaultValue={content.code}
-                      options={{ readOnly: true }}
-                      onChange={(value) => {
-                        handleRunJavaScriptConsole(value, content.supportingCode);
-                      }}
-                    />
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      sx={{ mt: 2 }}
-                      onClick={() =>
-                        handleRunJavaScriptConsole(
-                          index,
-                          content.code,
-                          content?.supportingCode
-                        )
-                      }
-                    >
-                      Run
-                    </Button>
-                    <Box mt={2}>
-                      <iframe
-                        srcDoc={iframeContents[index] || ""}
-                        title="Output"
-                        className="w-full h-64 mt-4 border"
-                        style={{ width: "100%", height: "200px", border: "1px solid #ccc" }}
-                      />
-                    </Box>
-                  </Paper>
-                ) : null}
-              </Box>
-            </Fade>
-          ))}
-        </>
-      ) : (
-        <QuizContent
-          quizId={quizId}
-          quiz={quiz}
-          onNext={handleNext}
-          onBack={handleBack}
-        />
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        sx={{ mt: 2 }}
+                        onClick={() =>
+                          handleRunJavaScriptConsole(
+                            index,
+                            content.code,
+                            content?.supportingCode
+                          )
+                        }
+                      >
+                        Run
+                      </Button>
+                      <Box mt={2}>
+                        <iframe
+                          srcDoc={iframeContents[index] || ""}
+                          title="Output"
+                          className="w-full h-64 mt-4 border"
+                          style={{
+                            width: "100%",
+                            height: "200px",
+                            border: "1px solid #ccc",
+                          }}
+                        />
+                      </Box>
+                    </Paper>
+                  ) : null}
+                </Box>
+              </Fade>
+            ))}
+          </>
+        ) : (
+          <QuizContent
+            quizId={quizId}
+            quiz={quiz}
+            onNext={handleNext}
+            onBack={handleBack}
+          />
+        )}
+      </Box>
+
+      {document && (
+        <Box
+          sx={{
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            width: "100%",
+            bgcolor: "background.paper",
+            py: 2,
+            boxShadow: 3,
+            zIndex: 1000,
+          }}
+        >
+          <Container
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleBack}
+              disabled={currentIndex === 0}
+            >
+              Back
+            </Button>
+            <LinearProgress
+              variant="determinate"
+              value={progressPercentage}
+              sx={{ width: "60%", height: 10, borderRadius: 5 }}
+            />
+            <Button variant="contained" color="primary" onClick={handleNext}>
+              {documentContent && currentIndex === documentContent.length - 1
+                ? "Finish"
+                : "Next"}
+            </Button>
+          </Container>
+        </Box>
       )}
     </Box>
 
-    {document && (
-      <Box
-        sx={{
-          position: "fixed",
-          bottom: 0,
-          left: 0,
-          width: "100%",
-          bgcolor: "background.paper",
-          py: 2,
-          boxShadow: 3,
-          zIndex: 1000,
-        }}
-      >
-        <Container sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleBack}
-            disabled={currentIndex === 0}
-          >
-            Back
-          </Button>
-          <LinearProgress
-            variant="determinate"
-            value={progressPercentage}
-            sx={{ width: "60%", height: 10, borderRadius: 5 }}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleNext}
-          >
-            {documentContent && currentIndex === documentContent.length - 1
-              ? "Finish"
-              : "Next"}
-          </Button>
-        </Container>
-      </Box>
-    )}
-  </Box>
-
-
     //old design
     // <div className="flex-1 p-4">
-     
+
     //   <h1 className="text-2xl font-bold mb-4">{lesson.title}</h1>
     //   <h1 className="text-2xl font-bold mb-4">
     //     {document ? document.title : "Quiz"}
-        
+
     //   </h1>
     //   <hr />
     //   {document ? (
@@ -557,7 +762,7 @@ function DocumentContent() {
     //                   options={{readOnly:true}}
     //                   onChange={(value) => {
     //                     handleRunJavaScriptConsole(value, content.supportingCode);
-    //                   }} 
+    //                   }}
     //                 />
     //                 <button
     //                   className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
@@ -627,10 +832,6 @@ function DocumentContent() {
 }
 
 export default DocumentContent;
-
-
-
-
 
 // import React, { useEffect, useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
@@ -908,7 +1109,7 @@ export default DocumentContent;
 //           (function() {
 //             const originalConsoleLog = console.log;
 //             let consoleOutput = "";
-            
+
 //             console.log = function(...args) {
 //               // Convert objects and arrays to a readable format
 //               const formattedArgs = args.map(arg => {
@@ -925,7 +1126,7 @@ export default DocumentContent;
 //               originalConsoleLog.apply(console, arguments);
 //               document.body.innerHTML = "<pre>" + consoleOutput + "</pre>";
 //             };
-  
+
 //             ${supportingCode ? supportingCode : ""}
 //             ${code}
 //           })();
@@ -935,8 +1136,6 @@ export default DocumentContent;
 //     `;
 //     setIframeContent(iframeContent);
 //   };
-  
-
 
 //   const handleRunCode = (code, supportingCode, language) => {
 //     console.log(language);
@@ -965,11 +1164,11 @@ export default DocumentContent;
 
 //   return (
 //     <div className="flex-1 p-4">
-     
+
 //       <h1 className="text-2xl font-bold mb-4">{lesson.title}</h1>
 //       <h1 className="text-2xl font-bold mb-4">
 //         {document ? document.title : "Quiz"}
-        
+
 //       </h1>
 //       <hr />
 //       {document ? (
@@ -1033,7 +1232,7 @@ export default DocumentContent;
 //                       options={{readOnly:true}}
 //                       onChange={(value) => {
 //                         handleRunJavaScriptConsole(value, content.supportingCode);
-//                       }} 
+//                       }}
 //                     />
 //                     <button
 //                       className="bg-blue-500 text-white px-4 py-2 rounded mt-2"

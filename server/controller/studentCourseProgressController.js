@@ -349,53 +349,73 @@ const createUserProgress = asyncHandler(async (req, res) => {
   }
 });
 
+
+//with badge
 const createUserAnalytics = async (req, res) => {
   const { userId } = req.body;
 
   try {
-    // Check if user progress already exists
-    const existingUserProgress = await UserAnalyticsModel.findOne({ userId });
-    if (existingUserProgress) {
-      return res.status(400).json({ message: "User progress already exists" });
+    // Check if user analytics already exists
+    const existingUserAnalytics = await UserAnalyticsModel.findOne({ userId });
+    if (existingUserAnalytics) {
+      return res.status(400).json({ message: "User analytics already exists" });
     }
 
+    // Fetch all courses and populate lessons, documents, quizzes, and activities
     const courses = await CourseModel.find().populate({
       path: "lessons",
       populate: {
-        path: "documents quiz",
+        path: "documents quiz activities",
       },
     });
 
-    const coursesAnalytics = courses.map((course) => ({
-      courseId: course._id,
-      lessonsAnalytics: course.lessons.map((lesson) => ({
-        lessonId: lesson._id,
-        documentsAnalytics: lesson.documents.map((document) => ({
+    // Build analytics for courses, lessons, and documents with badges
+    const coursesAnalytics = courses.map((course) => {
+      const lessonsAnalytics = course.lessons.map((lesson) => {
+        const documentsAnalytics = lesson.documents.map((document) => ({
           documentId: document._id,
           timeSpent: 0,
           pointsEarned: 0,
-        })),
-        quizzesAnalytics: lesson.quiz.map((quiz) => ({
+          badges: document.badges || "",  // Assign the badge if available
+        }));
+
+        const quizzesAnalytics = lesson.quiz.map((quiz) => ({
           quizId: quiz._id,
           timeSpent: 0,
           pointsEarned: 0,
-        })),
-        activitiesAnalytics: lesson.activities.map((activity) => ({
+        }));
+
+        const activitiesAnalytics = lesson.activities.map((activity) => ({
           activityId: activity._id,
           timeSpent: 0,
           pointsEarned: 0,
-        })),
+        }));
+
+        return {
+          lessonId: lesson._id,
+          documentsAnalytics,
+          quizzesAnalytics,
+          activitiesAnalytics,
+          totalTimeSpent: 0,
+          totalPointsEarned: 0,
+          badges: lesson.badges || "",  // Assign the badge if available
+        };
+      });
+
+      return {
+        courseId: course._id,
+        lessonsAnalytics,
         totalTimeSpent: 0,
         totalPointsEarned: 0,
-      })),
-      totalTimeSpent: 0,
-      totalPointsEarned: 0,
-    }));
+        badges: course.badges || "",  // Assign the badge if available
+      };
+    });
 
+    // Create new user analytics
     const newUserAnalytics = new UserAnalyticsModel({
       userId,
       coursesAnalytics,
-      badges: [],
+      badges: [],  // User-specific badges remain empty initially
     });
 
     const savedUserAnalytics = await newUserAnalytics.save();
@@ -404,6 +424,65 @@ const createUserAnalytics = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+
+
+// no badges yet
+// const createUserAnalytics = async (req, res) => {
+//   const { userId } = req.body;
+
+//   try {
+//     // Check if user progress already exists
+//     const existingUserProgress = await UserAnalyticsModel.findOne({ userId });
+//     if (existingUserProgress) {
+//       return res.status(400).json({ message: "User progress already exists" });
+//     }
+
+//     const courses = await CourseModel.find().populate({
+//       path: "lessons",
+//       populate: {
+//         path: "documents quiz",
+//       },
+//     });
+
+//     const coursesAnalytics = courses.map((course) => ({
+//       courseId: course._id,
+//       lessonsAnalytics: course.lessons.map((lesson) => ({
+//         lessonId: lesson._id,
+//         documentsAnalytics: lesson.documents.map((document) => ({
+//           documentId: document._id,
+//           timeSpent: 0,
+//           pointsEarned: 0,
+//         })),
+//         quizzesAnalytics: lesson.quiz.map((quiz) => ({
+//           quizId: quiz._id,
+//           timeSpent: 0,
+//           pointsEarned: 0,
+//         })),
+//         activitiesAnalytics: lesson.activities.map((activity) => ({
+//           activityId: activity._id,
+//           timeSpent: 0,
+//           pointsEarned: 0,
+//         })),
+//         totalTimeSpent: 0,
+//         totalPointsEarned: 0,
+//       })),
+//       totalTimeSpent: 0,
+//       totalPointsEarned: 0,
+//     }));
+
+//     const newUserAnalytics = new UserAnalyticsModel({
+//       userId,
+//       coursesAnalytics,
+//       badges: [],
+//     });
+
+//     const savedUserAnalytics = await newUserAnalytics.save();
+//     res.status(201).json(savedUserAnalytics);
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// };
 
 export {
   getUserProgress,
