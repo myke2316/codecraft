@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Card, CardContent, Typography, Grid, Box, CircularProgress } from "@mui/material";
+import { Card, CardContent, Typography, Grid, Box, CircularProgress, CardActions, Button } from "@mui/material";
 import { styled } from "@mui/system";
 
 // Styled component for each course card
@@ -71,60 +71,87 @@ const CourseProgress = () => {
   const courses = useSelector((state) => state.course.courseData);
 
   return (
-    <Grid container spacing={3}>
-      {userProgress.coursesProgress && userProgress.coursesProgress.map((courseProgress, index) => {
-        const courseTitle = getCourseTitle(courseProgress.courseId, courses);
-        const course = courses.find((c) => c._id === courseProgress.courseId);
-      
-        if (!course) {
-          // Skip rendering if the course is not found
-          return null;
-        }
+    <Grid container spacing={4}>
+  {userProgress.coursesProgress &&
+    userProgress.coursesProgress.map((courseProgress, index) => {
+      const courseTitle = getCourseTitle(courseProgress.courseId, courses);
+      const course = courses.find((c) => c._id === courseProgress.courseId);
 
-        const progressPercentage = calculateCourseProgress(
-          course.lessons,
-          courseProgress.lessonsProgress
-        );
+      if (!course) {
+        // Skip rendering if the course is not found
+        return null;
+      }
 
-        return (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <CourseCard>
-              <CardContent>
-                <Box mb={2}>
-                  <Typography variant="h6">{courseTitle}</Typography>
-                </Box>
-                <Box mb={2} display="flex" justifyContent="center" alignItems="center">
-                  <CircularProgress
-                    variant="determinate"
-                    value={progressPercentage}
-                    size={60}
-                    thickness={4}
-                  />
-                  <Box
-                    position="absolute"
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
+      const progressPercentage = calculateCourseProgress(
+        course.lessons,
+        courseProgress.lessonsProgress
+      );
+
+      return (
+        <Grid item xs={12} sm={6} md={4} key={index}>
+          <Card
+            sx={{
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              boxShadow: 3,
+              borderRadius: 2,
+              padding: 2,
+              backgroundColor: "background.paper",
+            }}
+          >
+            <CardContent>
+              <Typography
+                variant="h6"
+                color="primary"
+                fontWeight="bold"
+                gutterBottom
+              >
+                {courseTitle}
+              </Typography>
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                position="relative"
+                mb={3}
+              >
+                <CircularProgress
+                  variant="determinate"
+                  value={progressPercentage}
+                  size={80}
+                  thickness={4.5}
+                  sx={{ color: "secondary.main" }}
+                />
+                <Box
+                  position="absolute"
+                  top={0}
+                  left={0}
+                  bottom={0}
+                  right={0}
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Typography
+                    variant="h6"
+                    color="textPrimary"
+                    fontWeight="medium"
                   >
-                    <Typography variant="caption" component="div" color="textSecondary">
-                      {`${Math.round(progressPercentage)}%`}
-                    </Typography>
-                  </Box>
+                    {`${Math.round(progressPercentage)}%`}
+                  </Typography>
                 </Box>
-                <Box>
-                  <Box display="flex" alignItems="center">
-                    <Typography variant="body2" color="textSecondary">
-                      Lessons: {course.lessons.length}
-                    </Typography>
-                  </Box>
-                 
-                </Box>
-              </CardContent>
-            </CourseCard>
-          </Grid>
-        );
-      })}
-    </Grid>
+              </Box>
+         
+            </CardContent>
+       
+          </Card>
+        </Grid>
+      );
+    })}
+</Grid>
+
   );
 };
 

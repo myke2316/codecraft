@@ -25,72 +25,65 @@ function ClassNavBar() {
   }
 
   return (
-    <ul className="flex justify-around p-4 text-blue-600 font-semibold bg-slate-300">
-      <li>
+    <ul className=" py-4 px-10 text-blue-600 font-semibold bg-slate-300 ">
+     <li>
         <Link to="/" className="hover:text-blue-800 transition duration-300">
           Back
         </Link>
       </li>
-      <li>
-        <Link
-          to="/dashboard"
-          className="hover:text-blue-800 transition duration-300"
-        >
-          Dashboard
-        </Link>
-      </li>{" "}
-      <li
-        onClick={() => navigate(`/qna/${userId}`)}
-        className="hover:text-blue-800 transition duration-300 cursor-pointer"
-      >
-        QnA
-      </li>
-      <li>
-        <Link
-           to={`/playground/${userId}`}
-          className="hover:text-blue-800 transition duration-300"
-        >
-          Playground
-        </Link>
-      </li>
-      <li>
-        <Link
-          to="/profile"
-          className="hover:text-blue-800 transition duration-300"
-        >
-          Profile
-        </Link>
-      </li>
-      <li>
-        <Link
-          onClick={handleLogout}
-          className="hover:text-blue-800 transition duration-300"
-        >
-          Logout
-        </Link>
-      </li>
-      {userInfo.role === "student" && !classes && <></>}
-      {userInfo.role === "teacher" && (
-        <>
-          <li>
-            <Link
-              to="/manage-students"
-              className="hover:text-blue-800 transition duration-300"
-            >
-              Manage Students
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/course-material"
-              className="hover:text-blue-800 transition duration-300"
-            >
-              Course Material
-            </Link>
-          </li>
-        </>
-      )}
     </ul>
+    //   <li
+    //     onClick={() => navigate(`/qna/${userId}`)}
+    //     className="hover:text-blue-800 transition duration-300 cursor-pointer"
+    //   >
+    //     QnA
+    //   </li>
+    //   <li>
+    //     <Link
+    //        to={`/playground/${userId}`}
+    //       className="hover:text-blue-800 transition duration-300"
+    //     >
+    //       Playground
+    //     </Link>
+    //   </li>
+    //   <li>
+    //     <Link
+    //       to="/profile"
+    //       className="hover:text-blue-800 transition duration-300"
+    //     >
+    //       Profile
+    //     </Link>
+    //   </li>
+    //   <li>
+    //     <Link
+    //       onClick={handleLogout}
+    //       className="hover:text-blue-800 transition duration-300"
+    //     >
+    //       Logout
+    //     </Link>
+    //   </li>
+    //   {userInfo.role === "student" && !classes && <></>}
+    //   {userInfo.role === "teacher" && (
+    //     <>
+    //       <li>
+    //         <Link
+    //           to="/manage-students"
+    //           className="hover:text-blue-800 transition duration-300"
+    //         >
+    //           Manage Students
+    //         </Link>
+    //       </li>
+    //       <li>
+    //         <Link
+    //           to="/course-material"
+    //           className="hover:text-blue-800 transition duration-300"
+    //         >
+    //           Course Material
+    //         </Link>
+    //       </li>
+    //     </>
+    //   )}
+    // </ul>
   );
 }
 

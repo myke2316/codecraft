@@ -18,7 +18,9 @@ const AdminSidebar = () => {
           <li>
             <Link to="/admin-teacherRequest">Teacher Requests</Link>
           </li> 
-       
+          <li>
+            <Link to="/admin-qna">Manage QnA</Link>
+          </li> 
           <li>
             <Link onClick={() => dispatch(logout())}>Logout</Link>
           </li>

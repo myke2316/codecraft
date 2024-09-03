@@ -6,12 +6,13 @@ import {
   Typography,
   Grid,
   Paper,
-  InputLabel,
   FormControl,
 } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useParams } from "react-router";
+import { useCreateActivityAssignmentMutation } from "./assignmentService";
+import { useSelector } from "react-redux";
 
 // Validation Schema
 const validationSchema = Yup.object({
@@ -21,15 +22,17 @@ const validationSchema = Yup.object({
   description: Yup.string()
     .required("Description is required")
     .max(1000, "Description cannot exceed 1000 characters"),
-  dueDate: Yup.date().required("Due date is required")
-  .min(new Date(), "Due date cannot be in the past"),
+  dueDate: Yup.date()
+    .required("Due date is required")
+    .min(new Date(), "Due date cannot be in the past"),
   instructions: Yup.string().required("Instructions are required"),
   image: Yup.mixed()
     .nullable()
     .test(
       "fileType",
       "Unsupported File Format",
-      (value) => !value || ["image/jpeg", "image/png", "image/gif"].includes(value.type)
+      (value) =>
+        !value || ["image/jpeg", "image/png", "image/gif"].includes(value.type)
     )
     .test(
       "fileSize",
@@ -38,17 +41,33 @@ const validationSchema = Yup.object({
     ),
 });
 
-function TeacherAssignment() {
+function TeacherAssignment({ setDialogOpen }) {
   const { classId } = useParams();
+  const [createAssignment] = useCreateActivityAssignmentMutation();
+  const teacherId = useSelector((state) => state.user.userDetails._id);
+  const handleSubmit = async (values, { resetForm }) => {
+    try {
+      const formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("description", values.description);
+      formData.append("dueDate", values.dueDate);
+      formData.append("instructions", values.instructions);
+      formData.append("status", "draft");
+      formData.append("classId", classId || "");
+      formData.append("teacherId", teacherId || "");
+      if (values.image) {
+        formData.append("image", values.image);
+      }
 
-  const handleSubmit = (values, { resetForm }) => {
-    // Handle form submission
-    console.log(values);
-
-    // For example, send values.image to your API for upload
-    // Also send other form values as needed
-
-    resetForm();
+      // Call the mutation to create the assignment
+      const res = await createAssignment(formData).unwrap();
+      console.log(res);
+      // Reset the form after successful submission
+      resetForm(); 
+      setDialogOpen(false);
+    } catch (error) {
+      console.error("Failed to create assignment:", error);
+    }
   };
 
   return (
@@ -62,15 +81,22 @@ function TeacherAssignment() {
             title: "",
             description: "",
             dueDate: "",
-            classId: classId || "", // set the classId
+            classId: classId || "",
             instructions: "",
             status: "draft",
-            image: null, // add image field
+            image: null,
           }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ setFieldValue, values, handleChange, handleBlur, errors, touched }) => (
+          {({
+            setFieldValue,
+            values,
+            handleChange,
+            handleBlur,
+            errors,
+            touched,
+          }) => (
             <Form>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -141,8 +167,8 @@ function TeacherAssignment() {
                 </Grid>
 
                 <Grid item xs={12}>
+                  Image:
                   <FormControl fullWidth>
-                    
                     <input
                       type="file"
                       name="image"

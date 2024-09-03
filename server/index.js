@@ -22,6 +22,7 @@ import { questionRouter } from "./routes/QuestionRoutes/questionRoutes.js";
 import { outlinedInputClasses } from "@mui/material";
 import { fileRoutes } from "./sandboxUserFiles/fileRoute.js";
 import { announcementRouter } from "./routes/teacherFunction/announcementRoute.js";
+import { assignmentRouter } from "./routes/teacherFunction/teacherAssignmentRoutes.js";
 
 dotenv.config();
 connectDb();
@@ -62,6 +63,7 @@ app.use("/activitySubmission", activitySubmissionRouter);
 app.use("/qna", questionRouter);
 app.use("/api/files", fileRoutes);
 app.use("/api/announcement", announcementRouter);
+app.use("/api/assignment", assignmentRouter);
 //for CODING ACTIVITY ===============================================================
 
 const executeCode = (jsCode, input) => {

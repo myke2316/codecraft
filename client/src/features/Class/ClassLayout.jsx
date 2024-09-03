@@ -11,11 +11,11 @@ function ClassLayout() {
         <Header />
       </header>
 
-      <nav className="bg-white">
+      <nav className="bg-white ">
         <ClassNavBar />
       </nav>
       <div className="overflow-auto bg-white">
-        <main className="max-w-6xl m-auto">
+        <main className="max-w-7xl m-auto">
           <Outlet />
           <ToastContainer />
         </main>

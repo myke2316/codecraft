@@ -33,6 +33,11 @@ const AnswerSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  status: {
+    type: String,
+    enum: ["pending", "accepted", "denied"],
+    default: "pending",
+  },
 });
 
 const QuestionSchema = new Schema({
@@ -63,6 +68,11 @@ const QuestionSchema = new Schema({
   updatedAt: {
     type: Date,
     default: Date.now,
+  },
+  status: {
+    type: String,
+    enum: ["pending", "accepted", "denied"],
+    default: "pending",
   },
 });
 

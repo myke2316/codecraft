@@ -1,19 +1,19 @@
-import Grid from 'gridfs-stream';
-import { GridFsStorage } from 'multer-gridfs-storage';
-import multer from 'multer';
-import { mongoose } from '../config/database.js';
- // Import from the central database file
+import Grid from "gridfs-stream";
+import { GridFsStorage } from "multer-gridfs-storage";
+import multer from "multer";
+import { mongoose } from "../config/database.js";
+import dotenv from "dotenv";
 
-// Create a connection to MongoDB
+
 const conn = mongoose.connection;
-
+dotenv.config();
 let gfs;
 
-conn.once('open', () => {
+conn.once("open", () => {
   // Initialize GridFS
   gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection('uploads');
-  console.log('GridFS initialized.');
+  gfs.collection("uploads");
+  console.log("GridFS initialized.");
 });
 
 // Create a storage engine for multer-gridfs-storage
@@ -21,7 +21,7 @@ const storage = new GridFsStorage({
   url: process.env.MONGODB_URL,
   file: (req, file) => {
     return {
-      bucketName: 'uploads', // Collection name
+      bucketName: "uploads", // Collection name
       filename: file.originalname,
     };
   },

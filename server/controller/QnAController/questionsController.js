@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 import UserModel from "../../models/userModel.js";
 import QuestionModel from "../../models/QuestionAndAnswerModels/questionsModel.js";
 
@@ -58,6 +57,7 @@ export const createQuestion = async (req, res) => {
       tags,
       codeBlocks,
       author: authorId,
+      status: "pending", // Set initial status to pending
     });
 
     await newQuestion.save();
@@ -71,7 +71,7 @@ export const createQuestion = async (req, res) => {
 // Update an existing question
 export const updateQuestion = async (req, res) => {
   const { questionId } = req.params;
-  const { title, content, tags, codeBlocks } = req.body;
+  const { title, content, tags, codeBlocks, status } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(questionId)) {
     return res.status(400).json({ message: "Invalid question ID" });
@@ -80,7 +80,7 @@ export const updateQuestion = async (req, res) => {
   try {
     const updatedQuestion = await QuestionModel.findByIdAndUpdate(
       questionId,
-      { title, content, tags, codeBlocks, updatedAt: Date.now() },
+      { title, content, tags, codeBlocks, status, updatedAt: Date.now() }, // Include status update
       { new: true }
     );
 
@@ -124,6 +124,7 @@ export const addAnswer = async (req, res) => {
       content,
       codeBlocks,
       author: authorId,
+      status: "pending", // Set initial status to pending
       createdAt: Date.now(),
       updatedAt: Date.now(),
     };
@@ -140,7 +141,7 @@ export const addAnswer = async (req, res) => {
 
 // Function to update an answer
 export const updateAnswer = async (req, res) => {
-  const { content, codeBlocks } = req.body;
+  const { content, codeBlocks, status } = req.body; // Add status here
   try {
     const question = await QuestionModel.findById(req.params.questionId);
     if (!question) {
@@ -161,6 +162,7 @@ export const updateAnswer = async (req, res) => {
 
     answer.content = content;
     answer.codeBlocks = codeBlocks;
+    answer.status = status || answer.status; // Update status if provided
     answer.updatedAt = Date.now();
 
     const updatedQuestion = await question.save();
@@ -234,20 +236,21 @@ export const deleteAnswer = async (req, res) => {
   }
 };
 
+// Get an answer by ID
 export const getAnswerById = async (req, res) => {
   const { questionId, answerId } = req.params;
-  
+
   try {
     // Find the question by ID
     const question = await QuestionModel.findById(questionId);
-    
+
     if (!question) {
       return res.status(404).json({ message: "Question not found" });
     }
 
     // Find the answer by ID within the question
     const answer = question.answers.id(answerId);
-    
+
     if (!answer) {
       return res.status(404).json({ message: "Answer not found" });
     }

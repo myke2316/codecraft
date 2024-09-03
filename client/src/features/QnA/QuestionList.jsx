@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useFetchQuestionsMutation } from "./questionService";
+import { useFetchQuestionsMutation, useDeleteQuestionMutation } from "./questionService";
 
 const QuestionList = ({ userId }) => {
   const [selectedTag, setSelectedTag] = useState("");
@@ -13,11 +13,12 @@ const QuestionList = ({ userId }) => {
   const [fetchQuestions, { isLoading: isLoadingFetchQuestions }] =
     useFetchQuestionsMutation();
 
+  const [deleteQuestion] = useDeleteQuestionMutation();
+
   const loadQuestions = async () => {
     try {
       setIsLoading(true);
       const data = await fetchQuestions();
-      // Ensure that you're setting a new array, not mutating the fetched data
       setQuestions([...data.data]);
     } catch (err) {
       setError(err);
@@ -38,11 +39,21 @@ const QuestionList = ({ userId }) => {
     loadQuestions();
   };
 
+  const handleDeleteQuestion = async (questionId) => {
+    try {
+      await deleteQuestion(questionId);
+      setQuestions((prevQuestions) =>
+        prevQuestions.filter((question) => question._id !== questionId)
+      );
+    } catch (err) {
+      console.error("Failed to delete question:", err);
+    }
+  };
+
   const filteredQuestions = selectedTag
     ? questions.filter((question) => question.tags.includes(selectedTag))
     : questions;
 
-  // Create a new sorted array to avoid mutating the original state
   const sortedQuestions = [...filteredQuestions].sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   );
@@ -78,36 +89,76 @@ const QuestionList = ({ userId }) => {
         ))}
       </select>
       <ul>
-        {sortedQuestions.map((question) => (
-          <li
-            key={question._id} // Use _id if that's the field in your database
-            className="flex items-start mb-4 cursor-pointer"
-            onClick={() => handleQuestionClick(question._id)} // Use _id if that's the field in your database
-          >
-            <div className="mr-4">
-              <img
-                src={`https://via.placeholder.com/40x40?text=${question.author.username}`}
-                alt={question.author.username}
-                className="w-10 h-10 rounded-full"
-              />
-              {question.author.username}
-            </div>
-            <div>
-              <h3 className="text-lg font-bold">{question.title}</h3>
-              <p className="text-gray-600">{question.content}</p>
-              <div className="mt-2">
-                {question.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="inline-block bg-gray-200 rounded px-2 py-1 text-sm mr-2"
-                  >
-                    {tag.toUpperCase()}
-                  </span>
-                ))}
+        {sortedQuestions.map((question) => {
+          const isOwner = question.author._id === userId;
+          const isAccepted = question.status === "accepted";
+          const isPending = question.status === "pending";
+          const isDenied = question.status === "denied";
+
+          let questionStyle = "";
+          if (isOwner && isPending) {
+            questionStyle = "opacity-50"; // Greyed out
+          } else if (isOwner && isDenied) {
+            questionStyle = "opacity-50 bg-red-200"; // Greyed out and red
+          } else if (!isAccepted && !isOwner) {
+            return null; // Skip non-accepted questions not owned by the user
+          }
+
+          return (
+            <li
+              key={question._id}
+              className={`flex items-start mb-4 cursor-pointer ${questionStyle}`}
+              onClick={() => handleQuestionClick(question._id)}
+            >
+              <div className="mr-4">
+                <img
+                  src={`https://via.placeholder.com/40x40?text=${question.author.username}`}
+                  alt={question.author.username}
+                  className="w-10 h-10 rounded-full"
+                />
+                {question.author.username}
               </div>
-            </div>
-          </li>
-        ))}
+              <div>
+                <h3 className="text-lg font-bold">{question.title}</h3>
+                <p className="text-gray-600">{question.content}</p>
+                <div className="mt-2">
+                  {question.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="inline-block bg-gray-200 rounded px-2 py-1 text-sm mr-2"
+                    >
+                      {tag.toUpperCase()}
+                    </span>
+                  ))}
+                </div>
+                {isPending && isOwner && (
+                  <span className="inline-block mt-2 text-sm text-yellow-500">
+                    Pending Review
+                  </span>
+                )}
+                {isDenied && isOwner && (
+                  <div className="mt-2">
+                    <span className="text-sm text-red-500 mr-2">Denied</span>
+                    <button
+                      className="p-2 bg-red-500 text-white rounded"
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent the question click event
+                        handleDeleteQuestion(question._id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                )}
+                {isAccepted && (
+                  <span className="inline-block mt-2 text-sm text-green-500">
+                    Accepted
+                  </span>
+                )}
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

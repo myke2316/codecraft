@@ -10,3 +10,4 @@ export const ACTIVITYSUBMISSION_URL = "/activitySubmission";
 export const QNA_URL = "/qna";
 export const FILES_URL = "/api/files";
 export const ANNOUNCE_URL = '/api/announcement'
+export const ACTIVITY_ASSIGNMENT_URL  = '/api/assignment'

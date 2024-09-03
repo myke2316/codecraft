@@ -37,14 +37,7 @@ function AuthorizedNavBar() {
               Home
             </Link>
           </li>
-          <li>
-            <Link
-              to="/dashboard"
-              className="hover:text-blue-800 transition duration-300"
-            >
-              Dashboard
-            </Link>
-          </li>
+     
           <li
             onClick={() => navigate(`/qna/${userId}`)}
             className="hover:text-blue-800 transition duration-300 cursor-pointer"

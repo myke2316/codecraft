@@ -54,6 +54,9 @@ import TeacherClassLayout from "./features/Teacher/TeacherClassLayout";
 import TeacherAnnouncement from "./features/Teacher/TeacherAnnouncement";
 import TeacherAssignment from "./features/Teacher/TeacherAssignment";
 import TeacherAssignmentsPage from "./features/Teacher/TeacherAssignmentPage";
+import AdminQna from "./features/Admin/pages/AdminQna";
+import StudentClassLayout from "./features/Class/StudentClassLayout";
+import StudentAssignment from "./features/Class/StudentAssignment";
 
 function App() {
   return (
@@ -74,10 +77,18 @@ function App() {
             />
           </Route>
         </Route>
-
+        {/* student */}
         <Route element={<ClassLayout />}>
           <Route path="" element={<PrivateRoutes />}>
-            <Route path="studentClass/:classId" element={<ClassHome />} />
+            <Route
+              element={<StudentClassLayout />}
+              path="/studentClass/:classId/*"
+            >
+              {" "}
+              <Route path="classHome" element={<ClassHome />} />
+              <Route path="assignment" element={<StudentAssignment />} />
+              <Route path="dashboard" element={<StudentDashboard />} />
+            </Route>
           </Route>
         </Route>
 
@@ -99,11 +110,12 @@ function App() {
               path="/edit-answer/:questionId/:answerId"
               element={<EditAnswerPage />}
             />
-            <Route path="dashboard" element={<StudentDashboard />} />
+
             <Route path="/playground/:userId" element={<PlaygroundLayout />} />
           </Route>
         </Route>
 
+        {/* teacher */}
         <Route element={<AuthorizedLayout />}>
           <Route path="" element={<PrivateRoutesTeacher />}>
             <Route
@@ -112,22 +124,21 @@ function App() {
             />
             <Route element={<TeacherClassLayout />} path="/:classId/class/*">
               <Route path="classHome" element={<TeacherClassHome />} />
-              <Route
-                path="class-edit"
-                element={<TeacherEditClass />}
-              />
+              <Route path="class-edit" element={<TeacherEditClass />} />
               <Route path="announcement" element={<TeacherAnnouncement />} />
               <Route path="assignment" element={<TeacherAssignmentsPage />} />
             </Route>
             <Route path="/classes" element={<ClassLists />} />
           </Route>
         </Route>
+
         <Route element={<AdminLayout />}>
           <Route path="" element={<PrivateRoutesAdmin />}>
             <Route path="/admin-home" element={<AdminsHome />} />
             <Route path="/admin-dashboard" element={<AdminDashboard />} />
             <Route path="/admin-users" element={<AdminUsers />} />
             <Route path="/admin-teacherRequest" element={<TeacherRequest />} />
+            <Route path="/admin-qna" element={<AdminQna />} />
           </Route>
         </Route>
 

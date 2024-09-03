@@ -1,7 +1,7 @@
 
 function FooterLayout() {
   return (
-    <footer className="bg-footercolor grid grid-cols-[auto_auto_auto] items-center text-textprimarycolor1">
+    <footer className="bg-slate-500 grid grid-cols-[auto_auto_auto] items-center text-textprimarycolor1">
       <div className="text-center text-sm">CodeCraft</div>
 
       <div className="text-center"> {"</CodeCraft>"}</div>

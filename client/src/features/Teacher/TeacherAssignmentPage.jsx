@@ -25,11 +25,11 @@ function TeacherAssignmentsPage() {
   const assignments = [];
   return (
     <Container>
-      <AssignmentTable onCreate={handleCreateClick} assignments={assignments} />
+      <AssignmentTable setDialogOpen={setDialogOpen} onCreate={handleCreateClick} assignments={assignments} />
       <Dialog open={dialogOpen} onClose={handleClose} maxWidth="md" fullWidth>
         <DialogTitle>Create Assignment</DialogTitle>
         <DialogContent>
-          <TeacherAssignment />
+          <TeacherAssignment  setDialogOpen={setDialogOpen} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

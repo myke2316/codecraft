@@ -8,7 +8,7 @@ function StudentClassContainer() {
   const classId = userClass[0]?._id || userClass?._id;
 
   function handleClick() {
-    navigate(`/studentClass/${classId}`);
+    navigate(`/studentClass/${classId}/classHome`);
   }
 
   return (

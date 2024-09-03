@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import UserModel from "./UserModel"; // Import UserModel to validate the teacher
-import ClassModel from "./ClassModel"; // Import ClassModel to validate the class
-import Image from './Image';    
+import UserModel from "../userModel.js";  // Import UserModel to validate the teacher
+
+  
 const activityAssignmentSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -21,15 +21,8 @@ const activityAssignmentSchema = new mongoose.Schema({
   },
   classId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Class",
+    ref: "Class",  // This references the Class model by name
     required: [true, "Class ID is required"],
-    validate: {
-      validator: async function (v) {
-        const classroom = await ClassModel.findById(v);
-        return classroom !== null;
-      },
-      message: "Class ID must reference a valid class",
-    },
   },
   instructions: {
     type: String,
