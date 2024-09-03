@@ -119,7 +119,7 @@ const ClassLists = () => {
       {classes && classes.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {classes.map((classItem) => (
-            <Link to={`/${classItem._id}/class`} key={classItem._id}>
+            <Link to={`/${classItem._id}/class/classHome`} key={classItem._id}>
               <div className="bg-white shadow-lg rounded-lg p-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300">
                 <h2 className="text-xl font-semibold text-gray-700">
                   {classItem.className}

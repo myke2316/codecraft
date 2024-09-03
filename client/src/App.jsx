@@ -49,6 +49,11 @@ import PrivateRoutesAdmin from "./features/Admin/PrivateRoutesAdmin";
 import AdminDashboard from "./features/Admin/pages/AdminDashboard";
 import AdminUsers from "./features/Admin/pages/AdminUsers";
 import TeacherRequest from "./features/Admin/pages/TeacherRequest";
+import PlaygroundLayout from "./features/CodingPlayground/PlaygroundLayout";
+import TeacherClassLayout from "./features/Teacher/TeacherClassLayout";
+import TeacherAnnouncement from "./features/Teacher/TeacherAnnouncement";
+import TeacherAssignment from "./features/Teacher/TeacherAssignment";
+import TeacherAssignmentsPage from "./features/Teacher/TeacherAssignmentPage";
 
 function App() {
   return (
@@ -75,7 +80,7 @@ function App() {
             <Route path="studentClass/:classId" element={<ClassHome />} />
           </Route>
         </Route>
-        
+
         <Route path="" element={<PrivateRoutes />}>
           <Route element={<AuthorizedLayout />}>
             <Route path=":studentId" element={<AuthorizedHome />} />
@@ -95,6 +100,7 @@ function App() {
               element={<EditAnswerPage />}
             />
             <Route path="dashboard" element={<StudentDashboard />} />
+            <Route path="/playground/:userId" element={<PlaygroundLayout />} />
           </Route>
         </Route>
 
@@ -104,12 +110,16 @@ function App() {
               path="/:classId/students/:studentId"
               element={<StudentTeacherProfile />}
             />
-            <Route path="/:classId/class" element={<TeacherClassHome />} />
+            <Route element={<TeacherClassLayout />} path="/:classId/class/*">
+              <Route path="classHome" element={<TeacherClassHome />} />
+              <Route
+                path="class-edit"
+                element={<TeacherEditClass />}
+              />
+              <Route path="announcement" element={<TeacherAnnouncement />} />
+              <Route path="assignment" element={<TeacherAssignmentsPage />} />
+            </Route>
             <Route path="/classes" element={<ClassLists />} />
-            <Route
-              path="/:classId/class/class-edit"
-              element={<TeacherEditClass />}
-            />
           </Route>
         </Route>
         <Route element={<AdminLayout />}>

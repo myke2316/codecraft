@@ -34,8 +34,10 @@ const calculateLessonProgress = (lesson, lessonProgress) => {
 
   const totalQuizzes = lesson.quiz.length;
   const completedQuizzes = lesson.quiz.filter((quiz) =>
-    lessonProgress.quizzesProgress.some((qp) => qp.quizId === quiz._id && !qp.locked)
-  ).length;
+  lessonProgress.quizzesProgress.some((qp) =>
+    qp.quizId.includes(quiz._id) && !qp.locked
+  )
+).length;
 
   const totalActivities = lesson.activities.length;
   const completedActivities = lesson.activities.filter((activity) =>

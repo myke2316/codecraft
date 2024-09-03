@@ -30,10 +30,13 @@ const calculateLessonProgress = (lesson, lessonProgress) => {
   const completedDocuments = lesson.documents.filter((doc) =>
     lessonProgress.documentsProgress.some((dp) => dp.documentId === doc._id && !dp.locked)
   ).length;
-
+console.log(lessonProgress.quizzesProgress)
+console.log(lesson.quiz)
   const totalQuizzes = lesson.quiz.length;
-  const completedQuizzes = lesson.quiz.filter((quiz) =>
-    lessonProgress.quizzesProgress.some((qp) => qp.quizId === quiz._id && !qp.locked)
+ const completedQuizzes = lesson.quiz.filter((quiz) =>
+    lessonProgress.quizzesProgress.some((qp) =>
+      qp.quizId.includes(quiz._id) && !qp.locked
+    )
   ).length;
 
   const totalActivities = lesson.activities.length;
@@ -42,6 +45,7 @@ const calculateLessonProgress = (lesson, lessonProgress) => {
   ).length;
 
   const totalItems = totalDocuments + totalQuizzes + totalActivities;
+  console.log(totalItems)
   const completedItems = completedDocuments + completedQuizzes + completedActivities;
 
   return totalItems === 0 ? 0 : (completedItems / totalItems) * 100;

@@ -136,8 +136,14 @@ function DocumentContent() {
     updateUserAnalyticsMutation,
     { isLoading: isLoadingUpdateUserAnalytics },
   ] = useUpdateUserAnalyticsMutation();
-
+  const [isProcessing, setIsProcessing] = useState(false);
   async function handleNext() {
+    if (isProcessing) return; // Prevent multiple clicks
+
+    setIsProcessing(true); // Disable the button
+    setTimeout(() => {
+      setIsProcessing(false); // Re-enable the button after 1.5 seconds
+    }, 1500);
     if (documentContent && currentIndex < documentContent.length - 1) {
       const newIndex = currentIndex + 1;
       setCurrentIndex(newIndex);
@@ -280,6 +286,8 @@ function DocumentContent() {
         }
       }
     }
+       // Re-enable the button after processing
+    
   }
 
   // async function handleNext() {
@@ -404,6 +412,12 @@ function DocumentContent() {
   // }
 
   const handleBack = () => {
+    if (isProcessing) return; // Prevent multiple clicks
+
+    setIsProcessing(true); // Disable the button
+    setTimeout(() => {
+      setIsProcessing(false); // Re-enable the button after 1.5 seconds
+    }, 500);
     if (currentIndex > 0) {
       const newIndex = currentIndex - 1;
       setCurrentIndex(newIndex);
@@ -411,6 +425,8 @@ function DocumentContent() {
         prevContent.slice(0, prevContent.length - 1)
       );
     }
+      // Re-enable the button after processing
+    
   };
 
   const handleRunJavaScriptConsole = (index, code, supportingCode) => {
@@ -672,7 +688,7 @@ function DocumentContent() {
               variant="contained"
               color="primary"
               onClick={handleBack}
-              disabled={currentIndex === 0}
+              disabled={currentIndex === 0 || isProcessing}
             >
               Back
             </Button>
@@ -681,7 +697,12 @@ function DocumentContent() {
               value={progressPercentage}
               sx={{ width: "60%", height: 10, borderRadius: 5 }}
             />
-            <Button variant="contained" color="primary" onClick={handleNext}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleNext}
+              disabled={isProcessing}
+            >
               {documentContent && currentIndex === documentContent.length - 1
                 ? "Finish"
                 : "Next"}

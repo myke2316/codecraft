@@ -239,10 +239,10 @@ function ClassStudentHome() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold mb-4 text-white">
+      <h1 className="text-4xl font-bold mb-4 text-black">
         {selectedClass.className}
       </h1>
-      <p className="text-lg text-white mb-6">
+      <p className="text-lg text-black mb-6">
         Invite Code:{" "}
         <span className="font-semibold">{selectedClass.inviteCode}</span>
       </p>{" "}

@@ -10,10 +10,10 @@ function AuthorizedLayout() {
       <header className="bg-headercolor text-textprimarycolor1">
         <Header />
       </header>
-      <nav className="bg-navcolor2">
+      <nav className="bg-white">
         <AuthorizedNavBar />
       </nav>
-      <main className="flex-1 overflow-auto px-4 sm:px-6 lg:px-8">
+      <main className="flex-1 overflow-auto px-4 sm:px-6 lg:px-8 ">
         <Outlet />
         <ToastContainer />
       </main>

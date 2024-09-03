@@ -25,9 +25,8 @@ function AuthorizedNavBar() {
       console.log(error);
     }
   }
-  console.log(classes);
   return (
-    <ul className="flex justify-around p-4 text-blue-600 font-semibold">
+    <ul className="flex justify-around p-4 text-blue-600 font-semibold bg-slate-300">
       {userInfo.role === "student" && !classes ? (
         <>
           <li>
@@ -54,20 +53,13 @@ function AuthorizedNavBar() {
           </li>
           <li>
             <Link
-              to="/playground"
+               to={`/playground/${userId}`}
               className="hover:text-blue-800 transition duration-300"
             >
               Playground
             </Link>
           </li>
-          <li>
-            <Link
-              to="/course"
-              className="hover:text-blue-800 transition duration-300"
-            >
-              Course
-            </Link>
-          </li>
+   
         </>
       ) : (
         userInfo.role === "student" &&

@@ -104,40 +104,50 @@ function TeacherClassHome() {
     );
   }
 
-  console.log(students, averagePoints, averageTimeSpent);
+  
   if (loading)
     return <div className="text-center text-gray-600 mt-10">Loading...</div>;
   // if (error)
   //   return <div className="text-center text-red-600 mt-10">{error}</div>;
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold mb-4 text-gray-800">
-        {selectedClass.className}
-      </h1>
-      <button
-        onClick={() => navigate(`class-edit`)}
-        className="text-blue-500 hover:text-blue-700 font-semibold"
-      >
-        Edit Class
-      </button>
-      <p className="text-lg text-gray-600 mb-6">
-        Invite Code:{" "}
-        <span className="font-semibold">{selectedClass.inviteCode}</span>
-      </p>
-      {/* Overall Class Progress */}
-      <ClassOverview
-        averagePoints={averagePoints}
-        averageTimeSpent={averageTimeSpent}
-        students={students}
-      />
+    <>
+      {/* Main Content */}
+      <div className="w-auto] pt-6 pb-6 pl-6">
+        <h1 className="text-4xl font-bold mb-4 text-gray-900">
+          {selectedClass.className}
+        </h1>
+        <button
+          onClick={() => navigate(`/${classId}/class/class-edit`)}
+          className="text-blue-600 hover:text-blue-800 font-semibold mb-4"
+        >
+          Edit Class
+        </button>
+        <p className="text-lg text-gray-700 mb-6">
+          Invite Code:{" "}
+          <span className="font-semibold text-gray-900">
+            {selectedClass.inviteCode}
+          </span>
+        </p>
 
-      {/* Leaderboard Section */}
-      <div className="bg-white shadow-lg rounded-lg p-6 border border-gray-200">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-700">Students</h2>
-        <Leaderboard students={students} classId={classId} />
+        {/* Overall Class Progress */}
+        <ClassOverview
+          averagePoints={averagePoints}
+          averageTimeSpent={averageTimeSpent}
+          students={students}
+        />
+
+        {/* Leaderboard Section */}
+        <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200 mt-6">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+            Students
+          </h2>
+          <Leaderboard students={students} classId={classId} />
+        </div>
       </div>
-    </div>
+    </>
+
+ 
   );
 }
 

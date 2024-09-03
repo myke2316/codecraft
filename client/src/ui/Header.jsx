@@ -1,6 +1,6 @@
 function Header() {
   return (
-    <div className="text-center bg-navcolor1 ">
+    <div className="text-center bg-slate-500 ">
       {"<CodeCraft>"}
     </div>
   );

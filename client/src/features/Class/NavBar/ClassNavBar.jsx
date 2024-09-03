@@ -25,26 +25,40 @@ function ClassNavBar() {
   }
 
   return (
-    <ul className="flex justify-around p-4 text-blue-600 font-semibold">
+    <ul className="flex justify-around p-4 text-blue-600 font-semibold bg-slate-300">
       <li>
         <Link to="/" className="hover:text-blue-800 transition duration-300">
-          Home
+          Back
         </Link>
       </li>
       <li>
-            <Link
-              to="/dashboard"
-              className="hover:text-blue-800 transition duration-300"
-            >
-              Dashboard
-            </Link>
-          </li>
-      <li>
         <Link
-          to="/class"
+          to="/dashboard"
           className="hover:text-blue-800 transition duration-300"
         >
-          Class
+          Dashboard
+        </Link>
+      </li>{" "}
+      <li
+        onClick={() => navigate(`/qna/${userId}`)}
+        className="hover:text-blue-800 transition duration-300 cursor-pointer"
+      >
+        QnA
+      </li>
+      <li>
+        <Link
+           to={`/playground/${userId}`}
+          className="hover:text-blue-800 transition duration-300"
+        >
+          Playground
+        </Link>
+      </li>
+      <li>
+        <Link
+          to="/profile"
+          className="hover:text-blue-800 transition duration-300"
+        >
+          Profile
         </Link>
       </li>
       <li>
@@ -55,14 +69,7 @@ function ClassNavBar() {
           Logout
         </Link>
       </li>
-      
-      {userInfo.role === "student" && !classes && (
-        <>
-       
-
-        </>
-      )}
-
+      {userInfo.role === "student" && !classes && <></>}
       {userInfo.role === "teacher" && (
         <>
           <li>

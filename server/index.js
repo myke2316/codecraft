@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import connectDb from "./config/database.js";
+import { connectDb } from "./config/database.js";
 import passportUtil from "./utils/passport.js";
 import { userRouter } from "./routes/userRoutes.js";
 import { authRoutes } from "./routes/authRoutes.js";
@@ -20,6 +20,8 @@ import { spawn } from "child_process";
 import { Script, createContext } from "vm";
 import { questionRouter } from "./routes/QuestionRoutes/questionRoutes.js";
 import { outlinedInputClasses } from "@mui/material";
+import { fileRoutes } from "./sandboxUserFiles/fileRoute.js";
+import { announcementRouter } from "./routes/teacherFunction/announcementRoute.js";
 
 dotenv.config();
 connectDb();
@@ -58,7 +60,8 @@ app.use("/analytics", analyticsRouter);
 app.use("/quizSubmission", quizSubmissionRouter);
 app.use("/activitySubmission", activitySubmissionRouter);
 app.use("/qna", questionRouter);
-
+app.use("/api/files", fileRoutes);
+app.use("/api/announcement", announcementRouter);
 //for CODING ACTIVITY ===============================================================
 
 const executeCode = (jsCode, input) => {
@@ -153,7 +156,6 @@ const jsNormalizeCode = (code) => {
   // Join lines with newline characters to preserve line structure
   return normalizedLines.join("\n").toLowerCase();
 };
-
 
 // function jsNormalizeCodeWeb(code) {
 //   // Remove comments
@@ -417,8 +419,6 @@ app.post("/submit/css", (req, res) => {
   });
 });
 
-
-
 //working
 const jsNormalizeCodeWeb = (code) => {
   const preserveStringWhitespace = (str) => {
@@ -485,11 +485,12 @@ app.post("/submit/javascriptweb", (req, res) => {
   }
 
   const testCases = activity.testCases || [];
-  const pointsForDifficulty = {
-    easy: 10,
-    medium: 15,
-    hard: 20,
-  }[activity.difficulty] || 10;
+  const pointsForDifficulty =
+    {
+      easy: 10,
+      medium: 15,
+      hard: 20,
+    }[activity.difficulty] || 10;
 
   let totalAwardedPoints = 0;
 
@@ -509,7 +510,8 @@ app.post("/submit/javascriptweb", (req, res) => {
     if (correctCount === required.length) {
       totalAwardedPoints += pointsForDifficulty;
     } else if (correctCount > 0) {
-      totalAwardedPoints += (pointsForDifficulty / required.length) * correctCount;
+      totalAwardedPoints +=
+        (pointsForDifficulty / required.length) * correctCount;
     }
   }
 
@@ -521,9 +523,6 @@ app.post("/submit/javascriptweb", (req, res) => {
     maxPoints: pointsForDifficulty,
   });
 });
-
-
-
 
 app.post("/submit/javascriptconsole", (req, res) => {
   const { jsCode, activity } = req.body;

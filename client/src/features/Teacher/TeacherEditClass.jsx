@@ -109,7 +109,7 @@ function TeacherEditClass() {
         })
       );
       toast.success("Class name updated successfully!");
-      navigate(`/${classId}/class`); // Redirect back to the class page
+      navigate(`/${classId}/class/classHome`); // Redirect back to the class page
     } catch (error) {
       toast.error(error?.data?.error || "Failed to update class name");
     }
@@ -224,7 +224,7 @@ function TeacherEditClass() {
               </button>
               <button
                 type="button"
-                onClick={() => navigate(`/${classId}/class`)}
+                onClick={() => navigate(`/${classId}/class/classHome`)}
                 className="bg-gray-600 text-white font-semibold px-4 py-2 rounded-md shadow-sm hover:bg-gray-700 transition duration-200"
               >
                 Done
