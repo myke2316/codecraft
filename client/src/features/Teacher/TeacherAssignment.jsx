@@ -7,6 +7,8 @@ import {
   Grid,
   Paper,
   FormControl,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -26,6 +28,9 @@ const validationSchema = Yup.object({
     .required("Due date is required")
     .min(new Date(), "Due date cannot be in the past"),
   instructions: Yup.string().required("Instructions are required"),
+  target: Yup.string()
+    .required("Target is required")
+    .oneOf(["all", "specific"], "Invalid target"),
   image: Yup.mixed()
     .nullable()
     .test(
@@ -45,6 +50,7 @@ function TeacherAssignment({ setDialogOpen }) {
   const { classId } = useParams();
   const [createAssignment] = useCreateActivityAssignmentMutation();
   const teacherId = useSelector((state) => state.user.userDetails._id);
+
   const handleSubmit = async (values, { resetForm }) => {
     try {
       const formData = new FormData();
@@ -53,7 +59,8 @@ function TeacherAssignment({ setDialogOpen }) {
       formData.append("dueDate", values.dueDate);
       formData.append("instructions", values.instructions);
       formData.append("status", "draft");
-      formData.append("classId", classId || "");
+      formData.append("target", values.target);
+      formData.append("classId", values.target === "all" ? "" : classId || "");
       formData.append("teacherId", teacherId || "");
       if (values.image) {
         formData.append("image", values.image);
@@ -63,7 +70,7 @@ function TeacherAssignment({ setDialogOpen }) {
       const res = await createAssignment(formData).unwrap();
       console.log(res);
       // Reset the form after successful submission
-      resetForm(); 
+      resetForm();
       setDialogOpen(false);
     } catch (error) {
       console.error("Failed to create assignment:", error);
@@ -72,6 +79,7 @@ function TeacherAssignment({ setDialogOpen }) {
 
   return (
     <Container maxWidth="sm">
+      {/* <img src="http://localhost:8000/api/assignment/images/66d7cb132efc0a742483beb3" /> */}
       <Paper style={{ padding: 20, marginTop: 20 }}>
         <Typography variant="h4" gutterBottom>
           Create Assignment
@@ -81,9 +89,8 @@ function TeacherAssignment({ setDialogOpen }) {
             title: "",
             description: "",
             dueDate: "",
-            classId: classId || "",
             instructions: "",
-            status: "draft",
+            target: "specific",
             image: null,
           }}
           validationSchema={validationSchema}
@@ -165,6 +172,33 @@ function TeacherAssignment({ setDialogOpen }) {
                     error={Boolean(errors.instructions && touched.instructions)}
                   />
                 </Grid>
+
+                <Grid item xs={12}>
+                  <FormControl fullWidth>
+                    <Typography>Target:</Typography>
+                    <Field
+                      name="target"
+                      as={Select}
+                      label="Target"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.target}
+                      required
+                    >
+                      <MenuItem value="all">All Classes</MenuItem>
+                      <MenuItem value="specific">Specific Class</MenuItem>
+                    </Field>
+                    <ErrorMessage name="target">
+                      {(msg) => <Typography color="error">{msg}</Typography>}
+                    </ErrorMessage>
+                  </FormControl>
+                </Grid>
+
+                {values.target === "specific" && (
+                  <Grid item xs={12}>
+                    <Typography>Class ID: {classId}</Typography>
+                  </Grid>
+                )}
 
                 <Grid item xs={12}>
                   Image:

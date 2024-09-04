@@ -8,31 +8,13 @@ export const activityAssignmentService = apiSlice.injectEndpoints({
         url: `${ACTIVITY_ASSIGNMENT_URL}/create`,
         method: "POST",
         body: data,
-      }), 
-    }),
-    deleteActivityAssignment: builder.mutation({
-      query: (id) => ({
-        url: `${ACTIVITY_ASSIGNMENT_URL}/delete/${id}`,
-        method: "DELETE",
       }),
     }),
-    fetchActivityAssignmentById: builder.mutation({
-      query: (id) => ({
-        url: `${ACTIVITY_ASSIGNMENT_URL}/get/${id}`,
+    fetchAssignmentByClassId: builder.mutation({
+      query: (classId) => ({
+        url: `${ACTIVITY_ASSIGNMENT_URL}/get/${classId}`,
         method: "GET",
-      }),
-    }),
-    updateActivityAssignment: builder.mutation({
-      query: (data) => ({
-        url: `${ACTIVITY_ASSIGNMENT_URL}/update`,
-        method: "PUT",
-        body: data,
-      }),
-    }),
-    fetchAllActivityAssignments: builder.mutation({
-      query: () => ({
-        url: `${ACTIVITY_ASSIGNMENT_URL}/fetchAll`,
-        method: "GET",
+     
       }),
     }),
   }),
@@ -40,8 +22,5 @@ export const activityAssignmentService = apiSlice.injectEndpoints({
 
 export const {
   useCreateActivityAssignmentMutation,
-  useDeleteActivityAssignmentMutation,
-  useFetchActivityAssignmentByIdMutation,
-  useUpdateActivityAssignmentMutation,
-  useFetchAllActivityAssignmentsMutation,
+  useFetchAssignmentByClassIdMutation,
 } = activityAssignmentService;

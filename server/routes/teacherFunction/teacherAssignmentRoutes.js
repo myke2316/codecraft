@@ -1,9 +1,9 @@
 import express from "express";
 import { upload } from "../../sandboxUserFiles/gridFs.js";
 import {
-  createAssignment,
-  getAssignmentById,
-  getImageById,
+  createAssignment, getAssignmentsByClassId, getImageById,
+
+
 } from "../../controller/teacherFunction/teacherAssignmentController.js";
 
 const router = express.Router();
@@ -12,7 +12,7 @@ const router = express.Router();
 router.post("/create", upload.single("image"), createAssignment);
 
 // Route for retrieving an assignment by ID
-router.get("/get/:id", getAssignmentById);
+router.get("/get/:classId", getAssignmentsByClassId);
 
 // Route for retrieving an image from GridFS by file ID
 router.get("/images/:fileId", getImageById);

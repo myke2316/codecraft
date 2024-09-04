@@ -23,6 +23,7 @@ import { outlinedInputClasses } from "@mui/material";
 import { fileRoutes } from "./sandboxUserFiles/fileRoute.js";
 import { announcementRouter } from "./routes/teacherFunction/announcementRoute.js";
 import { assignmentRouter } from "./routes/teacherFunction/teacherAssignmentRoutes.js";
+import { gfs } from "./sandboxUserFiles/gridFs.js";
 
 dotenv.config();
 connectDb();

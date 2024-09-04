@@ -1,52 +1,112 @@
-import mongoose from 'mongoose';
-import UserModel from './UserModel';  // Import UserModel to validate the student
-import ActivityAssignment from './activityAssignmentModel'; // Import ActivityAssignment to validate the assignment
+import mongoose from "mongoose";
+import UserModel from "../userModel.js"; // Import UserModel to validate the student
+import ActivityAssignment from "./activityAssignmentModel.js";  // Import ActivityAssignment model to reference assignments
 
 const submissionSchema = new mongoose.Schema({
   assignmentId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'ActivityAssignment',
-    required: [true, 'Assignment ID is required'],
-    validate: {
-      validator: async function(v) {
-        const assignment = await ActivityAssignment.findById(v);
-        return assignment !== null;
-      },
-      message: 'Assignment ID must reference a valid assignment',
-    },
+    ref: "ActivityAssignment", // Reference to the ActivityAssignment model
+    required: [true, "Assignment ID is required"],
+  },
+  classId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Class", // Reference to the Class model
+    required: [true, "Class ID is required"],
   },
   studentId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: [true, 'Student ID is required'],
+    ref: "User",
+    required: [true, "Student ID is required"],
     validate: {
-      validator: async function(v) {
+      validator: async function (v) {
         const user = await UserModel.findById(v);
-        return user && user.role === 'student';
+        return user && user.role === "student";
       },
-      message: 'Student ID must reference a valid student user',
+      message: "Student ID must reference a valid student user",
     },
   },
-  file: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'File',
-    required: [true, 'Submission file reference is required'],
-  },
-  comment: {
+  submissionLink: {
     type: String,
     trim: true,
-    maxlength: [1000, 'Comment cannot exceed 1000 characters'],
+    validate: {
+      validator: function (v) {
+        return !v || /^https?:\/\/[^\s$.?#].[^\s]*$/.test(v); // Valid URL or null
+      },
+      message: "Submission link must be a valid URL",
+    },
   },
-  grade: {
-    type: Number,
-    min: 0,
-    max: 100,
+  zipFile: {
+    type: String, // Storing file path or file URL as a string
+    trim: true,
   },
-  gradedAt: {
+  submittedAt: {
     type: Date,
     default: Date.now,
   },
-}, { timestamps: true });
+  graded: {
+    type: Boolean,
+    default: false,
+  },
+  grade: {
+    type: Number,
+    min: [0, "Grade cannot be less than 0"],
+    max: [100, "Grade cannot exceed 100"],
+  },
+  feedback: {
+    type: String,
+    trim: true,
+    maxlength: [1000, "Feedback cannot exceed 1000 characters"],
+  },
+  status: {
+    type: String,
+    enum: ["pending", "graded"],
+    default: "pending",
+  },
+  teacherId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: [true, "Teacher ID is required"],
+    validate: {
+      validator: async function (v) {
+        const user = await UserModel.findById(v);
+        return user && user.role === "teacher";
+      },
+      message: "Teacher ID must reference a valid teacher user",
+    },
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
-const Submission = mongoose.model('Submission', submissionSchema);
+// Custom validation to ensure either a submission link or zip file is provided, but not both
+submissionSchema.pre("validate", function (next) {
+  if (!this.submissionLink && !this.zipFile) {
+    return next(
+      new Error("Either a submission link or a zip file is required.")
+    );
+  }
+  if (this.submissionLink && this.zipFile) {
+    return next(
+      new Error(
+        "You can only provide a submission link or a zip file, not both."
+      )
+    );
+  }
+  next();
+});
+
+// Middleware to update `updatedAt` before saving
+submissionSchema.pre("save", function (next) {
+  this.updatedAt = Date.now();
+  next();
+});
+
+const Submission = mongoose.model("Submission", submissionSchema);
+
 export default Submission;

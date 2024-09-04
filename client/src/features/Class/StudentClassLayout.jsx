@@ -181,7 +181,7 @@ function StudentClassLayout() {
             {announcements && announcements.length > 0 ? (
               <List>
                 {announcements.map((announcement) => (
-                  <ListItem key={announcement.id} disablePadding>
+                  <ListItem key={announcement._id} disablePadding>
                     <ListItemButton
                       onClick={() => handleOpenDialog(announcement)}
                       sx={{
@@ -242,7 +242,7 @@ function StudentClassLayout() {
         </Box>
       </div>
 
-      <div className="m-auto">
+      <div className="m-auto w-[100%]">
         <Outlet />
       </div>
 

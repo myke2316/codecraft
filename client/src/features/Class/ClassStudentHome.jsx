@@ -236,7 +236,7 @@ function ClassStudentHome() {
     return <div className="text-center text-gray-600 mt-10">Loading...</div>;
   if (error)
     return <div className="text-center text-red-600 mt-10">{error}</div>;
-
+ 
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-4xl font-bold mb-4 text-black">

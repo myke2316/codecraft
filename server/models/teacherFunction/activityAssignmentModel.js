@@ -32,6 +32,10 @@ const activityAssignmentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Image",
     required: [false, "Expected output image reference is optional"],
+  },  target: {
+    type: String,
+    enum: ["all", "specific"],
+    default: "all"
   },
   teacherId: {
     type: mongoose.Schema.Types.ObjectId,

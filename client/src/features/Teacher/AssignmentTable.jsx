@@ -10,6 +10,16 @@ import {
   Typography,
   Button,
 } from "@mui/material";
+function formatDateToReadable(dateString) {
+  const date = new Date(dateString);
+  const months = ["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."];
+
+  const day = date.getDate();
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+
+  return `${month} ${day < 10 ? '0' + day : day}, ${year}`;
+}
 
 function AssignmentTable({ onCreate, assignments }) {
   return (
@@ -46,10 +56,10 @@ function AssignmentTable({ onCreate, assignments }) {
             assignments.map((assignment, index) => (
               <TableRow key={index}>
                 <TableCell>{assignment.title}</TableCell>
-                <TableCell>{assignment.submissions}</TableCell>
+                <TableCell>{assignment.submissions}</TableCell> 
                 <TableCell>{assignment.graded}</TableCell>
-                <TableCell>{assignment.dateCreated || "X"}</TableCell>
-                <TableCell>{assignment.dueDate || "X"}</TableCell>
+                <TableCell>{formatDateToReadable(assignment.createdAt)|| "X"}</TableCell>
+                <TableCell>{formatDateToReadable(assignment.dueDate) || "X"}</TableCell>
               </TableRow>
             ))
           )}

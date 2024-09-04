@@ -106,7 +106,7 @@ function TeacherAnnouncement() {
     try {
       const res = await createNewAnnouncement({
         title: values.title,
-        content: values.content,
+        content: values.content, 
         target: values.targetClass,
         classId: values.targetClass === "all" ? null : classId,
         teacherId,

@@ -1,40 +1,137 @@
 import ActivityAssignment from "../../models/teacherFunction/activityAssignmentModel.js";
 
 import mongoose from "mongoose";
-import { gfs, upload } from "../../sandboxUserFiles/gridFs.js";
-
+import { gfs, upload, gridfsBucket } from "../../sandboxUserFiles/gridFs.js";
+import { GridFSBucket } from "mongodb";
+import ClassModel from "../../models/classModel.js";
+import UserModel from "../../models/userModel.js";
+ClassModel;
 // Controller to handle creating a new assignment
+
+
 export const createAssignment = async (req, res) => {
-  const { title, description, dueDate, classId, instructions, teacherId } =
-    req.body;
+  const {
+    title,
+    description,
+    dueDate,
+    classId,
+    instructions,
+    teacherId,
+    target,
+  } = req.body;
+  const file = req.file; // File is optional
 
   try {
-    // Check if a file (image) is uploaded
-    const file = req.file;
+    if (target === "all") {
+      // Fetch all classes where the teacher is the teacher
+      const classes = await ClassModel.find({ teacher: teacherId });
+      if (classes.length === 0) {
+        return res
+          .status(404)
+          .json({ message: "No classes found for the specified teacher" });
+      }
 
-    // Create a new activity assignment
-    const newAssignment = new ActivityAssignment({
-      title,
-      description,
-      dueDate,
-      classId,
-      instructions,
-      teacherId, 
-      expectedOutputImage: file ? file.id : null, // Save the file's ObjectId if image is uploaded
-    });
+      // Create assignments for each class
+      const assignments = await Promise.all(
+        classes.map((classItem) => {
+          const assignment = new ActivityAssignment({
+            title,
+            description,
+            dueDate,
+            classId: classItem._id,
+            instructions,
+            teacherId,
+            expectedOutputImage: file ? file.id : null,
+            target, // Only save the file's ObjectId if the file is uploaded
+          });
+          return assignment.save();
+        })
+      );
 
-    // Save the assignment to the database
-    await newAssignment.save();
+      return res
+        .status(201)
+        .json({
+          message: "Assignments created successfully for all classes",
+          assignments,
+        });
+    } else if (target === "specific") {
+      // Validate classId and teacherId
+      if (!classId) {
+        return res
+          .status(400)
+          .json({ message: "classId is required for specific assignments" });
+      }
+      const classExists = await ClassModel.findById(classId);
+      if (!classExists) {
+        return res.status(404).json({ message: "Class not found" });
+      }
 
-    res.status(201).json({
-      message: "Assignment created successfully",
-      assignment: newAssignment,
-    });
+      const teacher = await UserModel.findById(teacherId);
+      if (!teacher || teacher.role !== "teacher") {
+        return res.status(400).json({ message: "Invalid teacher ID" });
+      }
+
+      // Create a single assignment for a specific class
+      const assignment = new ActivityAssignment({
+        title,
+        description,
+        dueDate,
+        classId,
+        instructions,
+        teacherId,
+        expectedOutputImage: file ? file.id : null,
+        target, // Only save the file's ObjectId if the file is uploaded
+      });
+      await assignment.save();
+
+      return res
+        .status(201)
+        .json({
+          message: "Assignment created successfully for the specified class",
+          assignment,
+        });
+    } else {
+      return res.status(400).json({ message: "Invalid target specified" });
+    }
   } catch (error) {
     console.error("Error creating assignment: ", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+
+export const getAssignmentsByClassId = async (req, res) => {
+  const { classId } = req.params;
+
+  try {
+    // Validate classId
+    if (!classId) {
+      return res.status(400).json({ message: "classId is required" });
+    }
+
+    // Check if class exists
+    const classExists = await ClassModel.findById(classId);
+    if (!classExists) {
+      return res.status(404).json({ message: "Class not found" });
+    }
+
+    // Retrieve assignments for the class
+    const assignments = await ActivityAssignment.find({ classId })
+  
+
+    if (assignments.length === 0) {
+      return res.status(404).json({ message: "No assignments found for this class" });
+    }
+
+    res.status(200).json(assignments);
+  } catch (error) {
+    console.error("Error fetching assignments: ", error);
     res.status(500).json({ message: "Server error", error });
   }
 };
+
+
+
 
 // Controller to retrieve an assignment by ID
 export const getAssignmentById = async (req, res) => {
@@ -60,17 +157,28 @@ export const getImageById = async (req, res) => {
   const { fileId } = req.params;
 
   try {
-    gfs.files.findOne({ _id: mongoose.Types.ObjectId(fileId) }, (err, file) => {
-      if (!file || file.length === 0) {
-        return res.status(404).json({ message: "No file found" });
-      }
+    // Create a read stream for the file
+    const downloadStream = gridfsBucket.openDownloadStream(
+      new mongoose.Types.ObjectId(fileId)
+    );
 
-      const readstream = gfs.createReadStream({ _id: file._id });
-      res.set("Content-Type", file.contentType);
-      readstream.pipe(res);
+    // Check if the file exists
+    downloadStream.on("error", () => {
+      res.status(404).json({ message: "File not found" });
     });
+
+    // Pipe the download stream to the response
+    downloadStream.pipe(res);
+
+    // Optionally set the content type based on the file metadata (you might need to store this in the database)
+    const file = await gridfsBucket
+      .find({ _id: new mongoose.Types.ObjectId(fileId) })
+      .toArray();
+    if (file && file.length > 0) {
+      res.setHeader("Content-Type", file[0].contentType); // Set appropriate content type
+    }
   } catch (error) {
-    console.error("Error fetching image: ", error);
+    console.error("Error retrieving file:", error);
     res.status(500).json({ message: "Server error", error });
   }
 };
