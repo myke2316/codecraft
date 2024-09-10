@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import UserModel from "../userModel.js"; // Import UserModel to validate the student
-import ActivityAssignment from "./activityAssignmentModel.js";  // Import ActivityAssignment model to reference assignments
+import ActivityAssignment from "./activityAssignmentModel.js"; // Import ActivityAssignment model to reference assignments
 
 const submissionSchema = new mongoose.Schema({
   assignmentId: {
@@ -25,18 +25,8 @@ const submissionSchema = new mongoose.Schema({
       message: "Student ID must reference a valid student user",
     },
   },
-  submissionLink: {
-    type: String,
-    trim: true,
-    validate: {
-      validator: function (v) {
-        return !v || /^https?:\/\/[^\s$.?#].[^\s]*$/.test(v); // Valid URL or null
-      },
-      message: "Submission link must be a valid URL",
-    },
-  },
   zipFile: {
-    type: String, // Storing file path or file URL as a string
+    type: mongoose.Schema.Types.ObjectId, // Storing file path or file URL as a string
     trim: true,
   },
   submittedAt: {
@@ -84,22 +74,6 @@ const submissionSchema = new mongoose.Schema({
   },
 });
 
-// Custom validation to ensure either a submission link or zip file is provided, but not both
-submissionSchema.pre("validate", function (next) {
-  if (!this.submissionLink && !this.zipFile) {
-    return next(
-      new Error("Either a submission link or a zip file is required.")
-    );
-  }
-  if (this.submissionLink && this.zipFile) {
-    return next(
-      new Error(
-        "You can only provide a submission link or a zip file, not both."
-      )
-    );
-  }
-  next();
-});
 
 // Middleware to update `updatedAt` before saving
 submissionSchema.pre("save", function (next) {

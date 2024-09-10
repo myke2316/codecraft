@@ -57,6 +57,10 @@ import TeacherAssignmentsPage from "./features/Teacher/TeacherAssignmentPage";
 import AdminQna from "./features/Admin/pages/AdminQna";
 import StudentClassLayout from "./features/Class/StudentClassLayout";
 import StudentAssignment from "./features/Class/StudentAssignment";
+import AssignmentDetails from "./features/Class/AssignmentDetails";
+import TeacherViewAssignment from "./features/Teacher/TeacherViewAssignment";
+import AnswerAssignmentPage from "./features/AssignmentAnswer/AnswerAssignmentPage";
+import TeacherAssignmentGrade from "./features/Teacher/TeacherAssignmentGrade";
 
 function App() {
   return (
@@ -87,7 +91,12 @@ function App() {
               {" "}
               <Route path="classHome" element={<ClassHome />} />
               <Route path="assignment" element={<StudentAssignment />} />
+              <Route
+                path="assignment/:assignmentId/view"
+                element={<AssignmentDetails />}
+              />
               <Route path="dashboard" element={<StudentDashboard />} />
+              <Route path="activitySheet" element={<AnswerAssignmentPage />} />
             </Route>
           </Route>
         </Route>
@@ -127,6 +136,14 @@ function App() {
               <Route path="class-edit" element={<TeacherEditClass />} />
               <Route path="announcement" element={<TeacherAnnouncement />} />
               <Route path="assignment" element={<TeacherAssignmentsPage />} />
+              <Route
+                path="assignment/:assignmentId/view/teacher"
+                element={<TeacherViewAssignment />}
+              />
+              <Route
+                path="assignment/:assignmentId/view/teacher/submission/:submissionId/student/:studentId"
+                element={<TeacherAssignmentGrade />}
+              />
             </Route>
             <Route path="/classes" element={<ClassLists />} />
           </Route>

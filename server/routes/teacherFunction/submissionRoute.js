@@ -1,12 +1,32 @@
 import express from "express";
-import { deleteSubmission, submitAssignment } from "../../controller/teacherFunction/submissionController";
+import {
+  deleteSubmission,
+  getSubmissionsByAssignmentId,
+  getSubmissionByStudentAndAssignment,
+  getSubmissionsByClassId,
+  submitAssignment,
+  downloadSubmissionFile,
+  teacherSubmitFeedback,
+} from "../../controller/teacherFunction/submissionController.js";
+import { assignmentUpload } from "../../sandboxUserFiles/gridFs.js";
 
 const router = express.Router();
 
-// Route for submitting an assignment
-router.post("/submit", submitAssignment);
+// Route for submitting assignments with file upload
+router.post("/submit", assignmentUpload.single("zipFile"), submitAssignment);
 
-// Route for deleting a submission
+// Route for deleting submissions
 router.delete("/delete/:submissionId", deleteSubmission);
 
-export default router;
+router.get("/submissions/class/:classId", getSubmissionsByClassId);
+router.get(
+  "/submissions/:assignmentId/:studentId",
+  getSubmissionByStudentAndAssignment
+);
+router.get(
+  "/submissions/get/assignment/:assignmentId",
+  getSubmissionsByAssignmentId
+);
+router.get("/download/submission/:submissionId", downloadSubmissionFile);
+router.patch("/submissions/:submissionId/feedback", teacherSubmitFeedback);
+export { router as submissionRouter };

@@ -3,6 +3,7 @@ import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import { useFetchAssignmentByClassIdMutation } from "../Teacher/assignmentService"; // Adjust the path as per your project structure
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import {
   Card,
   CardContent,
@@ -10,32 +11,16 @@ import {
   Button,
   Typography,
   Grid,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
   Box,
-  Divider,
-  TextField,
-  InputLabel,
-  FormControl,
-  FormHelperText,
+  Paper,
 } from "@mui/material";
 import { CalendarToday, Description } from "@mui/icons-material";
-import { BASE_URLS } from "../../constants";
 
 function StudentAssignment() {
   const classId = useSelector((state) => state.class.class._id);
   const [fetchAssignmentByClassId, { isLoading, isError }] = useFetchAssignmentByClassIdMutation();
   const [assignments, setAssignments] = useState([]);
-  const [selectedAssignment, setSelectedAssignment] = useState(null);
-  const [open, setOpen] = useState(false);
-
-  // Submission States
-  const [submissionLink, setSubmissionLink] = useState("");
-  const [zipFile, setZipFile] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
   useEffect(() => {
     if (classId) {
@@ -50,46 +35,13 @@ function StudentAssignment() {
     }
   }, [classId, fetchAssignmentByClassId]);
 
-  const handleOpen = (assignment) => {
-    setSelectedAssignment(assignment);
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    setSelectedAssignment(null);
-    setSubmissionLink("");
-    setZipFile(null);
-    setErrorMessage("");
-  };
-
-  const handleSubmissionLinkChange = (e) => {
-    setSubmissionLink(e.target.value);
-    setZipFile(null); // Clear zipFile if a link is provided
-  };
-
-  const handleZipFileChange = (e) => {
-    setZipFile(e.target.files[0]);
-    setSubmissionLink(""); // Clear link if a zip file is selected
-  };
-
-  // Placeholder function for handling submission
-  const handleSubmitAssignment = () => {
-    if (!submissionLink && !zipFile) {
-      setErrorMessage("Either a submission link or a zip file is required.");
-      return;
-    }
-    if (submissionLink && zipFile) {
-      setErrorMessage("You can only provide a submission link or a zip file, not both.");
-      return;
-    }
-
-    setErrorMessage("");
-    // Submission handling logic to be implemented here
+  // Function to handle redirection to the assignment detail view
+  const handleViewAssignment = (assignmentId) => {
+    navigate(`${assignmentId}/view`);
   };
 
   if (isLoading) return <Typography variant="h6">Loading assignments...</Typography>;
-  if (isError) return <Typography variant="h6">Error loading assignments.</Typography>;
+
 
   return (
     <Box sx={{ padding: 3 }}>
@@ -97,7 +49,15 @@ function StudentAssignment() {
         Student Assignments
       </Typography>
       {assignments.length === 0 ? (
-        <Typography variant="body1">No assignments available for this class.</Typography>
+        <Paper sx={{ padding: 3, textAlign: "center", backgroundColor: "#f5f5f5" }}>
+          <Typography variant="h6" gutterBottom>
+            No assignments available for this class.
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            It looks like there are no assignments currently assigned to this class. Please check back later or contact your instructor for more information.
+          </Typography>
+      
+        </Paper>
       ) : (
         <Grid container spacing={3}>
           {assignments.map((assignment) => (
@@ -121,7 +81,7 @@ function StudentAssignment() {
                   </Box>
                 </CardContent>
                 <CardActions sx={{ justifyContent: "flex-end" }}>
-                  <Button size="small" color="primary" onClick={() => handleOpen(assignment)}>
+                  <Button size="small" color="primary" onClick={() => handleViewAssignment(assignment._id)}>
                     View Details
                   </Button>
                 </CardActions>
@@ -130,98 +90,6 @@ function StudentAssignment() {
           ))}
         </Grid>
       )}
-
-      {/* Modal for displaying assignment details and submission form */}
-      <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-        {selectedAssignment && (
-          <>
-            <DialogTitle>{selectedAssignment.title}</DialogTitle>
-            <DialogContent dividers>
-              <DialogContentText>
-                <Typography variant="subtitle1" gutterBottom>
-                  <strong>Description:</strong>
-                </Typography>
-                {selectedAssignment.description}
-              </DialogContentText>
-              <Divider sx={{ my: 2 }} />
-              <DialogContentText>
-                <Typography variant="subtitle1" gutterBottom>
-                  <strong>Instructions:</strong>
-                </Typography>
-                {selectedAssignment.instructions}
-              </DialogContentText>
-              <Divider sx={{ my: 2 }} />
-              <DialogContentText>
-                <Typography variant="subtitle1" gutterBottom>
-                  <strong>Due Date:</strong> {new Date(selectedAssignment.dueDate).toLocaleDateString()}
-                </Typography>
-                <Typography variant="subtitle1">
-                  <strong>Created At:</strong> {new Date(selectedAssignment.createdAt).toLocaleDateString()}
-                </Typography>
-              </DialogContentText>
-              <Divider sx={{ my: 2 }} />
-
-              {/* Image Section with Zoom */}
-              {selectedAssignment.expectedOutputImage && (
-                <Box sx={{ mt: 2 }}>
-                  <Typography variant="subtitle1" gutterBottom>
-                    <strong>Expected Output Image:</strong>
-                  </Typography>
-                  <Zoom>
-                    <img
-                      src={`${BASE_URLS}/api/assignment/images/${selectedAssignment.expectedOutputImage}`}
-                      alt="Expected Output"
-                      style={{ borderRadius: 8, maxWidth: "100%", maxHeight: 300, boxShadow: "0 2px 10px rgba(0,0,0,0.1)" }}
-                    />
-                  </Zoom>
-                </Box>
-              )}
-
-              {/* Assignment Submission Section */}
-              <Box sx={{ mt: 4 }}>
-                <Typography variant="h6" gutterBottom>
-                  Submit Your Assignment
-                </Typography>
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                  <TextField
-                    label="Submission Link"
-                    variant="outlined"
-                    value={submissionLink}
-                    onChange={handleSubmissionLinkChange}
-                    disabled={!!zipFile} // Disable if a zip file is selected
-                  />
-                  <FormHelperText>Enter a URL link for your assignment (if applicable).</FormHelperText>
-                </FormControl>
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                  <InputLabel htmlFor="zip-file-upload"></InputLabel>
-                  <input
-                    type="file"
-                    id="zip-file-upload"
-                    accept=".zip"
-                    onChange={handleZipFileChange}
-                    disabled={!!submissionLink} // Disable if a link is provided
-                    style={{ marginTop: 10 }}
-                  />
-                  <FormHelperText>Upload a zip file containing your code (if applicable).</FormHelperText>
-                </FormControl>
-                {errorMessage && (
-                  <Typography variant="body2" color="error" gutterBottom>
-                    {errorMessage}
-                  </Typography>
-                )}
-                <Button variant="contained" color="primary" onClick={handleSubmitAssignment}>
-                  Submit
-                </Button>
-              </Box>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose} color="primary">
-                Close
-              </Button>
-            </DialogActions>
-          </>
-        )}
-      </Dialog>
     </Box>
   );
 }

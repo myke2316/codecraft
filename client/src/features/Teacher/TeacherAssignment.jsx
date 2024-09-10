@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   TextField,
@@ -15,6 +15,7 @@ import * as Yup from "yup";
 import { useParams } from "react-router";
 import { useCreateActivityAssignmentMutation } from "./assignmentService";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 // Validation Schema
 const validationSchema = Yup.object({
@@ -46,10 +47,14 @@ const validationSchema = Yup.object({
     ),
 });
 
-function TeacherAssignment({ setDialogOpen }) {
+function TeacherAssignment({ setDialogOpen, refreshAssignments }) {
   const { classId } = useParams();
   const [createAssignment] = useCreateActivityAssignmentMutation();
   const teacherId = useSelector((state) => state.user.userDetails._id);
+
+  // State to store the preview URL and file name
+  const [imagePreview, setImagePreview] = useState(null);
+  const [imageName, setImageName] = useState("");
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
@@ -69,8 +74,12 @@ function TeacherAssignment({ setDialogOpen }) {
       // Call the mutation to create the assignment
       const res = await createAssignment(formData).unwrap();
       console.log(res);
+      toast.success("Successfully created class");
+      refreshAssignments();
       // Reset the form after successful submission
       resetForm();
+      setImagePreview(null); // Clear the image preview
+      setImageName(""); // Clear the image name
       setDialogOpen(false);
     } catch (error) {
       console.error("Failed to create assignment:", error);
@@ -79,7 +88,6 @@ function TeacherAssignment({ setDialogOpen }) {
 
   return (
     <Container maxWidth="sm">
-      {/* <img src="http://localhost:8000/api/assignment/images/66d7cb132efc0a742483beb3" /> */}
       <Paper style={{ padding: 20, marginTop: 20 }}>
         <Typography variant="h4" gutterBottom>
           Create Assignment
@@ -143,7 +151,7 @@ function TeacherAssignment({ setDialogOpen }) {
                     name="dueDate"
                     as={TextField}
                     label="Due Date"
-                    type="datetime-local"
+                    type="date"
                     variant="outlined"
                     fullWidth
                     InputLabelProps={{ shrink: true }}
@@ -208,7 +216,15 @@ function TeacherAssignment({ setDialogOpen }) {
                       name="image"
                       accept="image/*"
                       onChange={(event) => {
-                        setFieldValue("image", event.currentTarget.files[0]);
+                        const file = event.currentTarget.files[0];
+                        setFieldValue("image", file);
+                        if (file) {
+                          setImagePreview(URL.createObjectURL(file));
+                          setImageName(file.name);
+                        } else {
+                          setImagePreview(null);
+                          setImageName("");
+                        }
                       }}
                       onBlur={handleBlur}
                       style={{ marginTop: 8 }}
@@ -218,6 +234,19 @@ function TeacherAssignment({ setDialogOpen }) {
                     </ErrorMessage>
                   </FormControl>
                 </Grid>
+
+                {/* Display the image preview and its name */}
+                {imagePreview && (
+                  <Grid item xs={12}>
+                    <Typography>Image Preview:</Typography>
+                    <img
+                      src={imagePreview}
+                      alt="Uploaded preview"
+                      style={{ maxWidth: "100%", marginTop: 8 }}
+                    />
+                    <Typography>{imageName}</Typography>
+                  </Grid>
+                )}
 
                 <Grid item xs={12}>
                   <Button variant="contained" color="primary" type="submit">

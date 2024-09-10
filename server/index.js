@@ -24,6 +24,7 @@ import { fileRoutes } from "./sandboxUserFiles/fileRoute.js";
 import { announcementRouter } from "./routes/teacherFunction/announcementRoute.js";
 import { assignmentRouter } from "./routes/teacherFunction/teacherAssignmentRoutes.js";
 import { gfs } from "./sandboxUserFiles/gridFs.js";
+import { submissionRouter } from "./routes/teacherFunction/submissionRoute.js";
 
 dotenv.config();
 connectDb();
@@ -65,8 +66,10 @@ app.use("/qna", questionRouter);
 app.use("/api/files", fileRoutes);
 app.use("/api/announcement", announcementRouter);
 app.use("/api/assignment", assignmentRouter);
-//for CODING ACTIVITY ===============================================================
+app.use("/api/student-submit", submissionRouter)
 
+
+//for CODING ACTIVITY ===============================================================
 const executeCode = (jsCode, input) => {
   try {
     const script = new Script(jsCode);
@@ -76,7 +79,10 @@ const executeCode = (jsCode, input) => {
     return `Error: ${error.message}`;
   }
 };
-
+function normalizeOutput(output) {
+  // Implement normalization logic here
+  return output.trim().replace(/\s+/g, "");
+}
 // Utility function to normalize code(to move soon in a new file)
 const htmlNormalizeCode = (code) => {
   return code
@@ -88,7 +94,6 @@ const htmlNormalizeCode = (code) => {
     .replace(/'([^']*)'/g, '"$1"') // Normalize quotes to double quotes
     .toLowerCase(); // Convert to lowercase
 };
-
 const cssNormalizeCode = (code) => {
   return code
     .replace(/\/\*[\s\S]*?\*\//g, "") // Remove comments
@@ -159,80 +164,62 @@ const jsNormalizeCode = (code) => {
   // Join lines with newline characters to preserve line structure
   return normalizedLines.join("\n").toLowerCase();
 };
+const jsNormalizeCodeWeb = (code) => {
+  const preserveStringWhitespace = (str) => {
+    return str.replace(/(["'`])(?:(?!\1)[\s\S])*?\1/g, (match) =>
+      match.replace(/\s+/g, " ")
+    );
+  };
 
-// function jsNormalizeCodeWeb(code) {
-//   // Remove comments
-//   code = code.replace(/\/\/.*|\/\*[^]*?\*\//g, "");
+  // Remove single-line comments
+  code = code.replace(/\/\/.*$/gm, "");
 
-//   // Parse the code into an AST
-//   const ast = esprima.parseScript(code, {
-//     comment: true,
-//     tokens: true,
-//     range: true,
-//   });
+  // Remove multi-line comments
+  code = code.replace(/\/\*[\s\S]*?\*\//g, "");
 
-//   // Function to convert the AST to a normalized code string
-//   function astToCode(astNode) {
-//     let codeString = "";
+  // Preserve and normalize string literals
+  code = preserveStringWhitespace(code);
 
-//     estraverse.traverse(astNode, {
-//       enter(node) {
-//         switch (node.type) {
-//           case "Program":
-//           case "BlockStatement":
-//           case "ExpressionStatement":
-//             if (node.body && Array.isArray(node.body)) {
-//               codeString += node.body.map(astToCode).join(" ");
-//             }
-//             break;
-//           case "Literal":
-//             codeString += node.value;
-//             break;
-//           case "Identifier":
-//             codeString += node.name;
-//             break;
-//           case "BinaryExpression":
-//             codeString +=
-//               astToCode(node.left) +
-//               " " +
-//               node.operator +
-//               " " +
-//               astToCode(node.right);
-//             break;
-//           case "CallExpression":
-//             codeString +=
-//               astToCode(node.callee) +
-//               "(" +
-//               node.arguments.map(astToCode).join(", ") +
-//               ")";
-//             break;
-//           case "FunctionDeclaration":
-//             codeString +=
-//               "function " +
-//               node.id.name +
-//               "(" +
-//               node.params.map(astToCode).join(", ") +
-//               ") {" +
-//               astToCode(node.body) +
-//               "}";
-//             break;
-//           // Add more cases as needed
-//           default:
-//             codeString += "";
-//         }
-//       },
-//     });
+  // Standardize quotes to single quotes
+  code = code.replace(/["`]/g, "'");
 
-//     return codeString.trim();
-//   }
+  // Normalize spaces around specific characters
+  code = code
+    .replace(/\s*:\s*/g, ":")
+    .replace(/\s*,\s*/g, ", ")
+    .replace(/(\s*({|}|;|,|\(|\))\s*)/g, "$1") // Remove spaces around `{}`, `;`, `,`, `()`
+    .replace(/\s+(?=\{|\}|\(|\))/g, "")
+    .replace(/(?<=\})\s+/g, "")
+    .replace(/(?<=\))\s+/g, "")
+    .replace(/(?<=;)\s+/g, "")
+    .replace(/\s*([+\-*/%&|^!~=<>])\s*/g, "$1")
+    .replace(/(?<=\d)\s+(?=\d)/g, "");
 
-//   // Generate normalized code string from AST
-//   const normalizedCode = astToCode(ast);
+  // Normalize multiple spaces to a single space
+  code = code.replace(/\s+/g, " ");
 
-//   // Normalize spaces
-//   return normalizedCode.replace(/\s+/g, " ").trim();
-// }
+  // Trim leading and trailing spaces
+  code = code.trim();
 
+  // Add semicolon where required, but avoid adding unnecessary semicolons
+  const lines = code.split("\n");
+  const normalizedLines = lines.map((line, index) => {
+    const trimmedLine = line.trim();
+    if (
+      trimmedLine &&
+      !trimmedLine.endsWith(";") &&
+      !trimmedLine.endsWith("{") &&
+      !trimmedLine.endsWith("}") &&
+      !lines[index + 1]?.trim().startsWith("}") &&
+      !trimmedLine.endsWith(",")
+    ) {
+      return trimmedLine + ";";
+    }
+    return trimmedLine;
+  });
+
+  return normalizedLines.join("\n").toLowerCase();
+};
 //function or api to call to handle the submit for coding activity and check student coede
 //working
 app.post("/submit/html", (req, res) => {
@@ -421,65 +408,7 @@ app.post("/submit/css", (req, res) => {
     maxPoints: pointsForDifficulty,
   });
 });
-
 //working
-const jsNormalizeCodeWeb = (code) => {
-  const preserveStringWhitespace = (str) => {
-    return str.replace(/(["'`])(?:(?!\1)[\s\S])*?\1/g, (match) =>
-      match.replace(/\s+/g, " ")
-    );
-  };
-
-  // Remove single-line comments
-  code = code.replace(/\/\/.*$/gm, "");
-
-  // Remove multi-line comments
-  code = code.replace(/\/\*[\s\S]*?\*\//g, "");
-
-  // Preserve and normalize string literals
-  code = preserveStringWhitespace(code);
-
-  // Standardize quotes to single quotes
-  code = code.replace(/["`]/g, "'");
-
-  // Normalize spaces around specific characters
-  code = code
-    .replace(/\s*:\s*/g, ":")
-    .replace(/\s*,\s*/g, ", ")
-    .replace(/(\s*({|}|;|,|\(|\))\s*)/g, "$1") // Remove spaces around `{}`, `;`, `,`, `()`
-    .replace(/\s+(?=\{|\}|\(|\))/g, "")
-    .replace(/(?<=\})\s+/g, "")
-    .replace(/(?<=\))\s+/g, "")
-    .replace(/(?<=;)\s+/g, "")
-    .replace(/\s*([+\-*/%&|^!~=<>])\s*/g, "$1")
-    .replace(/(?<=\d)\s+(?=\d)/g, "");
-
-  // Normalize multiple spaces to a single space
-  code = code.replace(/\s+/g, " ");
-
-  // Trim leading and trailing spaces
-  code = code.trim();
-
-  // Add semicolon where required, but avoid adding unnecessary semicolons
-  const lines = code.split("\n");
-  const normalizedLines = lines.map((line, index) => {
-    const trimmedLine = line.trim();
-    if (
-      trimmedLine &&
-      !trimmedLine.endsWith(";") &&
-      !trimmedLine.endsWith("{") &&
-      !trimmedLine.endsWith("}") &&
-      !lines[index + 1]?.trim().startsWith("}") &&
-      !trimmedLine.endsWith(",")
-    ) {
-      return trimmedLine + ";";
-    }
-    return trimmedLine;
-  });
-
-  return normalizedLines.join("\n").toLowerCase();
-};
-
 app.post("/submit/javascriptweb", (req, res) => {
   const { jsCode, activity } = req.body;
 
@@ -526,7 +455,7 @@ app.post("/submit/javascriptweb", (req, res) => {
     maxPoints: pointsForDifficulty,
   });
 });
-
+//working
 app.post("/submit/javascriptconsole", (req, res) => {
   const { jsCode, activity } = req.body;
 
@@ -642,127 +571,6 @@ app.post("/submit/javascriptconsole", (req, res) => {
     userOutput: finalUserOutput,
   });
 });
-
-//working - pwede ko din integrate dito yung jsNormalizeCodeWeb pero for now ito muna since nagana naman
-// app.post("/submit/javascriptconsole", (req, res) => {
-//   const { jsCode, activity } = req.body;
-//   // const activity = activities.find((activity) => activity.activityId === activityId);
-
-//   if (!activity) {
-//     return res.status(404).json({ error: "Activity not found" });
-//   }
-
-//   const testCases = activity.testCases || [];
-//   let totalPoints = 0;
-
-//   // Set points based on difficulty
-//   let pointsForDifficulty;
-//   switch (activity.difficulty) {
-//     case "easy":
-//       pointsForDifficulty = 10;
-//       break;
-//     case "medium":
-//       pointsForDifficulty = 15;
-//       break;
-//     case "hard":
-//       pointsForDifficulty = 20;
-//       break;
-//     default:
-//       pointsForDifficulty = 10;
-//   }
-
-//   // Track total points awarded
-//   let totalAwardedPoints = 0;
-
-//   for (const testCase of testCases) {
-//     const { output: consoleOutput, error } = runJavaScript(jsCode);
-
-//     if (error) {
-//       return res.json({ error });
-//     }
-
-//     const normalizedJsCode = jsNormalizeCode(jsCode);
-//     let points = 0;
-//     let currentIndex = 0;
-//     let correctCount = 0;
-
-//     for (const requirement of testCase.required) {
-//       // console.log(requirement.join("\n"))
-//       const normalizedRequirement = jsNormalizeCode(requirement);
-
-//       const index = normalizedJsCode.indexOf(
-//         normalizedRequirement,
-//         currentIndex
-//       );
-
-//       if (index !== -1) {
-//         correctCount += 1;
-//         points += 1;
-//         currentIndex = index + normalizedRequirement.length;
-//         console.log(
-//           normalizedRequirement + " : TAMA ITO : current score : " + points
-//         );
-//       } else {
-//         console.log(
-//           normalizedRequirement + " : mali ito : current score : " + points
-//         );
-//       }
-//     }
-
-//     // Award points based on correctness and order
-//     if (correctCount === testCase.required.length) {
-//       totalAwardedPoints += pointsForDifficulty; // Perfect score for this test case
-//     } else if (correctCount > 0) {
-//       // Partial credit
-//       totalAwardedPoints +=
-//         (pointsForDifficulty / testCase.required.length) * correctCount;
-//     }
-
-//     if (totalAwardedPoints > 5) {
-//       const codeTest =
-//         "let person = {name: 'John',age: 30,greet: function() {console.log('Hello, my name is ' + this.name);}};person.greet();console.log('Age of the person: '+  person.age);";
-//       const requiredOutput = runJavaScript(testCase.input);
-//       const userOutput = runJavaScript(jsCode);
-//       const normalizedUserOutput = normalizeOutput(userOutput.output);
-//       const normalizedRequiredOutput = normalizeOutput(requiredOutput.output);
-
-//       console.log("User Output:", normalizedUserOutput);
-//       console.log("Required Output:", normalizedRequiredOutput);
-
-//       if (normalizedUserOutput === normalizedRequiredOutput) {
-//         console.log("User output matches.");
-//         // If output matches, award perfect points
-//         totalAwardedPoints = 0;
-//         totalAwardedPoints += pointsForDifficulty;
-//       } else {
-//         console.log("User output does not match required output.");
-//         return res.json({
-//           totalPoints: totalAwardedPoints,
-//           passed: false,
-//           maxPoints: pointsForDifficulty,
-//         });
-//       }
-//     }
-
-//     // Add points for correct console output
-//   }
-
-//   // Determine if the overall submission passed
-//   const passed = totalAwardedPoints >= pointsForDifficulty / 2;
-
-//   res.json({
-//     totalPoints: totalAwardedPoints,
-//     passed,
-//     maxPoints: pointsForDifficulty,
-//     // expectedOutput,userOutput
-//   });
-// });
-
-function normalizeOutput(output) {
-  // Implement normalization logic here
-  return output.trim().replace(/\s+/g, "");
-}
-
 //when user clicked on run, this code will run to return the expected output of the user's code
 app.post("/execute", (req, res) => {
   const { language, html, css, js } = req.body;
@@ -868,6 +676,10 @@ app.post("/execute", (req, res) => {
     res.status(400).json({ output: `Unsupported language: ${language}` });
   }
 });
+
+
+
+
 
 app.get("/", (req, res) => {
   res.send("Server or api is running.");

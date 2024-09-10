@@ -1,10 +1,37 @@
 import Grid from "gridfs-stream";
 import { GridFsStorage } from "multer-gridfs-storage";
 import multer from "multer";
-import { mongoose, gfs, gridfsBucket } from "../config/database.js";
+import {
+  mongoose,
+  gfs,
+  gridfsBucket,
+  assignmentBucket,
+} from "../config/database.js";
 // Import from the central database file
 
-// Create a storage engine for multer-gridfs-storage
+// const teacherImageStorage = new GridFsStorage({
+//   url: process.env.MONGODB_URL,
+//   file: (req, file) => {
+//     return {
+//       bucketName: "teacher", // Bucket for teacher images
+//       filename: file.originalname,
+//     };
+//   },
+// });
+// const teacherImageUpload = multer({ storage: teacherImageStorage });
+
+const assignmentStorage = new GridFsStorage({
+  url: process.env.MONGODB_URL,
+  file: (req, file) => {
+    return {
+      bucketName: "assignment", // Bucket for assignment ZIP files
+      filename: file.originalname,
+    };
+  },
+});
+const assignmentUpload = multer({ storage: assignmentStorage });
+
+//this is for teacher already
 const storage = new GridFsStorage({
   url: process.env.MONGODB_URL,
   file: (req, file) => {
@@ -17,4 +44,4 @@ const storage = new GridFsStorage({
 
 const upload = multer({ storage });
 
-export { gfs, upload, gridfsBucket };
+export { gfs, upload, gridfsBucket,assignmentBucket, assignmentUpload };

@@ -243,6 +243,7 @@ function TeacherClassLayout() {
       <div className="m-auto">
         {" "}
         <Outlet />
+        <ToastContainer />
       </div>
 
       {/* Dialog for announcement details */}

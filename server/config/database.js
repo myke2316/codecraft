@@ -1,14 +1,20 @@
 import mongoose from "mongoose";
 import Grid from "gridfs-stream";
 import { GridFSBucket } from "mongodb";
-let gfs, gridfsBucket;
+let gfs, gridfsBucket,assignmentBucket;
 const connectDb = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGODB_URL);
     console.log(`MongoDB Connected at : ${conn.connection.host}`);
+    //for teacher images assignment uploads
     gridfsBucket = new GridFSBucket(conn.connection.db, {
       bucketName: "uploads", // Collection name for GridFS
     });
+    //for assignment
+    assignmentBucket = new GridFSBucket(conn.connection.db, {
+      bucketName: "assignment", // Bucket for assignment ZIP files
+    });
+
     // gfs = Grid(conn.connection.db, mongoose.mongo);
     // gfs.collection("uploads");
     console.log("GridFS - Bucket initialized.");
@@ -18,4 +24,4 @@ const connectDb = async () => {
   }
 };
 
-export { connectDb, mongoose, gfs, gridfsBucket };
+export { connectDb, mongoose, gfs, gridfsBucket,assignmentBucket };
