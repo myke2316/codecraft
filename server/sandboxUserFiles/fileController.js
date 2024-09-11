@@ -1,48 +1,58 @@
-import { gfs, upload } from "./gridFs.js";
-import File from "./fileModel.js";
+import mongoose from "mongoose";
+import File from "./fileModel.js";  // Import the File model
+import { sandboxUpload } from "./gridFs.js";  // Import the GridFS storage configuration
 
-
-// Controller function for handling file uploads
-export const uploadFiles = (req, res) => {
-  // Use multer middleware to handle file uploads
-  upload.array("files")(req, res, async (err) => {
-    if (err) {
-      return res.status(500).json({ message: "Error uploading files", error: err.message });
+export const uploadFile = async (req, res) => {
+  try {
+    // Ensure a file was uploaded
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded." });
     }
 
-    try {
-      // Access uploaded files
-      const files = req.files;
-      const userId = req.body.userId; // Get userId from the request body
+    // Determine the file type
+    const fileType = determineFileType(req.file.mimetype, req.file.originalname);
 
-      const imagePromises = files.map(async (file) => {
-        const newFile = new File({
-          name: file.originalname,
-          content: file.id, // Store the GridFS file ID
-          user: userId,
-        });
-        await newFile.save();
-      });
+    // Save the file metadata to the File model
+    const file = new File({
+      name: req.file.filename,
+      user: mongoose.Types.ObjectId(req.user._id), // Assuming req.user._id contains the user ID
+      type: fileType,
+    });
 
-      await Promise.all(imagePromises);
-      res.status(200).json({ message: "Files uploaded successfully", files });
-    } catch (error) {
-        console.log(error)
-      console.error("Error saving file metadata:", error);
-      res.status(500).json({ message: "Failed to save file metadata" });
-    }
-  });
+    await file.save(); // Save the file metadata in MongoDB
+
+    res.status(201).json({
+      message: "File uploaded successfully",
+      file: {
+        id: file._id,
+        name: file.name,
+        type: file.type,
+      },
+    });
+  } catch (err) {
+    console.error("Error uploading file:", err);
+    res.status(500).json({ error: "Error uploading file.", details: err.message });
+  }
 };
 
-// Controller function to fetch files
-export const getFile = (req, res) => {
-  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-    if (!file || file.length === 0) {
-      return res.status(404).json({ message: "No file found" });
-    }
+// Helper function to determine file type
+const determineFileType = (mimetype, filename) => {
+  // Image types: png, jpg, jpeg, gif, bmp, etc.
+  if (mimetype.startsWith("image/") || /\.(png|jpg|jpeg|gif|bmp|svg)$/i.test(filename)) {
+    return "image";
+  }
 
-    // Read file from GridFS
-    const readstream = gfs.createReadStream(file.filename);
-    readstream.pipe(res);
-  });
+  // Check for text files (.txt)
+  if (mimetype === "text/plain" || /\.(txt)$/i.test(filename)) {
+    return "text";
+  }
+
+  // Check for code files (.html, .css, .js)
+  const extension = filename.split(".").pop().toLowerCase();
+  if (["html", "css", "js"].includes(extension)) {
+    return "code";
+  }
+
+  // Default to text if no other types match
+  return "text";
 };

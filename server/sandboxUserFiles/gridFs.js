@@ -6,6 +6,7 @@ import {
   gfs,
   gridfsBucket,
   assignmentBucket,
+  sandboxBucket,
 } from "../config/database.js";
 // Import from the central database file
 
@@ -31,6 +32,17 @@ const assignmentStorage = new GridFsStorage({
 });
 const assignmentUpload = multer({ storage: assignmentStorage });
 
+const sandboxStorage = new GridFsStorage({
+  url: process.env.MONGODB_URL,
+  file: (req, file) => {
+    return {
+      bucketName: "sandbox", // Bucket for assignment ZIP files
+      filename: file.originalname,
+    };
+  },
+});
+const sandboxUpload = multer({ storage: sandboxStorage });
+
 //this is for teacher already
 const storage = new GridFsStorage({
   url: process.env.MONGODB_URL,
@@ -44,4 +56,12 @@ const storage = new GridFsStorage({
 
 const upload = multer({ storage });
 
-export { gfs, upload, gridfsBucket,assignmentBucket, assignmentUpload };
+export {
+  gfs,
+  upload,
+  gridfsBucket,
+  assignmentBucket,
+  assignmentUpload,
+  sandboxUpload,
+  sandboxBucket,
+};

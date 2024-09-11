@@ -78,7 +78,7 @@ function TeacherAssignmentGrade() {
   if (error) return <Typography>Error fetching submission</Typography>;
 
   // Check if the submission is already graded
-  const isGraded = submission?.submission?.graded !== undefined;
+  const isGraded = submission?.submission?.graded !== "pending";
 
   return (
     <Box p={3} component={Paper} elevation={3}>

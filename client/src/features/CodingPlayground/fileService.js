@@ -1,13 +1,16 @@
-import { FILES_URL } from "../../constants";
+import { SANDBOX_URL } from "../../constants";
 import { apiSlice } from "../apiSlice";
 
 export const fileService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     uploadFile: builder.mutation({
-      query: (data) => ({
-        url: `${FILES_URL}/upload`,
+      query: (formData) => ({
+        url: `${SANDBOX_URL}/upload`,
         method: "POST",
-        body:data
+        body: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       }),
     }),
   }),

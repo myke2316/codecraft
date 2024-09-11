@@ -17,8 +17,7 @@ import {
 } from "@mui/material";
 import { FaFileImport, FaFileExport, FaPlus } from "react-icons/fa";
 import { Save, ExpandLess, ExpandMore, PlayArrow } from "@mui/icons-material";
-import { useUploadFileMutation } from "./fileService";
-import { useSelector } from "react-redux";
+import { useUploadFileMutation } from "./fileService"; // Adjust import path as necessary
 
 const PlaygroundSidebar = ({ handleRunCode, handleFileClick }) => {
   const [files, setFiles] = useState(() => {
@@ -29,15 +28,11 @@ const PlaygroundSidebar = ({ handleRunCode, handleFileClick }) => {
   // For adding file
   const [showInput, setShowInput] = useState(false);
   const [newFileName, setNewFileName] = useState("");
-  const [uploadFile] = useUploadFileMutation(); // Hook for uploading files
+  const [fileToImport, setFileToImport] = useState(null); // For file import
 
-  function handleFileAdd() {
-    setShowInput(true);
-  }
+  const [uploadFile] = useUploadFileMutation(); // Hook for file upload
 
-  const userId = useSelector((state) => state.user.userDetails._id);
-
-  // Handle file creation and upload
+  // Handle file creation
   const handleCreateFile = async () => {
     if (
       newFileName.endsWith(".html") ||
@@ -47,35 +42,46 @@ const PlaygroundSidebar = ({ handleRunCode, handleFileClick }) => {
       if (files.includes(newFileName)) {
         alert("File already exists");
       } else {
-        try {
-          // Create a new Blob with empty content for the file
-          const fileBlob = new Blob([""], { type: "text/plain" });
-          const formData = new FormData();
-          formData.append("files", fileBlob, newFileName); 
-          formData.append("userId", userId); // Replace with actual user ID
-        
-          // Upload file using mutation
-          const response = await uploadFile(formData).unwrap();
+        // Create a new file with empty content
+        const file = new File([""], newFileName, { type: "text/plain" });
+        const formData = new FormData();
+        formData.append("file", file);
 
-          // Update file list and local storage
+        try {
+          await uploadFile(formData).unwrap(); // Unwrap to handle success or error
           setFiles((prevFiles) => {
             const updatedFiles = [...prevFiles, newFileName];
             localStorage.setItem("savedFiles", JSON.stringify(updatedFiles));
             return updatedFiles;
           });
-
-          // Reset input field and hide it
           setNewFileName("");
           setShowInput(false);
-          console.log("File uploaded successfully:", response);
         } catch (error) {
-          console.log(error)
-          console.error("Error uploading file:", error);
-          alert("Failed to upload file");
+          console.error("Error creating file:", error);
+          alert("Error creating file. Please try again.");
         }
       }
     } else {
       alert("File must be an .html, .css, or .js file");
+    }
+  };
+
+  // Handle file import
+  const handleFileImport = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      await uploadFile(formData).unwrap(); // Unwrap to handle success or error
+      setFiles((prevFiles) => [...prevFiles, file.name]);
+      localStorage.setItem("savedFiles", JSON.stringify([...files, file.name]));
+      setFileToImport(null); // Clear file input
+    } catch (error) {
+      console.error("Error importing file:", error);
+      alert("Error importing file. Please try again.");
     }
   };
 
@@ -112,12 +118,21 @@ const PlaygroundSidebar = ({ handleRunCode, handleFileClick }) => {
     >
       {/* Icons at the top */}
       <Box sx={{ display: "flex", justifyContent: "space-around", mb: 2 }}>
-        <IconButton color="primary">
-          <FaPlus title="Add File" onClick={handleFileAdd} />
+        <IconButton color="primary" onClick={() => setShowInput(true)}>
+          <FaPlus title="Add File" />
         </IconButton>
-        <IconButton color="primary">
-          <FaFileImport title="Import File" />
-        </IconButton>
+        <input
+          accept=".html,.css,.js,.txt,.png,.jpg,.jpeg,.gif,.bmp,.svg"
+          style={{ display: "none" }}
+          id="file-upload"
+          type="file"
+          onChange={handleFileImport}
+        />
+        <label htmlFor="file-upload">
+          <IconButton color="primary">
+            <FaFileImport title="Import File" />
+          </IconButton>
+        </label>
         <IconButton color="primary">
           <FaFileExport title="Export Files" />
         </IconButton>

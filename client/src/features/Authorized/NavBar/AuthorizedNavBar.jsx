@@ -84,6 +84,12 @@ function AuthorizedNavBar() {
           >
             QnA
           </li>
+          <li
+            onClick={() => navigate(`/playground/${userId}`)}
+            className="hover:text-blue-800 transition duration-300 cursor-pointer"
+          >
+            Playground
+          </li>
         </>
       ) : (
         userInfo.role === "teacher" &&

@@ -63,22 +63,22 @@ app.use("/analytics", analyticsRouter);
 app.use("/quizSubmission", quizSubmissionRouter);
 app.use("/activitySubmission", activitySubmissionRouter);
 app.use("/qna", questionRouter);
-app.use("/api/files", fileRoutes);
+app.use("/sandbox/files", fileRoutes);
 app.use("/api/announcement", announcementRouter);
 app.use("/api/assignment", assignmentRouter);
 app.use("/api/student-submit", submissionRouter)
 
 
 //for CODING ACTIVITY ===============================================================
-const executeCode = (jsCode, input) => {
-  try {
-    const script = new Script(jsCode);
-    const context = createContext({ input });
-    return script.runInContext(context);
-  } catch (error) {
-    return `Error: ${error.message}`;
-  }
-};
+// const executeCode = (jsCode, input) => {
+//   try {
+//     const script = new Script(jsCode);
+//     const context = createContext({ input });
+//     return script.runInContext(context);
+//   } catch (error) {
+//     return `Error: ${error.message}`;
+//   }
+// };
 function normalizeOutput(output) {
   // Implement normalization logic here
   return output.trim().replace(/\s+/g, "");
