@@ -20,13 +20,17 @@ function PlaygroundLayout() {
   const [activeFile, setActiveFile] = useState(null);
 
   const handleFileClick = (file) => {
-    // Add file to openTabs if not already present
-    if (!openTabs.includes(file)) {
+    // Check if a file with the same name already exists in openTabs
+    const fileExists = openTabs.some((tab) => tab.name === file.name);
+  
+    // Add file to openTabs if it's not already present
+    if (!fileExists) {
       setOpenTabs((prevTabs) => [...prevTabs, file]);
     }
+  
+    // Set the clicked file as the active file
     setActiveFile(file);
   };
-
   return (
     <Box sx={{ height: "calc(100vh - 64px - 64px)" }}>
       {/* Adjust height based on navbar and footer */}

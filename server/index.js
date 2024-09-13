@@ -20,7 +20,7 @@ import { spawn } from "child_process";
 import { Script, createContext } from "vm";
 import { questionRouter } from "./routes/QuestionRoutes/questionRoutes.js";
 import { outlinedInputClasses } from "@mui/material";
-import { fileRoutes } from "./sandboxUserFiles/fileRoute.js";
+
 import { announcementRouter } from "./routes/teacherFunction/announcementRoute.js";
 import { assignmentRouter } from "./routes/teacherFunction/teacherAssignmentRoutes.js";
 import { gfs } from "./sandboxUserFiles/gridFs.js";
@@ -63,7 +63,7 @@ app.use("/analytics", analyticsRouter);
 app.use("/quizSubmission", quizSubmissionRouter);
 app.use("/activitySubmission", activitySubmissionRouter);
 app.use("/qna", questionRouter);
-app.use("/sandbox/files", fileRoutes);
+
 app.use("/api/announcement", announcementRouter);
 app.use("/api/assignment", assignmentRouter);
 app.use("/api/student-submit", submissionRouter)

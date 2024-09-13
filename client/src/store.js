@@ -7,6 +7,7 @@ import studentCourseProgressSlice from "./features/Student/studentCourseProgress
 import userAnalyticsSlice from "./features/Student/userAnalyticsSlice";
 import quizSubmissionSlice from "./features/Course/Quiz/quizSubmissionSlice";
 import activitySubmissionSlice from "./features/Course/CodingActivity/activitySubmissionSlice";
+import sandboxSlice from "./features/CodingPlayground/sandboxSlice";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     userAnalytics: userAnalyticsSlice,
     userQuizSubmission: quizSubmissionSlice,
     userActivitySubmission: activitySubmissionSlice,
+    sandboxFiles: sandboxSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
