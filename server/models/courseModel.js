@@ -47,6 +47,7 @@ const TestCaseSchema = new mongoose.Schema(
     output: { type: String, required: true },
     required: [{ type: String, required: true }],
     isHidden: { type: Boolean, default: false },
+    testCaseSentences:[{ type: String, required: false }],
   },
   { _id: false }
 );

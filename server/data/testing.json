@@ -140,7 +140,11 @@
                   "input": "",
                   "output": "<!DOCTYPE html><html><head><title>My Page</title></head><body><h1>Welcome</h1></body></html>",
                   "required": ["<title>My Page</title>", "<h1>Welcome</h1>"],
-                  "isHidden": false
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Include a title called 'My Page'.",
+                    "Include a heading (h1) with the text 'Welcome'."
+                  ]
                 }
               ],
               "locked": true
@@ -165,7 +169,11 @@
                     "<p>This is a paragraph</p>",
                     "<img src='/cat.png'"
                   ],
-                  "isHidden": false
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Include a paragraph with the text 'This is a paragraph'.",
+                    "Include an image with the source '/cat.png'."
+                  ]
                 }
               ],
               "locked": true
@@ -190,7 +198,11 @@
                     "<h1>Check out this cat!</h1>",
                     "<img src='/cat.png' alt='cat'"
                   ],
-                  "isHidden": false
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Include a heading (h1) with the text 'Check out this cat!'.",
+                    "Include an image with the source '/cat.png' and the alt text containing 'cat'."
+                  ]
                 }
               ],
               "locked": true
