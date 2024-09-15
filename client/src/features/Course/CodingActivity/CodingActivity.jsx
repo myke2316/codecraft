@@ -13,6 +13,9 @@ import {
   DialogTitle,
   IconButton,
   Snackbar,
+  Tooltip,
+  Card,
+  CardContent,
 } from "@mui/material";
 
 import { Editor } from "@monaco-editor/react";
@@ -178,12 +181,14 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         const passed = result.passed;
         const totalPoints = Math.round(result.totalPoints);
         const timeTaken = timer;
+        const feedback = result.feedback;
         setSubmissionResult({
           passed,
           maxPoints,
           totalPoints,
           tries: activitySubmission.tries,
           timeTaken,
+          feedback,
         });
         console.log(result);
         console.log(`You got ${result.totalPoints} out of ${result.maxPoints}`);
@@ -283,7 +288,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
       const totalPoints = Math.round(result.totalPoints);
       const expectedOutput = result.expectedOutput;
       const userOutput = result.userOutput;
-      console.log(result);
+      const feedback = result.feedback;
 
       const decrementData = await decrementTries({
         userId,
@@ -300,6 +305,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         error: result?.error,
         expectedOutput,
         userOutput,
+        feedback,
       });
     } catch (error) {
       console.log(error);
@@ -417,14 +423,12 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
       }
     }
   };
-  console.log(submissionResult);
+  // console.log(submissionResult);
   if (!activity) {
     return <div>Loading...</div>;
   }
 
   return (
-
-
     <Box sx={{ flexGrow: 1, padding: "20px" }}>
       <Paper elevation={3} sx={{ padding: "20px", marginBottom: "20px" }}>
         <Typography variant="h5">
@@ -520,6 +524,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
           Submit
         </Button>
       </Paper>
+
       {/* Confirm Submission */}
       <Dialog open={openDialog} onClose={() => handleCloseDialog(false)}>
         <DialogTitle>Confirm Submission</DialogTitle>
@@ -538,6 +543,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
           </Button>
         </DialogActions>
       </Dialog>
+
       {/* Confirm Code Check */}
       <Dialog
         open={checkCodeDialogOpen}
@@ -565,8 +571,9 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
           </Button>
         </DialogActions>
       </Dialog>
+
       {/* Check Code Result */}
-      {/* <Dialog
+      <Dialog
         open={submissionResultDialogOpen}
         onClose={handleCloseSubmissionResultDialog}
       >
@@ -574,18 +581,60 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         <DialogContent>
           <DialogContentText>
             {submissionResult?.passed
-              ? "\nYour Score Passed"
+              ? "Your Score Passed"
               : "Kindly Double check your code"}
-            <br /> {submissionResult?.error ? "Error: " : null}
+            <br />
+            {submissionResult?.error ? "Error: " : null}
             {submissionResult?.error && submissionResult.error}
             <br />
             Score:{" "}
             {submissionResult?.totalPoints >= 0
-              ? submissionResult.totalPoints + "/" + submissionResult?.maxPoints
+              ? `${submissionResult.totalPoints}/${submissionResult?.maxPoints}`
               : submissionResult?.error && 0}
             <br />
-            Lives : {submissionResult?.tries - 1}
+            Lives: {submissionResult?.tries - 1}
+            <br />
+            {submissionResult?.expectedOutput && (
+              <>
+                <br />
+                <strong>Expected Output:</strong>
+                <pre>{submissionResult.expectedOutput}</pre>
+              </>
+            )}
+            {submissionResult?.userOutput && (
+              <>
+                <br />
+                <strong>User Output:</strong>
+                <pre>{submissionResult.userOutput}</pre>
+              </>
+            )}
           </DialogContentText>
+
+          {submissionResult?.feedback && (
+            <div className="mt-4">
+              <Typography variant="h6" className="mb-2">
+                Test Cases:
+              </Typography>
+              {submissionResult.feedback.map((testCase, index) => (
+                <Tooltip key={index} title={testCase.sentence}>
+                  <Card
+                    className="mb-2"
+                    style={{
+                      backgroundColor:
+                        testCase.status === "correct" ? "#d0f8ce" : "#ffd0d0",
+                    }}
+                  >
+                    <CardContent>
+                      <Typography variant="body2">
+                        Test Case {index + 1}:{" "}
+                        {testCase.status === "correct" ? "Passed" : "Failed"}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Tooltip>
+              ))}
+            </div>
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseSubmissionResultDialog} color="primary">
@@ -595,52 +644,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
             Submit
           </Button>
         </DialogActions>
-      </Dialog> */}
-        <Dialog
-  open={submissionResultDialogOpen}
-  onClose={handleCloseSubmissionResultDialog}
->
-  <DialogTitle>Check Code Result</DialogTitle>
-  <DialogContent>
-    <DialogContentText>
-      {submissionResult?.passed
-        ? "Your Score Passed"
-        : "Kindly Double check your code"}
-      <br />
-      {submissionResult?.error ? "Error: " : null}
-      {submissionResult?.error && submissionResult.error}
-      <br />
-      Score: {submissionResult?.totalPoints >= 0
-        ? `${submissionResult.totalPoints}/${submissionResult?.maxPoints}`
-        : submissionResult?.error && 0}
-      <br />
-      Lives: {submissionResult?.tries - 1}
-      <br />
-      {submissionResult?.expectedOutput && (
-        <>
-          <br />
-          <strong>Expected Output:</strong>
-          <pre>{submissionResult.expectedOutput}</pre>
-        </>
-      )}
-      {submissionResult?.userOutput && (
-        <>
-          <br />
-          <strong>User Output:</strong>
-          <pre>{submissionResult.userOutput}</pre>
-        </>
-      )}
-    </DialogContentText>
-  </DialogContent>
-  <DialogActions>
-    <Button onClick={handleCloseSubmissionResultDialog} color="primary">
-      Back
-    </Button>
-    <Button onClick={handleSubmitCode} color="primary">
-      Submit
-    </Button>
-  </DialogActions>
-</Dialog>
+      </Dialog>
 
       <Dialog
         open={finalResult}
@@ -669,6 +673,35 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
             <br />
             Tries Remaining: {submissionResult?.tries}
           </DialogContentText>
+
+          {submissionResult?.feedback && (
+            <div className="mt-4">
+              <Typography variant="h6" className="mb-2">
+                Test Cases:
+              </Typography>
+              {submissionResult.feedback.map((testCase, index) => (
+                <Tooltip
+                  key={index}
+                  title={<Typography>{testCase.sentence}</Typography>}
+                >
+                  <Card
+                    className="mb-2"
+                    style={{
+                      backgroundColor:
+                        testCase.status === "correct" ? "#d0f8ce" : "#ffd0d0",
+                    }}
+                  >
+                    <CardContent>
+                      <Typography variant="body2">
+                        Test Case {index + 1}:{" "}
+                        {testCase.status === "correct" ? "Passed" : "Failed"}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Tooltip>
+              ))}
+            </div>
+          )}
         </DialogContent>
         <DialogActions>
           <Button

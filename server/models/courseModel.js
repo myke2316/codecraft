@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-
-
 const DocumentSchema = new Schema({
   title: { type: String, required: true },
   content: [
@@ -47,7 +45,8 @@ const TestCaseSchema = new mongoose.Schema(
     output: { type: String, required: true },
     required: [{ type: String, required: true }],
     isHidden: { type: Boolean, default: false },
-    testCaseSentences:[{ type: String, required: false }],
+    testCaseSentences: [{ type: String, required: false }],
+    expectedImage: { type: String, required: false },
   },
   { _id: false }
 );

@@ -143,7 +143,7 @@ function DocumentContent() {
     setIsProcessing(true); // Disable the button
     setTimeout(() => {
       setIsProcessing(false); // Re-enable the button after 1.5 seconds
-    }, 1500);
+    }, 0);//set here for TIMER NEXT
     if (documentContent && currentIndex < documentContent.length - 1) {
       const newIndex = currentIndex + 1;
       setCurrentIndex(newIndex);

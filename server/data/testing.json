@@ -144,7 +144,7 @@
                   "testCaseSentences": [
                     "Include a title called 'My Page'.",
                     "Include a heading (h1) with the text 'Welcome'."
-                  ]
+                  ],"expectedImage":"/cat.png"
                 }
               ],
               "locked": true

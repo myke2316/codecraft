@@ -29,12 +29,16 @@ const PlaygroundCompiler = ({
   useEffect(() => {
     if (runCode) {
       const iframe = document.getElementById("output");
-      const htmlCode =
-        files.find((file) => file.name === "index.html")?.content || "";
-      const cssCode =
-        files.find((file) => file.name === "styles.css")?.content || "";
-      const jsCode =
-        files.find((file) => file.name === "script.js")?.content || "";
+
+         let htmlCode = files.find((file) => file.name.endsWith(".html"))?.content || "";
+    const cssCode = files.find((file) => file.name.endsWith(".css"))?.content || "";
+    const jsCode = files.find((file) => file.name.endsWith(".js"))?.content || "";
+      // const htmlCode =
+      //   files.find((file) => file.name === "index.html")?.content || "";
+      // const cssCode =
+      //   files.find((file) => file.name === "styles.css")?.content || "";
+      // const jsCode =
+      //   files.find((file) => file.name === "script.js")?.content || "";
 
       // Create a mapping of file names to Blob URLs for images
       const blobUrlMap = files.reduce((map, file) => {
@@ -76,7 +80,10 @@ const PlaygroundCompiler = ({
 
   const closeTab = (fileName) => {
     if (openTabs.length > 1) {
-      dispatch(removeFile({ fileName }));
+      // Update openTabs to remove the selected tab
+      setOpenTabs(openTabs.filter((tab) => tab.name !== fileName));
+
+      // If the active file is being closed, set a new active file
       if (activeFile.name === fileName) {
         const newActiveFile = openTabs.find((tab) => tab.name !== fileName);
         setActiveFile(newActiveFile || null);

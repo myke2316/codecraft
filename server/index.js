@@ -222,6 +222,7 @@ const jsNormalizeCodeWeb = (code) => {
 };
 //function or api to call to handle the submit for coding activity and check student coede
 //working
+
 app.post("/submit/html", (req, res) => {
   const { htmlCode, cssCode, jsCode, activity } = req.body;
 
@@ -254,6 +255,7 @@ app.post("/submit/html", (req, res) => {
 
   // Track total points awarded
   let totalAwardedPoints = 0;
+  let feedback = []; // Collect feedback for each test case
 
   for (const testCase of testCases) {
     let htmlContent = htmlCode;
@@ -274,28 +276,33 @@ app.post("/submit/html", (req, res) => {
 
     const codeUser = htmlNormalizeCode(htmlContent);
 
-    console.log("=================");
-    console.log(codeUser);
-
     let points = 0;
     let currentIndex = 0;
     let correctCount = 0;
 
-    for (const requirement of testCase.required) {
+    // Iterate over each requirement
+    for (let i = 0; i < testCase.required.length; i++) {
+      const requirement = testCase.required[i];
+      const testCaseSentence = testCase.testCaseSentences[i]; // Corresponding test case sentence
       const normalizedRequirement = htmlNormalizeCode(requirement);
-      const index = codeUser.indexOf(normalizedRequirement, currentIndex);
-
-      if (index !== -1) {
+    
+      if (codeUser.includes(normalizedRequirement)) {
         correctCount += 1;
         points += 1;
-        currentIndex = index + normalizedRequirement.length;
-        console.log(
-          normalizedRequirement + " : TAMA ITO : current score : " + points
-        );
+        feedback.push({
+          index: i,
+          sentence: testCaseSentence,
+          status: 'correct',
+        });
+     
+        console.log(feedback)
       } else {
-        console.log(
-          normalizedRequirement + " : mali ito : current score : " + points
-        );
+        feedback.push({
+          index: i,
+          sentence: testCaseSentence,
+          status: 'incorrect',
+        });
+        console.log(feedback)
       }
     }
 
@@ -319,8 +326,10 @@ app.post("/submit/html", (req, res) => {
     htmlCode,
     jsCode,
     cssCode,
+    feedback, // Include feedback in the response
   });
 });
+
 //working
 app.post("/submit/css", (req, res) => {
   const { htmlCode, cssCode, jsCode, activity } = req.body;
@@ -350,6 +359,7 @@ app.post("/submit/css", (req, res) => {
 
   // Track total points awarded
   let totalAwardedPoints = 0;
+  let feedback = []; // Collect feedback for each test case
 
   for (const testCase of testCases) {
     let htmlContent = htmlCode;
@@ -375,17 +385,30 @@ app.post("/submit/css", (req, res) => {
 
     let correctCount = 0;
 
-    for (const requirement of testCase.required) {
+    // Iterate over each requirement
+    for (let i = 0; i < testCase.required.length; i++) {
+      const requirement = testCase.required[i];
+      const testCaseSentence = testCase.testCaseSentences[i]; // Corresponding test case sentence
       const normalizedRequirement = cssNormalizeCode(requirement);
 
       if (codeUser.includes(normalizedRequirement)) {
         correctCount += 1;
+        feedback.push({
+          index: i,
+          sentence: testCaseSentence,
+          status: 'correct',
+        });
         console.log(
           normalizedRequirement +
             " : TAMA ITO : correct count : " +
             correctCount
         );
       } else {
+        feedback.push({
+          index: i,
+          sentence: testCaseSentence,
+          status: 'incorrect',
+        });
         console.log(
           normalizedRequirement +
             " : mali ito : correct count : " +
@@ -406,8 +429,10 @@ app.post("/submit/css", (req, res) => {
     totalPoints: totalAwardedPoints,
     passed,
     maxPoints: pointsForDifficulty,
+    feedback, // Include feedback in the response
   });
 });
+
 //working
 app.post("/submit/javascriptweb", (req, res) => {
   const { jsCode, activity } = req.body;

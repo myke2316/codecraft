@@ -3,7 +3,7 @@ import Home from "./ui/Home";
 import AppLayout from "./ui/AppLayout";
 import Course from "./pages/Course";
 import About from "./pages/About";
-
+import "./index.css";
 import Login from "./features/LoginRegister/Login";
 import SignUp from "./features/LoginRegister/SignUp";
 import ResetPassword from "./features/LoginRegister/ResetPassword";
