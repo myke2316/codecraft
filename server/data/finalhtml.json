@@ -1,0 +1,3336 @@
+{
+  "courses": [
+    {
+      "title": "HTML",
+      "lessons": [
+        {
+          "title": "Lesson 1: Introduction to HTML",
+          "documents": [
+            {
+              "title": "What is HTML?",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "HTML (HyperText Markup Language) is used to structure and format the content of websites on the World Wide Web. Web Developers use it to create a skeleton of modern websites and web apps."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Let's see what HyperText Markup Language means."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HyperText"
+                },
+                {
+                  "type": "sentence",
+                  "text": "HyperText is a way of organizing text that allows the reader to easily navigate and access related information. It takes the reader to a different part of the same web page, or to a different web page altogether."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Markup language"
+                },
+                {
+                  "type": "sentence",
+                  "text": "A markup language is a computer language that is used to add structure and formatting to a text document. Markup languages use a system of tags to define the structure and content of a document. These tags are interpreted by a program or application to display the document in a specific way."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Example of HTML"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Let's see a simple example of HTML."
+                },
+
+                {
+                  "type": "snippet",
+                  "code": "<!DOCTYPE html>\n<html>\n<head>\n<title>CodeCraft</title>\n</head>\n<body>\n<h1>HTML Tutorial</h1>\n<p>You'll learn about HTML.</p>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above program,"
+                },
+                {
+                  "type": "sentence",
+                  "text": "•<pre>!DOCTYPE html</pre>  - defines that this document is an HTML document"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <pre>html</pre> - root element of an HTML page which encloses all other elements in the HTML page"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <pre>head</pre> - contains information about the page, such as the title and metadata"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <pre>title</pre> - specifies a title for the HTML page which is shown in the browser's title bar"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <pre>body</pre> - defines the main content of the page and is a container for all the visible contents, such as headings, paragraphs, lists, etc"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <pre>h1</pre> - defines a heading"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <pre>p</pre> - defines a paragraph of HTML document"
+                }
+              ],
+              "locked": false
+            },
+            {
+              "title": "HTML Structure",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "HTML documents have a structure that includes elements such as doctype, html, head, and body tags."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The doctype declaration defines the document type."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The html element is the root element of an HTML page."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The head element contains meta-information about the HTML document."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The body element contains the visible page content."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p>This is a paragraph.</p>"
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Basic HTML Tags",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Learn about basic HTML tags like <pre>p</pre>, <pre>a</pre>, <pre>div</pre>, and more."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The p tag defines a paragraph."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The a tag defines a hyperlink."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <pre>div</pre> tag defines a division or a section in an HTML document."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<div>\n<p>This is a paragraph.</p>\n<a href=\"https://www.example.com\">This is a link</a>\n</div>"
+                }
+              ],
+              "locked": true
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What does HTML stand for?",
+              "options": [
+                "HyperText Making Language",
+                "HyperText Marking Language",
+                "HyperText Markup Listing",
+                "HyperText Markup Language"
+              ],
+              "correctAnswer": "HyperText Markup Language",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What is the purpose of HTML?",
+              "options": [
+                "To style web pages",
+                "To structure and format the content of websites",
+                "To add interactive features to web pages",
+                "To store data in a database"
+              ],
+              "correctAnswer": "To structure and format the content of websites",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What does the <p> tag define?",
+              "options": ["A link", "A heading", "A paragraph", "A division"],
+              "correctAnswer": "A paragraph",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which tag is used to define the main content of the HTML page?",
+              "options": ["<html>", "<head>", "<title>", "<body>"],
+              "correctAnswer": "<body>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What does the <!DOCTYPE html> declaration do?",
+              "options": [
+                "Defines a heading",
+                "Defines a paragraph",
+                "Defines that the document is an HTML document",
+                "Defines a link"
+              ],
+              "correctAnswer": "Defines that the document is an HTML document",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which tag contains information about the HTML page, such as the title and metadata?",
+              "options": ["<body>", "<title>", "<html>", "<head>"],
+              "correctAnswer": "<head>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which tag defines a hyperlink?",
+              "options": ["<p>", "<a>", "<div>", "<span>"],
+              "correctAnswer": "<a>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What is the root element of an HTML page?",
+              "options": ["<head>", "<body>", "<html>", "<title>"],
+              "correctAnswer": "<html>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What does the <div> tag define?",
+              "options": [
+                "A paragraph",
+                "A heading",
+                "A link",
+                "A division or section"
+              ],
+              "correctAnswer": "A division or section",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which of the following is a correct HTML tag for creating a paragraph?",
+              "options": ["<paragraph>", "<p>", "<para>", "<pg>"],
+              "correctAnswer": "<p>",
+              "points": 1,
+              "locked": true
+            }
+          ],
+          "activities": [
+            {
+              "title": "Basic HTML Structure",
+              "description": "Create a simple HTML page with a title and a heading.",
+              "language": "HTML",
+              "difficulty": "easy",
+              "problemStatement": "Build an HTML page with a title 'CodeCraft' and a heading(h1) 'HTML Tutorial'.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html\n<html>\n<head>\n<title>title</title>\n</head>\n<body>\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head><title>CodeCraft</title></head><body><h1>HTML Tutorial</h1></body></html>",
+                  "required": [
+                    "<title>CodeCraft</title>",
+                    "<h1>HTML Tutorial</h1>"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Include a title called 'CodeCraft'.",
+                    "Include a heading (h1) with the text 'HTML Tutorial'."
+                  ],
+                  "expectedImage": "/activities/htmlacts/1.1.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },
+            {
+              "title": "Add Paragraph and Link",
+              "description": "Enhance your HTML page by adding a paragraph and a link.",
+              "language": "HTML",
+              "difficulty": "medium",
+              "problemStatement": "Include a paragraph and a hyperlink to 'https://codecrafts.online' in your HTML page.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html\n<html>\n<head>\n<title>CodeCraft</title>\n</head>\n<body>\n<h1>HTML Tutorial</h1>\n\n\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head><title>CodeCraft</title></head><body><h1>HTML Tutorial</h1><p>This is a paragraph.</p><a href=\"https://codecrafts.online\">This is a link</a></body></html>",
+                  "required": [
+                    "<p>This is a paragraph</p>",
+                    "<a href=\"https://codecrafts.online\">This is a link</a>"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Include a paragraph: 'This is a paragraph'",
+                    "Include a hyperlink that links to 'https://codecrafts.online' with a text of 'This is a link'"
+                  ],
+                  "expectedImage": "/activities/htmlacts/1.2.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },
+            {
+              "title": "Basic HTML Structure",
+              "description": "Create a simple webpage using basic HTML tags and attributes.",
+              "language": "HTML",
+              "difficulty": "easy",
+              "problemStatement": "Create a basic HTML page with:\n1. A <h1> heading that says 'Welcome to CodeCraft'.\n2. A paragraph describing CodeCraft: 'CodeCraft is an online learning platform'.\n3. An image with the 'src' attribute pointing to '/cat.png' and an 'alt' attribute that says 'Cat Picture'.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n</head>\n<body>\n\n\n\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head><title>Basic HTML Structure</title></head><body><h1>Welcome to CodeCraft</h1><p>CodeCraft is an online learning platfor.</p><img src=\"/cat.png\" alt=\"Cat Picture\"></body></html>",
+                  "required": [
+                    "<h1>Welcome to CodeCraft</h1>",
+                    "<p>CodeCraft is an online learning platform</p>",
+                    "<img src=\"/cat.png\" alt=\"Cat Picture\""
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Include a h1 tag with the correct text.",
+                    "Include a paragraph with the correct description.",
+                    "Include an image with the correct src and alt attributes."
+                  ],
+                  "expectedImage": "/activities/htmlacts/1.3.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            }
+          ],
+          "totalPoints": 0,
+          "locked": false
+        },
+        {
+          "title": "Lesson 2: HTML Basics",
+          "documents": [
+            {
+              "title": "HTML Paragraphs",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "The HTML <code>p<code> tag is used to create paragraphs. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p>HTML is fun to learn.</p>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "As we can see, a paragraph starts with the <code>p<code> and ends with the <code>/p<code> tag."
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML paragraphs always start on a new line. To demonstrate this, let's create a webpage with two paragraphs."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p>Paragraph 1: Short Paragraph</p>\n<p>Paragraph 2: Long Paragraph, this is a long paragraph with more text to fill an entire line in the website.</p>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The above HTML code contains two paragraphs. And each paragraph starts on a new line even though there is sufficient space after the first paragraph."
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML Paragraphs and Spaces"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Paragraphs automatically remove extra spaces and lines from our text. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p>\nThe paragraph tag removes all extra spaces.\n\nThe paragraph tag also removes all extra lines.\n</p>"
+                },
+
+                {
+                  "type": "sentence",
+                  "text": "We can use the HTML line break tag, <code>br<code>, to add line breaks within our paragraphs. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p>We can use the <br> HTML br tag <br> to add a line break.</p>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: The <code>br<code> tag does not need a closing tag like the <p> tag."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Pre-formatted Text in HTML"
+                },
+                {
+                  "type": "sentence",
+                  "text": "As we have discussed, paragraphs cannot preserve extra lines and space. If we need to create content that uses multiple spaces and lines, we can use the HTML <code>pre<code> tag."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <code>pre<code> tag creates preformatted text. Preformatted texts are displayed as written in the HTML file. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<pre>\n  This text\n    will be \n      displayed\n\n      in the same manner \n        as it is written\n</pre>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Other Elements Inside Paragraphs"
+                },
+                {
+                  "type": "sentence",
+                  "text": "It's possible to include one HTML element inside another. This is also true for <code>p<code> tags. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p>\nWe can use other tags like <strong>the strong tag to emphasize text</strong>\n</p>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, we have used the <code>strong<code> tag inside the <code>p<code> tag. Browsers automatically make the contents inside <code>strong<code> tags bold."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Paragraph is Block-level: The <code>p<code> tag is a block-level element. It starts on a new line and takes up the full width (of its parent element)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: Keep note of which elements are inline-level and which are block-level. It will be important later when we learn CSS."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Add Extra Space Inside Paragraphs"
+                },
+                {
+                  "type": "sentence",
+                  "text": "As discussed earlier, we cannot normally add extra empty spaces inside paragraphs. However, we can use a certain HTML entity called non-breaking space to add extra spaces. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p>Extra space &nbsp;&nbsp; inside a paragraph</p>"
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "HTML Headings",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "The HTML heading tags (<code>h1 to h6<code>) are used to add headings to a webpage. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<h1>This is heading 1.</h1>\n<h2>This is heading 2.</h2>\n<h3>This is heading 3.</h3>\n<h4>This is heading 4.</h4>\n<h5>This is heading 5.</h5>\n<h6>This is heading 6.</h6>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the example, we have used tags <code>h1 to h6<code> to create headings of varying sizes and importance."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <code>h1<code> tag denotes the most important heading on a webpage. Similarly, <code>h6<code> denotes the least important heading."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The difference in sizes of heading tags comes from the browser's default styling. And, you can always change the styling of heading tags, including font size, using CSS."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: Do not use heading tags to create large texts. It's because search engines like Google use heading tags to understand what a page is about."
+                },
+                {
+                  "type": "sentence",
+                  "text": "h1 Tag is Important"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTML h1 tag defines the most important heading in a webpage."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Although it's possible to include multiple h1 tags in a webpage, the general practice is to use a single h1 tag (usually at the beginning of the page)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The h1 tag is also important for SEO. Search engines (such as Google) treat content inside h1 with greater importance compared to other tags."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Headings are block-level elements"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The Headings h1 to h6 tags are block-level elements. They start on a new line and take up the full width of their parent element. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<h1>Headings</h1> <h2>are</h2> <h3>fun!</h3>"
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "HTML Table",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "The HTML table tag (<code>table<code>) is used to represent data in a structured way by creating a table. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<table border=\"1\" >\n  <tr>\n    <th>Name</th>\n    <th>Age</th>  \n    <th>Country</th>\n  </tr>\n  <tr>\n    <td>Harry Depp</td>\n    <td>28</td>\n    <td>Britain</td>\n  </tr>\n  <tr>\n    <td>John Smith</td>\n    <td>35</td>\n    <td>USA</td>\n  </tr>\n  <tr>\n    <td>Ram Krishna</td>\n    <td>19</td>\n    <td>Nepal</td>\n  </tr>\n</table>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, you can see we have used multiple tags to create a table in HTML."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <code>table<code>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <code>tr<code>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <code>td<code>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <code>th<code>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Table tag <code>table<code> in HTML"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <code>table<code> tag is used to define a table. For example,"
+                },
+                {
+                  "type": "snippet",
+                  "code": "<table>\n  ….\n<table>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Table Row <code>tr<code> in HTML"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <code>tr<code> tag is used to define a row in a table. For example,"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<table>\n<tr>\n  ...\n</tr>\n</table>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The table row can include either table heading, <code>th<code> or table data, <code>td<code>."
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<table><tr>\n  <th>Name</th>\n  <th>Country</th>\n</tr>\n<tr>\n  <td>Prasanna</td>\n  <td>Nepal</td>\n</tr>\n<tr>\n  <td>Simon</td>\n  <td>USA</td>\n</tr></table>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In a table, there can be any number of rows."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Table Heading, <code>th<code> in HTML"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <code>th</code> tag is used to define a table header. It is generally the top row of the table. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<table>\n  <tr>\n    <th>Item</th>\n    <th>Count</th>\n  </tr>\n  <tr>\n    <td>Mango</td>\n    <td>125</td>\n  </tr>\n  <tr>\n    <td>Orange</td>\n    <td>75</td>\n  </tr>\n</table>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, Item and Count are table headers and they are used to represent the category of data in a particular row."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, the styling of the table headers is bold and center-aligned. This is because the <code>th<code> tag has some default styling."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Table Cell <code>td<code> in HTML"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <code>td<code> tag is used to define table cells (data). The table cells store data to be displayed in the table. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<tr>\n  <td>Apple</td>\n  <td>Mango</td>\n  <td>Orange</td>\n</tr>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, Apple, Mango, and Orange are table cells."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Table cells are generally inside the table row or table headers."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Table Border"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Remember we have used the border attribute in our first example."
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<table border=\"1\">\n  ...\n</table>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In HTML, the border attribute is used to add a border to a table and all the cells."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: We can have borders of various styles in tables, however for more specific borders, we need to use CSS."
+                },
+
+                {
+                  "type": "snippet",
+
+                  "code": "<table border=\"1\" style=\"border-collapse: collapse;\">\n  ...\n</table>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Table Head, Body, and Footer"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTML table can be divided into three parts: a header, a body, and a footer."
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. Table Header"
+                },
+                {
+                  "type": "sentence",
+                  "text": "We use the <code>thead<code> tag to add a table head. The <code>thead<code> tag must come before any other tags inside a table. For example,"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<table>\n  <thead>\n    <tr>\n        <th>Head1</th>\n        <th>Head2</th>\n    </tr>\n  </thead>\n\n  ...\n  ...\n</table>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The content of <code>thead<code> is placed on the top part of the table and we usually place the rows with table headers inside the <code>thead<code> tag."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. Table Body"
+                },
+                {
+                  "type": "sentence",
+                  "text": "We use the <code>tbody<code> tag to add a table body. The <code>tbody<code> tag must come after <code>thead<code> and before any other tags inside a table. For example,"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<table>\n  <thead>\n    ...\n  </thead>\n  <tbody>\n    <tr>\n      <td>Cell 1</td>\n      <td>Cell 2</td>\n    </tr>\n  </tbody>\n\n  ...\n  ...\n</table>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The content of <code>tbody<code> is placed on the center part of the table and we usually place the rows with the content we want to represent in the <code>tbody<code>."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. Table Footer"
+                },
+                {
+                  "type": "sentence",
+                  "text": "We use the <code>tfoot<code> tag to add a table footer. The tfoot tag must come after tbody and before any other tags inside a table. For example,"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<table>\n  <thead>\n    ...\n  </thead>\n  <tbody>\n    ,,,,\n  </tbody>\n  <tfoot>\n    <tr>\n      <td>foot 1</td>\n      <td>foot 2</td>\n    </tr>\n  </tfoot>\n</table>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The content of tbody is placed on the bottom part of the table and we usually place the rows with the footer in the <tfoot>."
+                },
+                {
+                  "type": "sentence",
+                  "text": "All these tags must be placed inside a <code>table<code> and must contain at least one <code>tr<code>. For example,"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Example: HTML Table Head, Body, and Footer"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<table>\n  <thead>\n    <tr>\n      <th>S.N</th>\n      <th>Item</th>\n      <th>Quantity</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>1</td>\n      <td>Apple</td>\n      <td>2</td>\n    </tr>\n    <tr>\n      <td>2</td>\n      <td>Mango</td>\n      <td>2</td>\n    </tr>\n    <tr>\n      <td>3</td>\n      <td>Orange</td>\n      <td>1</td>\n    </tr>\n  </tbody>\n  <tfoot>\n    <tr>\n      <td></td>\n      <td>Total</td>\n      <td>5</td>\n    </tr>\n  </tfoot>\n</table>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Colspan and Rowspan"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Colspan"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The colspan attribute merges cells across multiple columns. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<table>\n  <tr>\n    <th>S.N</th>\n    <th>Item</th>\n    <th>Quantity</th>\n  </tr>\n  <tr>\n    <td>1</td>\n    <td>Apple</td>\n    <td>2</td>\n  </tr>\n  <tr>\n    <td>2</td>\n    <td>Mango</td>\n    <td>2</td>\n  </tr>\n  <tr>\n    <td>3</td>\n    <td>Orange</td>\n    <td>1</td>\n  </tr>\n  <tr>\n    <td colspan=\"2\">Total</td>\n    <td>5</td>\n  </tr>\n</table>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, you can see that the last row only has 2 cells with one cell occupying 2 columns."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The value of the colspan attribute determines how many columns the cell occupies."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Rowspan"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The rowspan attribute merges cells across multiple rows. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<table>\n  <tr>\n    <th>Name</th>\n    <th>Subject</th>\n    <th>Marks</th>\n  </tr>\n  <tr>\n    <td rowspan=\"3\">Mark Smith</td>\n    <td>English</td>\n    <td>67</td>\n  </tr>\n  <tr>\n    <td>Maths</td>\n    <td>82</td>\n  </tr>\n  <tr>\n    <td>Science</td>\n    <td>91</td>\n  </tr>\n</table>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, you can see that the first column only has 2 cells with one cell occupying 2 rows."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The value of the rowspan attribute determines how many rows the cell occupies."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "HTML Lists",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "HTML lists are used to display related information in an easy-to-read and concise way as lists."
+                },
+                {
+                  "type": "sentence",
+                  "text": "We can use three types of lists to represent different types of data in HTML:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. Unordered List <code>ul<code>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. Ordered List <code>ol<code>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Unordered List"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The unordered list is used to represent data in a list for which the order of items does not matter."
+                },
+                {
+                  "type": "sentence",
+                  "text": "In HTML, we use the <code>ul</code> tag to create unordered lists. Each item of the list must be a <code>li</code> tag which represents list items. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<ul>\n  <li>Apple</li>\n  <li>Orange</li>\n  <li>Mango</li>\n</ul>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, Apple, Orange, and Mango are the list items."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Ordered List"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The ordered list is used to represent data in a list for which the order of items has significance."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <code>ol</code> tag is used to create ordered lists. Similar to unordered lists, each item in the ordered list must be a <code>li</code> tag. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<ol>\n  <li>Ready</li>\n  <li>Set</li>\n  <li>Go</li>\n</ol>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, you can see list items are represented with numbers to represent a certain order."
+                },
+
+                {
+                  "type": "sentence",
+                  "text": "Tags used in HTML lists"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Tag Explanation"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<code>ol</code> - Defines an ordered list."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<code>ul</code> - Defines an unordered list."
+                },
+
+                {
+                  "type": "sentence",
+                  "text": "<code>liul</code> - Defines a list item in ordered or unordered lists."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "HTML Unordered List",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "We use the HTML unordered list to define a list where the sequence or order of the list items doesn't matter. We can use an unordered list for keeping track of groceries, supplies, and random objects."
+                },
+                {
+                  "type": "sentence",
+                  "text": "In HTML, we use the <code>ul</code> tag to create an unordered list. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<ul>\n  <li>Apple</li>\n  <li>Mango</li>\n  <li>Orange</li>\n  <li>Banana</li>\n</ul>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Each item of the list is enclosed inside the <code>li</code> tag and they are represented by the dot bullet point symbol."
+                },
+                {
+                  "type": "sentence",
+                  "text": "By default, the symbol to represent an unordered list in HTML is a dot bullet point, however, we can change them as per our choice."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Nesting Lists"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In HTML, we can create a nested list by adding one list inside another. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<ul>\n  <li>\n    Coffee\n    <ul>\n      <li>Cappuccino</li>\n      <li>Americano</li>\n      <li>Espresso</li>\n    </ul>\n  </li>\n  <li>\n    Tea\n    <ul>\n      <li>Milk Tea</li>\n      <li>Black Tea</li>\n    </ul>\n  </li>\n  <li>Milk</li>\n</ul>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Ordered List inside Unordered List"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Similarly, we can also mix list types while nesting and add ordered lists inside the unordered list. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<ul>\n  <li>\n    Coffee\n    <ol>\n      <li>Cappuccino</li>\n      <li>Americano</li>\n      <li>Espresso</li>\n    </ol>\n  </li>\n  <li>\n    Tea\n    <ol>\n      <li>Milk Tea</li>\n      <li>Black Tea</li>\n    </ol>\n  </li>\n  <li>Milk</li>\n</ul>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Multi-level Nesting of Unordered List"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In our examples, we are nesting the list up to a single level, however, we can also nest lists up to multiple levels. This might be important while creating lists like a Table of Content. For example,"
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "HTML Ordered List",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "We use the HTML ordered list to define a list where the sequence or order of the list items is important. We can use the HTML ordered list for recipes, algorithms, top ten lists, and so on."
+                },
+                {
+                  "type": "sentence",
+                  "text": "We use the <code>ol</code> tag to create an ordered list. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<ol>\n  <li>Name</li>\n  <li>Address</li>\n  <li>Phone Number</li>\n</ol>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Each item of the list is enclosed inside the <code>li</code> tag and they are numbered by decimal numbers."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "HTML Horizontal Line",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "The HTML Horizontal rule tag, <code>hr</code>, is used to insert a horizontal line between paragraphs. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p>First Paragraph</p>\n<hr>\n<p>Second Paragraph</p>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <code>hr</code> tag is an empty tag, meaning it doesn't require a closing tag."
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML horizontal line to separate Page sections"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <code>hr</code> tag is used to apply a thematic break in HTML. It is used when there is a change of topic or to specify separation between content. Commonly, a <code>hr</code> tag is used between sections in an article. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<h2>Physics</h2>\n<p>Physics is the natural science that studies matter, its fundamental constituents, its motion and behavior through space and time, and the related entities of energy and force. </p>\n<hr>\n<h2>Chemistry</h2>\n<p>Chemistry is the branch of science that deals with the properties, composition, and structure of elements and compounds, how they can change, and the energy that is released or absorbed when they change.</p>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "As you can see, we use the <code>hr</code> tag to separate sections of a tutorial."
+                }
+              ],
+              "locked": true
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What does the HTML <p> tag create?",
+              "options": ["A heading", "A list item", "A paragraph", "A table"],
+              "correctAnswer": "A paragraph",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "How can you add a line break within a paragraph in HTML?",
+              "options": [
+                "Using the <hr> tag",
+                "Using the <break> tag",
+                "Using the <br> tag",
+                "Using the <newline> tag"
+              ],
+              "correctAnswer": "Using the <br> tag",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which HTML tag denotes the most important heading on a webpage?",
+              "options": ["<h1>", "<h2>", "<h3>", "<h6>"],
+              "correctAnswer": "<h1>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Why should you avoid using heading tags for large texts?",
+              "options": [
+                "Because heading tags don’t support large fonts",
+                "Because search engines use heading tags to understand the page’s content",
+                "Because heading tags are inline elements",
+                "Because heading tags are only for styling purposes"
+              ],
+              "correctAnswer": "Because search engines use heading tags to understand the page’s content",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What is the purpose of HTML comments?",
+              "options": [
+                "To display notes on the webpage",
+                "To make code more readable and for documentation purposes",
+                "To execute code conditionally",
+                "To style HTML elements"
+              ],
+              "correctAnswer": "To make code more readable and for documentation purposes",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What happens if you place HTML elements inside comments?",
+              "options": [
+                "They will be displayed on the webpage",
+                "They will be executed as code",
+                "They will be ignored by the browser",
+                "They will cause a syntax error"
+              ],
+              "correctAnswer": "They will be ignored by the browser",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which HTML tag is used to define a table header?",
+              "options": ["<td>", "<tr>", "<th>", "<table>"],
+              "correctAnswer": "<th>",
+              "points": 1,
+              "locked": true
+            },
+
+            {
+              "question": "What is the purpose of the <tfoot> tag in an HTML table?",
+              "options": [
+                "To define the table header",
+                "To define the table body",
+                "To define the table footer",
+                "To add a border to the table"
+              ],
+              "correctAnswer": "To define the table footer",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What happens when you use the rowspan attribute in an HTML table?",
+              "options": [
+                "It merges cells across multiple columns",
+                "It merges cells across multiple rows",
+                "It styles the table",
+                "It adds a border to the table"
+              ],
+              "correctAnswer": "It merges cells across multiple rows",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which HTML tag is used to create an unordered list?",
+              "options": ["<ul>", "<ol>", "<dl>", "<li>"],
+              "correctAnswer": "<ul>",
+              "points": 1,
+              "locked": true
+            },
+
+            {
+              "question": "Which HTML tag is used to create an unordered list?",
+              "options": ["<ol>", "<ul>", "<dl>", "<li>"],
+              "correctAnswer": "<ul>",
+              "points": 1,
+              "locked": true
+            },
+
+            {
+              "question": "What HTML tag is used to create a nested list?",
+              "options": ["<li>", "<ul>", "<ol>", "<dl>"],
+              "correctAnswer": "<ul>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which HTML tag is used to create an ordered list?",
+              "options": ["<ol>", "<ul>", "<dl>", "<li>"],
+              "correctAnswer": "<ol>",
+              "points": 1,
+              "locked": true
+            },
+
+            {
+              "question": "Which HTML tag is used to create a line break?",
+              "options": ["<br>", "<hr>", "<p>", "<pre>"],
+              "correctAnswer": "<br>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What is the difference between <br> and <p> tags for creating line breaks?",
+              "options": [
+                "<br> adds a line break without extra space; <p> adds a new paragraph with space",
+                "<br> adds a new paragraph; <p> adds a line break",
+                "<br> is used for horizontal lines; <p> is used for line breaks",
+                "<br> adds extra space between lines; <p> does not"
+              ],
+              "correctAnswer": "<br> adds a line break without extra space; <p> adds a new paragraph with space",
+              "points": 1,
+              "locked": true
+            }
+          ],
+          "activities": [
+            {
+              "title": "Introduction to HTML Elements",
+              "description": "In this activity, you will practice using basic HTML elements to create a simple webpage. This includes headings, paragraphs, and lists.",
+              "language": "HTML",
+              "difficulty": "easy",
+              "problemStatement": "Create a webpage with the following elements:\n1. An h1 heading with the text 'My Simple Webpage'.\n2. Two paragraphs with the following texts:\n   - 'This is the first paragraph'\n   - 'This is the second paragraph'\n3. An unordered list with three items:\n   - 'Item 1'\n   - 'Item 2'\n   - 'Item 3'",
+              "codeEditor": {
+                "html": "<!DOCTYPE html\n<html>\n<head>\n<title>title</title>\n</head>\n<body>\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head><title>Basic HTML</title></head><body><h1>My Simple Webpage</h1><p>This is the first paragraph</p><p>This is the second paragraph</p><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul></body></html>",
+                  "required": [
+                    "<h1>My Simple Webpage</h1>",
+                    "<p>This is the first paragraph</p>",
+                    "<p>This is the second paragraph</p>",
+                    "<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Include an h1 tag with the text 'My Simple Webpage'.",
+                    "Include a paragraph with the text 'This is the first paragraph'.",
+                    "Include a second paragraph with the text 'This is the second paragraph'.",
+                    "Include an unordered list with three list items. 'Item 1', 'Item 2', and 'Item 3'."
+                  ],
+                  "expectedImage": "/activities/htmlacts/2.1.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },
+            {
+              "title": "HTML Nested Lists",
+              "description": "This activity focuses on creating nested unordered lists in HTML. You will create a webpage that displays a nested list of fruits and vegetables.",
+              "language": "HTML",
+              "difficulty": "medium",
+              "problemStatement": "Create a webpage with the following elements:\n1. A nested unordered list:\n   - A top-level list with two items: 'Fruits' and 'Vegetables'.\n   - 'Fruits' should have a nested list with 'Apple' and 'Banana'.\n   - 'Vegetables' should have a nested list with 'Carrot' and 'Broccoli'.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>title</title>\n</head>\n<body>\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head><title>HTML Nested Lists</title></head><body><h2>Nested List</h2><ul><li>Fruits<ul><li>Apple</li><li>Banana</li></ul></li><li>Vegetables<ul><li>Carrot</li><li>Broccoli</li></ul></li></ul></body></html>",
+                  "required": [
+                    "<h2>Nested List</h2>",
+                    "<ul><li>Fruits<ul><li>Apple</li><li>Banana</li></ul></li><li>Vegetables<ul><li>Carrot</li><li>Broccoli</li></ul></li></ul>"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Include a heading tag <h2> with the text 'Nested List'.",
+                    "Include a nested unordered list under 'Fruits' with two items: 'Apple' and 'Banana', and under 'Vegetables' with 'Carrot' and 'Broccoli'."
+                  ],
+                  "expectedImage": "/activities/htmlacts/2.2.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            }
+          ],
+
+          "totalPoints": 0,
+          "locked": true
+        },
+        {
+          "title": "Lesson 3: HTML Inline",
+          "documents": [
+            {
+              "title": "HTML Inline and Block Elements",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "HTML elements can be broadly categorized into one of two categories:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Inline Elements: <pre>span, a, strong, img<pre> etc."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Block Elements: <pre>p, div, h1, figure</pre> etc."
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML Inline Elements"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Inline elements are displayed on the same line. They do not start on a new line and take up only as much width as their contents require. An example of an inline element is the <code>span></code> tag."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p>This is how <span style=\"border: 1px solid black\">span</span> works. </p>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "If we have multiple span tags, they get placed on the same line. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p> The following spans will be inline; <span style=\"border: 1px solid black\">Span 1</span> and <span style=\"border: 1px solid black\">Span 2</span>.</p>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Some examples of inline elements are:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML <code>a</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML  <code>input</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML  <code>span</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Most HTML formatting tags are also inline. For example:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML  <code>em</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML  <code>strong</code> tag, etc"
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML Block Elements"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Block elements take up the whole horizontal space available in their container. They start on a new line and take up as much height as their contents require."
+                },
+                {
+                  "type": "sentence",
+                  "text": "An example of a block element is the HTML Paragraph Tag."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p style=\"border: 1px solid black\">This is how block elements work. </p>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "If we have multiple block elements, they will each take a <strong>separate line</strong>. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p style=\"border: 1px solid black\">Paragraphs are</p> <p style=\"border: 1px solid black\">Block Elements.</p>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Some frequently used block elements are:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML  <code>div</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML Headings <code>h1</code> - <h6>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML <code>p</code> tag, etc"
+                },
+                {
+                  "type": "sentence",
+                  "text": "CSS with HTML Inline and Block Elements"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Height and Width in Inline Elements"
+                },
+                {
+                  "type": "sentence",
+                  "text": "CSS properties height and width have no effect on inline elements."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p> The following span is an <span style=\"border: 1px solid black\">Inline Element.</span></p>\n<style>\n  span {\n    height: 200px;  /* No Effect on Element */\n    width: 200px;  /* No Effect on Element */\n  } \n</style>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Margins in Inline Elements"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Inline elements also do not have top and bottom margins; they only respect left and right margins."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "HTML Links",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "HTML links or hyperlinks connect one resource on the web to another. The resource may be an image, a web page, a program, a video clip, an audio clip, an element within a web page, etc, or anything that can be hosted on the internet."
+                },
+                {
+                  "type": "sentence",
+                  "text": "We use the HTML  <code>a</code> tag to create hyperlinks. The syntax for the  <code>a</code> tag is"
+                },
+                {
+                  "type": "snippet",
+                  "code": "<a href=\"URL\"> Text </a>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here,"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• URL - the destination of the link"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Text - the part that will be visible as a link"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Clicking on the text will navigate you to the resource in the URL. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<a href=\"https://codecrafts.online\"> Swift Continue Statement </a>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, clicking on the Swift Continue Statement will take you to"
+                },
+                {
+                  "type": "sentence",
+                  "text": "codecrafts.online"
+                },
+
+                {
+                  "type": "sentence",
+                  "text": "Image Links"
+                },
+                {
+                  "type": "sentence",
+                  "text": "You can insert almost any content inside a  <code>a</code> tag to make it a link. Hence, we can also use images as a link."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<a href=\"https://codecrafts.online\">\n\t<img src=\"/cat.png\" alt=\"Cat Logo\">\n</a>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "target Attribute"
+                },
+                {
+                  "type": "sentence",
+                  "text": "By default, any link clicked will open in the same browser window. This may lead to a bad user experience. This is where the target attribute becomes useful. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<a href=\"https://codecrafts.online\" target=\"_blank\">CodeCraft</a>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here,  <code>target=\"_blank\"</code> opens the link in a new browser tab."
+                },
+                {
+                  "type": "sentence",
+                  "text": "We use the target attribute to specify where the link is opened. The target attribute has 4 values."
+                },
+                {
+                  "type": "sentence",
+                  "text": "_self : (Default) Opens the link in the same browser tab."
+                },
+                {
+                  "type": "sentence",
+                  "text": "_blank : Opens the link in a new browser tab."
+                },
+                {
+                  "type": "sentence",
+                  "text": "_parent : Opens the link in the parent frame."
+                },
+                {
+                  "type": "sentence",
+                  "text": "_top : Opens the link in the current tab window (topmost parent)."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "HTML Images",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "The HTML  <code>img</code> tag embeds an image within the HTML web page. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<img src=\"/cat.png\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, the img tag inserts the image /cat.png on the webpage."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTML image tag has 2 important attributes:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• The src attribute"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• The alt attribute"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: The  <code>img</code> tag is an empty tag, i.e. It doesn't require a closing tag."
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML Image src Attribute"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The src attribute is a required attribute for the <code>img</code> tag. It specifies the path (URL) to the image and tells the browser where to look for the image. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<img src=\"/cat.png\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, the src attribute tells the browser to load the image from the same directory where the webpage is located."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Similarly, if the image is stored in a subdirectory, the path in the src attribute would be written as"
+                },
+                {
+                  "type": "snippet",
+                  "code": "<img src=\"images/tictactoe.png\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML Image alt Attribute"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The alt attribute is the text description of an image. The value of the alt attribute should describe the image so the content is meaningful even if the image fails to load."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<img src=\"computer.png\" alt=\"A standard Computer\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The alt attribute's contents are shown if the user cannot view the image (slow internet, wrong src attribute, or using a screen reader)."
+                },
+
+                {
+                  "type": "sentence",
+                  "text": "HTML Image title Attribute"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The title attribute displays information about the image when the user hovers over the image. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<img src=\"/cat.png\" alt=\"cat pics\" title=\"Cat\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML Image Size - Width and Height"
+                },
+                {
+                  "type": "sentence",
+                  "text": "We can use the style attribute to specify the height and width of an image. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<img src=\"/tictactoe.jpg\" alt=\"A game of tic-tac-toe\" style=\"width: 200px; height: 200px;\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Alternatively, we can also use the height and width attributes to set the height and width. For example,"
+                },
+                {
+                  "type": "snippet",
+                  "code": "<img src=\"/tictactoe.jpg\" alt=\"A game of tic-tac-toe\" width=\"200\" height=\"200\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "We should always set the height or width of images. Otherwise, when the image loads, the content on the webpage will be shifted."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: The above two code samples give the same output, however, it is best practice to use the style attribute rather than the height and width attributes."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Common Image Formats"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>GIF (Graphics Interchange Format) </strong>with the extension .gif"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>PNG (Portable Network Graphics)</strong> with the extension .png"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>SVG (Scalable Vector Graphics) </strong>with the extension .svg"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>JPEG (Joint Photographic Expert Group)</strong> with extensions .jpg or .jpeg"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>WEBP (Web Picture)</strong> with the extension .webp."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "HTML Bold",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "We use the HTML <code>b</code> tag or the HTML <code>strong</code> tag to make text bold. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<b>This text is bold.</b>\n<br>\n<strong>This text is also bold.</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML <code>b</code> vs <code>strong</code> Tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Both b and strong tags make the text inside them bold, and there is no difference in how browsers render these tags."
+                },
+                {
+                  "type": "sentence",
+                  "text": "However, the <code>strong</code> tag is a semantic tag that indicates the text content is of strong importance, seriousness, or urgency (for example, Warning! Falling rocks), whereas the <code>b</code> tag has no semantic meaning and only makes the text bold."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Hence, it is generally preferred to use the HTML <code>strong</code> tag."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: You can also use the CSS property font-weight to make the text bold."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "HTML Formatting",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "HTML provides us with several tags to help format text, such as <code>b</code> for bold, <code>i</code> for italic, and <code>u</code> for underlining. These tags are divided into two categories: Physical Tags and Semantic Tags."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Physical Tags: These tags are presentational. They don't add extra meaning to the text."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p> This text is <i>italic</i>.</p>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, the <code>i</code> tag is only for text styling and has no other meaning."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Semantic Tags: These tags add some special meaning to the text along with styling."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<p> This text is <em>emphasized</em>.</p>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, the <code>em</code> tag is used to emphasize text. Screen readers also emphasize text inside the <code>em</code> tag while reading."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: The formatting tags are mostly inline tags like <strong>b</strong>, <strong>u</strong>, <strong>i</strong>, etc., and are used for styling texts."
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML Formatting tags"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Below are listed the formatting tags available in the latest version of HTML."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <code>b</code> tag - Bold Text"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <code>i</code> tag - Italic Text"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <code>u</code> tag - Underlined Text"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <code>strong</code> tag - Strong Text"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <code>em</code> tag - Emphasized Text"
+                }
+              ],
+              "locked": true
+            }
+          ],
+          "quiz": [
+            {
+              "question": "Which of the following is an inline element?",
+              "options": ["<div>", "<p>", "<img>", "<h1>"],
+              "correctAnswer": "<img>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What is the primary characteristic of block elements?",
+              "options": [
+                "They start on a new line and take up the full width available.",
+                "They are displayed on the same line as other elements.",
+                "They cannot contain other elements.",
+                "They are only used for text formatting."
+              ],
+              "correctAnswer": "They start on a new line and take up the full width available.",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which CSS properties do not affect inline elements?",
+              "options": [
+                "height and width",
+                "padding and margin",
+                "color and background-color",
+                "font-size and line-height"
+              ],
+              "correctAnswer": "height and width",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which tag is used to create a hyperlink?",
+              "options": ["<link>", "<a>", "<href>", "<hyperlink>"],
+              "correctAnswer": "<a>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What does the alt attribute in an <img> tag do?",
+              "options": [
+                "Specifies the image source",
+                "Provides a text description of the image",
+                "Defines the width and height of the image",
+                "Specifies the image format"
+              ],
+              "correctAnswer": "Provides a text description of the image",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which of the following tags is used for text emphasis?",
+              "options": ["<b>", "<strong>", "<i>", "<em>"],
+              "correctAnswer": "<em>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "How do you link to an element with the id 'header' on the same page?",
+              "options": [
+                "<a href='#header'>Go to Header</a>",
+                "<a href='header'>Go to Header</a>",
+                "<a href='header.html'>Go to Header</a>",
+                "<a href='index.html#header'>Go to Header</a>"
+              ],
+              "correctAnswer": "<a href='#header'>Go to Header</a>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which attribute is used to specify the path of an image in an <img> tag?",
+              "options": ["src", "path", "url", "image"],
+              "correctAnswer": "src",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which HTML tag is used to create bold text with semantic meaning?",
+              "options": ["<b>", "<strong>", "<em>", "<mark>"],
+              "correctAnswer": "<strong>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which attribute in the <img> tag provides additional information when the image cannot be displayed?",
+              "options": ["src", "title", "alt", "data"],
+              "correctAnswer": "alt",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which attribute is used in HTML to define inline styles?",
+              "options": ["style", "class", "id", "css"],
+              "correctAnswer": "style",
+              "points": 1,
+              "locked": true
+            }
+          ],
+          "activities": [
+            {
+              "title": "Basic HTML Inline and Block Elements",
+              "description": "Learn to differentiate between inline and block elements in HTML by creating basic examples.",
+              "language": "HTML",
+              "difficulty": "easy",
+              "problemStatement": "Create a simple HTML page that includes the following elements:\n1. Add a block-level element using the <p> tag with the text 'This is a block element.' \n2. Add two inline elements using the <span> tag with the texts 'Inline element 1' and 'Inline element 2'. \n3. Add another block-level element using the <div> tag with the text 'Another block element.'",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n</head>\n<body>\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head></head><body><p>This is a block element.</p><span>Inline element 1</span><span>Inline element 2</span><div>Another block element.</div></body></html>",
+                  "required": [
+                    "<p>This is a block element.</p>",
+                    "<span>Inline element 1</span><span>Inline element 2</span>",
+                    "<div>Another block element.</div>"
+                  ],
+                  "testCaseSentences": [
+                    "Create a block element using p tag",
+                    "Create 2 Inline element using span tag",
+                    "Create another block element using div tag"
+                  ],
+                  "expectedImage": "/activities/htmlacts/3.1.png",
+                  "isHidden": false
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },
+            {
+              "title": "Advanced HTML Links and Images",
+              "description": "Utilize HTML links and images to create an interactive webpage. Incorporate various link types and image attributes to see their effects.",
+              "language": "HTML",
+              "difficulty": "hard",
+              "problemStatement": "Create an HTML page with the following elements:\n1. Add a link to an external website (opens up a new tab) using the <a> tag with the text 'Visit CodeCraft' and a link of 'https://www.codecraft.com'.\n2. Add an image('/cat.png') link using the <a> tag to link to an external site('https://www.codecraft.com'). Inside this link, include an <img> tag with a source (src) and alt text.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n</head>\n<body>\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head><style>.link { display: block; margin-bottom: 10px; } .img { width: 200px; height: 200px; border: 1px solid black; }</style></head><body><a href=\"https://www.codecraft.com\" target=\"_blank\">Visit CodeCraft</a><a href=\"https://www.codecraft.com\"><img src=\"/cat.png\" alt=\"CodeCraft Logo\"></a></body></html>",
+                  "required": [
+                    "<a href=\"https://www.codecraft.com\" target=\"_blank\">Visit CodeCraft</a>",
+                    "<a href=\"https://www.codecraft.com\"><img src=\"/cat.png\""
+                  ],
+                  "testCaseSentences": [
+                    "Include a hyperlink that redirects a new uset to the specified link and opens up a new page.",
+                    "Include an image link"
+                  ],
+                  "expectedImage": "/activities/htmlacts/3.3.png",
+                  "isHidden": false
+                }
+              ],
+              "locked": true,
+              "completed": false
+            }
+          ],
+          "totalPoints": 0,
+          "locked": true
+        },
+        {
+          "title": "Lesson 4: HTML Head",
+          "documents": [
+            {
+              "title": "HTML Head",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "The head section contains information about the HTML document like meta, links, styles, scripts, titles, etc."
+                },
+                {
+                  "type": "snippet",
+                  "code": "<head>\n  <title>HTML Head Article</title>\n</head>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The contents of the HTML head are not displayed in the browser when the document is loaded."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: The head and the body sections together make up the HTML document."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Elements of head Tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTML <code>head</code> tag can contain the following tags:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML <code>title</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML <code>meta</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML <code>link</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML <code>style</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML <code>script</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML <code>base</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML title tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTML title tag is used to define the title of the document, which is displayed in the browser's title bar. For example,"
+                },
+                {
+                  "type": "snippet",
+                  "code": "<head>\n  <title>My First Title</title>\n</head>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML meta tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTML meta tag is used to add metadata (information about data) about the document. Metadata includes information like character set, page description, author name, viewport settings, etc. For example,"
+                },
+                {
+                  "type": "snippet",
+                  "code": "<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"description\" content=\"HTML Tutorial\">\n  <meta name=\"keywords\" content=\"HTML, Learn, Tutorial\">\n  <meta name=\"author\" content=\"codecraft team\">\n</head>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML link tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTML link tag is used to specify the relation between the document and an external resource. For example,"
+                },
+                {
+                  "type": "snippet",
+                  "code": "<head>\n  <link href=\"/styles/index.css\" rel=\"stylesheet\">\n</head>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, the link tag lets us use CSS styling from index.css in our HTML page."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: It is mostly used to add stylesheets and favicons."
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML style tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTML style tag is used to add CSS rules to the document. For example,"
+                },
+                {
+                  "type": "snippet",
+                  "code": "<head>\n  <style>\n    h1 {\n      color: red;\n    }\n  </style>\n</head>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, h1 tags in the HTML will be styled with a red color."
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML script tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTML script tag is used to add JavaScript to the document. For example,"
+                },
+                {
+                  "type": "snippet",
+                  "code": "<head>\n  <script>\n    console.log('hi');\n  </script>\n</head>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, we are writing JavaScript code inside the script tag."
+                },
+                {
+                  "type": "sentence",
+                  "text": "We can also link HTML documents with external JavaScript files using the src attribute. For example,"
+                },
+                {
+                  "type": "snippet",
+                  "code": "<head>\n  <script src=\"scripts/main.js\">\n</head>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, using the <script> tag, we can add JavaScript features from main.js in our HTML document."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Complete Example"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Finally, let us look at what a head section of a real site might look like."
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<head>\n  <title>HTML Head Article</title>\n\n  <meta charset=\"UTF-8\">\n  <meta name=\"description\" content=\"HTML Tutorial\">\n  <meta name=\"keywords\" content=\"HTML, Learn, Tutorial\">\n  <meta name=\"author\" content=\"codecraft team\">\n\n  <base href=\"https://codecraft.com\" target=\"_blank\">\n\n  <link href=\"/styles/index.css\" rel=\"stylesheet\">\n\n  <script src=\"scripts/main.js\">\n</head>"
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "HTML Meta Elements",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "The HTML <code>meta</code> tag is used to represent metadata about the HTML document."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Metadata refers to the information about data (data about the HTML document). The metadata consists of information like charset attribute, name attribute, http-equiv attribute, etc."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <code>meta</code> tag should always go inside the <head> element. For example,"
+                },
+                {
+                  "type": "snippet",
+                  "code": "<head>\n  <meta charset=\"utf-8\" />\n</head>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, 'meta charset=\"utf-8\"' tells the browser to use the UTF-8 character encoding to convert machine code into human-readable code."
+                },
+                {
+                  "type": "snippet",
+                  "code": "<meta charset=\"UTF-8\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "It helps to display an HTML page correctly in the browser. UTF-8 is the only valid encoding for HTML5 documents."
+                }
+              ],
+              "locked": true
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What is the primary purpose of the HTML <head> section?",
+              "options": [
+                "To display the main content of the webpage",
+                "To store metadata and links to external resources",
+                "To define the body of the webpage",
+                "To add comments and notes for developers"
+              ],
+              "correctAnswer": "To store metadata and links to external resources",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which HTML tag is used to define the title of a document?",
+              "options": ["<meta>", "<link>", "<title>", "<style>"],
+              "correctAnswer": "<title>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Where is the content of the <title> tag displayed?",
+              "options": [
+                "In the body of the document",
+                "In the browser's title bar",
+                "As a header on the page",
+                "In the footer of the document"
+              ],
+              "correctAnswer": "In the browser's title bar",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which tag is used to add a CSS file to an HTML document?",
+              "options": ["<meta>", "<style>", "<link>", "<script>"],
+              "correctAnswer": "<link>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What is the purpose of the <meta charset=\"UTF-8\"> tag?",
+              "options": [
+                "To set the character encoding for the document",
+                "To describe the content of the document",
+                "To link an external stylesheet",
+                "To define a JavaScript function"
+              ],
+              "correctAnswer": "To set the character encoding for the document",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which attribute is used in the <link> tag to specify a stylesheet?",
+              "options": ["rel", "href", "type", "media"],
+              "correctAnswer": "href",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which HTML tag is used to add JavaScript to a document?",
+              "options": ["<script>", "<style>", "<link>", "<meta>"],
+              "correctAnswer": "<script>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What does the <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"> tag do?",
+              "options": [
+                "Sets the initial scale of the webpage",
+                "Defines the content description",
+                "Specifies the author's name",
+                "Controls the character encoding"
+              ],
+              "correctAnswer": "Sets the initial scale of the webpage",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which HTML tag is used to define the metadata about an HTML document?",
+              "options": ["<meta>", "<link>", "<title>", "<style>"],
+              "correctAnswer": "<meta>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What is the function of the <style> tag in HTML?",
+              "options": [
+                "To link external stylesheets",
+                "To add inline CSS styles",
+                "To define document metadata",
+                "To link JavaScript files"
+              ],
+              "correctAnswer": "To add inline CSS styles",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Where should the <meta> tag be placed in an HTML document?",
+              "options": [
+                "Inside the <body> section",
+                "Inside the <head> section",
+                "Outside the <html> tag",
+                "After the closing </html> tag"
+              ],
+              "correctAnswer": "Inside the <head> section",
+              "points": 1,
+              "locked": true
+            }
+          ],
+          "activities": [
+            {
+              "title": "Basic HTML Head Elements",
+              "description": "Learn about essential HTML <head> elements by creating a basic HTML document with a title and simple metadata.",
+              "language": "HTML",
+              "difficulty": "easy",
+              "problemStatement": "Create an HTML page that includes the following in the <head> section:\n1. Add a <title> tag with the text 'Basic HTML Head'.\n2. Include a <meta> tag with charset set to 'UTF-8'.\n3. Include a <style> tag with basic CSS to set the font color to blue( h1{color:blue;} )for all <h1> elements.\n4. Make sure to close all tags properly and include minimal content in the <body> to demonstrate the <head> content.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n</head>\n<body>\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head><title>Basic HTML Head</title><meta charset=\"UTF-8\"><style>h1 { color: blue; }</style></head><body><h1>Sample Heading</h1></body></html>",
+                  "required": [
+                    "<title>Basic HTML Head</title>",
+                    "<meta charset=\"UTF-8\"",
+                    "<style>h1 { color: blue; }</style>"
+                  ],
+                  "testCaseSentences": [
+                    "Include a title : Basic HTML Head",
+                    "Set the meta tag with the specified charset.",
+                    "Style all the h1 tags with color blue."
+                  ],
+                  "isHidden": false
+                }
+              ],
+              "locked": true,
+              "completed": false
+            }
+          ],
+          "totalPoints": 0,
+          "locked": true
+        },
+        {
+          "title": "Lesson 5: HTML Form",
+          "documents": [
+            {
+              "title": "HTML Form",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "An HTML Form is a section of the document that collects input from the user. The input from the user is generally sent to a server (Web servers, Mail clients, etc). We use the HTML <code>form</code> element to create forms in HTML."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Example: HTML Form"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTML <code>form</code> element is used to create HTML forms. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<form>\n    <label for='firstname'>First name: </label>\n    <input type='text' name='firstname' required>\n    <br>\n    <label for='lastname'>Last name: </label>\n    <input type='text' name='lastname' required>\n    <br>\n    <label for='email'>Email: </label>\n    <input type='email' name='email' required>\n    <br>\n    <label for='password'>Password: </label>\n    <input type='password' name='password' required>\n    <br>\n    <input type='submit' value='Login!'>\n</form>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML Form Elements"
+                },
+                {
+                  "type": "sentence",
+                  "text": "A form contains special interactive elements that users use to send the input. They are text inputs, textarea fields, checkboxes, dropdowns, and much more. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<form>\n    <label for='name'>Name:</label>\n    <input type='text' name='name'><br><br>\n    <label for='sex'>Sex:</label>\n    <input type='radio' name='sex' id='male' value='male'>\n    <label for='male'>Male</label>\n    <input type='radio' name='sex' id='female' value='female'>\n    <label for='female'>Female</label><br><br>\n    <label for='country'>Country: </label>\n    <select name='country' id='country'>\n        <option>Select an option</option>\n        <option value='nepal'>Nepal</option>\n        <option value='usa'>USA</option>\n        <option value='australia'>Australia</option>\n    </select><br><br>\n    <label for='message'>Message:</label><br>\n    <textarea name='message' id='message' cols='30' rows='4'></textarea><br><br>\n    <input type='checkbox' name='newsletter' id='newsletter'>\n    <label for='newsletter'>Subscribe?</label><br><br>\n    <input type='submit' value='Submit'>\n</form>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Form Attributes"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTML <code>form</code> element contains several attributes for controlling data submission. They are as follows:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "action"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The action attributes define the action to be performed when the form is submitted. It is usually the url for the server where the form data is to be sent."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<form action=\"/login\">\n    <label for=\"email\">Email:</label>\n    <input type=\"email\" name=\"email\"><br><br>\n    <label for=\"password\">Password:</label>\n    <input type=\"password\" name=\"password\"><br><br>\n    <input type=\"submit\" value=\"Submit\">\n</form>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, when the form is submitted, the data from the form is sent to /login."
+                },
+                {
+                  "type": "sentence",
+                  "text": "method"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The method attribute defines the HTTP method to be used when the form is submitted. There are 3 possible values for the method attribute:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• post - It is used to send data to a server to update a resource."
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<form method=\"post\">\n...\n</form>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• get: It is used to request data from a specified resource."
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<form method='get'>\n...\n</form>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• dialog: This method is used when the form is inside a <dialog> element. Using this method closes the dialog and sends a form-submit event."
+                },
+                {
+                  "type": "sentence",
+                  "text": "To learn more about HTTP methods GET and POST, visit HTML Form Action: POST and GET."
+                },
+                {
+                  "type": "sentence",
+                  "text": "It specifies how the form data should be encoded for the request. It is only applicable if we use the POST method."
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<form method=\"post\" enctype=\"application/x-www-form-urlencoded\">\n</form>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, data from the form will be encoded in the x-www-form-urlencoded format (which is the default encoding format)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "name"
+                },
+                {
+                  "type": "sentence",
+                  "text": "It specifies the name of the form. The name is used in Javascript to reference or access this form."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<form name=\"login_form\">\n    <label for=\"email\">Email:</label>\n    <input type=\"email\" name=\"email\"><br><br>\n    <label for=\"password\">Password:</label>\n    <input type=\"password\" name=\"password\"><br><br>\n    <input type=\"submit\" value=\"Submit\">\n</form>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "novalidate"
+                },
+                {
+                  "type": "sentence",
+                  "text": "If the novalidate attribute is set, all validations in the form elements are skipped."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<form novalidate>\n    <label for=\"email\">Enter your email:</label>\n    <input type=\"email\" id=\"email\" name=\"email\"><br><br>\n    <input type=\"submit\">\n</form>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, the form will be submitted even if we enter some invalid value in the email field, such as 'Hi'."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "HTML Form Elements",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "HTML form elements are used to store user input. There are different types of form elements such as the text box, check box, drop-down, submit button, etc. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<form>\n    <label for=\"name\">Name:</label>\n    <input type=\"text\" name=\"name\"><br><br>\n    <label for=\"sex\">Sex:</label>\n    <input type=\"radio\" name=\"sex\" id=\"male\" value=\"male\">\n    <label for=\"male\">Male</label>\n    <input type=\"radio\" name=\"sex\" id=\"female\" value=\"female\">\n    <label for=\"female\">Female</label> <br><br>\n    <input type=\"submit\" value=\"Submit\">\n</form>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, <code>input</code> and <code>label</code> are all HTML Form Elements."
+                },
+                {
+                  "type": "sentence",
+                  "text": "There are various HTML form elements for various input types. The form elements available in HTML5 are as follows:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML <code>input</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML <code>label</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML <code>button</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML <code>select</code> and <code>option</code> tags"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• HTML <code>textarea</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML <code>input</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTML <code>input</code> tag defines the field where the user can enter data. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<input type=\"text\" name=\"firstname\">"
+                },
+
+                {
+                  "type": "sentence",
+                  "text": "• <code>type</code> - determines the type of input the input tag takes"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <code>name</code> - specifies the name of the input"
+                },
+
+                {
+                  "type": "sentence",
+                  "text": "HTML <code>label</tag> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTML<code>label</code>tag is used to create a caption for a form element. The text inside the <code>label<code> tag is shown to the user."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<label for=\"firstname\">First Name</label>\n<input type=\"text\" name=\"firstname\" id=\"firstname\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <code>for</code> attribute is used to associate a label with the form element. The value for the for attribute is set as the id of the form element which is firstname in the above example."
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML Label is mainly used for accessibility as screen-readers read out the label associated with the field and it also improves user experience as clicking on the label also focuses on the input field."
+                },
+                {
+                  "type": "sentence",
+                  "text": "This is also greatly helpful in small screens as it makes it easier to perform actions like focusing on input, selecting a checkbox, selecting a radio box, etc."
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML <code>button</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTML <code>button</code> element is an interactive element that is activated by a user with a mouse, keyboard, finger, voice command, or other assistive technology."
+                },
+                {
+                  "type": "sentence",
+                  "text": "It performs a programmable action, such as submitting a form or opening a dialog when clicked. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<button type=\"button\">Click me</button>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The type attribute determines the action performed by clicking the button. It has 3 possible values:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• submit"
+                },
+                {
+                  "type": "sentence",
+                  "text": "If the value of type is submit, the button click action submits the form. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<form>\n    <label for=\"name\">Name:</label>\n    <input type=\"text\" name=\"name\"><br><br>\n    <button type=\"submit\">Submit</button>\n</form>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• reset"
+                },
+                {
+                  "type": "sentence",
+                  "text": "If the value of type is reset, the button click action resets the value of all form elements to their initial value. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<form>\n    <label for=\"name\">Name:</label>\n    <input type=\"text\" name=\"name\"><br><br>\n    <button type=\"reset\">Reset</button>\n</form>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• button"
+                },
+                {
+                  "type": "sentence",
+                  "text": "If the value of type is button, the button click action does not have a default function. Generally, javascript is used to add functionality to such buttons. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<button type=\"button\">Click me</button>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML <code>select</code>, <code>option</code> tags"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTML <code>select</code> tag is used to create a menu of options. Each of the options is represented by the <code>option</code> tag. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<label for=\"pets\">Pets:</label>\n<select id=\"pets\">\n    <option value=\"dog\">Dog</option>\n    <option value=\"cat\">Cat</option>\n</select>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTML <code>textarea</code> tag"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTML <code>textarea</code> tag is used to define a customizable multiline text input field. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<textarea rows=\"10\" cols=\"30\"> Type something…</textarea>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, the rows and cols attributes represent the rows and columns of the text field."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "HTML Input Tag",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "The HTML <code>input</code> tag defines the field where the user can enter data. The type attribute determines what type of user input is taken."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<input type=\"text\" name=\"firstname\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• type - determines the type of input the <input> tag takes"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• name - specifies the name of the input which is what the data is named as when submitting the data to a server."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Different Input Types"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The various types of input tags available in HTML5 are:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. text - creates a single-line text fields (default)"
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. button - creates a button with no default functionality"
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. checkbox - creates a checkbox"
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. color - creates a color picker"
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. date - creates a date picker"
+                },
+                {
+                  "type": "sentence",
+                  "text": "6. datetime-local - creates a date and time picker"
+                },
+                {
+                  "type": "sentence",
+                  "text": "7. email - creates an input field that allows the user to input a valid email address"
+                },
+                {
+                  "type": "sentence",
+                  "text": "8. file - creates an input field that lets the user upload a file or multiple files"
+                },
+                {
+                  "type": "sentence",
+                  "text": "9. hidden - creates an invisible input field"
+                },
+                {
+                  "type": "sentence",
+                  "text": "10. image - creates a button using an image"
+                },
+                {
+                  "type": "sentence",
+                  "text": "11. month - creates an input field that lets the user enter month and year"
+                },
+                {
+                  "type": "sentence",
+                  "text": "12. password - creates an input field that lets the user enter information securely"
+                },
+                {
+                  "type": "sentence",
+                  "text": "13. radio - creates a radio button"
+                },
+                {
+                  "type": "sentence",
+                  "text": "14. range - creates a range picker from which the user can select the value"
+                },
+                {
+                  "type": "sentence",
+                  "text": "15. reset - creates the button which clears all the form values to their default value"
+                },
+                {
+                  "type": "sentence",
+                  "text": "16. search - allows user to enter their search queries in the text fields"
+                },
+                {
+                  "type": "sentence",
+                  "text": "17. submit - allows user to submit form to the server"
+                },
+                {
+                  "type": "sentence",
+                  "text": "18. tel - defines the field to enter a telephone number"
+                },
+                {
+                  "type": "sentence",
+                  "text": "19. time - creates an input field that accepts time value"
+                },
+                {
+                  "type": "sentence",
+                  "text": "20. url - lets the user enter and edit a URL"
+                },
+                {
+                  "type": "sentence",
+                  "text": "21. week - lets the user pick a week and a year from a calendar"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. Input Type text"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type text is used to create single-line text fields. It is the default input type."
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<label for=\"name\">Search: </label>\n<input type=\"text\" id=\"name\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type text can also contain minlength, maxlength, and size attributes. For example,"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<label for=\"name\">Name</label>\n<input type=\"text\" id=\"name\" minlength=\"4\" maxlength=\"8\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the above example, values are only allowed between the length of 4 to 8 characters."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: If the type attribute is not provided, the tag becomes the type of text."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. Input Type button"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type button is used to create a button with no default functionality. For example,"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<input type=\"button\" value=\"Click Me!\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The text inside the value attribute is displayed in the button."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: Generally, JavaScript is used to add functionality to such buttons."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. Input Type checkbox"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type checkbox is used to create a checkbox input. For example,"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<input type=\"checkbox\" id=\"subscribe\" value=\"subscribe\">\n<label for=\"subscribe\">Subscribe to newsletter!</label><br>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The checkbox can be toggled between selected and not selected."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The value of the checkbox is included in the form data only if the checkbox is selected and is omitted if the checkbox is not selected."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. Input Type color"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type color is used to create an input field that lets the user pick a color. For example,"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<input type=\"color\" id=\"background\">\n<label for=\"background\">Background Color</label>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The color picker is inbuilt into the browser. Users can also manually enter the hex code of the color instead. The UI for the color picker differs from browser to browser."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. Input Type date"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type date is used to create an input field that lets the user input a date using the date picker interface from the browser. For example,"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<label for=\"birthday\">Birthday:</label>\n<input type=\"date\" id=\"birthday\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "6. Input Type datetime-local"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type datetime-local is used to create an input field that lets the user pick a date and time using a date-time-picker from the browser. The time selected from the input does not include information about the timezone. For example,"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<label for=\"meeting-time\">Choose a time for your appointment:</label>\n<input type=\"datetime-local\" id=\"meeting-time\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "7. Input Type email"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type email is used to create an input field that allows the user to input a valid email address."
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<label for=\"email\">Enter your email:</label>\n<input type=\"email\" id=\"email\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "This input field throws an error if the value provided is not a valid email. For example,"
+                },
+                {
+                  "type": "sentence",
+                  "text": "8. Input Type file"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type file is used to create an input field that lets the user upload a file or multiple files from their device. For example,"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<input type=\"file\" name=\"file\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "9. Input Type hidden"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type hidden is used to create an invisible input field. This is used to supply additional value to the server from the form that cannot be seen or modified by the user. For example,"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<input type=\"hidden\" name=\"id\" value=\"123\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "10. Input Type image"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type image is used to create a button using an image."
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "<input type=\"image\" src=\"/submit.png\" alt=\"submit\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Let's see an example of how we can use it in a form."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<form>\n  <label for=\"firstname\">First name: </label>\n  <input type=\"text\" id=\"firstname\" name=\"firstname\"><br><br>\n  <label for=\"lastname\">Last name: </label>\n  <input type=\"text\" id=\"lastname\" name=\"lastname\"><br><br>\n  <input type=\"image\" src=\"/submit.png\" alt=\"submit\">\n</form>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "11. Input Type month"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type month is used to create an input field that lets the user enter month and year using a visual interface from the browser. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<label for=\"start\">Select Month:</label>\n<input type=\"month\" id=\"start\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "12. Input Type password"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type password is used to create an input field that lets the user enter information securely. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<label for=\"password\">Password:</label>\n<input type=\"password\" id=\"password\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The browser displays all the characters the user types using an asterisk (*)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "13. Input Type radio"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type radio is used to define a radio button. Radio buttons are defined in a group. Radio buttons let users pick one option out of a group of options."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<form>\n  <input type=\"radio\" id=\"cat\" name=\"animal\" value=\"cat\">\n  <label for=\"cat\">cat</label>\n  <input type=\"radio\" id=\"dog\" name=\"animal\" value=\"dog\">\n  <label for=\"dog\">dog</label>\n</form>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "From the above example, we can see that all the radio buttons share the same name attribute. It allows the user to select exactly one option from the group of radio buttons."
+                },
+                {
+                  "type": "sentence",
+                  "text": "When submitting the form data, the key for the input will be the name attribute, and the value will be the radio button selected."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: The name attribute is used as the key for the data when submitting the form."
+                },
+                {
+                  "type": "sentence",
+                  "text": "14. Input Type range"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type range is used to create a range picker from which the user can select the value. User can select a value from the range given. It has a default range from 0 to 100. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<label for=\"range\">Select value: </label>\n<input type=\"range\" id=\"range\" value=\"90\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "15. Input Type reset"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type reset defines the button which clears all the form values to their default value. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<form>\n   <label for=\"name\">Name:</label>\n   <input id=\"name\" type=\"text\"><br>\n   <input type=\"reset\" value=\"Reset\">\n</form>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "16. Input Type search"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type search allows user to enter their search queries in the text fields. It is similar to input type text. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<label for=\"search\">Search: </label>\n<input type=\"search\" id=\"search\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: The search input does not work as a search unless we use some JavaScript to do the search calculation."
+                },
+                {
+                  "type": "sentence",
+                  "text": "17. Input Type submit"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type submit is used when the user submits the form to the server. It is rendered as a button. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<input type=\"submit\" value=\"submit\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, The text provided in the value attribute of the input is shown in the button."
+                },
+                {
+                  "type": "sentence",
+                  "text": "18. Input Type tel"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type tel is used to define the field to enter a telephone number. The telephone number is not automatically validated to a particular format as telephone formats differ across the world. It has an attribute named pattern used to validate the entered value. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<label for=\"phone\">Phone Number:</label>\n<input type=\"tel\" id=\"phone\" pattern=\"[0-9]{3}-[0-9]{2}-[0-9]{3}\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The pattern in the above example allows numbers in the format XXX-XX-XXX where X is a number between 0 and 9."
+                },
+                {
+                  "type": "sentence",
+                  "text": "19. Input Type time"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type time attribute creates an input field that accepts time value. It allows users to add time in hours, minutes, and seconds easily. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<label for=\"time\">Select Time:</label>\n<input type=\"time\" id=\"time\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "20. Input Type url"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type url is used to let the user enter and edit a URL. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<label for=\"url\">URL:</label>\n<input type=\"url\" id=\"url\" placeholder=\"https://example.com\" pattern=\"https://.*\">"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, placeholder is a hint that specifies the expected value of an input field, and the pattern defines what type of value is accepted. The above pattern means that only text beginning with https:// will be valid."
+                },
+                {
+                  "type": "sentence",
+                  "text": "21. Input Type week"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The input type week lets the user pick a week and a year from a calendar. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<label for=\"week\">Week</label>\n<input type=\"week\" id=\"week\">"
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "HTML Form Action: POST and GET",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "The method attribute in the <code>form</code> element specifies how the data is sent to the server."
+                },
+                {
+                  "type": "sentence",
+                  "text": "HTTP methods declare what action is to be performed on the data that is submitted to the server. HTTP Protocol provides several methods, and the HTML Form element is able to use two methods to send user data:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• GET method - used to request data from a specified resource"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• POST method - used to send data to a server to update a resource"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The GET Method"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTML GET method is used to get a resource from the server. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<form method=\"get\" action=\"www.codecraft.com/search\">\n    <input type=\"search\" name=\"location\" placeholder=\"Search..\" />\n    <input type=\"submit\" value=\"Go\" />\n</form>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "When we submit the above form by entering California in the input field, the request sent to the server will be www.codecraft.com/search/?location=California."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTTP GET method adds a query string at the end of the URL to send data to the server. The query string is in the form of a key-value pair followed by the ? symbol."
+                },
+                {
+                  "type": "sentence",
+                  "text": "From the URL, the server can parse the user-submitted value where:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• key - location"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• value - California"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Note: If there is more than one query, the query string will be separated by a & symbol."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The POST Method"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The HTTP POST method is used to send data to the server for further processing. For example,"
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "code": "<form method=\"post\" action=\"www.codecraft.com/user\">\n    <label for=\"firstname\">First name:</label>\n    <input type=\"text\" name=\"firstname\" /><br />\n    <label for=\"lastname\">Last name:</label>\n    <input type=\"text\" name=\"lastname\" /><br />\n    <input type=\"submit\" />\n</form>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "When we submit the form, it will add the user input data to the body of the request sent to the server. The request would look like"
+                },
+                {
+                  "type": "snippet",
+                  "code": "POST /user HTTP/2.0\nHost: www.codecraft.com\nContent-Type: application/x-www-form-urlencoded\nContent-Length: 33\n\nfirstname=Robin&lastname=Williams"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The data sent is not easily visible to the user. However, we can check the sent data using special tools like the browsers' dev tools."
+                },
+                {
+                  "type": "sentence",
+                  "text": "GET and POST are two commonly used HTTP methods for sending data to a server. Here's a comparison between the two:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "GET"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Data sent with the GET method is visible in the URL."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• GET requests can be bookmarked."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• GET requests can be cached."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• GET requests have a character limit of 2048 characters."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Only ASCII characters are allowed in GET requests."
+                },
+                {
+                  "type": "sentence",
+                  "text": "POST"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Data sent with the POST method is not visible."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• POST requests can't be bookmarked."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• POST requests can't be cached."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• POST requests do not have a character limit."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• All data is allowed in POST requests."
+                }
+              ],
+              "locked": true
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What element is used to create a form in HTML?",
+              "options": ["<form>", "<input>", "<label>", "<button>"],
+              "correctAnswer": "<form>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which attribute of the <form> element specifies the URL to which the form data will be sent?",
+              "options": ["method", "action", "target", "enctype"],
+              "correctAnswer": "action",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What is the purpose of the 'method' attribute in the <form> element?",
+              "options": [
+                "To specify how the form data should be encoded",
+                "To define the HTTP method used to submit the form",
+                "To specify where to display the response",
+                "To set the name of the form"
+              ],
+              "correctAnswer": "To define the HTTP method used to submit the form",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which <input> type is used to create a checkbox?",
+              "options": ["text", "checkbox", "radio", "submit"],
+              "correctAnswer": "checkbox",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What does the 'novalidate' attribute do in a <form> element?",
+              "options": [
+                "Skips all form validation",
+                "Specifies where to display the response",
+                "Defines the action to be performed",
+                "Specifies how form data should be encoded"
+              ],
+              "correctAnswer": "Skips all form validation",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which input type allows the user to select a color?",
+              "options": ["color", "date", "email", "file"],
+              "correctAnswer": "color",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What is the difference between the 'GET' and 'POST' methods in HTML forms?",
+              "options": [
+                "GET sends data in the URL, POST sends data in the request body",
+                "GET is used for submitting data, POST is used for requesting data",
+                "GET does not allow data to be cached, POST does",
+                "GET requests can be bookmarked, POST requests cannot"
+              ],
+              "correctAnswer": "GET sends data in the URL, POST sends data in the request body",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "Which element is used to create a drop-down menu in a form?",
+              "options": ["<input>", "<select>", "<button>", "<textarea>"],
+              "correctAnswer": "<select>",
+              "points": 1,
+              "locked": true
+            },
+            {
+              "question": "What attribute of the <input> element defines the type of input?",
+              "options": ["name", "type", "value", "id"],
+              "correctAnswer": "type",
+              "points": 1,
+              "locked": true
+            }
+          ],
+          "activities": [
+            {
+              "title": "Basic Contact Form",
+              "description": "Create a simple contact form that collects the user's name and email address.",
+              "language": "HTML",
+              "difficulty": "easy",
+              "problemStatement": "Build a contact form with the following specifications:\n1. Include a field for the user's name with type of text, id='name', name ='name', and it must be required.\n2. Include a field for the user's email address with type of email, id='email', name ='email', and it must be required.\n3. Both fields should be required to submit the form.\n4. Ensure the form includes a submit button.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n</head>\n<body>\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<form><label for='name'>Name: </label><input type='text' id='name' name='name' required><br><label for='email'>Email: </label><input type='email' id='email' name='email' required><br><input type='submit' value='Submit'></form>",
+                  "required": [
+                    "<form>",
+                    "<label for='name'>Name: </label>",
+                    "<input type='text' id='name' name='name' required",
+
+                    "<label for='email'>Email: </label>",
+                    "<input type='email' id='email' name='email' required",
+
+                    "<input type='submit'>",
+                    "</form>"
+                  ],
+                  "testCaseSentences": [
+                    "Include a form tag",
+                    "Add a label for the name input",
+                    "A input field for name",
+                    "Label for email",
+                    "A input field for email",
+                    "A input field for submit",
+                    "Closing form tag"
+                  ],
+                  "expectedImage": "/activities/htmlacts/5.1.png",
+                  "isHidden": false
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },
+            {
+              "title": "Newsletter Signup Form",
+              "description": "Create a simple newsletter signup form with fields for name and email, and a submit button.",
+              "language": "HTML",
+              "difficulty": "easy",
+              "problemStatement": "Build a basic newsletter signup form with the following specifications:\n1. Include a field for the user's name.\n2. Include a field for the user's email.\n3. Ensure both fields are required for form submission.\n4. Add a submit button labeled 'Subscribe'.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n</head>\n<body>\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<form><label for='name'>Name: </label><input type='text' id='name' name='name' required><br><label for='email'>Email: </label><input type='email' id='email' name='email' required><br><input type='submit' value='Subscribe'></form>",
+                  "required": [
+                    "<form>",
+                    "<label for='name'>Name: </label>",
+                    "<input type='text' id='name' name='name' required>",
+                    "<label for='email'>Email: </label>",
+                    "<input type='email' id='email' name='email' required>",
+                    "<input type='submit' value='Subscribe'>",
+                    "</form>"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "The form should include a <form> element.",
+                    "The form should include a label with the text 'Name:' and an input field for the user's name.",
+                    "The input field for the user's name should have the 'required' attribute.",
+                    "The form should include a label with the text 'Email:' and an input field for the user's email.",
+                    "The input field for the user's email should have the 'required' attribute.",
+                    "The form should include a submit button labeled 'Subscribe'.",
+                    "The form element should close properly."
+                  ],
+                  "expectedImage": "/activities/htmlacts/5.2.png"
+                }
+              ],
+
+              "locked": false,
+              "completed": false
+            },
+            {
+              "title": "Simple Registration Form",
+              "description": "Create a basic registration form that includes fields for name, email, and gender selection using radio buttons.",
+              "language": "HTML",
+              "difficulty": "hard",
+              "problemStatement": "Build a simple registration form with the following specifications:\n1. Include a field for the user's name.\n2. Include a field for the user's email.\n3. Include radio buttons for gender selection with options 'Male' and 'Female'.\n4. Ensure all fields are required for form submission.\n5. Add a submit button labeled 'Register'.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n</head>\n<body>\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<form><label for='name'>Name: </label><input type='text' id='name' name='name' required><br><label for='email'>Email: </label><input type='email' id='email' name='email' required><br><label>Gender:</label><input type='radio' id='male' name='gender' value='male' required><label for='male'>Male</label><input type='radio' id='female' name='gender' value='female' required><label for='female'>Female</label><br><input type='submit' value='Register'></form>",
+                  "required": [
+                    "<form>",
+                    "<label for='name'>Name: </label>",
+                    "<input type='text' id='name' name='name' required>",
+                    "<label for='email'>Email: </label>",
+                    "<input type='email' id='email' name='email' required>",
+                    "<label>Gender:</label>",
+                    "<input type='radio' id='male' name='gender' value='male' required>",
+                    "<label for='male'>Male</label>",
+                    "<input type='radio' id='female' name='gender' value='female' required>",
+                    "<label for='female'>Female</label>",
+                    "<input type='submit' value='Register'>",
+                    "</form>"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "The form should include a <form> element to enclose all input fields.",
+                    "The form should include a label with the text 'Name:' and a corresponding input field for the user's name.",
+                    "The form should include an input field for the user's name, with the 'required' attribute.",
+                    "The form should include a label with the text 'Email:' and a corresponding input field for the user's email.",
+                    "The form should include an input field for the user's email, with the 'required' attribute.",
+                    "The form should include a label for gender selection with radio buttons.",
+                    "The form should include a radio button input field for selecting the male gender, with a 'required' attribute.",
+                    "The form should include a label for the male gender selection option.",
+                    "The form should include a radio button input field for selecting the female gender, with a 'required' attribute.",
+                    "The form should include a label for the female gender selection option.",
+                    "The form should include a submit button labeled 'Register'.",
+                    "The form element should close properly."
+                  ],
+                  "expectedImage": "/activities/htmlacts/5.3.png"
+                }
+              ],
+
+              "locked": false,
+              "completed": false
+            }
+          ],
+          "totalPoints": 0,
+          "locked": true
+        }
+      ],
+      "locked": false
+    }
+  ]
+}

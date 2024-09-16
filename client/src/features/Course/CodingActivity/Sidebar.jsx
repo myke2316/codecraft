@@ -114,7 +114,7 @@ export default function Sidebar({ courseId, lessonId, userProgress }) {
   );
 
   const testCases = selectedActivity?.testCases || [];
-
+  
   return (
     <div
       style={{
@@ -126,6 +126,7 @@ export default function Sidebar({ courseId, lessonId, userProgress }) {
         borderRight: "1px solid #e5e7eb",
       }}
     >
+      
       <Typography variant="h4" gutterBottom>
         {selectedLesson?.title} Activities:
       </Typography>

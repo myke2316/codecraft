@@ -85,7 +85,15 @@ function normalizeOutput(output) {
 }
 // Utility function to normalize code(to move soon in a new file)
 const htmlNormalizeCode = (code) => {
-  return code
+
+  const htmlNormalizeCode1 = (code) => {
+    return code
+      .replace(/<!--[\s\S]*?-->/g, "") // Remove comments
+      .replace(/\s+/g, "") // Remove all whitespace (spaces, tabs, newlines)
+      .replace(/'([^']*)'/g, '"$1"') // Normalize quotes to double quotes
+      .toLowerCase(); // Convert to lowercase
+  };
+  return htmlNormalizeCode1(code)
     .replace(/<!--[\s\S]*?-->/g, "") // Remove comments
     .replace(/(?:\s+|\r?\n)+/g, " ") // Replace multiple spaces and newlines with a single space
     .replace(/[\s]*=[\s]*/g, "=") // Remove spaces around equals sign
@@ -294,8 +302,10 @@ app.post("/submit/html", (req, res) => {
           sentence: testCaseSentence,
           status: 'correct',
         });
+        console.log(codeUser)
      
         console.log(feedback)
+        console.log(normalizedRequirement)
       } else {
         feedback.push({
           index: i,
@@ -303,6 +313,8 @@ app.post("/submit/html", (req, res) => {
           status: 'incorrect',
         });
         console.log(feedback)
+        console.log(normalizedRequirement)
+        console.log(codeUser)
       }
     }
 
