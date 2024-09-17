@@ -1,6 +1,6 @@
 import UserModel from "../models/userModel.js";
 import asyncHandler from "express-async-handler";
-import generateToken from "../utils/generateToken.js";
+import generateToken from "../utils/generatetoken.js";
 import sendEmail from "../utils/sendEmail.js";
 import crypto from "crypto";
 import ClassModel from "../models/classModel.js";
