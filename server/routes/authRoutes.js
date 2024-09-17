@@ -11,8 +11,8 @@ const router = express.Router();
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: `${process.env.CLIENT_URL}/redirect`,
-    failureRedirect: `${process.env.CLIENT_URL}/login/failed`,
+    successRedirect: `${process.env.FRONTEND_URL}/redirect`,
+    failureRedirect: `${process.env.FRONTEND_URL}/login/failed`,
   })
 );
 
