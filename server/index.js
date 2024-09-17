@@ -13,12 +13,10 @@ import { analyticsRouter } from "./routes/userAnalyticsRoutes.js";
 import { quizSubmissionRouter } from "./routes/quizSubmissionRoute.js";
 import { activitySubmissionRouter } from "./routes/activitySubmissionRoute.js";
 
-
 import { runJavaScript } from "./utils/sandbox.js";
 import { spawn } from "child_process";
 
 import { questionRouter } from "./routes/QuestionRoutes/questionRoutes.js";
-
 
 import { announcementRouter } from "./routes/teacherFunction/announcementRoute.js";
 import { assignmentRouter } from "./routes/teacherFunction/teacherAssignmentRoutes.js";
@@ -35,14 +33,17 @@ app.listen(PORT, () => {
 });
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header(
+    "Access-Control-Allow-Origin",
+    "http://localhost:5173" || "http://codecrafts.online"
+  );
   next();
 });
 
 //to be able to respond and get json files and is a middleware for backend and frontend
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "http://localhost:5173" || "http://codecrafts.online",
     credentials: true,
     methods: "GET, POST, PATCH, DELETE, PUT",
   })
@@ -65,8 +66,7 @@ app.use("/qna", questionRouter);
 
 app.use("/api/announcement", announcementRouter);
 app.use("/api/assignment", assignmentRouter);
-app.use("/api/student-submit", submissionRouter)
-
+app.use("/api/student-submit", submissionRouter);
 
 //for CODING ACTIVITY ===============================================================
 // const executeCode = (jsCode, input) => {
@@ -84,7 +84,6 @@ function normalizeOutput(output) {
 }
 // Utility function to normalize code(to move soon in a new file)
 const htmlNormalizeCode = (code) => {
-
   const htmlNormalizeCode1 = (code) => {
     return code
       .replace(/<!--[\s\S]*?-->/g, "") // Remove comments
@@ -292,28 +291,28 @@ app.post("/submit/html", (req, res) => {
       const requirement = testCase.required[i];
       const testCaseSentence = testCase.testCaseSentences[i]; // Corresponding test case sentence
       const normalizedRequirement = htmlNormalizeCode(requirement);
-    
+
       if (codeUser.includes(normalizedRequirement)) {
         correctCount += 1;
         points += 1;
         feedback.push({
           index: i,
           sentence: testCaseSentence,
-          status: 'correct',
+          status: "correct",
         });
-        console.log(codeUser)
-     
-        console.log(feedback)
-        console.log(normalizedRequirement)
+        console.log(codeUser);
+
+        console.log(feedback);
+        console.log(normalizedRequirement);
       } else {
         feedback.push({
           index: i,
           sentence: testCaseSentence,
-          status: 'incorrect',
+          status: "incorrect",
         });
-        console.log(feedback)
-        console.log(normalizedRequirement)
-        console.log(codeUser)
+        console.log(feedback);
+        console.log(normalizedRequirement);
+        console.log(codeUser);
       }
     }
 
@@ -407,7 +406,7 @@ app.post("/submit/css", (req, res) => {
         feedback.push({
           index: i,
           sentence: testCaseSentence,
-          status: 'correct',
+          status: "correct",
         });
         console.log(
           normalizedRequirement +
@@ -418,7 +417,7 @@ app.post("/submit/css", (req, res) => {
         feedback.push({
           index: i,
           sentence: testCaseSentence,
-          status: 'incorrect',
+          status: "incorrect",
         });
         console.log(
           normalizedRequirement +
@@ -712,10 +711,6 @@ app.post("/execute", (req, res) => {
     res.status(400).json({ output: `Unsupported language: ${language}` });
   }
 });
-
-
-
-
 
 app.get("/", (req, res) => {
   res.send("Server or api is running.");
