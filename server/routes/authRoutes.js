@@ -1,7 +1,7 @@
 import express from "express";
 import passport from "passport";
 import axios from "axios";
-import generateToken from "../utils/generateToken.js";
+import generateToken from "../utils/generatetoken.js";
 import UserModel from "../models/userModel.js";
 import dotenv from "dotenv";
 dotenv.config();
@@ -19,12 +19,10 @@ router.get(
 //forward the request to googles' authentication server
 router.get("/google", async (req, res) => {
   try {
-   
     const response = await axios.get(
       "https://accounts.google.com/o/oauth2/v2/auth",
       {
         params: req.query,
-       
       }
     );
     res.send(response.data);
@@ -92,14 +90,12 @@ router.get("/login/success", async (req, res) => {
         isNewUser: true, // Send flag indicating if user is newly registered
       });
     }
-
   } else {
     res.status(403).json({
       message: "Not Authorized",
     });
   }
 });
-
 
 //login failed
 router.get("/login/failed", (req, res) => {

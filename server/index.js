@@ -13,17 +13,16 @@ import { analyticsRouter } from "./routes/userAnalyticsRoutes.js";
 import { quizSubmissionRouter } from "./routes/quizSubmissionRoute.js";
 import { activitySubmissionRouter } from "./routes/activitySubmissionRoute.js";
 
-import esprima from "esprima";
-import estraverse from "estraverse";
+
 import { runJavaScript } from "./utils/sandbox.js";
 import { spawn } from "child_process";
-import { Script, createContext } from "vm";
+
 import { questionRouter } from "./routes/QuestionRoutes/questionRoutes.js";
 
 
 import { announcementRouter } from "./routes/teacherFunction/announcementRoute.js";
 import { assignmentRouter } from "./routes/teacherFunction/teacherAssignmentRoutes.js";
-import { gfs } from "./sandboxUserFiles/gridFs.js";
+
 import { submissionRouter } from "./routes/teacherFunction/submissionRoute.js";
 
 dotenv.config();
