@@ -7,7 +7,7 @@ import ClassModel from "../models/classModel.js";
 import ActivitySubmissionModel from "../models/activityModels/activitySubmissionModel.js";
 import QuizSubmissionModel from "../models/quizSubmissionModel.js";
 import UserProgressModel from "../models/studentCourseProgressModel.js";
-import UserAnalyticsModel from "../models/UserAnalyticsModel.js";
+import UserAnalyticsModel from "../models/userAnalyticsModel.js";
 import QuestionModel from "../models/QuestionAndAnswerModels/questionsModel.js";
 
 const approveTeacher = asyncHandler(async (req, res) => {
@@ -395,8 +395,8 @@ const deleteUser = asyncHandler(async (req, res) => {
       // Find all classes taught by the teacher
       const classes = await ClassModel.find({ teacher: userId });
 
-     // Delete all classes taught by the teacher
-     await ClassModel.deleteMany({ teacher: userId });
+      // Delete all classes taught by the teacher
+      await ClassModel.deleteMany({ teacher: userId });
       // For each class, remove the teacher and delete related data
       for (const cls of classes) {
         // Remove the teacher from the class
@@ -416,8 +416,6 @@ const deleteUser = asyncHandler(async (req, res) => {
         });
         await QuizSubmissionModel.deleteMany({ userId: { $in: cls.students } });
       }
-
-     
     }
 
     // Remove the user from any classes where they are a student

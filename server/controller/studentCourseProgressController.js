@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import UserProgressModel from "../models/studentCourseProgressModel.js";
 import CourseModel from "../models/courseModel.js";
 import UserModel from "../models/userModel.js";
-import UserAnalyticsModel from "../models/UserAnalyticsModel.js";
+import UserAnalyticsModel from "../models/userAnalyticsModel.js";
 const getAllProgress = asyncHandler(async (req, res) => {
   try {
     const allProgress = await UserProgressModel.find().exec();

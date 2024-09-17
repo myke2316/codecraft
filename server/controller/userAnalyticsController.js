@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import UserAnalyticsModel from "../models/UserAnalyticsModel.js";
+import UserAnalyticsModel from "../models/userAnalyticsModel.js";
 import CourseModel from "../models/courseModel.js"
 import UserProgressModel from "../models/studentCourseProgressModel.js"
 

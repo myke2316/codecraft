@@ -13,7 +13,6 @@ const QuizAnalyticsSchema = new Schema({
   quizId: { type: Schema.Types.ObjectId, ref: "Quiz", required: true },
   timeSpent: { type: Number, default: 0 }, // in seconds
   pointsEarned: { type: Number, default: 0 },
- 
 });
 
 const activityAnalyticsSchema = new Schema({
@@ -32,14 +31,16 @@ const LessonAnalyticsSchema = new Schema({
   quizzesAnalytics: [QuizAnalyticsSchema],
   activitiesAnalytics: [activityAnalyticsSchema],
   totalTimeSpent: { type: Number, default: 0 }, // in seconds
-  totalPointsEarned: { type: Number, default: 0 }, badges: { type: String, required: false },
+  totalPointsEarned: { type: Number, default: 0 },
+  badges: { type: String, required: false },
 });
 
 const CourseAnalyticsSchema = new Schema({
   courseId: { type: Schema.Types.ObjectId, ref: "Course", required: true },
   lessonsAnalytics: [LessonAnalyticsSchema],
   totalTimeSpent: { type: Number, default: 0 }, // in seconds
-  totalPointsEarned: { type: Number, default: 0 }, badges: { type: String, required: false },
+  totalPointsEarned: { type: Number, default: 0 },
+  badges: { type: String, required: false },
 });
 
 const BadgeSchema = new Schema({

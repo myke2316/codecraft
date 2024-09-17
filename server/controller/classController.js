@@ -4,7 +4,7 @@ import UserModel from "../models/userModel.js";
 import UserProgressModel from "../models/studentCourseProgressModel.js";
 import ActivitySubmissionModel from "../models/activityModels/activitySubmissionModel.js";
 import QuizSubmissionModel from "../models/quizSubmissionModel.js";
-import UserAnalyticsModel from "../models/UserAnalyticsModel.js";
+import UserAnalyticsModel from "../models/userAnalyticsModel.js";
 
 const fetchAllClass = asyncHandler(async (req, res) => {
   try {
