@@ -35,7 +35,7 @@ app.listen(PORT, () => {
 app.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Origin",
-    "http://localhost:5173" || "http://codecrafts.online"
+    process.env.FRONTEND_URL || '*'
   );
   next();
 });
@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 //to be able to respond and get json files and is a middleware for backend and frontend
 app.use(
   cors({
-    origin: "http://localhost:5173" || "http://codecrafts.online",
+    origin: process.env.FRONTEND_URL || '*',
     credentials: true,
     methods: "GET, POST, PATCH, DELETE, PUT",
   })

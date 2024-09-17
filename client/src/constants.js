@@ -1,5 +1,7 @@
+import React from 'react'
+
 export const BASE_URL = "";
-export const BACKEND_URL = "http://localhost:8000 "|| "http://api.codecrafts.online";
+export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 export const USER_URL = "/api/users";
 export const CLASS_URL = "/class";
 export const COURSE_URL = "/course";
