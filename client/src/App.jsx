@@ -73,12 +73,13 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="redirect" element={<GoogleRedirect />} />
-          <Route path="normal-redirect" element={<NormalRedirect />} />
-          <Route path="" element={<PrivateRoutes />}>
-            <Route
+          <Route path="normal-redirect" element={<NormalRedirect />} />   
+          <Route
               path="reset-password/:resetToken"
               element={<ResetPassword />}
             />
+          <Route path="" element={<PrivateRoutes />}>
+         
           </Route>
         </Route>
         {/* student */}

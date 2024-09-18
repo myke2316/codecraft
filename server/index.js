@@ -33,7 +33,7 @@ app.listen(PORT, () => {
 });
 const allowedOrigins = [
   process.env.FRONTEND_URL, // Development environment
-  'http://codecrafts.online', // Production environment
+  'https://codecrafts.online', // Production environment
 ];
 
 app.use((req, res, next) => {
