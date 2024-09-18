@@ -741,5 +741,5 @@ app.post("/execute", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Server or api is running.");
+  res.send(`Server or api is running. + ${process.env.FRONTEND_URL}`);
 });
