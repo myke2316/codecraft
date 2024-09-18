@@ -16,7 +16,7 @@ import {
   CardMedia,
   Container,
 } from "@mui/material";
-import { BASE_URLS } from "../../constants";
+import { BACKEND_URL, BASE_URLS } from "../../constants";
 import { useFetchAssignmentByIdMutation } from "../Teacher/assignmentService";
 import {
   useFetchSubmissionByAssignmentAndStudentIdQuery,
@@ -188,7 +188,7 @@ function AssignmentDetails() {
                 <Zoom>
                   <CardMedia
                     component="img"
-                    image={`${BASE_URLS}/api/assignment/images/${selectedAssignment.expectedOutputImage}`}
+                    image={`${BACKEND_URL}/api/assignment/images/${selectedAssignment.expectedOutputImage}`}
                     alt="Expected Output"
                     sx={{
                       borderRadius: 2,

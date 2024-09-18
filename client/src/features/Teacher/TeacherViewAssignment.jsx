@@ -32,7 +32,7 @@ import { useGetAssignmentByAssignmentIdQuery } from "../Class/submissionAssignme
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
-import { BASE_URLS } from "../../constants";
+import { BACKEND_URL, BASE_URLS } from "../../constants";
 
 function TeacherViewAssignment() {
   const { assignmentId, classId } = useParams();
@@ -180,7 +180,7 @@ function TeacherViewAssignment() {
                   <Zoom>
                     <CardMedia
                       component="img"
-                      image={`${BASE_URLS}/api/assignment/images/${selectedAssignment.expectedOutputImage}`}
+                      image={`${BACKEND_URL}/api/assignment/images/${selectedAssignment.expectedOutputImage}`}
                       alt="Expected Output"
                       sx={{
                         borderRadius: 2,

@@ -79,7 +79,8 @@
                   "text": "• <pre>p</pre> - defines a paragraph of HTML document"
                 }
               ],
-              "locked": false
+              "locked": false,
+              "badges":"First Step"
             },
             {
               "title": "HTML Structure",
@@ -2175,7 +2176,8 @@
             }
           ],
           "totalPoints": 0,
-          "locked": true
+          "locked": true,
+          "badges":"Consistent"
         },
         {
           "title": "Lesson 5: HTML Form",
@@ -3327,10 +3329,12 @@
             }
           ],
           "totalPoints": 0,
-          "locked": true
+          "locked": true,
+          "badges":"HTML Consistent"
         }
       ],
-      "locked": false
+      "locked": false,
+      "badges":"HTML Master"
     }
   ]
 }

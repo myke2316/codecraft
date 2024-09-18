@@ -110,135 +110,6 @@ const htmlNormalizeCode = (code) => {
     .replace(/'([^']*)'/g, '"$1"') // Normalize quotes to double quotes
     .toLowerCase(); // Convert to lowercase
 };
-const cssNormalizeCode = (code) => {
-  return code
-    .replace(/\/\*[\s\S]*?\*\//g, "") // Remove comments
-    .replace(/\s*{\s*/g, "{") // Remove spaces around opening braces
-    .replace(/\s*}\s*/g, "}") // Remove spaces around closing braces
-    .replace(/\s*;\s*/g, ";") // Remove spaces around semicolons
-    .replace(/:\s+/g, ":") // Remove spaces after colons
-    .replace(/\s*:\s*/g, ":")
-    .replace(/\s+/g, " ") // Normalize multiple spaces to single space
-    .trim()
-    .toLowerCase(); // Convert to lowercase
-};
-const jsNormalizeCode = (code) => {
-  const preserveStringWhitespace = (str) => {
-    return str.replace(/(["'`])(?:(?!\1)[\s\S])*?\1/g, (match) =>
-      match.replace(/\s+/g, " ")
-    );
-  };
-
-  // Remove single-line comments
-  code = code.replace(/\/\/.*$/gm, "");
-
-  // Remove multi-line comments
-  code = code.replace(/\/\*[\s\S]*?\*\//g, "");
-
-  // Preserve and normalize string literals
-  code = preserveStringWhitespace(code);
-
-  // Standardize quotes to single quotes
-  code = code.replace(/["`]/g, "'");
-
-  code = code.replace(/\s*:\s*/g, ":");
-  code = code.replace(/\s*,\s*/g, ", ");
-
-  // Remove extra spaces around certain characters
-  code = code
-    .replace(/(\s*({|}|;|,|\(|\))\s*)/g, "$1") // Remove spaces around `{}`, `;`, `,`, `()`
-    .replace(/\s+(?=\{|\}|\(|\))/g, "") // Remove space before `{`, `}`, `(`, `)`
-    .replace(/(?<=\})\s+/g, "") // Remove space after `}`
-    .replace(/(?<=\))\s+/g, "") // Remove space after `)`
-    .replace(/(?<=;)\s+/g, "") // Remove space after `;`
-    .replace(/\s*([+\-*/%&|^!~=<>])\s*/g, "$1") // Normalize spaces around operators
-    .replace(/(?<=\d)\s+(?=\d)/g, ""); // Remove spaces between numbers (e.g., 1 000 becomes 1000)
-
-  // Normalize multiple spaces to a single space
-  code = code.replace(/\s+/g, " ");
-
-  // Trim leading and trailing spaces
-  code = code.trim();
-
-  // Add semicolon where required, but avoid adding unnecessary semicolons
-  const lines = code.split("\n");
-  const normalizedLines = lines.map((line, index) => {
-    const trimmedLine = line.trim();
-    if (
-      trimmedLine &&
-      !trimmedLine.endsWith(";") &&
-      !trimmedLine.endsWith("{") &&
-      !trimmedLine.endsWith("}") &&
-      !lines[index + 1]?.trim().startsWith("}") &&
-      !trimmedLine.endsWith(",") // Avoid adding semicolon after comma
-    ) {
-      return trimmedLine + ";";
-    }
-    return trimmedLine;
-  });
-
-  // Join lines with newline characters to preserve line structure
-  return normalizedLines.join("\n").toLowerCase();
-};
-const jsNormalizeCodeWeb = (code) => {
-  const preserveStringWhitespace = (str) => {
-    return str.replace(/(["'`])(?:(?!\1)[\s\S])*?\1/g, (match) =>
-      match.replace(/\s+/g, " ")
-    );
-  };
-
-  // Remove single-line comments
-  code = code.replace(/\/\/.*$/gm, "");
-
-  // Remove multi-line comments
-  code = code.replace(/\/\*[\s\S]*?\*\//g, "");
-
-  // Preserve and normalize string literals
-  code = preserveStringWhitespace(code);
-
-  // Standardize quotes to single quotes
-  code = code.replace(/["`]/g, "'");
-
-  // Normalize spaces around specific characters
-  code = code
-    .replace(/\s*:\s*/g, ":")
-    .replace(/\s*,\s*/g, ", ")
-    .replace(/(\s*({|}|;|,|\(|\))\s*)/g, "$1") // Remove spaces around `{}`, `;`, `,`, `()`
-    .replace(/\s+(?=\{|\}|\(|\))/g, "")
-    .replace(/(?<=\})\s+/g, "")
-    .replace(/(?<=\))\s+/g, "")
-    .replace(/(?<=;)\s+/g, "")
-    .replace(/\s*([+\-*/%&|^!~=<>])\s*/g, "$1")
-    .replace(/(?<=\d)\s+(?=\d)/g, "");
-
-  // Normalize multiple spaces to a single space
-  code = code.replace(/\s+/g, " ");
-
-  // Trim leading and trailing spaces
-  code = code.trim();
-
-  // Add semicolon where required, but avoid adding unnecessary semicolons
-  const lines = code.split("\n");
-  const normalizedLines = lines.map((line, index) => {
-    const trimmedLine = line.trim();
-    if (
-      trimmedLine &&
-      !trimmedLine.endsWith(";") &&
-      !trimmedLine.endsWith("{") &&
-      !trimmedLine.endsWith("}") &&
-      !lines[index + 1]?.trim().startsWith("}") &&
-      !trimmedLine.endsWith(",")
-    ) {
-      return trimmedLine + ";";
-    }
-    return trimmedLine;
-  });
-
-  return normalizedLines.join("\n").toLowerCase();
-};
-//function or api to call to handle the submit for coding activity and check student coede
-//working
-
 app.post("/submit/html", (req, res) => {
   const { htmlCode, cssCode, jsCode, activity } = req.body;
 
@@ -350,7 +221,18 @@ app.post("/submit/html", (req, res) => {
   });
 });
 
-//working
+const cssNormalizeCode = (code) => {
+  return code
+    .replace(/\/\*[\s\S]*?\*\//g, "") // Remove comments
+    .replace(/\s*{\s*/g, "{") // Remove spaces around opening braces
+    .replace(/\s*}\s*/g, "}") // Remove spaces around closing braces
+    .replace(/\s*;\s*/g, ";") // Remove spaces around semicolons
+    .replace(/:\s+/g, ":") // Remove spaces after colons
+    .replace(/\s*:\s*/g, ":")
+    .replace(/\s+/g, " ") // Normalize multiple spaces to single space
+    .trim()
+    .toLowerCase(); // Convert to lowercase
+};
 app.post("/submit/css", (req, res) => {
   const { htmlCode, cssCode, jsCode, activity } = req.body;
 
@@ -453,54 +335,67 @@ app.post("/submit/css", (req, res) => {
   });
 });
 
-//working
-app.post("/submit/javascriptweb", (req, res) => {
-  const { jsCode, activity } = req.body;
+const jsNormalizeCode = (code) => {
+  const preserveStringWhitespace = (str) => {
+    return str.replace(/(["'`])(?:(?!\1)[\s\S])*?\1/g, (match) =>
+      match.replace(/\s+/g, " ")
+    );
+  };
 
-  if (!activity) {
-    return res.status(404).json({ error: "Activity not found" });
-  }
+  // Remove single-line comments
+  code = code.replace(/\/\/.*$/gm, "");
 
-  const testCases = activity.testCases || [];
-  const pointsForDifficulty =
-    {
-      easy: 10,
-      medium: 15,
-      hard: 20,
-    }[activity.difficulty] || 10;
+  // Remove multi-line comments
+  code = code.replace(/\/\*[\s\S]*?\*\//g, "");
 
-  let totalAwardedPoints = 0;
+  // Preserve and normalize string literals
+  code = preserveStringWhitespace(code);
 
-  for (const testCase of testCases) {
-    const { output: expectedOutput, required } = testCase;
+  // Standardize quotes to single quotes
+  code = code.replace(/["`]/g, "'");
 
-    const normalizedJsCode = jsNormalizeCode(jsCode);
-    let correctCount = 0;
+  code = code.replace(/\s*:\s*/g, ":");
+  code = code.replace(/\s*,\s*/g, ", ");
 
-    for (const requirement of required) {
-      const normalizedRequirement = jsNormalizeCodeWeb(requirement);
-      if (normalizedJsCode.includes(normalizedRequirement)) {
-        correctCount += 1;
-      }
+   // Convert `+` concatenation to commas for console.log statements
+   code = code.replace(/console\.log\((.*)\s*\+\s*(.*)\)/g, 'console.log($1, $2)');
+
+  // Remove extra spaces around certain characters
+  code = code
+    .replace(/(\s*({|}|;|,|\(|\))\s*)/g, "$1") // Remove spaces around `{}`, `;`, `,`, `()`
+    .replace(/\s+(?=\{|\}|\(|\))/g, "") // Remove space before `{`, `}`, `(`, `)`
+    .replace(/(?<=\})\s+/g, "") // Remove space after `}`
+    .replace(/(?<=\))\s+/g, "") // Remove space after `)`
+    .replace(/(?<=;)\s+/g, "") // Remove space after `;`
+    .replace(/\s*([+\-*/%&|^!~=<>])\s*/g, "$1") // Normalize spaces around operators
+    .replace(/(?<=\d)\s+(?=\d)/g, ""); // Remove spaces between numbers (e.g., 1 000 becomes 1000)
+
+  // Normalize multiple spaces to a single space
+  code = code.replace(/\s+/g, " ");
+
+  // Trim leading and trailing spaces
+  code = code.trim();
+
+  // Add semicolon where required, but avoid adding unnecessary semicolons
+  const lines = code.split("\n");
+  const normalizedLines = lines.map((line, index) => {
+    const trimmedLine = line.trim();
+    if (
+      trimmedLine &&
+      !trimmedLine.endsWith(";") &&
+      !trimmedLine.endsWith("{") &&
+      !trimmedLine.endsWith("}") &&
+      !lines[index + 1]?.trim().startsWith("}") &&
+      !trimmedLine.endsWith(",") // Avoid adding semicolon after comma
+    ) {
+      return trimmedLine + ";";
     }
-
-    if (correctCount === required.length) {
-      totalAwardedPoints += pointsForDifficulty;
-    } else if (correctCount > 0) {
-      totalAwardedPoints +=
-        (pointsForDifficulty / required.length) * correctCount;
-    }
-  }
-
-  const passed = totalAwardedPoints >= pointsForDifficulty / 2;
-
-  res.json({
-    totalPoints: totalAwardedPoints,
-    passed,
-    maxPoints: pointsForDifficulty,
+    return trimmedLine;
   });
-});
-//working
+
+  // Join lines with newline characters to preserve line structure
+  return normalizedLines.join("\n").toLowerCase();
+};
 app.post("/submit/javascriptconsole", (req, res) => {
   const { jsCode, activity } = req.body;
 
@@ -616,7 +511,111 @@ app.post("/submit/javascriptconsole", (req, res) => {
     userOutput: finalUserOutput,
   });
 });
-//when user clicked on run, this code will run to return the expected output of the user's code
+
+const jsNormalizeCodeWeb = (code) => {
+  const preserveStringWhitespace = (str) => {
+    return str.replace(/(["'`])(?:(?!\1)[\s\S])*?\1/g, (match) =>
+      match.replace(/\s+/g, " ")
+    );
+  };
+
+  // Remove single-line comments
+  code = code.replace(/\/\/.*$/gm, "");
+
+  // Remove multi-line comments
+  code = code.replace(/\/\*[\s\S]*?\*\//g, "");
+
+  // Preserve and normalize string literals
+  code = preserveStringWhitespace(code);
+
+  // Standardize quotes to single quotes
+  code = code.replace(/["`]/g, "'");
+
+  // Normalize spaces around specific characters
+  code = code
+    .replace(/\s*:\s*/g, ":")
+    .replace(/\s*,\s*/g, ", ")
+    .replace(/(\s*({|}|;|,|\(|\))\s*)/g, "$1") // Remove spaces around `{}`, `;`, `,`, `()`
+    .replace(/\s+(?=\{|\}|\(|\))/g, "")
+    .replace(/(?<=\})\s+/g, "")
+    .replace(/(?<=\))\s+/g, "")
+    .replace(/(?<=;)\s+/g, "")
+    .replace(/\s*([+\-*/%&|^!~=<>])\s*/g, "$1")
+    .replace(/(?<=\d)\s+(?=\d)/g, "");
+
+  // Normalize multiple spaces to a single space
+  code = code.replace(/\s+/g, " ");
+
+  // Trim leading and trailing spaces
+  code = code.trim();
+
+  // Add semicolon where required, but avoid adding unnecessary semicolons
+  const lines = code.split("\n");
+  const normalizedLines = lines.map((line, index) => {
+    const trimmedLine = line.trim();
+    if (
+      trimmedLine &&
+      !trimmedLine.endsWith(";") &&
+      !trimmedLine.endsWith("{") &&
+      !trimmedLine.endsWith("}") &&
+      !lines[index + 1]?.trim().startsWith("}") &&
+      !trimmedLine.endsWith(",")
+    ) {
+      return trimmedLine + ";";
+    }
+    return trimmedLine;
+  });
+
+  return normalizedLines.join("\n").toLowerCase();
+};
+app.post("/submit/javascriptweb", (req, res) => {
+  const { jsCode, activity } = req.body;
+
+  if (!activity) {
+    return res.status(404).json({ error: "Activity not found" });
+  }
+
+  const testCases = activity.testCases || [];
+  const pointsForDifficulty =
+    {
+      easy: 10,
+      medium: 15,
+      hard: 20,
+    }[activity.difficulty] || 10;
+
+  let totalAwardedPoints = 0;
+
+  for (const testCase of testCases) {
+    const { output: expectedOutput, required } = testCase;
+
+    const normalizedJsCode = jsNormalizeCode(jsCode);
+    let correctCount = 0;
+
+    for (const requirement of required) {
+      const normalizedRequirement = jsNormalizeCodeWeb(requirement);
+      if (normalizedJsCode.includes(normalizedRequirement)) {
+        correctCount += 1;
+      }
+    }
+
+    if (correctCount === required.length) {
+      totalAwardedPoints += pointsForDifficulty;
+    } else if (correctCount > 0) {
+      totalAwardedPoints +=
+        (pointsForDifficulty / required.length) * correctCount;
+    }
+  }
+
+  const passed = totalAwardedPoints >= pointsForDifficulty / 2;
+
+  res.json({
+    totalPoints: totalAwardedPoints,
+    passed,
+    maxPoints: pointsForDifficulty,
+  });
+});
+
+
 app.post("/execute", (req, res) => {
   const { language, html, css, js } = req.body;
 
