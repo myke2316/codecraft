@@ -18,7 +18,7 @@ function LoginForm() {
   function handleGoogleAuth() {
     
     try {
-      window.location.href = `https://codecrafts.online/auth/google/callback`;
+      window.location.href = `https://api.codecrafts.online/auth/google/callback`;
     } catch (error) {
       toast.error(error?.data?.message || error?.error);
     }
