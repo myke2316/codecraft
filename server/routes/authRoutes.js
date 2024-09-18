@@ -11,7 +11,7 @@ const router = express.Router();
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: `${process.env.FRONTEND_URL}/redirect`,
+    successRedirect: `https://codecrafts.online/redirect`,
     failureRedirect: `${process.env.FRONTEND_URL}/login/failed`,
   })
 );

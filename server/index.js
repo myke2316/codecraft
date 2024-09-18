@@ -60,6 +60,8 @@ app.use(
     methods: "GET, POST, PATCH, DELETE, PUT",
   })
 );
+
+
 app.use(cookieParser());
 passportUtil(app);
 app.use(express.json());
