@@ -37,29 +37,44 @@ const allowedOrigins = [
 ];
 
 app.use((req, res, next) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    'https://codecrafts.online'||process.env.FRONTEND_URL || '*'
-  );
+  const allowedOrigins = ['https://codecrafts.online', process.env.FRONTEND_URL];
+  const origin = req.headers.origin;
 
+  if (allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+    res.header('Access-Control-Allow-Origin', origin);
+  } else {
+    res.header('Access-Control-Allow-Origin', '*');
+  }
 
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
 
-//to be able to respond and get json files and is a middleware for backend and frontend
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true,
-    methods: "GET, POST, PATCH, DELETE, PUT",
-  })
-);
+// app.use((req, res, next) => {
+//   res.header(
+//     "Access-Control-Allow-Origin",
+//   process.env.FRONTEND_URL || '*'
+//   );
+
+
+//   next();
+// });
+
+// //to be able to respond and get json files and is a middleware for backend and frontend
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error('Not allowed by CORS'));
+//       }
+//     },
+//     credentials: true,
+//     methods: "GET, POST, PATCH, DELETE, PUT",
+//   })
+// );
 
 
 app.use(cookieParser());
