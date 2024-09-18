@@ -23,7 +23,7 @@ function LoginForm() {
       toast.error(error?.data?.message || error?.error);
     }
   }
-
+console.log(BACKEND_URL + " HELKLO")
   //For ForgotPassword
   const { values } = useFormikContext();
   const emailValue = values.email;
