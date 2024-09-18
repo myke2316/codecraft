@@ -51,7 +51,7 @@ router.get("/login/success", async (req, res) => {
         username: req.user._json.name,
         email: req.user._json.email,
         password: Date.now(), //dummy password
-      });
+      }); 
       generateToken(res, newUser._id);
       await newUser.save();
       res.status(200).json({

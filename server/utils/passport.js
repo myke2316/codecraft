@@ -4,7 +4,13 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import dotenv from "dotenv";
 dotenv.config();
+// Determine which .env file to load based on NODE_ENV
+const envFile = process.env.NODE_ENV === 'production'
+  ? '.env.production'
+  : '.env';
 
+// Load environment variables from the selected .env file
+dotenv.config({ path: envFile });
 function passportUtil(app) {
   app.use(
     session({

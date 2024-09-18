@@ -27,9 +27,15 @@ dotenv.config();
 connectDb();
 const PORT = process.env.SERVER_PORT || 8000;
 const app = express();
+const envFile = process.env.NODE_ENV === 'production'
+  ? '.env.production'
+  : '.env';
+
+// Load environment variables from the selected .env file
+dotenv.config({ path: envFile });
 
 app.listen(PORT, () => {
-  console.log(`Server Running on port ${PORT}`);
+  console.log(`Server Running on port ${PORT} and ${process.env.FRONTEND_URL}`);
 });
 const allowedOrigins = [
   process.env.FRONTEND_URL, // Development environment
