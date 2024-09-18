@@ -16,7 +16,7 @@ function LoginForm() {
 
   //handling Google Login or Google OAuth
   function handleGoogleAuth() {
-    
+ 
     try {
       window.location.href = `${BACKEND_URL}/auth/google/callback`;
     } catch (error) {
