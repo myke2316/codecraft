@@ -39,7 +39,7 @@ const allowedOrigins = [
 app.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Origin",
-    process.env.FRONTEND_URL || '*'
+    'https://codecrafts.online'||process.env.FRONTEND_URL || '*'
   );
 
 
