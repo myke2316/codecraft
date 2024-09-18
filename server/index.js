@@ -37,7 +37,8 @@ const allowedOrigins = [
 ];
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", allowedOrigins.join(','));
+  console.log(process.env.FRONTEND_URL)
+  res.header("Access-Control-Allow-Origin", allowedOrigins);
   res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 
