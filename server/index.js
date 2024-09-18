@@ -36,20 +36,14 @@ const allowedOrigins = [
   'https://codecrafts.online', // Production environment
 ];
 
-app.use((req, res, next) => {
-  const allowedOrigins = ['https://codecrafts.online', process.env.FRONTEND_URL];
-  const origin = req.headers.origin;
+const corsOptions = {
+  origin: ['http://localhost:5173', 'https://codecrafts.online'], // Your allowed origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true, // Allow credentials
+};
 
-  if (allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
-    res.header('Access-Control-Allow-Origin', origin);
-  } else {
-    res.header('Access-Control-Allow-Origin', '*');
-  }
-
-  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
+app.use(cors(corsOptions));
 
 // app.use((req, res, next) => {
 //   res.header(
