@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useFetchSubmissionByAssignmentAndStudentIdQuery, useTeacherGradeFeedBackMutation } from "../Class/submissionAssignmentService";
 import { useParams } from "react-router";
-import { BASE_URLS } from "../../constants";
+import { BACKEND_URL, BASE_URLS } from "../../constants";
 
 function TeacherAssignmentGrade() {
   const { assignmentId, studentId } = useParams();
@@ -60,7 +60,7 @@ function TeacherAssignmentGrade() {
   // Handle file download
   const handleDownload = async () => {
     try {
-      const downloadUrl = `${BASE_URLS}/api/student-submit/download/submission/${submission.submission._id}`;
+      const downloadUrl = `${BACKEND_URL}/api/student-submit/download/submission/${submission.submission._id}`;
       const link = document.createElement("a");
       link.href = downloadUrl;
       link.setAttribute("download", ""); // Optional: add a custom file name if necessary

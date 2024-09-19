@@ -34,7 +34,7 @@ import {
   useEditAssignmentMutation,
 } from "./assignmentService";
 import { useNavigate, useParams } from "react-router";
-import { BASE_URLS } from "../../constants";
+import { BACKEND_URL, BASE_URLS } from "../../constants";
 
 // Validation Schema for Editing
 const validationSchema = Yup.object({
@@ -422,7 +422,7 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
                   <Grid item xs={12}>
                     <Typography>Image Preview :</Typography>
                     <img
-                      src={`${BASE_URLS}/api/assignment/images/${selectedAssignment.expectedOutputImage}`}
+                      src={`${BACKEND_URL}/api/assignment/images/${selectedAssignment.expectedOutputImage}`}
                       alt="Uploaded preview"
                       style={{ maxWidth: "100%", marginTop: 8 }}
                     />

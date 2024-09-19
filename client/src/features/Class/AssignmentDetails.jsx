@@ -273,7 +273,7 @@ function AssignmentDetails() {
                   </Typography>
                   <Button
                     variant="outlined"
-                    href={`${BASE_URLS}/api/student-submit/download/submission/${submissionData.submission._id}`}
+                    href={`${BACKEND_URL}/api/student-submit/download/submission/${submissionData.submission._id}`}
                     target="_blank"
                     sx={{ mt: 2 }}
                   >
