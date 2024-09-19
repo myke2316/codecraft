@@ -1,0 +1,135 @@
+.NavItems {
+    font-weight: lighter;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: grid; 
+    grid-template-columns: 1fr 3fr 1fr; 
+    align-items: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.codecraft {
+    display: flex;
+    font-size: 19px;
+    align-items: center;
+    flex-direction: row;
+    font-weight: normal;
+}
+
+.codecraft p, .codecraft .slash {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+.slash {
+    color: rgb(255, 200, 55);
+}
+
+.navselection {
+    font-size: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    font-weight: normal;
+}
+
+.login {
+    font-size: 15px;
+    text-align: center;
+    font-weight: normal;
+}
+
+.burger {
+    display: none;
+}
+
+.side-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 250px;
+    max-width: 684px; 
+    height: 100%;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    z-index: 1000;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+    transform: translateX(100%);
+}
+
+.side-menu.active {
+    display: none;
+ 
+}
+
+.side-menu .close {
+    font-size: 24px;
+    cursor: pointer;
+    text-align: right;
+    margin-bottom: 20px;
+}
+.NavItems .navselection li a {
+    text-decoration: none; 
+    position: relative;
+  }
+  
+  .NavItems .navselection li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px; 
+    background-color: rgb(255, 200, 55); 
+    bottom: -5px;
+    left: 0;
+    transform: scaleX(0); 
+    transform-origin: right; 
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .NavItems .navselection li a:hover::after {
+    transform: scaleX(1); /* Show the underline on hover */
+    transform-origin: left; /* Animate from the left when hovered */
+  }
+  
+@media (max-width: 684px) {
+    .burger {
+        display: flex;
+        justify-content: flex-end; 
+        position: absolute;
+        right: 10px; 
+    }
+    li{
+        margin-bottom: 5px;
+    }
+    .navselection{
+        display: none;
+    }
+    .navselection-side {
+        display: block;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .side-menu {
+        display: block;
+        transform: translateX(0);
+    }
+    .login {
+        display: none;
+    }
+    .login-side {
+        text-align: center;
+    }
+    .codecraft {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    
+}

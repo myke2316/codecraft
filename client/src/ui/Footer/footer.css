@@ -1,0 +1,60 @@
+.codeCraft_footer{
+    background-color: rgb(255, 200, 55);
+    height: 170px;
+    display: flex;
+    margin-top: 20px;
+}
+.leftCode{
+    text-align: center;
+    height: 100%;
+    width: 30%;
+    flex-direction: column;
+}
+
+.allrights{
+    font-size: 13px;
+    height: 30%;
+    justify-content: end;
+    color: rgb(112, 108, 99);
+}
+.codecraft-footer{
+    font-size: 32px;
+    font-weight: bold;
+    height: 60%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+   
+}
+.right-side{
+    width: 70%;
+    height: 100%;
+    float: left;
+}
+.about{
+    margin-top: 8px;
+    height: 33%;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    display: flex;
+    font-weight: bold;
+
+}
+.course{
+    font-weight: bold;
+    display: flex;
+    justify-content: space-evenly;
+
+    
+}
+.playground{
+    display: flex;
+    font-weight: bold;
+    justify-content: space-evenly;
+   margin-top: 19px;
+}
+img{
+    max-width: 23px;
+}
+

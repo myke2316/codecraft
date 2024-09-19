@@ -1,0 +1,152 @@
+.coursecontainer{
+    margin: 0 auto;
+    max-width: 1440px;
+}
+.frontendtitle{
+    max-width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fronticon{
+    width: 60px;
+}
+.fronttitle{
+    font-size: 52px;
+    font-weight: bold;
+}
+.htmlandcss{
+    height: 700px;
+    display: flex;
+    width: 100%;
+}
+.htmlcourse,.csscourse{
+    width: 50%;
+    height: 100%;
+}
+.htmltitle{
+    font-size: 43px;
+    height: auto;
+}
+.htmldesc{
+    width: 100%;
+    height: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.htmltext,.imagehtmlcourse{
+    height: auto;
+    width: 50%;
+ 
+}
+.imagehtmlcourse{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+}
+.samplecode{
+    width: 100%;
+    height: 55%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.containersamplecode {
+    width: 90%;
+    height: 90%;
+    border-radius: 20px;
+    background-color: rgb(228, 77, 38);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex; /* Use flexbox for layout */
+    
+ 
+}
+
+.codetitle {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+pre {
+    height: 100%; 
+    width: 100%; 
+    color: #f8f8f2;
+    font-family: Consolas, "Courier New", monospace;
+    padding: 10px; 
+    border-radius: 5px; 
+    white-space: pre-wrap;
+    overflow-x: auto; 
+    overflow-y: auto;
+    margin: 0;
+    box-sizing: border-box; 
+}
+.containersamplecodecss {
+    width: 100%;
+    height: 90%;
+    border-radius: 20px;
+    background-color:rgb(38, 77, 228);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex; 
+}
+
+.javascript{
+    height: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.javscriptext,.javascriptimg,.javascriptsample{
+    width: 34%;
+    height: 100%;
+}
+
+.javscriptext{
+    display: flex;
+    align-items: center;
+}
+.javascriptimg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.javascriptsample{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.containersamplecodejs{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color:rgb(255, 222, 37);
+    border-radius: 10px;
+}
+
+.containersamplecodephp{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color:rgb(137, 147, 190);
+    border-radius: 10px;
+}
+
+
+
+
+@media (max-width: 1273px) {
+    .htmlandcss,.javascript {
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: center; 
+      max-width: 100%;
+      height: auto;
+      margin: 10px auto; 
+    }
+   
+    
+  }
+  
+    
