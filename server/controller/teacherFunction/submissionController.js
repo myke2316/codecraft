@@ -42,6 +42,19 @@ export const submitAssignment = async (req, res) => {
       return res.status(400).json({ error: "Zip file is required" });
     }
 
+    // Check if the student has already submitted an assignment for this assignmentId and classId
+    const existingSubmission = await Submission.findOne({
+      assignmentId,
+      classId,
+      studentId,
+    });
+
+    if (existingSubmission) {
+      return res.status(400).json({
+        error: "You have already submitted this assignment for this class",
+      });
+    }
+
     // Create a new submission
     const newSubmission = new Submission({
       assignmentId,
@@ -63,6 +76,7 @@ export const submitAssignment = async (req, res) => {
     });
   }
 };
+
 
 // Function to handle deleting an assignment submission
 // export const deleteSubmission = async (req, res) => {

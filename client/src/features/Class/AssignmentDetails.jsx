@@ -45,7 +45,7 @@ function AssignmentDetails() {
     useFetchAssignmentByIdMutation();
   const [submitAssignment] = useSubmitAssignmentMutation();
 
-  const { data: submissionData, isLoading: submissionLoading } =
+  const { data: submissionData, isLoading: submissionLoading,refetch } =
     useFetchSubmissionByAssignmentAndStudentIdQuery({
       assignmentId,
       studentId,
@@ -102,6 +102,7 @@ function AssignmentDetails() {
 
       const response = await submitAssignment(formData).unwrap();
       console.log("Submission successful:", response);
+      refetch()
     } catch (error) {
       setErrorMessage("Failed to submit assignment.");
       console.error("Submission error:", error);
