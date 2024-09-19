@@ -9,14 +9,17 @@ import { setCredentials } from "./userSlice";
 import { useEffect } from "react";
 import { useGetCourseDataMutation } from "../Class/courseService";
 import { setCourse } from "../Class/courseSlice";
+import { Box, Typography, Button } from "@mui/material";
+
 function SignUp() {
-  // handle Register
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  //handles registration process
-  const [register, { isLoading }] = useRegisterMutation();
+  const [register] = useRegisterMutation();
   const userDetails = useSelector((state) => state.user.userDetails);
+
+  const [fetchCourseData] = useGetCourseDataMutation();
+
   async function handleRegister(values) {
     const { emailaddress, username, password, role } = values;
 
@@ -34,25 +37,21 @@ function SignUp() {
     }
   }
 
-  const [fetchCourseData, { isLoading: isLoadingCourse }] =
-    useGetCourseDataMutation();
   async function fetchCourse() {
     try {
       const courseData = await fetchCourseData().unwrap();
       dispatch(setCourse(courseData || []));
     } catch (error) {
-      console.error("Error fetching courses:", error);
       toast.error(error?.response?.data?.message || error.message);
     }
   }
 
   useEffect(() => {
     if (userDetails) {
-      if(userDetails.role === "student"){
-
+      if (userDetails.role === "student") {
         toast.success("Register Complete!");
         navigate(`/${userDetails._id}`);
-      }else{
+      } else {
         toast.success("Register Complete!");
         navigate(`/classes`);
       }
@@ -60,8 +59,19 @@ function SignUp() {
   }, [userDetails]);
 
   return (
-    <div className="text-textprimarycolor1">
-      <h1> {"<SignUp>"}</h1>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "80vh",
+      }}
+    >
+      <Typography variant="h3" component="h1" gutterBottom>
+        Sign Up
+      </Typography>
+
       <Formik
         initialValues={{
           emailaddress: "",
@@ -73,35 +83,33 @@ function SignUp() {
         validationSchema={Yup.object({
           emailaddress: Yup.string()
             .email("Invalid Email")
-            .required("Required"),
+            .required("Email is Required"),
           username: Yup.string()
             .min(5, "Username too short")
             .max(20, "Username too long")
-            .required("Required"),
+            .required("Username is Required"),
           password: Yup.string()
-            .min(8, "Password too short.")
+            .min(8, "Password too short")
             .max(20, "Password too long")
-            .required("Required"),
+            .required("Password is Required"),
           confirmpassword: Yup.string()
-            .oneOf([Yup.ref("password"), null], "Password does not match.")
-            .required("Required"),
-          role: Yup.string().required("Required"),
+            .oneOf([Yup.ref("password"), null], "Passwords do not match")
+            .required("Confirm Password is Required"),
+          role: Yup.string().required("Role is Required"),
         })}
         onSubmit={handleRegister}
       >
-        <div>
-          <SignUpForm />
-
-          <p className="mt-4">
-            Already have an account?{" "}
-            <Link to="/login" className="text-blue-500">
-              Login here
-            </Link>
-          </p>
-        </div>
+        <SignUpForm />
       </Formik>
-      <h1> {"</SignUp>"}</h1>
-    </div>
+
+      <Typography variant="body1" sx={{ mt: 2 }}>
+        Already have an account?{" "}
+        <Link to="/login" style={{ color: "blue" }}>
+          Login here
+        </Link>
+      </Typography>
+    </Box>
   );
 }
+
 export default SignUp;

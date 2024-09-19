@@ -856,10 +856,11 @@
                 {
                   "type": "code",
                   "language": "javascript",
+                  "supportingCode":"<div class='myClass'>Hello Background</div>",
                   "code": "document.querySelector('.myClass').style.backgroundColor = 'blue';"
                 }
               ],
-              "locked": true
+              "locked": false
             }
           ],
           "quiz": [

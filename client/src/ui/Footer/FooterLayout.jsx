@@ -1,21 +1,36 @@
+import { Box, Container, Typography } from '@mui/material';
 
 function FooterLayout() {
   return (
-    <footer className="bg-slate-500 grid grid-cols-[auto_auto_auto] items-center text-textprimarycolor1">
-      <div className="text-center text-sm">CodeCraft</div>
+    <footer className=" text-white py-3">
+      <Container maxWidth="lg">
+        <Box
+          display="flex"
+          flexDirection={{ xs: 'column', sm: 'row' }}
+          justifyContent="space-between"
+          alignItems="center"
+          className="border-t border-gray-700 pt-4"
+        >
+          {/* Footer Title */}
+          <Typography
+            variant="h6"
+            className="text-2xl font-bold tracking-wide"
+            style={{ color: 'rgb(160, 80, 0)', fontFamily: 'monospace' }}
+          >
+            {"<"}CODECRAFT/{" >"}™
+          </Typography>
 
-      <div className="text-center"> {"</CodeCraft>"}</div>
-
-      <div className="flex gap-3 justify-center">
-        <div>
-          X
-          <span>0</span>
-        </div>
-        <div>
-          !<span>0</span>
-        </div>
-      </div>
+          {/* All Rights Reserved Text */}
+          <Typography
+            variant="body2"
+            className="text-sm text-gray-400 mt-4 sm:mt-0"
+          >
+            CodeCraft© 2024. All Rights Reserved.
+          </Typography>
+        </Box>
+      </Container>
     </footer>
   );
 }
+
 export default FooterLayout;

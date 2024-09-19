@@ -1,16 +1,17 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import Button from "../Components/Button";
+import { Button, Box, Typography, MenuItem, FormControl, InputLabel, Select } from "@mui/material";
 import { toast } from "react-toastify";
-import axios from "axios";
-import { BACKEND_URL } from "../constants";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useUpdateRoleMutation } from "../features/LoginRegister/userService";
 import { Navigate, useNavigate } from "react-router";
+import { logout } from "../features/LoginRegister/userSlice"; 
 
 function RoleSelection() {
   const user = useSelector((state) => state.user.userDetails);
-  const [updateRole, { isSubmitting }] = useUpdateRoleMutation();
+  const [updateRole] = useUpdateRoleMutation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleSubmit = async (values) => {
     try {
       // Send role selection data to backend
@@ -22,55 +23,96 @@ function RoleSelection() {
       if (res) {
         navigate("/redirect");
       }
-      // Handle successful response
+
       toast.success("Role selection successful");
-      // Redirect to homepage or any other page as needed
     } catch (error) {
-      // Handle error
       toast.error(error?.response?.data?.message || error?.message);
     }
   };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+    toast.success("Logged out successfully");
+  };
+
   return !user.role ? (
-    <div>
-      <h2>Role Selection</h2>
+    <Box
+      className="flex flex-col items-center justify-center min-h-screen"
+      sx={{
+        bgcolor: "background.default",
+        p: 4,
+        borderRadius: 2,
+       
+        maxWidth: "400px",
+        mx: "auto",
+      }}
+    >
+      <Typography variant="h4" gutterBottom>
+        Role Selection
+      </Typography>
+
       <Formik
         initialValues={{
-          role: "", // Initial value for role selection
+          role: "",
         }}
         onSubmit={(values) => handleSubmit(values)}
         validate={(values) => {
           const errors = {};
-          // Validation logic can be added here if needed
           if (!values.role) {
             errors.role = "Role is required";
           }
           return errors;
         }}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, handleChange, values }) => (
           <Form>
-            <div className="form-group">
-              <label htmlFor="role">Select Role:</label>
-              <Field as="select" name="role" className="form-control">
-                <option value="">Choose a role...</option>
-                <option value="student">Student</option>
-                <option value="teacher">Teacher</option>
-              </Field>
-              <ErrorMessage
+            <FormControl fullWidth variant="outlined" sx={{ mb: 3 }}>
+              <InputLabel id="role-select-label">Select Role</InputLabel>
+              <Field
+                as={Select}
+                labelId="role-select-label"
+                id="role"
                 name="role"
-                component="div"
-                className="text-danger"
-              />
-            </div>
-            <Button type="submit" disabled={isSubmitting}>
+                label="Select Role"
+                value={values.role}
+                onChange={handleChange}
+                className="w-full"
+              >
+                <MenuItem value="">
+                  <em>Choose a role...</em>
+                </MenuItem>
+                <MenuItem value="student">Student</MenuItem>
+                <MenuItem value="teacher">Teacher</MenuItem>
+              </Field>
+              <ErrorMessage name="role" component="div" className="text-red-500 mt-1" />
+            </FormControl>
+
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={isSubmitting}
+              className="w-full mb-3"
+            >
               Submit
+            </Button>
+
+            <Button
+              variant="outlined"
+              color="secondary"
+              className="w-full"
+              onClick={handleLogout}
+            >
+              Logout
             </Button>
           </Form>
         )}
       </Formik>
-    </div>
+    </Box>
   ) : (
     <Navigate to="/" replace />
   );
 }
+
 export default RoleSelection;

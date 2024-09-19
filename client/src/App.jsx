@@ -105,7 +105,6 @@ function App() {
         <Route path="" element={<PrivateRoutes />}>
           <Route element={<AuthorizedLayout />}>
             <Route path=":studentId" element={<AuthorizedHome />} />
-            <Route path="join-class" element={<JoinClassForm />} />
             <Route path="role-selection" element={<RoleSelection />} />
             <Route path="create-class" element={<CreateClassForm />} />
             <Route path="profile" element={<Profile />} />

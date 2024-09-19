@@ -15,13 +15,16 @@ import { createQuizSubmission } from "../../utils/quizSubmissionUtil";
 import { useCreateUserQuizSubmissionMutation } from "../Course/Quiz/quizSubmissionService";
 import { useCreateUserActivitySubmissionMutation } from "../Course/CodingActivity/activitySubmissionService";
 import { createActivitySubmission } from "../../utils/activitySubmissionUtil";
+import { useEffect } from "react";
 
 function JoinClassForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.userDetails);
   const [joinClass, { isLoading }] = useJoinClassMutation();
-
+  useEffect(()=>{
+    if(!user.class){return;}else{navigate("/")}
+  },[user,navigate])
   const [
     createUserQuizSubmissions,
     { isLoading: isLoadingCreateQuizSubmissions },

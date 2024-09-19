@@ -1,37 +1,27 @@
-import { Formik, useFormikContext } from "formik";
+// Login.js
+import { Formik } from "formik";
 import * as Yup from "yup";
 import LoginForm from "./LoginForm";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "./userService";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCredentials } from "./userSlice";
 import { toast } from "react-toastify";
-import axios from "axios";
-import { BACKEND_URL } from "../../constants";
-import { setClass } from "../Teacher/classSlice";
-import { useFetchClassMutation } from "../Teacher/classService";
+import { Button, Box, Typography } from "@mui/material";
+
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const classDetails = useSelector((state) => state.class);
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    withCredentials: true,
-  };
 
-  //For Handling Login Button
-  const [login, { isLoading }] = useLoginMutation();
-  async function handleLogin(value) {
-    const { email, password } = value;
+  const [login] = useLoginMutation();
+
+  async function handleLogin(values) {
+    const { email, password } = values;
     try {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
-
-      navigate("/normal-redirect");
-
       toast.success("Login Successful");
+      navigate("/normal-redirect");
     } catch (error) {
       toast.error(error?.data?.error || error?.error);
     }
@@ -43,28 +33,32 @@ function Login() {
   }
 
   return (
-    <div className="text-textprimarycolor1">
-      <h1>{"<Login />"}</h1>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "70vh",
+        
+      }}
+    >
+      <Typography variant="h3" component="h1" gutterBottom>
+        Login
+      </Typography>
       <Formik
-        initialValues={{
-          email: "",
-          password: "",
-        }}
+        initialValues={{ email: "", password: "" }}
         validationSchema={Yup.object({
-          email: Yup.string()
-            .email("Invalid Email")
-            .required("Email is Required"),
+          email: Yup.string().email("Invalid Email").required("Email is Required"),
           password: Yup.string().required("Password is Required"),
         })}
         onSubmit={handleLogin}
       >
-        <div>
-          <LoginForm />
-        </div>
+        <LoginForm />
       </Formik>
-      <button onClick={test}>CLICK</button>
-      <h1> {"</Login>"}</h1>
-    </div>
+
+    </Box>
   );
 }
+
 export default Login;

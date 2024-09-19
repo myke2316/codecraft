@@ -8,8 +8,6 @@ function About() {
         JPLPC Malvar with the knowledge and skills to excel in web development.
       </p>
     </div>
-
-    
   );
 }
 export default About;

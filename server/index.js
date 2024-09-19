@@ -27,13 +27,11 @@ dotenv.config();
 connectDb();
 const PORT = process.env.SERVER_PORT || 8000;
 const app = express();
+// para sa .env or .env.prodcution
 const envFile = process.env.NODE_ENV === 'production'
   ? '.env.production'
   : '.env';
-
-// Load environment variables from the selected .env file
 dotenv.config({ path: envFile });
-
 app.listen(PORT, () => {
   console.log(`Server Running on port ${PORT} and ${process.env.FRONTEND_URL}`);
 });
@@ -41,47 +39,17 @@ const allowedOrigins = [
   process.env.FRONTEND_URL, // Development environment
   'https://codecrafts.online', // Production environment
 ];
-
 const corsOptions = {
   origin: ['http://localhost:5173', 'https://codecrafts.online'], // Your allowed origins
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true, // Allow credentials
 };
-
 app.use(cors(corsOptions));
-
-// app.use((req, res, next) => {
-//   res.header(
-//     "Access-Control-Allow-Origin",
-//   process.env.FRONTEND_URL || '*'
-//   );
-
-
-//   next();
-// });
-
-// //to be able to respond and get json files and is a middleware for backend and frontend
-// app.use(
-//   cors({
-//     origin: function (origin, callback) {
-//       if (!origin || allowedOrigins.includes(origin)) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error('Not allowed by CORS'));
-//       }
-//     },
-//     credentials: true,
-//     methods: "GET, POST, PATCH, DELETE, PUT",
-//   })
-// );
-
-
 app.use(cookieParser());
 passportUtil(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 //routes
 app.use("/api/users", userRouter);
 app.use("/class", classRouter);
@@ -92,12 +60,11 @@ app.use("/analytics", analyticsRouter);
 app.use("/quizSubmission", quizSubmissionRouter);
 app.use("/activitySubmission", activitySubmissionRouter);
 app.use("/qna", questionRouter);
-
 app.use("/api/announcement", announcementRouter);
 app.use("/api/assignment", assignmentRouter);
 app.use("/api/student-submit", submissionRouter);
 
-//for CODING ACTIVITY ===============================================================
+//for CODING ACTIVITY(Separate file soon) ===============================================================
 // const executeCode = (jsCode, input) => {
 //   try {
 //     const script = new Script(jsCode);

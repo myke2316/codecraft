@@ -1,110 +1,189 @@
 import { ErrorMessage, Field, Form, useFormikContext } from "formik";
-import Button from "../../Components/Button";
+import { useState } from "react";
+import { Box, Button, TextField, IconButton, InputAdornment, Typography } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useLoginMutation, useForgotPasswordMutation } from "./userService";
 import { toast } from "react-toastify";
-import {
-  buttonStyle,
-  formStyle,
-  googleButtonStyle,
-  inputFieldStyle,
-} from "../../stylesConstants";
-import { useForgotPasswordMutation, useLoginMutation } from "./userService";
-import { BACKEND_URL } from "../../constants";
 import { Link } from "react-router-dom";
+import { BACKEND_URL } from "../../constants";
 
 function LoginForm() {
-  const [login, { isLoading }] = useLoginMutation();
+  const [login] = useLoginMutation();
+  const [forgotPassword] = useForgotPasswordMutation();
+  const [showPassword, setShowPassword] = useState(false);
 
-  //handling Google Login or Google OAuth
-  function handleGoogleAuth() {
- 
-    try {
-      window.location.href = `${BACKEND_URL}/auth/google/callback`;
-    } catch (error) {
-      toast.error(error?.data?.message || error?.error);
-    }
-  }
-console.log(BACKEND_URL + " HELKLO")
-  //For ForgotPassword
   const { values } = useFormikContext();
-  const emailValue = values.email;
-  const [forgotPassword, { isLoading: isLoadingForgotPassword }] =
-    useForgotPasswordMutation();
-  async function handleForgotPassword() {
-    if (!emailValue) return toast.error("Please Enter Email");
-    console.log(emailValue);
+
+  // Handling Google OAuth login
+  const handleGoogleAuth = () => {
+    window.location.href = `${BACKEND_URL}/auth/google/callback`;
+  };
+
+  // Handling Forgot Password
+  const handleForgotPassword = async () => {
+    if (!values.email) {
+      toast.error("Please enter an email!");
+      return;
+    }
     try {
-      const res = await forgotPassword({ email: emailValue }).unwrap();
-      toast.success(res.message);
+      const response = await forgotPassword({ email: values.email }).unwrap();
+      toast.success(response.message);
     } catch (error) {
       toast.error(error?.data?.message || error?.error);
     }
-  }
+  };
 
   return (
-    <>
-      <Form>
-        <div className={formStyle}>
-          <label htmlFor="email">Email Address:</label>
-          <Field
-            className={inputFieldStyle}
-            name="email"
-            type="email"
-            placeholder="..."
-          />
-          <ErrorMessage
-            component="div"
-            className="text-textColorRed"
-            name="email"
-          />
-        </div>
-        <div className={formStyle}>
-          <label htmlFor="password">Password:</label>
-          <Field
-            className={inputFieldStyle}
-            name="password"
-            type="password"
-            placeholder="..."
-          />
-          <ErrorMessage
-            component="div"
-            className="text-textColorRed"
-            name="password"
-          />
+    <Form>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "20px",
+          width: "100%",
+          maxWidth: "500px", // Increased max width for wider input fields
+        }}
+      >
+        {/* Email Field */}
+        <Field name="email">
+          {({ field, meta }) => (
+            <TextField
+              {...field}
+              label="Email Address"
+              fullWidth
+              sx={{
+                width: { xs: "90%", sm: "80%", md: "600px" }, // Responsive width, wider on larger screens
+              }}
+              error={meta.touched && !!meta.error}
+              helperText={meta.touched && meta.error ? meta.error : ""}
+            />
+          )}
+        </Field>
 
-          <div className="flex gap-9">
-            <Button type="submit" className={buttonStyle}>
-              Login
-            </Button>
-            <Button
-              type="button"
-              className={googleButtonStyle}
-              disabled={isLoading}
-              onClick={handleGoogleAuth}
-            >
-              Login with Google
-            </Button>
-          </div>
-        </div>
-      </Form>
+        {/* Password Field with View/Hide Toggle */}
+        <Field name="password">
+          {({ field, meta }) => (
+            <TextField
+              {...field}
+              type={showPassword ? "text" : "password"}
+              label="Password"
+              fullWidth
+              sx={{
+                width: { xs: "90%", sm: "80%", md: "600px" }, // Responsive width, wider on larger screens
+              }}
+              error={meta.touched && !!meta.error}
+              helperText={meta.touched && meta.error ? meta.error : ""}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          )}
+        </Field>
 
-      <div>
-        <p className="mt-1">
-          Forgot Password?{" "}
-          <span
-            className="text-yellow-100 cursor-pointer"
-            onClick={handleForgotPassword}
-          >
-            Click here
-          </span>
-        </p>
-        <p>
-          Don't have an account?{" "}
-          <Link to="/signup" className="text-textColorGreen">
-            Signup Now!
-          </Link>
-        </p>
-      </div>
-    </>
+        {/* Submit and Google Login Buttons */}
+        <Box sx={{ display: "flex", gap: "10px", justifyContent: "center", width: "100%" }}>
+  <Button
+    type="submit"
+    variant="outlined"
+    fullWidth
+    sx={{
+      maxWidth: "600px", // Match the input field width
+      borderRadius: "5px",
+      padding: "15px 0", // Increased padding for a larger button
+      border: "2px solid", // Border with pastel rainbow colors
+      borderImageSlice: 1,
+      borderImageSource:
+        "linear-gradient(90deg,  #DF8F52, #4189E4, #FEEB33)", // Light pastel rainbow gradient
+      color: "black", // Button text color
+      fontWeight: "bold",
+      "&:hover": {
+        borderImageSource:
+          "linear-gradient(90deg, #DF8F52, #4189E4, #FEEB33)",
+      },
+    }}
+  >
+    Login
+  </Button>
+
+  <Button
+    variant="outlined"
+    onClick={handleGoogleAuth}
+    fullWidth
+    sx={{
+      maxWidth: "600px", // Match the input field width
+      borderRadius: "5px",
+      padding: "15px 0", // Increased padding for a larger button
+      border: "2px solid", // Border with pastel rainbow colors
+      borderImageSlice: 1,
+      borderImageSource:
+        "linear-gradient(90deg, #fbc2eb, #a6c1ee, #b2f9fc, #fbd786)", // Light pastel rainbow gradient
+      color: "black", // Button text color
+      fontWeight: "bold",
+      "&:hover": {
+        borderImageSource:
+          "linear-gradient(90deg, #fbd786, #b2f9fc, #a6c1ee, #fbc2eb)",
+      },
+    }}
+  >
+    Login with Google
+  </Button>
+</Box>
+
+        {/* Forgot Password and Signup Links */}
+        <Typography>
+  Forgot Password?{" "}
+  <span
+    style={{
+      color: "#FFC300", // Bright yellow color
+      fontWeight: "bold",
+      textDecoration: "underline",
+      cursor: "pointer",
+      transition: "color 0.3s ease",
+    }}
+    onClick={handleForgotPassword}
+    onMouseEnter={(e) => (e.target.style.color = "#FF5733")} // Changes to orange on hover
+    onMouseLeave={(e) => (e.target.style.color = "#FFC300")} // Back to yellow on mouse leave
+  >
+    Click here
+  </span>
+</Typography>
+
+<Typography>
+  Don't have an account?{" "}
+  <Link
+    to="/signup"
+    style={{
+      color: "#66FCF1", // Bright teal color for initial state
+      fontWeight: "bold",
+      textDecoration: "underline",
+      transition: "color 0.3s ease, font-size 0.3s ease",
+    }}
+    onMouseEnter={(e) => {
+      e.target.style.color = "#45A29E"; // Darken color on hover
+      e.target.style.fontSize = "110%"; // Slightly enlarge font on hover
+    }}
+    onMouseLeave={(e) => {
+      e.target.style.color = "#66FCF1"; // Back to original teal color
+      e.target.style.fontSize = "100%"; // Back to original size
+    }}
+  >
+    Signup Now!
+  </Link>
+</Typography>
+
+      </Box>
+    </Form>
   );
 }
+
 export default LoginForm;

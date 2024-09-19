@@ -20,7 +20,7 @@ function ClassLayout() {
           <ToastContainer />
         </main>
       </div>
-      <FooterLayout />
+      {/* <FooterLayout /> */}
     </div>
   );
 }
