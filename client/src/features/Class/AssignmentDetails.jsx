@@ -67,7 +67,7 @@ function AssignmentDetails() {
   useEffect(() => {
     if (submissionData) {
       setHasSubmitted(true);
-      setSubmittedFileName(submissionData.file.filename); // Assuming `fileName` is available in the response
+      setSubmittedFileName(submissionData.file?.filename); // Assuming `fileName` is available in the response
       setGradingStatus(submissionData.submission.status || "Not Graded"); // Set grading status if available
       setFeedback(submissionData.submission.feedback || ""); // Set feedback if available
       setScore(submissionData.submission.grade || null); // Set score if available

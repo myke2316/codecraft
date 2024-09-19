@@ -118,19 +118,16 @@ export const deleteSubmission = async (req, res) => {
 
     // Delete the file from GridFS
     if (submission.zipFile) {
-      const file = await assignmentBucket
-        .find({ _id: new mongoose.Types.ObjectId(submission.zipFile) })
-        .toArray();
-      if (file.length > 0) {
-        assignmentBucket.delete(file[0]._id, (err) => {
-          if (err) {
-            return res.status(500).json({
-              error: "Error deleting file from GridFS",
-              details: err.message,
-            });
-          }
-        });
-      }
+      const fileId = new mongoose.Types.ObjectId(submission.zipFile);
+
+      // Access the MongoDB database
+      const db = mongoose.connection.db;
+      
+      // Delete the file metadata from GridFS (assignment.files)
+      await db.collection('assignment.files').deleteOne({ _id: fileId });
+
+      // Delete chunks associated with the file (assignment.chunks)
+      await db.collection('assignment.chunks').deleteMany({ files_id: fileId });
     }
 
     // Delete the submission record
