@@ -41,7 +41,7 @@ const allowedOrigins = [
 ];
 const corsOptions = {
   origin: ['http://localhost:5173', 'https://codecrafts.online'], // Your allowed origins
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH','OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true, // Allow credentials
 };
