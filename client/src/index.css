@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-  font-family: "Roboto Mono", monospace;
+  font-family: "Poppins", monospace;
 }
 
 /* FOR THE COURSE CONTENT SIDEBAR RESIZEABLE */

@@ -8,7 +8,7 @@ const DocumentSchema = new Schema({
       type: {
         type: String,
         required: true,
-        enum: ["sentence", "snippet", "code", "codeconsole"],
+        enum: ["sentence", "snippet", "code", "codeconsole","javascriptweb"],
       },
       text: { type: String },
       code: { type: String },

@@ -32,6 +32,7 @@ import { updateActivitySubmissionUtil } from "../../../utils/activitySubmissionU
 import { setDecrementTries } from "./activitySubmissionSlice";
 import { useUpdateUserAnalyticsMutation } from "../../Student/userAnalyticsService";
 import { updateUserAnalytics } from "../../Student/userAnalyticsSlice";
+import { BACKEND_URL } from "../../../constants";
 
 const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
   const [htmlCode, setHtmlCode] = useState("");
@@ -159,13 +160,13 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
       try {
         let endpoint;
         if (activity.language === "HTML") {
-          endpoint = "http://localhost:8000/submit/html";
+          endpoint = `${BACKEND_URL}/submit/html`;
         } else if (activity.language === "CSS") {
-          endpoint = "http://localhost:8000/submit/css";
+          endpoint = `${BACKEND_URL}/submit/css`;
         } else if (activity.language === "JavaScriptWeb") {
-          endpoint = "http://localhost:8000/submit/javascriptweb";
+          endpoint = `${BACKEND_URL}/submit/javascriptweb`;
         } else if (activity.language === "JavaScriptConsole") {
-          endpoint = "http://localhost:8000/submit/javascriptconsole";
+          endpoint = `${BACKEND_URL}/submit/javascriptconsole`;
         }
 
         const response = await axios.post(endpoint, {
@@ -182,6 +183,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         const totalPoints = Math.round(result.totalPoints);
         const timeTaken = timer;
         const feedback = result.feedback;
+        const language = result.language;
         setSubmissionResult({
           passed,
           maxPoints,
@@ -189,6 +191,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
           tries: activitySubmission.tries,
           timeTaken,
           feedback,
+          language,
         });
         console.log(result);
         console.log(`You got ${result.totalPoints} out of ${result.maxPoints}`);
@@ -263,17 +266,17 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
   }
 
   async function handleCheckCode() {
-    console.log(activity.language);
+    console.log(BACKEND_URL);
     try {
       let endpoint;
       if (activity.language === "HTML") {
-        endpoint = "http://localhost:8000/submit/html";
+        endpoint = `${BACKEND_URL}/submit/html`;
       } else if (activity.language === "CSS") {
-        endpoint = "http://localhost:8000/submit/css";
+        endpoint = `${BACKEND_URL}/submit/css`;
       } else if (activity.language === "JavaScriptWeb") {
-        endpoint = "http://localhost:8000/submit/javascriptweb";
+        endpoint = `${BACKEND_URL}/submit/javascriptweb`;
       } else if (activity.language === "JavaScriptConsole") {
-        endpoint = "http://localhost:8000/submit/javascriptconsole";
+        endpoint = `${BACKEND_URL}/submit/javascriptconsole`;
       }
 
       const response = await axios.post(endpoint, {
@@ -282,6 +285,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         jsCode,
         activity,
       });
+      console.log(response);
       const result = response.data;
       const passed = result.passed;
       const maxPoints = result.maxPoints;
@@ -289,7 +293,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
       const expectedOutput = result.expectedOutput;
       const userOutput = result.userOutput;
       const feedback = result.feedback;
-
+      const language = result.language;
       const decrementData = await decrementTries({
         userId,
         activityId,
@@ -306,6 +310,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         expectedOutput,
         userOutput,
         feedback,
+        language,
       });
     } catch (error) {
       console.log(error);
@@ -423,7 +428,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
       }
     }
   };
-  // console.log(submissionResult);
+
   if (!activity) {
     return <div>Loading...</div>;
   }
@@ -598,14 +603,42 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
               <>
                 <br />
                 <strong>Expected Output:</strong>
-                <pre>{submissionResult.expectedOutput}</pre>
+                {submissionResult.language === "javascriptweb" ? (
+                  <iframe
+                    title="Expected Output"
+                    style={{
+                      width: "100%",
+                      height: "300px",
+                      border: "1px solid black",
+                    }}
+                    srcDoc={submissionResult.expectedOutput}
+                  />
+                ) : (
+                  <pre style={{ backgroundColor: "#f0f0f0", padding: "10px" }}>
+                    {submissionResult.expectedOutput}
+                  </pre>
+                )}
               </>
             )}
             {submissionResult?.userOutput && (
               <>
                 <br />
                 <strong>User Output:</strong>
-                <pre>{submissionResult.userOutput}</pre>
+                {submissionResult.language === "javascriptweb" ? (
+                  <iframe
+                    title="Expected Output"
+                    style={{
+                      width: "100%",
+                      height: "300px",
+                      border: "1px solid black",
+                    }}
+                    srcDoc={submissionResult.userOutput}
+                  />
+                ) : (
+                  <pre style={{ backgroundColor: "#f0f0f0", padding: "10px" }}>
+                    {submissionResult.expectedOutput}
+                  </pre>
+                )}
               </>
             )}
           </DialogContentText>

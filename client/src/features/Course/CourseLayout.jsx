@@ -9,7 +9,7 @@ function CourseLayout() {
     <div>
       <div
         className="bg-gray-800 p-4 flex justify-between"
-        onClick={() => navigate(`/studentClass/${classId}`)}
+        onClick={() => navigate(`/studentClass/${classId}/classHome`)}
       >
         <div className="text-white hover:text-gray-200 flex">
           <svg
