@@ -264,8 +264,8 @@ const forgotPassword = asyncHandler(async (req, res) => {
   console.log(resetToken);
   user.save();
 
-  const resetUrl = `${req.protocol}://localhost:${process.env.CLIENT_PORT}/reset-password/${resetToken}`;
-
+  // const resetUrl = `${req.protocol}://localhost:${process.env.CLIENT_PORT}/reset-password/${resetToken}`;
+  const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
   const message = `Forgot Password? Click on this link to reset your Password: ${resetUrl}`;
   try {
     await sendEmail({

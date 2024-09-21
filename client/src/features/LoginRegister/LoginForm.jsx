@@ -22,9 +22,9 @@ function LoginForm() {
   // Handling Forgot Password
   const [isCooldown, setIsCooldown] = useState(false);
   const [countdown, setCountdown] = useState(60); // 60 seconds countdown
+  const [loading, setLoading] = useState(false); // Loading state
 
   useEffect(() => {
-    // Check if there is a cooldown in localStorage
     const storedCountdown = localStorage.getItem('countdown');
     const storedIsCooldown = localStorage.getItem('isCooldown');
 
@@ -39,16 +39,19 @@ function LoginForm() {
       toast.error("Please enter an email!");
       return;
     }
+
+    setLoading(true); // Start loading
     try {
       const response = await forgotPassword({ email: values.email }).unwrap();
       toast.success(response.message);
-      // Start the cooldown
       setIsCooldown(true);
       setCountdown(60);
       localStorage.setItem('isCooldown', 'true');
       localStorage.setItem('countdown', 60);
     } catch (error) {
       toast.error(error?.data?.message || error?.error);
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -58,14 +61,14 @@ function LoginForm() {
       timer = setInterval(() => {
         setCountdown(prev => {
           const newCountdown = prev - 1;
-          localStorage.setItem('countdown', newCountdown); // Store countdown in localStorage
+          localStorage.setItem('countdown', newCountdown);
           return newCountdown;
         });
       }, 1000);
     } else if (countdown === 0) {
       setIsCooldown(false);
-      localStorage.removeItem('isCooldown'); // Clear cooldown from localStorage
-      localStorage.removeItem('countdown'); // Clear countdown from localStorage
+      localStorage.removeItem('isCooldown');
+      localStorage.removeItem('countdown');
     }
     return () => clearInterval(timer);
   }, [isCooldown, countdown]);
@@ -181,17 +184,17 @@ function LoginForm() {
   Forgot Password?{" "}
   <span
       style={{
-        color: isCooldown ? "#ccc" : "#FFC300", // Grey out when on cooldown
+        color: isCooldown || loading ? "#ccc" : "#FFC300", // Grey out when on cooldown or loading
         fontWeight: "bold",
         textDecoration: "underline",
-        cursor: isCooldown ? "not-allowed" : "pointer",
+        cursor: isCooldown || loading ? "not-allowed" : "pointer",
         transition: "color 0.3s ease",
       }}
-      onClick={!isCooldown ? handleForgotPassword : null}
+      onClick={!isCooldown && !loading ? handleForgotPassword : null}
       onMouseEnter={(e) => (e.target.style.color = "#FF5733")} // Changes to orange on hover
-      onMouseLeave={(e) => (e.target.style.color = isCooldown ? "#ccc" : "#FFC300")} // Back to yellow or grey on mouse leave
+      onMouseLeave={(e) => (e.target.style.color = isCooldown || loading ? "#ccc" : "#FFC300")} // Back to yellow or grey on mouse leave
     >
-      {isCooldown ? `Please wait ${countdown} seconds` : "Click here"}
+      {loading ? "Sending..." : isCooldown ? `Please wait ${countdown} seconds` : "Click here"}
     </span>
 </Typography>
 
