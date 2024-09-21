@@ -1,5 +1,5 @@
 import { ErrorMessage, Field, Form, useFormikContext } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, TextField, IconButton, InputAdornment, Typography } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useLoginMutation, useForgotPasswordMutation } from "./userService";
@@ -20,6 +20,20 @@ function LoginForm() {
   };
 
   // Handling Forgot Password
+  const [isCooldown, setIsCooldown] = useState(false);
+  const [countdown, setCountdown] = useState(60); // 60 seconds countdown
+
+  useEffect(() => {
+    // Check if there is a cooldown in localStorage
+    const storedCountdown = localStorage.getItem('countdown');
+    const storedIsCooldown = localStorage.getItem('isCooldown');
+
+    if (storedIsCooldown === 'true' && storedCountdown) {
+      setIsCooldown(true);
+      setCountdown(Number(storedCountdown));
+    }
+  }, []);
+
   const handleForgotPassword = async () => {
     if (!values.email) {
       toast.error("Please enter an email!");
@@ -28,10 +42,33 @@ function LoginForm() {
     try {
       const response = await forgotPassword({ email: values.email }).unwrap();
       toast.success(response.message);
+      // Start the cooldown
+      setIsCooldown(true);
+      setCountdown(60);
+      localStorage.setItem('isCooldown', 'true');
+      localStorage.setItem('countdown', 60);
     } catch (error) {
       toast.error(error?.data?.message || error?.error);
     }
   };
+
+  useEffect(() => {
+    let timer;
+    if (isCooldown && countdown > 0) {
+      timer = setInterval(() => {
+        setCountdown(prev => {
+          const newCountdown = prev - 1;
+          localStorage.setItem('countdown', newCountdown); // Store countdown in localStorage
+          return newCountdown;
+        });
+      }, 1000);
+    } else if (countdown === 0) {
+      setIsCooldown(false);
+      localStorage.removeItem('isCooldown'); // Clear cooldown from localStorage
+      localStorage.removeItem('countdown'); // Clear countdown from localStorage
+    }
+    return () => clearInterval(timer);
+  }, [isCooldown, countdown]);
 
   return (
     <Form>
@@ -143,19 +180,19 @@ function LoginForm() {
         <Typography>
   Forgot Password?{" "}
   <span
-    style={{
-      color: "#FFC300", // Bright yellow color
-      fontWeight: "bold",
-      textDecoration: "underline",
-      cursor: "pointer",
-      transition: "color 0.3s ease",
-    }}
-    onClick={handleForgotPassword}
-    onMouseEnter={(e) => (e.target.style.color = "#FF5733")} // Changes to orange on hover
-    onMouseLeave={(e) => (e.target.style.color = "#FFC300")} // Back to yellow on mouse leave
-  >
-    Click here
-  </span>
+      style={{
+        color: isCooldown ? "#ccc" : "#FFC300", // Grey out when on cooldown
+        fontWeight: "bold",
+        textDecoration: "underline",
+        cursor: isCooldown ? "not-allowed" : "pointer",
+        transition: "color 0.3s ease",
+      }}
+      onClick={!isCooldown ? handleForgotPassword : null}
+      onMouseEnter={(e) => (e.target.style.color = "#FF5733")} // Changes to orange on hover
+      onMouseLeave={(e) => (e.target.style.color = isCooldown ? "#ccc" : "#FFC300")} // Back to yellow or grey on mouse leave
+    >
+      {isCooldown ? `Please wait ${countdown} seconds` : "Click here"}
+    </span>
 </Typography>
 
 <Typography>

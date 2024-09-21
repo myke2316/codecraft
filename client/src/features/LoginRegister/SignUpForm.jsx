@@ -52,7 +52,7 @@ function SignUpForm() {
           {({ field, meta }) => (
             <TextField
               {...field}
-              label="Username"
+              label="Full Name"
               fullWidth
               sx={{
                 width: { xs: "90%", sm: "80%", md: "600px" }, // Responsive width
