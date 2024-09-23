@@ -1,7 +1,7 @@
 import { Button, Typography, Box, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
-import html2canvas from "html2canvas/dist/html2canvas.esm.js";
+import domtoimage from 'dom-to-image';
 import jsPDF from "jspdf";
 import Certificate from "./Certificate";
 import "./certificate.css";
@@ -42,24 +42,31 @@ const CertificationPage = () => {
     setOpen(false);
   };
 
-  // Download as Image
+  // Download as Image using dom-to-image
   const downloadImage = () => {
-    html2canvas(certificateRef.current).then((canvas) => {
-      const link = document.createElement("a");
-      link.href = canvas.toDataURL("image/png");
-      link.download = "certificate.png";
-      link.click();
-    });
+    domtoimage.toPng(certificateRef.current)
+      .then((dataUrl) => {
+        const link = document.createElement("a");
+        link.href = dataUrl;
+        link.download = "certificate.png";
+        link.click();
+      })
+      .catch((error) => {
+        console.error("Failed to generate image:", error);
+      });
   };
 
-  // Download as PDF
+  // Download as PDF using dom-to-image and jsPDF
   const downloadPDF = () => {
-    html2canvas(certificateRef.current).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("landscape");
-      pdf.addImage(imgData, "PNG", 10, 10, 280, 150);
-      pdf.save("certificate.pdf");
-    });
+    domtoimage.toPng(certificateRef.current)
+      .then((dataUrl) => {
+        const pdf = new jsPDF("landscape");
+        pdf.addImage(dataUrl, "PNG", 10, 10, 280, 150); // Adjust size based on your certificate's design
+        pdf.save("certificate.pdf");
+      })
+      .catch((error) => {
+        console.error("Failed to generate PDF:", error);
+      });
   };
 
   return (
