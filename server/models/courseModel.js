@@ -42,7 +42,7 @@ const CodeEditorSchema = new mongoose.Schema(
 const TestCaseSchema = new mongoose.Schema(
   {
     input: { type: String, default: "" },
-    output: { type: String, required: true },
+    output: { type: String, required: false },
     required: [{ type: String, required: true }],
     isHidden: { type: Boolean, default: false },
     testCaseSentences: [{ type: String, required: false }],

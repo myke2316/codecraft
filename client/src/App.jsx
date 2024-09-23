@@ -61,6 +61,7 @@ import AssignmentDetails from "./features/Class/AssignmentDetails";
 import TeacherViewAssignment from "./features/Teacher/TeacherViewAssignment";
 import AnswerAssignmentPage from "./features/AssignmentAnswer/AnswerAssignmentPage";
 import TeacherAssignmentGrade from "./features/Teacher/TeacherAssignmentGrade";
+import CertificationPage from "./features/Course/CertificationPage";
 
 function App() {
   return (
@@ -73,14 +74,12 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="redirect" element={<GoogleRedirect />} />
-          <Route path="normal-redirect" element={<NormalRedirect />} />   
+          <Route path="normal-redirect" element={<NormalRedirect />} />
           <Route
-              path="reset-password/:resetToken"
-              element={<ResetPassword />}
-            />
-          <Route path="" element={<PrivateRoutes />}>
-         
-          </Route>
+            path="reset-password/:resetToken"
+            element={<ResetPassword />}
+          />
+          <Route path="" element={<PrivateRoutes />}></Route>
         </Route>
         {/* student */}
         <Route element={<ClassLayout />}>
@@ -185,6 +184,10 @@ function App() {
               <Route
                 path=":courseId/lesson/:lessonId/document/:documentId/complete"
                 element={<DocumentComplete />}
+              />
+              <Route
+                path=":studentId/certification"
+                element={<CertificationPage />}
               />
             </Route>
           </Route>

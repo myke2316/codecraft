@@ -137,6 +137,7 @@ function DocumentContent() {
     { isLoading: isLoadingUpdateUserAnalytics },
   ] = useUpdateUserAnalyticsMutation();
   const [isProcessing, setIsProcessing] = useState(false);
+  
   async function handleNext() {
     if (isProcessing) return; // Prevent multiple clicks
 

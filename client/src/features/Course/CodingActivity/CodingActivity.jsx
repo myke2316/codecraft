@@ -271,7 +271,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
       let endpoint;
       if (activity.language === "HTML") {
         endpoint = `${BACKEND_URL}/submit/html`;
-      } else if (activity.language === "CSS") {
+      } else if (activity.language === "CSS" || "css") {
         endpoint = `${BACKEND_URL}/submit/css`;
       } else if (activity.language === "JavaScriptWeb") {
         endpoint = `${BACKEND_URL}/submit/javascriptweb`;

@@ -6,17 +6,7 @@ function DocumentComplete() {
   const { courseId, lessonId, documentId } = useParams();
   const navigate = useNavigate();
   const courses = useSelector((state) => state.course.courseData);
-  // const lessonQuizSubmissions = useSelector((state) =>
-  //   state.userQuizSubmission.quizSubmissions.quizSubmissions.filter(
-  //     (submission) => submission.lessonId === lessonId
-  //   )
-  // );
 
-  // const completedQuiz = lessonQuizSubmissions.every(
-  //   (submission) => submission.selectedOption != null || ""
-  // );
-
-  // console.log(completedQuiz);
   const location = useLocation();
   const totalTimeSpent = location.state?.formattedTime; // Access the totalTimeSpent state
 

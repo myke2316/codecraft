@@ -427,62 +427,7 @@ const createUserAnalytics = async (req, res) => {
 
 
 
-// no badges yet
-// const createUserAnalytics = async (req, res) => {
-//   const { userId } = req.body;
 
-//   try {
-//     // Check if user progress already exists
-//     const existingUserProgress = await UserAnalyticsModel.findOne({ userId });
-//     if (existingUserProgress) {
-//       return res.status(400).json({ message: "User progress already exists" });
-//     }
-
-//     const courses = await CourseModel.find().populate({
-//       path: "lessons",
-//       populate: {
-//         path: "documents quiz",
-//       },
-//     });
-
-//     const coursesAnalytics = courses.map((course) => ({
-//       courseId: course._id,
-//       lessonsAnalytics: course.lessons.map((lesson) => ({
-//         lessonId: lesson._id,
-//         documentsAnalytics: lesson.documents.map((document) => ({
-//           documentId: document._id,
-//           timeSpent: 0,
-//           pointsEarned: 0,
-//         })),
-//         quizzesAnalytics: lesson.quiz.map((quiz) => ({
-//           quizId: quiz._id,
-//           timeSpent: 0,
-//           pointsEarned: 0,
-//         })),
-//         activitiesAnalytics: lesson.activities.map((activity) => ({
-//           activityId: activity._id,
-//           timeSpent: 0,
-//           pointsEarned: 0,
-//         })),
-//         totalTimeSpent: 0,
-//         totalPointsEarned: 0,
-//       })),
-//       totalTimeSpent: 0,
-//       totalPointsEarned: 0,
-//     }));
-
-//     const newUserAnalytics = new UserAnalyticsModel({
-//       userId,
-//       coursesAnalytics,
-//       badges: [],
-//     });
-
-//     const savedUserAnalytics = await newUserAnalytics.save();
-//     res.status(201).json(savedUserAnalytics);
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// };
 
 export {
   getUserProgress,

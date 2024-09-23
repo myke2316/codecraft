@@ -221,7 +221,7 @@ const cssNormalizeCode = (code) => {
 };
 app.post("/submit/css", (req, res) => {
   const { htmlCode, cssCode, jsCode, activity } = req.body;
-
+  console.log("LALALALLA "+cssCode)
   if (!activity) {
     return res.status(404).json({ error: "Activity not found" });
   }
@@ -252,6 +252,7 @@ app.post("/submit/css", (req, res) => {
   for (const testCase of testCases) {
     let htmlContent = htmlCode;
 
+    
     // Insert CSS into the HTML content
     if (cssCode) {
       htmlContent = htmlContent.replace(
@@ -298,6 +299,7 @@ app.post("/submit/css", (req, res) => {
           status: "incorrect",
         });
         console.log(
+       
           normalizedRequirement +
             " : mali ito : correct count : " +
             correctCount

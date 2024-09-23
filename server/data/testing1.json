@@ -1,0 +1,1021 @@
+{
+    "courses": [
+      {
+        "title": "HTML",
+        "lessons": [
+          {
+            "title": "Lesson 1: Introduction to HTML",
+            "documents": [
+              {
+                "title": "What is HTML?",
+                "content": [
+                  {
+                    "type": "sentence",
+                    "text": "HTML stands for HyperText Markup Language."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "It is the standard language for creating web pages."
+                  },
+                  {
+                    "type": "snippet",
+                    "code": "<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n</body>\n</html>"
+                  }
+                ],
+                "locked": false,
+                "badges": "Document 1"
+              },
+              {
+                "title": "HTML Structure",
+                "content": [
+                  {
+                    "type": "sentence",
+                    "text": "HTML documents have a structure that includes elements such as doctype, html, head, and body tags."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "The doctype declaration defines the document type."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "The html element is the root element of an HTML page."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "The head element contains meta-information about the HTML document."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "The body element contains the visible page content."
+                  },
+                  {
+                    "type": "code",
+                    "language": "html",
+                    "code": "<p>This is a paragraph.</p>"
+                  },
+                  {
+                    "type": "code",
+                    "language": "html",
+                    "code": "<p>This is a paragraph numbah 2.</p>"
+                  }
+                ],
+                "locked": true,
+                "badges": "Document 2"
+              },
+              {
+                "title": "Basic HTML Tags",
+                "content": [
+                  {
+                    "type": "sentence",
+                    "text": "Learn about basic HTML tags like <p>, <a>, <div>, and more."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "The <p> tag defines a paragraph."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "The <a> tag defines a hyperlink."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "The <div> tag defines a division or a section in an HTML document."
+                  },
+                  {
+                    "type": "code",
+                    "language": "html",
+                    "code": "<div>\n<p>This is a paragraph.</p>\n<a href=\"https://www.example.com\">This is a link</a>\n</div>"
+                  }
+                ],
+                "locked": true,
+                "badges": "Document 3"
+              }
+            ],
+            "quiz": [
+              {
+                "question": "What does HTML stand for?",
+                "options": [
+                  "HyperText Markup Language",
+                  "HyperText Markdown Language",
+                  "HyperLoop Machine Language"
+                ],
+                "correctAnswer": "HyperText Markup Language",
+                "points": 1,
+                "locked": true
+              },
+              {
+                "question": "What tag is used to create a hyperlink in HTML?",
+                "options": ["<link>", "<a>", "<href>"],
+                "correctAnswer": "<a>",
+                "points": 1,
+                "locked": true
+              },
+              {
+                "question": "What does HTML stand for?",
+                "options": [
+                  "HyperText Markup Language",
+                  "HyperText Markdown Language",
+                  "HyperLoop Machine Language"
+                ],
+                "correctAnswer": "HyperText Markup Language",
+                "points": 1,
+                "locked": true
+              }
+            ],
+            "totalPoints": 10,
+            "locked": false,
+            "badges": "Beginner",
+            "completed": false
+          },
+          {
+            "title": "Lesson 2: HTML Elements",
+            "documents": [
+              {
+                "title": "HTML Elements Overview",
+                "content": [
+                  {
+                    "type": "sentence",
+                    "text": "HTML elements are the building blocks of HTML pages."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "They are represented by tags."
+                  },
+                  {
+                    "type": "code",
+                    "language": "html",
+                    "code": "<div>\n<p>This is a paragraph.</p>\n</div>"
+                  }
+                ],
+                "locked": true
+              },
+              {
+                "title": "Inline vs Block Elements",
+                "content": [
+                  {
+                    "type": "sentence",
+                    "text": "Understand the difference between inline and block elements in HTML."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "Inline elements do not start on a new line and take up only necessary width."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "Block elements start on a new line and take up the full width available."
+                  },
+                  {
+                    "type": "code",
+                    "language": "html",
+                    "code": "<span>This is an inline element.</span>\n<div>This is a block element.</div>"
+                  }
+                ],
+                "locked": true
+              },
+              {
+                "title": "HTML Attributes",
+                "content": [
+                  {
+                    "type": "sentence",
+                    "text": "HTML attributes provide additional information about HTML elements."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "Attributes are always included in the opening tag."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "Common attributes include id, class, and style."
+                  },
+                  {
+                    "type": "snippet",
+                    "code": "<p id=\"myParagraph\" class=\"text\">This is a paragraph with attributes.</p>"
+                  }
+                ],
+                "locked": true
+              }
+            ],
+  
+            "quiz": [
+              {
+                "question": "What is an HTML element?",
+                "options": [
+                  "A piece of HTML code",
+                  "A style applied to HTML",
+                  "A JavaScript function"
+                ],
+                "correctAnswer": "A piece of HTML code",
+                "points": 1,
+                "locked": true
+              },
+              {
+                "question": "What does HTML stand for?",
+                "options": [
+                  "HyperText Markup Language",
+                  "HyperText Markdown Language",
+                  "HyperLoop Machine Language"
+                ],
+                "correctAnswer": "HyperText Markup Language",
+                "points": 1,
+                "locked": true
+              },
+              {
+                "question": "How do you add an attribute to an HTML tag?",
+                "options": [
+                  "By using a colon",
+                  "By using an equals sign",
+                  "By using a comma"
+                ],
+                "correctAnswer": "By using an equals sign",
+                "points": 1,
+                "locked": true
+              }
+            ],
+            "activities": [
+              {
+                "title": "Create a Basic HTML Page",
+                "description": "Build a basic HTML structure.",
+                "language": "HTML",
+                "difficulty": "easy",
+                "problemStatement": "Create a webpage with a title 'My Page' and a heading(h1) 'Welcome'",
+  
+                "codeEditor": {
+                  "html": "<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n</head>\n<body>\n</body>\n</html>",
+                  "css": "",
+                  "js": ""
+                },
+                "testCases": [
+                  {
+                    "input": "",
+                    "output": "<!DOCTYPE html><html><head><title>My Page</title></head><body><h1>Welcome</h1></body></html>",
+                    "required": ["<title>My Page</title>", "<h1>Welcome</h1>"],
+                    "isHidden": false
+                  }
+                ],
+                "locked": true
+              },
+              {
+                "title": "Create a Complex HTML Page",
+                "description": "Add more elements to your HTML page.",
+                "language": "HTML",
+                "difficulty": "medium",
+                "problemStatement": "Include a paragraph 'This is a paragraph' and an image ( use '/cat.png' ).",
+  
+                "codeEditor": {
+                  "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>\nComplex Page\n</title>\n</head>\n<body>\n\n</body>\n</html>",
+                  "css": "",
+                  "js": ""
+                },
+                "testCases": [
+                  {
+                    "input": "",
+                    "output": "<!DOCTYPE html><html><head><title>Complex Page</title></head><body><h1>Welcome</h1><p>This is a paragraph.</p><img src='image.jpg' alt='Example Image'></body></html>",
+                    "required": [
+                      "<p>This is a paragraph</p>",
+                      "<img src='/cat.png'"
+                    ],
+                    "isHidden": false
+                  }
+                ],
+                "locked": true
+              },
+              {
+                "title": "Image Handling Practice",
+                "description": "Create an HTML page that includes an image with specific attributes. The image file should be named 'cat.png' and located in the same directory as your HTML file.",
+                "language": "HTML",
+                "difficulty": "medium",
+                "problemStatement": "Include an image ('/cat.png') with specific attributes in your HTML page, with a heading (h1) 'Check out this cat!'",
+  
+                "codeEditor": {
+                  "html": "<!DOCTYPE html>\n<html lang='en'>\n<head>\n    <meta charset='UTF-8'>\n    <meta name='viewport' content='width=device-width, initial-scale=1.0'>\n    <title>Image Handling Activity</title>\n</head>\n<body>\n    \n</body>\n</html>",
+                  "css": "",
+                  "js": ""
+                },
+                "testCases": [
+                  {
+                    "input": "",
+                    "output": "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Image Handling Activity</title></head><body><h1>Check out this cat!</h1><img src='cat.png' alt='A cute cat' width='300' height='200'></body></html>",
+                    "required": [
+                      "<h1>Check out this cat!</h1>",
+                      "<img src='/cat.png' alt='cat'"
+                    ],
+                    "isHidden": false
+                  }
+                ],
+                "locked": true
+              }
+            ],
+            "totalPoints": 10,
+            "locked": true,
+            "badges": "Consistent!"
+          }
+        ],
+        "locked": false,
+        "badges": "HTML Master"
+      },
+      {
+        "title": "CSS",
+        "lessons": [
+          {
+            "title": "Lesson 2: CSS Syntax and Selectors",
+            "documents": [
+              {
+                "title": "Introduction to CSS Syntax",
+                "content": [
+                  {
+                    "type": "sentence",
+                    "text": "CSS syntax is the way in which CSS is written to style web pages."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "It consists of a selector, which specifies the HTML element to be styled, followed by a declaration block containing the styles to be applied."
+                  },
+                  {
+                    "type": "snippet",
+                    "code": "selector {\n    property: value;\n    another-property: another-value;\n}"
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "In the example above, the selector targets an HTML element, while the properties define what styles should be applied."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "Each CSS declaration consists of a property and a value, separated by a colon. Declarations are enclosed within curly braces and separated by a semicolon."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "Next, we will explore CSS selectors and how to target specific elements on the page."
+                  },
+                  {
+                    "type": "code",
+                    "language": "css",
+                    "supportingCode": "<body>This is a body</body>",
+                    "code": "body {\n    background-color: lightblue;\n}"
+                  }
+                ],
+                "locked": false
+              },
+              {
+                "title": "Common CSS Selectors",
+                "content": [
+                  {
+                    "type": "sentence",
+                    "text": "CSS selectors are patterns used to select the elements you want to style."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "Here are some of the most common selectors:"
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "1. **Element Selector**: Targets all instances of a specific HTML element."
+                  },
+                  {
+                    "type": "snippet",
+                    "code": "h1 {\n    color: blue;\n}"
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "This targets all `<h1>` elements, making them blue."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "2. **Class Selector**: Targets elements with a specific class attribute."
+                  },
+                  {
+                    "type": "snippet",
+                    "code": ".highlight {\n    background-color: yellow;\n}"
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "This targets elements with the class 'highlight', giving them a yellow background."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "3. **ID Selector**: Targets a single element with a specific ID."
+                  },
+                  {
+                    "type": "snippet",
+                    "code": "#main-header {\n    font-size: 24px;\n}"
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "This targets the element with the ID 'main-header', setting its font size to 24px."
+                  }
+                ],
+                "locked": false
+              },
+              {
+                "title": "Advanced Selectors and Pseudo-classes",
+                "content": [
+                  {
+                    "type": "sentence",
+                    "text": "CSS also provides more advanced selectors and pseudo-classes for fine-tuning styles."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "1. **Attribute Selector**: Selects elements based on their attributes."
+                  },
+                  {
+                    "type": "snippet",
+                    "code": "input[type=\"text\"] {\n    border: 1px solid #ccc;\n}"
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "This selects all `<input>` elements of type 'text', giving them a gray border."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "2. **Pseudo-class Selector**: Selects elements based on their state."
+                  },
+                  {
+                    "type": "snippet",
+                    "code": "a:hover {\n    text-decoration: underline;\n}"
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "This targets `<a>` elements when hovered over by the user, underlining them."
+                  }
+                ],
+                "locked": false
+              },
+              {
+                "title": "CSS Combinators",
+                "content": [
+                  {
+                    "type": "sentence",
+                    "text": "Combinators are used to combine multiple selectors to select elements based on their relationship in the document tree."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "There are four types of combinators:"
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "1. **Descendant Selector**: Selects elements that are descendants of a specified element."
+                  },
+                  {
+                    "type": "snippet",
+                    "code": "div p {\n    color: green;\n}"
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "This targets all `<p>` elements inside a `<div>`."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "2. **Child Selector**: Selects elements that are direct children of a specified element."
+                  },
+                  {
+                    "type": "snippet",
+                    "code": "ul > li {\n    list-style-type: square;\n}"
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "This targets only the direct `<li>` children of a `<ul>`."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "3. **Adjacent Sibling Selector**: Selects an element that is immediately preceded by a specified element."
+                  },
+                  {
+                    "type": "snippet",
+                    "code": "h1 + p {\n    margin-top: 0;\n}"
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "This targets a `<p>` that directly follows an `<h1>`."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "4. **General Sibling Selector**: Selects all siblings of a specified element."
+                  },
+                  {
+                    "type": "snippet",
+                    "code": "h1 ~ p {\n    color: red;\n}"
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "This targets all `<p>` elements that are siblings of an `<h1>`."
+                  }
+                ],
+                "locked": false
+              }
+            ],
+  
+            "quiz": [
+              {
+                "question": "What does CSS stand for?",
+                "options": [
+                  "Cascading Style Sheets",
+                  "Cascading Script Sheets",
+                  "Cascading Simple Sheets"
+                ],
+                "correctAnswer": "Cascading Style Sheets",
+                "points": 1,
+                "locked": true
+              },
+              {
+                "question": "What does HTML stand for?",
+                "options": [
+                  "HyperText Markup Language",
+                  "HyperText Markdown Language",
+                  "HyperLoop Machine Language"
+                ],
+                "correctAnswer": "HyperText Markup Language",
+                "points": 1,
+                "locked": true
+              },
+              {
+                "question": "Which CSS property is used to change the text color of an element?",
+                "options": ["font-color", "text-color", "color"],
+                "correctAnswer": "color",
+                "points": 1,
+                "locked": true
+              }
+            ],
+            "activities": [
+              {
+                "title": "Style a Simple Webpage",
+                "description": "Apply basic CSS styles.",
+                "language": "CSS",
+                "difficulty": "easy",
+                "problemStatement": "Style the page with a blue background and red heading.",
+  
+                "codeEditor": {
+                  "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Styled Page</title>\n</head>\n<body>\n<h1>Hello World</h1>\n</body>\n</html>",
+                  "css": "",
+                  "js": ""
+                },
+                "testCases": [
+                  {
+                    "input": "",
+                    "output": "<!DOCTYPE html><html><head><title>Styled Page</title><style>body { background-color: blue; } h1 { color: red; }</style></head><body><h1>Hello World</h1></body></html>",
+                    "required": [
+                      "body { background-color: blue; }",
+                      "h1 { color: red; }"
+                    ],
+                    "isHidden": false
+                  }
+                ],
+                "locked": true
+              },
+              {
+                "title": "Advanced CSS Styling",
+                "description": "Style a page with additional elements.",
+                "language": "CSS",
+                "difficulty": "medium",
+                "problemStatement": "Add styles for a paragraph with a font-size of 16 pixels and image with a width of 100 pixels.",
+  
+                "codeEditor": {
+                  "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Advanced Styled Page</title>\n</head>\n<body>\n<h1>Hello World</h1>\n<p>This is a paragraph.</p>\n<img src='image.jpg' alt='Example Image'>\n</body>\n</html>",
+                  "css": "",
+                  "js": ""
+                },
+                "testCases": [
+                  {
+                    "input": "",
+                    "output": "<!DOCTYPE html><html><head><title>Advanced Styled Page</title><style>body { background-color: blue; } h1 { color: red; } p { font-size: 16px; } img { width: 100px; }</style></head><body><h1>Hello World</h1><p>This is a paragraph.</p><img src='/cat.png' alt='Example Image'></body></html>",
+                    "required": [
+                      "p { font-size: 16px; }",
+                      "img { width: 100px; }"
+                    ],
+                    "isHidden": false
+                  }
+                ],
+                "locked": true
+              }
+            ],
+            "totalPoints": 10,
+            "locked": true,
+            "completed": false
+          },
+          {
+            "title": "Lesson 2: CSS Box Model",
+            "documents": [
+              {
+                "title": "CSS Box Model Overview",
+                "content": [
+                  {
+                    "type": "sentence",
+                    "text": "The CSS box model describes the rectangular boxes generated for elements in the document tree."
+                  },
+                  {
+                    "type": "code",
+                    "language": "css",
+                    "supportingCode": "<div>This is a div</div>",
+                    "code": "/* Example of box model properties */\ndiv {\n  width: 300px;\n  padding: 10px;\n  border: 5px solid black;\n  margin: 20px;\n}"
+                  }
+                ],
+                "locked": true
+              },
+              {
+                "title": "Padding, Border, and Margin",
+                "content": [
+                  {
+                    "type": "sentence",
+                    "text": "Learn how padding, border, and margin affect the layout of elements."
+                  },
+                  {
+                    "type": "code",
+                    "language": "css",
+                    "supportingCode": "<div>This is a div</div>",
+                    "code": "div {\n  padding: 10px;\n  border: 5px solid red;\n  margin: 15px;\n}"
+                  }
+                ],
+                "locked": true
+              },
+              {
+                "title": "Box Sizing",
+                "content": [
+                  {
+                    "type": "sentence",
+                    "text": "Understand the box-sizing property and how it affects the box model."
+                  },
+                  {
+                    "type": "code",
+                    "language": "css",
+                    "supportingCode": "<div>This is a div</div>",
+                    "code": "div {\n  box-sizing: border-box;\n}"
+                  }
+                ],
+                "locked": true
+              }
+            ],
+  
+            "quiz": [
+              {
+                "question": "What property is used to add space inside the border of an element?",
+                "options": ["padding", "margin", "border"],
+                "correctAnswer": "padding",
+                "points": 1,
+                "locked": true
+              },
+              {
+                "question": "Which property is used to change the size of the box model?",
+                "options": ["box-sizing", "box-model", "size"],
+                "correctAnswer": "box-sizing",
+                "points": 1,
+                "locked": true
+              }
+            ],
+            "activities": [
+              {
+                "title": "Style a Simple Webpage",
+                "description": "Apply basic CSS styles.",
+                "language": "CSS",
+                "difficulty": "easy",
+                "problemStatement": "Style the page with a blue background and red heading.",
+  
+                "codeEditor": {
+                  "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Styled Page</title>\n</head>\n<body>\n<h1>Hello World</h1>\n</body>\n</html>",
+                  "css": "",
+                  "js": ""
+                },
+                "testCases": [
+                  {
+                    "input": "",
+                    "output": "<!DOCTYPE html><html><head><title>Styled Page</title><style>body { background-color: blue; } h1 { color: red; }</style></head><body><h1>Hello World</h1></body></html>",
+                    "required": [
+                      "body { background-color: blue; }",
+                      "h1 { color: red; }"
+                    ],
+                    "isHidden": false
+                  }
+                ],
+                "locked": true
+              },
+              {
+                "title": "Advanced CSS Styling",
+                "description": "Style a page with additional elements.",
+                "language": "CSS",
+                "difficulty": "medium",
+                "problemStatement": "Add styles for a paragraph and image.",
+  
+                "codeEditor": {
+                  "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Advanced Styled Page</title>\n</head>\n<body>\n<h1>Hello World</h1>\n<p>This is a paragraph.</p>\n<img src='image.jpg' alt='Example Image'>\n</body>\n</html>",
+                  "css": "",
+                  "js": ""
+                },
+                "testCases": [
+                  {
+                    "input": "",
+                    "output": "<!DOCTYPE html><html><head><title>Advanced Styled Page</title><style>body { background-color: blue; } h1 { color: red; } p { font-size: 16px; } img { width: 100px; }</style></head><body><h1>Hello World</h1><p>This is a paragraph.</p><img src='image.jpg' alt='Example Image'></body></html>",
+                    "required": [
+                      "p { font-size: 16px; }",
+                      "img { width: 100px; }"
+                    ],
+                    "isHidden": false
+                  }
+                ],
+                "locked": true
+              }
+            ],
+            "totalPoints": 10,
+            "locked": true,
+            "completed": false
+          }
+        ],
+        "locked": true,
+        "badges": "CSS Master",
+        "completed": false
+      },
+      {
+        "title": "JavaScript",
+        "lessons": [
+          {
+            "title": "Lesson 1: Introduction to JavaScript",
+            "documents": [
+              {
+                "title": "What is JavaScript?",
+                "content": [
+                  {
+                    "type": "sentence",
+                    "text": "JavaScript is a versatile programming language primarily used for web development."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "It allows you to create dynamically updating content, control multimedia, animate images, and much more."
+                  },
+                  {
+                    "type": "snippet",
+                    "code": "console.log('Hello, World!');"
+                  }
+                ],
+                "locked": true
+              },
+              {
+                "title": "JavaScript Syntax",
+                "content": [
+                  {
+                    "type": "sentence",
+                    "text": "JavaScript syntax is the set of rules that define a correctly structured JavaScript program."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "JavaScript programs are composed of statements, blocks, expressions, and operators."
+                  },
+                  {
+                    "type": "code",
+                    "language": "javascript",
+                    "code": "let x = 5;\nlet y = 6;\nlet z = x + y;\nconsole.log(z);"
+                  }
+                ],
+                "locked": true
+              }
+            ],
+            "quiz": [
+              {
+                "question": "What is JavaScript primarily used for?",
+                "options": [
+                  "Web development",
+                  "Desktop applications",
+                  "Mobile apps"
+                ],
+                "correctAnswer": "Web development",
+                "points": 1,
+                "locked": true
+              },
+              {
+                "question": "How do you write a message to the console in JavaScript?",
+                "options": ["print()", "console.log()", "echo()"],
+                "correctAnswer": "console.log()",
+                "points": 1,
+                "locked": true
+              }
+            ],
+            "activities": [
+              {
+                "title": "JavaScript Basics",
+                "description": "Write a simple JavaScript program to add two numbers and display the result.",
+                "language": "JavaScriptConsole",
+                "difficulty": "easy",
+                "problemStatement": "Write a JavaScript program to add two numbers using 'let' declaration a = 6, and b = 5 and display the result and should give 11 as output.",
+  
+                "codeEditor": {
+                  "html": "",
+                  "css": "",
+                  "js": "let a = 5;\nlet b = 6;\nlet sum = ;\nconsole.log(sum);"
+                },
+                "testCases": [
+                  {
+                    "input": "let a =5;\nlet b=6;\nlet sum = a+b\nconsole.log(sum);",
+                    "output": "11",
+                    "required": [
+                      "let a = 5;",
+                      "let b = 6;",
+                      "let sum = a + b;",
+                      "console.log(sum);"
+                    ],
+                    "isHidden": false
+                  }
+                ],
+                "locked": true
+              },
+              {
+                "title": "JavaScript Functions",
+                "description": "Create a JavaScript function that takes two parameters and returns their sum.",
+                "language": "JavaScriptConsole",
+                "difficulty": "medium",
+                "problemStatement": "Create a JavaScript function named 'addNumbers' that takes two parameters (a and b) and returns their sum, it should return 11.",
+  
+                "codeEditor": {
+                  "html": "",
+                  "css": "",
+                  "js": ""
+                },
+                "testCases": [
+                  {
+                    "input": "function addNumbers(a, b) {\n  return a + b;\n}\nconsole.log(addNumbers(5, 6));",
+                    "output": "11",
+                    "required": [
+                      "function addNumbers(a, b) {",
+                      "return a + b;",
+                      "console.log(addNumbers(5, 6));"
+                    ],
+                    "isHidden": false
+                  }
+                ],
+                "locked": true
+              },
+              {
+                "title": "Log - Javascript",
+                "description": "Log 'Hello' in the terminal.",
+                "language": "JavaScriptConsole",
+                "difficulty": "hard",
+                "problemStatement": "Output: Hello",
+  
+                "codeEditor": {
+                  "html": "",
+                  "css": "",
+                  "js": ""
+                },
+                "testCases": [
+                  {
+                    "input": "console.log('Hello');",
+                    "output": "Hello",
+                    "required": ["console.log('Hello');"],
+                    "isHidden": false
+                  }
+                ],
+                "locked": true
+              }
+            ],
+            "totalPoints": 10,
+            "locked": true,
+            "completed": false
+          },
+          {
+            "title": "Lesson 2: JavaScript DOM Manipulation",
+            "documents": [
+              {
+                "title": "What is the DOM?",
+                "content": [
+                  {
+                    "type": "sentence",
+                    "text": "The DOM (Document Object Model) is a programming interface for web documents."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "It represents the page so that programs can change the document structure, style, and content."
+                  },
+                  {
+                    "type": "snippet",
+                    "code": "document.getElementById('myElement').innerHTML = 'Hello, World!';"
+                  }
+                ],
+                "locked": true
+              },
+              {
+                "title": "Manipulating the DOM",
+                "content": [
+                  {
+                    "type": "sentence",
+                    "text": "You can use JavaScript to manipulate the DOM by selecting elements and changing their properties."
+                  },
+                  {
+                    "type": "sentence",
+                    "text": "Common methods include getElementById, querySelector, and addEventListener."
+                  },
+                  {
+                    "type": "code",
+                    "language": "javascript",
+                    "supportingCode":"<div class='myClass'>Hello Background</div>",
+                    "code": "document.querySelector('.myClass').style.backgroundColor = 'blue';"
+                  }
+                ],
+                "locked": false
+              }
+            ],
+            "quiz": [
+              {
+                "question": "What does DOM stand for?",
+                "options": [
+                  "Document Object Model",
+                  "Data Object Model",
+                  "Document Oriented Model"
+                ],
+                "correctAnswer": "Document Object Model",
+                "points": 1,
+                "locked": true
+              },
+              {
+                "question": "Which method is used to select an element by its id?",
+                "options": [
+                  "getElementById",
+                  "querySelector",
+                  "getElementsByClassName"
+                ],
+                "correctAnswer": "getElementById",
+                "points": 1,
+                "locked": true
+              }
+            ],
+            "activities": [
+              {
+                "title": "Change Content with DOM",
+                "description": "Write a JavaScript program to change the content of an HTML element.",
+                "language": "JavaScriptWeb",
+                "difficulty": "easy",
+                "problemStatement": "Write a JavaScript program to change the content of an HTML element, by getting the element's ID and changing its inner HTMl to 'Hello World'",
+  
+                "codeEditor": {
+                  "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Change Content with DOM</title>\n</head>\n<body>\n<div id='myElement'>Original Content</div>\n<script>\n// Write your JavaScript code here\n</script>\n</body>\n</html>",
+                  "css": "",
+                  "js": ""
+                },
+                "testCases": [
+                  {
+                    "input": "",
+                    "output": "Hello, World!",
+                    "required": [
+                      "document.getElementById('myElement').innerHTML = 'Hello World!';"
+                    ],
+                    "isHidden": false
+                  }
+                ],
+                "locked": true
+              },
+              {
+                "title": "Change Style with DOM",
+                "description": "Write a JavaScript program to change the style of an HTML element.",
+                "language": "JavaScriptWeb",
+                "difficulty": "medium",
+                "problemStatement": "Write a JavaScript program to change the style of an HTML element.",
+  
+                "codeEditor": {
+                  "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Change Style with DOM</title>\n</head>\n<body>\n<div id='myElement'>Original Content</div>\n<script>\n// Write your JavaScript code here\n</script>\n</body>\n</html>",
+                  "css": "",
+                  "js": ""
+                },
+                "testCases": [
+                  {
+                    "input": "",
+                    "output": "<div id='myElement' style='color: red;'>Styled Content</div>",
+                    "required": [
+                      "document.getElementById('myElement').style.color = 'red';",
+                      "document.getElementById('myElement').innerHTML = 'Styled Content';"
+                    ],
+                    "isHidden": false
+                  }
+                ],
+                "locked": true
+              },
+              {
+                "title": "Form Validation with JavaScript",
+                "description": "Add validation to a form.",
+                "language": "JavaScriptWeb",
+                "difficulty": "medium",
+                "problemStatement": "Validate form inputs and display a message.",
+  
+                "codeEditor": {
+                  "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Form Validation</title>\n</head>\n<body>\n<form id='myForm'>\n<input type='text' id='name'>\n<button type='submit'>Submit</button>\n</form>\n</body>\n</html>",
+                  "css": "",
+                  "js": ""
+                },
+                "testCases": [
+                  {
+                    "input": "",
+                    "output": "Form is valid",
+                    "required": [
+                      "document.getElementById('myForm');",
+                      "event.preventDefault();"
+                    ],
+                    "isHidden": false
+                  }
+                ],
+                "locked": true
+              }
+            ],
+            "totalPoints": 20,
+            "locked": true,
+            "completed": false
+          }
+        ],
+        "locked": true,
+        "badges": "JS Master",
+        "completed": false
+      }
+    ]
+  }
+  

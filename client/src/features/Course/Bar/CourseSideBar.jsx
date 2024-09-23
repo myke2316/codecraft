@@ -12,6 +12,8 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
+  Box,
+  Button,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import LockIcon from "@mui/icons-material/Lock";
@@ -27,11 +29,7 @@ function CourseSidebar() {
     (state) => state.studentProgress.userProgress
   );
   const location = useLocation();
-
-  const userAnalytics = useSelector(
-    (state) => state.userAnalytics.userAnalytics
-  );
-console.log(userAnalytics)
+  const user = useSelector((state) => state.user.userDetails);
   const [expandedCourseId, setExpandedCourseId] = useState(null);
   const [expandedLessonId, setExpandedLessonId] = useState(null);
 
@@ -72,7 +70,13 @@ console.log(userAnalytics)
   const handleActivityClick = (courseId, lessonId) => {
     navigate(`/course/${courseId}/lesson/${lessonId}/activity/activityList`);
   };
-
+  const allCoursesCompleted = courses.every(course => {
+    const courseProgress = userProgress.coursesProgress.find(
+      (cp) => cp.courseId.toString() === course._id.toString()
+    );
+    return courseProgress?.dateFinished !== undefined && courseProgress?.dateFinished !== null;
+  });
+  console.log(allCoursesCompleted)
   return (
     <div style={{ width: "300px", padding: "16px" }}>
       {courses.map((course) => {
@@ -80,6 +84,20 @@ console.log(userAnalytics)
           (cp) => cp.courseId.toString() === course._id.toString()
         );
         if (!courseProgress) return null;
+
+        const isCourseCompleted = courses.every((course) => {
+          const courseProgress = userProgress.coursesProgress.find(
+            (cp) => cp.courseId.toString() === course._id.toString()
+          );
+
+          if (!courseProgress) return false; // If no progress found for the course
+
+          return (
+            courseProgress.dateFinished !== undefined &&
+            courseProgress.dateFinished !== null
+          );
+        });
+        console.log(isCourseCompleted);
 
         const isCourseExpanded = expandedCourseId === course._id;
 
@@ -102,6 +120,7 @@ console.log(userAnalytics)
                     const lessonProgress = courseProgress.lessonsProgress.find(
                       (lp) => lp.lessonId.toString() === lesson._id.toString()
                     );
+
                     if (!lessonProgress) return null;
 
                     const isLessonUnlocked = !lessonProgress.locked;
@@ -242,6 +261,20 @@ console.log(userAnalytics)
           </Card>
         );
       })}
+
+      {/* Add the Course End button at the bottom */}
+      <Divider sx={{ my: 2 }} />
+      <Box textAlign="center" mt={2}>
+        <Button
+          variant="contained"
+          color="success"
+          sx={{ padding: "10px 20px", borderRadius: "50px" }}
+          disabled={!allCoursesCompleted} // Disable button unless all lessons are completed
+          onClick={() => navigate(`/course/${user._id}/certification`)}
+        >
+          🎉 Course End - Congratulations! 🎉
+        </Button>
+      </Box>
     </div>
   );
 }

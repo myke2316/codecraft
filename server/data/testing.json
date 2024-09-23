@@ -403,59 +403,189 @@
       "title": "CSS",
       "lessons": [
         {
-          "title": "Lesson 1: Introduction to CSS",
+          "title": "Lesson 2: CSS Syntax and Selectors",
           "documents": [
             {
-              "title": "What is CSS?",
+              "title": "Introduction to CSS Syntax",
               "content": [
                 {
                   "type": "sentence",
-                  "text": "CSS stands for Cascading Style Sheets."
+                  "text": "CSS syntax is the way in which CSS is written to style web pages."
                 },
                 {
                   "type": "sentence",
-                  "text": "It is used to style and layout web pages."
+                  "text": "It consists of a selector, which specifies the HTML element to be styled, followed by a declaration block containing the styles to be applied."
+                },
+                {
+                  "type": "snippet",
+                  "code": "selector {\n    property: value;\n    another-property: another-value;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In the example above, the selector targets an HTML element, while the properties define what styles should be applied."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Each CSS declaration consists of a property and a value, separated by a colon. Declarations are enclosed within curly braces and separated by a semicolon."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Next, we will explore CSS selectors and how to target specific elements on the page."
                 },
                 {
                   "type": "code",
                   "language": "css",
                   "supportingCode": "<body>This is a body</body>",
-                  "code": "body {\n  background-color: lightblue;\n}"
+                  "code": "body {\n    background-color: lightblue;\n}"
                 }
               ],
-              "locked": true
+              "locked": false
             },
             {
-              "title": "CSS Syntax",
+              "title": "Common CSS Selectors",
               "content": [
                 {
                   "type": "sentence",
-                  "text": "Learn about the syntax of CSS including selectors, properties, and values."
+                  "text": "CSS selectors are patterns used to select the elements you want to style."
                 },
                 {
-                  "type": "code",
-                  "language": "css",
-                  "supportingCode": "<p>This is a paragraph</p>",
-                  "code": "p {\n  color: red;\n  text-align: center;\n}"
+                  "type": "sentence",
+                  "text": "Here are some of the most common selectors:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. **Element Selector**: Targets all instances of a specific HTML element."
+                },
+                {
+                  "type": "snippet",
+                  "code": "h1 {\n    color: blue;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "This targets all `<h1>` elements, making them blue."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. **Class Selector**: Targets elements with a specific class attribute."
+                },
+                {
+                  "type": "snippet",
+                  "code": ".highlight {\n    background-color: yellow;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "This targets elements with the class 'highlight', giving them a yellow background."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. **ID Selector**: Targets a single element with a specific ID."
+                },
+                {
+                  "type": "snippet",
+                  "code": "#main-header {\n    font-size: 24px;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "This targets the element with the ID 'main-header', setting its font size to 24px."
                 }
               ],
-              "locked": true
+              "locked": false
             },
             {
-              "title": "CSS Selectors",
+              "title": "Advanced Selectors and Pseudo-classes",
               "content": [
                 {
                   "type": "sentence",
-                  "text": "CSS selectors are used to 'select' the HTML elements you want to style."
+                  "text": "CSS also provides more advanced selectors and pseudo-classes for fine-tuning styles."
                 },
                 {
-                  "type": "code",
-                  "language": "css",
-                  "supportingCode": "<h1>This is a Header One.</h1>  <h2 class='myClass'>This is my class</h2>",
-                  "code": "h1 {\n  color: blue;\n}\n\n.myClass {\n  font-size: 20px;\n}"
+                  "type": "sentence",
+                  "text": "1. **Attribute Selector**: Selects elements based on their attributes."
+                },
+                {
+                  "type": "snippet",
+                  "code": "input[type=\"text\"] {\n    border: 1px solid #ccc;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "This selects all `<input>` elements of type 'text', giving them a gray border."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. **Pseudo-class Selector**: Selects elements based on their state."
+                },
+                {
+                  "type": "snippet",
+                  "code": "a:hover {\n    text-decoration: underline;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "This targets `<a>` elements when hovered over by the user, underlining them."
                 }
               ],
-              "locked": true
+              "locked": false
+            },
+            {
+              "title": "CSS Combinators",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Combinators are used to combine multiple selectors to select elements based on their relationship in the document tree."
+                },
+                {
+                  "type": "sentence",
+                  "text": "There are four types of combinators:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. **Descendant Selector**: Selects elements that are descendants of a specified element."
+                },
+                {
+                  "type": "snippet",
+                  "code": "div p {\n    color: green;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "This targets all `<p>` elements inside a `<div>`."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. **Child Selector**: Selects elements that are direct children of a specified element."
+                },
+                {
+                  "type": "snippet",
+                  "code": "ul > li {\n    list-style-type: square;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "This targets only the direct `<li>` children of a `<ul>`."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. **Adjacent Sibling Selector**: Selects an element that is immediately preceded by a specified element."
+                },
+                {
+                  "type": "snippet",
+                  "code": "h1 + p {\n    margin-top: 0;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "This targets a `<p>` that directly follows an `<h1>`."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. **General Sibling Selector**: Selects all siblings of a specified element."
+                },
+                {
+                  "type": "snippet",
+                  "code": "h1 ~ p {\n    color: red;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "This targets all `<p>` elements that are siblings of an `<h1>`."
+                }
+              ],
+              "locked": false
             }
           ],
 
