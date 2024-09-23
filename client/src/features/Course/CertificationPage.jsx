@@ -29,7 +29,6 @@ const CertificationPage = () => {
     course: "Web Development - Beginner",
     description: 'Completed the "Beginner Web Development Course',
     dateOfCompletion: formattedDate,
-    signature: "/esignature.png",
     signatureDetails: "Sir Eddie Bucad",
   };
 
