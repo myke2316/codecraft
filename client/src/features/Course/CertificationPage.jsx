@@ -43,52 +43,25 @@ const CertificationPage = () => {
     setOpen(false);
   };
 
-// Download as Image
-const downloadImage = () => {
-  import("html2canvas").then((module) => {
-    const html2canvas = module.default; // Access the default export
+  // Download as Image
+  const downloadImage = () => {
     html2canvas(certificateRef.current).then((canvas) => {
       const link = document.createElement("a");
       link.href = canvas.toDataURL("image/png");
       link.download = "certificate.png";
       link.click();
     });
-  });
-};
+  };
 
-// Download as PDF
-const downloadPDF = () => {
-  import("html2canvas").then((module) => {
-    const html2canvas = module.default; // Access the default export
+  // Download as PDF
+  const downloadPDF = () => {
     html2canvas(certificateRef.current).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
-
-      // Get canvas dimensions
-      const imgWidth = canvas.width;
-      const imgHeight = canvas.height;
-
-      // Create a jsPDF instance in landscape mode
       const pdf = new jsPDF("landscape");
-
-      // Calculate the width and height of the image to maintain the aspect ratio
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
-      const newWidth = imgWidth * ratio;
-      const newHeight = imgHeight * ratio;
-
-      // Center the image in the PDF
-      const xOffset = (pageWidth - newWidth) / 2;
-      const yOffset = (pageHeight - newHeight) / 2;
-
-      // Add the image to the PDF
-      pdf.addImage(imgData, "PNG", xOffset, yOffset, newWidth, newHeight);
+      pdf.addImage(imgData, "PNG", 10, 10, 280, 150);
       pdf.save("certificate.pdf");
     });
-  });
-};
-
-
+  };
 
   return (
     <Box
