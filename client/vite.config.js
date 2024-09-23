@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   rollupOptions: {
-    external: ['html2canvas'], // Externalize html2canvas
+    include: ['html2canvas'], // Externalize html2canvas
   },
   server: {
     port: 5173,
