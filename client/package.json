@@ -24,7 +24,6 @@
     "ace-builds": "^1.36.2",
     "adm-zip": "^0.5.16",
     "axios": "^1.6.8",
-    "dom-to-image": "^2.6.0",
     "dompurify": "^3.1.6",
     "file-saver": "^2.0.5",
     "formik": "^2.4.5",
