@@ -1,7 +1,7 @@
 import { Button, Typography, Box, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
-import html2canvas from "html2canvas";
+import html2canvas from "html2canvas/dist/html2canvas.esm.js";
 import jsPDF from "jspdf";
 import Certificate from "./Certificate";
 import "./certificate.css";
