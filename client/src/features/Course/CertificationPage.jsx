@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import html2canvas from 'html2canvas';
 import jsPDF from "jspdf";
 import Certificate from "./Certificate";
-import "./certificate.css";
+
 
 const CertificationPage = () => {
   const [open, setOpen] = useState(false);

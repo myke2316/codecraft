@@ -4,7 +4,7 @@ import React from "react";
 function Certificate({ name, dateFinished }) {
   return (
     <Box
-      className="max-w-4xl mx-auto p-10 bg-white rounded-xl shadow-lg border-8 border-indigo-600"
+      className="max-w-4xl mx-auto p-10 bg-white rounded-xl  border-8 border-indigo-600"
     >
       {/* Certificate Header */}
       <Box className="text-center mb-8">
