@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar";
 import CodingActivity from "./CodingActivity";
 import OutputPanel from "./OutputPanel";
 import axios from "axios";
+import { BACKEND_URL } from "../../../constants";
 
 const ActivityPage = () => {
   const { courseId, lessonId, activityId } = useParams();
@@ -36,7 +37,7 @@ const ActivityPage = () => {
 
     try {
       console.log(jsCode)
-      const response = await axios.post("http://localhost:8000/execute", {
+      const response = await axios.post(`${BACKEND_URL}/execute`, {
         language: activity.language.toLowerCase(),
         html: htmlCode || "",
         css: cssCode || "",
