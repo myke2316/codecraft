@@ -151,7 +151,7 @@
                 "HyperText Markup Language"
               ],
               "correctAnswer": "HyperText Markup Language",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -163,21 +163,21 @@
                 "To store data in a database"
               ],
               "correctAnswer": "To structure and format the content of websites",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "What does the <p> tag define?",
               "options": ["A link", "A heading", "A paragraph", "A division"],
               "correctAnswer": "A paragraph",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which tag is used to define the main content of the HTML page?",
               "options": ["<html>", "<head>", "<title>", "<body>"],
               "correctAnswer": "<body>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -189,28 +189,28 @@
                 "Defines a link"
               ],
               "correctAnswer": "Defines that the document is an HTML document",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which tag contains information about the HTML page, such as the title and metadata?",
               "options": ["<body>", "<title>", "<html>", "<head>"],
               "correctAnswer": "<head>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which tag defines a hyperlink?",
               "options": ["<p>", "<a>", "<div>", "<span>"],
               "correctAnswer": "<a>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "What is the root element of an HTML page?",
               "options": ["<head>", "<body>", "<html>", "<title>"],
               "correctAnswer": "<html>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -222,14 +222,14 @@
                 "A division or section"
               ],
               "correctAnswer": "A division or section",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which of the following is a correct HTML tag for creating a paragraph?",
               "options": ["<paragraph>", "<p>", "<para>", "<pg>"],
               "correctAnswer": "<p>",
-              "points": 1,
+              "points": 2,
               "locked": true
             }
           ],
@@ -979,7 +979,7 @@
               "question": "What does the HTML <p> tag create?",
               "options": ["A heading", "A list item", "A paragraph", "A table"],
               "correctAnswer": "A paragraph",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -991,14 +991,14 @@
                 "Using the <newline> tag"
               ],
               "correctAnswer": "Using the <br> tag",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which HTML tag denotes the most important heading on a webpage?",
               "options": ["<h1>", "<h2>", "<h3>", "<h6>"],
               "correctAnswer": "<h1>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -1010,7 +1010,7 @@
                 "Because heading tags are only for styling purposes"
               ],
               "correctAnswer": "Because search engines use heading tags to understand the page’s content",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -1022,7 +1022,7 @@
                 "To style HTML elements"
               ],
               "correctAnswer": "To make code more readable and for documentation purposes",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -1034,14 +1034,14 @@
                 "They will cause a syntax error"
               ],
               "correctAnswer": "They will be ignored by the browser",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which HTML tag is used to define a table header?",
               "options": ["<td>", "<tr>", "<th>", "<table>"],
               "correctAnswer": "<th>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
 
@@ -1054,7 +1054,7 @@
                 "To add a border to the table"
               ],
               "correctAnswer": "To define the table footer",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -1066,14 +1066,14 @@
                 "It adds a border to the table"
               ],
               "correctAnswer": "It merges cells across multiple rows",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which HTML tag is used to create an unordered list?",
               "options": ["<ul>", "<ol>", "<dl>", "<li>"],
               "correctAnswer": "<ul>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
 
@@ -1081,7 +1081,7 @@
               "question": "Which HTML tag is used to create an unordered list?",
               "options": ["<ol>", "<ul>", "<dl>", "<li>"],
               "correctAnswer": "<ul>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
 
@@ -1089,14 +1089,14 @@
               "question": "What HTML tag is used to create a nested list?",
               "options": ["<li>", "<ul>", "<ol>", "<dl>"],
               "correctAnswer": "<ul>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which HTML tag is used to create an ordered list?",
               "options": ["<ol>", "<ul>", "<dl>", "<li>"],
               "correctAnswer": "<ol>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
 
@@ -1104,7 +1104,7 @@
               "question": "Which HTML tag is used to create a line break?",
               "options": ["<br>", "<hr>", "<p>", "<pre>"],
               "correctAnswer": "<br>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -1116,7 +1116,7 @@
                 "<br> adds extra space between lines; <p> does not"
               ],
               "correctAnswer": "<br> adds a line break without extra space; <p> adds a new paragraph with space",
-              "points": 1,
+              "points": 2,
               "locked": true
             }
           ],
@@ -1679,7 +1679,7 @@
               "question": "Which of the following is an inline element?",
               "options": ["<div>", "<p>", "<img>", "<h1>"],
               "correctAnswer": "<img>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -1691,7 +1691,7 @@
                 "They are only used for text formatting."
               ],
               "correctAnswer": "They start on a new line and take up the full width available.",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -1703,14 +1703,14 @@
                 "font-size and line-height"
               ],
               "correctAnswer": "height and width",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which tag is used to create a hyperlink?",
               "options": ["<link>", "<a>", "<href>", "<hyperlink>"],
               "correctAnswer": "<a>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -1722,14 +1722,14 @@
                 "Specifies the image format"
               ],
               "correctAnswer": "Provides a text description of the image",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which of the following tags is used for text emphasis?",
               "options": ["<b>", "<strong>", "<i>", "<em>"],
               "correctAnswer": "<em>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -1741,35 +1741,35 @@
                 "<a href='index.html#header'>Go to Header</a>"
               ],
               "correctAnswer": "<a href='#header'>Go to Header</a>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which attribute is used to specify the path of an image in an <img> tag?",
               "options": ["src", "path", "url", "image"],
               "correctAnswer": "src",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which HTML tag is used to create bold text with semantic meaning?",
               "options": ["<b>", "<strong>", "<em>", "<mark>"],
               "correctAnswer": "<strong>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which attribute in the <img> tag provides additional information when the image cannot be displayed?",
               "options": ["src", "title", "alt", "data"],
               "correctAnswer": "alt",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which attribute is used in HTML to define inline styles?",
               "options": ["style", "class", "id", "css"],
               "correctAnswer": "style",
-              "points": 1,
+              "points": 2,
               "locked": true
             }
           ],
@@ -2043,14 +2043,14 @@
                 "To add comments and notes for developers"
               ],
               "correctAnswer": "To store metadata and links to external resources",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which HTML tag is used to define the title of a document?",
               "options": ["<meta>", "<link>", "<title>", "<style>"],
               "correctAnswer": "<title>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -2062,14 +2062,14 @@
                 "In the footer of the document"
               ],
               "correctAnswer": "In the browser's title bar",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which tag is used to add a CSS file to an HTML document?",
               "options": ["<meta>", "<style>", "<link>", "<script>"],
               "correctAnswer": "<link>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -2081,21 +2081,21 @@
                 "To define a JavaScript function"
               ],
               "correctAnswer": "To set the character encoding for the document",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which attribute is used in the <link> tag to specify a stylesheet?",
               "options": ["rel", "href", "type", "media"],
               "correctAnswer": "href",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which HTML tag is used to add JavaScript to a document?",
               "options": ["<script>", "<style>", "<link>", "<meta>"],
               "correctAnswer": "<script>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -2107,14 +2107,14 @@
                 "Controls the character encoding"
               ],
               "correctAnswer": "Sets the initial scale of the webpage",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which HTML tag is used to define the metadata about an HTML document?",
               "options": ["<meta>", "<link>", "<title>", "<style>"],
               "correctAnswer": "<meta>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -2126,7 +2126,7 @@
                 "To link JavaScript files"
               ],
               "correctAnswer": "To add inline CSS styles",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -2138,7 +2138,7 @@
                 "After the closing </html> tag"
               ],
               "correctAnswer": "Inside the <head> section",
-              "points": 1,
+              "points": 2,
               "locked": true
             }
           ],
@@ -3117,14 +3117,14 @@
               "question": "What element is used to create a form in HTML?",
               "options": ["<form>", "<input>", "<label>", "<button>"],
               "correctAnswer": "<form>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which attribute of the <form> element specifies the URL to which the form data will be sent?",
               "options": ["method", "action", "target", "enctype"],
               "correctAnswer": "action",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -3136,14 +3136,14 @@
                 "To set the name of the form"
               ],
               "correctAnswer": "To define the HTTP method used to submit the form",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which <input> type is used to create a checkbox?",
               "options": ["text", "checkbox", "radio", "submit"],
               "correctAnswer": "checkbox",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -3155,14 +3155,14 @@
                 "Specifies how form data should be encoded"
               ],
               "correctAnswer": "Skips all form validation",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which input type allows the user to select a color?",
               "options": ["color", "date", "email", "file"],
               "correctAnswer": "color",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
@@ -3174,21 +3174,21 @@
                 "GET requests can be bookmarked, POST requests cannot"
               ],
               "correctAnswer": "GET sends data in the URL, POST sends data in the request body",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "Which element is used to create a drop-down menu in a form?",
               "options": ["<input>", "<select>", "<button>", "<textarea>"],
               "correctAnswer": "<select>",
-              "points": 1,
+              "points": 2,
               "locked": true
             },
             {
               "question": "What attribute of the <input> element defines the type of input?",
               "options": ["name", "type", "value", "id"],
               "correctAnswer": "type",
-              "points": 1,
+              "points": 2,
               "locked": true
             }
           ],
