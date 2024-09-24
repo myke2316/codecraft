@@ -1463,7 +1463,7 @@
             }
           ],
           "totalPoints": 0,
-          "locked": false
+          "locked": true
         }, 
         {
           "title": "Connecting PHP to phpMyAdmin using XAMPP: A Comprehensive Guide",
@@ -1695,7 +1695,7 @@
             }
           ],
           "totalPoints": 0,
-          "locked": false
+          "locked": true
         }
       ]
     }

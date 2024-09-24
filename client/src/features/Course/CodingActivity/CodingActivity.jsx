@@ -158,6 +158,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
       console.log("Cannot submit activity as you already submitted it");
     } else {
       try {
+        console.log(activity.language)
         let endpoint;
         if (activity.language === "HTML") {
           endpoint = `${BACKEND_URL}/submit/html`;
@@ -266,12 +267,13 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
   }
 
   async function handleCheckCode() {
-    console.log(BACKEND_URL);
+   
     try {
+      console.log(activity.language)
       let endpoint;
       if (activity.language === "HTML") {
         endpoint = `${BACKEND_URL}/submit/html`;
-      } else if (activity.language === "CSS" || "css") {
+      } else if (activity.language === "CSS") {
         endpoint = `${BACKEND_URL}/submit/css`;
       } else if (activity.language === "JavaScriptWeb") {
         endpoint = `${BACKEND_URL}/submit/javascriptweb`;
@@ -285,7 +287,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         jsCode,
         activity,
       });
-      console.log(response);
+
       const result = response.data;
       const passed = result.passed;
       const maxPoints = result.maxPoints;
@@ -585,6 +587,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         <DialogTitle>Check Code Result</DialogTitle>
         <DialogContent>
           <DialogContentText>
+            {console.log(submissionResult)}
             {submissionResult?.passed
               ? "Your Score Passed"
               : "Kindly Double check your code"}
@@ -636,7 +639,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
                   />
                 ) : (
                   <pre style={{ backgroundColor: "#f0f0f0", padding: "10px" }}>
-                    {submissionResult.expectedOutput}
+                    {submissionResult.userOutput}
                   </pre>
                 )}
               </>

@@ -3273,7 +3273,7 @@
                 }
               ],
 
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -3324,7 +3324,7 @@
                 }
               ],
 
-              "locked": false,
+              "locked": true,
               "completed": false
             }
           ],

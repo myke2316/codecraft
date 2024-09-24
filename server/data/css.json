@@ -49,7 +49,7 @@
                   "text": "• The <strong>p</strong> selector adds some spacing between paragraphs."
                 }
               ],
-              "locked": false
+              "locked": true
             },
             {
               "title": "The Role of CSS in Web Design",
@@ -86,7 +86,7 @@
                   "text": "This CSS example demonstrates various aspects of web design, including global styles, component-specific styles, and responsive design using media queries."
                 }
               ],
-              "locked": false
+              "locked": true
             },
             {
               "title": "CSS Syntax and Selectors",
@@ -132,7 +132,7 @@
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Selectors Example</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <h1 id=\"header\">CSS Selectors</h1>\n    <p>This is a normal paragraph.</p>\n    <p class=\"highlight\">This paragraph is highlighted.</p>\n    <input type=\"text\" placeholder=\"Enter text here\">\n    <a href=\"#\">Hover over me</a>\n</body>\n</html>"
                 }
               ],
-              "locked": false
+              "locked": true
             }
           ],
           "quiz": [
@@ -222,7 +222,7 @@
                   "expectedImage": "/activities/cssact/1.1.png"
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -252,15 +252,16 @@
                     "Make the h1 color red.",
                     "Set the font-weight of the 'highlight' class to bold.",
                     "Make the footer text italic."
-                  ]
+                  ],
+                  "expectedImage": "/activities/cssact/1.2.png"
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             }
           ],
           "totalPoints": 0,
-          "locked": false
+          "locked": true
         },
         {
           "title": "Lesson 2: CSS Syntax and Selectors",
@@ -293,7 +294,7 @@
                   "text": "Next, we will explore CSS selectors and how to target specific elements on the page."
                 }
               ],
-              "locked": false
+              "locked": true
             },
             {
               "title": "Common CSS Selectors",
@@ -343,7 +344,7 @@
                   "text": "This targets the element with the ID 'main-header', setting its font size to 24px."
                 }
               ],
-              "locked": false
+              "locked": true
             },
             {
               "title": "Advanced Selectors and Pseudo-classes",
@@ -382,7 +383,7 @@
                   "supportingCode": "<h1>Header</h1><p>First paragraph.</p><p>Second paragraph.</p>"
                 }
               ],
-              "locked": false
+              "locked": true
             }
           ],
           "quiz": [
@@ -576,7 +577,7 @@
             }
           ],
           "totalPoints": 0,
-          "locked": false
+          "locked": true
         },
         {
           "title": "Lesson 3: Mastering CSS Text Formatting",
@@ -1555,7 +1556,7 @@
             }
           ],
           "totalPoints": 0,
-          "locked": false
+          "locked": true
         },
         {
           "title": "Lesson 4: CSS Flex Layout",
@@ -2084,7 +2085,7 @@
                   "expectedImage": "/activities/cssact/4.1.png"
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -2111,7 +2112,7 @@
                   "expectedImage": "/activities/cssact/4.2.png"
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -2145,7 +2146,7 @@
                   "expectedImage": "/activities/cssact/4.3.png"
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -2177,12 +2178,12 @@
                   "expectedImage": "/activities/cssact/4.4.png"
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             }
           ],
           "totalPoints": 0,
-          "locked": false
+          "locked": true
         },
 
         {
@@ -2653,7 +2654,7 @@
                   "expectedImage": "/activities/cssact/5.1.png"
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -2689,7 +2690,7 @@
                   "expectedImage": "/activities/cssact/5.2.png"
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -2727,15 +2728,15 @@
                   "expectedImage": "/activities/cssact/5.3.png"
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             }
           ],
           "totalPoints": 0,
-          "locked": false
+          "locked": true
         }
       ],
-      "locked": false
+      "locked": true
     }
   ]
 }

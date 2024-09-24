@@ -83,7 +83,7 @@
                   "text": "Now that you have set everything up to run JavaScript programs on your computer, you'll be learning how the basic program works in JavaScript in the next tutorial."
                 }
               ],
-              "locked": false
+              "locked": true
             },
             {
               "title": "JavaScript Variables and Constants",
@@ -988,7 +988,7 @@
                   ]
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -1022,11 +1022,10 @@
                     "Print the value of 'name' using console.log, output should look like this :'Name using var: Alice'.",
                     "Print the value of 'age' using console, log output should look like this :'Age using let: 25'.",
                     "Print the value of 'country' using console.log, output should look like this :'Country using const: USA'."
-                  ],
-                  "expectedImage": "/activities/jsacts/1.1.png"
+                  ]
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -1076,11 +1075,10 @@
                     "Print the value of 'difference' to the console. Output: Difference: 20",
                     "Print the value of 'product' to the console. Output: Product: 20",
                     "Print the value of 'quotient' to the console. Output: Quotient: 8"
-                  ],
-                  "expectedImage": "/activities/jsacts/1.2.png"
+                  ]
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -1116,17 +1114,16 @@
                     "Convert the number 'b' to a string using toString() and store it in a let variable called 'numberToString'.",
                     "Print the value of 'numberToString' to the console."
                   ],
-                  "expectedImage": "/activities/jsacts/1.3.png",
                   "isHidden": false
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             }
           
           ],
           "totalPoints": 0,
-          "locked": false,
+          "locked": true,
           "badges":"JS Start"
         },
         {
@@ -1567,7 +1564,7 @@
                   "isHidden": false
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -1603,7 +1600,7 @@
                   "isHidden": false
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -1643,7 +1640,7 @@
                   "isHidden": false
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -1676,16 +1673,16 @@
                     "Add the result to num1.",
                     "Print the result as the multiplication of 'num1' and 'num2'."
                   ],
-                  "expectedImage": "/activities/jsacts/2.4.png",
+                
                   "isHidden": false
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             }
           ],
           "totalPoints": 0,
-          "locked": false
+          "locked": true
         },
         {
           "title": "Lesson 3: JS Functions",
@@ -2086,11 +2083,11 @@
                     "Call 'addNumbers' with arguments 5 and 10.",
                     "Print the result with the text 'The sum is:' followed by the sum."
                   ],
-                  "expectedImage": "/activities/jsacts/3.1.png",
+             
                   "isHidden": false
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -2122,7 +2119,7 @@
                   "isHidden": false
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -2156,13 +2153,13 @@
                   "isHidden": false
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             }
            
           ],
           "totalPoints": 0,
-          "locked": false
+          "locked": true
         },
         {
           "title": "Lesson 4: JS Types",
@@ -3246,11 +3243,11 @@
                   "testCaseSentences": [
                     "Declare an array named `numbers` with the values [5, 10, 15, 20, 25].",
                     "Access and print the second element of the array using index 1."
-                  ],
-                  "expectedImage": "/activities/jsacts/5.1.png"
+                  ]
+               
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -3278,11 +3275,11 @@
                     "Declare an array named `fruits` with the values ['Apple', 'Banana', 'Orange'].",
                     "Use the `push()` method to add the fruit 'Mango' to the array.",
                     "Check if 'Mango' is present in the array using the `includes()` method and print the result."
-                  ],
-                  "expectedImage": "/activities/jsacts/5.2.png"
+                  ]
+            
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -3314,11 +3311,10 @@
                     "Use the `push()` method to add the student ['Anna', 22] to `studentsData`.",
                     "Use the `shift()` method to remove the first student array from `studentsData`.",
                     "Print the modified array to the console."
-                  ],
-                  "expectedImage": "/activities/jsacts/5.3.png"
+                  ]
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -3351,12 +3347,12 @@
                   ]
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             }
           ],
           "totalPoints": 0,
-          "locked": false
+          "locked": true
         },
         {
           "title": "Lesson 5: JS ES6",
@@ -3965,7 +3961,7 @@
                   ]
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -3998,7 +3994,7 @@
                   ]
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -4026,11 +4022,10 @@
                     "Call the `createGreeting` function with two parameters: `'Jack'` and `'Sparrow'`, and print the greeting.",
                     "Call the function with only one parameter and print the greeting with the default last name.",
                     "Call the function without any parameters and print the greeting with the default names."
-                  ],
-                  "expectedImage": "/activities/jsacts/7.2.png"
+                  ]
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             }
           ],
@@ -4076,7 +4071,7 @@
                   "supportingCode": "<html>\n<body>\n  <h1 id=\"mainHeading\">Hello, DOM!</h1>\n</body>\n</html>"
                 }
               ],
-              "locked": false
+              "locked": true
             },
             {
               "title": "Selecting DOM Elements",
@@ -4268,7 +4263,7 @@
                   ]
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -4297,7 +4292,7 @@
                   ]
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -4326,7 +4321,7 @@
                   ]
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             },
             {
@@ -4361,7 +4356,7 @@
                   ]
                 }
               ],
-              "locked": false,
+              "locked": true,
               "completed": false
             }
           ],
@@ -4370,7 +4365,7 @@
         }
       ],
       "badges":"JS Master",
-      "locked": false
+      "locked": true
     }
   ]
 }
