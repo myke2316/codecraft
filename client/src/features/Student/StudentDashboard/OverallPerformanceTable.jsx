@@ -231,7 +231,7 @@ const OverallPerformanceTable = () => {
               const courseProgress = userProgress.coursesProgress.find(
                 (cp) => cp.courseId.toString() === course._id.toString()
               );
-              console.log(courseProgress);
+
               const courseTotals = calculateTotals(
                 course.lessons.flatMap((lesson) => [
                   ...lesson.documents.map((doc) => ({
@@ -319,7 +319,7 @@ const OverallPerformanceTable = () => {
                     );
                   })
                 : false;
-              console.log(isCourseAllFinished);
+
               return (
                 <React.Fragment key={course._id}>
                   <tr
@@ -490,7 +490,7 @@ const OverallPerformanceTable = () => {
                           ),
                         })),
                       ]);
-                      console.log(documentTotals);
+                      console.log(quizTotals);
                       return (
                         <React.Fragment key={lesson._id}>
                           <tr
@@ -561,7 +561,6 @@ const OverallPerformanceTable = () => {
                                         doc._id.toString()
                                     );
 
-                                  console.log(docProgress);
                                   return (
                                     <tr
                                       key={doc._id}
@@ -595,8 +594,182 @@ const OverallPerformanceTable = () => {
                                     </tr>
                                   );
                                 })}
+                              {lesson.quiz.length > 0 && (
+                                <>
+                                  <tr
+                                    className="bg-gray-200 border-b border-gray-300 cursor-pointer"
+                                    onClick={() =>
+                                      toggleContentExpansion(
+                                        lesson._id,
+                                        "quizzes"
+                                      )
+                                    }
+                                  >
+                                    <td className="py-3 px-4 pl-16 font-medium">
+                                      {expandedContent[`${lesson._id}-quizzes`]
+                                        ? "▼"
+                                        : "►"}{" "}
+                                      Quizzes
+                                    </td>
+                                    <td className="py-3 px-4">
+                                      {formatTime(quizTotals.totalTime)}
+                                    </td>
 
-                              <tr
+                                    <td className="py-3 px-4">
+                                      {quizTotals.totalPoints}
+                                    </td>
+                                    <td className="py-3 px-4">
+                                      {quizTotals.totalPoints
+                                        ? "Finished"
+                                        : "In Progress"}
+                                    </td>
+                                    <td colSpan="2"></td>
+                                  </tr>
+                                  {expandedContent[`${lesson._id}-quizzes`] &&
+                                    lesson.quiz.map((quiz, index) => {
+                                      const quizAnalytics =
+                                        lessonAnalytics.quizzesAnalytics.find(
+                                          (qa) =>
+                                            qa.quizId.toString() ===
+                                            quiz._id.toString()
+                                        );
+                                      const quizProgress =
+                                        lessonProgress.quizzesProgress[0];
+                                      console.log(quizProgress);
+                                      return (
+                                        <tr
+                                          key={quiz._id}
+                                          className="bg-white border-b border-gray-200"
+                                        >
+                                          <td className="py-3 px-4 pl-24">
+                                            Item #{index + 1}
+                                          </td>
+                                          <td className="py-3 px-4">
+                                            {quizAnalytics
+                                              ? formatTime(
+                                                  quizAnalytics.timeSpent
+                                                )
+                                              : "In Progress"}
+                                          </td>
+                                          <td className="py-3 px-4">
+                                            {quizAnalytics
+                                              ? quizAnalytics.pointsEarned
+                                              : "In Progress"}
+                                          </td>
+                                          <td className="py-3 px-4">
+                                            {quizProgress
+                                              ? quizProgress.locked
+                                                ? "In progress"
+                                                : "Finished"
+                                              : "In Progress"}
+                                          </td>
+                                          <td className="py-3 px-4">
+                                            {quizProgress &&
+                                            quizProgress.dateFinished !== null
+                                              ? formatDate(
+                                                  quizProgress.dateFinished
+                                                )
+                                              : "In Progress"}
+                                          </td>
+                                        </tr>
+                                      );
+                                    })}
+                                </>
+                              )}
+
+                              {lesson.activities.length > 0 && (
+                                <>
+                                  <tr
+                                    className="bg-gray-200 border-b border-gray-300 cursor-pointer"
+                                    onClick={() =>
+                                      toggleContentExpansion(
+                                        lesson._id,
+                                        "activities"
+                                      )
+                                    }
+                                  >
+                                    <td className="py-3 px-4 pl-16 font-medium">
+                                      {expandedContent[
+                                        `${lesson._id}-activities`
+                                      ]
+                                        ? "▼"
+                                        : "►"}{" "}
+                                      Activities
+                                    </td>
+                                    <td className="py-3 px-4">
+                                      {formatTime(activityTotals.totalTime)}
+                                    </td>
+                                    <td className="py-3 px-4">
+                                      {activityTotals.totalPoints}
+                                    </td>
+                                    <td className="py-3 px-4">
+                                      {isActivityAllFinished
+                                        ? "Finished"
+                                        : "In Progress"}
+                                    </td>
+                                    <td colSpan="2"></td>
+                                  </tr>
+                                  {expandedContent[
+                                    `${lesson._id}-activities`
+                                  ] &&
+                                    lesson.activities.map((activity) => {
+                                      const activityAnalytics =
+                                        lessonAnalytics.activitiesAnalytics.find(
+                                          (aa) =>
+                                            aa.activityId.toString() ===
+                                            activity._id.toString()
+                                        );
+                                      const activityProgress =
+                                        lessonProgress.activitiesProgress.find(
+                                          (ap) =>
+                                            ap.activityId.toString() ===
+                                            activity._id.toString()
+                                        );
+                                      console.log(activityProgress);
+                                      return (
+                                        <tr
+                                          key={activity._id}
+                                          className="bg-white border-b border-gray-200"
+                                        >
+                                          <td className="py-3 px-4 pl-24">
+                                            {activity.title}
+                                          </td>
+                                          <td className="py-3 px-4">
+                                            {activityAnalytics
+                                              ? formatTime(
+                                                  activityAnalytics.timeSpent
+                                                )
+                                              : "In Progress"}
+                                          </td>
+                                          <td className="py-3 px-4">
+                                            {activityAnalytics
+                                              ? activityAnalytics.pointsEarned
+                                              : "In Progress"}
+                                          </td>
+                                          <td className="py-3 px-4">
+                                            {activityProgress
+                                              ? activityProgress.dateFinished ===
+                                                null
+                                                ? "In progress"
+                                                : "Finished"
+                                              : "In Progress"}
+                                          </td>
+                                          <td className="py-3 px-4">
+                                            {activityProgress &&
+                                            activityProgress.dateFinished !==
+                                              null
+                                              ? formatDate(
+                                                  activityProgress.dateFinished
+                                                )
+                                              : "In Progress"}
+                                          </td>
+                                        </tr>
+                                      );
+                                    })}
+                                </>
+                              )}
+
+                              {/* <tr
                                 className="bg-gray-200 border-b border-gray-300 cursor-pointer"
                                 onClick={() =>
                                   toggleContentExpansion(lesson._id, "quizzes")
@@ -756,7 +929,7 @@ const OverallPerformanceTable = () => {
                                       </td>
                                     </tr>
                                   );
-                                })}
+                                })} */}
                             </>
                           )}
                         </React.Fragment>

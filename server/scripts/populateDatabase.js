@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 
 // Read and parse the JSON file
 const jsonData = fs.readFileSync(
-  path.resolve(__dirname, "../data/testing.json"),//change location if thertes new updated  course data
+  path.resolve(__dirname, "../data/php.json"),//change location if thertes new updated  course data
   "utf-8"
 );
 const coursesData = JSON.parse(jsonData);
@@ -28,8 +28,8 @@ db.once("open", async () => {
 
   try {
     // Clear existing data
-    await CourseModel.deleteMany({});
-    console.log("Existing data cleared");
+    // await CourseModel.deleteMany({});
+    // console.log("Existing data cleared");
 
     // Populate database with course data
     for (const courseData of coursesData.courses) {

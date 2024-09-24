@@ -70,13 +70,16 @@ function CourseSidebar() {
   const handleActivityClick = (courseId, lessonId) => {
     navigate(`/course/${courseId}/lesson/${lessonId}/activity/activityList`);
   };
-  const allCoursesCompleted = courses.every(course => {
+  const allCoursesCompleted = courses.every((course) => {
     const courseProgress = userProgress.coursesProgress.find(
       (cp) => cp.courseId.toString() === course._id.toString()
     );
-    return courseProgress?.dateFinished !== undefined && courseProgress?.dateFinished !== null;
+    return (
+      courseProgress?.dateFinished !== undefined &&
+      courseProgress?.dateFinished !== null
+    );
   });
-  console.log(allCoursesCompleted)
+  console.log(allCoursesCompleted);
   return (
     <div style={{ width: "300px", padding: "16px" }}>
       {courses.map((course) => {
@@ -127,9 +130,9 @@ function CourseSidebar() {
                     const isLessonExpanded = expandedLessonId === lesson._id;
 
                     const isQuizUnlocked =
-                      !lessonProgress.quizzesProgress[0].locked;
+                      !lessonProgress.quizzesProgress[0]?.locked;
                     const isActivityUnlocked =
-                      !lessonProgress.activitiesProgress[0].locked;
+                      !lessonProgress?.activitiesProgress[0]?.locked;
 
                     return (
                       <div key={lesson._id}>
@@ -209,7 +212,7 @@ function CourseSidebar() {
                               <Divider sx={{ my: 1 }} />
 
                               {/* Quiz Section */}
-                              <ListItem
+                              {/* <ListItem
                                 button
                                 onClick={() =>
                                   isQuizUnlocked &&
@@ -227,10 +230,31 @@ function CourseSidebar() {
                                   <QuizIcon color="secondary" />
                                 </ListItemIcon>
                                 <ListItemText primary="Quiz" />
-                              </ListItem>
-
+                              </ListItem> */}
+                              {/* Quiz Section - Only show if quizzes exist */}
+                              {lesson.quiz && lesson.quiz.length > 0 && (
+                                <ListItem
+                                  button
+                                  onClick={() =>
+                                    isQuizUnlocked &&
+                                    handleQuizClick(course._id, lesson._id)
+                                  }
+                                  sx={{
+                                    cursor: isQuizUnlocked
+                                      ? "pointer"
+                                      : "not-allowed",
+                                    opacity: isQuizUnlocked ? 1 : 0.5,
+                                    paddingLeft: 4,
+                                  }}
+                                >
+                                  <ListItemIcon>
+                                    <QuizIcon color="secondary" />
+                                  </ListItemIcon>
+                                  <ListItemText primary="Quiz" />
+                                </ListItem>
+                              )}
                               {/* Activity Section */}
-                              <ListItem
+                              {/* <ListItem
                                 button
                                 onClick={() =>
                                   isActivityUnlocked &&
@@ -248,7 +272,32 @@ function CourseSidebar() {
                                   <AssignmentIcon color="secondary" />
                                 </ListItemIcon>
                                 <ListItemText primary="Activity" />
-                              </ListItem>
+                              </ListItem> */}
+                              {lesson.activities &&
+                                lesson.activities.length > 0 && (
+                                  <ListItem
+                                    button
+                                    onClick={() =>
+                                      isActivityUnlocked &&
+                                      handleActivityClick(
+                                        course._id,
+                                        lesson._id
+                                      )
+                                    }
+                                    sx={{
+                                      cursor: isActivityUnlocked
+                                        ? "pointer"
+                                        : "not-allowed",
+                                      opacity: isActivityUnlocked ? 1 : 0.5,
+                                      paddingLeft: 4,
+                                    }}
+                                  >
+                                    <ListItemIcon>
+                                      <AssignmentIcon color="secondary" />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Activity" />
+                                  </ListItem>
+                                )}
                             </List>
                           </AccordionDetails>
                         </Accordion>

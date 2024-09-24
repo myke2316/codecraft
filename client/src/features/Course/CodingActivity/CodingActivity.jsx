@@ -418,7 +418,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
           const firstLessonId =
             courses[currentCourseIndex + 1].lessons[0].lessonId;
           const firstActivityId =
-            courses[currentCourseIndex + 1].lessons[0].activities[0].activityId;
+            courses[currentCourseIndex + 1].lessons[0].activities[0]?.activityId;
           navigate(`/course/${nextCourseId}/lesson/${firstLessonId}`);
           setFinalResult(false);
           setSubmissionResultDialogOpen(false);

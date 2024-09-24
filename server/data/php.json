@@ -360,7 +360,7 @@
                 },
                 {
                   "type": "snippet",
-                  "text": "<?php\n$name = \"Jane\"; // Valid\n$rate of int = 5; // Invalid: space not allowed\n$Age#1 = 30; // Invalid: special character # not allowed\n$11 = 100; // Invalid: cannot start with a number\n?>"
+                  "code": "<?php\n$name = \"Jane\"; // Valid\n$rate of int = 5; // Invalid: space not allowed\n$Age#1 = 30; // Invalid: special character # not allowed\n$11 = 100; // Invalid: cannot start with a number\n?>"
                 },
                 {
                   "type": "sentence",
@@ -1461,7 +1461,9 @@
               "points": 2,
               "locked": true
             }
-          ]
+          ],
+          "totalPoints": 0,
+          "locked": false
         }, 
         {
           "title": "Connecting PHP to phpMyAdmin using XAMPP: A Comprehensive Guide",
@@ -1691,7 +1693,9 @@
               ],
               "locked": true
             }
-          ]
+          ],
+          "totalPoints": 0,
+          "locked": false
         }
       ]
     }

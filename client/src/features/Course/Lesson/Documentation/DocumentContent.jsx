@@ -137,14 +137,168 @@ function DocumentContent() {
     { isLoading: isLoadingUpdateUserAnalytics },
   ] = useUpdateUserAnalyticsMutation();
   const [isProcessing, setIsProcessing] = useState(false);
-  
+
+  // async function handleNext() {
+  //   if (isProcessing) return; // Prevent multiple clicks
+
+  //   setIsProcessing(true); // Disable the button
+  //   setTimeout(() => {
+  //     setIsProcessing(false); // Re-enable the button after 1.5 seconds
+  //   }, 0);//set here for TIMER NEXT
+  //   if (documentContent && currentIndex < documentContent.length - 1) {
+  //     const newIndex = currentIndex + 1;
+  //     setCurrentIndex(newIndex);
+  //     setDisplayedContent((prevContent) => [
+  //       ...prevContent,
+  //       documentContent[newIndex],
+  //     ]);
+  //     setIframeContents("");
+  //   } else {
+  //     const nextDocumentIndex = lesson.documents.indexOf(document) + 1;
+  //     const nextQuizIndex = lesson.quiz.indexOf(quiz) + 1;
+
+  //     const courseAnalytics = userAnalytics.coursesAnalytics.find(
+  //       (course) => course.courseId === courseId
+  //     );
+  //     const lessonAnalytics = courseAnalytics
+  //       ? courseAnalytics.lessonsAnalytics.find(
+  //           (lesson) => lesson.lessonId === lessonId
+  //         )
+  //       : null;
+  //     const documentAnalytics = lessonAnalytics
+  //       ? lessonAnalytics.documentsAnalytics.find(
+  //           (doc) => doc.documentId === documentId
+  //         )
+  //       : null;
+
+  //     const courseBadge = courseAnalytics?.badges || null;
+  //     const lessonBadge = lessonAnalytics?.badges || null;
+  //     const documentBadge = documentAnalytics?.badges || null;
+
+  //     if (nextDocumentIndex < lesson.documents.length) {
+  //       const nextDocument = lesson.documents[nextDocumentIndex];
+
+  //       if (!showCompletion) {
+  //         try {
+  //           // FOR UPDATING USER PROGRESS
+  //           const updateProgressData = await updateUserProgress({
+  //             userId,
+  //             courseId,
+  //             lessonId,
+  //             documentId,
+  //           }).unwrap();
+  //           dispatch(updateCourseProgress(updateProgressData));
+
+  //           // FOR SETTING timer, X points for each document
+  //           const updateAnalyticsData = await updateUserAnalyticsMutation({
+  //             userId,
+  //             analyticsData: {
+  //               coursesAnalytics: [
+  //                 {
+  //                   courseId,
+  //                   badges: courseBadge,
+  //                   lessonsAnalytics: [
+  //                     {
+  //                       lessonId,
+  //                       badges: lessonBadge,
+  //                       documentsAnalytics: [
+  //                         {
+  //                           documentId,
+  //                           timeSpent: timer,
+  //                           pointsEarned: 15,
+  //                           badges: documentBadge,
+  //                         },
+  //                       ],
+  //                     },
+  //                   ],
+  //                 },
+  //               ],
+  //             },
+  //           }).unwrap();
+  //           console.log(updateAnalyticsData);
+  //           dispatch(updateUserAnalytics(updateAnalyticsData));
+
+  //           navigate(
+  //             `/course/${courseId}/lesson/${lessonId}/document/${documentId}/complete`,
+  //             { state: { formattedTime } }
+  //           );
+  //           setIframeContents("");
+  //         } catch (error) {
+  //           console.log(error);
+  //         }
+  //       } else {
+  //         navigate(
+  //           `/course/${courseId}/lesson/${lessonId}/document/${nextDocument._id}`
+  //         );
+  //       }
+  //     } else if (nextQuizIndex < lesson.quiz.length) {
+  //       const nextQuiz = lesson.quiz[nextQuizIndex];
+
+  //       if (!showCompletion) {
+  //         try {
+  //           const updateProgressData = await updateUserProgress({
+  //             userId,
+  //             courseId,
+  //             lessonId,
+  //             documentId,
+  //           }).unwrap();
+  //           dispatch(updateCourseProgress(updateProgressData));
+
+  //           const updateAnalyticsData = await updateUserAnalyticsMutation({
+  //             userId,
+  //             analyticsData: {
+  //               coursesAnalytics: [
+  //                 {
+  //                   courseId,
+  //                   badges: courseBadge,
+  //                   lessonsAnalytics: [
+  //                     {
+  //                       lessonId,
+  //                       badges: lessonBadge,
+  //                       documentsAnalytics: [
+  //                         {
+  //                           documentId,
+  //                           timeSpent: timer,
+  //                           pointsEarned: 15,
+  //                           badges: documentBadge,
+  //                         },
+  //                       ],
+  //                     },
+  //                   ],
+  //                 },
+  //               ],
+  //             },
+  //           }).unwrap();
+  //           console.log(updateAnalyticsData);
+  //           dispatch(updateUserAnalytics(updateAnalyticsData));
+
+  //           setIframeContents("");
+  //           navigate(
+  //             `/course/${courseId}/lesson/${lessonId}/document/${documentId}/complete`,
+  //             { state: { formattedTime } }
+  //           );
+  //         } catch (error) {
+  //           console.log(error);
+  //         }
+  //       } else {
+  //         navigate(
+  //           `/course/${courseId}/lesson/${lessonId}/quiz/${nextQuiz._id}`
+  //         );
+  //       }
+  //     }
+  //   }
+  //      // Re-enable the button after processing
+
+  // }
+
   async function handleNext() {
     if (isProcessing) return; // Prevent multiple clicks
 
     setIsProcessing(true); // Disable the button
     setTimeout(() => {
-      setIsProcessing(false); // Re-enable the button after 1.5 seconds
-    }, 0);//set here for TIMER NEXT
+      setIsProcessing(false); // Re-enable the button after processing
+    }, 0);
+
     if (documentContent && currentIndex < documentContent.length - 1) {
       const newIndex = currentIndex + 1;
       setCurrentIndex(newIndex);
@@ -285,13 +439,62 @@ function DocumentContent() {
             `/course/${courseId}/lesson/${lessonId}/quiz/${nextQuiz._id}`
           );
         }
+      } else {
+        // All lessons and quizzes are done
+        const nextCourseIndex = courses.indexOf(course) + 1;
+        if (nextCourseIndex < courses.length) {
+          const nextCourse = courses[nextCourseIndex];
+          navigate(
+            `/course/${nextCourse._id}/lesson/${nextCourse.lessons[0]._id}`
+          );
+        } else {
+          // Update progress and analytics for the last document before redirecting to certification
+          try {
+            // Update the user progress and analytics for the last document
+            const updateProgressData = await updateUserProgress({
+              userId,
+              courseId,
+              lessonId,
+              documentId,
+            }).unwrap();
+            dispatch(updateCourseProgress(updateProgressData));
+
+            const updateAnalyticsData = await updateUserAnalyticsMutation({
+              userId,
+              analyticsData: {
+                coursesAnalytics: [
+                  {
+                    courseId,
+                    badges: courseBadge,
+                    lessonsAnalytics: [
+                      {
+                        lessonId,
+                        badges: lessonBadge,
+                        documentsAnalytics: [
+                          {
+                            documentId,
+                            timeSpent: timer,
+                            pointsEarned: 15,
+                            badges: documentBadge,
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            }).unwrap();
+            console.log(updateAnalyticsData);
+            dispatch(updateUserAnalytics(updateAnalyticsData));
+
+            navigate(`/course/${userId}/certification`);
+          } catch (error) {
+            console.log(error);
+          }
+        }
       }
     }
-       // Re-enable the button after processing
-    
   }
-
-  
 
   const handleBack = () => {
     if (isProcessing) return; // Prevent multiple clicks
@@ -307,8 +510,7 @@ function DocumentContent() {
         prevContent.slice(0, prevContent.length - 1)
       );
     }
-      // Re-enable the button after processing
-    
+    // Re-enable the button after processing
   };
   const handleRunJavaScriptWeb = (index, code, supportingCode, html) => {
     const iframeContent = `
@@ -378,9 +580,9 @@ function DocumentContent() {
   };
 
   const handleRunCode = (index, code, supportingCode, language) => {
-    console.log(code)
-    console.log(supportingCode)
-    console.log(language)
+    console.log(code);
+    console.log(supportingCode);
+    console.log(language);
     const iframeContent = `
       <!DOCTYPE html>
       <html lang="en">
@@ -512,8 +714,7 @@ function DocumentContent() {
                         />
                       </Box>
                     </Paper>
-                  ) : content.type === "codeconsole" ? 
-                  (
+                  ) : content.type === "codeconsole" ? (
                     <Paper
                       elevation={3}
                       sx={{ my: 3, p: 3, bgcolor: "grey.100", borderRadius: 2 }}
@@ -557,7 +758,7 @@ function DocumentContent() {
                         />
                       </Box>
                     </Paper>
-                  ) :content.type === "javascriptweb" ? (
+                  ) : content.type === "javascriptweb" ? (
                     <Paper
                       elevation={3}
                       sx={{ my: 3, p: 3, bgcolor: "grey.100", borderRadius: 2 }}
@@ -603,7 +804,7 @@ function DocumentContent() {
                             index,
                             content.code,
                             content?.supportingCode,
-                            content?.language,
+                            content?.language
                           )
                         }
                       >
@@ -684,8 +885,6 @@ function DocumentContent() {
         </Box>
       )}
     </Box>
-
-   
   );
 }
 

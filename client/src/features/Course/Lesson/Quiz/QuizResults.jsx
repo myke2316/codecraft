@@ -1,136 +1,165 @@
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
-import { Box, Typography, List, ListItem, Button, Divider, Paper } from "@mui/material";
+import { 
+  Box, 
+  Typography, 
+  List, 
+  ListItem, 
+  Button, 
+  Divider, 
+  Paper, 
+  Container, 
+  Grid, 
+  Card, 
+  CardContent, 
+  LinearProgress 
+} from "@mui/material";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-function QuizResults() {
-  const userId = useSelector((state) => state.user.userDetails);
+
+export default function QuizResults() {
   const { lessonId, courseId } = useParams();
-  const quizSubmissions = useSelector(
-    (state) => state.userQuizSubmission.quizSubmissions
-  );
-  const course = quizSubmissions.courses.find(
+  const navigate = useNavigate();
+  
+  const userProgress = useSelector((state) => state.studentProgress.userProgress);
+  const quizSubmissions = useSelector((state) => state.userQuizSubmission.quizSubmissions);
+
+  const courseProgress = userProgress?.coursesProgress.find(
     (course) => course.courseId === courseId
   );
-  const lesson = course.lessons.find((lesson) => lesson.lessonId === lessonId);
-  const quiz = lesson.quizzes; // Array of quiz details for the specific lesson
-  const score = quiz.reduce((acc, q) => acc + q.pointsEarned, 0);
-  const navigate = useNavigate();
+  const lessonProgress = courseProgress?.lessonsProgress.find(
+    (lesson) => lesson.lessonId === lessonId
+  );
+  const quizProgress = lessonProgress?.quizzesProgress || [];
+
+  const allQuizzesFinished = quizProgress.every(quiz => quiz.dateFinished);
+  const hasActivity = lessonProgress?.activitiesProgress?.length > 0;
+
+  const currentLessonIndex = courseProgress?.lessonsProgress.findIndex(
+    (lesson) => lesson.lessonId === lessonId
+  );
+  const nextLessonProgress = courseProgress?.lessonsProgress[currentLessonIndex + 1];
+
+  const course = quizSubmissions.courses.find((course) => course.courseId === courseId);
+  const lesson = course?.lessons.find((lesson) => lesson.lessonId === lessonId);
+  const quizDetails = lesson?.quizzes || [];
+
+  const totalScore = quizDetails.reduce((acc, q) => acc + q.pointsEarned, 0);
+  const totalPossibleScore = quizDetails.length * 2;
+
   function handleNext() {
-    navigate(`/course/${courseId}/lesson/${lessonId}/activity/activityList`);
+    if (hasActivity) {
+      navigate(`/course/${courseId}/lesson/${lessonId}/activity/activityList`);
+    } else if (nextLessonProgress) {
+      navigate(`/course/${courseId}/lesson/${nextLessonProgress.lessonId}`);
+    } else {
+      navigate(`/course/${courseId}`);
+    }
   }
+
   return (
-    <Paper
-      sx={{
-        p: 4,
-        width: '100%',
-        maxWidth: '600px', // Adjusting maxWidth to create a more boxy appearance
-        margin: '0 auto',
-        boxShadow: 4,
-        borderRadius: 2, // Slightly reduce the border radius for a more boxy look
-        bgcolor: 'background.paper',
-        minHeight: '80vh', // Ensure height is consistent with a boxy layout
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}
-    >
-      {/* Score Display */}
-      <Box sx={{ textAlign: 'center', mb: 4 }}>
-        <Typography variant="h4" fontWeight="bold" gutterBottom>
-          Quiz Results
-        </Typography>
-        <Typography variant="h5" color="primary" fontWeight="bold" gutterBottom>
-          Your Score: {score} / {quiz.length * 2}
-        </Typography>
-      </Box>
-
-      {/* Review List */}
-      <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
-        <Typography variant="h6" fontWeight="medium" mb={3}>
-          Review Your Answers:
-        </Typography>
-        <List>
-          {quiz.map((answer, index) => (
-            <ListItem
-              key={index}
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                mb: 2,
-                p: 2,
-                bgcolor: answer.correct ? '#e0f7fa' : '#ffebee',
-                borderRadius: 1, // Make each item boxier
-              }}
-            >
-              <Typography variant="h6" gutterBottom>
-                <strong>Question {index + 1}:</strong> {answer.question}
-              </Typography>
-              <Typography variant="body1" gutterBottom>
-                Your Answer: {answer.selectedOption}{" "}
-                {answer.correct ? (
-                  <CheckCircleOutlineIcon sx={{ color: 'green', ml: 1 }} />
+    <Container maxWidth="lg" className="py-8">
+      <Paper elevation={3} className="p-6 md:p-8 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={4}>
+            <Card className="h-full bg-white shadow-md">
+              <CardContent>
+                <Typography variant="h4" className="font-bold text-center mb-4 text-indigo-700">
+                  Quiz Results
+                </Typography>
+                <Box className="text-center mb-6">
+                  <Typography variant="h3" className="font-bold text-indigo-900">
+                    {totalScore} / {totalPossibleScore}
+                  </Typography>
+                  <LinearProgress 
+                    variant="determinate" 
+                    value={(totalScore / totalPossibleScore) * 100} 
+                    className="mt-2"
+                  />
+                </Box>
+                {quizProgress.length > 0 ? (
+                  <Typography 
+                    variant="h6" 
+                    className={`font-semibold text-center ${allQuizzesFinished ? "text-green-600" : "text-amber-600"}`}
+                  >
+                    {allQuizzesFinished ? "All quizzes completed!" : "Some quizzes unfinished."}
+                  </Typography>
                 ) : (
-                  <HighlightOffIcon sx={{ color: 'red', ml: 1 }} />
+                  <Typography variant="h6" className="font-semibold text-center text-red-600">
+                    No quizzes available.
+                  </Typography>
                 )}
-              </Typography>
-              <Typography variant="body1" gutterBottom>
-                Correct Answer:{" "}
-                <span style={{ fontWeight: 'bold' }}>
-                  {answer.correctAnswer}
-                </span>
-              </Typography>
-              <Divider sx={{ my: 2, width: '100%' }} />
-            </ListItem>
-          ))}
-        </List>
-      </Box>
-
-      {/* Proceed Button */}
-      <Box sx={{ textAlign: 'center', mt: 4 }}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleNext}
-          size="large"
-        >
-          Proceed to Activity
-        </Button>
-      </Box>
-    </Paper>
-    // <div className="quiz-results">
-    //   <h3>
-    //     Your Score: {score} / {quiz.length * 2}
-    //   </h3>{" "}
-    //   {/* Assuming each question is out of 10 points */}
-    //   <h4>Review Your Answers:</h4>
-    //   <ul>
-    //     {quiz.map((answer, index) => (
-    //       <li key={index} className="review-answer">
-    //         <p>
-    //           <strong>Question {index + 1}:</strong> {answer.question}
-    //         </p>
-    //         <p>Your Answer: {answer.selectedOption}</p>
-    //         <p>
-    //           Correct Answer:{" "}
-    //           <span
-    //             className={
-    //               answer.correct ? "correct-answer" : "incorrect-answer"
-    //             }
-    //           >
-    //             {answer.correctAnswer}
-    //           </span>
-    //         </p>
-    //         <hr />
-    //       </li>
-    //     ))}
-    //   </ul>
-    //   <button onClick={handleNext} className="quiz-button">
-    //     Proceed to Activity
-    //   </button>
-    // </div>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <Card className="bg-white shadow-md">
+              <CardContent>
+                <Typography variant="h5" className="font-semibold mb-4 text-indigo-700">
+                  Review Your Answers
+                </Typography>
+                <Box 
+                  className="overflow-y-auto pr-4" 
+                  sx={{ 
+                    maxHeight: { xs: '400px', md: '600px' },
+                    '&::-webkit-scrollbar': {
+                      width: '0.4em'
+                    },
+                    '&::-webkit-scrollbar-track': {
+                      boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+                      webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+                    },
+                    '&::-webkit-scrollbar-thumb': {
+                      backgroundColor: 'rgba(0,0,0,.1)',
+                      outline: '1px solid slategrey'
+                    }
+                  }}
+                >
+                  <List className="space-y-4">
+                    {quizDetails.map((answer, index) => (
+                      <ListItem 
+                        key={index}
+                        className={`flex flex-col items-start p-4 rounded-lg ${
+                          answer.correct ? "bg-green-50" : "bg-red-50"
+                        }`}
+                      >
+                        <Typography variant="h6" className="font-semibold mb-2">
+                          Question {index + 1}: {answer.question}
+                        </Typography>
+                        <Typography variant="body1" className="mb-1">
+                          Your Answer: {answer.selectedOption}{" "}
+                          {answer.correct ? (
+                            <CheckCircleOutlineIcon className="text-green-600 ml-1" />
+                          ) : (
+                            <HighlightOffIcon className="text-red-600 ml-1" />
+                          )}
+                        </Typography>
+                        <Typography variant="body1" className="font-medium">
+                          Correct Answer: {answer.correctAnswer}
+                        </Typography>
+                        {index < quizDetails.length - 1 && (
+                          <Divider className="w-full my-4" />
+                        )}
+                      </ListItem>
+                    ))}
+                  </List>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+        <Box className="mt-8 text-center">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleNext}
+            size="large"
+            className="px-8 py-3 text-lg font-semibold bg-indigo-600 hover:bg-indigo-700"
+          >
+            {hasActivity ? "Proceed to Activity" : nextLessonProgress ? "Next Lesson" : "Return to Course"}
+          </Button>
+        </Box>
+      </Paper>
+    </Container>
   );
 }
-
-export default QuizResults;

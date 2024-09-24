@@ -94,34 +94,6 @@ const updateUserProgress = asyncHandler(async (req, res) => {
       }
     }
 
-    // if (quizId) {
-    //   // Mark the quiz as completed
-    //   const quizIndex = lessonProgress.quizzesProgress.findIndex((quiz) =>
-    //     quiz.quizId.equals(quizId)
-    //   );
-    //   if (quizIndex !== -1) {
-    //     lessonProgress.quizzesProgress[quizIndex].dateFinished = new Date(); // Set dateFinished
-    //     lessonProgress.quizzesProgress[quizIndex].locked = false;
-
-    //     // Unlock the next quiz if exists
-    //     const nextQuizIndex = quizIndex + 1;
-    //     if (nextQuizIndex < lessonProgress.quizzesProgress.length) {
-    //       lessonProgress.quizzesProgress[nextQuizIndex].locked = false;
-    //     } else if (lessonProgress.activitiesProgress.length > 0) {
-    //       // If no more quizzes, unlock the next activity
-    //       lessonProgress.activitiesProgress[0].locked = false;
-    //     } else {
-    //       // If no more activities, unlock the next lesson
-    //       unlockNextLesson(
-    //         courseProgress,
-    //         lessonIndex,
-    //         userProgress,
-    //         courseIndex
-    //       );
-    //     }
-    //   }
-    // }
-
     if (quizId) {
       // Find the quiz group that contains this quizId
       const quizIndex = lessonProgress.quizzesProgress.findIndex(quizGroup =>
@@ -251,6 +223,103 @@ const unlockNextLesson = (
 };
 
 //CREATE FOR NEW USERS=========================
+// const createUserProgress = asyncHandler(async (req, res) => {
+//   const userId = req.body.userId;
+
+//   try {
+//     const user = await UserModel.findById(userId).exec();
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     // Check if the user is a teacher
+//     if (user.role === "teacher") {
+//       return res
+//         .status(400)
+//         .json({ message: "Teachers do not need progress tracking" });
+//     }
+
+//     // Check if user progress already exists
+//     const existingUserProgress = await UserProgressModel.findOne({ userId });
+//     if (existingUserProgress) {
+//       return res.status(400).json({ message: "User progress already exists" });
+//     }
+
+//     const userProgress = new UserProgressModel({ userId, coursesProgress: [] });
+
+//     const courses = await CourseModel.find().exec();
+//     courses.forEach((course) => {
+//       const courseProgress = {
+//         courseId: course._id,
+//         lessonsProgress: [],
+//         locked: course.locked || false,
+//         dateFinished: null,
+//       };
+
+//       if (Array.isArray(course.lessons)) {
+//         course.lessons.forEach((lesson) => {
+//           const lessonProgress = {
+//             lessonId: lesson._id,
+//             documentsProgress: [],
+//             quizzesProgress: [],
+//             activitiesProgress: [],
+//             locked: lesson.locked,
+//             dateFinished: null,
+//           };
+
+//           if (Array.isArray(lesson.documents)) {
+//             lesson.documents.forEach((document) => {
+//               lessonProgress.documentsProgress.push({
+//                 documentId: document._id,
+//                 locked: document.locked,
+//                 dateFinished: null,
+//               });
+//             });
+//           }
+
+//           // if (Array.isArray(lesson.quiz)) {
+//           //   lesson.quiz.forEach((quiz) => {
+//           //     lessonProgress.quizzesProgress.push({
+//           //       quizId: quiz._id,
+//           //       locked: quiz.locked,
+//           //       dateFinished: null,
+//           //     });
+//           //   });
+//           // }
+
+//           if (Array.isArray(lesson.quiz)) {
+//             const quizId = lesson.quiz.map((quiz) => quiz._id);
+//             lessonProgress.quizzesProgress.push({
+//               quizId,
+//               locked: true,
+//               dateFinished: null,
+//             });
+//           }
+
+//           if (Array.isArray(lesson.activities)) {
+//             lesson.activities.forEach((activity) => {
+//               lessonProgress.activitiesProgress.push({
+//                 activityId: activity._id,
+//                 locked: activity.locked,
+//                 dateFinished: null,
+//               });
+//             });
+//           }
+
+//           courseProgress.lessonsProgress.push(lessonProgress);
+//         });
+//       }
+
+//       userProgress.coursesProgress.push(courseProgress);
+//     });
+
+//     await userProgress.save();
+//     res.json(userProgress);
+//   } catch (err) {
+//     console.error("Error creating user progress:", err);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// });
 const createUserProgress = asyncHandler(async (req, res) => {
   const userId = req.body.userId;
 
@@ -305,17 +374,8 @@ const createUserProgress = asyncHandler(async (req, res) => {
             });
           }
 
-          // if (Array.isArray(lesson.quiz)) {
-          //   lesson.quiz.forEach((quiz) => {
-          //     lessonProgress.quizzesProgress.push({
-          //       quizId: quiz._id,
-          //       locked: quiz.locked,
-          //       dateFinished: null,
-          //     });
-          //   });
-          // }
-
-          if (Array.isArray(lesson.quiz)) {
+          // Handle quiz
+          if (Array.isArray(lesson.quiz) && lesson.quiz.length > 0) {
             const quizId = lesson.quiz.map((quiz) => quiz._id);
             lessonProgress.quizzesProgress.push({
               quizId,
@@ -324,7 +384,8 @@ const createUserProgress = asyncHandler(async (req, res) => {
             });
           }
 
-          if (Array.isArray(lesson.activities)) {
+          // Handle activities
+          if (Array.isArray(lesson.activities) && lesson.activities.length > 0) {
             lesson.activities.forEach((activity) => {
               lessonProgress.activitiesProgress.push({
                 activityId: activity._id,
@@ -350,7 +411,81 @@ const createUserProgress = asyncHandler(async (req, res) => {
 });
 
 
-//with badge
+
+// //with badge
+// const createUserAnalytics = async (req, res) => {
+//   const { userId } = req.body;
+
+//   try {
+//     // Check if user analytics already exists
+//     const existingUserAnalytics = await UserAnalyticsModel.findOne({ userId });
+//     if (existingUserAnalytics) {
+//       return res.status(400).json({ message: "User analytics already exists" });
+//     }
+
+//     // Fetch all courses and populate lessons, documents, quizzes, and activities
+//     const courses = await CourseModel.find().populate({
+//       path: "lessons",
+//       populate: {
+//         path: "documents quiz activities",
+//       },
+//     });
+
+//     // Build analytics for courses, lessons, and documents with badges
+//     const coursesAnalytics = courses.map((course) => {
+//       const lessonsAnalytics = course.lessons.map((lesson) => {
+//         const documentsAnalytics = lesson.documents.map((document) => ({
+//           documentId: document._id,
+//           timeSpent: 0,
+//           pointsEarned: 0,
+//           badges: document.badges || "",  // Assign the badge if available
+//         }));
+
+//         const quizzesAnalytics = lesson.quiz.map((quiz) => ({
+//           quizId: quiz._id,
+//           timeSpent: 0,
+//           pointsEarned: 0,
+//         }));
+
+//         const activitiesAnalytics = lesson.activities.map((activity) => ({
+//           activityId: activity._id,
+//           timeSpent: 0,
+//           pointsEarned: 0,
+//         }));
+
+//         return {
+//           lessonId: lesson._id,
+//           documentsAnalytics,
+//           quizzesAnalytics,
+//           activitiesAnalytics,
+//           totalTimeSpent: 0,
+//           totalPointsEarned: 0,
+//           badges: lesson.badges || "",  // Assign the badge if available
+//         };
+//       });
+
+//       return {
+//         courseId: course._id,
+//         lessonsAnalytics,
+//         totalTimeSpent: 0,
+//         totalPointsEarned: 0,
+//         badges: course.badges || "",  // Assign the badge if available
+//       };
+//     });
+
+//     // Create new user analytics
+//     const newUserAnalytics = new UserAnalyticsModel({
+//       userId,
+//       coursesAnalytics,
+//       badges: [],  // User-specific badges remain empty initially
+//     });
+
+//     const savedUserAnalytics = await newUserAnalytics.save();
+//     res.status(201).json(savedUserAnalytics);
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// };
 const createUserAnalytics = async (req, res) => {
   const { userId } = req.body;
 
@@ -379,17 +514,23 @@ const createUserAnalytics = async (req, res) => {
           badges: document.badges || "",  // Assign the badge if available
         }));
 
-        const quizzesAnalytics = lesson.quiz.map((quiz) => ({
-          quizId: quiz._id,
-          timeSpent: 0,
-          pointsEarned: 0,
-        }));
+        // Handle quizzes only if they exist
+        const quizzesAnalytics = Array.isArray(lesson.quiz) && lesson.quiz.length > 0
+          ? lesson.quiz.map((quiz) => ({
+              quizId: quiz._id,
+              timeSpent: 0,
+              pointsEarned: 0,
+            }))
+          : [];
 
-        const activitiesAnalytics = lesson.activities.map((activity) => ({
-          activityId: activity._id,
-          timeSpent: 0,
-          pointsEarned: 0,
-        }));
+        // Handle activities only if they exist
+        const activitiesAnalytics = Array.isArray(lesson.activities) && lesson.activities.length > 0
+          ? lesson.activities.map((activity) => ({
+              activityId: activity._id,
+              timeSpent: 0,
+              pointsEarned: 0,
+            }))
+          : [];
 
         return {
           lessonId: lesson._id,
@@ -424,10 +565,6 @@ const createUserAnalytics = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
-
-
-
 
 export {
   getUserProgress,
