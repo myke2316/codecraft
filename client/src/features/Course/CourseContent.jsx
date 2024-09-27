@@ -1,21 +1,27 @@
-import React, { useState } from "react";
-import { Outlet, useNavigate } from "react-router";
-import CourseSideBar from "./Bar/CourseSideBar";
-
+import React from "react";
+import { Outlet } from "react-router";
+import CourseSidebar from "./Bar/CourseSideBar"; 
+import { Box } from "@mui/material";
 
 function CourseContent() {
-
-  const [selectedLesson, setSelectedLesson] = useState(null);
-
   return (
-    <div className="h-screen flex flex-col">
-      <div className="h-screen flex flex-col">
-        <div className="flex-1 flex">
-          <CourseSideBar setSelectedLesson={setSelectedLesson} />
+    <Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
+      <CourseSidebar />
+      <Box 
+        component="main" 
+        sx={{ 
+          flexGrow: 1, 
+          p: 0, 
+          overflow: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <Box sx={{ flexGrow: 1, overflow: 'auto' ,width:'100%'}}>
           <Outlet />
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 }
 

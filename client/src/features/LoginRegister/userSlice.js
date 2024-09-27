@@ -21,10 +21,20 @@ const userSlice = createSlice({
       state.userDetails = null;
       localStorage.removeItem("userDetails");
       localStorage.removeItem("expirationTime");
-      
+    },
+    editUsername: (state, action) => {
+      const { newUsername } = action.payload;
+
+      // Update the username in the userDetails
+      if (state.userDetails) {
+        state.userDetails.username = newUsername;
+
+        // Update the localStorage with new username
+        localStorage.setItem("userDetails", JSON.stringify(state.userDetails));
+      }
     },
   },
 });
 
-export const { setCredentials, logout } = userSlice.actions;
+export const { setCredentials, logout, editUsername } = userSlice.actions;
 export default userSlice.reducer;

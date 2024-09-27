@@ -63,10 +63,18 @@ export const userService = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    editUsername: builder.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/edit-username`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
   }),
 });
 
 export const {
+  useEditUsernameMutation,
   useApproveTeacherMutation,
   useDeleteUserMutation,
   useGetAllUserMutation,

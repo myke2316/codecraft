@@ -1,39 +1,36 @@
+import React from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router";
 import { ToastContainer } from "react-toastify";
+import CourseSidebar from "./Bar/CourseSideBar";
+import { Box, AppBar, Toolbar, IconButton, Typography } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function CourseLayout() {
   const navigate = useNavigate();
-  const classId = useSelector(state => state.class.class._id)
+  const classId = useSelector(state => state.class.class._id);
+
   return (
-    <div>
-      <div
-        className="bg-gray-800 p-4 flex justify-between"
-        onClick={() => navigate(`/studentClass/${classId}/classHome`)}
-      >
-        <div className="text-white hover:text-gray-200 flex">
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-          <button type="button">Back</button>
-        </div>
-      </div>
-      <div>
-        <Outlet />
-        <ToastContainer />
-      </div>
-    </div>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+      <Box sx={{ display: 'flex', flexGrow: 1, overflow: 'hidden' }}>
+      
+        <Box 
+          component="main" 
+          sx={{ 
+            flexGrow: 1, 
+            p: 0, 
+            overflow: 'auto',
+            display: 'flex',
+            flexDirection: 'column'
+          }}
+        >
+          <Outlet />
+        </Box>
+      </Box>
+
+      <ToastContainer />
+    </Box>
   );
 }
+
 export default CourseLayout;

@@ -1,6 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
+import {
+  Box,
+  Typography,
+  LinearProgress,
+  Card,
+  CardContent,
+  Button,
+  Grid,
+  IconButton,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
+import {
+  Description,
+  Quiz as QuizIcon,
+  Code,
+  Lock,
+  CheckCircle,
+  AccessTime,
+  ExpandMore,
+  ExpandLess,
+} from "@mui/icons-material";
+import { motion, AnimatePresence } from "framer-motion";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: "Poppins, sans-serif",
+  },
+  palette: {
+    primary: {
+      main: "#4F46E5", // indigo-600
+    },
+    secondary: {
+      main: "#7C3AED", // purple-600
+    },
+  },
+});
 
 function LessonContent() {
   const { courseId, lessonId } = useParams();
@@ -9,166 +46,402 @@ function LessonContent() {
     (state) => state.studentProgress.userProgress
   );
   const navigate = useNavigate();
-
-  function handleClick(id) {
-    navigate(`document/${id}`);
-  }
+  const [expandedSections, setExpandedSections] = useState({
+    documents: true,
+    quiz: true,
+    activities: true,
+  });
 
   if (!courses || !userProgress)
     return (
-      <div className="flex justify-center items-center h-full">Loading...</div>
+      <Box className="flex justify-center items-center h-screen">
+        <Typography variant="h6">Loading...</Typography>
+      </Box>
     );
 
   const course = courses.find((course) => course._id === courseId);
-  if (!course)
+  const lesson = course?.lessons.find((lesson) => lesson._id === lessonId);
+
+  if (!course || !lesson)
     return (
-      <div className="flex justify-center items-center h-full">
-        Course not found
-      </div>
+      <Box className="flex justify-center items-center h-screen">
+        <Typography variant="h6">Lesson not found</Typography>
+      </Box>
     );
 
-  const lesson = course.lessons.find((lesson) => lesson._id === lessonId);
-  if (!lesson)
-    return (
-      <div className="flex justify-center items-center h-full">
-        Lesson not found
-      </div>
-    );
-
-  const documents = lesson.documents;
-  const quizzes = lesson.quiz;
-  const activities = lesson.activities;
+  const documents = lesson.documents || [];
+  const quiz = lesson.quiz;
+  const activities = lesson.activities || [];
 
   const lessonProgress = userProgress.coursesProgress
-    .find((cp) => cp.courseId.toString() === courseId.toString())
-    .lessonsProgress.find(
-      (lp) => lp.lessonId.toString() === lessonId.toString()
-    );
+    .find((cp) => cp.courseId.toString() === courseId)
+    ?.lessonsProgress.find((lp) => lp.lessonId.toString() === lessonId);
 
   if (!lessonProgress)
     return (
-      <div className="flex justify-center items-center h-full">
-        Lesson progress not found
-      </div>
+      <Box className="flex justify-center items-center h-screen">
+        <Typography variant="h6">Lesson progress not found</Typography>
+      </Box>
     );
 
   const completedDocuments = lessonProgress.documentsProgress.filter(
-    (dp) => dp.locked === false
+    (dp) => !dp.locked
   ).length;
-  const totalDocuments = documents.length;
-  const progressPercentage = (completedDocuments / totalDocuments) * 100;
+  const progressPercentage = (completedDocuments / documents.length) * 100;
 
   const quizProgress = lessonProgress.quizzesProgress[0];
-  console.log(quizProgress)
   const quizScore = quizProgress?.locked
     ? "Locked"
     : `${quizProgress?.pointsEarned} Points Earned`;
 
-  function handleQuizClick() {
-    navigate(`quiz/${quizzes[0]._id}`);
-  }
+  const handleClick = (id) => navigate(`document/${id}`);
+  const handleQuizClick = () => navigate(`quiz/${quiz._id}`);
+  const handleActivityClick = () => navigate(`activity/${activities[0]._id}`);
 
-  function handleActivityClick() {
-    navigate(`activity/${activities[0]._id}`);
-  }
+  const toggleSection = (section) => {
+    setExpandedSections((prev) => ({ ...prev, [section]: !prev[section] }));
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  const listItemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0 },
+  };
 
   return (
-    <div className="flex-1 p-4">
-      <div className="bg-white shadow rounded-lg p-6">
-        <h1 className="text-3xl font-bold mb-6 text-gray-800">
-          {lesson.title}
-        </h1>
-        <hr className="mb-6" />
-        <div className="flex justify-between items-center mb-6">
-          <span className="text-lg font-semibold">
-            Progress: {completedDocuments}/{totalDocuments}
-          </span>
-          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden ml-4">
-            <div
-              className="h-full bg-green-500"
-              style={{
-                width: `${progressPercentage}%`,
-                transition: "width 0.5s ease-in-out",
-              }}
-            />
-          </div>
-        </div>
-        <div className="mb-6">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-700">
-            Documents
-          </h2>
-          <ul className="space-y-4">
-            {documents.map((document) => {
-              const docProgress = lessonProgress.documentsProgress.find(
-                (dp) => dp.documentId.toString() === document._id.toString()
-              );
-              return (
-                <li key={document._id}>
-                  <span
-                    className={`block p-4 rounded-lg cursor-pointer transition-all duration-300 ${
-                      docProgress?.locked
-                        ? "bg-gray-100 text-gray-400 cursor-not-allowed disabled:true"
-                        : "bg-blue-50 text-blue-800 hover:bg-blue-100"
-                    }`}
-                    onClick={docProgress?.locked ? null : () => handleClick(document._id)}
+    <ThemeProvider theme={theme}>
+      <Box className="p-8 bg-gray-100 min-h-screen font-sans">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={cardVariants}
+          transition={{ duration: 0.5 }}
+        >
+          <Card className="mb-8 overflow-hidden shadow-md">
+            <CardContent>
+              <Typography variant="h4" className="mb-4 font-bold text-gray-800">
+                {lesson.title}
+              </Typography>
+              <Typography variant="subtitle1" className="mb-2 font-semibold">
+                Overall Progress
+              </Typography>
+              <LinearProgress
+                variant="determinate"
+                value={progressPercentage}
+                className="h-2 rounded-full"
+                color="secondary"
+              />
+              <Typography
+                variant="body2"
+                className="mt-1 text-right text-gray-600"
+              >
+                {Math.round(progressPercentage)}%
+              </Typography>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <Grid container spacing={4}>
+          {/* Documents */}
+          <Grid item xs={12}>
+            <Card className="overflow-hidden shadow-md">
+              <CardContent>
+                <Box className="flex justify-between items-center mb-4">
+                  <Typography
+                    variant="h5"
+                    className="font-semibold text-gray-700"
                   >
-                    {document.title}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-
-        {/* Only display quiz section if quizzes are present */}
-        {quizzes.length > 0 && (
-          <div className="mb-6">
-            <h2 className="text-2xl font-semibold mb-4 text-gray-700">Quiz</h2>
-            <div
-              className={`block p-4 rounded-lg cursor-pointer transition-all duration-300 ${
-                quizProgress?.locked
-                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                  : "bg-blue-50 text-blue-800 hover:bg-blue-100"
-              }`}
-              onClick={quizProgress?.locked ? null : handleQuizClick}
-            >
-              Quiz - {quizScore}
-            </div>
-          </div>
-        )}
-
-        {/* Only display activities section if activities are present */}
-        {activities.length > 0 && (
-          <div>
-            <h2 className="text-2xl font-semibold mb-4 text-gray-700">
-              Coding Activities
-            </h2>
-            <ul className="space-y-4">
-              {activities.map((activity) => {
-                const activityProgress =
-                  lessonProgress.activitiesProgress.find(
-                    (cap) => cap.activityId.toString() === activity._id.toString()
-                  );
-                return (
-                  <li key={activity._id}>
-                    <span
-                      className={`block p-4 rounded-lg cursor-pointer transition-all duration-300 ${
-                        activityProgress?.locked
-                          ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                          : "bg-blue-50 text-blue-800 hover:bg-blue-100"
-                      }`}
-                      onClick={activityProgress?.locked ? null : handleActivityClick}
+                    Documents
+                  </Typography>
+                  <IconButton
+                    onClick={() => toggleSection("documents")}
+                    size="small"
+                  >
+                    {expandedSections.documents ? (
+                      <ExpandLess />
+                    ) : (
+                      <ExpandMore />
+                    )}
+                  </IconButton>
+                </Box>
+                <AnimatePresence>
+                  {expandedSections.documents && (
+                    <motion.div
+                      initial="hidden"
+                      animate="visible"
+                      exit="hidden"
+                      variants={{
+                        visible: { transition: { staggerChildren: 0.1 } },
+                      }}
                     >
-                      {activity.title} - X
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        )}
-      </div>
-    </div>
+                      {documents.length > 0 ? (
+                        documents.map((document) => {
+                          const docProgress =
+                            lessonProgress.documentsProgress.find(
+                              (dp) =>
+                                dp.documentId.toString() ===
+                                document._id.toString()
+                            );
+                          return (
+                            <motion.div
+                              key={document._id}
+                              variants={listItemVariants}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <Box
+                                className={`flex items-center p-4 rounded-lg mb-4 transition-all duration-300 ${
+                                  docProgress?.locked
+                                    ? "bg-gray-200"
+                                    : "bg-white hover:bg-gray-50"
+                                } shadow-sm`}
+                              >
+                                <Description className="mr-4 text-blue-500" />
+                                <Box className="flex-1">
+                                  <Typography
+                                    variant="subtitle1"
+                                    className="font-semibold"
+                                  >
+                                    {document.title}
+                                  </Typography>
+                                  <Typography
+                                    variant="body2"
+                                    className="flex items-center text-gray-600"
+                                  >
+                                    {docProgress?.locked ? (
+                                      <>
+                                        <Lock className="w-4 h-4 mr-1" /> Locked
+                                      </>
+                                    ) : docProgress?.dateFinished ? (
+                                      <>
+                                        <CheckCircle className="w-4 h-4 mr-1 text-green-500" />{" "}
+                                        Completed
+                                      </>
+                                    ) : (
+                                      <>
+                                        <AccessTime className="w-4 h-4 mr-1 text-yellow-500" />{" "}
+                                        In Progress
+                                      </>
+                                    )}
+                                  </Typography>
+                                </Box>
+                                <Button
+                                  variant="contained"
+                                  color={
+                                    docProgress?.locked ? "inherit" : "primary"
+                                  }
+                                  onClick={
+                                    docProgress?.locked
+                                      ? null
+                                      : () => handleClick(document._id)
+                                  }
+                                  disabled={docProgress?.locked}
+                                  className="transition-all duration-300 hover:scale-105"
+                                >
+                                  {docProgress?.locked
+                                    ? "Locked"
+                                    : "Open Document"}
+                                </Button>
+                              </Box>
+                            </motion.div>
+                          );
+                        })
+                      ) : (
+                        <Typography variant="body2" className="text-gray-500">
+                          No documents available.
+                        </Typography>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          {/* Quiz */}
+          {quiz && (
+            <Grid item xs={12} md={6}>
+              <Card className="overflow-hidden shadow-md h-full">
+                <CardContent>
+                  <Box className="flex justify-between items-center mb-4">
+                    <Typography
+                      variant="h5"
+                      className="font-semibold text-gray-700"
+                    >
+                      Quiz
+                    </Typography>
+                    <IconButton
+                      onClick={() => toggleSection("quiz")}
+                      size="small"
+                    >
+                      {expandedSections.quiz ? <ExpandLess /> : <ExpandMore />}
+                    </IconButton>
+                  </Box>
+                  <AnimatePresence>
+                    {expandedSections.quiz && (
+                      <motion.div
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                        variants={listItemVariants}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <Box className="flex items-center p-4 rounded-lg transition-all duration-300 bg-white hover:bg-gray-50 shadow-sm">
+                          <QuizIcon className="mr-4 text-yellow-500" />
+                          <Box className="flex-1">
+                            <Typography
+                              variant="subtitle1"
+                              className="font-semibold"
+                            >
+                              Take the Quiz
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              className="text-gray-600"
+                            >
+                              Status: {quizScore}
+                            </Typography>
+                          </Box>
+                          <Button
+                            variant="contained"
+                            color={
+                              quizProgress?.locked ? "inherit" : "secondary"
+                            }
+                            onClick={
+                              quizProgress?.locked ? null : handleQuizClick
+                            }
+                            disabled={quizProgress?.locked}
+                            className="transition-all duration-300 hover:scale-105"
+                          >
+                            {quizProgress?.locked ? "Locked" : "Take Quiz"}
+                          </Button>
+                        </Box>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </CardContent>
+              </Card>
+            </Grid>
+          )}
+
+          {/* Coding Activities */}
+          {activities.length > 0 && (
+            <Grid item xs={12} md={6}>
+              <Card className="overflow-hidden shadow-md h-full">
+                <CardContent>
+                  <Box className="flex justify-between items-center mb-4">
+                    <Typography
+                      variant="h5"
+                      className="font-semibold text-gray-700"
+                    >
+                      Coding Activities
+                    </Typography>
+                    <IconButton
+                      onClick={() => toggleSection("activities")}
+                      size="small"
+                    >
+                      {expandedSections.activities ? (
+                        <ExpandLess />
+                      ) : (
+                        <ExpandMore />
+                      )}
+                    </IconButton>
+                  </Box>
+                  <AnimatePresence>
+                    {expandedSections.activities && (
+                      <motion.div
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                        variants={{
+                          visible: { transition: { staggerChildren: 0.1 } },
+                        }}
+                      >
+                        {activities.map((activity) => {
+                          const activityProgress =
+                            lessonProgress.activitiesProgress.find(
+                              (ap) =>
+                                ap.activityId.toString() ===
+                                activity._id.toString()
+                            );
+                          return (
+                            <motion.div
+                              key={activity._id}
+                              variants={listItemVariants}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <Box
+                                className={`flex items-center p-4 rounded-lg mb-4 transition-all duration-300 ${
+                                  activityProgress?.locked
+                                    ? "bg-gray-200"
+                                    : "bg-white hover:bg-gray-50"
+                                } shadow-sm`}
+                              >
+                                <Code className="mr-4 text-green-500" />
+                                <Box className="flex-1">
+                                  <Typography
+                                    variant="subtitle1"
+                                    className="font-semibold"
+                                  >
+                                    {activity.title}
+                                  </Typography>
+                                  <Typography
+                                    variant="body2"
+                                    className="flex items-center text-gray-600"
+                                  >
+                                    {activityProgress?.locked ? (
+                                      <>
+                                        <Lock className="w-4 h-4 mr-1" /> Locked
+                                      </>
+                                    ) : activityProgress?.dateFinished ? (
+                                      <>
+                                        <CheckCircle className="w-4 h-4 mr-1 text-green-500" />{" "}
+                                        Completed
+                                      </>
+                                    ) : (
+                                      <>
+                                        <AccessTime className="w-4 h-4 mr-1 text-yellow-500" />{" "}
+                                        In Progress
+                                      </>
+                                    )}
+                                  </Typography>
+                                </Box>
+                                <Button
+                                  variant="contained"
+                                  color={
+                                    activityProgress?.locked
+                                      ? "inherit"
+                                      : "secondary"
+                                  }
+                                  onClick={
+                                    activityProgress?.locked
+                                      ? null
+                                      : handleActivityClick
+                                  }
+                                  disabled={activityProgress?.locked}
+                                  className="transition-all duration-300 hover:scale-105"
+                                >
+                                  {activityProgress?.locked
+                                    ? "Locked"
+                                    : "Start Activity"}
+                                </Button>
+                              </Box>
+                            </motion.div>
+                          );
+                        })}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </CardContent>
+              </Card>
+            </Grid>
+          )}
+        </Grid>
+      </Box>
+    </ThemeProvider>
   );
 }
 

@@ -26,13 +26,11 @@ import {
   LinearProgress,
   Container,
   Paper,
-  Card,
-  CardContent,
 } from "@mui/material";
 
 const theme = {
-  primary: "#9683ec", // Yellow
-  secondary: "	#21004b", // Black
+  primary: "#FFD700", // Yellow
+  secondary: "#000000", // Black
   background: "#FFFFFF", // White
 };
 
@@ -43,7 +41,6 @@ const StyledBox = styled(Box)({
   flexDirection: "column",
   height: "100%",
   overflow: "hidden",
-  p: 0,
 });
 
 const StyledButton = styled(Button)({
@@ -59,30 +56,14 @@ const StyledButton = styled(Button)({
   },
 });
 
-const StyledPaper = styled(Paper)(({ theme }) => ({
+const StyledPaper = styled(Paper)({
   backgroundColor: theme.background,
   color: theme.secondary,
+  border: `2px solid ${theme.primary}`,
   borderRadius: "8px",
   padding: "16px",
   marginBottom: "16px",
-  position: "relative",
-  overflow: "hidden",
-
-  // Add a box-shadow for the glowing effect
-  boxShadow: "0 0 15px rgba(63, 81, 181, 0.6)", // Blue glow
-  "&::before": {
-    content: '""',
-    position: "absolute",
-    top: "0",
-    left: "0",
-    right: "0",
-    bottom: "0",
-    borderRadius: "8px",
-    background: "linear-gradient(135deg, #3f51b5, #1e88e5)", // Gradient from Indigo to Blue
-    opacity: 0.3, // Slightly transparent for a glowing effect
-    zIndex: -1, // Place it behind the content
-  },
-}));
+});
 
 const StyledLinearProgress = styled(LinearProgress)({
   backgroundColor: theme.background,
@@ -96,34 +77,6 @@ const contentVariants = {
   visible: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -20 },
 };
-const ScrollableBox = styled(Box)(({ theme }) => ({
-  flexGrow: 1,
-  overflowY: "auto",
-  height: "calc(100% - 180px)",
-
-  // Add padding to create space for the floating effect
-  paddingTop: "10px",
-  paddingBottom: "10px",
-
-  // Scrollbar styling
-  "&::-webkit-scrollbar": {
-    width: "12px", // Slightly wider for a more modern look
-  },
-  "&::-webkit-scrollbar-track": {
-    background: "transparent", // Transparent to create the floating effect
-    borderRadius: "10px",
-    marginTop: "10px", // Adds space at the top
-    marginBottom: "10px", // Adds space at the bottom
-  },
-  "&::-webkit-scrollbar-thumb": {
-    background: "rgba(126, 33, 212, 0.8)", // A semi-transparent color for a softer effect
-    borderRadius: "10px",
-    border: "3px solid rgba(0, 0, 0, 0.1)", // Adds a border to make the thumb look like it's floating
-    "&:hover": {
-      background: "rgba(118, 48, 255, 1)", // Changes color on hover for interaction feedback
-    },
-  },
-}));
 
 function DocumentContent() {
   const { courseId, lessonId, documentId, quizId } = useParams();
@@ -142,9 +95,7 @@ function DocumentContent() {
   const [isProcessing, setIsProcessing] = useState(false);
   const contentRef = useRef(null);
 
-  const userAnalytics = useSelector(
-    (state) => state.userAnalytics.userAnalytics
-  );
+  const userAnalytics = useSelector((state) => state.userAnalytics.userAnalytics);
 
   const [updateUserProgress] = useUpdateUserProgressMutation();
   const [updateUserAnalyticsMutation] = useUpdateUserAnalyticsMutation();
@@ -156,9 +107,7 @@ function DocumentContent() {
         const lesson = course.lessons.find((lesson) => lesson._id === lessonId);
         if (lesson) {
           if (documentId) {
-            const document = lesson.documents.find(
-              (doc) => doc._id === documentId
-            );
+            const document = lesson.documents.find((doc) => doc._id === documentId);
             if (document) {
               setDocumentContent(document.content);
               setCurrentIndex(0);
@@ -166,15 +115,9 @@ function DocumentContent() {
               setShowCompletion(false);
 
               const existingAnalytics = userAnalytics.coursesAnalytics
-                .find(
-                  (courseAnalytics) => courseAnalytics.courseId === courseId
-                )
-                ?.lessonsAnalytics.find(
-                  (lessonAnalytics) => lessonAnalytics.lessonId === lessonId
-                )
-                ?.documentsAnalytics.find(
-                  (docAnalytics) => docAnalytics.documentId === documentId
-                );
+                .find((courseAnalytics) => courseAnalytics.courseId === courseId)
+                ?.lessonsAnalytics.find((lessonAnalytics) => lessonAnalytics.lessonId === lessonId)
+                ?.documentsAnalytics.find((docAnalytics) => docAnalytics.documentId === documentId);
 
               if (existingAnalytics && existingAnalytics.timeSpent > 0) {
                 setStartTime(null);
@@ -231,10 +174,7 @@ function DocumentContent() {
     if (documentContent && currentIndex < documentContent.length - 1) {
       const newIndex = currentIndex + 1;
       setCurrentIndex(newIndex);
-      setDisplayedContent((prevContent) => [
-        ...prevContent,
-        documentContent[newIndex],
-      ]);
+      setDisplayedContent((prevContent) => [...prevContent, documentContent[newIndex]]);
     } else {
       const nextDocumentIndex = lesson.documents.indexOf(document) + 1;
       const nextQuizIndex = lesson.quiz.indexOf(quiz) + 1;
@@ -411,6 +351,7 @@ function DocumentContent() {
       }
     }
   }
+
   const handleBack = () => {
     if (isProcessing) return;
 
@@ -426,6 +367,31 @@ function DocumentContent() {
       );
     }
   };
+
+  const handleRunJavaScriptWeb = (index, code, supportingCode, html) => {
+    const iframeContent = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Output</title>
+      </head>
+      <body>
+        ${html || '<div id="app"></div>'}
+        <script>
+          ${supportingCode ? supportingCode : ""}
+          ${code}
+        </script>
+      </body>
+      </html>
+    `;
+    setIframeContents((prevContents) => ({
+      ...prevContents,
+      [index]: iframeContent,
+    }));
+  };
+
   const handleRunJavaScriptConsole = (index, code, supportingCode) => {
     const iframeContent = `
       <!DOCTYPE html>
@@ -469,11 +435,9 @@ function DocumentContent() {
       [index]: iframeContent,
     }));
   };
-  const handleRunCode = (index, code, supportingCode, language, type) => {
-    if (type === "codeconsole") {
-      handleRunJavaScriptConsole(index, code, supportingCode);
-    } else {
-      const iframeContent = `
+
+  const handleRunCode = (index, code, supportingCode, language) => {
+    const iframeContent = `
       <!DOCTYPE html>
       <html lang="en">
       <head>
@@ -489,194 +453,134 @@ function DocumentContent() {
       </body>
       </html>
     `;
-      setIframeContents((prevContents) => ({
-        ...prevContents,
-        [index]: iframeContent,
-      }));
-    }
+    setIframeContents((prevContents) => ({
+      ...prevContents,
+      [index]: iframeContent,
+    }));
   };
 
   const progressPercentage = documentContent
     ? ((currentIndex + 1) / documentContent.length) * 100
     : 0;
-  const contentRefs = useRef([]);
-  useEffect(() => {
-    if (contentRefs.current[currentIndex]) {
-      contentRefs.current[currentIndex].scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  }, [currentIndex]);
-  return (
-    <StyledBox>
-      {/* Title Section */}
-      <div className="bg-gradient-to-r from-indigo-400 to-purple-600 shadow-2xl rounded-lg p-8 mb-6 text-center m-4">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-white mb-4 tracking-wide">
-            {lesson.title}
-          </h1>
-          <h2 className="text-2xl font-medium text-gray-200">
-            {document ? document.title : "Quiz"}
-          </h2>
-        </div>
-      </div>
 
-      {/* Main Content Section */}
-      <ScrollableBox>
-        <Container maxWidth="lg" sx={{ py: 4 }}>
-          <Box>
-            {document ? (
-              <AnimatePresence initial={false}>
-                {displayedContent.map((content, index) => (
-                  <motion.div
-                    key={index}
-                    variants={contentVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    transition={{ duration: 0.3 }}
-                    ref={(el) => (contentRefs.current[index] = el)}
-                  >
-                    <Box my={3}>
-                      {content.type === "sentence" && (
-                        <Box
-                          sx={{
-                            padding: "16px", // Simple padding
-                            mb: 2,
-                          }}
-                        >
-                          <Typography
-                            variant="body1"
-                            sx={{
-                              fontSize: { xs: "1.5rem", sm: "2rem" }, // Responsive font size
-                              fontWeight: "400", // Normal weight for simplicity
-                              color: "text.primary", // Use primary text color from theme
-                              lineHeight: 1.5, // Comfortable line height for readability
-                            }}
-                          >
+    return (
+      <StyledBox>
+        <Box ref={contentRef} sx={{ flexGrow: 1, overflowY: 'auto', height: 'calc(100% - 64px)' }}>
+          <Container maxWidth="lg" sx={{ py: 4 }}>
+            <Typography variant="h4" fontWeight="bold" mb={2} color={theme.secondary}>
+              {lesson.title}
+            </Typography>
+            <Typography variant="h4" fontWeight="bold" mb={2} color={theme.secondary}>
+              {document ? document.title : "Quiz"}
+            </Typography>
+            <Box sx={{ borderBottom: `2px solid ${theme.primary}`, mb: 4 }} />
+  
+            <Box>
+              {document ? (
+                <AnimatePresence initial={false}>
+                  {displayedContent.map((content, index) => (
+                    <motion.div
+                      key={index}
+                      variants={contentVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Box my={3}>
+                        {content.type === "sentence" && (
+                          <Typography variant="body1" sx={{ fontSize: "1.1rem", mb: 2 }}>
                             <ContentRenderer content={content.text} />
                           </Typography>
-                        </Box>
-                      )}
-                      {content.type === "snippet" && (
-                        <StyledPaper elevation={3}>
-                          <pre
-                            style={{
-                              margin: 0,
-
-                              whiteSpace: "pre-wrap",
-                              wordWrap: "break-word",
-                              fontSize: "0.9rem",
-                              backgroundColor: "#f5f5f5",
-                              borderRadius: "4px",
-                              padding: "16px",
-                            }}
-                          >
-                            <code>{content.code}</code>
-                          </pre>
-                        </StyledPaper>
-                      )}
-                      {(content.type === "code" ||
-                        content.type === "codeconsole" ||
-                        content.type === "javascriptweb") && (
-                        <StyledPaper elevation={3}>
-                          {content.supportingCode && (
-                            <Box mb={2}>
-                              <Typography variant="subtitle2" gutterBottom>
-                                Supporting Code:
-                              </Typography>
-                              <Paper
-                                elevation={2}
-                                sx={{
-                                  p: 2,
-                                  bgcolor: "grey.100",
-                                  borderRadius: 1,
-                                }}
-                              >
-                                <pre
-                                  style={{
-                                    margin: 0,
-                                    padding: 0,
-                                    whiteSpace: "pre-wrap",
-                                    wordWrap: "break-word",
-                                    fontSize: "0.9rem",
-                                  }}
+                        )}
+                        {content.type === "snippet" && (
+                          <StyledPaper elevation={3}>
+                            <pre
+                              style={{
+                                margin: 0,
+                                padding: 0,
+                                whiteSpace: "pre-wrap",
+                                wordWrap: "break-word",
+                                fontSize: "0.9rem",
+                                backgroundColor: "#f5f5f5",
+                                borderRadius: "4px",
+                                padding: "16px",
+                              }}
+                            >
+                              <code>{content.code}</code>
+                            </pre>
+                          </StyledPaper>
+                        )}
+                        {(content.type === "code" || content.type === "codeconsole" || content.type === "javascriptweb") && (
+                          <StyledPaper elevation={3}>
+                            {content.supportingCode && (
+                              <Box mb={2}>
+                                <Typography variant="subtitle2" gutterBottom>
+                                  Supporting Code:
+                                </Typography>
+                                <Paper
+                                  elevation={2}
+                                  sx={{ p: 2, bgcolor: "grey.100", borderRadius: 1 }}
                                 >
-                                  <code>{content.supportingCode}</code>
-                                </pre>
-                              </Paper>
-                            </Box>
-                          )}
-                          <Editor
-                            height="200px"
-                            defaultLanguage={
-                              content.language.toLowerCase() || "javascript"
-                            }
-                            defaultValue={content.code}
-                            theme="vs-dark"
-                            options={{
-                              readOnly: true,
-                              minimap: { enabled: false },
-                            }}
-                          />
-                          <StyledButton
-                            onClick={() =>
-                              handleRunCode(
-                                index,
-                                content.code,
-                                content.supportingCode,
-                                content.language,
-                                content.type
-                              )
-                            }
-                            sx={{ mt: 2 }}
-                          >
-                            Run Code
-                          </StyledButton>
-                          {iframeContents[index] && (
-                            <Box mt={2}>
-                              <iframe
-                                srcDoc={iframeContents[index]}
-                                style={{
-                                  width: "100%",
-                                  height: "200px",
-                                  border: "none",
-                                }}
-                                title="Code Output"
-                              />
-                            </Box>
-                          )}
-                        </StyledPaper>
-                      )}
-                    </Box>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            ) : (
-              <QuizContent
-                quizId={quizId}
-                quiz={quiz}
-                onNext={handleNext}
-                onBack={handleBack}
-              />
-            )}
-          </Box>
-        </Container>
-      </ScrollableBox>
-
-      {/* Navigation Bar (Next and Back and Progress) */}
-      {document && (
+                                  <pre
+                                    style={{
+                                      margin: 0,
+                                      padding: 0,
+                                      whiteSpace: "pre-wrap",
+                                      wordWrap: "break-word",
+                                      fontSize: "0.9rem",
+                                    }}
+                                  >
+                                    <code>{content.supportingCode}</code>
+                                  </pre>
+                                </Paper>
+                              </Box>
+                            )}
+                            <Editor
+                              height="200px"
+                              defaultLanguage={content.language || "javascript"}
+                              defaultValue={content.code}
+                              theme="vs-dark"
+                              options={{ readOnly: true, minimap: { enabled: false } }}
+                            />
+                            <StyledButton
+                              onClick={() => handleRunCode(index, content.code, content.supportingCode, content.language)}
+                              sx={{ mt: 2 }}
+                            >
+                              Run Code
+                            </StyledButton>
+                            {iframeContents[index] && (
+                              <Box mt={2}>
+                                <iframe
+                                  srcDoc={iframeContents[index]}
+                                  style={{ width: "100%", height: "200px", border: "none" }}
+                                  title="Code Output"
+                                />
+                              </Box>
+                            )}
+                          </StyledPaper>
+                        )}
+                      </Box>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              ) : (
+                <QuizContent
+                  quizId={quizId}
+                  quiz={quiz}
+                  onNext={handleNext}
+                  onBack={handleBack}
+                />
+              )}
+            </Box>
+          </Container>
+        </Box>
+  
         <Box
           sx={{
-            mb:4,
-            mx:3,
-          
-            py: 3, // Increased padding for a more spacious look
-            px: 2,
-            backgroundColor: "#ffffff",
-            boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)", // Subtle shadow to lift the section
-            borderRadius: "8px", // Slightly round the edges for a softer look
+            borderTop: `2px solid ${theme.primary}`,
+            py: 2,
+            backgroundColor: theme.background,
           }}
         >
           <Container
@@ -685,7 +589,6 @@ function DocumentContent() {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              gap: 2, // Add space between elements
             }}
           >
             <StyledButton
@@ -693,47 +596,19 @@ function DocumentContent() {
               onClick={handleBack}
               disabled={currentIndex === 0 || isProcessing}
               startIcon={<ArrowBackIcon />}
-              sx={{
-                borderRadius: "50px", // Make the button more pill-shaped
-                padding: "10px 24px", // Increase button padding for better clickability
-                boxShadow: "0px 6px 12px rgba(0, 0, 0, 0.2)", // Slight 3D effect
-                transition: "all 0.3s ease", // Smooth hover animation
-                "&:hover": {
-                  boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.3)", // Increase shadow on hover
-                  backgroundColor: theme.primaryDark, // Darken button on hover
-                },
-              }}
             >
               Back
             </StyledButton>
-
             <StyledLinearProgress
               variant="determinate"
               value={progressPercentage}
-              sx={{
-                width: "60%",
-                height: 10, // Slightly taller for better visibility
-                borderRadius: 5, // Rounded edges for the progress bar
-                backgroundColor: theme.lightBackground, // A light background for the unfilled portion
-                boxShadow: "inset 0px 2px 4px rgba(0, 0, 0, 0.2)", // Inner shadow to give it depth
-              }}
+              sx={{ width: "60%", height: 8, borderRadius: 4 }}
             />
-
             <StyledButton
               variant="contained"
               onClick={handleNext}
               disabled={isProcessing}
               endIcon={<ArrowForwardIcon />}
-              sx={{
-                borderRadius: "50px",
-                padding: "10px 24px",
-                boxShadow: "0px 6px 12px rgba(0, 0, 0, 0.2)", // Button shadow
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.3)", // Shadow on hover
-                  backgroundColor: theme.primaryDark, // Darken button on hover
-                },
-              }}
             >
               {documentContent && currentIndex === documentContent.length - 1
                 ? "Finish"
@@ -741,9 +616,11 @@ function DocumentContent() {
             </StyledButton>
           </Container>
         </Box>
-      )}
-    </StyledBox>
-  );
+      </StyledBox>
+    );
 }
 
 export default DocumentContent;
+
+
+

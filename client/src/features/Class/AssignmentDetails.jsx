@@ -45,11 +45,14 @@ function AssignmentDetails() {
     useFetchAssignmentByIdMutation();
   const [submitAssignment] = useSubmitAssignmentMutation();
 
-  const { data: submissionData, isLoading: submissionLoading,refetch } =
-    useFetchSubmissionByAssignmentAndStudentIdQuery({
-      assignmentId,
-      studentId,
-    });
+  const {
+    data: submissionData,
+    isLoading: submissionLoading,
+    refetch,
+  } = useFetchSubmissionByAssignmentAndStudentIdQuery({
+    assignmentId,
+    studentId,
+  });
 
   useEffect(() => {
     if (assignmentId) {
@@ -102,7 +105,7 @@ function AssignmentDetails() {
 
       const response = await submitAssignment(formData).unwrap();
       console.log("Submission successful:", response);
-      refetch()
+      refetch();
     } catch (error) {
       setErrorMessage("Failed to submit assignment.");
       console.error("Submission error:", error);
@@ -233,7 +236,8 @@ function AssignmentDetails() {
                         <strong>Feedback:</strong> {feedback || "No feedback"}
                       </Typography>
                       <Typography variant="subtitle1">
-                        <strong>Score:</strong> {score !== null ? score : "Not scored"}
+                        <strong>Score:</strong>{" "}
+                        {score !== null ? score : "Not scored"}
                       </Typography>
                       <Button
                         variant="outlined"
@@ -270,7 +274,8 @@ function AssignmentDetails() {
                     <strong>Feedback:</strong> {feedback || "No feedback"}
                   </Typography>
                   <Typography variant="subtitle1">
-                    <strong>Score:</strong> {score !== null ? score : "Not scored"}
+                    <strong>Score:</strong>{" "}
+                    {score !== null ? score : "Not scored"}
                   </Typography>
                   <Button
                     variant="outlined"
@@ -280,14 +285,18 @@ function AssignmentDetails() {
                   >
                     Download
                   </Button>
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    onClick={handleDeleteSubmission}
-                    sx={{ mt: 2 }}
-                  >
-                    Delete
-                  </Button>
+                  {gradingStatus === "graded" ? (
+                    <></>
+                  ) : (
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      onClick={handleDeleteSubmission}
+                      sx={{ mt: 2 }}
+                    >
+                      Delete
+                    </Button>
+                  )}
                 </Box>
               ) : (
                 <>

@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid, Paper, Typography } from "@mui/material";
+import { 
+  Container, Grid, Paper, Typography, Box, CircularProgress, 
+  AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText
+} from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import MenuIcon from '@mui/icons-material/Menu';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import PeopleIcon from '@mui/icons-material/People';
+import BarChartIcon from '@mui/icons-material/BarChart';
 import {
   useFetchAllClassesMutation,
-
 } from "../../Teacher/classService";
 import { useAggregateAllAnalyticsMutation } from "../../Student/userAnalyticsService";
 import { useGetAllProgressMutation } from "../../Student/studentCourseProgressService";
@@ -12,13 +18,50 @@ import AdminUserAnalytics from "./AdminDashboardFiles/AdminUserAnalytics";
 import AdminOverview from "./AdminDashboardFiles/AdminOverview";
 import AdminAnalyticsChart from "./AdminDashboardFiles/AdminAnalyticsChart";
 
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#FFD700', // Yellow
+    },
+    secondary: {
+      main: '#000000', // Black
+    },
+    background: {
+      default: '#F5F5F5', // Light gray
+      paper: '#FFFFFF', // White
+    },
+    text: {
+      primary: '#000000', // Black
+      secondary: '#333333', // Dark gray
+    },
+  },
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#FFD700',
+          color: '#000000',
+        },
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: '#000000',
+          color: '#FFFFFF',
+        },
+      },
+    },
+  },
+});
 
 const AdminDashboard = () => {
   const [classesData, setClassesData] = useState([]);
   const [userAnalytics, setUserAnalytics] = useState([]);
   const [userProgress, setUserProgress] = useState([]);
   const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const [fetchClass] = useFetchAllClassesMutation();
   const [getAllAnalytics] = useAggregateAllAnalyticsMutation();
@@ -28,6 +71,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const classesResponse = await fetchClass();
         setClassesData(classesResponse.data);
 
@@ -46,38 +90,100 @@ const AdminDashboard = () => {
         console.log("USERS:", usersResponse.data);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, [fetchClass, getAllAnalytics, getAllProgress, getAllUser]);
 
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+
+  const drawerContent = (
+    <List>
+      {['Dashboard', 'Users', 'Analytics'].map((text, index) => (
+        <ListItem button key={text}>
+          <ListItemIcon>
+            {index === 0 ? <DashboardIcon /> : index === 1 ? <PeopleIcon /> : <BarChartIcon />}
+          </ListItemIcon>
+          <ListItemText primary={text} />
+        </ListItem>
+      ))}
+    </List>
+  );
+
   return (
     <ThemeProvider theme={theme}>
-      <Container maxWidth="100%" style={{ padding: "20px" }}>
-        <Typography variant="h4" gutterBottom>
-          Admin Dashboard
-        </Typography>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={12}>
-            <Paper elevation={2} style={{ padding: "20px", height: "auto" }}>
-              <AdminOverview userAnalytics={userAnalytics} users={users} />
-            </Paper>
-          </Grid>
-       
-      
-          <Grid item xs={12} md={12}>
-            <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
-              <AdminUserAnalytics userAnalytics={userAnalytics} users={users} />
-            </Paper>
-          </Grid>
-        </Grid>
-        <div style={{ marginTop: "20px" }}>
-          {/* <AdminCompletionRateChart userProgress={userProgress} /> */}
-        </div>
-      </Container>
+      <Box sx={{ display: 'flex' }}>
+        <AppBar position="fixed">
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={toggleDrawer}
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap component="div">
+              Admin Dashboard
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="temporary"
+          open={drawerOpen}
+          onClose={toggleDrawer}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+        >
+          {drawerContent}
+        </Drawer>
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            width: { sm: `calc(100% - ${240}px)` },
+            mt: 8,
+          }}
+        >
+          {isLoading ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+              <CircularProgress />
+            </Box>
+          ) : (
+            <Container maxWidth="lg">
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
+                    <AdminOverview userAnalytics={userAnalytics} users={users} />
+                  </Paper>
+                </Grid>
+                <Grid item xs={12}>
+                  <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
+                    <AdminUserAnalytics userAnalytics={userAnalytics} users={users} />
+                  </Paper>
+                </Grid>
+                <Grid item xs={12}>
+                  <Paper elevation={3} sx={{ p: 3 }}>
+                    <AdminAnalyticsChart userAnalytics={userAnalytics} />
+                  </Paper>
+                </Grid>
+              </Grid>
+            </Container>
+          )}
+        </Box>
+      </Box>
     </ThemeProvider>
   );
 };
 
 export default AdminDashboard;
+
+

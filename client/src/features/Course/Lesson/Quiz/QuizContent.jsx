@@ -285,11 +285,7 @@ const QuizContent = ({ quiz }) => {
       }}
     >
       {/* Progress Bar */}
-      <LinearProgress
-        variant="determinate"
-        value={progressBarWidth}
-        sx={{ mb: 4, height: 10, borderRadius: 5 }}
-      />
+   
       <div className="progress-bar">
         <div style={{ width: progressBarWidth }} />
       </div>
@@ -340,40 +336,7 @@ const QuizContent = ({ quiz }) => {
       </Box>
     </Box>
 
-    //old design
-    // <div className="quiz-content">
-    //   <div className="progress-bar">
-    //     <div style={{ width: progressBarWidth }} />
-    //   </div>
-    //   <h3>{currentQuestion.question}</h3>
-    //   {currentQuestion.options.map((option, index) => (
-    //     <div key={index}>
-    //       <input
-    //         type="radio"
-    //         value={option}
-    //         checked={selectedOption === option}
-    //         onChange={() => setSelectedOption(option)}
-    //       />
-    //       <label>{option}</label>
-    //     </div>
-    //   ))}
-    //   <div className="button-group">
-    //     <button
-    //       onClick={handleBack}
-    //       disabled={currentQuestionIndex === 0}
-    //       className="quiz-button"
-    //     >
-    //       Back
-    //     </button>
-    //     <button
-    //       onClick={handleNext}
-    //       disabled={selectedOption === null}
-    //       className="quiz-button"
-    //     >
-    //       {currentQuestionIndex < quiz.length - 1 ? "Next" : "Submit"}
-    //     </button>
-    //   </div>
-    // </div>
+   
   );
 };
 

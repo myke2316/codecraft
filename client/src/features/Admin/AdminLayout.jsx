@@ -1,24 +1,57 @@
-// layouts/AdminLayout.jsx
-import React from "react";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
+import { Box, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import AdminHeader from "./AdminHeader";
 import AdminSidebar from "./AdminSidebar";
 import AdminFooter from "./AdminFooter";
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
+const theme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
+  },
+});
 
 const AdminLayout = () => {
+  const [open, setOpen] = useState(true);
+
+
+
   return (
-    <div className="flex flex-col h-screen">
-      <AdminHeader />
-      <div className="flex flex-1">
-        <AdminSidebar />
-        <main className="flex-1 p-6">
-          {" "}
-          <Outlet /> {/* Renders the matched child route */} <ToastContainer />
-        </main>
-      </div>
-      <AdminFooter />
-    </div>
+    <ThemeProvider theme={theme}>
+      <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+        <CssBaseline />
+
+        <AdminSidebar open={open} />
+        <Box
+          component="main"
+          sx={{
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light'
+                ? theme.palette.grey[100]
+                : theme.palette.grey[900],
+            flexGrow: 1,
+            height: '100vh',
+            overflow: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <Box sx={{ py: 6, px: 4, flexGrow: 1 }}>
+            <Outlet />
+            <ToastContainer />
+          </Box>
+          <AdminFooter />
+        </Box>
+      </Box>
+    </ThemeProvider>
   );
 };
 

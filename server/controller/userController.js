@@ -11,6 +11,42 @@ import UserAnalyticsModel from "../models/userAnalyticsModel.js";
 import QuestionModel from "../models/QuestionAndAnswerModels/questionsModel.js";
 import Submission from "../models/teacherFunction/submissionModel.js";
 
+const editUsername = asyncHandler(async (req, res) => {
+  const { userId, newUsername } = req.body;
+
+  try {
+    // Check if the new username is already taken
+    const existingUser = await UserModel.findOne({ username: newUsername });
+    if (existingUser) {
+      return res.status(400).json({ error: "Username already taken." });
+    }
+
+    // Find the user by ID and update their username
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found." });
+    }
+
+    // Update the username
+    user.username = newUsername;
+    await user.save();
+
+    res.status(200).json({
+      message: "Username updated successfully",
+      user: {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        approved: user.approved, // Include additional fields if needed
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 const approveTeacher = asyncHandler(async (req, res) => {
   const { userId } = req.body;
 
@@ -400,6 +436,7 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 export {
+  editUsername,
   deleteUser,
   loginUser,
   registerUser,

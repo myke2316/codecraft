@@ -56,27 +56,27 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• <pre>html</pre> - root element of an HTML page which encloses all other elements in the HTML page"
+                  "text": "<pre>html</pre> - root element of an HTML page which encloses all other elements in the HTML page"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <pre>head</pre> - contains information about the page, such as the title and metadata"
+                  "text": "<pre>head</pre> - contains information about the page, such as the title and metadata"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <pre>title</pre> - specifies a title for the HTML page which is shown in the browser's title bar"
+                  "text": "<pre>title</pre> - specifies a title for the HTML page which is shown in the browser's title bar"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <pre>body</pre> - defines the main content of the page and is a container for all the visible contents, such as headings, paragraphs, lists, etc"
+                  "text": "<pre>body</pre> - defines the main content of the page and is a container for all the visible contents, such as headings, paragraphs, lists, etc"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <pre>h1</pre> - defines a heading"
+                  "text": "<pre>h1</pre> - defines a heading"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <pre>p</pre> - defines a paragraph of HTML document"
+                  "text": "<pre>p</pre> - defines a paragraph of HTML document"
                 }
               ],
               "locked": false,
@@ -118,7 +118,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "Learn about basic HTML tags like <pre>p</pre>, <pre>a</pre>, <pre>div</pre>, and more."
+                  "text": "Learn about basic HTML tags like <pre>p</pre> <pre>a</pre> <pre>div</pre> and more."
                 },
                 {
                   "type": "sentence",
@@ -1069,13 +1069,7 @@
               "points": 2,
               "locked": true
             },
-            {
-              "question": "Which HTML tag is used to create an unordered list?",
-              "options": ["<ul>", "<ol>", "<dl>", "<li>"],
-              "correctAnswer": "<ul>",
-              "points": 2,
-              "locked": true
-            },
+        
 
             {
               "question": "Which HTML tag is used to create an unordered list?",

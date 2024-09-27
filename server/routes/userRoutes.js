@@ -11,6 +11,7 @@ import {
   getAllUsers,
   deleteUser,
   approveTeacher,
+  editUsername,
 } from "../controller/userController.js";
 
 const router = express.Router();
@@ -25,4 +26,5 @@ router.patch("/reset-password/:resetToken", resetPassword);
 router.get("/getAllUser", getAllUsers);
 router.delete("/deleteUser/:userId", deleteUser);
 router.patch("/approveTeacher", approveTeacher);
+router.put("/edit-username", editUsername);
 export { router as userRouter };

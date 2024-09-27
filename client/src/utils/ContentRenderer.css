@@ -1,12 +1,14 @@
 .content-renderer pre {
-  background-color: #f5f5f5; /* Grey background */
+  background-color: #e0e0e0; /* Grey background */
   border: 1px solid #ddd; /* Light border for better visibility */
-  padding: 10px; /* Space around the code */
+  padding: 5px; /* Space around the code */
   border-radius: 4px; /* Rounded corners */
   overflow-x: auto; /* Horizontal scroll if code is too long */
 }
 
 .content-renderer code {
+  background-color: #e0e0e0;
+  width: auto;
   font-family: monospace; /* Use monospace font for code */
 }
 

@@ -309,7 +309,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "1. **Element Selector**: Targets all elements of a given type."
+                  "text": "1. Element Selector: Targets all elements of a given type."
                 },
                 {
                   "type": "snippet",
@@ -321,7 +321,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "2. **Class Selector**: Targets elements with a specific class attribute."
+                  "text": "2. Class Selector: Targets elements with a specific class attribute."
                 },
                 {
                   "type": "snippet",
@@ -333,7 +333,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "3. **ID Selector**: Targets a single element with a specific ID."
+                  "text": "3. ID Selector: Targets a single element with a specific ID."
                 },
                 {
                   "type": "snippet",
@@ -355,7 +355,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "1. **Attribute Selector**: Selects elements based on their attributes."
+                  "text": "1. Attribute Selector: Selects elements based on their attributes."
                 },
                 {
                   "type": "snippet",
@@ -367,7 +367,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "2. **Pseudo-class Selector**: Selects elements based on their state."
+                  "text": "2. Pseudo-class Selector: Selects elements based on their state."
                 },
                 {
                   "type": "snippet",
@@ -451,13 +451,6 @@
                 "classname"
               ],
               "correctAnswer": ".classname",
-              "points": 2,
-              "locked": true
-            },
-            {
-              "question": "Which CSS pseudo-element is used to insert content before the content of an element?",
-              "options": ["::first-line", "::before", "::after", "::marker"],
-              "correctAnswer": "::before",
               "points": 2,
               "locked": true
             },
