@@ -17,6 +17,7 @@ import { useFetchUserQuizSubmissionMutation } from "../features/Course/Quiz/quiz
 import { getQuizSubmission } from "../utils/quizSubmissionUtil";
 import { useFetchUserActivitySubmissionMutation } from "../features/Course/CodingActivity/activitySubmissionService";
 import { getActivitySubmissions } from "../utils/activitySubmissionUtil";
+import { useGetUserMutation } from "../features/LoginRegister/userService";
 
 function GoogleRedirect() {
   const dispatch = useDispatch();
@@ -32,24 +33,27 @@ function GoogleRedirect() {
     fetchUserActivitySubmission,
     { isLoading: isLoadingFetchActivitySubmission },
   ] = useFetchUserActivitySubmissionMutation();
-
+  const [getUserApi] = useGetUserMutation();
   async function getUser(values) {
     try {
       const res = await axios.get(`${BACKEND_URL}/auth/login/success`, {
         withCredentials: true,
       });
-
+    
       const { user, _id, message, isNewUser } = res.data;
-
+      const userId = _id
+      const userData = await getUserApi(userId).unwrap(); 
+      console.log(userData)
       dispatch(
         setCredentials({
           ...user._json, // Using destructured 'user' instead of 'res.data.user'
           _id: _id,
           role: user.role,
-          approved: user.approved, // Using destructured 'user' instead of 'res.data.user'
+          approved: user.approved,
+          userData:userData // Using destructured 'user' instead of 'res.data.user'
         })
       );
-
+      
       if (userDetails) {
         console.log(userDetails);
         fetchProgress();

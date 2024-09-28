@@ -12,6 +12,7 @@ import {
   deleteUser,
   approveTeacher,
   editUsername,
+  getSingleUser,
 } from "../controller/userController.js";
 
 const router = express.Router();
@@ -21,6 +22,7 @@ router.post("/register", registerUser);
 router.put("/update", updateUserProfile);
 router.post("/update-role", updateRole);
 router.get("/logout", logoutUser);
+router.get("/get-user/:userId", getSingleUser);
 router.post("/forgot-password", forgotPassword);
 router.patch("/reset-password/:resetToken", resetPassword);
 router.get("/getAllUser", getAllUsers);

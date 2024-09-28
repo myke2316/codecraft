@@ -8,7 +8,7 @@ function ActivityLayout() {
 
   return (
     <div className="activity-layout">
-      <nav className="navbar">
+      {/* <nav className="navbar">
         <button
           onClick={() =>
             navigate(
@@ -20,7 +20,7 @@ function ActivityLayout() {
           Back
         </button>
         <h2>Activity Page</h2>
-      </nav>
+      </nav> */}
       <Outlet />
     </div>
   );

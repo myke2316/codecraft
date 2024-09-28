@@ -36,6 +36,12 @@ export const userService = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    getUser: builder.mutation({
+      query: (userId) => ({
+        url: `${USER_URL}/get-user/${userId}`, // Pass userId as part of the URL
+        method: "GET",
+      }),
+    }),
     logout: builder.mutation({
       query: () => ({
         url: `${USER_URL}/logout`,
@@ -74,6 +80,7 @@ export const userService = apiSlice.injectEndpoints({
 });
 
 export const {
+  useGetUserMutation,
   useEditUsernameMutation,
   useApproveTeacherMutation,
   useDeleteUserMutation,

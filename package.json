@@ -20,6 +20,7 @@
     "@monaco-editor/react": "^4.6.0",
     "@mui/material": "^5.16.5",
     "concurrently": "^8.2.2",
-    "jszip": "^3.10.1"
+    "jszip": "^3.10.1",
+    "react-resizable": "^3.0.5"
   }
 }

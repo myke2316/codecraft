@@ -453,8 +453,8 @@ app.post("/submit/javascriptconsole", (req, res) => {
     lastTestCase = testCase;
   }
 
-  const passed = allTestsPassed && totalAwardedPoints >= pointsForDifficulty / 2;
-
+  // const passed = allTestsPassed && totalAwardedPoints >= pointsForDifficulty / 2;
+  const passed =  totalAwardedPoints >= pointsForDifficulty / 2;
   const finalUserOutput = runJavaScript(jsCode).output;
   const finalExpectedOutput = lastTestCase ? runJavaScript(lastTestCase.input).output : "";
 

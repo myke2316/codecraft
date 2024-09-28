@@ -92,7 +92,7 @@ function StudentProfilePage() {
                 fontWeight="bold"
                 gutterBottom
               >
-                {user.username || user.given_name}
+                {user.name || user.username || user.given_name}
               </Typography>
 
               <Typography variant="h6" color="textSecondary" gutterBottom>

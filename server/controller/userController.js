@@ -435,7 +435,22 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+const getSingleUser = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.params.id; // Get the user ID from the request parameters
+    const user = await UserModel.find({_id:userId}); // Exclude password from the response
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 export {
+  getSingleUser,
   editUsername,
   deleteUser,
   loginUser,

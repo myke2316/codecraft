@@ -36,7 +36,7 @@ const ActivityPage = () => {
     }
 
     try {
-      console.log(jsCode)
+      
       const response = await axios.post(`${BACKEND_URL}/execute`, {
         language: activity.language.toLowerCase(),
         html: htmlCode || "",
@@ -61,8 +61,8 @@ const ActivityPage = () => {
       <Sidebar courseId={courseId} lessonId={lessonId} userProgress={userProgress} />
       {activity ? (
         <>
-          <CodingActivity activity={activity} onRunCode={handleRunCode} />
-          <OutputPanel output={output} activity={activity} />
+          <CodingActivity activity={activity} onRunCode={handleRunCode} output={output} />
+          {/* <OutputPanel output={output} activity={activity} onRunCode={handleRunCode}/> */}
         </>
       ) : (
         <div style={{ padding: "20px" }}>Activity not found</div>

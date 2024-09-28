@@ -62,6 +62,7 @@ const QuizContent = ({ quiz }) => {
     }
   }, [quizId, quiz, answers]);
 
+  console.log(quizzes)
   // Check if all quizzes are answered
   useEffect(() => {
     if (quizzes.length > 0 && quizzes.every((q) => q.selectedOption)) {

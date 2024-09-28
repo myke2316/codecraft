@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router";
+import { motion } from "framer-motion";
+import { Editor } from "@monaco-editor/react";
+import axios from "axios";
 import {
+  Box,
   Paper,
   Typography,
   Button,
-  Box,
   Tabs,
   Tab,
   Dialog,
@@ -12,18 +17,20 @@ import {
   DialogContentText,
   DialogTitle,
   IconButton,
-  Snackbar,
   Tooltip,
   Card,
   CardContent,
+  LinearProgress,useMediaQuery,
+  useTheme,
 } from "@mui/material";
-
-import { Editor } from "@monaco-editor/react";
-import axios from "axios";
+import { styled } from "@mui/material/styles";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import CheckIcon from "@mui/icons-material/Check";
+import SendIcon from "@mui/icons-material/Send";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import CloseIcon from "@mui/icons-material/Close";
 import { useUpdateUserProgressMutation } from "../../Student/studentCourseProgressService";
 import { updateCourseProgress } from "../../Student/studentCourseProgressSlice";
-import { useNavigate, useParams } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
 import {
   useDecrementActivitySubmissionMutation,
   useUpdateUserActivitySubmissionMutation,
@@ -33,8 +40,129 @@ import { setDecrementTries } from "./activitySubmissionSlice";
 import { useUpdateUserAnalyticsMutation } from "../../Student/userAnalyticsService";
 import { updateUserAnalytics } from "../../Student/userAnalyticsSlice";
 import { BACKEND_URL } from "../../../constants";
+import OutputPanel from "./OutputPanel";
+import CodeIcon from '@mui/icons-material/Code'; // For HTML
+import PaletteIcon from '@mui/icons-material/Palette'; // For CSS
+import JsIcon from '@mui/icons-material/Javascript'; // For JavaScript (or custom JS icon)
 
-const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(3),
+  marginBottom: theme.spacing(3),
+  backgroundColor: "#ffffff",
+  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+  borderRadius: theme.shape.borderRadius,
+  border: "1px solid #e0e0e0",
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  margin: theme.spacing(1),
+  borderRadius: "20px",
+  textTransform: "none",
+  fontWeight: "bold",
+  padding: "8px 16px",
+  transition: "all 0.3s ease",
+  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+  "&:hover": {
+    transform: "translateY(-2px)",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+  },
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "0.8rem",
+    padding: "6px 12px",
+  },
+}));
+
+const StyledTab = styled(Tab)(({ theme, selected }) => ({
+  textTransform: "none",
+  fontWeight: "bold",
+  minWidth: 0,
+  padding: "8px 16px",
+  marginRight: "1px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "8px",
+  color: selected ? '#fff' : '#ccc',
+  backgroundColor: selected ? '#1E1E1E' : '#2D2D2D',
+  borderBottom: selected ? '2px solid #007ACC' : 'none',
+  transition: "background-color 0.2s, color 0.2s",
+  "&:hover": {
+    backgroundColor: "#333333",
+    color: "#fff",
+  },
+  "&.Mui-selected": {
+    backgroundColor: "#1E1E1E",
+    color: "#fff",
+  },
+  [theme.breakpoints.down("sm")]: {
+    padding: "6px 12px",
+    fontSize: "0.8rem",
+  },
+}));
+
+const Description = React.memo(({ text }) => {
+  return (
+    <Typography
+      variant="body1"
+      component="div"
+      className="mb-4 text-gray-700 whitespace-pre-wrap text-sm sm:text-base"
+    >
+      {text.split("\n").map((line, index) => (
+        <React.Fragment key={index}>
+          {line}
+          <br />
+        </React.Fragment>
+      ))}
+    </Typography>
+  );
+});
+
+const ActivityHeader = React.memo(
+  ({ activity, activitySubmission, timer, formattedTime }) => {
+    return (
+      <StyledPaper elevation={3} className="bg-white">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Typography variant="h4" className="mb-2 font-bold text-gray-800 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+            {activity.title}
+          </Typography>
+          {activitySubmission.timeTaken > 0 && (
+            <Typography
+              variant="subtitle1"
+              className="mb-4 text-green-600 font-semibold text-sm sm:text-base"
+            >
+              {activitySubmission.pointsEarned} Points Earned
+            </Typography>
+          )}
+          <Box className="mb-6 p-2 sm:p-4 bg-gray-50 rounded-lg border border-gray-200">
+            <Typography
+              variant="h6"
+              className="mb-2 font-semibold text-gray-700 text-base sm:text-lg"
+            >
+              Problem Statement:
+            </Typography>
+            <Description text={activity.problemStatement} />
+          </Box>
+          <Box className="mb-4">
+            <LinearProgress
+              variant="determinate"
+              value={(timer / 3600) * 100}
+              className="rounded-full h-2"
+            />
+            <Typography variant="caption" className="mt-1 text-gray-500 text-xs sm:text-sm">
+              Time Elapsed: {formattedTime}
+            </Typography>
+          </Box>
+        </motion.div>
+      </StyledPaper>
+    );
+  }
+);
+
+const CodingActivity = ({ activity, onRunCode, onSubmit, output }) => {
   const [htmlCode, setHtmlCode] = useState("");
   const [cssCode, setCssCode] = useState("");
   const [jsCode, setJsCode] = useState("");
@@ -45,9 +173,21 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
     useState(false);
   const [finalResult, setFinalResult] = useState(false);
   const [submissionResult, setSubmissionResult] = useState(null);
+  const [editorWidth, setEditorWidth] = useState(50);
   const { lessonId, activityId, courseId } = useParams();
   const userId = useSelector((state) => state.user.userDetails._id);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const containerRef = useRef(null);
+  const resizerRef = useRef(null);
+  const editorRef = useRef(null);
+  const outputRef = useRef(null);
+console.log(submissionResult)
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
+
+
   const activitySubmission = useSelector((state) =>
     state.userActivitySubmission.activitySubmissions.courses
       .find((course) => course.courseId === courseId)
@@ -56,7 +196,6 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         (activityDetail) => activityDetail.activityId === activityId
       )
   );
-
   const userAnalytics = useSelector((state) =>
     state.userAnalytics.userAnalytics.coursesAnalytics
       .find((course) => {
@@ -82,19 +221,19 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         return activityIdValue === activityId;
       })
   );
-
   const tries = activitySubmission.tries;
-
   //timer
-  const [timer, setTimer] = useState(0);
+  const [timer, setTimer] = useState(() => {
+    const savedTimer = localStorage.getItem(`timer_${activityId}`);
+    return savedTimer ? parseInt(savedTimer, 10) : 0;
+  });
   const [startTime, setStartTime] = useState(null);
-
-  const resetTimer = () => {
+  const resetTimer = useCallback(() => {
     setTimer(0);
     setStartTime(null);
-  };
-
-  const formatTime = (totalSeconds) => {
+    localStorage.removeItem(`timer_${activityId}`);
+  }, [activityId]);
+  const formatTime = useCallback((totalSeconds) => {
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
@@ -102,34 +241,26 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
       2,
       "0"
     )}:${String(seconds).padStart(2, "0")}`;
-  };
-
-  const formattedTime = formatTime(timer); // Create a formatted time variable
-
+  }, []);
+  const formattedTime = formatTime(timer);
   useEffect(() => {
     if (startTime) {
       const intervalId = setInterval(() => {
-        setTimer((prevTimer) => prevTimer + 1);
+        setTimer((prevTimer) => {
+          const newTimer = prevTimer + 1;
+          localStorage.setItem(`timer_${activityId}`, newTimer.toString());
+          return newTimer;
+        });
       }, 1000);
-      console.log(timer);
       return () => clearInterval(intervalId);
     }
-  }, [startTime, activitySubmission._id]);
+  }, [startTime, activityId]);
 
-  //mutations
-  const [updateUserProgress, { isLoading: isLoadingUpdateUserProgress }] =
-    useUpdateUserProgressMutation();
-  const [
-    updateActivitySubmission,
-    { isLoading: isLoadingUpdateActivitySubmission },
-  ] = useUpdateUserActivitySubmissionMutation();
-  const [decrementTries, { isLoading: isLoadingDecrementTries }] =
-    useDecrementActivitySubmissionMutation();
-  const [
-    updateUserAnalyticsMutation,
-    { isLoading: isLoadingUpdateUserAnalytics },
-  ] = useUpdateUserAnalyticsMutation();
-  // Set initial code values when activity changes
+  const [updateUserProgress] = useUpdateUserProgressMutation();
+  const [updateActivitySubmission] = useUpdateUserActivitySubmissionMutation();
+  const [decrementTries] = useDecrementActivitySubmissionMutation();
+  const [updateUserAnalyticsMutation] = useUpdateUserAnalyticsMutation();
+
   useEffect(() => {
     if (activity && activity.codeEditor) {
       setHtmlCode(activity.codeEditor.html || "");
@@ -140,136 +271,80 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
       !activitySubmission.timeTaken &&
       (!userAnalytics || !userAnalytics.timeSpent)
     ) {
-      setStartTime(true); // Start the timer if the activity hasn't been submitted
+      setStartTime(true);
     }
-  }, [activity]);
-  const handleEditorChange = (value) => {
-    if (tabValue === "html") setHtmlCode(value);
-    if (tabValue === "css") setCssCode(value);
-    if (tabValue === "js") setJsCode(value);
-  };
+  }, [activity, activitySubmission.timeTaken, userAnalytics]);
 
-  //submit code
-  async function handleSubmitCode() {
+  //For Tab Editor Changing
+  const handleEditorChange = useCallback((value, language) => {
+    switch (language) {
+      case "html":
+        setHtmlCode(value);
+        break;
+      case "css":
+        setCssCode(value);
+        break;
+      case "javascript":
+        setJsCode(value);
+        break;
+      default:
+        break;
+    }
+  }, []);
+
+  //For Resizeable
+  const handleResize = useCallback((e) => {
+    if (containerRef.current) {
+      const containerWidth = containerRef.current.offsetWidth;
+      const newEditorWidth = (e.clientX / containerWidth) * 100;
+      setEditorWidth(Math.max(20, Math.min(newEditorWidth, 80)));
+    }
+  }, []);
+  useEffect(() => {
+    const resizer = resizerRef.current;
+    let isResizing = false;
+
+    const onMouseDown = (e) => {
+      isResizing = true;
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mouseup", onMouseUp);
+    };
+
+    const onMouseMove = (e) => {
+      if (isResizing) {
+        handleResize(e);
+      }
+    };
+
+    const onMouseUp = () => {
+      isResizing = false;
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", onMouseUp);
+    };
+
+    if (resizer) {
+      resizer.addEventListener("mousedown", onMouseDown);
+    }
+
+    return () => {
+      if (resizer) {
+        resizer.removeEventListener("mousedown", onMouseDown);
+      }
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", onMouseUp);
+    };
+  }, [handleResize]);
+
+  const handleSubmitCode = useCallback(async () => {
     if (
       activitySubmission.timeTaken &&
       (userAnalytics || userAnalytics.timeSpent)
     ) {
       console.log("Cannot submit activity as you already submitted it");
-    } else {
-      try {
-        console.log(activity.language)
-        let endpoint;
-        if (activity.language === "HTML") {
-          endpoint = `${BACKEND_URL}/submit/html`;
-        } else if (activity.language === "CSS") {
-          endpoint = `${BACKEND_URL}/submit/css`;
-        } else if (activity.language === "JavaScriptWeb") {
-          endpoint = `${BACKEND_URL}/submit/javascriptweb`;
-        } else if (activity.language === "JavaScriptConsole") {
-          endpoint = `${BACKEND_URL}/submit/javascriptconsole`;
-        }
-
-        const response = await axios.post(endpoint, {
-          htmlCode,
-          cssCode,
-          jsCode,
-          activity,
-        });
-
-        const result = response.data;
-        console.log(result);
-        const maxPoints = result.maxPoints;
-        const passed = result.passed;
-        const totalPoints = Math.round(result.totalPoints);
-        const timeTaken = timer;
-        const feedback = result.feedback;
-        const language = result.language;
-        setSubmissionResult({
-          passed,
-          maxPoints,
-          totalPoints,
-          tries: activitySubmission.tries,
-          timeTaken,
-          feedback,
-          language,
-        });
-        console.log(result);
-        console.log(`You got ${result.totalPoints} out of ${result.maxPoints}`);
-
-        //update the courseprogress to unlock the next activity
-        const updateActivityProgress = await updateUserProgress({
-          userId,
-          courseId,
-          lessonId,
-          activityId,
-        }).unwrap();
-        // console.log(updateActivityProgress);
-        dispatch(updateCourseProgress(updateActivityProgress));
-
-        //handle or update the userAnalytics
-        const updateAnalyticsData = await updateUserAnalyticsMutation({
-          userId,
-          analyticsData: {
-            coursesAnalytics: [
-              {
-                courseId,
-                lessonsAnalytics: [
-                  {
-                    lessonId,
-                    activitiesAnalytics: [
-                      {
-                        activityId: activityId,
-                        timeSpent: timeTaken,
-                        pointsEarned: totalPoints,
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        }).unwrap();
-        dispatch(updateUserAnalytics(updateAnalyticsData));
-
-        //handle or update the activitySubmission
-        updateActivitySubmissionUtil(
-          dispatch,
-          updateActivitySubmission,
-          userId,
-          activityId,
-          htmlCode,
-          cssCode,
-          jsCode,
-          passed,
-          totalPoints,
-          timeTaken
-        );
-
-        setFinalResult(true);
-
-        if (result.passed) {
-          console.log(
-            "Submission passed! Score: " + result.totalPoints + `/ ${maxPoints}`
-          );
-        } else {
-          console.log(
-            "Submission failed." + result.totalPoints + `/ ${maxPoints}`
-          );
-        }
-      } catch (error) {
-        console.error("Error submitting code:", error);
-      } finally {
-        console.log(timer);
-        setStartTime(null); // Stop the timer
-      }
+      return;
     }
-  }
 
-  async function handleCheckCode() {
-   
     try {
-      console.log(activity.language)
       let endpoint;
       if (activity.language === "HTML") {
         endpoint = `${BACKEND_URL}/submit/html`;
@@ -289,13 +364,119 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
       });
 
       const result = response.data;
-      const passed = result.passed;
-      const maxPoints = result.maxPoints;
-      const totalPoints = Math.round(result.totalPoints);
-      const expectedOutput = result.expectedOutput;
-      const userOutput = result.userOutput;
-      const feedback = result.feedback;
-      const language = result.language;
+      const { maxPoints, passed, totalPoints, feedback, language } = result;
+      const timeTaken = timer;
+
+      setSubmissionResult({
+        passed,
+        maxPoints,
+        totalPoints: Math.round(totalPoints),
+        tries: activitySubmission.tries,
+        timeTaken,
+        feedback,
+        language,
+      });
+
+      const updateActivityProgress = await updateUserProgress({
+        userId,
+        courseId,
+        lessonId,
+        activityId,
+      }).unwrap();
+      dispatch(updateCourseProgress(updateActivityProgress));
+
+      const updateAnalyticsData = await updateUserAnalyticsMutation({
+        userId,
+        analyticsData: {
+          coursesAnalytics: [
+            {
+              courseId,
+              lessonsAnalytics: [
+                {
+                  lessonId,
+                  activitiesAnalytics: [
+                    {
+                      activityId: activityId,
+                      timeSpent: timeTaken,
+                      pointsEarned: Math.round(totalPoints),
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      }).unwrap();
+      dispatch(updateUserAnalytics(updateAnalyticsData));
+
+      updateActivitySubmissionUtil(
+        dispatch,
+        updateActivitySubmission,
+        userId,
+        activityId,
+        htmlCode,
+        cssCode,
+        jsCode,
+        passed,
+        Math.round(totalPoints),
+        timeTaken
+      );
+
+      setFinalResult(true);
+      resetTimer();
+    } catch (error) {
+      console.error("Error submitting code:", error);
+    }
+  }, [
+    activity,
+    activitySubmission,
+    courseId,
+    cssCode,
+    dispatch,
+    htmlCode,
+    jsCode,
+    lessonId,
+    timer,
+    updateActivitySubmission,
+    updateUserAnalyticsMutation,
+    updateUserProgress,
+    userAnalytics,
+    userId,
+    activityId,
+    resetTimer,
+  ]);
+
+  const handleCheckCode = useCallback(async () => {
+    try {
+      let endpoint;
+      if (activity.language === "HTML") {
+        endpoint = `${BACKEND_URL}/submit/html`;
+      } else if (activity.language === "CSS") {
+        endpoint = `${BACKEND_URL}/submit/css`;
+      } else if (activity.language === "JavaScriptWeb") {
+        endpoint = `${BACKEND_URL}/submit/javascriptweb`;
+      } else if (activity.language === "JavaScriptConsole") {
+        endpoint = `${BACKEND_URL}/submit/javascriptconsole`;
+      }
+
+      const response = await axios.post(endpoint, {
+        htmlCode,
+        cssCode,
+        jsCode,
+        activity,
+      });
+
+      const result = response.data;
+      const {
+        passed,
+        maxPoints,
+        totalPoints,
+        expectedOutput,
+        userOutput,
+        feedback,
+        language,
+      } = result;
+
       const decrementData = await decrementTries({
         userId,
         activityId,
@@ -306,7 +487,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
       setSubmissionResult({
         passed,
         maxPoints,
-        totalPoints,
+        totalPoints: Math.round(totalPoints),
         tries,
         error: result?.error,
         expectedOutput,
@@ -315,51 +496,70 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         language,
       });
     } catch (error) {
-      console.log(error);
+      console.error("Error checking code:", error);
     }
-  }
+  }, [
+    activity,
+    activityId,
+    courseId,
+    cssCode,
+    decrementTries,
+    dispatch,
+    htmlCode,
+    jsCode,
+    lessonId,
+    tries,
+    userId,
+  ]);
 
-  //for popups
-  const handleOpenDialog = () => {
-    setOpenDialog(true);
-  };
+  const handleOpenDialog = useCallback(() => setOpenDialog(true), []);
+  const handleCloseDialog = useCallback(
+    (confirm) => {
+      setOpenDialog(false);
+      if (confirm) handleSubmitCode();
+    },
+    [handleSubmitCode]
+  );
 
-  const handleCloseDialog = (confirm) => {
-    setOpenDialog(false);
-    if (confirm) {
-      handleSubmitCode();
-    }
-  };
+  const handleOpenCheckCodeDialog = useCallback(
+    () => setCheckCodeDialogOpen(true),
+    []
+  );
+  const handleCloseCheckCodeDialog = useCallback(
+    (confirm) => {
+      setCheckCodeDialogOpen(false);
+      if (confirm) handleCheckCode();
+    },
+    [handleCheckCode]
+  );
 
-  const handleOpenCheckCodeDialog = () => {
-    setCheckCodeDialogOpen(true);
-  };
-
-  const handleCloseCheckCodeDialog = (confirm) => {
-    setCheckCodeDialogOpen(false);
-    if (confirm) {
-      handleCheckCode();
-    }
-  };
-
-  const handleCloseSubmissionResultDialog = () => {
-    setSubmissionResultDialogOpen(false);
-  };
-
-  const handleFinalResultClose = () => {
+  const handleCloseSubmissionResultDialog = useCallback(
+    () => setSubmissionResultDialogOpen(false),
+    []
+  );
+  const handleFinalResultClose = useCallback(() => {
     setFinalResult(false);
     setSubmissionResultDialogOpen(false);
-  };
-  //for code running
-  const handleRunCode = () => {
-    if (onRunCode)
-      onRunCode(
+  }, []);
+
+  const handleRunCode = useCallback(() => {
+    if (onRunCode) {
+      const result = onRunCode(
         !activitySubmission.html ? htmlCode : activitySubmission.html,
         !activitySubmission.css ? cssCode : activitySubmission.css,
         !activitySubmission.js ? jsCode : activitySubmission.js
       );
-  };
-  const navigate = useNavigate();
+    }
+  }, [
+    activitySubmission.css,
+    activitySubmission.html,
+    activitySubmission.js,
+    cssCode,
+    htmlCode,
+    jsCode,
+    onRunCode,
+  ]);
+
   const activities = useSelector(
     (state) =>
       state.userActivitySubmission.activitySubmissions.courses
@@ -380,48 +580,46 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
     return () => {
       resetTimer();
     };
-  }, [activityId]);
+  }, [activityId, resetTimer]);
 
-  const handleNextActivity = () => {
+  const handleNextActivity = useCallback(() => {
     resetTimer();
     const currentActivityIndex = activities.findIndex(
       (activityDetail) => activityDetail.activityId === activityId
     );
 
-    // Check if there's a next activity in the current lesson
     if (currentActivityIndex < activities.length - 1) {
-      const nextActivityId = activities[currentActivityIndex + 1].activityId;
+      const nextActivity = activities[currentActivityIndex + 1];
       navigate(
-        `/course/${courseId}/lesson/${lessonId}/activity/${nextActivityId}`
+        `/course/${courseId}/lesson/${lessonId}/activity/${nextActivity.activityId}`
       );
       setFinalResult(false);
       setSubmissionResultDialogOpen(false);
     } else {
-      // Check if there's a next lesson in the current course
       const currentLessonIndex = lessons.findIndex(
         (lesson) => lesson.lessonId === lessonId
       );
 
       if (currentLessonIndex < lessons.length - 1) {
-        const nextLessonId = lessons[currentLessonIndex + 1].lessonId;
-        const nextActivityId =
-          lessons[currentLessonIndex + 1].activities[0].activityId;
-        navigate(`/course/${courseId}/lesson/${nextLessonId}`);
+        const nextLesson = lessons[currentLessonIndex + 1];
+        const nextActivity = nextLesson.activities[0];
+        navigate(
+          `/course/${courseId}/lesson/${nextLesson.lessonId}/activity/${nextActivity.activityId}`
+        );
         setFinalResult(false);
         setSubmissionResultDialogOpen(false);
       } else {
-        // Check if there's a next course
         const currentCourseIndex = courses.findIndex(
           (course) => course.courseId === courseId
         );
 
         if (currentCourseIndex < courses.length - 1) {
-          const nextCourseId = courses[currentCourseIndex + 1].courseId;
-          const firstLessonId =
-            courses[currentCourseIndex + 1].lessons[0].lessonId;
-          const firstActivityId =
-            courses[currentCourseIndex + 1].lessons[0].activities[0]?.activityId;
-          navigate(`/course/${nextCourseId}/lesson/${firstLessonId}`);
+          const nextCourse = courses[currentCourseIndex + 1];
+          const firstLesson = nextCourse.lessons[0];
+          const firstActivity = firstLesson.activities[0];
+          navigate(
+            `/course/${nextCourse.courseId}/lesson/${firstLesson.lessonId}/activity/${firstActivity.activityId}`
+          );
           setFinalResult(false);
           setSubmissionResultDialogOpen(false);
         } else {
@@ -429,110 +627,204 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         }
       }
     }
-  };
+  }, [
+    activities,
+    activityId,
+    courseId,
+    courses,
+    lessonId,
+    lessons,
+    navigate,
+    resetTimer,
+  ]);
 
   if (!activity) {
     return <div>Loading...</div>;
   }
 
   return (
-    <Box sx={{ flexGrow: 1, padding: "20px" }}>
-      <Paper elevation={3} sx={{ padding: "20px", marginBottom: "20px" }}>
-        <Typography variant="h5">
-          {activity.title} -{" "}
-          {activitySubmission.timeTaken > 0 &&
-            `${activitySubmission.pointsEarned} Points Earned`}
-        </Typography>
-        <Typography variant="body1" sx={{ marginTop: "10px" }}>
-          {activity.problemStatement}
-        </Typography>
-        <Tabs
-          value={tabValue}
-          onChange={(event, newValue) => setTabValue(newValue)}
-          sx={{ marginBottom: "10px" }}
-        >
-          <Tab label="HTML" value="html" />
-          <Tab label="CSS" value="css" />
-          <Tab label="JavaScript" value="js" />
-        </Tabs>
-        <Editor
-          height="400px"
-          language={tabValue}
-          value={
-            tabValue === "html"
-              ? !activitySubmission.html
-                ? htmlCode
-                : activitySubmission.html
-              : tabValue === "css"
-              ? !activitySubmission.css
-                ? cssCode
-                : activitySubmission.css
-              : !activitySubmission.js
-              ? jsCode
-              : activitySubmission.js
-          }
-          onChange={handleEditorChange}
-          options={{
-            selectOnLineNumbers: true,
-            readOnly:
-              activitySubmission?.timeTaken &&
-              (userAnalytics || userAnalytics?.timeSpent),
-          }}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{ marginTop: "10px", marginRight: "10px" }}
-          onClick={handleRunCode}
-        >
-          Run Code
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
+<Box
+      sx={{ flexGrow: 1, padding: "10px", overflow: "auto" }}
+      className="min-h-screen"
+    >
+      <ActivityHeader
+        activity={activity}
+        activitySubmission={activitySubmission}
+        timer={timer}
+        formattedTime={formattedTime}
+      />
+      <Box
+        ref={containerRef}
+        sx={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          height: isMobile ? "auto" : "calc(100vh - 300px)",
+          border: "1px solid #e0e0e0",
+          borderRadius: "8px",
+          overflow: "hidden",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.05)",
+        }}
+      >
+        <Box
+          ref={editorRef}
           sx={{
-            marginTop: "10px",
-            marginRight: "10px",
-            backgroundColor: activitySubmission?.tries > 0 ? "primary" : "gray",
-            color: activitySubmission?.tries > 0 ? "primary" : "white",
-            "&:hover": {
-              backgroundColor: activitySubmission?.tries > 0 ? "blue" : "gray",
-            },
+            width: isMobile ? "100%" : `${editorWidth}%`,
+            height: isMobile ? "50vh" : "100%",
+            overflow: "hidden",
+            borderRight: isMobile ? "none" : "1px solid #e0e0e0",
+            borderBottom: isMobile ? "1px solid #e0e0e0" : "none",
+            display: "flex",
+            flexDirection: "column",
           }}
-          disabled={
-            activitySubmission?.tries === 0 ||
-            (activitySubmission?.timeTaken &&
-              (userAnalytics || userAnalytics?.timeSpent))
-          }
-          onClick={
-            activitySubmission?.tries > 0 ? handleOpenCheckCodeDialog : null
-          }
         >
-          Check Code
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
+          <Box sx={{ backgroundColor: "#2D2D2D", padding: "4px 0" }}>
+            <Tabs
+              value={tabValue}
+              onChange={(event, newValue) => setTabValue(newValue)}
+              variant="fullWidth"
+              indicatorColor="primary"
+              textColor="primary"
+            >
+              <StyledTab
+                label={isMobile ? "" : "HTML"}
+                icon={<CodeIcon />}
+                value="html"
+                selected={tabValue === "html"}
+              />
+              <StyledTab
+                label={isMobile ? "" : "CSS"}
+                icon={<PaletteIcon />}
+                value="css"
+                selected={tabValue === "css"}
+              />
+              <StyledTab
+                label={isMobile ? "" : "JS"}
+                icon={<JsIcon />}
+                value="javascript"
+                selected={tabValue === "javascript"}
+              />
+            </Tabs>
+          </Box>
+          <Editor
+            height={isMobile ? "100%" : "calc(100% - 48px)"}
+            language={tabValue}
+            value={
+              tabValue === "html"
+                ? !activitySubmission.html
+                  ? htmlCode
+                  : activitySubmission.html
+                : tabValue === "css"
+                ? !activitySubmission.css
+                  ? cssCode
+                  : activitySubmission.css
+                : !activitySubmission.js
+                ? jsCode
+                : activitySubmission.js
+            }
+            onChange={(value) => handleEditorChange(value, tabValue)}
+            options={{
+              selectOnLineNumbers: true,
+              readOnly:
+                activitySubmission?.timeTaken &&
+                (userAnalytics || userAnalytics?.timeSpent),
+              theme: "vs-dark",
+              minimap: { enabled: !isMobile },
+              fontSize: isMobile ? 14 : 16,
+            }}
+          />
+        </Box>
+        {!isMobile && (
+          <Box
+            ref={resizerRef}
+            sx={{
+              width: "5px",
+              background: "#4f46e5",
+              cursor: "col-resize",
+              transition: "background 0.3s",
+              "&:hover": {
+                background: "#6366f1",
+              },
+            }}
+          />
+        )}
+        <Box
+          ref={outputRef}
           sx={{
-            marginTop: "10px",
-            marginRight: "10px",
+            flexGrow: 1,
+            height: isMobile ? "50vh" : "100%",
+            overflow: "auto",
+            backgroundColor: "#f9fafb",
           }}
-          disabled={
-            activitySubmission?.timeTaken &&
-            (userAnalytics || userAnalytics?.timeSpent)
-          }
+        >
+          <OutputPanel output={output} activity={activity} />
+        </Box>
+      </Box>
+
+      <Box className="mt-6 flex flex-wrap justify-between">
+        <div className="flex flex-wrap mb-2 sm:mb-0">
+          <StyledButton
+            variant="contained"
+            startIcon={<PlayArrowIcon />}
+            onClick={handleRunCode}
+            sx={{
+              backgroundColor: "#10b981",
+              "&:hover": {
+                backgroundColor: "#059669",
+              },
+              color: "white",
+              marginBottom: isMobile ? "8px" : "0",
+            }}
+          >
+            Run Code
+          </StyledButton>
+          <StyledButton
+            variant="contained"
+            startIcon={<CheckIcon />}
+            onClick={
+              activitySubmission?.tries > 0 ? handleOpenCheckCodeDialog : null
+            }
+            disabled={
+              activitySubmission?.tries === 0 ||
+              (activitySubmission?.timeTaken &&
+                (userAnalytics || userAnalytics?.timeSpent))
+            }
+            sx={{
+              backgroundColor: activitySubmission?.tries > 0 ? "#6366f1" : "#9ca3af",
+              "&:hover": {
+                backgroundColor:
+                  activitySubmission?.tries > 0 ? "#4f46e5" : "#9ca3af",
+              },
+              color: "white", marginBottom: isMobile ? "8px" : "0",
+            }}
+          >
+            Check Code
+          </StyledButton>
+        </div>
+        <StyledButton
+          variant="contained"
+          startIcon={<SendIcon />}
           onClick={
             activitySubmission.timeTaken &&
             (userAnalytics || userAnalytics?.timeSpent)
               ? null
               : handleOpenDialog
           }
+          disabled={
+            activitySubmission?.timeTaken &&
+            (userAnalytics || userAnalytics?.timeSpent)
+          }
+          sx={{
+            backgroundColor: "#8b5cf6",
+            "&:hover": {
+              backgroundColor: "#7c3aed",
+            },
+            color: "white",
+          }}
         >
           Submit
-        </Button>
-      </Paper>
+        </StyledButton>
+      </Box>
 
-      {/* Confirm Submission */}
       <Dialog open={openDialog} onClose={() => handleCloseDialog(false)}>
         <DialogTitle>Confirm Submission</DialogTitle>
         <DialogContent>
@@ -551,7 +843,6 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         </DialogActions>
       </Dialog>
 
-      {/* Confirm Code Check */}
       <Dialog
         open={checkCodeDialogOpen}
         onClose={() => handleCloseCheckCodeDialog(false)}
@@ -579,75 +870,85 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
         </DialogActions>
       </Dialog>
 
-      {/* Check Code Result */}
       <Dialog
         open={submissionResultDialogOpen}
         onClose={handleCloseSubmissionResultDialog}
+        maxWidth="md"
+        fullWidth
       >
-        <DialogTitle>Check Code Result</DialogTitle>
+        <DialogTitle>
+          Check Code Result
+          <IconButton
+            aria-label="close"
+            onClick={handleCloseSubmissionResultDialog}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            {console.log(submissionResult)}
+          <Typography variant="h6" className="mb-2">
             {submissionResult?.passed
               ? "Your Score Passed"
               : "Kindly Double check your code"}
-            <br />
-            {submissionResult?.error ? "Error: " : null}
-            {submissionResult?.error && submissionResult.error}
-            <br />
+          </Typography>
+          {submissionResult?.error && (
+            <Typography color="error" className="mb-2">
+              Error: {submissionResult.error}
+            </Typography>
+          )}
+          <Typography className="mb-2">
             Score:{" "}
             {submissionResult?.totalPoints >= 0
               ? `${submissionResult.totalPoints}/${submissionResult?.maxPoints}`
               : submissionResult?.error && 0}
-            <br />
+          </Typography>
+          <Typography className="mb-4">
             Lives: {submissionResult?.tries - 1}
-            <br />
-            {submissionResult?.expectedOutput && (
-              <>
-                <br />
-                <strong>Expected Output:</strong>
-                {submissionResult.language === "javascriptweb" ? (
-                  <iframe
-                    title="Expected Output"
-                    style={{
-                      width: "100%",
-                      height: "300px",
-                      border: "1px solid black",
-                    }}
-                    srcDoc={submissionResult.expectedOutput}
-                  />
-                ) : (
-                  <pre style={{ backgroundColor: "#f0f0f0", padding: "10px" }}>
-                    {submissionResult.expectedOutput}
-                  </pre>
-                )}
-              </>
-            )}
-            {submissionResult?.userOutput && (
-              <>
-                <br />
-                <strong>User Output:</strong>
-                {submissionResult.language === "javascriptweb" ? (
-                  <iframe
-                    title="Expected Output"
-                    style={{
-                      width: "100%",
-                      height: "300px",
-                      border: "1px solid black",
-                    }}
-                    srcDoc={submissionResult.userOutput}
-                  />
-                ) : (
-                  <pre style={{ backgroundColor: "#f0f0f0", padding: "10px" }}>
-                    {submissionResult.userOutput}
-                  </pre>
-                )}
-              </>
-            )}
-          </DialogContentText>
-
+          </Typography>
+          {submissionResult?.expectedOutput && (
+            <Box className="mb-4">
+              <Typography variant="h6" className="mb-2">
+                Expected Output:
+              </Typography>
+              {submissionResult.language === "javascriptweb" ? (
+                <iframe
+                  title="Expected Output"
+                  className="w-full h-64 border border-gray-300 rounded"
+                  srcDoc={submissionResult.expectedOutput}
+                />
+              ) : (
+                <pre className="bg-gray-100 p-4 rounded overflow-x-auto">
+                  {submissionResult.expectedOutput}
+                </pre>
+              )}
+            </Box>
+          )}
+          {submissionResult?.userOutput && (
+            <Box className="mb-4">
+              <Typography variant="h6" className="mb-2">
+                User Output:
+              </Typography>
+              {submissionResult.language === "javascriptweb" ? (
+                <iframe
+                  title="User Output"
+                  className="w-full h-64 border border-gray-300 rounded"
+                  srcDoc={submissionResult.userOutput}
+                />
+              ) : (
+                <pre className="bg-gray-100 p-4 rounded overflow-x-auto">
+                  {submissionResult.userOutput}
+                </pre>
+              )}
+            </Box>
+          )}
           {submissionResult?.feedback && (
-            <div className="mt-4">
+            <Box className="mt-4">
               <Typography variant="h6" className="mb-2">
                 Test Cases:
               </Typography>
@@ -669,7 +970,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
                   </Card>
                 </Tooltip>
               ))}
-            </div>
+            </Box>
           )}
         </DialogContent>
         <DialogActions>
@@ -685,33 +986,46 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
       <Dialog
         open={finalResult}
         onClose={handleFinalResultClose}
-        aria-labelledby="submission-result-dialog-title"
-        aria-describedby="submission-result-dialog-description"
+        maxWidth="sm"
+        fullWidth
         PaperProps={{
           style: {
             backgroundColor: submissionResult?.passed ? "#d0f8ce" : "#ffd0d0",
           },
         }}
       >
-        <DialogTitle id="submission-result-dialog-title">
+        <DialogTitle>
           {submissionResult?.passed
             ? "Congratulations! You passed!"
             : "Submission Result"}
+          <IconButton
+            aria-label="close"
+            onClick={handleFinalResultClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="submission-result-dialog-description">
+          <Typography variant="h6" className="mb-4">
             {submissionResult?.passed
               ? "Your submission passed the test cases."
               : "Your submission did not pass the test cases."}
-            <br />
+          </Typography>
+          <Typography className="mb-2">
             Score: {submissionResult?.totalPoints} /{" "}
             {submissionResult?.maxPoints}
-            <br />
+          </Typography>
+          <Typography className="mb-4">
             Tries Remaining: {submissionResult?.tries}
-          </DialogContentText>
-
+          </Typography>
           {submissionResult?.feedback && (
-            <div className="mt-4">
+            <Box className="mt-4">
               <Typography variant="h6" className="mb-2">
                 Test Cases:
               </Typography>
@@ -736,7 +1050,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
                   </Card>
                 </Tooltip>
               ))}
-            </div>
+            </Box>
           )}
         </DialogContent>
         <DialogActions>
@@ -748,12 +1062,16 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
             }
             color="primary"
           >
-            Back
+            Back to List
           </Button>
           <Button onClick={handleFinalResultClose} color="primary">
             Review Code
           </Button>
-          <Button onClick={handleNextActivity} color="primary">
+          <Button
+            onClick={handleNextActivity}
+            color="primary"
+            endIcon={<ArrowForwardIcon />}
+          >
             Next Activity
           </Button>
         </DialogActions>
@@ -762,4 +1080,4 @@ const CodingActivity = ({ activity, onRunCode, onSubmit }) => {
   );
 };
 
-export default CodingActivity;
+export default React.memo(CodingActivity);

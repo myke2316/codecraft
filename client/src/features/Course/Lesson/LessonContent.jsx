@@ -72,7 +72,7 @@ function LessonContent() {
   const documents = lesson.documents || [];
   const quiz = lesson.quiz;
   const activities = lesson.activities || [];
-
+      
   const lessonProgress = userProgress.coursesProgress
     .find((cp) => cp.courseId.toString() === courseId)
     ?.lessonsProgress.find((lp) => lp.lessonId.toString() === lessonId);
@@ -83,12 +83,24 @@ function LessonContent() {
         <Typography variant="h6">Lesson progress not found</Typography>
       </Box>
     );
-
+      console.log(lessonProgress)
   const completedDocuments = lessonProgress.documentsProgress.filter(
     (dp) => !dp.locked
   ).length;
-  const progressPercentage = (completedDocuments / documents.length) * 100;
+  const completedQuiz = lessonProgress.quizzesProgress.filter(
+    (dp) => dp.dateFinished !== null
+  ).length;
 
+  const completedActivities = lessonProgress.activitiesProgress.filter(
+    (dp) => dp.dateFinished !== null
+  ).length;
+
+  const totalDocuments = lesson.documents.length
+  const totalQuizzes = 1
+  const totalActivities = lesson.activities.length
+  const totalItems = totalDocuments + totalQuizzes + totalActivities;
+  const completedItems = completedDocuments + completedQuiz + completedActivities;
+  const progressPercentage = (completedItems / totalItems) * 100;
   const quizProgress = lessonProgress.quizzesProgress[0];
   const quizScore = quizProgress?.locked
     ? "Locked"
@@ -263,6 +275,7 @@ function LessonContent() {
 
           {/* Quiz */}
           {quiz && (
+            
             <Grid item xs={12} md={6}>
               <Card className="overflow-hidden shadow-md h-full">
                 <CardContent>
@@ -316,7 +329,7 @@ function LessonContent() {
                             disabled={quizProgress?.locked}
                             className="transition-all duration-300 hover:scale-105"
                           >
-                            {quizProgress?.locked ? "Locked" : "Take Quiz"}
+                            {quizProgress?.locked ? "Locked" : quizProgress.dateFinished !== null ? "Review Quiz" : "Take Quiz"}
                           </Button>
                         </Box>
                       </motion.div>
@@ -425,8 +438,8 @@ function LessonContent() {
                                   className="transition-all duration-300 hover:scale-105"
                                 >
                                   {activityProgress?.locked
-                                    ? "Locked"
-                                    : "Start Activity"}
+                                    ? "Locked" : activityProgress?.dateFinished !== null 
+                                    ?"Open Activity" :"Start Activity"}
                                 </Button>
                               </Box>
                             </motion.div>
