@@ -118,9 +118,8 @@ function App() {
               path="/edit-answer/:questionId/:answerId"
               element={<EditAnswerPage />}
             />
-
-            <Route path="/playground/:userId" element={<PlaygroundLayout />} />
           </Route>
+          <Route path="/playground/:userId" element={<PlaygroundLayout />} />
         </Route>
 
         {/* teacher */}
@@ -205,7 +204,6 @@ function App() {
             </Route>
           </Route>
         </Route>
-        
       </Routes>
     </BrowserRouter>
   );

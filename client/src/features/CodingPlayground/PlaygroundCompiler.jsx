@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Editor } from "@monaco-editor/react";
-import { Box, Tabs, Tab, IconButton } from "@mui/material";
+import { Box, Tabs, Tab, IconButton, useTheme } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { setFileContent, removeFile } from "./sandboxSlice"; // Adjust the import path as needed
+import { setFileContent, removeFile } from "./sandboxSlice";
 
 const PlaygroundCompiler = ({
   runCode,
@@ -11,13 +11,15 @@ const PlaygroundCompiler = ({
   activeFile,
   setActiveFile,
   setOpenTabs,
+  setDrawerOpen,
+  drawerOpen
 }) => {
   const dispatch = useDispatch();
   const files = useSelector((state) => state.sandboxFiles.files);
+  const theme = useTheme();
 
   useEffect(() => {
     if (activeFile) {
-      // Ensure the activeFile content is set
       const { name } = activeFile;
       const file = files.find((f) => f.name === name);
       if (file) {
@@ -30,25 +32,17 @@ const PlaygroundCompiler = ({
     if (runCode) {
       const iframe = document.getElementById("output");
 
-         let htmlCode = files.find((file) => file.name.endsWith(".html"))?.content || "";
-    const cssCode = files.find((file) => file.name.endsWith(".css"))?.content || "";
-    const jsCode = files.find((file) => file.name.endsWith(".js"))?.content || "";
-      // const htmlCode =
-      //   files.find((file) => file.name === "index.html")?.content || "";
-      // const cssCode =
-      //   files.find((file) => file.name === "styles.css")?.content || "";
-      // const jsCode =
-      //   files.find((file) => file.name === "script.js")?.content || "";
+      let htmlCode = files.find((file) => file.name.endsWith(".html"))?.content || "";
+      const cssCode = files.find((file) => file.name.endsWith(".css"))?.content || "";
+      const jsCode = files.find((file) => file.name.endsWith(".js"))?.content || "";
 
-      // Create a mapping of file names to Blob URLs for images
       const blobUrlMap = files.reduce((map, file) => {
         if (file.name.match(/\.(png|jpg|jpeg|gif)$/i)) {
-          map[file.name] = file.content; // file.content is the Blob URL
+          map[file.name] = file.content;
         }
         return map;
       }, {});
 
-      // Replace image filenames in HTML with Blob URLs
       let processedHtmlCode = htmlCode;
       Object.keys(blobUrlMap).forEach((fileName) => {
         processedHtmlCode = processedHtmlCode.replace(
@@ -79,15 +73,9 @@ const PlaygroundCompiler = ({
   };
 
   const closeTab = (fileName) => {
-    if (openTabs.length > 1) {
-      // Update openTabs to remove the selected tab
-      setOpenTabs(openTabs.filter((tab) => tab.name !== fileName));
-
-      // If the active file is being closed, set a new active file
-      if (activeFile.name === fileName) {
-        const newActiveFile = openTabs.find((tab) => tab.name !== fileName);
-        setActiveFile(newActiveFile || null);
-      }
+    setOpenTabs((prevTabs) => prevTabs.filter((tab) => tab.name !== fileName));
+    if (activeFile && activeFile.name === fileName) {
+      setActiveFile(openTabs[0] || null);
     }
   };
 
@@ -98,9 +86,7 @@ const PlaygroundCompiler = ({
   };
 
   const renderEditorContent = () => {
-    if (!activeFile) {
-      return null; // Don't render the editor if no active file
-    }
+    if (!activeFile) return null;
 
     const { name } = activeFile;
     const language = name.endsWith(".html")
@@ -120,6 +106,7 @@ const PlaygroundCompiler = ({
             justifyContent: "center",
             alignItems: "center",
             height: "100%",
+            bgcolor: theme.palette.background.default,
           }}
         >
           <img
@@ -138,10 +125,9 @@ const PlaygroundCompiler = ({
     return (
       <Editor
         height="100%"
-        width="100%"
         language={language}
         value={value}
-        theme="vs-dark"
+        theme={theme.palette.mode === 'light' ? "vs-light" : "vs-dark"}
         onChange={handleEditorChange}
         options={{
           automaticLayout: true,
@@ -150,66 +136,66 @@ const PlaygroundCompiler = ({
           minimap: { enabled: false },
           fontSize: 16,
           quickSuggestions: true,
+          scrollbar: {
+            vertical: 'hidden',
+            horizontal: 'hidden',
+          },
         }}
       />
     );
   };
 
-  useEffect(() => {
-    // Synchronize openTabs with the files in the Redux store
-    const validTabs = openTabs.filter((tab) =>
-      files.some((file) => file.name === tab.name)
-    );
-    if (JSON.stringify(validTabs) !== JSON.stringify(openTabs)) {
-      // If openTabs differs from validTabs, update openTabs
-      setOpenTabs(validTabs);
-    }
-  }, [files, openTabs, setOpenTabs]);
-
   return (
-    <Box className="flex flex-col h-full">
-      {/* Tabs */}
-      <Box className="bg-gray-800 text-white">
-        <Box className="flex items-center">
-          <Tabs
-            value={activeFile ? activeFile.name : false}
-            onChange={handleTabChange}
-            sx={{ flexGrow: 1 }}
-          >
-            {openTabs.map((file) => (
-              <Tab
-                key={file.name}
-                label={
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
-                    {file.name}
-                    <IconButton
-                      size="small"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        closeTab(file.name);
-                      }}
-                      sx={{ color: "white", ml: 1 }}
-                    >
-                      <CloseIcon fontSize="small" />
-                    </IconButton>
-                  </Box>
-                }
-                value={file.name}
-                sx={{ color: "white", minWidth: 0 }}
-              />
-            ))}
-          </Tabs>
-        </Box>
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100vh", overflow: "hidden" }}>
+      <Box sx={{ bgcolor: theme.palette.background.paper, color: theme.palette.text.primary }}>
+        <Tabs
+          value={activeFile ? activeFile.name : false}
+          onChange={handleTabChange}
+          variant="scrollable"
+          scrollButtons="auto"
+          sx={{ minHeight: 48 }}
+        >
+          {openTabs.map((file) => (
+            <Tab
+              key={file.name}
+              label={
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  {file.name}
+                  <IconButton
+                    size="small"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      closeTab(file.name);
+                    }}
+                    sx={{ color: theme.palette.text.primary, ml: 1 }}
+                  >
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </Box>
+              }
+              value={file.name}
+              sx={{ color: theme.palette.text.primary, minWidth: 0 }}
+            />
+          ))}
+        </Tabs>
       </Box>
 
-      {/* Editor and Output */}
-      <Box className="flex-1 flex">
-        <Box className="flex-1 p-2 bg-gray-900">{renderEditorContent()}</Box>
-        <Box className="flex-1 bg-white">
+      <Box sx={{ display: "flex", flex: 1, overflow: "hidden" }}>
+        <Box sx={{ flex: 1, display: "flex", flexDirection: "column", bgcolor: theme.palette.background.default, overflow: "hidden" }}>
+          {renderEditorContent()}
+        </Box>
+        <Box sx={{ flex: 1, bgcolor: theme.palette.background.paper, position: "relative" }}>
           <iframe
             id="output"
-            className="w-full h-full border-none"
             title="Output"
+            style={{
+              width: "100%",
+              height: "100%",
+              border: "none",
+              position: "absolute",
+              top: 0,
+              left: 0,
+            }}
           />
         </Box>
       </Box>

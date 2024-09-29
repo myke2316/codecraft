@@ -386,7 +386,7 @@ const jsNormalizeCode = (code, addSemicolons = false) => {
 };
 
 const normalizeOutputJs = (output) => {
-  return output.replace(/\s+/g, ' ').trim().toLowerCase();
+  return output?.replace(/\s+/g, ' ').trim().toLowerCase();
 };
 app.post("/submit/javascriptconsole", (req, res) => {
   const { jsCode, activity } = req.body;

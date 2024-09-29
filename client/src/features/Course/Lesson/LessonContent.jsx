@@ -105,7 +105,7 @@ function LessonContent() {
   const quizScore = quizProgress?.locked
     ? "Locked"
     : `${quizProgress?.pointsEarned} Points Earned`;
-
+  
   const handleClick = (id) => navigate(`document/${id}`);
   const handleQuizClick = () => navigate(`quiz/${quiz._id}`);
   const handleActivityClick = () => navigate(`activity/${activities[0]._id}`);
@@ -274,7 +274,7 @@ function LessonContent() {
           </Grid>
 
           {/* Quiz */}
-          {quiz && (
+          {quiz.length > 0 && (
             
             <Grid item xs={12} md={6}>
               <Card className="overflow-hidden shadow-md h-full">
@@ -329,7 +329,7 @@ function LessonContent() {
                             disabled={quizProgress?.locked}
                             className="transition-all duration-300 hover:scale-105"
                           >
-                            {quizProgress?.locked ? "Locked" : quizProgress.dateFinished !== null ? "Review Quiz" : "Take Quiz"}
+                            {quizProgress?.locked ? "Locked" : quizProgress?.dateFinished !== null ? "Review Quiz" : "Take Quiz"}
                           </Button>
                         </Box>
                       </motion.div>

@@ -4006,7 +4006,7 @@
               "codeEditor": {
                 "html": "",
                 "css": "",
-                "js": "// Function with default parameters and template literals\nfunction createGreeting(firstName = 'Guest', lastName = 'User') {\n    console.log(`Hello, ${firstName} ${lastName}!`);\n}\n\n// Test the function with different arguments\ncreateGreeting('Jack', 'Sparrow'); // Should print: Hello, Jack Sparrow!\ncreateGreeting('Alice'); // Should print: Hello, Alice User!\ncreateGreeting(); // Should print: Hello, Guest User!"
+                "js": "// Function with default parameters and template literals\nfunction createGreeting(firstName = 'Guest', lastName = 'User') {\n    console.log(`Hello, ${firstName} ${lastName}!`);\n}\n\n// Test the function with different arguments\n"
               },
               "testCases": [
                 {
@@ -4112,7 +4112,7 @@
                   "type":"javascriptweb",
                   "language": "javascript",
                   "code": "// Create a new paragraph element\nconst newParagraph = document.createElement('p');\n\n// Add text to the paragraph\nnewParagraph.textContent = 'This is a new paragraph.';\n\n// Add the new paragraph to the body\ndocument.body.appendChild(newParagraph);\n\n// Show the updated body content\nconst bodyContent = document.body.innerHTML;\ndocument.getElementById('output').textContent = bodyContent;",
-                  "supportingCode": "<body>\n  <h1>Original Content</h1>\n  <div id=\"output\"></div>\n</body>"
+                  "supportingCode": "<h1>Original Content</h1>\n  <div id=\"output\"></div>"
                 },
                 {
                   "type": "sentence",
@@ -4122,7 +4122,7 @@
                   "type":"javascriptweb",
                   "language": "javascript",
                   "code": "// Select the element to remove\nconst elementToRemove = document.getElementById('removeMe');\n\n// Remove the element\nelementToRemove.remove();\n\n// Show the updated body content\nconst bodyContent = document.body.innerHTML;\ndocument.getElementById('output').textContent = bodyContent;",
-                  "supportingCode": "<body>\n  <div id=\"removeMe\">Remove this element</div>\n  <div>Keep this element</div>\n  <div id=\"output\"></div>\n</body>"
+                  "supportingCode": "<div id=\"removeMe\">Remove this element</div>\n  <div>Keep this element</div>\n  <div id=\"output\"></div>"
                 },
                 {
                   "type": "sentence",

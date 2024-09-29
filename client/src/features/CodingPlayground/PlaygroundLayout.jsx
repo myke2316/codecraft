@@ -1,50 +1,97 @@
-import { Box, Grid } from "@mui/material";
+import { Box, ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import PlaygroundSidebar from "./PlaygroundSidebar";
 import PlaygroundCompiler from "./PlaygroundCompiler";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 function PlaygroundLayout() {
-  // State to control running the code
   const [runCode, setRunCode] = useState(false);
-  const handleRunCode = () => {
-    setRunCode(true); // Trigger the code run
+  const [drawerOpen, setDrawerOpen] = useState(true);
+  const [openTabs, setOpenTabs] = useState([]);
+  const [activeFile, setActiveFile] = useState(null);
+  const [mode, setMode] = useState('dark');
 
-    // Reset `runCode` after execution to allow subsequent runs
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+          ...(mode === 'light'
+            ? {
+                // Light mode palette
+                primary: { main: '#1976d2' },
+                background: { default: '#f5f5f5', paper: '#ffffff' },
+                text: { primary: '#333333', secondary: '#555555' },
+              }
+            : {
+                // Dark mode palette
+                primary: { main: '#90caf9' },
+                background: { default: '#1e1e1e', paper: '#2d2d2d' },
+                text: { primary: '#ffffff', secondary: '#b0b0b0' },
+              }),
+        },
+        typography: {
+          fontFamily: 'Poppins, Arial, sans-serif',
+        },
+        components: {
+          MuiCssBaseline: {
+            styleOverrides: `
+              @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+            `,
+          },
+        },
+      }),
+    [mode],
+  );
+
+  const handleRunCode = () => {
+    setRunCode(true);
     setTimeout(() => {
       setRunCode(false);
     }, 0);
   };
 
-  // State for handling file tabs
-  const [openTabs, setOpenTabs] = useState([]);
-  const [activeFile, setActiveFile] = useState(null);
-
   const handleFileClick = (file) => {
-    // Check if a file with the same name already exists in openTabs
     const fileExists = openTabs.some((tab) => tab.name === file.name);
-  
-    // Add file to openTabs if it's not already present
     if (!fileExists) {
       setOpenTabs((prevTabs) => [...prevTabs, file]);
     }
-  
-    // Set the clicked file as the active file
     setActiveFile(file);
   };
+
+  const toggleTheme = () => {
+    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+  };
+
   return (
-    <Box sx={{ height: "calc(100vh - 64px - 64px)" }}>
-      {/* Adjust height based on navbar and footer */}
-      <Grid container sx={{ height: "100%" }}>
-        {/* Sidebar */}
-        <Grid item xs={2}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box sx={{ display: "flex", height: "100vh", overflow: "hidden" }}>
+        <Box
+          sx={{
+            width: drawerOpen ? "240px" : "0",
+            transition: "width 0.3s ease",
+            overflow: "hidden",
+            flexShrink: 0,
+          }}
+        >
           <PlaygroundSidebar
             handleRunCode={handleRunCode}
             handleFileClick={handleFileClick}
+            drawerOpen={drawerOpen}
+            setDrawerOpen={setDrawerOpen}
+            toggleTheme={toggleTheme}
+            mode={mode}
           />
-        </Grid>
-
-        {/* Main Content Area */}
-        <Grid item xs={10}>
+        </Box>
+        <Box
+          sx={{
+            flexGrow: 1,
+            transition: "all 0.3s ease",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <PlaygroundCompiler
             runCode={runCode}
             activeFile={activeFile}
@@ -52,9 +99,9 @@ function PlaygroundLayout() {
             setOpenTabs={setOpenTabs}
             setActiveFile={setActiveFile}
           />
-        </Grid>
-      </Grid>
-    </Box>
+        </Box>
+      </Box>
+    </ThemeProvider>
   );
 }
 

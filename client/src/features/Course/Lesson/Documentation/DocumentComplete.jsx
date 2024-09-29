@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { useSelector } from "react-redux";
+import { Card, CardContent, Button, Typography, Box } from "@mui/material";
 
 function DocumentComplete() {
   const { courseId, lessonId, documentId } = useParams();
@@ -13,14 +14,14 @@ function DocumentComplete() {
   const course = courses.find((course) => course._id === courseId);
   const lesson = course.lessons.find((lesson) => lesson._id === lessonId);
 
-  //for documents
+  // For documents
   const currentDocumentIndex = lesson.documents.findIndex(
     (doc) => doc._id === documentId
   );
   const nextDocument = lesson.documents[currentDocumentIndex + 1];
-  //for quiz
+  
+  // For quiz
   const quiz = lesson.quiz;
-
   const nextQuizIndex = lesson.quiz.indexOf(quiz) + 1;
   const nextQuiz = lesson.quiz[nextQuizIndex];
 
@@ -35,18 +36,32 @@ function DocumentComplete() {
   };
 
   return (
-    <div className="flex-1 p-4">
-      <h1 className="text-2xl font-bold mb-4">Document Completed</h1>
-      <p className="mb-4">You have completed this document. Great job!</p>
-      <p>You spent {totalTimeSpent} to finish this.</p>
-      <button
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-        onClick={handleNext}
-      >
-        {nextDocument && "Next Document"}
-        {!nextDocument && nextQuizIndex < lesson.quiz.length && "Take Quiz"}
-      </button>
-    </div>
+    <Box className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+      <Card className="w-full max-w-xl shadow-lg">
+        <CardContent className="p-6">
+          <Typography variant="h5" className="text-3xl font-bold mb-6 text-center">
+            Document Completed
+          </Typography>
+          <Typography variant="body1" className="mb-4 text-center">
+            You have completed this document. Great job!
+          </Typography>
+          <Typography variant="body2" className="text-center mb-8">
+            You spent {totalTimeSpent} to finish this.
+          </Typography>
+          <Box className="flex justify-center">
+            <Button
+              variant="contained"
+              color="primary"
+              className="bg-blue-500 text-white hover:bg-blue-600"
+              onClick={handleNext}
+            >
+              {nextDocument && "Next Document"}
+              {!nextDocument && nextQuizIndex < lesson.quiz.length && "Take Quiz"}
+            </Button>
+          </Box>
+        </CardContent>
+      </Card>
+    </Box>
   );
 }
 

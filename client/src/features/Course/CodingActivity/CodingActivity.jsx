@@ -20,7 +20,8 @@ import {
   Tooltip,
   Card,
   CardContent,
-  LinearProgress,useMediaQuery,
+  LinearProgress,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -41,9 +42,9 @@ import { useUpdateUserAnalyticsMutation } from "../../Student/userAnalyticsServi
 import { updateUserAnalytics } from "../../Student/userAnalyticsSlice";
 import { BACKEND_URL } from "../../../constants";
 import OutputPanel from "./OutputPanel";
-import CodeIcon from '@mui/icons-material/Code'; // For HTML
-import PaletteIcon from '@mui/icons-material/Palette'; // For CSS
-import JsIcon from '@mui/icons-material/Javascript'; // For JavaScript (or custom JS icon)
+import CodeIcon from "@mui/icons-material/Code"; // For HTML
+import PaletteIcon from "@mui/icons-material/Palette"; // For CSS
+import JsIcon from "@mui/icons-material/Javascript"; // For JavaScript (or custom JS icon)
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -82,9 +83,9 @@ const StyledTab = styled(Tab)(({ theme, selected }) => ({
   alignItems: "center",
   justifyContent: "center",
   gap: "8px",
-  color: selected ? '#fff' : '#ccc',
-  backgroundColor: selected ? '#1E1E1E' : '#2D2D2D',
-  borderBottom: selected ? '2px solid #007ACC' : 'none',
+  color: selected ? "#fff" : "#ccc",
+  backgroundColor: selected ? "#1E1E1E" : "#2D2D2D",
+  borderBottom: selected ? "2px solid #007ACC" : "none",
   transition: "background-color 0.2s, color 0.2s",
   "&:hover": {
     backgroundColor: "#333333",
@@ -126,7 +127,10 @@ const ActivityHeader = React.memo(
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Typography variant="h4" className="mb-2 font-bold text-gray-800 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+          <Typography
+            variant="h4"
+            className="mb-2 font-bold text-gray-800 text-xl sm:text-2xl md:text-3xl lg:text-4xl"
+          >
             {activity.title}
           </Typography>
           {activitySubmission.timeTaken > 0 && (
@@ -152,7 +156,10 @@ const ActivityHeader = React.memo(
               value={(timer / 3600) * 100}
               className="rounded-full h-2"
             />
-            <Typography variant="caption" className="mt-1 text-gray-500 text-xs sm:text-sm">
+            <Typography
+              variant="caption"
+              className="mt-1 text-gray-500 text-xs sm:text-sm"
+            >
               Time Elapsed: {formattedTime}
             </Typography>
           </Box>
@@ -182,11 +189,10 @@ const CodingActivity = ({ activity, onRunCode, onSubmit, output }) => {
   const resizerRef = useRef(null);
   const editorRef = useRef(null);
   const outputRef = useRef(null);
-console.log(submissionResult)
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
-
 
   const activitySubmission = useSelector((state) =>
     state.userActivitySubmission.activitySubmissions.courses
@@ -336,6 +342,7 @@ console.log(submissionResult)
   }, [handleResize]);
 
   const handleSubmitCode = useCallback(async () => {
+    setSubmissionResultDialogOpen(false);
     if (
       activitySubmission.timeTaken &&
       (userAnalytics || userAnalytics.timeSpent)
@@ -601,11 +608,10 @@ console.log(submissionResult)
       );
 
       if (currentLessonIndex < lessons.length - 1) {
-        const nextLesson = lessons[currentLessonIndex + 1];
-        const nextActivity = nextLesson.activities[0];
-        navigate(
-          `/course/${courseId}/lesson/${nextLesson.lessonId}/activity/${nextActivity.activityId}`
-        );
+        const nextLessonId = lessons[currentLessonIndex + 1].lessonId;
+        const nextActivityId =
+          lessons[currentLessonIndex + 1].activities[0].activityId;
+        navigate(`/course/${courseId}/lesson/${nextLessonId}`);
         setFinalResult(false);
         setSubmissionResultDialogOpen(false);
       } else {
@@ -614,12 +620,13 @@ console.log(submissionResult)
         );
 
         if (currentCourseIndex < courses.length - 1) {
-          const nextCourse = courses[currentCourseIndex + 1];
-          const firstLesson = nextCourse.lessons[0];
-          const firstActivity = firstLesson.activities[0];
-          navigate(
-            `/course/${nextCourse.courseId}/lesson/${firstLesson.lessonId}/activity/${firstActivity.activityId}`
-          );
+          const nextCourseId = courses[currentCourseIndex + 1].courseId;
+          const firstLessonId =
+            courses[currentCourseIndex + 1].lessons[0].lessonId;
+          const firstActivityId =
+            courses[currentCourseIndex + 1].lessons[0].activities[0]
+              ?.activityId;
+          navigate(`/course/${nextCourseId}/lesson/${firstLessonId}`);
           setFinalResult(false);
           setSubmissionResultDialogOpen(false);
         } else {
@@ -643,7 +650,7 @@ console.log(submissionResult)
   }
 
   return (
-<Box
+    <Box
       sx={{ flexGrow: 1, padding: "10px", overflow: "auto" }}
       className="min-h-screen"
     >
@@ -789,12 +796,14 @@ console.log(submissionResult)
                 (userAnalytics || userAnalytics?.timeSpent))
             }
             sx={{
-              backgroundColor: activitySubmission?.tries > 0 ? "#6366f1" : "#9ca3af",
+              backgroundColor:
+                activitySubmission?.tries > 0 ? "#6366f1" : "#9ca3af",
               "&:hover": {
                 backgroundColor:
                   activitySubmission?.tries > 0 ? "#4f46e5" : "#9ca3af",
               },
-              color: "white", marginBottom: isMobile ? "8px" : "0",
+              color: "white",
+              marginBottom: isMobile ? "8px" : "0",
             }}
           >
             Check Code
@@ -825,6 +834,7 @@ console.log(submissionResult)
         </StyledButton>
       </Box>
 
+      {/* SUBMISSION CODE CONFIRMATION DIALOG */}
       <Dialog open={openDialog} onClose={() => handleCloseDialog(false)}>
         <DialogTitle>Confirm Submission</DialogTitle>
         <DialogContent>
@@ -843,6 +853,7 @@ console.log(submissionResult)
         </DialogActions>
       </Dialog>
 
+      {/* CHECK CODE CONFIRMATION DIALOG */}
       <Dialog
         open={checkCodeDialogOpen}
         onClose={() => handleCloseCheckCodeDialog(false)}
@@ -870,6 +881,7 @@ console.log(submissionResult)
         </DialogActions>
       </Dialog>
 
+      {/* CHECK CODE  */}
       <Dialog
         open={submissionResultDialogOpen}
         onClose={handleCloseSubmissionResultDialog}
@@ -977,12 +989,19 @@ console.log(submissionResult)
           <Button onClick={handleCloseSubmissionResultDialog} color="primary">
             Back
           </Button>
-          <Button onClick={handleSubmitCode} color="primary">
+          <Button
+            onClick={() => {
+              handleSubmitCode();
+              handleCloseSubmissionResultDialog();
+            }}
+            color="primary"
+          >
             Submit
           </Button>
         </DialogActions>
       </Dialog>
 
+      {/* SUBMISSION RESULT */}
       <Dialog
         open={finalResult}
         onClose={handleFinalResultClose}

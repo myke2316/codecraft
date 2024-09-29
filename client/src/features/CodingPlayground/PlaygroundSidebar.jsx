@@ -14,14 +14,43 @@ import {
   Dialog,
   DialogContent,
   DialogActions,
+  Tooltip,
+  Switch,
+  FormControlLabel,
 } from "@mui/material";
 import { FaFileImport, FaFileExport, FaPlus } from "react-icons/fa";
-import { Save, ExpandLess, ExpandMore, PlayArrow } from "@mui/icons-material";
+import {
+  Save,
+  ExpandLess,
+  ExpandMore,
+  PlayArrow,
+  Delete,
+  ArrowBackIos,
+  ArrowForwardIos,
+  Home,
+  Brightness4,
+  Brightness7,
+} from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { addFile, removeFile } from "./sandboxSlice";
-import JSZip from "jszip"; // Ensure JSZip is imported
+import JSZip from "jszip";
 import { saveAs } from "file-saver";
-const PlaygroundSidebar = ({ handleRunCode, handleFileClick }) => {
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router";
+
+const drawerVariants = {
+  open: { x: 0, opacity: 1 },
+  closed: { x: "-240px", opacity: 0 },
+};
+
+const PlaygroundSidebar = ({
+  handleRunCode,
+  handleFileClick,
+  setDrawerOpen,
+  drawerOpen,
+  toggleTheme,
+  mode,
+}) => {
   const [newFileName, setNewFileName] = useState("");
   const [showInput, setShowInput] = useState(false);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
@@ -30,17 +59,16 @@ const PlaygroundSidebar = ({ handleRunCode, handleFileClick }) => {
   const userInfo = useSelector((state) => state.user.userDetails);
   const dispatch = useDispatch();
   const files = useSelector((state) => state.sandboxFiles.files);
+  const [open, setOpen] = useState(true);
+  const username = userInfo.username || userInfo.name;
+  const navigate = useNavigate();
 
   const handleCreateFile = () => {
     if (!newFileName.trim()) return;
-
     const fileExtension = newFileName.split(".").pop();
     const validExtensions = ["html", "css", "js"];
-
     if (!validExtensions.includes(fileExtension)) {
-      alert(
-        "Invalid file extension. Please create a .html, .css, or .js file."
-      );
+      alert("Invalid file extension. Please create a .html, .css, or .js file.");
       return;
     }
 
@@ -72,7 +100,6 @@ const PlaygroundSidebar = ({ handleRunCode, handleFileClick }) => {
 
   const handleFileUpload = async (event) => {
     const files = event.target.files;
-
     if (!files.length) return;
 
     for (const file of files) {
@@ -84,26 +111,18 @@ const PlaygroundSidebar = ({ handleRunCode, handleFileClick }) => {
           const zip = await JSZip.loadAsync(file);
           zip.forEach(async (relativePath, zipEntry) => {
             if (!zipEntry.dir) {
-              const zipEntryExtension = zipEntry.name
-                .split(".")
-                .pop()
-                .toLowerCase();
-
+              const zipEntryExtension = zipEntry.name.split(".").pop().toLowerCase();
               if (["html", "css", "js"].includes(zipEntryExtension)) {
-                // For text-based files, read them as text
                 const content = await zipEntry.async("text");
                 handleFileImport(zipEntry.name, content);
-              } else if (
-                ["png", "jpg", "jpeg", "gif"].includes(zipEntryExtension)
-              ) {
-                // For image files, read them as base64
+              } else if (["png", "jpg", "jpeg", "gif"].includes(zipEntryExtension)) {
                 const blob = await zipEntry.async("blob");
                 const reader = new FileReader();
                 reader.onloadend = () => {
                   const base64String = reader.result;
-                  handleFileImport(zipEntry.name, base64String); // Store image as base64
+                  handleFileImport(zipEntry.name, base64String);
                 };
-                reader.readAsDataURL(blob); // Convert blob to base64
+                reader.readAsDataURL(blob);
               }
             }
           });
@@ -118,18 +137,17 @@ const PlaygroundSidebar = ({ handleRunCode, handleFileClick }) => {
         const reader = new FileReader();
         reader.onloadend = () => {
           const base64String = reader.result;
-          handleFileImport(fileName, base64String); // Store image as base64
+          handleFileImport(fileName, base64String);
         };
-        reader.readAsDataURL(file); // Convert image to base64
+        reader.readAsDataURL(file);
       } else {
-        alert(
-          "Unsupported file type. Please upload .html, .css, .js files, or images."
-        );
+        alert("Unsupported file type. Please upload .html, .css, .js files, or images.");
       }
     }
 
-    setFileInputKey((prevKey) => prevKey + 1); // Reset the input field
+    setFileInputKey((prevKey) => prevKey + 1);
   };
+
   const handleFileImport = (fileName, content) => {
     const existingFile = files.find((file) => file.name === fileName);
     if (existingFile) {
@@ -138,165 +156,218 @@ const PlaygroundSidebar = ({ handleRunCode, handleFileClick }) => {
     }
     dispatch(addFile({ name: fileName, content }));
   };
-  const username = userInfo.username;
+
   const handleExportFiles = async () => {
     if (!files.length) {
       alert("No files to export.");
       return;
     }
-  
+
     const zip = new JSZip();
-  
     for (const file of files) {
       if (file.name.match(/\.(png|jpg|jpeg|gif)$/i)) {
-        // For image files, ensure content is base64 and remove the data URL prefix
-        const base64Data = file.content.split(',')[1]; // Strip out the data URL prefix
-        zip.file(file.name, base64Data, { base64: true }); // Use base64 content
+        const base64Data = file.content.split(",")[1];
+        zip.file(file.name, base64Data, { base64: true });
       } else {
-        // For text files
         zip.file(file.name, file.content);
       }
     }
-  
+
     try {
       const content = await zip.generateAsync({ type: "blob" });
-      saveAs(content, `codecraft-${username}.zip`); // Save ZIP file
+      saveAs(content, `codecraft-${username}.zip`);
     } catch (error) {
       console.error("Failed to export files:", error);
     }
   };
-  
 
-  const handleremoveFile = () => {
-    const fileToDelete = files[fileToDeleteIndex]; // Get the file object by index
+  const handleRemoveFile = () => {
+    const fileToDelete = files[fileToDeleteIndex];
     if (fileToDelete) {
-      dispatch(removeFile({ fileName: fileToDelete.name })); // Pass the file name
+      dispatch(removeFile({ fileName: fileToDelete.name }));
       setOpenConfirmDialog(false);
     }
   };
 
-  const [open, setOpen] = useState(true);
-
   return (
-    <Box
-      sx={{
-        width: 280,
-        bgcolor: "#f5f5f5",
-        padding: 2,
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      {/* Icons at the top */}
-      <Box sx={{ display: "flex", justifyContent: "space-around", mb: 2 }}>
-        <IconButton color="primary" onClick={() => setShowInput(true)}>
-          <FaPlus title="Add File" />
-        </IconButton>
-        <label htmlFor="file-upload" style={{ cursor: "pointer" }}>
-          Import
-          <IconButton color="primary" component="span">
-            <FaFileImport title="Import File" />
-          </IconButton>
-        </label>
-        <input
-          accept=".html,.css,.js,.txt,.png,.jpg,.jpeg,.gif,.bmp,.svg,.zip"
-          style={{ display: "none" }}
-          id="file-upload"
-          type="file"
-          multiple
-          key={fileInputKey}
-          onChange={handleFileUpload}
-        />
-        {/* <IconButton color="primary" onClick={handleExportFiles}>
-          <FaFileExport title="Export Files" />
-        </IconButton> */}
-      </Box>
-
-      <Divider />
-
-      {/* Input for creating a new file */}
-      {showInput && (
-        <Box sx={{ mb: 2 }}>
-          <TextField
-            fullWidth
-            label="File Name"
-            value={newFileName}
-            onChange={(e) => setNewFileName(e.target.value)}
-            placeholder="Enter file name with extension"
-            size="small"
-            helperText=".html, .css, or .js only"
-          />
-          <Button
-            fullWidth
-            variant="contained"
-            onClick={handleCreateFile}
-            sx={{ mt: 1 }}
-          >
-            Create File
-          </Button>
-        </Box>
-      )}
-
-      {/* Collapsible File List */}
-      <List>
-        <ListItemButton onClick={() => setOpen(!open)}>
-          <ListItemText primary="Files" />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            {files.map((file, index) => (
-              <ListItemButton
-                sx={{ pl: 4 }}
-                key={index}
-                onClick={() => handleFileClick(file)}
-              >
-                <ListItemText primary={file.name} />
-                <IconButton
-                  color="error"
-                  onClick={() => {
-                    setFileToDeleteIndex(index);
-                    setOpenConfirmDialog(true);
-                  }}
-                >
-                  <Typography variant="button">Delete</Typography>
-                </IconButton>
-              </ListItemButton>
-            ))}
-          </List>
-        </Collapse>
-      </List>
-
-      <Divider sx={{ mt: 2 }} />
-
-      {/* Action Buttons */}
-      <Box
-        sx={{
-          mt: 2,
-          display: "flex",
-          flexDirection: "column",
-          gap: 1,
-          marginTop: "auto",
+    <Box sx={{ position: "relative" }}>
+      <motion.div
+        variants={drawerVariants}
+        initial="open"
+        animate={drawerOpen ? "open" : "closed"}
+        transition={{ type: "spring", stiffness: 60 }}
+        style={{
+          width: 240,
+          height: "100vh",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          backgroundColor: mode === 'light' ? '#ffffff' : '#1e1e1e',
+          padding: "16px",
+          zIndex: 1200,
+          color: mode === 'light' ? '#333333' : '#ecf0f1',
+          boxShadow: "5px 0 15px rgba(0, 0, 0, 0.3)",
         }}
       >
-        <Button variant="contained" startIcon={<Save />} color="primary"  onClick={handleExportFiles}>
-          Save
-        </Button>
-        <Button
-          variant="outlined"
-          startIcon={<PlayArrow />}
-          color="primary"
-          onClick={handleRunCode}
-        >
-          Run Code
-        </Button>
-      </Box>
-
-      {/* Confirmation Dialog */}
-      <Dialog
-        open={openConfirmDialog}
-        onClose={() => setOpenConfirmDialog(false)}
+        <Box sx={{ textAlign: "center", mb: 3 }}>
+          <Box sx={{ mb: 2 }}>
+            <Button
+              variant="outlined"
+              startIcon={<Home />}
+              sx={{
+                color: mode === 'light' ? '#333333' : '#ecf0f1',
+                borderColor: mode === 'light' ? '#333333' : '#ecf0f1',
+                "&:hover": {
+                  backgroundColor: mode === 'light' ? '#f0f0f0' : '#34495e',
+                  borderColor: mode === 'light' ? '#1976d2' : '#1abc9c',
+                },
+              }}
+              onClick={() => navigate("/")}
+            >
+              Home
+            </Button>
+          </Box>
+          <Typography variant="h5" sx={{ color: mode === 'light' ? '#333333' : '#ecf0f1', fontWeight: "light" }}>
+            CodeCraft
+          </Typography>
+        </Box>
+        <Box sx={{ display: "flex", justifyContent: "space-around", mb: 2 }}>
+          <Tooltip title="Create New File">
+            <IconButton
+              color="primary"
+              onClick={() => setShowInput(true)}
+              sx={{ color: mode === 'light' ? '#1976d2' : '#1abc9c' }}
+            >
+              <FaPlus />
+            </IconButton>
+          </Tooltip>
+          <label htmlFor="file-upload" style={{ cursor: "pointer" }}>
+            <Tooltip title="Import Files">
+              <IconButton color="primary" component="span" sx={{ color: mode === 'light' ? '#1976d2' : '#928fce' }}>
+                <FaFileImport />
+              </IconButton>
+            </Tooltip>
+          </label>
+          <input
+            accept=".html,.css,.js,.txt,.png,.jpg,.jpeg,.gif,.bmp,.svg,.zip"
+            style={{ display: "none" }}
+            id="file-upload"
+            type="file"
+            multiple
+            key={fileInputKey}
+            onChange={handleFileUpload}
+          />
+          <Tooltip title="Export Files">
+            <IconButton color="primary" onClick={handleExportFiles} sx={{ color: mode === 'light' ? '#1976d2' : '#e67e22' }}>
+              <FaFileExport />
+            </IconButton>
+          </Tooltip>
+        </Box>
+        <Divider sx={{ bgcolor: mode === 'light' ? '#e0e0e0' : '#95a5a6' }} />
+        {showInput && (
+          <Box sx={{ mb: 2 }}>
+            <TextField
+              fullWidth
+              label="File Name"
+              value={newFileName}
+              onChange={(e) => setNewFileName(e.target.value)}
+              placeholder="Enter file name with extension"
+              size="small"
+              helperText=".html, .css, or .js only"
+              sx={{
+                bgcolor: mode === 'light' ? '#f5f5f5' : '#34495e',
+                color: mode === 'light' ? '#333333' : '#ecf0f1',
+                input: { color: mode === 'light' ? '#333333' : '#ecf0f1' },
+                label: { color: mode === 'light' ? '#555555' : '#95a5a6' },
+              }}
+            />
+            <Button fullWidth variant="contained" onClick={handleCreateFile} sx={{ mt: 1 }}>
+              Create File
+            </Button>
+          </Box>
+        )}
+        <List sx={{ flexGrow: 1 }}>
+          <ListItemButton onClick={() => setOpen(!open)}>
+            <ListItemText primary="Files" sx={{ color: mode === 'light' ? '#333333' : '#ecf0f1' }} />
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              {files.map((file, index) => (
+                <ListItemButton
+                  sx={{
+                    pl: 4,
+                    bgcolor: index === fileToDeleteIndex 
+                      ? (mode === 'light' ? '#e0e0e0' : '#34495e')
+                      : 'transparent',
+                  }}
+                  key={index}
+                  onClick={() => handleFileClick(file)}
+                >
+                  <ListItemText primary={file.name} sx={{ color: mode === 'light' ? '#333333' : '#ecf0f1' }} />
+                  <IconButton
+                    color="error"
+                    onClick={() => {
+                      setFileToDeleteIndex(index);
+                      setOpenConfirmDialog(true);
+                    }}
+                  >
+                    <Delete sx={{ color: mode === 'light' ? '#d32f2f' : '#e74c3c' }} />
+                  </IconButton>
+                </ListItemButton>
+              ))}
+            </List>
+          </Collapse>
+        </List>
+        <Divider sx={{ bgcolor: mode === 'light' ? '#e0e0e0' : '#95a5a6', my: 2 }} />
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+          <Button
+            variant="contained"
+            startIcon={<Save />}
+            sx={{ bgcolor: mode === 'light' ? '#1976d2' : '#6e61ab', color: mode === 'light' ? '#ffffff' : '#ecf0f1' }}
+            onClick={handleExportFiles}
+          >
+            Save
+          </Button>
+          <Button
+            variant="outlined"
+            startIcon={<PlayArrow />}
+            sx={{ color: mode === 'light' ? '#1976d2' : '#aab1e5', borderColor: mode === 'light' ? '#1976d2' : '#aab1e5' }}
+            onClick={handleRunCode}
+          >
+            Run Code
+          </Button>
+        </Box>
+        <Box sx={{ mt: 2 }}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={mode === 'dark'}
+                onChange={toggleTheme}
+                icon={<Brightness7 />}
+                checkedIcon={<Brightness4 />}
+              />
+            }
+            label={mode === 'dark' ? "Dark Mode" : "Light Mode"}
+          />
+        </Box>
+      </motion.div>
+      <IconButton
+        onClick={() => setDrawerOpen(!drawerOpen)}
+        sx={{
+          position: "fixed",
+          top: "50%",
+          left: drawerOpen ? 240 : 0,
+          zIndex: 1300,
+          transform: "translateY(-50%)",
+          color: mode === 'light' ? '#333333' : '#ecf0f1',
+          backgroundColor: mode === 'light' ? '#f0f0f0' : '#3f0081',
+          "&:hover": { backgroundColor: mode === 'light' ? '#e0e0e0' : '#aab1e5' },
+        }}
       >
+        {drawerOpen ? <ArrowBackIos /> : <ArrowForwardIos />}
+      </IconButton>
+      <Dialog open={openConfirmDialog} onClose={() => setOpenConfirmDialog(false)}>
         <DialogTitle>Confirm Deletion</DialogTitle>
         <DialogContent>
           <Typography>Are you sure you want to delete this file?</Typography>
@@ -305,7 +376,7 @@ const PlaygroundSidebar = ({ handleRunCode, handleFileClick }) => {
           <Button onClick={() => setOpenConfirmDialog(false)} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleremoveFile} color="error">
+          <Button onClick={handleRemoveFile} sx={{ color: mode === 'light' ? '#d32f2f' : '#e74c3c' }}>
             Delete
           </Button>
         </DialogActions>

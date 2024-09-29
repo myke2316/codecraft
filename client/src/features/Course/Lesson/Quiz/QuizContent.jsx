@@ -292,7 +292,7 @@ const QuizContent = ({ quiz }) => {
       </div>
       {/* Question */}
       <Typography variant="h5" fontWeight="bold" mb={3}>
-        {currentQuestion.question}
+        {currentQuestion?.question}
       </Typography>
 
       {/* Options */}
@@ -300,7 +300,7 @@ const QuizContent = ({ quiz }) => {
         value={selectedOption}
         onChange={(e) => setSelectedOption(e.target.value)}
       >
-        {currentQuestion.options.map((option, index) => (
+        {currentQuestion?.options.map((option, index) => (
           <FormControlLabel
             key={index}
             value={option}
