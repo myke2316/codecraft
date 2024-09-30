@@ -228,8 +228,10 @@ const PlaygroundSidebar = ({
             </Button>
           </Box>
           <Typography variant="h5" sx={{ color: mode === 'light' ? '#333333' : '#ecf0f1', fontWeight: "light" }}>
-            CodeCraft
-          </Typography>
+    <span style={{ color: '	#928fce' }}>&lt;</span>
+    CodeCraft
+    <span style={{ color: '	#928fce' }}>/&gt;</span>
+</Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "space-around", mb: 2 }}>
           <Tooltip title="Create New File">

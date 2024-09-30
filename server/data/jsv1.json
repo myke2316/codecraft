@@ -1532,7 +1532,7 @@
               "description": "Practice using conditional statements in JavaScript to evaluate and respond to different conditions based on variable values.",
               "language": "JavaScriptConsole",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will write JavaScript code to evaluate a number and print whether it is positive, negative, or zero.\n\n1. Variable Declaration:\n   - Declare a variable `number` and initialize it with a value (e.g., `7`).\n\n2. Conditional Statements:\n   - Use an `if` statement to check if the number is greater than 0. If true, print 'The number is positive.'\n   - Use an `else if` statement to check if the number is less than 0. If true, print 'The number is negative.'\n   - Use an `else` statement to cover the case where the number is equal to 0 and print 'The number is zero.'",
+              "problemStatement": "In this activity, you will write JavaScript code to evaluate a number and print whether it is positive, negative, or zero.\n\n1. Variable Declaration:\n   - Declare a 'let' variable `number` and initialize it with a value (e.g., `7`).\n\n2. Conditional Statements:\n   - Use an `if` statement to check if the number is greater than 0. If true, print 'The number is positive.'\n   - Use an `else if` statement to check if the number is less than 0. If true, print 'The number is negative.'\n   - Use an `else` statement to cover the case where the number is equal to 0 and print 'The number is zero.'",
               "codeEditor": {
                 "html": "",
                 "css": "",
@@ -1572,7 +1572,7 @@
               "description": "Practice using `continue` and `break` statements in a loop to control the flow of execution.",
               "language": "JavaScriptConsole",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will write JavaScript code using a `for` loop that demonstrates the use of `continue` and `break` statements to control the execution flow.\n\n1. Looping:\n   - Use a `for` loop to iterate through numbers from `1` to `10`.\n\n2. Using `continue`:\n   - Inside the loop, use a `continue` statement to skip printing the number `5`.\n\n3. Using `break`:\n   - Use a `break` statement to stop the loop when the number `8` is reached.\n\n4. Output:\n   - Print each number except `5`, and stop the loop when reaching `8`.",
+              "problemStatement": "In this activity, you will write JavaScript code using a `for` loop that demonstrates the use of `continue` and `break` statements to control the execution flow.\n\n1. Looping:\n   - Use a `for` loop to iterate through numbers from `1` to `10`. Use let variable for the initiation of the i, and put it inside the for loop.\n\n2. Using `continue`:\n   - Inside the loop, use a `continue` statement to skip printing the number `5`.\n\n3. Using `break`:\n   - Use a `break` statement to stop the loop when the number `8` is reached.\n\n4. Output:\n   - Print each number except `5`, and stop the loop when reaching `8`.",
               "codeEditor": {
                 "html": "",
                 "css": "",
@@ -1608,7 +1608,7 @@
               "description": "Practice using a `while` loop to iterate through numbers and determine if they are even or odd.",
               "language": "JavaScriptConsole",
               "difficulty": "medium",
-              "problemStatement": "In this activity, you will write JavaScript code using a `while` loop to check and print whether numbers from `10` down to `0` are even or odd.\n\n1. Looping:\n   - Use a `while` loop to iterate from `10` to `0`.\n\n2. Checking Even/Odd:\n   - Inside the loop, use the modulus operator (`%`) to determine if the current number is even or odd.\n   - Print the result indicating whether the number is even or odd.\n\n3. Decrementing:\n   - Decrement the counter variable in each iteration of the loop.",
+              "problemStatement": "In this activity, you will write JavaScript code using a `while` loop to check and print whether numbers from `10` down to `0` are even or odd.\n\n1. Looping:\n   - Use a `while` loop to iterate from `10` to `0`.\n\n2. Checking Even/Odd:\n   - Inside the loop, use the modulus operator (`%`) to determine if the current number is even or odd.\n   - Print the result indicating whether the number is even or odd. (using template literals followed by ${} to embed expressions)\n\n3. Decrementing:\n   - Decrement the counter variable in each iteration of the loop.",
               "codeEditor": {
                 "html": "",
                 "css": "",
@@ -1628,12 +1628,12 @@
                     "    number--;"
                   ],
                   "testCaseSentences": [
-                    "Initialize a variable 'number' to 10.",
+                    "Initialize a let variable 'number' to 10.",
                     "Use a while loop to check whether the current number is greater than or equal to 0.",
                     "Check if the number is even using the modulus operator.",
-                    "Print that the number is even if the condition is true.",
+                    "Print that the number is even if the condition is true. (using template literals followed by ${} to embed expressions)",
                     "Otherwise,using else statement, print that the number is odd.",
-                    "Print that the number is odd.",
+                    "Print that the number is odd. (using template literals followed by ${} to embed expressions)",
                     "Decrement the number in each iteration."
                   ],
                   "expectedImage": "/activities/jsacts/2.3.png",
@@ -1667,8 +1667,8 @@
                     "console.log('Multiplication result:', result);"
                   ],
                   "testCaseSentences": [
-                    "Declare two variables 'num1' and 'num2' with values 5 and 3 respectively.",
-                    "Initialize a result variable to 0.",
+                    "Declare two let variables 'num1' and 'num2' with values 5 and 3 respectively.",
+                    "Initialize a result using let variable to 0.",
                     "Use a for loop to add 'num1' to 'result' for 'num2' times.",
                     "Add the result to num1.",
                     "Print the result as the multiplication of 'num1' and 'num2'."

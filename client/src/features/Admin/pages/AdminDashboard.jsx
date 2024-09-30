@@ -56,6 +56,7 @@ const theme = createTheme({
 });
 
 const AdminDashboard = () => {
+  
   const [classesData, setClassesData] = useState([]);
   const [userAnalytics, setUserAnalytics] = useState([]);
   const [userProgress, setUserProgress] = useState([]);

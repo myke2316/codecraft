@@ -356,15 +356,96 @@ const resetPassword = asyncHandler(async (req, res) => {
   });
 });
 
+
+// const getAllUsers = asyncHandler(async (req, res) => {
+//   try {
+//     const users = await UserModel.find().select("-password"); // Exclude password from the response
+//     res.status(200).json(users);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
 const getAllUsers = asyncHandler(async (req, res) => {
   try {
-    const users = await UserModel.find().select("-password"); // Exclude password from the response
+    // Find all users who are not deleted (isDeleted: false or undefined)
+    const users = await UserModel.find({ isDeleted: { $ne: true } }).select("-password");
+    
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
+// const deleteUser = asyncHandler(async (req, res) => {
+//   const { userId } = req.params;
+
+//   try {
+//     // Find the user by ID
+//     const user = await UserModel.findById(userId);
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     // Handle the deletion of the teacher and related data
+//     if (user.role === "teacher") {
+//       // Find all classes taught by the teacher
+//       const classes = await ClassModel.find({ teacher: userId });
+
+//       // Delete all classes taught by the teacher
+//       await ClassModel.deleteMany({ teacher: userId });
+//       // For each class, remove the teacher and delete related data
+//       for (const cls of classes) {
+//         // Remove the teacher from the class
+//         await ClassModel.findByIdAndUpdate(cls._id, { teacher: null });
+
+//         // Remove the students from the class
+//         await ClassModel.updateMany(
+//           { _id: cls._id },
+//           { $pull: { students: { $in: cls.students } } }
+//         );
+
+//         // Delete student-related data in analytics, progress, etc.
+//         await UserAnalyticsModel.deleteMany({ userId: { $in: cls.students } });
+//         await UserProgressModel.deleteMany({ userId: { $in: cls.students } });
+//         await ActivitySubmissionModel.deleteMany({
+//           userId: { $in: cls.students },
+//         });
+//         await QuizSubmissionModel.deleteMany({ userId: { $in: cls.students } });
+//         await Submission.deleteMany({ studentId: { $in: cls.students } });
+//       }
+//     }
+
+//     // Remove the user from any classes where they are a student
+//     await ClassModel.updateMany(
+//       { students: userId },
+//       { $pull: { students: userId } }
+//     );
+
+//     // Delete related data for the user (whether they are a teacher or student)
+//     await ActivitySubmissionModel.deleteMany({ userId });
+//     await QuizSubmissionModel.deleteMany({ userId });
+//     await UserProgressModel.deleteMany({ userId });
+//     await UserAnalyticsModel.deleteMany({ userId });
+//     await QuestionModel.deleteMany({ author: userId });
+//     await Submission.deleteMany({ studentId: userId });
+//     // Optionally, if you need to do something similar for answers
+//     await QuestionModel.updateMany(
+//       { "answers.author": userId },
+//       { $pull: { answers: { author: userId } } }
+//     );
+
+//     // Finally, delete the user
+//     await user.deleteOne();
+
+//     res
+//       .status(200)
+//       .json({ message: "User and all related data deleted successfully" });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ error: error.message });
+//   }
+// });
 
 const deleteUser = asyncHandler(async (req, res) => {
   const { userId } = req.params;
@@ -376,65 +457,23 @@ const deleteUser = asyncHandler(async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Handle the deletion of the teacher and related data
-    if (user.role === "teacher") {
-      // Find all classes taught by the teacher
-      const classes = await ClassModel.find({ teacher: userId });
+    // Soft delete the user (set isDeleted, deletedAt, and deleteExpiresAt)
+    user.isDeleted = true; // Mark the user as soft deleted
+    user.deletedAt = new Date(); // Set the current date as deletion time
+    user.deleteExpiresAt = new Date(Date.now() + 15 * 24 * 60 * 60 * 1000); // 15 days from now for hard delete
+    await user.save(); // Save the changes
 
-      // Delete all classes taught by the teacher
-      await ClassModel.deleteMany({ teacher: userId });
-      // For each class, remove the teacher and delete related data
-      for (const cls of classes) {
-        // Remove the teacher from the class
-        await ClassModel.findByIdAndUpdate(cls._id, { teacher: null });
-
-        // Remove the students from the class
-        await ClassModel.updateMany(
-          { _id: cls._id },
-          { $pull: { students: { $in: cls.students } } }
-        );
-
-        // Delete student-related data in analytics, progress, etc.
-        await UserAnalyticsModel.deleteMany({ userId: { $in: cls.students } });
-        await UserProgressModel.deleteMany({ userId: { $in: cls.students } });
-        await ActivitySubmissionModel.deleteMany({
-          userId: { $in: cls.students },
-        });
-        await QuizSubmissionModel.deleteMany({ userId: { $in: cls.students } });
-        await Submission.deleteMany({ studentId: { $in: cls.students } });
-      }
-    }
-
-    // Remove the user from any classes where they are a student
-    await ClassModel.updateMany(
-      { students: userId },
-      { $pull: { students: userId } }
-    );
-
-    // Delete related data for the user (whether they are a teacher or student)
-    await ActivitySubmissionModel.deleteMany({ userId });
-    await QuizSubmissionModel.deleteMany({ userId });
-    await UserProgressModel.deleteMany({ userId });
-    await UserAnalyticsModel.deleteMany({ userId });
-    await QuestionModel.deleteMany({ author: userId });
-    await Submission.deleteMany({ studentId: userId });
-    // Optionally, if you need to do something similar for answers
-    await QuestionModel.updateMany(
-      { "answers.author": userId },
-      { $pull: { answers: { author: userId } } }
-    );
-
-    // Finally, delete the user
-    await user.deleteOne();
-
-    res
-      .status(200)
-      .json({ message: "User and all related data deleted successfully" });
+    // Respond with success message
+    res.status(200).json({
+      message: "User soft-deleted. Will be fully removed after 15 days."
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
   }
 });
+
+
 const getSingleUser = asyncHandler(async (req, res) => {
   try {
     const userId = req.params.id; // Get the user ID from the request parameters
@@ -449,6 +488,7 @@ const getSingleUser = asyncHandler(async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 export {
   getSingleUser,
   editUsername,

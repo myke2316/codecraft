@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Editor } from "@monaco-editor/react";
-import { Box, Tabs, Tab, IconButton, useTheme } from "@mui/material";
+import { Box, Tabs, Tab, IconButton, useTheme, Tooltip } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { FaExternalLinkAlt } from "react-icons/fa"; 
 import { setFileContent, removeFile } from "./sandboxSlice";
 
 const PlaygroundCompiler = ({
@@ -17,6 +18,11 @@ const PlaygroundCompiler = ({
   const dispatch = useDispatch();
   const files = useSelector((state) => state.sandboxFiles.files);
   const theme = useTheme();
+  const [leftPaneWidth, setLeftPaneWidth] = useState(50); // Initial width in percentage
+  const containerRef = useRef(null);
+  const resizerRef = useRef(null);
+  const iframeRef = useRef(null);
+  const [iframeContent, setIframeContent] = useState("");
 
   useEffect(() => {
     if (activeFile) {
@@ -30,8 +36,6 @@ const PlaygroundCompiler = ({
 
   useEffect(() => {
     if (runCode) {
-      const iframe = document.getElementById("output");
-
       let htmlCode = files.find((file) => file.name.endsWith(".html"))?.content || "";
       const cssCode = files.find((file) => file.name.endsWith(".css"))?.content || "";
       const jsCode = files.find((file) => file.name.endsWith(".js"))?.content || "";
@@ -51,7 +55,7 @@ const PlaygroundCompiler = ({
         );
       });
 
-      const iframeContent = `
+      const content = `
         <html>
           <head>
             <style>${cssCode}</style>
@@ -61,7 +65,10 @@ const PlaygroundCompiler = ({
             <script>${jsCode}<\/script>
           </body>
         </html>`;
-      iframe.srcdoc = iframeContent;
+      setIframeContent(content);
+      if (iframeRef.current) {
+        iframeRef.current.srcdoc = content;
+      }
     }
   }, [runCode, files]);
 
@@ -145,6 +152,50 @@ const PlaygroundCompiler = ({
     );
   };
 
+  const handleMouseDown = useCallback((e) => {
+    e.preventDefault();
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+    
+    // Disable pointer events on iframe while resizing
+    if (iframeRef.current) {
+      iframeRef.current.style.pointerEvents = "none";
+    }
+  }, []);
+
+  const handleMouseMove = useCallback((e) => {
+    if (containerRef.current) {
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const newLeftPaneWidth = ((e.clientX - containerRect.left) / containerRect.width) * 100;
+      setLeftPaneWidth(Math.min(Math.max(newLeftPaneWidth, 20), 80)); // Limit between 20% and 80%
+    }
+  }, []);
+
+  const handleMouseUp = useCallback(() => {
+    document.removeEventListener("mousemove", handleMouseMove);
+    document.removeEventListener("mouseup", handleMouseUp);
+    
+    // Re-enable pointer events on iframe after resizing
+    if (iframeRef.current) {
+      iframeRef.current.style.pointerEvents = "auto";
+    }
+  }, [handleMouseMove]);
+
+  useEffect(() => {
+    const resizer = resizerRef.current;
+    resizer.addEventListener("mousedown", handleMouseDown);
+
+    return () => {
+      resizer.removeEventListener("mousedown", handleMouseDown);
+    };
+  }, [handleMouseDown]);
+
+  const openInNewTab = () => {
+    const newWindow = window.open();
+    newWindow.document.write(iframeContent);
+    newWindow.document.close();
+  };
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100vh", overflow: "hidden" }}>
       <Box sx={{ bgcolor: theme.palette.background.paper, color: theme.palette.text.primary }}>
@@ -180,12 +231,49 @@ const PlaygroundCompiler = ({
         </Tabs>
       </Box>
 
-      <Box sx={{ display: "flex", flex: 1, overflow: "hidden" }}>
-        <Box sx={{ flex: 1, display: "flex", flexDirection: "column", bgcolor: theme.palette.background.default, overflow: "hidden" }}>
+      <Box 
+        ref={containerRef}
+        sx={{ 
+          display: "flex", 
+          flexGrow: 1, 
+          overflow: "hidden",
+          position: "relative",
+        }}
+      >
+        <Box
+          sx={{
+            width: `${leftPaneWidth}%`,
+            height: "100%",
+            bgcolor: theme.palette.background.default,
+            overflow: "hidden",
+          }}
+        >
           {renderEditorContent()}
         </Box>
-        <Box sx={{ flex: 1, bgcolor: theme.palette.background.paper, position: "relative" }}>
+        <Box
+          ref={resizerRef}
+          sx={{
+            width: "10px",
+            height: "100%",
+            bgcolor: theme.palette.divider,
+            cursor: "col-resize",
+            "&:hover": {
+              bgcolor: theme.palette.primary.main,
+            },
+            zIndex: 1,
+          }}
+        />
+        <Box
+          sx={{
+            width: `${100 - leftPaneWidth}%`,
+            height: "100%",
+            bgcolor: theme.palette.background.paper,
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
           <iframe
+            ref={iframeRef}
             id="output"
             title="Output"
             style={{
@@ -197,6 +285,24 @@ const PlaygroundCompiler = ({
               left: 0,
             }}
           />
+          <Tooltip title="Open in new tab" placement="top">
+            <IconButton
+              onClick={openInNewTab}
+              sx={{
+                position: "absolute",
+                top: theme.spacing(1),
+                right: theme.spacing(1),
+                backgroundColor: theme.palette.background.paper,
+                "&:hover": {
+                  backgroundColor: theme.palette.action.hover,
+                },
+                zIndex: 2,
+              }}
+              aria-label="Open in new tab"
+            >
+              <FaExternalLinkAlt size={20} />
+            </IconButton>
+          </Tooltip>
         </Box>
       </Box>
     </Box>

@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import './utils/cronJobs.js'
 import cookieParser from "cookie-parser";
 import { connectDb } from "./config/database.js";
 import passportUtil from "./utils/passport.js";
@@ -388,85 +389,85 @@ const jsNormalizeCode = (code, addSemicolons = false) => {
 const normalizeOutputJs = (output) => {
   return output?.replace(/\s+/g, ' ').trim().toLowerCase();
 };
-app.post("/submit/javascriptconsole", (req, res) => {
-  const { jsCode, activity } = req.body;
+// app.post("/submit/javascriptconsole", (req, res) => {
+//   const { jsCode, activity } = req.body;
 
-  if (!activity) {
-    return res.status(404).json({ error: "Activity not found" });
-  }
+//   if (!activity) {
+//     return res.status(404).json({ error: "Activity not found" });
+//   }
 
-  const testCases = activity.testCases || [];
-  const difficulty = activity.difficulty || "easy";
-  const pointsForDifficulty = { easy: 10, medium: 15, hard: 20 }[difficulty] || 10;
+//   const testCases = activity.testCases || [];
+//   const difficulty = activity.difficulty || "easy";
+//   const pointsForDifficulty = { easy: 10, medium: 15, hard: 20 }[difficulty] || 10;
 
-  let totalAwardedPoints = 0;
-  let lastTestCase = null;
-  let allTestsPassed = true;
-  let feedback = [];
+//   let totalAwardedPoints = 0;
+//   let lastTestCase = null;
+//   let allTestsPassed = true;
+//   let feedback = [];
 
-  for (const testCase of testCases) {
-    const { output: consoleOutput, error } = runJavaScript(jsCode);
+//   for (const testCase of testCases) {
+//     const { output: consoleOutput, error } = runJavaScript(jsCode);
 
-    if (error) {
-      return res.json({ 
-        error, 
-        passed: false, 
-        totalPoints: 0, 
-        maxPoints: pointsForDifficulty,
-        feedback: [`Error in code execution: ${error}`]
-      });
-    }
+//     if (error) {
+//       return res.json({ 
+//         error, 
+//         passed: false, 
+//         totalPoints: 0, 
+//         maxPoints: pointsForDifficulty,
+//         feedback: [`Error in code execution: ${error}`]
+//       });
+//     }
 
-    const normalizedJsCode = jsNormalizeCode(jsCode, false);
-    let correctCount = 0;
-    let currentIndex = 0;
+//     const normalizedJsCode = jsNormalizeCode(jsCode, false);
+//     let correctCount = 0;
+//     let currentIndex = 0;
 
-    for (const requirement of testCase.required) {
-      const normalizedRequirement = jsNormalizeCode(requirement, false);
-      // Remove semicolons for comparison
-      const cleanRequirement = normalizedRequirement.replace(/;/g, '');
-      const cleanUserCode = normalizedJsCode.replace(/;/g, '');
+//     for (const requirement of testCase.required) {
+//       const normalizedRequirement = jsNormalizeCode(requirement, false);
+//       // Remove semicolons for comparison
+//       const cleanRequirement = normalizedRequirement.replace(/;/g, '');
+//       const cleanUserCode = normalizedJsCode.replace(/;/g, '');
       
-      if (cleanUserCode.includes(cleanRequirement)) {
-        correctCount++;
-        console.log(`${requirement}: CORRECT`);
-      } else {
-        console.log(`${requirement}: INCORRECT or MISSING`);
-      }
-    }
+//       if (cleanUserCode.includes(cleanRequirement)) {
+//         correctCount++;
+//         console.log(`${requirement}: CORRECT`);
+//       } else {
+//         console.log(`${requirement}: INCORRECT or MISSING`);
+//       }
+//     }
 
-    const testCaseScore = (pointsForDifficulty / testCase.required.length) * correctCount;
-    totalAwardedPoints += testCaseScore;
+//     const testCaseScore = (pointsForDifficulty / testCase.required.length) * correctCount;
+//     totalAwardedPoints += testCaseScore;
 
-    // Output comparison
-    const requiredOutput = runJavaScript(testCase.input);
-    const normalizedUserOutput = normalizeOutputJs(consoleOutput);
-    const normalizedRequiredOutput = normalizeOutputJs(requiredOutput.output);
+//     // Output comparison
+//     const requiredOutput = runJavaScript(testCase.input);
+//     const normalizedUserOutput = normalizeOutputJs(consoleOutput);
+//     const normalizedRequiredOutput = normalizeOutputJs(requiredOutput.output);
 
-    if (normalizedUserOutput !== normalizedRequiredOutput) {
-      allTestsPassed = false;
-      console.log(`Output mismatch. Expected: ${requiredOutput.output}, Got: ${consoleOutput}`);
-    } else {
-      console.log("Output matches expected result.");
-    }
+//     if (normalizedUserOutput !== normalizedRequiredOutput) {
+//       allTestsPassed = false;
+//       console.log(`Output mismatch. Expected: ${requiredOutput.output}, Got: ${consoleOutput}`);
+//     } else {
+//       console.log("Output matches expected result.");
+//     }
 
-    lastTestCase = testCase;
-  }
+//     lastTestCase = testCase;
+//   }
 
-  // const passed = allTestsPassed && totalAwardedPoints >= pointsForDifficulty / 2;
-  const passed =  totalAwardedPoints >= pointsForDifficulty / 2;
-  const finalUserOutput = runJavaScript(jsCode).output;
-  const finalExpectedOutput = lastTestCase ? runJavaScript(lastTestCase.input).output : "";
+//   // const passed = allTestsPassed && totalAwardedPoints >= pointsForDifficulty / 2;
+//   const passed =  totalAwardedPoints >= pointsForDifficulty / 2;
+//   const finalUserOutput = runJavaScript(jsCode).output;
+//   const finalExpectedOutput = lastTestCase ? runJavaScript(lastTestCase.input).output : "";
 
-  res.json({
-    totalPoints: Math.round(totalAwardedPoints), // Round to nearest integer
-    passed,
-    maxPoints: pointsForDifficulty,
-    expectedOutput: finalExpectedOutput,
-    userOutput: finalUserOutput,language:"javascriptconsole"
+//   res.json({
+//     totalPoints: Math.round(totalAwardedPoints), // Round to nearest integer
+//     passed,
+//     maxPoints: pointsForDifficulty,
+//     expectedOutput: finalExpectedOutput,
+//     userOutput: finalUserOutput,language:"javascriptconsole"
     
-  });
-});
+//   });
+// });
 
 
 
@@ -531,6 +532,107 @@ app.post("/submit/javascriptconsole", (req, res) => {
 //   return code.replace(/\b(?!document\.|window\.|getElementById|querySelector|addEventListener\b)\w+\b/g, match => match.toLowerCase());
 // };
 
+app.post("/submit/javascriptconsole", (req, res) => {
+  const { jsCode, activity } = req.body;
+
+  if (!activity) {
+    return res.status(404).json({ error: "Activity not found" });
+  }
+
+  const testCases = activity.testCases || [];
+  const difficulty = activity.difficulty || "easy";
+  const pointsForDifficulty = { easy: 10, medium: 15, hard: 20 }[difficulty] || 10;
+  
+  let totalAwardedPoints = 0;
+  let lastTestCase = null;
+  let allTestsPassed = true;
+  let feedback = []; // Initialize feedback array
+
+  for (const testCase of testCases) {
+    const { output: consoleOutput, error } = runJavaScript(jsCode);
+
+    if (error) {
+      return res.json({ 
+        error, 
+        passed: false, 
+        totalPoints: 0, 
+        maxPoints: pointsForDifficulty,
+        feedback: [`Error in code execution: ${error}`]
+      });
+    }
+
+    const normalizedJsCode = jsNormalizeCode(jsCode, false);
+    let correctCount = 0;
+    let currentIndex = 0;
+
+    // Loop through requirements and corresponding testCaseSentences
+    for (let i = 0; i < testCase.required.length; i++) {
+      const requirement = testCase.required[i];
+      const testCaseSentence = testCase.testCaseSentences[i]; // Get the corresponding sentence for this test case
+
+      const normalizedRequirement = jsNormalizeCode(requirement, false);
+      const cleanRequirement = normalizedRequirement.replace(/;/g, '');
+      const cleanUserCode = normalizedJsCode.replace(/;/g, '');
+
+      if (cleanUserCode.includes(cleanRequirement)) {
+        correctCount++;
+        feedback.push({
+          index: i,
+          sentence: testCaseSentence,
+          status: "correct",
+        });
+        console.log(`${requirement}: CORRECT`);
+      } else {
+        feedback.push({
+          index: i,
+          sentence: testCaseSentence,
+          status: "incorrect",
+        });
+        console.log(`${requirement}: INCORRECT or MISSING`);
+      }
+    }
+
+    const testCaseScore = (pointsForDifficulty / testCase.required.length) * correctCount;
+    totalAwardedPoints += testCaseScore;
+
+    // Output comparison
+    const requiredOutput = runJavaScript(testCase.input);
+    const normalizedUserOutput = normalizeOutputJs(consoleOutput);
+    const normalizedRequiredOutput = normalizeOutputJs(requiredOutput.output);
+
+    if (normalizedUserOutput !== normalizedRequiredOutput) {
+      allTestsPassed = false;
+      feedback.push({
+        index: testCase.required.length, // Output comparison feedback comes after all requirements
+        sentence: `Expected output: ${requiredOutput.output}, Got: ${consoleOutput}`,
+        status: "incorrect",
+      });
+      console.log(`Output mismatch. Expected: ${requiredOutput.output}, Got: ${consoleOutput}`);
+    } else {
+      feedback.push({
+        index: testCase.required.length,
+        sentence: `Output matches expected result.`,
+        status: "correct",
+      });
+      console.log("Output matches expected result.");
+    }
+
+    lastTestCase = testCase;
+  }
+
+  const passed = totalAwardedPoints >= pointsForDifficulty / 2;
+  const finalUserOutput = runJavaScript(jsCode).output;
+  const finalExpectedOutput = lastTestCase ? runJavaScript(lastTestCase.input).output : "";
+
+  res.json({
+    totalPoints: Math.round(totalAwardedPoints), // Round to nearest integer
+    passed,
+    maxPoints: pointsForDifficulty,
+    expectedOutput: finalExpectedOutput,
+    userOutput: finalUserOutput,
+    feedback, // Include feedback in the response
+  });
+});
 
 const jsNormalizeCodeWeb = (code, addSemicolons = false) => {
   // Helper function to preserve whitespace in string literals
