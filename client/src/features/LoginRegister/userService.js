@@ -9,6 +9,12 @@ export const userService = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    undeleteUser: builder.mutation({
+      query: (userId) => ({
+        url: `${USER_URL}/undeleteUser/${userId}`,
+        method: "PATCH",
+      }),
+    }),
     getAllUser: builder.mutation({
       query: () => ({
         url: `${USER_URL}/getAllUser`,
@@ -80,6 +86,7 @@ export const userService = apiSlice.injectEndpoints({
 });
 
 export const {
+  useUndeleteUserMutation,
   useGetUserMutation,
   useEditUsernameMutation,
   useApproveTeacherMutation,

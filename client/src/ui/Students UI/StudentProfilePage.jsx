@@ -92,7 +92,8 @@ function StudentProfilePage() {
                 fontWeight="bold"
                 gutterBottom
               >
-                {user.name || user.username || user.given_name}
+                {user.username || (user.userData && user.userData.length > 0 && user.userData[0].username)}
+
               </Typography>
 
               <Typography variant="h6" color="textSecondary" gutterBottom>

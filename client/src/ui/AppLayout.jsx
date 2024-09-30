@@ -1,6 +1,6 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import NavLayout from "./NavBar/NavLayout";
-import Header from "./Header";
+
 import FooterLayout from "./Footer/FooterLayout";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

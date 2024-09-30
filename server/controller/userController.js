@@ -100,6 +100,7 @@ const loginUser = asyncHandler(async (req, res) => {
       email: user.email,
       role: user.role,
       approved: user.approved,
+      isDeleted : user.isDeleted, deleteExpiresAt : user.deleteExpiresAt
     });
   } else {
     res.status(401).json({ error: "Invalid email or password!" });
@@ -357,25 +358,16 @@ const resetPassword = asyncHandler(async (req, res) => {
 });
 
 
-// const getAllUsers = asyncHandler(async (req, res) => {
-//   try {
-//     const users = await UserModel.find().select("-password"); // Exclude password from the response
-//     res.status(200).json(users);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// });
-
 const getAllUsers = asyncHandler(async (req, res) => {
   try {
-    // Find all users who are not deleted (isDeleted: false or undefined)
-    const users = await UserModel.find({ isDeleted: { $ne: true } }).select("-password");
-    
+    const users = await UserModel.find().select("-password"); // Exclude password from the response
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
+
+
 
 // const deleteUser = asyncHandler(async (req, res) => {
 //   const { userId } = req.params;
@@ -473,10 +465,41 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
+const undeleteUser = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    // Find the user by ID
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Check if the user is soft deleted
+    if (!user.isDeleted) {
+      return res.status(400).json({ message: "User is not soft-deleted" });
+    }
+
+    // Restore the user (unset isDeleted, deletedAt, and deleteExpiresAt)
+    user.isDeleted = false; // Mark the user as active again
+    user.deletedAt = null; // Clear the deletion date
+    user.deleteExpiresAt = null; // Clear the expiration date for deletion
+    await user.save(); // Save the changes
+
+    // Respond with success message
+    res.status(200).json({
+      message: "User successfully restored."
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 const getSingleUser = asyncHandler(async (req, res) => {
   try {
-    const userId = req.params.id; // Get the user ID from the request parameters
+    const userId = req.params.userId; // Get the user ID from the request parameters
     const user = await UserModel.find({_id:userId}); // Exclude password from the response
 
     if (!user) {
@@ -490,6 +513,7 @@ const getSingleUser = asyncHandler(async (req, res) => {
 });
 
 export {
+  undeleteUser,
   getSingleUser,
   editUsername,
   deleteUser,

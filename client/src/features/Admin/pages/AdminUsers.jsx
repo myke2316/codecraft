@@ -25,39 +25,37 @@ import {
 import {
   useDeleteUserMutation,
   useGetAllUserMutation,
+  useUndeleteUserMutation, // Import the undelete user mutation
 } from "../../LoginRegister/userService";
 import { toast } from "react-toastify";
 
 const AdminUsers = () => {
-  const [users, setUsers] = useState([]);
-  const [roleFilter, setRoleFilter] = useState("all"); // State to hold the filter selection
-  const [searchQuery, setSearchQuery] = useState(""); // State to hold the search query
+  const [users, setUsers] = useState([]); // Active users
+  const [deletedUsers, setDeletedUsers] = useState([]); // Deleted users
+  const [roleFilter, setRoleFilter] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const [getAllUser] = useGetAllUserMutation();
-  const [open, setOpen] = useState(false); // State to control dialog visibility
-  const [selectedUser, setSelectedUser] = useState(null); // State to hold the user selected for deletion
+  const [open, setOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [userDelete, { isLoading: isLoadingDeleteUser }] = useDeleteUserMutation();
+  const [userUndelete, { isLoading: isLoadingUndeleteUser }] = useUndeleteUserMutation(); // Use undelete mutation
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const usersResponse = await getAllUser();
-        // Filter users based on the selected role
-        const filteredUsers = usersResponse.data.filter((user) => {
-          if (roleFilter === "all") {
-            return user.role !== "admin"; // Exclude admins when 'all' is selected
-          }
-          return user.role === roleFilter;
-        });
-        setUsers(filteredUsers);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
+    fetchUsers();
+  }, [roleFilter]);
 
-    fetchData();
-  }, [getAllUser, roleFilter]);
+  const fetchUsers = async () => {
+    try {
+      const usersResponse = await getAllUser();
+      const activeUsers = usersResponse.data.filter((user) => !user.isDeleted); // Filter out deleted users
+      const removedUsers = usersResponse.data.filter((user) => user.isDeleted); // Filter only deleted users
 
-  const [userDelete, { isLoading: isLoadingDeleteUser }] =
-    useDeleteUserMutation();
+      setUsers(activeUsers); // Set active users
+      setDeletedUsers(removedUsers); // Set deleted users
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
 
   const handleOpenDialog = (user) => {
     setSelectedUser(user);
@@ -72,15 +70,38 @@ const AdminUsers = () => {
   const handleRemoveUser = async () => {
     try {
       if (selectedUser) {
-        console.log(selectedUser._id);
-        await userDelete(selectedUser._id);
+        await userDelete(selectedUser._id).unwrap(); // Use unwrap to get the result directly
         toast.success("Successfully deleted user!");
-        setUsers(users.filter((user) => user._id !== selectedUser._id));
+        
+        // Update local state to reflect the change
+        setUsers(users.filter((user) => user._id !== selectedUser._id)); // Remove from active users
+        setDeletedUsers((prevDeletedUsers) => [
+          ...prevDeletedUsers,
+          { ...selectedUser, isDeleted: true }, // Add to deleted users
+        ]);
+
         handleCloseDialog();
       }
     } catch (error) {
       console.error("Error deleting user:", error);
       toast.error("Failed to delete user.");
+    }
+  };
+
+  const handleRestoreUser = async (userId) => {
+    try {
+      await userUndelete(userId).unwrap();
+      toast.success("User restored successfully!");
+
+      // Update local state to reflect the restoration
+      const restoredUser = deletedUsers.find((user) => user._id === userId);
+      setDeletedUsers(deletedUsers.filter((user) => user._id !== userId)); // Remove from deleted users
+      setUsers((prevUsers) => [...prevUsers, { ...restoredUser, isDeleted: false }]); // Add back to active users
+
+      fetchUsers(); // Optionally re-fetch if necessary
+    } catch (error) {
+      console.error("Error restoring user:", error);
+      toast.error("Failed to restore user.");
     }
   };
 
@@ -92,10 +113,29 @@ const AdminUsers = () => {
     setSearchQuery(event.target.value.toLowerCase());
   };
 
-  // Filter users based on the search query
   const filteredUsers = users.filter((user) =>
     user.username.toLowerCase().includes(searchQuery)
   );
+
+  const filteredDeletedUsers = deletedUsers.filter((user) =>
+    user.username.toLowerCase().includes(searchQuery)
+  );
+
+  // Function to calculate remaining time until deletion
+  const getRemainingTime = (deleteExpiresAt) => {
+    const now = new Date();
+    const expiresAt = new Date(deleteExpiresAt);
+    const timeDiff = expiresAt - now;
+
+    if (timeDiff <= 0) return "Expired";
+
+    const seconds = Math.floor((timeDiff / 1000) % 60);
+    const minutes = Math.floor((timeDiff / 1000 / 60) % 60);
+    const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  };
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>
@@ -134,6 +174,9 @@ const AdminUsers = () => {
       </Grid>
 
       {/* User Table */}
+      <Typography variant="h5" gutterBottom>
+        Active Users
+      </Typography>
       <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: 3 }}>
         <Table>
           <TableHead>
@@ -175,19 +218,66 @@ const AdminUsers = () => {
         </Table>
       </TableContainer>
 
+      {/* Deleted Users Section */}
+      <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
+        Deleted Users
+      </Typography>
+      <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: 3 }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell>Username</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Role</TableCell>
+              <TableCell>Time Until Deletion</TableCell> {/* New column for time remaining */}
+              <TableCell align="center">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {filteredDeletedUsers.length > 0 ? (
+              filteredDeletedUsers.map((user) => (
+                <TableRow key={user._id}>
+                  <TableCell>{user._id}</TableCell>
+                  <TableCell>{user.username}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.role}</TableCell>
+                  <TableCell>
+                    {getRemainingTime(user.deleteExpiresAt)} {/* Calculate remaining time */}
+                  </TableCell>
+                  <TableCell align="center">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleRestoreUser(user._id)} // Restore user
+                      disabled={isLoadingUndeleteUser}
+                    >
+                      Restore
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={6} align="center">
+                  No deleted users found.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
       {/* Confirmation Dialog */}
       <Dialog
         open={open}
         onClose={handleCloseDialog}
         aria-labelledby="confirm-delete-dialog"
       >
-        <DialogTitle id="confirm-delete-dialog">
-          Confirm Delete
-        </DialogTitle>
+        <DialogTitle id="confirm-delete-dialog">Confirm Delete</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this user? This action cannot be
-            undone, and all associated data will be permanently deleted.
+            Are you sure you want to delete this user? This action cannot be undone, and all associated data will be permanently deleted.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

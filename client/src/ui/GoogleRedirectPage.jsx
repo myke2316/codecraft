@@ -42,6 +42,7 @@ function GoogleRedirect() {
     
       const { user, _id, message, isNewUser } = res.data;
       const userId = _id
+      console.log(userId)
       const userData = await getUserApi(userId).unwrap(); 
       console.log(userData)
       dispatch(

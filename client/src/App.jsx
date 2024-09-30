@@ -15,7 +15,6 @@ import CreateClassForm from "./features/Teacher/CreateClassForm";
 import Profile from "./pages/Profile";
 import JoinClassForm from "./features/Student/JoinClassForm";
 import NormalRedirect from "./features/LoginRegister/NormalRedirect";
-import ClassLayout from "./features/Class/ClassLayout";
 import ClassHome from "./features/Class/ClassHome";
 import AuthorizedHome from "./features/Authorized/AuthorizedHome";
 import CourseContent from "./features/Course/CourseContent";
@@ -82,7 +81,7 @@ function App() {
           <Route path="" element={<PrivateRoutes />}></Route>
         </Route>
         {/* student */}
-        <Route element={<ClassLayout />}>
+        <Route element={<AuthorizedLayout />}>
           <Route path="" element={<PrivateRoutes />}>
             <Route
               element={<StudentClassLayout />}
