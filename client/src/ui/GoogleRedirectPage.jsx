@@ -99,11 +99,14 @@ function GoogleRedirect() {
         dispatch(setClass([]));
         // toast.error("No classess fetched");
       }
+
+      console.log(classData)
+
       console.log(userDetails);
       if (userDetails.role === "teacher") {
         navigate("/classes");
       } else {
-        navigate(`/${userDetails._id}`);
+        navigate(`/studentClass/${classData[0]._id}/classHome`);
       }
     } catch (error) {
       console.error("Error fetching class:", error);

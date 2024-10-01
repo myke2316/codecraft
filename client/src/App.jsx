@@ -15,7 +15,6 @@ import CreateClassForm from "./features/Teacher/CreateClassForm";
 import Profile from "./pages/Profile";
 import JoinClassForm from "./features/Student/JoinClassForm";
 import NormalRedirect from "./features/LoginRegister/NormalRedirect";
-import ClassHome from "./features/Class/ClassHome";
 import AuthorizedHome from "./features/Authorized/AuthorizedHome";
 import CourseContent from "./features/Course/CourseContent";
 import CourseLayout from "./features/Course/CourseLayout";
@@ -61,6 +60,7 @@ import TeacherViewAssignment from "./features/Teacher/TeacherViewAssignment";
 import AnswerAssignmentPage from "./features/AssignmentAnswer/AnswerAssignmentPage";
 import TeacherAssignmentGrade from "./features/Teacher/TeacherAssignmentGrade";
 import CertificationPage from "./features/Course/CertificationPage";
+import ClassStudentHome from "./features/Class/ClassStudentHome";
 
 function App() {
   return (
@@ -88,7 +88,7 @@ function App() {
               path="/studentClass/:classId/*"
             >
               {" "}
-              <Route path="classHome" element={<ClassHome />} />
+              <Route path="classHome" element={<ClassStudentHome />} />
               <Route path="assignment" element={<StudentAssignment />} />
               <Route
                 path="assignment/:assignmentId/view"

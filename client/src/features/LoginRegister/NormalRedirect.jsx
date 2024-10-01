@@ -30,7 +30,7 @@ function NormalRedirect() {
 
   const [fetchClass, { isLoading }] = useFetchClassMutation();
   const userDetails = useSelector((state) => state.user.userDetails);
-
+  
   async function getClass(role) {
     try {
       const userDetails = JSON.parse(localStorage.getItem("userDetails"));
@@ -56,7 +56,7 @@ function NormalRedirect() {
         navigate("/classes")
       }else{
 
-        navigate(`/${userDetails._id}`);
+        navigate(`/studentClass/${classData[0]._id}/classHome`);
       }
     } catch (error) {
       console.error("Error fetching class:", error);

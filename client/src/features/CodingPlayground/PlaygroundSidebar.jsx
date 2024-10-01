@@ -62,13 +62,15 @@ const PlaygroundSidebar = ({
   const [open, setOpen] = useState(true);
   const username = userInfo.username || userInfo.name;
   const navigate = useNavigate();
-
+  const classData = useSelector((state) => state.class.class);
   const handleCreateFile = () => {
     if (!newFileName.trim()) return;
     const fileExtension = newFileName.split(".").pop();
     const validExtensions = ["html", "css", "js"];
     if (!validExtensions.includes(fileExtension)) {
-      alert("Invalid file extension. Please create a .html, .css, or .js file.");
+      alert(
+        "Invalid file extension. Please create a .html, .css, or .js file."
+      );
       return;
     }
 
@@ -111,11 +113,16 @@ const PlaygroundSidebar = ({
           const zip = await JSZip.loadAsync(file);
           zip.forEach(async (relativePath, zipEntry) => {
             if (!zipEntry.dir) {
-              const zipEntryExtension = zipEntry.name.split(".").pop().toLowerCase();
+              const zipEntryExtension = zipEntry.name
+                .split(".")
+                .pop()
+                .toLowerCase();
               if (["html", "css", "js"].includes(zipEntryExtension)) {
                 const content = await zipEntry.async("text");
                 handleFileImport(zipEntry.name, content);
-              } else if (["png", "jpg", "jpeg", "gif"].includes(zipEntryExtension)) {
+              } else if (
+                ["png", "jpg", "jpeg", "gif"].includes(zipEntryExtension)
+              ) {
                 const blob = await zipEntry.async("blob");
                 const reader = new FileReader();
                 reader.onloadend = () => {
@@ -141,7 +148,9 @@ const PlaygroundSidebar = ({
         };
         reader.readAsDataURL(file);
       } else {
-        alert("Unsupported file type. Please upload .html, .css, .js files, or images.");
+        alert(
+          "Unsupported file type. Please upload .html, .css, .js files, or images."
+        );
       }
     }
 
@@ -202,10 +211,10 @@ const PlaygroundSidebar = ({
           position: "fixed",
           top: 0,
           left: 0,
-          backgroundColor: mode === 'light' ? '#ffffff' : '#1e1e1e',
+          backgroundColor: mode === "light" ? "#ffffff" : "#1e1e1e",
           padding: "16px",
           zIndex: 1200,
-          color: mode === 'light' ? '#333333' : '#ecf0f1',
+          color: mode === "light" ? "#333333" : "#ecf0f1",
           boxShadow: "5px 0 15px rgba(0, 0, 0, 0.3)",
         }}
       >
@@ -215,37 +224,49 @@ const PlaygroundSidebar = ({
               variant="outlined"
               startIcon={<Home />}
               sx={{
-                color: mode === 'light' ? '#333333' : '#ecf0f1',
-                borderColor: mode === 'light' ? '#333333' : '#ecf0f1',
+                color: mode === "light" ? "#333333" : "#ecf0f1",
+                borderColor: mode === "light" ? "#333333" : "#ecf0f1",
                 "&:hover": {
-                  backgroundColor: mode === 'light' ? '#f0f0f0' : '#34495e',
-                  borderColor: mode === 'light' ? '#1976d2' : '#1abc9c',
+                  backgroundColor: mode === "light" ? "#f0f0f0" : "#34495e",
+                  borderColor: mode === "light" ? "#1976d2" : "#1abc9c",
                 },
               }}
-              onClick={() => navigate("/")}
+              onClick={() =>
+                navigate(`/studentClass/${classData._id}/classHome`)
+              }
             >
               Home
             </Button>
           </Box>
-          <Typography variant="h5" sx={{ color: mode === 'light' ? '#333333' : '#ecf0f1', fontWeight: "light" }}>
-    <span style={{ color: '	#928fce' }}>&lt;</span>
-    CodeCraft
-    <span style={{ color: '	#928fce' }}>/&gt;</span>
-</Typography>
+          <Typography
+            variant="h5"
+            sx={{
+              color: mode === "light" ? "#333333" : "#ecf0f1",
+              fontWeight: "light",
+            }}
+          >
+            <span style={{ color: "	#928fce" }}>&lt;</span>
+            CodeCraft
+            <span style={{ color: "	#928fce" }}>/&gt;</span>
+          </Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "space-around", mb: 2 }}>
           <Tooltip title="Create New File">
             <IconButton
               color="primary"
               onClick={() => setShowInput(true)}
-              sx={{ color: mode === 'light' ? '#1976d2' : '#1abc9c' }}
+              sx={{ color: mode === "light" ? "#1976d2" : "#1abc9c" }}
             >
               <FaPlus />
             </IconButton>
           </Tooltip>
           <label htmlFor="file-upload" style={{ cursor: "pointer" }}>
             <Tooltip title="Import Files">
-              <IconButton color="primary" component="span" sx={{ color: mode === 'light' ? '#1976d2' : '#928fce' }}>
+              <IconButton
+                color="primary"
+                component="span"
+                sx={{ color: mode === "light" ? "#1976d2" : "#928fce" }}
+              >
                 <FaFileImport />
               </IconButton>
             </Tooltip>
@@ -260,12 +281,16 @@ const PlaygroundSidebar = ({
             onChange={handleFileUpload}
           />
           <Tooltip title="Export Files">
-            <IconButton color="primary" onClick={handleExportFiles} sx={{ color: mode === 'light' ? '#1976d2' : '#e67e22' }}>
+            <IconButton
+              color="primary"
+              onClick={handleExportFiles}
+              sx={{ color: mode === "light" ? "#1976d2" : "#e67e22" }}
+            >
               <FaFileExport />
             </IconButton>
           </Tooltip>
         </Box>
-        <Divider sx={{ bgcolor: mode === 'light' ? '#e0e0e0' : '#95a5a6' }} />
+        <Divider sx={{ bgcolor: mode === "light" ? "#e0e0e0" : "#95a5a6" }} />
         {showInput && (
           <Box sx={{ mb: 2 }}>
             <TextField
@@ -277,20 +302,28 @@ const PlaygroundSidebar = ({
               size="small"
               helperText=".html, .css, or .js only"
               sx={{
-                bgcolor: mode === 'light' ? '#f5f5f5' : '#34495e',
-                color: mode === 'light' ? '#333333' : '#ecf0f1',
-                input: { color: mode === 'light' ? '#333333' : '#ecf0f1' },
-                label: { color: mode === 'light' ? '#555555' : '#95a5a6' },
+                bgcolor: mode === "light" ? "#f5f5f5" : "#34495e",
+                color: mode === "light" ? "#333333" : "#ecf0f1",
+                input: { color: mode === "light" ? "#333333" : "#ecf0f1" },
+                label: { color: mode === "light" ? "#555555" : "#95a5a6" },
               }}
             />
-            <Button fullWidth variant="contained" onClick={handleCreateFile} sx={{ mt: 1 }}>
+            <Button
+              fullWidth
+              variant="contained"
+              onClick={handleCreateFile}
+              sx={{ mt: 1 }}
+            >
               Create File
             </Button>
           </Box>
         )}
         <List sx={{ flexGrow: 1 }}>
           <ListItemButton onClick={() => setOpen(!open)}>
-            <ListItemText primary="Files" sx={{ color: mode === 'light' ? '#333333' : '#ecf0f1' }} />
+            <ListItemText
+              primary="Files"
+              sx={{ color: mode === "light" ? "#333333" : "#ecf0f1" }}
+            />
             {open ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={open} timeout="auto" unmountOnExit>
@@ -299,14 +332,20 @@ const PlaygroundSidebar = ({
                 <ListItemButton
                   sx={{
                     pl: 4,
-                    bgcolor: index === fileToDeleteIndex 
-                      ? (mode === 'light' ? '#e0e0e0' : '#34495e')
-                      : 'transparent',
+                    bgcolor:
+                      index === fileToDeleteIndex
+                        ? mode === "light"
+                          ? "#e0e0e0"
+                          : "#34495e"
+                        : "transparent",
                   }}
                   key={index}
                   onClick={() => handleFileClick(file)}
                 >
-                  <ListItemText primary={file.name} sx={{ color: mode === 'light' ? '#333333' : '#ecf0f1' }} />
+                  <ListItemText
+                    primary={file.name}
+                    sx={{ color: mode === "light" ? "#333333" : "#ecf0f1" }}
+                  />
                   <IconButton
                     color="error"
                     onClick={() => {
@@ -314,19 +353,26 @@ const PlaygroundSidebar = ({
                       setOpenConfirmDialog(true);
                     }}
                   >
-                    <Delete sx={{ color: mode === 'light' ? '#d32f2f' : '#e74c3c' }} />
+                    <Delete
+                      sx={{ color: mode === "light" ? "#d32f2f" : "#e74c3c" }}
+                    />
                   </IconButton>
                 </ListItemButton>
               ))}
             </List>
           </Collapse>
         </List>
-        <Divider sx={{ bgcolor: mode === 'light' ? '#e0e0e0' : '#95a5a6', my: 2 }} />
+        <Divider
+          sx={{ bgcolor: mode === "light" ? "#e0e0e0" : "#95a5a6", my: 2 }}
+        />
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
           <Button
             variant="contained"
             startIcon={<Save />}
-            sx={{ bgcolor: mode === 'light' ? '#1976d2' : '#6e61ab', color: mode === 'light' ? '#ffffff' : '#ecf0f1' }}
+            sx={{
+              bgcolor: mode === "light" ? "#1976d2" : "#6e61ab",
+              color: mode === "light" ? "#ffffff" : "#ecf0f1",
+            }}
             onClick={handleExportFiles}
           >
             Save
@@ -334,7 +380,10 @@ const PlaygroundSidebar = ({
           <Button
             variant="outlined"
             startIcon={<PlayArrow />}
-            sx={{ color: mode === 'light' ? '#1976d2' : '#aab1e5', borderColor: mode === 'light' ? '#1976d2' : '#aab1e5' }}
+            sx={{
+              color: mode === "light" ? "#1976d2" : "#aab1e5",
+              borderColor: mode === "light" ? "#1976d2" : "#aab1e5",
+            }}
             onClick={handleRunCode}
           >
             Run Code
@@ -344,13 +393,13 @@ const PlaygroundSidebar = ({
           <FormControlLabel
             control={
               <Switch
-                checked={mode === 'dark'}
+                checked={mode === "dark"}
                 onChange={toggleTheme}
                 icon={<Brightness7 />}
                 checkedIcon={<Brightness4 />}
               />
             }
-            label={mode === 'dark' ? "Dark Mode" : "Light Mode"}
+            label={mode === "dark" ? "Dark Mode" : "Light Mode"}
           />
         </Box>
       </motion.div>
@@ -362,14 +411,19 @@ const PlaygroundSidebar = ({
           left: drawerOpen ? 240 : 0,
           zIndex: 1300,
           transform: "translateY(-50%)",
-          color: mode === 'light' ? '#333333' : '#ecf0f1',
-          backgroundColor: mode === 'light' ? '#f0f0f0' : '#3f0081',
-          "&:hover": { backgroundColor: mode === 'light' ? '#e0e0e0' : '#aab1e5' },
+          color: mode === "light" ? "#333333" : "#ecf0f1",
+          backgroundColor: mode === "light" ? "#f0f0f0" : "#3f0081",
+          "&:hover": {
+            backgroundColor: mode === "light" ? "#e0e0e0" : "#aab1e5",
+          },
         }}
       >
         {drawerOpen ? <ArrowBackIos /> : <ArrowForwardIos />}
       </IconButton>
-      <Dialog open={openConfirmDialog} onClose={() => setOpenConfirmDialog(false)}>
+      <Dialog
+        open={openConfirmDialog}
+        onClose={() => setOpenConfirmDialog(false)}
+      >
         <DialogTitle>Confirm Deletion</DialogTitle>
         <DialogContent>
           <Typography>Are you sure you want to delete this file?</Typography>
@@ -378,7 +432,10 @@ const PlaygroundSidebar = ({
           <Button onClick={() => setOpenConfirmDialog(false)} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleRemoveFile} sx={{ color: mode === 'light' ? '#d32f2f' : '#e74c3c' }}>
+          <Button
+            onClick={handleRemoveFile}
+            sx={{ color: mode === "light" ? "#d32f2f" : "#e74c3c" }}
+          >
             Delete
           </Button>
         </DialogActions>

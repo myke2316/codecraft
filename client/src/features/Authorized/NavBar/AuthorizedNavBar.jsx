@@ -18,6 +18,7 @@ import {
   Divider,
   Switch,
   FormControlLabel,
+  Avatar,
 } from '@mui/material'
 import { 
   Home as HomeIcon,
@@ -38,7 +39,7 @@ const drawerVariants = {
   closed: { width: 60, transition: { duration: 0.3 } },
 }
 
-function AuthorizedSidebar({ open, setOpen, toggleTheme, mode }) {
+export default function AuthorizedSidebar({ open, setOpen, toggleTheme, mode }) {
   const userInfo = useSelector((state) => state.user.userDetails)
   const userId = userInfo._id
   const dispatch = useDispatch()
@@ -65,12 +66,14 @@ function AuthorizedSidebar({ open, setOpen, toggleTheme, mode }) {
     }
   }
 
+  const classData = useSelector(state => state.class.class)
+
   const getMenuItems = () => {
     let items = []
 
     if (userInfo.role === "student" && !classes) {
       items = [
-        { text: 'Home', icon: <HomeIcon />, link: '/' },
+        { text: 'Home', icon: <HomeIcon />, link: `/studentClass/${classData._id}/classHome` },
         { text: 'QnA', icon: <QnAIcon />, link: `/qna/${userId}`, onClick: () => navigate(`/qna/${userId}`) },
         { text: 'Playground', icon: <PlaygroundIcon />, link: `/playground/${userId}` },
       ]
@@ -119,7 +122,7 @@ function AuthorizedSidebar({ open, setOpen, toggleTheme, mode }) {
             backgroundColor: mode === 'light' ? '#ffffff' : '#1e1e1e',
             color: mode === 'light' ? '#333333' : '#ecf0f1',
             borderRight: '1px solid',
-            borderColor: mode === 'light' ? '#e0e0e0' : '#95a5a6',
+            borderColor: mode === 'light' ? '#e0e0e0' : '#1e1e1e',
             boxShadow: "5px 0 15px rgba(0, 0, 0, 0.3)",
             overflowX: 'hidden',
             transition: theme.transitions.create('width', {
@@ -140,12 +143,40 @@ function AuthorizedSidebar({ open, setOpen, toggleTheme, mode }) {
               transition: 'font-size 0.3s ease',
             }}
           >
-            <span style={{ color: '#928fce' }}>&lt;</span>
+            <span className='font-medium' style={{ color: mode === 'light' ? '#3f0081' : '#928fce' }}>&lt;</span>
             {open ? 'CodeCraft' : ''}
-            <span style={{ color: '#928fce' }}>/&gt;</span>
+            <span className='font-medium' style={{ color: mode === 'light' ? '#3f0081' : '#928fce' }}>/&gt;</span>
           </Typography>
         </Box>
-        <Divider sx={{ bgcolor: mode === 'light' ? '#e0e0e0' : '#95a5a6' }} />
+        <Divider sx={{ bgcolor: mode === 'light' ? '#fff2ff' : '#000' }} />
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Avatar
+                  src={userInfo.picture}
+                  alt={userInfo.username}
+                  sx={{ width: 60, height: 60, mb: 1 }}
+                />
+                <Box sx={{ textAlign: 'center' }}>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+                  {userInfo.username || (userInfo.userData && userInfo.userData.length > 0 && userInfo.userData[0].username)}
+
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: mode === 'light' ? 'text.secondary' : 'text.primary' }}>
+                    {userInfo.role}
+                  </Typography>
+                </Box>
+              </Box>
+              <Divider sx={{ bgcolor: mode === 'light' ? '#e0e0e0' : '#000' }} />
+            </motion.div>
+          )}
+        </AnimatePresence>
         <List>
           {menuItems.map((item, index) => (
             <ListItemButton
@@ -169,7 +200,7 @@ function AuthorizedSidebar({ open, setOpen, toggleTheme, mode }) {
                   minWidth: 0,
                   mr: open ? 3 : 'auto',
                   justifyContent: 'center',
-                  color: mode === 'light' ? '#1976d2' : '#1abc9c',
+                  color: mode === 'light' ? '#3f0081' : '#928fce',
                   transition: 'all 0.3s ease',
                 }}
               >
@@ -197,7 +228,7 @@ function AuthorizedSidebar({ open, setOpen, toggleTheme, mode }) {
           ))}
         </List>
         <Box sx={{ flexGrow: 1 }} />
-        <Divider sx={{ bgcolor: mode === 'light' ? '#e0e0e0' : '#95a5a6' }} />
+        <Divider sx={{ bgcolor: mode === 'light' ? '#e0e0e0' : '#000' }} />
         <Box sx={{ p: 2 }}>
           <FormControlLabel
             control={
@@ -224,8 +255,8 @@ function AuthorizedSidebar({ open, setOpen, toggleTheme, mode }) {
           top: isVerySmall ? '90%' : '50%',
           transform: 'translateY(-50%)',
           zIndex: theme.zIndex.drawer + 1,
-          backgroundColor: mode === 'light' ? '#f0f0f0' : '#3f0081',
-          color: mode === 'light' ? '#333333' : '#ecf0f1',
+          backgroundColor: mode === 'light' ? '#6e61ab' : '#3f0081',
+          color: mode === 'light' ? '#ecf0f1' : '#ecf0f1',
           '&:hover': {
             backgroundColor: mode === 'light' ? '#e0e0e0' : '#aab1e5',
           },
@@ -237,5 +268,3 @@ function AuthorizedSidebar({ open, setOpen, toggleTheme, mode }) {
     </motion.div>
   )
 }
-
-export default AuthorizedSidebar
