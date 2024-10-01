@@ -67,7 +67,7 @@ function AuthorizedLayout() {
             width: open ? "calc(100% - 240px)" : "calc(100% - 60px)",
           }}
         >
-          <Box sx={{ padding: 3 }}>
+          <Box>
             <Outlet />
           </Box>
           <ToastContainer />

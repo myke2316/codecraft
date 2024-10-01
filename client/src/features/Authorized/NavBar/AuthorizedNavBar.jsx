@@ -255,7 +255,7 @@ export default function AuthorizedSidebar({ open, setOpen, toggleTheme, mode }) 
           top: isVerySmall ? '90%' : '50%',
           transform: 'translateY(-50%)',
           zIndex: theme.zIndex.drawer + 1,
-          backgroundColor: mode === 'light' ? '#6e61ab' : '#3f0081',
+          backgroundColor: mode === 'light' ? '#6e61ab' : '#6e61ab',
           color: mode === 'light' ? '#ecf0f1' : '#ecf0f1',
           '&:hover': {
             backgroundColor: mode === 'light' ? '#e0e0e0' : '#aab1e5',
