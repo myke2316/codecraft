@@ -157,18 +157,20 @@ function ClassStudentHome() {
           const latestCourse = userProgress.coursesProgress.find(
             (course) => !course.locked && !course.dateFinished
           );
-    
+
           // Ensure the user has progress in a course
           if (latestCourse) {
             // Find the latest lesson within the course
             const latestLesson = latestCourse.lessonsProgress.find(
               (lesson) => !lesson.locked && !lesson.dateFinished
             );
-    
+
             // Ensure the user has progress in a lesson
             if (latestLesson) {
               // Redirect to the latest lesson using navigate
-              navigate(`/course/${latestCourse.courseId}/lesson/${latestLesson.lessonId}`);
+              navigate(
+                `/course/${latestCourse.courseId}/lesson/${latestLesson.lessonId}`
+              );
             } else {
               // If no latest lesson found, navigate to the course overview
               navigate(`/course/${latestCourse.courseId}`);
@@ -236,27 +238,23 @@ function ClassStudentHome() {
     return <div className="text-center text-gray-600 mt-10">Loading...</div>;
   if (error)
     return <div className="text-center text-red-600 mt-10">{error}</div>;
- 
+
   return (
     <div className="p-2 max-w-7xl mx-auto">
-    
-
       <ClassOverview
         averagePoints={averagePoints}
         averageTimeSpent={averageTimeSpent}
         students={students}
-        handleOnClick = {handleOnClick}
-        handleOpenDialog = {handleOpenDialog}
+        handleOnClick={handleOnClick}
+        handleOpenDialog={handleOpenDialog}
       />
-  
 
       {/* Overall Class Progress */}
-   
 
       {/* Leaderboard Section */}
-     
-        <LeaderboardStudents students={students} classId={classId} />
-    
+
+      <LeaderboardStudents students={students} classId={classId} />
+
       {/* Confirmation Dialog */}
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle>Confirm Removal</DialogTitle>
