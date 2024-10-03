@@ -39,29 +39,31 @@ const Dashboard = () => {
             <QuizPerformance />
           </Paper>
         </Grid>
+
         <Grid item xs={12} md={12}>
           <Paper elevation={3} style={{ padding: "5px", height: "100%" }}>
             {" "}
-            <Typography variant="h6" align="center" >
+            <Typography variant="h6" align="center">
               Completion Trends Over Time
             </Typography>
-            <Typography
-              variant="body2"
-              align="center"
-              
-              color="text.secondary"
-            >
+            <Typography variant="body2" align="center" color="text.secondary">
               This chart shows the number of completed items (documents,
               quizzes, and activities) over time.
             </Typography>
             <CompletionTimelineChart />
           </Paper>
         </Grid>
+        <Grid item xs={12} md={12}>
+          {" "}
+          <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
+            {" "}
+            <p className="font-semibold" align="center">
+              Overall Student Performance Table
+            </p>
+            <OverallPerformanceTable />
+          </Paper>
+        </Grid>
       </Grid>
-
-      <div style={{ marginTop: "20px" }}>
-        <OverallPerformanceTable />
-      </div>
     </Container>
   );
 };

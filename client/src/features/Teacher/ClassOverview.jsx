@@ -3,10 +3,11 @@ import { Box, Typography, Paper, Grid } from '@mui/material';
 import { School, Timer, EmojiEvents } from '@mui/icons-material';
 import { formatTime } from "../../utils/formatTime";
 import { motion } from 'framer-motion';
+import { useSelector } from 'react-redux';
 
 function ClassOverview({ averagePoints, averageTimeSpent, students, handleOnClick, handleOpenDialog }) {
   const [mode, setMode] = useState('light');
-
+  const user = useSelector(state => state.user.userDetails)
   // Effect to retrieve the theme from localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -95,7 +96,7 @@ function ClassOverview({ averagePoints, averageTimeSpent, students, handleOnClic
           ))}
         </Grid>
 
-        <Box sx={{ display: 'flex', marginTop: '40px' }}>
+       {user.role ==='student' ?  (<Box sx={{ display: 'flex', marginTop: '40px' }}>
           <motion.button
             onClick={handleOnClick}
             whileHover={{ scale: 1.05 }} // Hover scale effect
@@ -131,7 +132,7 @@ function ClassOverview({ averagePoints, averageTimeSpent, students, handleOnClic
           >
             Leave Class
           </motion.button>
-        </Box>
+        </Box>) : ""}
       </Paper>
     </motion.div>
   );
