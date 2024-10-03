@@ -9,7 +9,7 @@ import PlayerLevelUp from "./PlayerLevelUp";
 import { useSelector } from "react-redux";
 import OverallPerformanceTable from "./OverallPerformanceTable";
 import CompletionTimelineChart from "./CompletionTimelineChart";
-
+import PlayerDashboard from "./PlayerDashboard";
 
 const Dashboard = () => {
   const userAnalytics = useSelector(
@@ -23,44 +23,42 @@ const Dashboard = () => {
 
   return (
     <Container maxWidth="100%" style={{ padding: "20px" }}>
-      <Typography variant="h4" gutterBottom>
-        Hello User👋🏼 Let's learn something new today
-      </Typography>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
-          <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
-            <CourseProgress />
-          </Paper>
+        <Grid item xs={12} md={12}>
+          <PlayerDashboard totalPoints={totalPoints} />
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
-            <PlayerLevelUp totalPoints={totalPoints} />
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
-            <AchievementBadges />
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={4}>
+
+        <Grid item xs={12} md={6}>
           <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
             <AnalyticsCharts />
           </Paper>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
-            <GoalSetting />
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
+
+        <Grid item xs={12} md={6}>
           <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
             <QuizPerformance />
           </Paper>
         </Grid>
+        <Grid item xs={12} md={12}>
+          <Paper elevation={3} style={{ padding: "5px", height: "100%" }}>
+            {" "}
+            <Typography variant="h6" align="center" >
+              Completion Trends Over Time
+            </Typography>
+            <Typography
+              variant="body2"
+              align="center"
+              
+              color="text.secondary"
+            >
+              This chart shows the number of completed items (documents,
+              quizzes, and activities) over time.
+            </Typography>
+            <CompletionTimelineChart />
+          </Paper>
+        </Grid>
       </Grid>
-      <div style={{ marginTop: "20px" }}>
-        <CompletionTimelineChart />
-      </div>
+
       <div style={{ marginTop: "20px" }}>
         <OverallPerformanceTable />
       </div>

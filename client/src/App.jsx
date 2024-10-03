@@ -61,150 +61,159 @@ import AnswerAssignmentPage from "./features/AssignmentAnswer/AnswerAssignmentPa
 import TeacherAssignmentGrade from "./features/Teacher/TeacherAssignmentGrade";
 import CertificationPage from "./features/Course/CertificationPage";
 import ClassStudentHome from "./features/Class/ClassStudentHome";
+import { ThemeProvider } from "@emotion/react";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<AppLayout />}>
-          <Route index element={<Home />} />
-          <Route path="aboutCourse" element={<Course />} />
-          <Route path="about" element={<About />} />
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="redirect" element={<GoogleRedirect />} />
-          <Route path="normal-redirect" element={<NormalRedirect />} />
-          <Route
-            path="reset-password/:resetToken"
-            element={<ResetPassword />}
-          />
-          <Route path="" element={<PrivateRoutes />}></Route>
-        </Route>
-        {/* student */}
-        <Route element={<AuthorizedLayout />}>
-          <Route path="" element={<PrivateRoutes />}>
+   
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AppLayout />}>
+            <Route index element={<Home />} />
+            <Route path="aboutCourse" element={<Course />} />
+            <Route path="about" element={<About />} />
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<SignUp />} />
+            <Route path="redirect" element={<GoogleRedirect />} />
+            <Route path="normal-redirect" element={<NormalRedirect />} />
             <Route
-              element={<StudentClassLayout />}
-              path="/studentClass/:classId/*"
-            >
-              {" "}
-              <Route path="classHome" element={<ClassStudentHome />} />
-              <Route path="assignment" element={<StudentAssignment />} />
-              <Route
-                path="assignment/:assignmentId/view"
-                element={<AssignmentDetails />}
-              />
-              <Route path="dashboard" element={<StudentDashboard />} />
-              <Route path="activitySheet" element={<AnswerAssignmentPage />} />
-            </Route>
+              path="reset-password/:resetToken"
+              element={<ResetPassword />}
+            />
+            <Route path="" element={<PrivateRoutes />}></Route>
           </Route>
-        </Route>
-
-        <Route path="" element={<PrivateRoutes />}>
+          {/* student */}
           <Route element={<AuthorizedLayout />}>
-            <Route path=":studentId" element={<AuthorizedHome />} />
-            <Route path="role-selection" element={<RoleSelection />} />
-            <Route path="create-class" element={<CreateClassForm />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="qna/:userId" element={<QnA />} />
-            <Route path="qna/:userId/ask" element={<QuestionForm />} />
-            <Route
-              path="qna/:userId/question/:questionId"
-              element={<QuestionDetail />}
-            />
-            <Route path="/edit-question/:id" element={<EditQuestionPage />} />
-            <Route
-              path="/edit-answer/:questionId/:answerId"
-              element={<EditAnswerPage />}
-            />
-          </Route>
-          <Route path="/playground/:userId" element={<PlaygroundLayout />} />
-        </Route>
-
-        {/* teacher */}
-        <Route element={<AuthorizedLayout />}>
-          <Route path="" element={<PrivateRoutesTeacher />}>
-            <Route
-              path="/:classId/students/:studentId"
-              element={<StudentTeacherProfile />}
-            />
-            <Route element={<TeacherClassLayout />} path="/:classId/class/*">
-              <Route path="classHome" element={<TeacherClassHome />} />
-              <Route path="class-edit" element={<TeacherEditClass />} />
-              <Route path="announcement" element={<TeacherAnnouncement />} />
-              <Route path="assignment" element={<TeacherAssignmentsPage />} />
+            <Route path="" element={<PrivateRoutes />}>
               <Route
-                path="assignment/:assignmentId/view/teacher"
-                element={<TeacherViewAssignment />}
-              />
-              <Route
-                path="assignment/:assignmentId/view/teacher/submission/:submissionId/student/:studentId"
-                element={<TeacherAssignmentGrade />}
-              />
+                element={<StudentClassLayout />}
+                path="/studentClass/:classId/*"
+              >
+                {" "}
+                <Route path="classHome" element={<ClassStudentHome />} />
+                <Route path="assignment" element={<StudentAssignment />} />
+                <Route
+                  path="assignment/:assignmentId/view"
+                  element={<AssignmentDetails />}
+                />
+                <Route path="dashboard" element={<StudentDashboard />} />
+                <Route
+                  path="activitySheet"
+                  element={<AnswerAssignmentPage />}
+                />
+              </Route>
             </Route>
-            <Route path="/classes" element={<ClassLists />} />
           </Route>
-        </Route>
 
-        <Route element={<AdminLayout />}>
-          <Route path="" element={<PrivateRoutesAdmin />}>
-            <Route path="/admin-home" element={<AdminsHome />} />
-            <Route path="/admin-dashboard" element={<AdminDashboard />} />
-            <Route path="/admin-users" element={<AdminUsers />} />
-            <Route path="/admin-teacherRequest" element={<TeacherRequest />} />
-            <Route path="/admin-qna" element={<AdminQna />} />
-          </Route>
-        </Route>
-
-        <Route element={<CourseLayout />}>
           <Route path="" element={<PrivateRoutes />}>
-            <Route path="course/*" element={<CourseContent />}>
+            <Route element={<AuthorizedLayout />}>
+              <Route path=":studentId" element={<AuthorizedHome />} />
+              <Route path="role-selection" element={<RoleSelection />} />
+              <Route path="create-class" element={<CreateClassForm />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="qna/:userId" element={<QnA />} />
+              <Route path="qna/:userId/ask" element={<QuestionForm />} />
               <Route
-                path=":courseId/lesson/:lessonId"
-                element={<LessonContent />}
+                path="qna/:userId/question/:questionId"
+                element={<QuestionDetail />}
               />
+              <Route path="/edit-question/:id" element={<EditQuestionPage />} />
               <Route
-                path=":courseId/lesson/:lessonId/document/:documentId"
-                element={<DocumentContent />}
-              />
-              <Route
-                path=":courseId/lesson/:lessonId/quiz/:quizId"
-                element={<DocumentContent />}
-              />
-              <Route
-                path=":courseId/lesson/:lessonId/quiz/results"
-                element={<QuizResults />}
-              />
-              <Route
-                path=":courseId/lesson/:lessonId/activity/activityList"
-                element={<ActivityList />}
-              />
-              <Route
-                path=":courseId/lesson/:lessonId/document/:documentId/complete"
-                element={<DocumentComplete />}
-              />
-              <Route
-                path=":studentId/certification"
-                element={<CertificationPage />}
+                path="/edit-answer/:questionId/:answerId"
+                element={<EditAnswerPage />}
               />
             </Route>
+            <Route path="/playground/:userId" element={<PlaygroundLayout />} />
           </Route>
-        </Route>
 
-        <Route element={<ActivityLayout />}>
-          <Route path="" element={<PrivateRoutes />}>
-            <Route path="course/*">
-              <Route path="activity/:activityId" element={<ActivityPage />} />
-
+          {/* teacher */}
+          <Route element={<AuthorizedLayout />}>
+            <Route path="" element={<PrivateRoutesTeacher />}>
               <Route
-                path=":courseId/lesson/:lessonId/activity/:activityId"
-                element={<ActivityPage />}
+                path="/:classId/students/:studentId"
+                element={<StudentTeacherProfile />}
               />
+              <Route element={<TeacherClassLayout />} path="/:classId/class/*">
+                <Route path="classHome" element={<TeacherClassHome />} />
+                <Route path="class-edit" element={<TeacherEditClass />} />
+                <Route path="announcement" element={<TeacherAnnouncement />} />
+                <Route path="assignment" element={<TeacherAssignmentsPage />} />
+                <Route
+                  path="assignment/:assignmentId/view/teacher"
+                  element={<TeacherViewAssignment />}
+                />
+                <Route
+                  path="assignment/:assignmentId/view/teacher/submission/:submissionId/student/:studentId"
+                  element={<TeacherAssignmentGrade />}
+                />
+              </Route>
+              <Route path="/classes" element={<ClassLists />} />
             </Route>
           </Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+
+          <Route element={<AdminLayout />}>
+            <Route path="" element={<PrivateRoutesAdmin />}>
+              <Route path="/admin-home" element={<AdminsHome />} />
+              <Route path="/admin-dashboard" element={<AdminDashboard />} />
+              <Route path="/admin-users" element={<AdminUsers />} />
+              <Route
+                path="/admin-teacherRequest"
+                element={<TeacherRequest />}
+              />
+              <Route path="/admin-qna" element={<AdminQna />} />
+            </Route>
+          </Route>
+
+          <Route element={<CourseLayout />}>
+            <Route path="" element={<PrivateRoutes />}>
+              <Route path="course/*" element={<CourseContent />}>
+                <Route
+                  path=":courseId/lesson/:lessonId"
+                  element={<LessonContent />}
+                />
+                <Route
+                  path=":courseId/lesson/:lessonId/document/:documentId"
+                  element={<DocumentContent />}
+                />
+                <Route
+                  path=":courseId/lesson/:lessonId/quiz/:quizId"
+                  element={<DocumentContent />}
+                />
+                <Route
+                  path=":courseId/lesson/:lessonId/quiz/results"
+                  element={<QuizResults />}
+                />
+                <Route
+                  path=":courseId/lesson/:lessonId/activity/activityList"
+                  element={<ActivityList />}
+                />
+                <Route
+                  path=":courseId/lesson/:lessonId/document/:documentId/complete"
+                  element={<DocumentComplete />}
+                />
+                <Route
+                  path=":studentId/certification"
+                  element={<CertificationPage />}
+                />
+              </Route>
+            </Route>
+          </Route>
+
+          <Route element={<ActivityLayout />}>
+            <Route path="" element={<PrivateRoutes />}>
+              <Route path="course/*">
+                <Route path="activity/:activityId" element={<ActivityPage />} />
+
+                <Route
+                  path=":courseId/lesson/:lessonId/activity/:activityId"
+                  element={<ActivityPage />}
+                />
+              </Route>
+            </Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+  
   );
 }
 

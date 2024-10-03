@@ -238,39 +238,25 @@ function ClassStudentHome() {
     return <div className="text-center text-red-600 mt-10">{error}</div>;
  
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold mb-4 text-black">
-        {selectedClass.className}
-      </h1>
-      <p className="text-lg text-black mb-6">
-        Invite Code:{" "}
-        <span className="font-semibold">{selectedClass.inviteCode}</span>
-      </p>{" "}
-      <div className="flex space-x-4 mt-6">
-        <button
-          onClick={handleOnClick}
-          className="mb-5 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300 ease-in-out transform hover:scale-105"
-        >
-          Start Course Now!
-        </button>
-        <button
-          onClick={handleOpenDialog}
-          className="mb-5 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 transition duration-300 ease-in-out transform hover:scale-105"
-        >
-          Leave Class
-        </button>
-      </div>
-      {/* Overall Class Progress */}
+    <div className="p-2 max-w-7xl mx-auto">
+    
+
       <ClassOverview
         averagePoints={averagePoints}
         averageTimeSpent={averageTimeSpent}
         students={students}
+        handleOnClick = {handleOnClick}
+        handleOpenDialog = {handleOpenDialog}
       />
+  
+
+      {/* Overall Class Progress */}
+   
+
       {/* Leaderboard Section */}
-      <div className="bg-white shadow-lg rounded-lg p-6 border border-gray-200">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-700">Students</h2>
+     
         <LeaderboardStudents students={students} classId={classId} />
-      </div>
+    
       {/* Confirmation Dialog */}
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle>Confirm Removal</DialogTitle>

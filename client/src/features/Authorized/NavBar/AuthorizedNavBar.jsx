@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { useLogoutMutation } from "../../LoginRegister/userService"
@@ -50,10 +50,16 @@ export default function AuthorizedSidebar({ open, setOpen, toggleTheme, mode }) 
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const isVerySmall = useMediaQuery('(max-height: 500px)')
-
+  const isSmalls = useMediaQuery('(max-width: 1024px)')
   const handleDrawerToggle = () => {
     setOpen(!open)
   }
+
+  useEffect(() => {
+    if (isSmalls) {
+      setOpen(false)  // Close the drawer if the screen is small
+    }
+  }, [isSmalls, setOpen])
 
   async function handleLogout() {
     try {
@@ -110,7 +116,7 @@ export default function AuthorizedSidebar({ open, setOpen, toggleTheme, mode }) 
       variants={drawerVariants}
     >
       <Drawer
-        variant={isMobile ? "temporary" : "permanent"}
+        variant={isMobile ? "permanent" : "permanent"}
         open={open}
         onClose={handleDrawerToggle}
         sx={{
@@ -250,6 +256,8 @@ export default function AuthorizedSidebar({ open, setOpen, toggleTheme, mode }) 
       <IconButton
         onClick={handleDrawerToggle}
         sx={{
+          
+          display: isSmalls && 'none' , 
           position: 'fixed',
           left: open ? '240px' : '60px',
           top: isVerySmall ? '90%' : '50%',

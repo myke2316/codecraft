@@ -1,8 +1,9 @@
 {
   "courses": [
     {
-      "title": "Learn PHP",
+      "title": "PHP",
       "locked": true,
+      "badges": "PHP Badge",
       "lessons": [
         {
           "title": "Introduction to PHP Syntax",
@@ -1695,7 +1696,8 @@
             }
           ],
           "totalPoints": 0,
-          "locked": true
+          "locked": true,
+          "badges": "Course Completed"
         }
       ]
     }

@@ -1,5 +1,5 @@
 
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { Outlet } from "react-router"
 import { ToastContainer } from "react-toastify"
 import AuthorizedSidebar from "./NavBar/AuthorizedNavBar"
@@ -40,12 +40,23 @@ function AuthorizedLayout() {
         },
       }),
     [mode],
-  )
-
+  )  
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setMode(savedTheme); // Set the theme based on the saved preference
+    }
+  }, []);
   const toggleTheme = () => {
-    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
-  }
+    setMode((prevMode) => {
+      const newMode = prevMode === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', newMode); // Save the new theme to localStorage
+      return newMode; // Return the new mode for state update
+    });
+  };
+  
 
+  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
