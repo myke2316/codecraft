@@ -40,12 +40,10 @@ function StudentTeacherProfile() {
 
   return (
   
-      <Container>
-      <Typography variant="h4" gutterBottom>
-        Student Dashboard
-      </Typography>
+    
+  
       <TeacherStudentDashboard userAnalytics={analytics} userProgress={progress} />
-    </Container>
+   
     
   );
 }

@@ -33,7 +33,7 @@ function TeacherClassHome() {
       try {
         const classResponse = await fetchClass(classId).unwrap();
         setSelectedClass(classResponse);
-        console.log(classResponse);
+     
         dispatch(updateClass({ classId, updatedClass: classResponse }));
 
         const [userResponse, analyticsResponse] = await Promise.all([

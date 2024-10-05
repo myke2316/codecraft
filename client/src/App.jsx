@@ -129,11 +129,12 @@ function App() {
           {/* teacher */}
           <Route element={<AuthorizedLayout />}>
             <Route path="" element={<PrivateRoutesTeacher />}>
+            
+              <Route element={<TeacherClassLayout />} path="/:classId/class/*">
               <Route
-                path="/:classId/students/:studentId"
+                path="students/:studentId"
                 element={<StudentTeacherProfile />}
               />
-              <Route element={<TeacherClassLayout />} path="/:classId/class/*">
                 <Route path="classHome" element={<TeacherClassHome />} />
                 <Route path="class-edit" element={<TeacherEditClass />} />
                 <Route path="announcement" element={<TeacherAnnouncement />} />

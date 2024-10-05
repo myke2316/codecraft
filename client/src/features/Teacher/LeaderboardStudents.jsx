@@ -82,7 +82,7 @@ const LeaderboardStudents = ({ students, classId }) => {
               key={student._id}
               to={
                 userRole === "teacher"
-                  ? `/${classId}/students/${student._id}`
+                  ? `/${classId}/class/students/${student._id}`
                   : console.log("STUDENT PROFILE VIEW")
               }
               className="block"

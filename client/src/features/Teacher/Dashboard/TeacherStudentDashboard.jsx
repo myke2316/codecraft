@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Grid, Paper, Typography } from "@mui/material";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -9,6 +9,10 @@ import TeacherQuizPerformance from "./TeacherQuizPerformance";
 import TeacherCompletionTimelineChart from "./TeacherCompletionTimelineChart";
 import TeacherOverallPerformanceTable from "./TeacherOverallPerformanceTable";
 import TeacherAnalyticsCharts from "./TeacherAnalyticsCharts";
+import PlayerDashboard from "../../Student/StudentDashboard/PlayerDashboard";
+import TeacherPlayerDashboard from "./TeacherPlayerDashboard";
+import { useParams } from "react-router";
+import { useGetUserMutation } from "../../LoginRegister/userService";
 const theme = createTheme();
 // const userAnalytics = useSelector((state) => state.userAnalytics.userAnalytics);
 
@@ -19,48 +23,80 @@ const TeacherStudentDashboard = ({ userAnalytics, userProgress }) => {
     return acc + (course.totalPointsEarned || 0);
   }, 0);
 
-  
+  const { studentId } = useParams();
+  const userId = studentId;
+
+  const [userInfo, setUserInfo] = useState();
+  const [getUser, { data, isLoading, isError }] = useGetUserMutation();
+
+  useEffect(() => {
+
+    const fetchUser = async () => {
+      if (userId) {
+        try {
+          const userData = await getUser(userId).unwrap();
+       
+          setUserInfo(userData[0]); // Update the state with user data
+        } catch (error) {
+          console.error("BOBO");
+        }
+      }
+    };
+
+    fetchUser();
+  }, [getUser, studentId]);
+
   return (
     <ThemeProvider theme={theme}>
       {" "}
       <Container maxWidth="100%" style={{ padding: "20px" }}>
-        <Typography variant="h4" gutterBottom>
-          
-        </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={8}>
-            <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
-              <TeacherCourseProgress userProgress={userProgress} />
-            </Paper>
+          <Grid item xs={12} md={12}>
+            <TeacherPlayerDashboard
+              totalPoints={totalPoints}
+              userProgress={userProgress}
+              userInfo={userInfo}
+            />
           </Grid>
-          <Grid item xs={12} md={4}>
-            <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
-              <TeacherPlayerLevelUp totalPoints={totalPoints} />
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
-              <TeacherAchievementBadges />
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={8}>
+
+          <Grid item xs={12} md={6}>
             <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
               <TeacherAnalyticsCharts userAnalytics={userAnalytics} />
             </Paper>
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={12} md={6}>
             <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
               <TeacherQuizPerformance userAnalytics={userAnalytics} />
             </Paper>
           </Grid>
         </Grid>
-        <div style={{ marginTop: "20px" }}>
-          <TeacherCompletionTimelineChart userProgress={userProgress} />
-        </div>
-        <div style={{ marginTop: "20px" }}>
-          <TeacherOverallPerformanceTable userAnalytics={userAnalytics} userProgress={userProgress} />
-        </div>
+        <Grid item xs={12} md={12}>
+          <Paper elevation={3} style={{ padding: "5px", height: "100%" }}>
+            {" "}
+            <Typography variant="h6" align="center">
+              Completion Trends Over Time
+            </Typography>
+            <Typography variant="body2" align="center" color="text.secondary">
+              This chart shows the number of completed items (documents,
+              quizzes, and activities) over time.
+            </Typography>
+            <TeacherCompletionTimelineChart userProgress={userProgress} />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          {" "}
+          <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
+            {" "}
+            <p className="font-semibold" align="center">
+              Overall Student Performance Table
+            </p>
+            <TeacherOverallPerformanceTable
+              userAnalytics={userAnalytics}
+              userProgress={userProgress}
+            />
+          </Paper>
+        </Grid>
       </Container>
     </ThemeProvider>
   );
