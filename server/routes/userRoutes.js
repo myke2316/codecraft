@@ -14,6 +14,9 @@ import {
   editUsername,
   getSingleUser,
   undeleteUser,
+  completeCourse,
+  userCompleteCourse,
+  permanentDeleteUser,
 } from "../controller/userController.js";
 
 const router = express.Router();
@@ -28,7 +31,10 @@ router.post("/forgot-password", forgotPassword);
 router.patch("/reset-password/:resetToken", resetPassword);
 router.get("/getAllUser", getAllUsers);
 router.delete("/deleteUser/:userId", deleteUser);
+router.delete("/permanentDelete/:userId", permanentDeleteUser);
 router.patch("/unDeleteUser/:userId", undeleteUser);
 router.patch("/approveTeacher", approveTeacher);
 router.put("/edit-username", editUsername);
+router.patch("/users/:userId/complete-course", completeCourse);
+router.get("/users/completed-course", userCompleteCourse);
 export { router as userRouter };

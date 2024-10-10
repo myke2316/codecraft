@@ -9,6 +9,7 @@ import { formatTime } from "../../utils/formatTime";
 import ClassOverview from "./ClassOverview";
 import { useFetchClassByIdMutation } from "./classService";
 import { updateClass } from "./classSlice";
+import LeaderboardStudents from "./LeaderboardStudents";
 
 function TeacherClassHome() {
   const dispatch = useDispatch();
@@ -142,7 +143,7 @@ function TeacherClassHome() {
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">
             Students
           </h2>
-          <Leaderboard students={students} classId={classId} />
+          <LeaderboardStudents students={students} classId={classId} />
         </div>
       </div>
     </>

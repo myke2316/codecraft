@@ -11,11 +11,11 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "JavaScript is a versatile, high-level programming language that is widely supported across all major operating systems."
+                  "text": "<strong>JavaScript</strong> is a versatile, high-level programming language that is widely supported across all major operating systems."
                 },
                 {
                   "type": "sentence",
-                  "text": "To run JavaScript code, your system should have Node.js installed. Alternatively, you can use our free online editor to execute JavaScript directly in your browser without any installation."
+                  "text": "To run JavaScript code, your system should have <strong>Node.js installed</strong>. Alternatively, you can use our free online editor to execute JavaScript directly in your browser without any installation."
                 },
                 {
                   "type": "sentence",
@@ -23,11 +23,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Install JavaScript on Windows: To install JavaScript on your Windows, just follow these steps:"
+                  "text": "<strong>Install JavaScript on Windows: To install JavaScript on your Windows, just follow these steps:</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Step 1: Install VS Code"
+                  "text": "<strong>Step 1: Install VS Code</strong>"
                 },
                 {
                   "type": "sentence",
@@ -35,7 +35,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Step 2: Download the Node File"
+                  "text": "<strong>Step 2: Download the Node File</strong>"
                 },
                 {
                   "type": "sentence",
@@ -43,7 +43,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Step 3: Run the Installer"
+                  "text": "<strong>Step 3: Run the Installer</strong>"
                 },
                 {
                   "type": "sentence",
@@ -56,7 +56,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Step 4: Verify your installation"
+                  "text": "<strong>Step 4: Verify your installation</strong>"
                 },
                 {
                   "type": "sentence",
@@ -90,20 +90,19 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "A JavaScript variable is a container for storing data."
+                  "text": "A <strong>JavaScript variable</strong> is a container for storing data."
                 },
                 {
                   "type": "snippet",
-
                   "code": "let num = 5;"
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, num is a variable that stores the number 5."
+                  "text": "<strong>Explanation: </strong>Here, <strong>num</strong> is a variable that stores the number 5."
                 },
                 {
                   "type": "sentence",
-                  "text": "Declare Variables in JavaScript: In JavaScript, we use the var or let keywords to declare variables."
+                  "text": "Declare Variables in JavaScript: In JavaScript, we use the <strong>var or let</strong> keywords to declare variables."
                 },
                 {
                   "type": "snippet",
@@ -111,36 +110,34 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, age and name are variables."
+                  "text": "<strong>Explanation:</strong>Here, age and name are variables."
                 },
                 {
                   "type": "sentence",
-                  "text": "What is the difference between var and let? Both var and let are used to declare variables. However, there are some differences between them."
+                  "text": "What is the difference between var and let? <strong>Both var and let are used to declare variables</strong>. However, there are some differences between them."
                 },
                 {
                   "type": "sentence",
-                  "text": "var is used in older versions of JavaScript."
+                  "text": "<strong>• var<s/trong> is used in older versions of JavaScript."
                 },
                 {
                   "type": "sentence",
-                  "text": "Variables created with var are function-scoped, meaning they can be accessed anywhere within the function they were defined in."
+                  "text": "Variables created with <strong>var are function-scoped</strong>, meaning they can be accessed anywhere within the function they were defined in."
                 },
                 {
                   "type": "snippet",
-
                   "code": "var x;"
                 },
                 {
                   "type": "sentence",
-                  "text": "let is the new way of declaring variables, starting with ES6 (ES2015)."
+                  "text": "<strong>• let</strong> is the new way of declaring variables, starting with ES6 (ES2015)."
                 },
                 {
                   "type": "sentence",
-                  "text": "Variables declared with let are block-scoped, meaning they can only be accessed within the block where they were declared."
+                  "text": "Variables declared with let are <strong>block-scoped</strong>, meaning they can only be accessed within the block where they were declared."
                 },
                 {
                   "type": "snippet",
-
                   "code": "let y;"
                 },
                 {
@@ -149,20 +146,19 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Note: It is recommended we use let instead of var. However, there are a few browsers that do not support let. To learn more, visit JavaScript let browser support."
+                  "text": "<strong>Note:</strong> It is recommended we use let instead of var. However, there are a few browsers that do not support let. To learn more, visit JavaScript let browser support."
                 },
                 {
                   "type": "sentence",
-                  "text": "Initialize Variables in JavaScript: We use the assignment operator = to assign a value to a variable."
+                  "text": "Initialize Variables in JavaScript: We use the <strong>assignment operator</strong> = to assign a value to a variable."
                 },
                 {
                   "type": "snippet",
-
                   "code": "// declare variable num\nlet num;\n\n// assign 5 to num\nnum = 5;"
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, 5 is assigned to the variable num."
+                  "text": "<strong>Explanatiom: </strong>Here, 5 is assigned to the variable num."
                 },
                 {
                   "type": "sentence",
@@ -170,7 +166,6 @@
                 },
                 {
                   "type": "snippet",
-
                   "code": "// declare variable num1 and assign 5 to it\nlet num1 = 5;\n\n// declare variable num2 and assign 6 to it\nlet num2 = 6;"
                 },
                 {
@@ -179,12 +174,11 @@
                 },
                 {
                   "type": "snippet",
-
                   "code": "// declare variables num1, num2, and num3\n// assign values 5, 6, and 7 respectively\nlet num1 = 5, num2 = 6, num3 = 7;"
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, we have declared and assigned values to three variables in a single line:"
+                  "text": "<strong>Explanation:</strong>Here, we have declared and assigned values to three variables in a single line:"
                 },
                 {
                   "type": "sentence",
@@ -209,10 +203,6 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Output: undefined"
-                },
-                {
-                  "type": "sentence",
                   "text": "Here, we have declared a variable named num. However, since it does not contain any value, its value is undefined."
                 },
                 {
@@ -230,29 +220,27 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, the value of the score variable is changed from 5 to 3 when we assign a new value to it."
+                  "text": "<strong>Explanation</strong>Here, the value of the score variable is changed from 5 to 3 when we assign a new value to it."
                 },
                 {
                   "type": "sentence",
-                  "text": "Rules for Naming JavaScript Variables: Variable names must start with a letter, an underscore _, or the dollar sign $. For example:"
+                  "text": "<strong>Rules for Naming JavaScript Variables:</strong> Variable names must <strong>start with a letter, an underscore _, or the dollar sign $.</strong> For example:"
                 },
                 {
                   "type": "snippet",
-
                   "code": "// valid\nlet message = \"hello\";\nlet _message = \"hello\";\nlet $message = \"hello\";"
                 },
                 {
                   "type": "sentence",
-                  "text": "Variables cannot start with numbers. For example:"
+                  "text": "Variables <strong>cannot start with numbers</strong>. For example:"
                 },
                 {
                   "type": "snippet",
-
                   "code": "// invalid\nlet 1message = \"hello\"; // this gives an error"
                 },
                 {
                   "type": "sentence",
-                  "text": "Variable names are case-sensitive. So age and Age are different variables. For example:"
+                  "text": "Variable names are <strong>case-sensitive</strong>. So age and Age are different variables. For example:"
                 },
                 {
                   "type": "codeconsole",
@@ -261,20 +249,18 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Variable names cannot be keywords (special words reserved for specific purposes in JavaScript such as if, else, let, var, etc.). For example:"
+                  "text": "Variable names <strong>cannot be keywords (special words reserved for specific purposes in JavaScript such as if, else, let, var, etc.).</strong> For example:"
                 },
                 {
                   "type": "snippet",
-
                   "code": "//invalid\nlet new = 5; // Error! new is a keyword"
                 },
                 {
                   "type": "sentence",
-                  "text": "JavaScript Constants: A constant is a type of variable whose value cannot be changed."
+                  "text": "<strong>JavaScript Constants:</strong> A <strong>constant</strong> is a type of variable whose value cannot be changed."
                 },
                 {
                   "type": "snippet",
-
                   "code": "// assign 5 to num \nconst num = 5;"
                 },
                 {
@@ -282,7 +268,7 @@
                   "text": "Once a constant is initialized, we cannot change its value."
                 },
                 {
-                  "type": "codeconsole",
+                  "type": "snippet",
                   "language": "javascript",
                   "code": "// assign 5 to num\nconst num = 5;\n\n// assign 10 to num\nnum = 10;\nconsole.log(num) // Error! constant cannot be changed"
                 },
@@ -291,13 +277,13 @@
                   "text": "Always Initialize a Constant During Declaration: If you do not initialize a constant at the time of declaration, it throws an error."
                 },
                 {
-                  "type": "codeconsole",
+                  "type": "snippet",
                   "language": "javascript",
                   "code": "// Error! Missing initializer in const declaration\nconst x;\n\n// attempt to initialize constant after declaration\nx = 5;\n\nconsole.log(x)"
                 },
                 {
                   "type": "sentence",
-                  "text": "Note: If you are sure that the value of a variable won't change throughout the program, we recommend you use const."
+                  "text": "<strong>Note:</strong> If you are sure that the value of a variable won't change throughout the program, we recommend you use const."
                 },
                 {
                   "type": "sentence",
@@ -311,7 +297,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "In JavaScript, the console.log() method displays messages or variables in the browser's console."
+                  "text": "In JavaScript, the <strong>console.log()</strong> method displays messages or variables in the browser's console."
                 },
                 {
                   "type": "sentence",
@@ -324,45 +310,28 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Output: Hello, JavaScript!"
-                },
-                {
-                  "type": "sentence",
                   "text": "When we run the above code, Hello, JavaScript! is printed on the console."
                 },
                 {
                   "type": "sentence",
-                  "text": "Syntax of JavaScript console.log()"
+                  "text": "<strong>Syntax of JavaScript console.log()</strong>"
                 },
                 {
                   "type": "snippet",
-
                   "code": "console.log(message);"
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, message is a value or a variable whose value is to be printed to the console."
+                  "text": "<strong>Explanation:</strong>Here, message is a value or a variable whose value is to be printed to the console."
                 },
                 {
                   "type": "sentence",
-                  "text": "Example 1: JavaScript console.log() Method"
+                  "text": "<strong>Example 1: JavaScript console.log() Method</strong>"
                 },
                 {
                   "type": "codeconsole",
                   "language": "javascript",
                   "code": "console.log(\"Good Morning!\");\nconsole.log(2000);"
-                },
-                {
-                  "type": "sentence",
-                  "text": "Output"
-                },
-                {
-                  "type": "sentence",
-                  "text": "Good Morning!"
-                },
-                {
-                  "type": "sentence",
-                  "text": "2000"
                 },
                 {
                   "type": "sentence",
@@ -378,20 +347,12 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Example 2: Print Values Stored in Variables"
+                  "text": "<strong>Example 2: Print Values Stored in Variables</strong>"
                 },
                 {
                   "type": "codeconsole",
                   "language": "javascript",
                   "code": "// store value in greet variable\nconst greet = \"Hello\";\n\n// print the value of greet variable\nconsole.log(greet);"
-                },
-                {
-                  "type": "sentence",
-                  "text": "Output"
-                },
-                {
-                  "type": "sentence",
-                  "text": "Hello"
                 },
                 {
                   "type": "sentence",
@@ -405,55 +366,63 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "JavaScript has 8 basic data types:"
+                  "text": "<strong>JavaScript has 8 basic data types:</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "1. String: Textual data. Example: 'hello', \"world\""
+                  "text": "<strong>1. String:</strong> Textual data. Example: 'hello', \"world\""
                 },
                 {
                   "type": "sentence",
-                  "text": "2. Number: Integers or floating-point. Example: 3, 3.14"
+                  "text": "<strong>2. Number:</strong> Integers or floating-point. Example: 3, 3.14"
                 },
                 {
                   "type": "sentence",
-                  "text": "3. BigInt: Large integers. Example: 900719925124740999n"
+                  "text": "<strong>Example: </strong>3, 3.14"
                 },
                 {
                   "type": "sentence",
-                  "text": "4. Boolean: true or false"
+                  "text": "<strong>3. BigInt:</strong> Large integers. Example: 900719925124740999n"
                 },
                 {
                   "type": "sentence",
-                  "text": "5. undefined: Variable declared but not initialized"
+                  "text": "<strong>Example: </strong>900719925124740999n"
                 },
                 {
                   "type": "sentence",
-                  "text": "6. null: Intentional absence of any object value"
+                  "text": "<strong>4. Boolean:</strong> true or false"
                 },
                 {
                   "type": "sentence",
-                  "text": "7. Symbol: Unique identifiers"
+                  "text": "<strong>5. undefined:</strong> Variable declared but not initialized"
                 },
                 {
                   "type": "sentence",
-                  "text": "8. Object: Key-value pairs"
+                  "text": "<strong>6. null:</strong> Intentional absence of any object value"
                 },
                 {
                   "type": "sentence",
-                  "text": "Examples of each data type:"
+                  "text": "<strong>7. Symbol:</strong> Unique identifiers"
                 },
                 {
-                  "type": "snippet",
+                  "type": "sentence",
+                  "text": "<strong>8. Object:</strong> Key-value pairs"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Examples of each data type:</strong>"
+                },
+                {
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "// String\nlet str = \"Hello\";\nconsole.log(typeof str);  // string\n\n// Number\nlet num = 5;\nconsole.log(typeof num);  // number\n\n// BigInt\nlet bigInt = 1234567890123456789012345678901234567890n;\nconsole.log(typeof bigInt);  // bigint\n\n// Boolean\nlet bool = true;\nconsole.log(typeof bool);  // boolean\n\n// undefined\nlet undefinedVar;\nconsole.log(typeof undefinedVar);  // undefined\n\n// null\nlet nullVar = null;\nconsole.log(typeof nullVar);  // object (this is a known bug)\n\n// Symbol\nlet sym = Symbol(\"id\");\nconsole.log(typeof sym);  // symbol\n\n// Object\nlet obj = {name: \"John\", age: 30};\nconsole.log(typeof obj);  // object"
                 },
                 {
                   "type": "sentence",
-                  "text": "Note: JavaScript is dynamically typed, meaning variables can hold different types of data at different times."
+                  "text": "<strong>Note:</strong> JavaScript is dynamically typed, meaning variables can hold different types of data at different times."
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "let x = 5;       // Number\nx = \"John\";   // Now x is a String\nconsole.log(typeof x);  // string"
                 }
@@ -465,7 +434,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "JavaScript operators are special symbols that perform operations on one or more operands (values)."
+                  "text": "<strong>JavaScript operators</strong> are special symbols that perform operations on one or more operands (values)."
                 },
                 {
                   "type": "snippet",
@@ -474,71 +443,71 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, we used the + operator to add the operands 2 and 3."
+                  "text": "<strong>Explanation:</strong>Here, we used the <strong>+</strong> operator to add the operands 2 and 3."
                 },
                 {
                   "type": "sentence",
-                  "text": "JavaScript Operator Types:"
+                  "text": "<strong>JavaScript Operator Types:</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "1. Arithmetic Operators: +, -, *, /, %, ++, --, **"
+                  "text": "<strong>1. Arithmetic Operators:</strong> Used to perform basic mathematical operations like addition (+), subtraction (-), multiplication (*), division (/), modulus (%), increment (++), decrement (--), and exponentiation (**)."
                 },
                 {
                   "type": "sentence",
-                  "text": "2. Assignment Operators: =, +=, -=, *=, /=, %=, **="
+                  "text": "<strong>2. Assignment Operators:</strong> Used to assign values to variables. Includes = for assignment, and compound operators like +=, -=, *=, /=, %=, and **= to combine assignment with arithmetic."
                 },
                 {
                   "type": "sentence",
-                  "text": "3. Comparison Operators: ==, !=, >, <, >=, <=, ===, !=="
+                  "text": "<strong>3. Comparison Operators:</strong> Used to compare values and return a boolean result (true or false). Include ==, !=, >, <, >=, <=, ===, !=="
                 },
                 {
                   "type": "sentence",
-                  "text": "4. Logical Operators: &&, ||, !"
+                  "text": "<strong>4. Logical Operators:</strong> Used to combine or invert boolean values. Includes && (logical AND), || (logical OR), and ! (logical NOT)."
                 },
                 {
                   "type": "sentence",
-                  "text": "5. Bitwise Operators: &, |, ^, ~, <<, >>, >>>"
+                  "text": "<strong>5. Bitwise Operators:</strong> Used to perform operations on the binary representation of numbers. Includes &, |, ^, ~, <<, >>, >>>"
                 },
                 {
                   "type": "sentence",
-                  "text": "6. String Operator: + (for concatenation)"
+                  "text": "<strong>6. String Operator:</strong> The + operator is also used for concatenating (joining) strings."
                 },
                 {
                   "type": "sentence",
-                  "text": "7. Other Operators: , (comma), ?: (ternary), typeof, instanceof, void"
+                  "text": "<strong>7. Other Operators:</strong> , (comma), ?: (ternary), typeof, instanceof, void"
                 },
                 {
                   "type": "sentence",
                   "text": "Examples:"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "// Arithmetic\nlet x = 5;\nconsole.log(x + 3);  // 8\nconsole.log(x ** 2);  // 25"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "// Assignment\nx += 5;  // x = x + 5\nconsole.log(x);  // 10"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "// Comparison\nconsole.log(3 == '3');  // true\nconsole.log(3 === '3');  // false"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "// Logical\nconsole.log((x < 15) && (x > 5));  // true"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "// String concatenation\nlet str1 = 'Hello', str2 = 'World';\nconsole.log(str1 + ' ' + str2);  // 'Hello World'"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "// Ternary\nlet result = (x > 5) ? 'Greater' : 'Less or Equal';\nconsole.log(result);  // 'Greater'"
                 }
@@ -550,40 +519,40 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "JavaScript comments are annotations in the code that are ignored by the compiler."
+                  "text": "<strong>JavaScript comments</strong> are annotations in the code that are ignored by the compiler."
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
-                  "code": "// display \"Programiz\" to the screen\nconsole.log(\"Programiz\");\n\n// Output:\n// Programiz"
+                  "code": "// display \"CodeCraft\" to the screen\nconsole.log(\"CodeCraft\");\n\n// Output:\n// CodeCraft"
                 },
                 {
                   "type": "sentence",
-                  "text": "Types of JavaScript Comments:"
+                  "text": "<strong>Types of JavaScript Comments:</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "1. Single-Line Comments: Start with //"
+                  "text": "<strong>1. Single-Line Comments:</strong> Start with //"
                 },
                 {
                   "type": "sentence",
-                  "text": "2. Multiline Comments: Start with /* and end with */"
+                  "text": "<strong>2. Multiline Comments:</strong> Start with /* and end with */"
                 },
                 {
                   "type": "sentence",
-                  "text": "Single Line Comments Example:"
+                  "text": "<strong>Single Line Comments Example:</strong>"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "name = \"Jack\";\n\n// display name on the console\nconsole.log(\"Hello \" + name);\n\n// You can also use comments at the end of a line\nconsole.log(\"Hello \" + name);  // display name on the console"
                 },
                 {
                   "type": "sentence",
-                  "text": "Multiline Comments Example:"
+                  "text": "<strong>Multiline Comments Example:</strong>"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "/* This is a multiline comment.\nIt can span several lines.\n*/\n\nlet numberOfStudents = 50;\nconsole.log(numberOfStudents);"
                 },
@@ -592,13 +561,13 @@
                   "text": "Using Comments to Remove Unwanted Code:"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "console.log(\"Welcome to JavaScript programming.\");\n// console.log(\"JavaScript is fun!\");"
                 },
                 {
                   "type": "sentence",
-                  "text": "Best Practices:"
+                  "text": "<strong>Best Practices:</strong>"
                 },
                 {
                   "type": "sentence",
@@ -620,31 +589,31 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "JavaScript Type Conversion"
+                  "text": "<strong>JavaScript Type Conversion</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "In programming, type conversion is the process of converting data of one type to another. For example, converting string data to number."
+                  "text": "In programming, <strong>type conversion</strong> is the process of converting data of one type to another. For example, converting string data to number."
                 },
                 {
                   "type": "sentence",
-                  "text": "There are two types of type conversion in JavaScript:"
+                  "text": "There are <strong>two types of type conversion</strong> in JavaScript:"
                 },
                 {
                   "type": "sentence",
-                  "text": "Implicit Conversion - Automatic type conversion."
+                  "text": "<strong>1. Implicit Conversion: </strong> Automatic type conversion."
                 },
                 {
                   "type": "sentence",
-                  "text": "Explicit Conversion - Manual type conversion."
+                  "text": "<strong>2. Explicit Conversion:</strong> Manual type conversion."
                 },
                 {
                   "type": "sentence",
-                  "text": "JavaScript Implicit Conversion"
+                  "text": "<strong>JavaScript Implicit Conversion</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "In certain situations, JavaScript automatically converts data of one type to another (to the right type). This is known as implicit conversion. For example,"
+                  "text": "In certain situations, JavaScript automatically converts data of one type to another (to the right type). This is known as <strong>implicit conversion</strong>. For example,"
                 },
                 {
                   "type": "codeconsole",
@@ -653,16 +622,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Output"
-                },
-                {
-                  "type": "codeconsole",
-                  "language": "plaintext",
-                  "code": "32 - string\n3true - string\n3null - string"
-                },
-                {
-                  "type": "sentence",
-                  "text": "In this example, we performed implicit type conversion using the + operator with a string and another data type."
+                  "text": "<strong>Note:</strong>In this example, we performed implicit type conversion using the + operator with a string and another data type."
                 },
                 {
                   "type": "sentence",
@@ -682,15 +642,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Note: The typeof operator gives the data type of the variable."
+                  "text": "<strong>Note:</strong> The typeof operator gives the data type of the variable."
                 },
                 {
                   "type": "sentence",
-                  "text": "JavaScript Explicit Conversion"
+                  "text": "<strong>JavaScript Explicit Conversion</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "In explicit type conversion, you manually convert one type of data into another using built-in functions. For example,"
+                  "text": "In <strong>explicit type conversion<.strong>, you manually convert one type of data into another using built-in functions. For example,"
                 },
                 {
                   "type": "codeconsole",
@@ -699,28 +659,19 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Output"
-                },
-                {
-                  "type": "codeconsole",
-                  "language": "plaintext",
-                  "code": "5 - number\ntrue - string\nfalse - boolean"
-                },
-                {
-                  "type": "sentence",
                   "text": "Here,"
                 },
                 {
                   "type": "sentence",
-                  "text": "Number(\"5\") changes the string \"5\" into the number 5."
+                  "text": "<strong>• Number(\"5\")</strong> changes the string \"5\" into the number 5."
                 },
                 {
                   "type": "sentence",
-                  "text": "String(true) turns the boolean true into the string \"true\"."
+                  "text": "<strong>• String(true)</strong> turns the boolean true into the string \"true\"."
                 },
                 {
                   "type": "sentence",
-                  "text": "Boolean(0) converts the number 0 to the boolean false because 0 is considered a false value in JavaScript."
+                  "text": "<strong>• Boolean(0)</strong> converts the number 0 to the boolean false because 0 is considered a false value in JavaScript."
                 },
                 {
                   "type": "sentence",
@@ -736,7 +687,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Let's look at an example."
+                  "text": "<strong>Let's look at an example.</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -745,16 +696,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Output"
-                },
-                {
-                  "type": "codeconsole",
-                  "language": "plaintext",
-                  "code": "2 - number\n2 - number\n8 - number\n2 - number"
-                },
-                {
-                  "type": "sentence",
-                  "text": "Rules for Type Conversion"
+                  "text": "<strong>Rules for Type Conversion</strong>"
                 },
                 {
                   "type": "sentence",
@@ -762,23 +704,23 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Here are some key points:"
+                  "text": "<strong>Here are some key points:</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Operations involving binary + will convert numbers to strings in the case of string and number concatenation."
+                  "text": "• Operations involving binary + will convert numbers to strings in the case of string and number concatenation."
                 },
                 {
                   "type": "sentence",
-                  "text": "Logical operations convert operands to boolean values."
+                  "text": "• Logical operations convert operands to boolean values."
                 },
                 {
                   "type": "sentence",
-                  "text": "When subtracting a string from another string, JavaScript attempts to convert both strings to numbers."
+                  "text": "• When subtracting a string from another string, JavaScript attempts to convert both strings to numbers."
                 },
                 {
                   "type": "sentence",
-                  "text": "When you change an object's type, some data might get lost."
+                  "text": "• When you change an object's type, some data might get lost."
                 }
               ],
               "locked": true
@@ -799,7 +741,12 @@
             },
             {
               "question": "Which tool is used to run JavaScript code on your local machine?",
-              "options": ["Node.js", "React", "Angular", "Django"],
+              "options": [
+                "Node.js",
+                "React",
+                "Angular",
+                "Django"
+              ],
               "correctAnswer": "Node.js",
               "points": 2,
               "locked": true
@@ -818,21 +765,36 @@
             },
             {
               "question": "How do you declare a variable in JavaScript using the modern ES6 syntax?",
-              "options": ["var", "const", "let", "dynamic"],
+              "options": [
+                "var",
+                "const",
+                "let",
+                "dynamic"
+              ],
               "correctAnswer": "let",
               "points": 2,
               "locked": true
             },
             {
               "question": "What will be the output of `console.log(num)` if `let num;` is declared and not initialized?",
-              "options": ["null", "0", "undefined", "Error"],
+              "options": [
+                "null",
+                "0",
+                "undefined",
+                "Error"
+              ],
               "correctAnswer": "undefined",
               "points": 2,
               "locked": true
             },
             {
               "question": "Which keyword is used to declare a constant in JavaScript?",
-              "options": ["const", "let", "var", "final"],
+              "options": [
+                "const",
+                "let",
+                "var",
+                "final"
+              ],
               "correctAnswer": "const",
               "points": 2,
               "locked": true
@@ -851,21 +813,36 @@
             },
             {
               "question": "Which data type represents textual data in JavaScript?",
-              "options": ["Number", "Boolean", "String", "Object"],
+              "options": [
+                "Number",
+                "Boolean",
+                "String",
+                "Object"
+              ],
               "correctAnswer": "String",
               "points": 2,
               "locked": true
             },
             {
               "question": "What symbol is used to represent a BigInt in JavaScript?",
-              "options": ["b", "n", "N", "x"],
+              "options": [
+                "b",
+                "n",
+                "N",
+                "x"
+              ],
               "correctAnswer": "n",
               "points": 2,
               "locked": true
             },
             {
               "question": "What is the result of `5 / 0` in JavaScript?",
-              "options": ["0", "Infinity", "NaN", "Error"],
+              "options": [
+                "0",
+                "Infinity",
+                "NaN",
+                "Error"
+              ],
               "correctAnswer": "Infinity",
               "points": 2,
               "locked": true
@@ -884,7 +861,12 @@
             },
             {
               "question": "Which operator is used for addition in JavaScript?",
-              "options": ["+", "-", "*", "/"],
+              "options": [
+                "+",
+                "-",
+                "*",
+                "/"
+              ],
               "correctAnswer": "+",
               "points": 2,
               "locked": true
@@ -903,14 +885,25 @@
             },
             {
               "question": "Which logical operator returns true if either of the conditions is true?",
-              "options": ["&&", "||", "!", "??"],
+              "options": [
+                "&&",
+                "||",
+                "!",
+                "??"
+              ],
               "correctAnswer": "||",
               "points": 2,
               "locked": true
             },
             {
               "question": "What is the result of `~5` in JavaScript?",
-              "options": ["5", "-6", "0", "-5", "Error"],
+              "options": [
+                "5",
+                "-6",
+                "0",
+                "-5",
+                "Error"
+              ],
               "correctAnswer": "-6",
               "points": 2,
               "locked": true
@@ -929,14 +922,24 @@
             },
             {
               "question": "What type of operator is `**` in JavaScript?",
-              "options": ["Arithmetic", "Comparison", "Logical", "Bitwise"],
+              "options": [
+                "Arithmetic",
+                "Comparison",
+                "Logical",
+                "Bitwise"
+              ],
               "correctAnswer": "Arithmetic",
               "points": 2,
               "locked": true
             },
             {
               "question": "Which operator is used to perform a bitwise AND operation?",
-              "options": ["&", "|", "^", "~"],
+              "options": [
+                "&",
+                "|",
+                "^",
+                "~"
+              ],
               "correctAnswer": "&",
               "points": 2,
               "locked": true
@@ -955,7 +958,12 @@
             },
             {
               "question": "Which data type in JavaScript can represent a unique and immutable value?",
-              "options": ["Symbol", "Number", "String", "Object"],
+              "options": [
+                "Symbol",
+                "Number",
+                "String",
+                "Object"
+              ],
               "correctAnswer": "Symbol",
               "points": 2,
               "locked": true
@@ -1137,76 +1145,76 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "JavaScript comparison operators compare two values and return a boolean value (true or false)."
+                  "text": "<strong>JavaScript comparison operators</strong> compare two values and return a boolean value (true or false)."
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "const a = 3, b = 2;\nconsole.log(a > b);  // true"
                 },
                 {
                   "type": "sentence",
-                  "text": "Commonly Used Comparison Operators:"
+                  "text": "<strong>Commonly Used Comparison Operators:</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "== (Equal to): 3 == 5 gives false"
+                  "text": "<strong>1. == (Equal to):</strong> 3 == 5 gives false"
                 },
                 {
                   "type": "sentence",
-                  "text": "!= (Not equal to): 3 != 4 gives true"
+                  "text": "<strong>2. != (Not equal to):</strong> 3 != 4 gives true"
                 },
                 {
                   "type": "sentence",
-                  "text": "=== (Strictly equal to): 3 === '3' gives false"
+                  "text": "<strong>3. === (Strictly equal to):</strong> 3 === '3' gives false"
                 },
                 {
                   "type": "sentence",
-                  "text": "!== (Strictly not equal to): 3 !== '3' gives true"
+                  "text": "<strong>4. !== (Strictly not equal to):</strong> 3 !== '3' gives true"
                 },
                 {
                   "type": "sentence",
-                  "text": "> (Greater than): 4 > 4 gives false"
+                  "text": "<strong>5. > (Greater than):</strong> 4 > 4 gives false"
                 },
                 {
                   "type": "sentence",
-                  "text": "< (Less than): 3 < 3 gives false"
+                  "text": "<strong>6. < (Less than):</strong> 3 < 3 gives false"
                 },
                 {
                   "type": "sentence",
-                  "text": ">= (Greater than or equal to): 4 >= 4 gives true"
+                  "text": "<strong>7. >= (Greater than or equal to):</strong> 4 >= 4 gives true"
                 },
                 {
                   "type": "sentence",
-                  "text": "<= (Less than or equal to): 3 <= 3 gives true"
+                  "text": "<strong>8. <= (Less than or equal to):</strong> 3 <= 3 gives true"
                 },
                 {
                   "type": "sentence",
                   "text": "Examples:"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "console.log(5 == 5);   // true\nconsole.log(2 == \"2\"); // true\nconsole.log(2 === \"2\"); // false\nconsole.log(2 != 3);   // true\nconsole.log(3 > 2);    // true\nconsole.log(3 >= 3);   // true"
                 },
                 {
                   "type": "sentence",
-                  "text": "JavaScript Logical Operators:"
+                  "text": "<strong>JavaScript Logical Operators:</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "&& (Logical AND): true if both expressions are true"
+                  "text": "<strong>1. && (Logical AND):</strong> true if both expressions are true"
                 },
                 {
                   "type": "sentence",
-                  "text": "|| (Logical OR): true if either expression is true"
+                  "text": "<strong>2. || (Logical OR):</strong> true if either expression is true"
                 },
                 {
                   "type": "sentence",
-                  "text": "! (Logical NOT): inverts the boolean value"
+                  "text": "<strong>3. ! (Logical NOT):</strong> inverts the boolean value"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "console.log((3 < 5) && (2 > 1));  // true\nconsole.log((3 > 5) || (2 > 1));  // true\nconsole.log(!(3 > 5));           // true"
                 }
@@ -1218,16 +1226,16 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "The JavaScript if...else statement executes or skips a block of code based on a condition."
+                  "text": "The <strong>JavaScript if...else</strong> statement executes or skips a block of code based on a condition."
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "let score = 45;\n\nif (score >= 50) {\n    console.log(\"You passed the examination.\");\n} else {\n    console.log(\"You failed the examination.\");\n}\n\n// Output: You failed the examination."
                 },
                 {
                   "type": "sentence",
-                  "text": "JavaScript if Statement Syntax:"
+                  "text": "<strong>JavaScript if Statement Syntax:</strong>"
                 },
                 {
                   "type": "snippet",
@@ -1236,7 +1244,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "JavaScript else Statement Syntax:"
+                  "text": "<strong>JavaScript else Statement Syntax:</strong>"
                 },
                 {
                   "type": "snippet",
@@ -1245,7 +1253,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "JavaScript else if Statement Syntax:"
+                  "text": "<strong>JavaScript else if Statement Syntax:</strong>"
                 },
                 {
                   "type": "snippet",
@@ -1254,25 +1262,25 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Example: Multiple Conditions"
+                  "text": "<strong>Example: Multiple Conditions</strong>"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "let rating = 4;\n\nif (rating <= 2) {\n    console.log(\"Bad rating\");\n} else if (rating >= 4) {\n    console.log(\"Good rating!\");\n} else {\n    console.log(\"Average rating\");\n}\n\n// Output: Good rating!"
                 },
                 {
                   "type": "sentence",
-                  "text": "Nested if...else Statement Example:"
+                  "text": "<strong>Nested if...else Statement Example:</strong>"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "let marks = 60;\n\nif (marks >= 40) {\n    if (marks >= 80) {\n        console.log(\"Distinction\");\n    } else {\n        console.log(\"Passed\");\n    }\n} else {\n    console.log(\"Failed\");\n}\n\n// Output: Passed"
                 },
                 {
                   "type": "sentence",
-                  "text": "Note: Avoid excessive nesting of if...else statements to maintain code readability."
+                  "text": "<strong>Note:</strong> Avoid excessive nesting of if...else statements to maintain code readability."
                 }
               ],
               "locked": true
@@ -1282,20 +1290,20 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "JavaScript provides several types of loops to iterate over code blocks or array elements."
+                  "text": "JavaScript provides several types of <strong>loops</strong> to iterate over code blocks or array elements."
                 },
                 {
                   "type": "sentence",
-                  "text": "1. for loop"
+                  "text": "<strong>1. for loop: </strong>Used when the number of iterations is known. "
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "for (let i = 0; i < 3; i++) {\n    console.log(\"Hello, world!\");\n}\n\n// Output:\n// Hello, world!\n// Hello, world!\n// Hello, world!"
                 },
                 {
                   "type": "sentence",
-                  "text": "for loop syntax:"
+                  "text": "<strong>for loop syntax:</strong>"
                 },
                 {
                   "type": "snippet",
@@ -1304,25 +1312,37 @@
                 },
                 {
                   "type": "sentence",
+                  "text": "<strong>• Initial expression:</strong> This initializes the loop counter."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Condition:</strong>The loop runs as long as this condition is true."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Update expression:</strong> This updates the loop counter after each iteration."
+                },
+                {
+                  "type": "sentence",
                   "text": "Example: Print numbers from 1 to 5"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "for (let i = 1; i <= 5; i++) {\n    console.log(i);\n}\n\n// Output: 1 2 3 4 5"
                 },
                 {
                   "type": "sentence",
-                  "text": "2. while loop"
+                  "text": "<strong>2. while loop:</strong>Runs as long as a specified condition is true. It checks the condition before each iteration."
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "let i = 1;\nwhile (i <= 3) {\n    console.log(i);\n    i++;\n}\n\n// Output: 1 2 3"
                 },
                 {
                   "type": "sentence",
-                  "text": "while loop syntax:"
+                  "text": "<strong>while loop syntax:</strong>"
                 },
                 {
                   "type": "snippet",
@@ -1331,16 +1351,16 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "3. do...while loop"
+                  "text": "<strong>3. do...while loop:</strong>Is similar to the while loop, but the condition is checked after the loop body is executed. This ensures that the loop runs at least once, even if the condition is false."
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "let i = 1;\ndo {\n    console.log(i);\n    i++;\n} while (i <= 3);\n\n// Output: 1 2 3"
                 },
                 {
                   "type": "sentence",
-                  "text": "do...while loop syntax:"
+                  "text": "<strong>do...while loop syntax:</strong>"
                 },
                 {
                   "type": "snippet",
@@ -1352,16 +1372,16 @@
                   "text": "Example: Sum of positive numbers"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "let sum = 0, num = 0;\n\ndo {\n    sum += num;\n    num = parseInt(prompt(\"Enter a number: \"));\n} while (num >= 0);\n\nconsole.log(`The sum is ${sum}`);\n\n// Sample Output:\n// Enter a number: 2\n// Enter a number: 4\n// Enter a number: -3\n// The sum is 6"
                 },
                 {
                   "type": "sentence",
-                  "text": "4. Iterating through an array"
+                  "text": "<strong>4. Iterating through an array:</strong>You can use loops like the for loop to iterate through an array and access each element."
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "const fruits = [\"apple\", \"banana\", \"cherry\"];\n\nfor (let i = 0; i < fruits.length; i++) {\n    console.log(fruits[i]);\n}\n\n// Output:\n// apple\n// banana\n// cherry"
                 }
@@ -1373,44 +1393,44 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "JavaScript provides several control flow statements to alter the execution of code."
+                  "text": "JavaScript provides several <strong>control flow</strong> statements to alter the execution of code."
                 },
                 {
                   "type": "sentence",
-                  "text": "1. break Statement"
+                  "text": "<strong>1. break Statement</strong>"
                 },
                 {
                   "type": "sentence",
                   "text": "The break statement terminates the loop immediately when encountered."
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "while (true) {\n    let num = Number(prompt(\"Enter a number: \"));\n    if (num === 0) {\n        break;\n    }\n    console.log(num);\n}\n\n// Output:\n// Enter a number: 5\n// 5\n// Enter a number: 0"
                 },
                 {
                   "type": "sentence",
-                  "text": "2. continue Statement"
+                  "text": "<strong>2. continue Statement</strong>"
                 },
                 {
                   "type": "sentence",
                   "text": "The continue statement skips the current iteration and proceeds to the next one."
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "for (let i = 1; i <= 5; i++) {\n    if (i % 2 === 0) {\n        continue;\n    }\n    console.log(i);\n}\n\n// Output:\n// 1\n// 3\n// 5"
                 },
                 {
                   "type": "sentence",
-                  "text": "3. switch Statement"
+                  "text": "<strong>3. switch Statement</strong>"
                 },
                 {
                   "type": "sentence",
                   "text": "The switch statement executes different code blocks based on different cases."
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "let day = 3;\n\nswitch (day) {\n    case 1:\n        console.log(\"Sunday\");\n        break;\n    case 2:\n        console.log(\"Monday\");\n        break;\n    case 3:\n        console.log(\"Tuesday\");\n        break;\n    case 4:\n        console.log(\"Wednesday\");\n        break;\n    case 5:\n        console.log(\"Thursday\");\n        break;\n    case 6:\n        console.log(\"Friday\");\n        break;\n    case 7:\n        console.log(\"Saturday\");\n        break;\n    default:\n        console.log(\"Invalid Day\");\n}\n\n// Output: Tuesday"
                 },
@@ -1419,7 +1439,7 @@
                   "text": "Example: Simple Calculator Using switch"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "language": "javascript",
                   "code": "let number1 = 6;\nlet number2 = 3;\nlet operator = '+';\nlet result;\n\nswitch(operator) {\n    case \"+\":\n        result = number1 + number2;\n        break;\n    case \"-\":\n        result = number1 - number2;\n        break;\n    case \"*\":\n        result = number1 * number2;\n        break;\n    case \"/\":\n        result = number1 / number2;\n        break;\n    default:\n        console.log(\"Invalid operator\");\n        break;\n}\n\nconsole.log(`${number1} ${operator} ${number2} = ${result}`);\n\n// Output: 6 + 3 = 9"
                 }
@@ -1430,14 +1450,24 @@
           "quiz": [
             {
               "question": "Which operator is used for strict equality comparison in JavaScript?",
-              "options": ["==", "===", "!=", "!=="],
+              "options": [
+                "==",
+                "===",
+                "!=",
+                "!=="
+              ],
               "correctAnswer": "===",
               "points": 2,
               "locked": true
             },
             {
               "question": "What will be the output of the following code: `console.log((3 < 5) && (2 > 1));`?",
-              "options": ["true", "false", "undefined", "null"],
+              "options": [
+                "true",
+                "false",
+                "undefined",
+                "null"
+              ],
               "correctAnswer": "true",
               "points": 2,
               "locked": true
@@ -1480,7 +1510,12 @@
             },
             {
               "question": "Which statement is used to skip the current iteration in a loop?",
-              "options": ["break", "continue", "skip", "return"],
+              "options": [
+                "break",
+                "continue",
+                "skip",
+                "return"
+              ],
               "correctAnswer": "continue",
               "points": 2,
               "locked": true
@@ -1511,7 +1546,12 @@
             },
             {
               "question": "What will the following code output: `console.log(3 !== '3');`?",
-              "options": ["true", "false", "undefined", "null"],
+              "options": [
+                "true",
+                "false",
+                "undefined",
+                "null"
+              ],
               "correctAnswer": "true",
               "points": 2,
               "locked": true
@@ -1697,10 +1737,10 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "A function is a reusable block of code that performs a specific task. A function expression stores a function in a variable."
+                  "text": "A <strong>function</strong> is a reusable block of code that performs a specific task. A function expression stores a function in a variable."
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "code": "// Function declaration\nfunction greet() {\n    console.log(\"Hello World!\");\n}\n\n// Function expression\nlet displayPI = function() {\n    console.log(\"PI = 3.14\");\n}\n\ngreet();\ndisplayPI();"
                 },
                 {
@@ -1714,10 +1754,10 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "The return statement terminates the function and specifies the value to be returned."
+                  "text": "The <strong>return statement</strong> terminates the function and specifies the value to be returned."
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "code": "function findSquare(num) {\n    return num * num;\n}\n\nlet square = findSquare(3);\nconsole.log(`Square: ${square}`);"
                 },
                 {
@@ -1734,7 +1774,7 @@
                   "text": "Function expressions allow storing functions in variables:"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "code": "let square = function(num) {\n    return num * num;\n};\n\nconsole.log(square(5));"
                 }
               ],
@@ -1745,11 +1785,11 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "In JavaScript, variable scope determines where a variable can be accessed. There are three types of scope: global, local (function), and block-level."
+                  "text": "In JavaScript, <strong>variable scope</strong> determines where a variable can be accessed. <strong>There are three types of scope:</strong>."
                 },
                 {
                   "type": "sentence",
-                  "text": "Local (Function) Scope: Variables declared inside a function are only accessible within that function."
+                  "text": "<strong>1. Local (Function) Scope:</strong> Variables declared inside a function are only accessible within that function."
                 },
                 {
                   "type": "codeconsole",
@@ -1758,7 +1798,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Global Scope: Variables declared outside any function can be accessed from anywhere in the code."
+                  "text": "<strong>2. Global Scope:</strong> Variables declared outside any function can be accessed from anywhere in the code."
                 },
                 {
                   "type": "codeconsole",
@@ -1767,7 +1807,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Block-Level Scope: Introduced in ES6 with let and const keywords, these variables are only accessible within the block they are defined in."
+                  "text": "<strong>3. Block-Level Scope:</strong> Introduced in ES6 with let and const keywords, these variables are only accessible within the block they are defined in."
                 },
                 {
                   "type": "codeconsole",
@@ -1782,7 +1822,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "Hoisting is a JavaScript behavior where function or variable declarations are moved to the top of their scope before code execution."
+                  "text": "<strong>Hoisting</strong> is a JavaScript behavior where function or variable declarations are moved to the top of their scope before code execution."
                 },
                 {
                   "type": "codeconsole",
@@ -1809,7 +1849,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Note: Only declarations are hoisted, not initializations. It's best to avoid relying on hoisting for clearer code."
+                  "text": "<strong>Note:</strong> Only declarations are hoisted, not initializations. It's best to avoid relying on hoisting for clearer code."
                 }
               ],
               "locked": true
@@ -1819,7 +1859,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "Recursion is a programming technique where a function calls itself to solve a problem."
+                  "text": "<strong>Recursion</strong> is a programming technique where a function calls itself to solve a problem."
                 },
                 {
                   "type": "codeconsole",
@@ -1828,7 +1868,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "A recursive function must have a base case to prevent infinite recursion."
+                  "text": "A <strong>recursive function</strong> must have a base case to prevent infinite recursion."
                 },
                 {
                   "type": "sentence",
@@ -1841,7 +1881,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "The recursive process: factorial(5) calls factorial(4), which calls factorial(3), and so on until reaching the base case."
+                  "text": "The <strong>recursive process:</strong> factorial(5) calls factorial(4), which calls factorial(3), and so on until reaching the base case."
                 }
               ],
               "locked": true
@@ -1910,7 +1950,12 @@
             },
             {
               "question": "What will be the output of the following code snippet? `console.log(test); var test = 5;`",
-              "options": ["undefined", "5", "ReferenceError", "SyntaxError"],
+              "options": [
+                "undefined",
+                "5",
+                "ReferenceError",
+                "SyntaxError"
+              ],
               "correctAnswer": "undefined",
               "points": 2,
               "locked": true
@@ -1941,7 +1986,12 @@
             },
             {
               "question": "What will be the output of the following recursive function? `function factorial(num) { if (num > 1) { return num * factorial(num - 1); } return 1; } console.log(factorial(3));`",
-              "options": ["6", "3", "9", "Factorial is undefined"],
+              "options": [
+                "6",
+                "3",
+                "9",
+                "Factorial is undefined"
+              ],
               "correctAnswer": "6",
               "points": 2,
               "locked": true
@@ -1960,7 +2010,12 @@
             },
             {
               "question": "Which keyword is used to declare a block-scoped variable in JavaScript?",
-              "options": ["let", "var", "const", "function"],
+              "options": [
+                "let",
+                "var",
+                "const",
+                "function"
+              ],
               "correctAnswer": "let",
               "points": 2,
               "locked": true
@@ -1991,14 +2046,24 @@
             },
             {
               "question": "What is the output of the following code? `let result = Math.pow(2, 3); console.log(result);`",
-              "options": ["8", "6", "4", "2"],
+              "options": [
+                "8",
+                "6",
+                "4",
+                "2"
+              ],
               "correctAnswer": "8",
               "points": 2,
               "locked": true
             },
             {
               "question": "What will be the output of this code snippet? `console.log('JavaScript'.toLowerCase());`",
-              "options": ["JAVASCRIPT", "Javascript", "javascript", "Error"],
+              "options": [
+                "JAVASCRIPT",
+                "Javascript",
+                "javascript",
+                "Error"
+              ],
               "correctAnswer": "javascript",
               "points": 2,
               "locked": true
@@ -2053,7 +2118,12 @@
             },
             {
               "question": "What will be the output of the following code snippet? `let x = 10; { let x = 20; console.log(x); } console.log(x);`",
-              "options": ["20\n10", "10\n20", "ReferenceError", "20\n20"],
+              "options": [
+                "20\n10",
+                "10\n20",
+                "ReferenceError",
+                "20\n20"
+              ],
               "correctAnswer": "20\n10",
               "points": 2,
               "locked": true
@@ -2176,7 +2246,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "An array is an object that can store multiple values at once. It allows us to organize related data by grouping them within a single variable."
+                  "text": "An <strong>array</strong> is an object that can store multiple values at once. It allows us to organize related data by grouping them within a single variable."
                 },
                 {
                   "type": "codeconsole",
@@ -2185,7 +2255,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Create an Array: We can create an array by placing elements inside square brackets [], separated by commas."
+                  "text": "<strong>Create an Array:</strong> We can create an array by placing elements inside <strong>square brackets [], separated by commas</strong>."
                 },
                 {
                   "type": "snippet",
@@ -2193,7 +2263,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Access Elements of an Array: Each element of an array is associated with an index, starting from 0."
+                  "text": "<strong>Access Elements of an Array:</strong> Each element of an array is associated with an index, starting from 0."
                 },
                 {
                   "type": "codeconsole",
@@ -2202,7 +2272,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Add Element to an Array: We can add elements using methods like push() (end) and unshift() (beginning)."
+                  "text": "<strong>Add Element to an Array:</strong> We can add elements using methods like <strong>push() (end) and unshift() (beginning)</strong>."
                 },
                 {
                   "type": "codeconsole",
@@ -2211,7 +2281,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Change Elements of an Array: We can modify elements by accessing their index."
+                  "text": "<strong>Change Elements of an Array:</strong> We can modify elements by accessing their index."
                 },
                 {
                   "type": "codeconsole",
@@ -2220,7 +2290,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Remove Elements From an Array: We can remove elements using the splice() method."
+                  "text": "<strong>Remove Elements From an Array:</strong> We can remove elements using the <strong>splice()</strong> method."
                 },
                 {
                   "type": "codeconsole",
@@ -2229,7 +2299,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Common Array Methods: JavaScript provides various methods for array operations, such as concat(), toString(), indexOf(), find(), forEach(), includes(), sort(), and slice()."
+                  "text": "<strong>Common Array Methods:</strong> JavaScript provides various methods for array operations, such as <strong>concat(), toString(), indexOf(), find(), forEach(), includes(), sort(), and slice()</strong>."
                 },
                 {
                   "type": "codeconsole",
@@ -2244,7 +2314,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "JavaScript Multidimensional Array"
+                  "text": "<strong>JavaScript Multidimensional Array</strong>"
                 },
                 {
                   "type": "sentence",
@@ -2261,20 +2331,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Output"
-                },
-                {
-                  "type": "codeconsole",
-                  "language": "javascript",
-                  "code": "[ [ 1, 2, 3 ], [ 1, 3, 4 ], [ 4, 5, 6 ] ]"
+                  "text": "<strong>Explanation:</strong>Here, we created a multidimensional array named data with the following arrays as its elements: [ 1, 2, 3 ], [ 1, 3, 4 ], [ 4, 5, 6 ]."
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, we created a multidimensional array named data with the following arrays as its elements: [ 1, 2, 3 ], [ 1, 3, 4 ], [ 4, 5, 6 ]."
-                },
-                {
-                  "type": "sentence",
-                  "text": "Use Existing Arrays as Elements"
+                  "text": "<strong>Use Existing Arrays as Elements</strong>"
                 },
                 {
                   "type": "sentence",
@@ -2287,29 +2348,20 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Output"
-                },
-                {
-                  "type": "codeconsole",
-                  "language": "javascript",
-                  "code": "[ [ 'Jack', 24 ], [ 'Sara', 23 ], [ 'Peter', 24 ] ]"
-                },
-                {
-                  "type": "sentence",
-                  "text": "Here, we first created three arrays named student1, student2, and student3."
+                  "text": "<strong>Explanation:</strong>Here, we first created three arrays named student1, student2, and student3."
                 },
                 {
                   "type": "sentence",
                   "text": "We then nested these three arrays within the studentsData array to create our multidimensional array:"
                 },
                 {
-                  "type": "codeconsole",
+                  "type": "snippet",
                   "language": "javascript",
                   "code": "let studentsData = [student1, student2, student3];"
                 },
                 {
                   "type": "sentence",
-                  "text": "Access Elements of an Array"
+                  "text": "<strong>Access Elements of an Array</strong>"
                 },
                 {
                   "type": "sentence",
@@ -2322,28 +2374,23 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Output"
-                },
-                {
-                  "type": "codeconsole",
-                  "language": "javascript",
-                  "code": "[ 'Jack', 24 ]\nJack\n24"
-                },
-                {
-                  "type": "sentence",
                   "text": "You can think of a multidimensional array (in this case, x), as a table with 3 rows and 2 columns."
                 },
                 {
                   "type": "sentence",
-                  "text": "Add Elements to a Multidimensional Array"
+                  "text": "<strong>Add Elements to a Multidimensional Array</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "You can use an index notation or the push() method to add elements to a multidimensional array."
+                  "text": "You can use an <strong>index notation or the push()</strong> method to add elements to a multidimensional array."
                 },
                 {
                   "type": "sentence",
-                  "text": "1. Using Index Notation"
+                  "text": "<strong>1. Using Index Notation</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text":  "You can directly add elements to a specific position in a nested array using index notation. Arrays in JavaScript are <strong>zero-indexed, meaning the first element has an index of 0, the second element has an index of 1</strong>, and so on. To add an element to a nested array, you can specify the index of the outer array and the index of the inner array where you want to insert the element. For example,"
                 },
                 {
                   "type": "codeconsole",
@@ -2352,16 +2399,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Output"
-                },
-                {
-                  "type": "codeconsole",
-                  "language": "javascript",
-                  "code": "[ [ 'Jack', 24 ], [ 'Sara', 23, 'hello' ] ]"
-                },
-                {
-                  "type": "sentence",
-                  "text": "2. Using the push() Method"
+                  "text": "<strong>2. Using the push() Method<s/trong>"
                 },
                 {
                   "type": "sentence",
@@ -2374,20 +2412,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Output"
-                },
-                {
-                  "type": "codeconsole",
-                  "language": "javascript",
-                  "code": "[ [ 'Jack', 24 ], [ 'Sara', 23 ], [ 'Peter', 24 ] ]\n[ [ 'Jack', 24 ], [ 'Sara', 23, 'hello' ], [ 'Peter', 24 ] ]"
+                  "text": "<strong>Remove Elements From a Multidimensional Array</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Remove Elements From a Multidimensional Array"
-                },
-                {
-                  "type": "sentence",
-                  "text": "You can use the splice() method to remove an element from any position in the multidimensional array. For example,"
+                  "text": "You can use the <strong>splice()</strong> method to remove an element from any position in the multidimensional array. For example,"
                 },
                 {
                   "type": "codeconsole",
@@ -2396,24 +2425,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Output"
-                },
-                {
-                  "type": "codeconsole",
-                  "language": "javascript",
-                  "code": "[ [ 'Sara', 23 ] ]"
-                },
-                {
-                  "type": "sentence",
                   "text": "In the above program, studentsData.splice(0,1) removes the first element of the multidimensional array. Here,"
                 },
                 {
                   "type": "sentence",
-                  "text": "0 - The start index from where to modify the array."
+                  "text": "<strong>• 0: </strong> The start index from where to modify the array."
                 },
                 {
                   "type": "sentence",
-                  "text": "1 - The number of elements to delete."
+                  "text": "<strong>• 1:</strong> The number of elements to delete."
                 },
                 {
                   "type": "sentence",
@@ -2421,25 +2441,16 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Iterate Over Multidimensional Array"
+                  "text": "<strong>Iterate Over Multidimensional Array<strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "In JavaScript, you can use nested loops to go through a multidimensional array: one loop for the outer array and another loop inside it for the inner arrays. For example,"
+                  "text": "In JavaScript, you can use <strong>nested loops</strong> to go through a multidimensional array: <strong>one loop for the outer array and another loop inside it for the inner arrays</strong>. For example,"
                 },
                 {
                   "type": "codeconsole",
                   "language": "javascript",
                   "code": "let studentsData = [[\"Jack\", 24], [\"Sara\", 23]];\n\n// loop over outer array\nfor(let i = 0; i < studentsData.length; i++) {\n\n    // loop over inner array elements\n    for(let j = 0; j < studentsData[i].length; j++) {\n        console.log(studentsData[i][j]);\n    }\n}"
-                },
-                {
-                  "type": "sentence",
-                  "text": "Output"
-                },
-                {
-                  "type": "codeconsole",
-                  "language": "javascript",
-                  "code": "Jack\n24\nSara\n23"
                 }
               ],
               "locked": true
@@ -2449,7 +2460,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "JavaScript strings are primitive data types representing textual data. They can be created using single quotes, double quotes, or backticks."
+                  "text": "<strong>JavaScript strings</strong> are primitive data types representing textual data. They can be created using single quotes, double quotes, or backticks."
                 },
                 {
                   "type": "codeconsole",
@@ -2458,7 +2469,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Access String Characters: You can access characters using indexes or the charAt() method."
+                  "text": "<strong>Access String Characters:</strong> You can access characters using <strong>indexes or the charAt()</strong> method."
                 },
                 {
                   "type": "codeconsole",
@@ -2467,7 +2478,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Features of JavaScript Strings: Strings are immutable and case-sensitive."
+                  "text": "<strong>Features of JavaScript Strings:</strong> Strings are <strong>immutable and case-sensitive</strong>."
                 },
                 {
                   "type": "codeconsole",
@@ -2476,7 +2487,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "JavaScript String Methods: Strings have various built-in methods for manipulation and analysis."
+                  "text": "<strong>JavaScript String Methods:</strong> Strings have various built-in methods for manipulation and analysis."
                 },
                 {
                   "type": "codeconsole",
@@ -2485,7 +2496,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Other useful string methods include replace(), substr(), substring(), toLowerCase(), includes(), and search()."
+                  "text": "Other useful string methods include <strong>replace(), substr(), substring(), toLowerCase(), includes(), and search()</strong>."
                 }
               ],
               "locked": true
@@ -2495,7 +2506,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "The JavaScript for...in loop iterates over the keys of an object."
+                  "text": "The <strong>JavaScript for...in loop iterates</strong> over the keys of an object."
                 },
                 {
                   "type": "sentence",
@@ -2508,32 +2519,32 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, the for...in loop iterates over the keys of the student object. In each iteration of the loop, the key variable stores a single key belonging to student."
+                  "text": "<strong>Explanation:</strong>Here, the for...in loop iterates over the keys of the student object. In each iteration of the loop, the key variable stores a single key belonging to student."
                 },
                 {
                   "type": "sentence",
-                  "text": "Syntax of JavaScript for...in Loop"
+                  "text": "<strong>Syntax of JavaScript for...in Loop</strong>"
                 },
                 {
-                  "type": "codeconsole",
+                  "type": "snippet",
                   "language": "javascript",
                   "code": "for (key in object) {\n    // body of for...in\n};"
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, object is the object whose keys we want to iterate over, and key is a variable that stores a single key belonging to object."
+                  "text": "<strong>Explanation:</strong>Here, object is the object whose keys we want to iterate over, and key is a variable that stores a single key belonging to object."
                 },
                 {
                   "type": "sentence",
-                  "text": "Working of for...in Loop"
+                  "text": "<strong>Working of for...in Loop</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "In the first iteration, the key variable is assigned the first key of object. The body of the loop is then executed."
+                  "text": "In the <strong>first iteration</strong>, the key variable is assigned the first key of object. The body of the loop is then executed."
                 },
                 {
                   "type": "sentence",
-                  "text": "In the second iteration, the key variable is assigned the next key of object. The body of the loop is then executed."
+                  "text": "In the <strong>second iteration</strong>, the key variable is assigned the next key of object. The body of the loop is then executed."
                 },
                 {
                   "type": "sentence",
@@ -2541,7 +2552,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Note: Once you get the keys of an object, you can easily find their corresponding values."
+                  "text": "<strong>Note:</strong> Once you get the keys of an object, you can easily find their corresponding values."
                 },
                 {
                   "type": "sentence",
@@ -2554,11 +2565,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "In the above example, we used the for...in loop to iterate over the properties of the salaries object. Then, we added the string $ to each value of the object."
+                  "text": "In the <strong>above example</strong>, we used the for...in loop to iterate over the properties of the salaries object. Then, we added the string $ to each value of the object."
                 },
                 {
                   "type": "sentence",
-                  "text": "Note: We have used the variable i instead of key because we can use any valid variable name."
+                  "text": "<strong>Note:</strong> We have used the variable i instead of key because we can use any valid variable name."
                 }
               ],
               "locked": true
@@ -2568,7 +2579,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "In JavaScript, numbers are used to represent numerical values. They can be whole numbers (like 5, 10, 100) or decimal numbers (like 3.13, 0.5, 10.75)."
+                  "text": "In JavaScript,<strong>numbers</strong> are used to represent numerical values. They can be <strong>whole numbers (like 5, 10, 100) or decimal numbers (like 3.13, 0.5, 10.75)</strong>."
                 },
                 {
                   "type": "codeconsole",
@@ -2581,7 +2592,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "NaN (Not a Number) is a special value that is returned when a mathematical operation cannot produce a meaningful numeric result."
+                  "text": "<strong>NaN (Not a Number)</strong> is a special value that is returned when a mathematical operation cannot produce a meaningful numeric result."
                 },
                 {
                   "type": "sentence",
@@ -2598,7 +2609,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Infinity is a special value that signifies an amount larger than any finite number."
+                  "text": "<strong>Infinity</strong> is a special value that signifies an amount larger than any finite number."
                 },
                 {
                   "type": "codeconsole",
@@ -2607,11 +2618,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, dividing a positive number by 0 yields Infinity, while dividing a negative number by 0 results in -Infinity."
+                  "text": "<strong>Explanation:</strong>Here, dividing a positive number by 0 yields Infinity, while dividing a negative number by 0 results in -Infinity."
                 },
                 {
                   "type": "sentence",
-                  "text": "JavaScript Number Methods"
+                  "text": "<strong>JavaScript Number Methods</strong>"
                 },
                 {
                   "type": "sentence",
@@ -2619,103 +2630,103 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "A. Method: isNaN()"
+                  "text": "<strong>A. Method: isNaN()</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Determines whether the passed value is NaN."
+                  "text": "<strong>Description:</strong> Determines whether the passed value is NaN."
                 },
                 {
                   "type": "sentence",
-                  "text": "B. Method: isFinite()"
+                  "text": "<strong>B. Method: isFinite()</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Determines whether the passed value is a finite number."
+                  "text": "<strong>Description:</strong> Determines whether the passed value is a finite number."
                 },
                 {
                   "type": "sentence",
-                  "text": "C. Method: isInteger()"
+                  "text": "<strong>C. Method: isInteger()</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Determines whether the passed value is an integer."
+                  "text": "<strong>Description:</strong> Determines whether the passed value is an integer."
                 },
                 {
                   "type": "sentence",
-                  "text": "D. Method: isSafeInteger()"
+                  "text": "<strong>D. Method: isSafeInteger()</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Determines whether the passed value is a safe integer."
+                  "text": "<strong>Description:</strong> Determines whether the passed value is a safe integer."
                 },
                 {
                   "type": "sentence",
-                  "text": "E. Method: parseFloat()"
+                  "text": "<strong>E. Method: parseFloat()</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Converts the numeric floating string to a floating-point number."
+                  "text": "<strong>Description:</strong> Converts the numeric floating string to a floating-point number."
                 },
                 {
                   "type": "sentence",
-                  "text": "F. Method: parseInt()"
+                  "text": "<strong>F. Method: parseInt()</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Converts the numeric string to an integer."
+                  "text": "<strong>Description:</strong> Converts the numeric string to an integer."
                 },
                 {
                   "type": "sentence",
-                  "text": "G. Method: toExponential()"
+                  "text": "<strong>G. Method: toExponential()</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Returns a string value for a number in exponential notation."
+                  "text": "<strong>Description:</strong> Returns a string value for a number in exponential notation."
                 },
                 {
                   "type": "sentence",
-                  "text": "H. Method: toFixed()"
+                  "text": "<strong>H. Method: toFixed()</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Returns a string value for a number in fixed-point notation."
+                  "text": "<strong>Description:</strong> Returns a string value for a number in fixed-point notation."
                 },
                 {
                   "type": "sentence",
-                  "text": "I. Method: toPrecision()"
+                  "text": "<strong>I. Method: toPrecision()</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Returns a string value for a number to a specified precision."
+                  "text": "<strong>Description:</strong> Returns a string value for a number to a specified precision."
                 },
                 {
                   "type": "sentence",
-                  "text": "J. Method: toString()"
+                  "text": "<strong>J. Method: toString()</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Returns a string value in a specified radix (base)."
+                  "text": "<strong>Description:</strong> Returns a string value in a specified radix (base)."
                 },
                 {
                   "type": "sentence",
-                  "text": "K. Method: valueOf()"
+                  "text": "<strong>K. Method: valueOf()</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Returns the number's value."
+                  "text": "<strong>Description:</strong> Returns the number's value."
                 },
                 {
                   "type": "sentence",
-                  "text": "L. Method: toLocaleString()"
+                  "text": "<strong>L. Method: toLocaleString()</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Returns a string with a language-sensitive representation of a number."
+                  "text": "<strong>Description:</strong> Returns a string with a language-sensitive representation of a number."
                 },
                 {
                   "type": "sentence",
-                  "text": "Example: JavaScript Number Methods"
+                  "text": "<strong>Example: JavaScript Number Methods</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -2730,7 +2741,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "The JavaScript ES6 introduced a new primitive data type called Symbol. Symbols are immutable (cannot be changed) and are unique."
+                  "text": "The JavaScript ES6 introduced a new primitive data type called <strong>Symbol</strong>. Symbols are immutable (cannot be changed) and are unique."
                 },
                 {
                   "type": "codeconsole",
@@ -2743,14 +2754,14 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Creating Symbol"
+                  "text": "<strong>Creating Symbol</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "You use the Symbol() function to create a Symbol."
+                  "text": "You use the <strong>Symbol()</strong> function to create a Symbol."
                 },
                 {
-                  "type": "codeconsole",
+                  "type": "snippet",
                   "language": "javascript",
                   "code": "// creating symbol\nconst x = Symbol();\n\ntypeof x; // symbol"
                 },
@@ -2765,11 +2776,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Access Symbol Description"
+                  "text": "<strong>Access Symbol Description</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "To access the description of a symbol, we use the .description property."
+                  "text": "To access the description of a symbol, we use the <strong>.description property</strong>."
                 },
                 {
                   "type": "codeconsole",
@@ -2778,11 +2789,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Add Symbol as an Object Key"
+                  "text": "<strong>Add Symbol as an Object Key</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "You can add symbols as a key in an object using square brackets []."
+                  "text": "You can add symbols as a key in an object using <strong>square brackets []</strong>."
                 },
                 {
                   "type": "codeconsole",
@@ -2791,11 +2802,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Symbols are not included in for...in Loop"
+                  "text": "Symbols are not included in <strong>for...in Loop</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "The for...in loop does not iterate over Symbolic properties."
+                  "text": "The <strong>for...in loop</strong> does not iterate over Symbolic properties."
                 },
                 {
                   "type": "codeconsole",
@@ -2803,20 +2814,15 @@
                   "code": "let id = Symbol(\"id\");\n\nlet person = {\n    name: \"Jack\",\n    age: 25,\n    [id]: 12\n};\n\n// using for...in\nfor (let key in person) {\n    console.log(key);\n}"
                 },
                 {
-                  "type": "codeconsole",
-                  "language": "javascript",
-                  "code": "Output\n\nname\nage"
-                },
-                {
                   "type": "sentence",
-                  "text": "Benefit of Using Symbols in Object"
+                  "text": "<strong>Benefit of Using Symbols in Object</strong>"
                 },
                 {
                   "type": "sentence",
                   "text": "If the same code snippet is used in various programs, then it is better to use Symbols in the object key. It's because you can use the same key name in different codes and avoid duplication issues."
                 },
                 {
-                  "type": "codeconsole",
+                  "type": "snippet",
                   "language": "javascript",
                   "code": "let person = {\n    name: \"Jack\"\n};\n\n// creating Symbol\nlet id = Symbol(\"id\");\n\n// adding symbol as a key\nperson[id] = 12;"
                 },
@@ -2829,7 +2835,7 @@
                   "text": "Now, if the other program also needs to use a property named id, just add a Symbol named id and there won't be duplication issues."
                 },
                 {
-                  "type": "codeconsole",
+                  "type": "snippet",
                   "language": "javascript",
                   "code": "let person = {\n    name: \"Jack\"\n};\n\nlet id = Symbol(\"id\");\n\nperson[id] = \"Another value\";"
                 },
@@ -2852,7 +2858,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Symbol Methods"
+                  "text": "<strong>Symbol Methods</strong>"
                 },
                 {
                   "type": "sentence",
@@ -2860,47 +2866,47 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "A. Method: for()"
+                  "text": "<strong>A. Method: for()</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Searches for existing symbols."
+                  "text": "<strong>Description:</strong> Searches for existing symbols."
                 },
                 {
                   "type": "sentence",
-                  "text": "B. Method: keyFor()"
+                  "text": "<strong>B. Method: keyFor()</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Returns a shared symbol key from the global symbol registry."
+                  "text": "<strong>Description:</strong> Returns a shared symbol key from the global symbol registry."
                 },
                 {
                   "type": "sentence",
-                  "text": "C. Method: toSource()"
+                  "text": "<strong>C. Method: toSource()</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Returns a string containing the source of the Symbol object."
+                  "text": "<strong>Description:</strong> Returns a string containing the source of the Symbol object."
                 },
                 {
                   "type": "sentence",
-                  "text": "D. Method: toString()"
+                  "text": "<strong>D. Method: toString()</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Returns a string containing the description of the Symbol."
+                  "text": "<strong>Description:</strong> Returns a string containing the description of the Symbol."
                 },
                 {
                   "type": "sentence",
-                  "text": "E. Method: valueOf()"
+                  "text": "<strong>E. Method: valueOf()</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Returns the primitive value of the Symbol object."
+                  "text": "<strong>Description:</strong> Returns the primitive value of the Symbol object."
                 },
                 {
                   "type": "sentence",
-                  "text": "Example: Symbol Methods"
+                  "text": "<strong>Example: Symbol Methods</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -2909,111 +2915,111 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Symbol Properties"
+                  "text": "<strong>Symbol Properties</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "A. Property: asyncIterator"
+                  "text": "<strong>A. Property: asyncIterator</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Returns the default AsyncIterator for an object."
+                  "text": "<strong>Description:</strong> Returns the default AsyncIterator for an object."
                 },
                 {
                   "type": "sentence",
-                  "text": "B. Property: hasInstance"
+                  "text": "<strong>B. Property: hasInstance</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Determines if a constructor object recognizes an object as its instance."
+                  "text": "<strong>Description:</strong> Determines if a constructor object recognizes an object as its instance."
                 },
                 {
                   "type": "sentence",
-                  "text": "C. Property: isConcatSpreadable"
+                  "text": "<strong>C. Property: isConcatSpreadable</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Indicates if an object should be flattened to its array elements."
+                  "text": "<strong>Description:</strong> Indicates if an object should be flattened to its array elements."
                 },
                 {
                   "type": "sentence",
-                  "text": "D. Property: iterator"
+                  "text": "<strong>D. Property: iterator</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Returns the default iterator for an object."
+                  "text": "<strong>Description:</strong> Returns the default iterator for an object."
                 },
                 {
                   "type": "sentence",
-                  "text": "E. Property: match"
+                  "text": "<strong>E. Property: match</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Matches against a string."
+                  "text": "<strong>Description:</strong> Matches against a string."
                 },
                 {
                   "type": "sentence",
-                  "text": "F. Property: matchAll"
+                  "text": "<strong>F. Property: matchAll</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Returns an iterator that yields matches of the regular expression against a string."
+                  "text": "<strong>Description:</strong> Returns an iterator that yields matches of the regular expression against a string."
                 },
                 {
                   "type": "sentence",
-                  "text": "G. Property: replace"
+                  "text": "<strong>G. Property: replace</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Replaces matched substrings of a string."
+                  "text": "<strong>Description:</strong> Replaces matched substrings of a string."
                 },
                 {
                   "type": "sentence",
-                  "text": "H. Property: search"
+                  "text": "<strong>H. Property: search<strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Returns the index within a string that matches the regular expression."
+                  "text": "<strong>Description:</strong> Returns the index within a string that matches the regular expression."
                 },
                 {
                   "type": "sentence",
-                  "text": "I. Property: split"
+                  "text": "<strong>I. Property: split</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Splits a string at the indices that match a regular expression."
+                  "text": "<strong>Description:</strong> Splits a string at the indices that match a regular expression."
                 },
                 {
                   "type": "sentence",
-                  "text": "J. Property: species"
+                  "text": "<strong>J. Property: species</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Creates derived objects."
+                  "text": "<strong>Description:</strong> Creates derived objects."
                 },
                 {
                   "type": "sentence",
-                  "text": "K. Property: toPrimitive"
+                  "text": "<strong>K. Property: toPrimitive</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Converts an object to a primitive value."
+                  "text": "<strong>Description:</strong> Converts an object to a primitive value."
                 },
                 {
                   "type": "sentence",
-                  "text": "L. Property: toStringTag"
+                  "text": "<strong>L. Property: toStringTag</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Gives the default description of an object."
+                  "text": "<strong>Description:</strong> Gives the default description of an object."
                 },
                 {
                   "type": "sentence",
-                  "text": "M. Property: description"
+                  "text": "<strong>M. Property: description</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Description: Returns a string containing the description of the symbol."
+                  "text": "<strong>Description:</strong> Returns a string containing the description of the symbol."
                 },
                 {
                   "type": "codeconsole",
@@ -3051,21 +3057,36 @@
             },
             {
               "question": "What method adds an element to the end of an array?",
-              "options": ["shift()", "pop()", "push()", "unshift()"],
+              "options": [
+                "shift()",
+                "pop()",
+                "push()",
+                "unshift()"
+              ],
               "correctAnswer": "push()",
               "points": 2,
               "locked": true
             },
             {
               "question": "How do you access the second element of an array?",
-              "options": ["array[1]", "array[2]", "array.get(1)", "array[0]"],
+              "options": [
+                "array[1]",
+                "array[2]",
+                "array.get(1)",
+                "array[0]"
+              ],
               "correctAnswer": "array[1]",
               "points": 2,
               "locked": true
             },
             {
               "question": "Which method is used to remove elements from an array?",
-              "options": ["splice()", "slice()", "concat()", "join()"],
+              "options": [
+                "splice()",
+                "slice()",
+                "concat()",
+                "join()"
+              ],
               "correctAnswer": "splice()",
               "points": 2,
               "locked": true
@@ -3108,7 +3129,12 @@
             },
             {
               "question": "What method checks if a value is NaN?",
-              "options": ["isFinite()", "isInteger()", "isNaN()", "valueOf()"],
+              "options": [
+                "isFinite()",
+                "isInteger()",
+                "isNaN()",
+                "valueOf()"
+              ],
               "correctAnswer": "isNaN()",
               "points": 2,
               "locked": true
@@ -3151,14 +3177,24 @@
             },
             {
               "question": "How do you add an element at the beginning of an array?",
-              "options": ["push()", "pop()", "unshift()", "shift()"],
+              "options": [
+                "push()",
+                "pop()",
+                "unshift()",
+                "shift()"
+              ],
               "correctAnswer": "unshift()",
               "points": 2,
               "locked": true
             },
             {
               "question": "Which method converts a string into an array of substrings?",
-              "options": ["split()", "join()", "concat()", "toLowerCase()"],
+              "options": [
+                "split()",
+                "join()",
+                "concat()",
+                "toLowerCase()"
+              ],
               "correctAnswer": "split()",
               "points": 2,
               "locked": true
@@ -3189,14 +3225,24 @@
             },
             {
               "question": "How do you access the first item of a multidimensional array?",
-              "options": ["array[0]", "array[0][0]", "array[1]", "array[1][0]"],
+              "options": [
+                "array[0]",
+                "array[0][0]",
+                "array[1]",
+                "array[1][0]"
+              ],
               "correctAnswer": "array[0]",
               "points": 2,
               "locked": true
             },
             {
               "question": "What is the result of dividing a positive number by zero in JavaScript?",
-              "options": ["NaN", "Infinity", "0", "Undefined"],
+              "options": [
+                "NaN",
+                "Infinity",
+                "0",
+                "Undefined"
+              ],
               "correctAnswer": "Infinity",
               "points": 2,
               "locked": true
@@ -3370,31 +3416,31 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "JavaScript ES6, introduced in 2015, brought significant syntax improvements and new features."
+                  "text": "<strong>JavaScript ES6, introduced in 2015</strong>, brought significant syntax improvements and new features."
                 },
                 {
                   "type": "sentence",
-                  "text": "ES6 introduced `let` and `const` for variable declarations, adding more control compared to `var`."
+                  "text": "ES6 introduced <strong>let and const</strong> for variable declarations, adding more control compared to <strong>var</strong>."
                 },
                 {
                   "type": "sentence",
-                  "text": "Using `let` creates block-scoped variables:"
+                  "text": "Using <strong>let</strong> creates block-scoped variables:"
                 },
                 {
-                  "type": "codeconsole",
+                  "type": "snippet",
                   "language": "javascript",
                   "code": "{\n  let name = \"Peter\";\n  console.log(name); // Peter\n}\nconsole.log(name); // Error: ReferenceError"
                 },
                 {
                   "type": "sentence",
-                  "text": "`var` does not restrict scope to the block, unlike `let`."
+                  "text": "<strong>var</strong> does not restrict scope to the block, unlike <strong>let</strong>."
                 },
                 {
                   "type": "sentence",
-                  "text": "The `const` keyword creates constant variables that cannot be changed after declaration:"
+                  "text": "The <strong>const</strong> keyword creates constant variables that cannot be changed after declaration:"
                 },
                 {
-                  "type": "codeconsole",
+                  "type": "snippet",
                   "language": "javascript",
                   "code": "const fruit = \"Apple\";\nfruit = \"Banana\"; // Error: Assignment to constant variable"
                 },
@@ -3403,7 +3449,7 @@
                   "text": "Template literals allow easy string interpolation:"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "code": "const firstName = \"Jack\";\nconst lastName = \"Sparrow\";\nconsole.log(`Hello ${firstName} ${lastName}`); // Hello Jack Sparrow"
                 },
                 {
@@ -3417,18 +3463,18 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Arrow functions provide a concise syntax for function expressions:"
+                  "text": "<strong>Arrow functions</strong> provide a concise syntax for function expressions:"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "code": "let product = (x, y) => x * y;\nconsole.log(product(5, 10)); // 50"
                 },
                 {
                   "type": "sentence",
-                  "text": "ES6 classes provide a clearer way to create objects using the `class` keyword:"
+                  "text": "<strong>ES6 classes</strong> provide a clearer way to create objects using the <strong>class</strong> keyword:"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "code": "class Person {\n  constructor(name) {\n    this.name = name;\n  }\n}\nlet p1 = new Person(\"John\");\nconsole.log(p1.name); // John"
                 },
                 {
@@ -3436,20 +3482,20 @@
                   "text": "Destructuring allows easy extraction of values from arrays or objects:"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "code": "const hospital = { doctors: 23, patients: 44 };\nlet { doctors, patients } = hospital;\nconsole.log(doctors, patients); // 23, 44"
                 },
                 {
                   "type": "sentence",
-                  "text": "ES6 introduced `import` and `export` for module management."
+                  "text": "ES6 introduced <strong>import</strong> and <strong>export</strong> for module management."
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "code": "// export\nexport default function greet(name) { console.log(`Hi ${name}!`); }\n// import\nimport greet from './action.js';\ngreet(\"Sara\"); // Hi Sara!"
                 },
                 {
                   "type": "sentence",
-                  "text": "Promises provide a cleaner way to handle asynchronous tasks:"
+                  "text": "<strong>Promises</strong> provide a cleaner way to handle asynchronous tasks:"
                 },
                 {
                   "type": "codeconsole",
@@ -3458,18 +3504,18 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "The rest parameter collects arguments into an array:"
+                  "text": "The <strong>rest parameter</strong> collects arguments into an array:"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "code": "function show(a, b, ...args) {\n  console.log(a, b, args);\n}\nshow(1, 2, 3, 4, 5); // 1 2 [3, 4, 5]"
                 },
                 {
                   "type": "sentence",
-                  "text": "The spread operator unpacks arrays or objects:"
+                  "text": "The <strong>spread operator</strong> unpacks arrays or objects:"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "code": "let numArr = [1, 2, 3];\nconsole.log([...numArr, 4, 5]); // [1, 2, 3, 4, 5]"
                 }
               ],
@@ -3484,7 +3530,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Example"
+                  "text": "<strong>Example</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3493,11 +3539,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "In this example, addNumbers() takes two parameters, a and b, and returns their sum."
+                  "text": "In this example, <strong>addNumbers()</strong> takes two parameters, a and b, and returns their sum."
                 },
                 {
                   "type": "sentence",
-                  "text": "Arrow Function Syntax"
+                  "text": "<strong>Arrow Function Syntax</strong>"
                 },
                 {
                   "type": "snippet",
@@ -3505,15 +3551,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• myFunction: name of the function."
+                  "text": "• <strong>myFunction</strong>: name of the function."
                 },
                 {
                   "type": "sentence",
-                  "text": "• arg1, arg2, ...argN: function arguments."
+                  "text": "• <strong>arg1, arg2, ...argN</strong>: function arguments."
                 },
                 {
                   "type": "sentence",
-                  "text": "• statement(s): function body."
+                  "text": "• <strong>statement(s)</strong>: function body."
                 },
                 {
                   "type": "snippet",
@@ -3521,7 +3567,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Example 1: Arrow Function With No Argument"
+                  "text": "<strong>Example 1: Arrow Function With No Argument</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3530,7 +3576,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Example 2: Arrow Function With One Argument"
+                  "text": "<strong>Example 2: Arrow Function With One Argument</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3539,15 +3585,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "this Keyword With Arrow Function"
+                  "text": "<strong>this Keyword With Arrow Function</strong>"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "code": "// constructor function\nfunction Person() {\n    this.age = 25;\n    this.sayName = function () {\n        console.log(this.age);\n        let innerFunc = () => {\n            console.log(this.age);\n        }\n        innerFunc();\n    }\n}\n\nconst x = new Person();\nx.sayName();\n\n// Output: 25, 25"
                 },
                 {
                   "type": "sentence",
-                  "text": "Inside the arrow function, this refers to the parent scope, i.e., Person()."
+                  "text": "Inside the arrow function, <strong>this</strong> refers to the parent scope, i.e., <strong>Person()</strong>."
                 }
               ],
               "locked": true
@@ -3557,15 +3603,15 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "The JavaScript spread operator (...) expands elements of an iterable like arrays, strings, or objects."
+                  "text": "The <strong>JavaScript spread operator (...) expands elements</strong> of an iterable like arrays, strings, or objects."
                 },
                 {
                   "type": "sentence",
-                  "text": "It's useful for combining arrays, passing elements to functions, or copying arrays."
+                  "text": "It's useful for <strong>combining arrays</strong>, <strong>passing elements to functions</strong>, or <strong>copying arrays</strong>."
                 },
                 {
                   "type": "sentence",
-                  "text": "Example"
+                  "text": "<strong>Example</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3574,11 +3620,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "The spread operator expands the numbers array into individual elements."
+                  "text": "The spread operator <strong>expands the numbers array</strong> into individual elements."
                 },
                 {
                   "type": "sentence",
-                  "text": "Spread Operator Inside Arrays"
+                  "text": "<strong>Spread Operator Inside Arrays</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3587,11 +3633,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Using ...fruits expands the array within moreFruits2, unlike moreFruits1, which keeps fruits as an inner array."
+                  "text": "Using <strong>...fruits</strong> expands the array within moreFruits2, unlike moreFruits1, which keeps fruits as an inner array."
                 },
                 {
                   "type": "sentence",
-                  "text": "Spread Operator With Objects"
+                  "text": "<strong>Spread Operator With Objects</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3600,11 +3646,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Using the spread operator, properties of obj1 and obj2 are combined into obj3."
+                  "text": "Using the spread operator, <strong>properties of obj1 and obj2 are combined</strong> into obj3."
                 },
                 {
                   "type": "sentence",
-                  "text": "JavaScript Rest Parameter"
+                  "text": "<strong>JavaScript Rest Parameter</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3613,11 +3659,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "The rest parameter collects arguments into an array."
+                  "text": "The rest parameter <strong>collects arguments into an array</strong>."
                 },
                 {
                   "type": "sentence",
-                  "text": "Spread Operator in Function Arguments"
+                  "text": "<strong>Spread Operator in Function Arguments</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3626,7 +3672,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "The function takes required arguments and ignores the rest when using the spread operator."
+                  "text": "The function <strong>takes required arguments</strong> and <strong>ignores the rest</strong> when using the spread operator."
                 }
               ],
               "locked": true
@@ -3636,19 +3682,19 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "JavaScript ES6 introduced Map and WeakMap."
+                  "text": "JavaScript ES6 introduced <strong>Map</strong> and <strong>WeakMap</strong>."
                 },
                 {
                   "type": "sentence",
-                  "text": "Map stores elements in key/value pairs, similar to objects but can use any data type as keys."
+                  "text": "<strong>Map</strong> stores elements in key/value pairs, similar to objects but can use any data type as keys."
                 },
                 {
                   "type": "sentence",
-                  "text": "Maps maintain insertion order."
+                  "text": "<strong>Maps</strong> maintain insertion order."
                 },
                 {
                   "type": "sentence",
-                  "text": "Create a Map with new Map(). Example:"
+                  "text": "Create a <strong>Map</strong> with new <strong>Map()</strong>. <strong>Example:</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3657,7 +3703,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Insert elements using set(). Example:"
+                  "text": "Insert elements using <strong>set()</strong>. <strong>Example:</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3666,7 +3712,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Objects or functions can be keys in a Map. Example:"
+                  "text": "Objects or functions can be keys in a <strong>Map</strong>. <strong>Example:</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3675,14 +3721,17 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Access Map elements using get()."
+                  "text": "Access <strong>Map</strong> elements using <strong>get()</strong>."
                 },
                 {
                   "type": "codeconsole",
                   "language": "javascript",
                   "code": "let map1 = new Map();\nmap1.set('info', {name: 'Jack', age: '26'});\nconsole.log(map1.get('info'));"
                 },
-                { "type": "sentence", "text": "Check elements with has()." },
+                {
+                  "type": "sentence",
+                  "text": "Check elements with <strong>has()</strong>."
+                },
                 {
                   "type": "codeconsole",
                   "language": "javascript",
@@ -3690,7 +3739,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Remove elements using delete() or clear()."
+                  "text": "Remove elements using <strong>delete()</strong> or <strong>clear()</strong>."
                 },
                 {
                   "type": "codeconsole",
@@ -3699,57 +3748,62 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Get the size of a Map with size property."
+                  "text": "Get the size of a <strong>Map</strong> with <strong>size</strong> property."
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "code": "let map1 = new Map();\nmap1.set('info', {name: 'Jack', age: '26'});\nconsole.log(map1.size);"
                 },
                 {
                   "type": "sentence",
-                  "text": "Iterate over Map using for...of or forEach()."
+                  "text": "Iterate over <strong>Map</strong> using <strong>for...of</strong> or <strong>forEach()</strong>."
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "code": "let map1 = new Map();\nmap1.set('name', 'Jack');\nfor (let [key, value] of map1) {\n  console.log(key + '- ' + value);\n}"
                 },
-                { "type": "sentence", "text": "JavaScript Map vs Object:" },
                 {
                   "type": "sentence",
-                  "text": "Map: Can have any data type as keys, directly iterable, size is accessible."
+                  "text": "<strong>JavaScript Map vs Object:</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Object: Only strings and symbols as keys, not directly iterable, size is manual."
+                  "text": "<strong>Map:</strong> Can have any data type as keys, directly iterable, size is accessible."
                 },
                 {
                   "type": "sentence",
-                  "text": "JavaScript WeakMap: Similar to Map but only objects as keys."
+                  "text": "<strong>Object:</strong> Only strings and symbols as keys, not directly iterable, size is manual."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>JavaScript WeakMap:</strong> Similar to <strong>Map</strong> but only objects as keys."
                 },
                 {
                   "type": "codeconsole",
                   "language": "javascript",
                   "code": "const weakMap = new WeakMap();\nlet obj = {};\nweakMap.set(obj, 'hello');\nconsole.log(weakMap);"
                 },
-                { "type": "sentence", "text": "WeakMaps are not iterable." }
+                {
+                  "type": "sentence",
+                  "text": "<strong>WeakMaps</strong> are not iterable."
+                }
               ],
               "locked": true
             },
-
             {
               "title": "JavaScript Destructuring Assignment",
               "content": [
                 {
                   "type": "sentence",
-                  "text": "JavaScript Destructuring"
+                  "text": "<strong>JavaScript Destructuring</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Destructuring assignment in ES6 simplifies assigning array values and object properties."
+                  "text": "<strong>Destructuring assignment in ES6</strong> simplifies assigning array values and object properties."
                 },
                 {
                   "type": "sentence",
-                  "text": "Before ES6:"
+                  "text": "<strong>Before ES6:</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3758,7 +3812,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "With ES6 destructuring:"
+                  "text": "<strong>With ES6 destructuring:</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3767,7 +3821,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Order doesn’t matter:"
+                  "text": "<strong>Order doesn’t matter:</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3776,15 +3830,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Use correct variable names:"
+                  "text": "<strong>Use correct variable names:</strong>"
                 },
                 {
-                  "type": "snippet",
+                  "type": "codeconsole",
                   "code": "let {name1, age, gender} = person;\nconsole.log(name1); // undefined"
                 },
                 {
                   "type": "sentence",
-                  "text": "Assigning different variable names:"
+                  "text": "<strong>Assigning different variable names:</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3793,7 +3847,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Array Destructuring:"
+                  "text": "<strong>Array Destructuring:</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3802,7 +3856,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Default values:"
+                  "text": "<strong>Default values:</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3816,7 +3870,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Swapping variables:"
+                  "text": "<strong>Swapping variables:</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3825,7 +3879,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Skipping items:"
+                  "text": "<strong>Skipping items:</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3834,7 +3888,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Rest elements:"
+                  "text": "<strong>Rest elements:</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3848,7 +3902,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Nested Destructuring:"
+                  "text": "<strong>Nested Destructuring:</strong>"
                 },
                 {
                   "type": "codeconsole",
@@ -3862,7 +3916,7 @@
                 }
               ],
               "locked": true
-            }
+            }            
           ],
           "quiz": [
             {
@@ -3903,7 +3957,12 @@
             },
             {
               "question": "What is the output of the following code snippet using arrow functions?\n\n```javascript\nconst addNumbers = (a, b) => a + b;\nconsole.log(addNumbers(5, 3));\n```",
-              "options": ["5", "3", "8", "Error"],
+              "options": [
+                "5",
+                "3",
+                "8",
+                "Error"
+              ],
               "correctAnswer": "8",
               "points": 2,
               "locked": true
@@ -3946,7 +4005,12 @@
             },
             {
               "question": "What will be the output of `console.log(...numbers)` where `let numbers = [1, 2, 3]`?",
-              "options": ["[1, 2, 3]", "1 2 3", "1,2,3", "undefined"],
+              "options": [
+                "[1, 2, 3]",
+                "1 2 3",
+                "1,2,3",
+                "undefined"
+              ],
               "correctAnswer": "1 2 3",
               "points": 2,
               "locked": true
@@ -3965,7 +4029,12 @@
             },
             {
               "question": "Which method removes all elements from a Set?",
-              "options": ["delete()", "clear()", "remove()", "discard()"],
+              "options": [
+                "delete()",
+                "clear()",
+                "remove()",
+                "discard()"
+              ],
               "correctAnswer": "clear()",
               "points": 2,
               "locked": true
@@ -4070,11 +4139,9 @@
               "completed": false
             }
           ],
-
           "totalPoints": 0,
           "locked": true
         },
-
         {
           "title": "Lesson 6: JavaScript DOM Basics",
           "documents": [
@@ -4083,7 +4150,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "The Document Object Model (DOM) is a programming interface for HTML documents."
+                  "text": "The <strong>Document Object Model (DOM)</strong> is a programming interface for HTML documents."
                 },
                 {
                   "type": "sentence",
@@ -4099,11 +4166,11 @@
                 },
                 {
                   "type": "snippet",
-                  "code": "- Document: The entire web page\n- Elements: HTML tags in the document\n- Attributes: Extra information for elements\n- Text: The content within elements"
+                  "code": "- <strong>Document</strong>: The entire web page\n- <strong>Elements</strong>: HTML tags in the document\n- <strong>Attributes</strong>: Extra information for elements\n- <strong>Text</strong>: The content within elements"
                 },
                 {
                   "type": "sentence",
-                  "text": "Example of accessing the DOM:"
+                  "text": "<strong>Example of accessing the DOM:</strong>"
                 },
                 {
                   "type": "javascriptweb",
@@ -4119,15 +4186,15 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "JavaScript provides several ways to select DOM elements:"
+                  "text": "JavaScript provides several ways to select <strong>DOM elements</strong>:"
                 },
                 {
                   "type": "snippet",
-                  "code": "1. getElementById(): Selects a single element by its ID\n2. getElementsByClassName(): Selects elements by their class name\n3. getElementsByTagName(): Selects elements by their tag name\n4. querySelector(): Selects the first element that matches a CSS selector\n5. querySelectorAll(): Selects all elements that match a CSS selector"
+                  "code": "<strong>1. getElementById()</strong>: Selects a single element by its ID\n2. <strong>getElementsByClassName()</strong>: Selects elements by their class name\n3. <strong>getElementsByTagName()</strong>: Selects elements by their tag name\n4. <strong>querySelector()</strong>: Selects the first element that matches a CSS selector\n5. <strong>querySelectorAll()</strong>: Selects all elements that match a CSS selector"
                 },
                 {
                   "type": "sentence",
-                  "text": "Examples of selecting elements:"
+                  "text": "<strong>Examples of selecting elements:</strong>"
                 },
                 {
                   "type": "javascriptweb",
@@ -4143,31 +4210,31 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "JavaScript allows you to create new elements and remove existing ones from the web page."
+                  "text": "JavaScript allows you to <strong>create new elements</strong> and <strong>remove existing ones</strong> from the web page."
                 },
                 {
                   "type": "sentence",
-                  "text": "Creating a new element:"
+                  "text": "<strong>Creating a new element:</strong>"
                 },
                 {
                   "type": "javascriptweb",
                   "language": "javascript",
                   "code": "// Create a new paragraph element\nconst newParagraph = document.createElement('p');\n\n// Add text to the paragraph\nnewParagraph.textContent = 'This is a new paragraph.';\n\n// Add the new paragraph to the body\ndocument.body.appendChild(newParagraph);\n\n// Show the updated body content\nconst bodyContent = document.body.innerHTML;\ndocument.getElementById('output').textContent = bodyContent;",
-                  "supportingCode": "<h1>Original Content</h1>\n  <div id=\"output\"></div>"
+                  "supportingCode": "<body>\n  <h1>Original Content</h1>\n  <div id=\"output\"></div>\n</body>"
                 },
                 {
                   "type": "sentence",
-                  "text": "Removing an element:"
+                  "text": "<strong>Removing an element:</strong>"
                 },
                 {
                   "type": "javascriptweb",
                   "language": "javascript",
                   "code": "// Select the element to remove\nconst elementToRemove = document.getElementById('removeMe');\n\n// Remove the element\nelementToRemove.remove();\n\n// Show the updated body content\nconst bodyContent = document.body.innerHTML;\ndocument.getElementById('output').textContent = bodyContent;",
-                  "supportingCode": "<div id=\"removeMe\">Remove this element</div>\n  <div>Keep this element</div>\n  <div id=\"output\"></div>"
+                  "supportingCode": "<body>\n  <div id=\"removeMe\">Remove this element</div>\n  <div>Keep this element</div>\n  <div id=\"output\"></div>\n</body>"
                 },
                 {
                   "type": "sentence",
-                  "text": "When you remove an element, all of its child elements are also removed from the web page."
+                  "text": "When you remove an element, all of its <strong>child elements</strong> are also removed from the web page."
                 }
               ],
               "locked": true
@@ -4177,11 +4244,11 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "DOM events allow your JavaScript code to react when something happens on the web page."
+                  "text": "<strong>DOM events</strong> allow your JavaScript code to react when something happens on the web page."
                 },
                 {
                   "type": "sentence",
-                  "text": "Adding an event listener:"
+                  "text": "<strong>Adding an event listener:</strong>"
                 },
                 {
                   "type": "javascriptweb",
@@ -4191,15 +4258,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Common DOM events include:"
+                  "text": "Common <strong>DOM events</strong> include:"
                 },
                 {
                   "type": "snippet",
-                  "code": "- click: When an element is clicked\n- mouseover: When the mouse moves over an element\n- keydown: When a key is pressed\n- load: When a page finishes loading\n- submit: When a form is submitted"
+                  "code": "- <strong>click</strong>: When an element is clicked\n- <strong>mouseover</strong>: When the mouse moves over an element\n- <strong>keydown</strong>: When a key is pressed\n- <strong>load</strong>: When a page finishes loading\n- <strong>submit</strong>: When a form is submitted"
                 },
                 {
                   "type": "sentence",
-                  "text": "Removing an event listener:"
+                  "text": "<strong>Removing an event listener:</strong>"
                 },
                 {
                   "type": "javascriptweb",
@@ -4209,7 +4276,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "To remove an event listener, you need to use the same function that was originally added to the event."
+                  "text": "To remove an event listener, you need to use the same <strong>function</strong> that was originally added to the event."
                 }
               ],
               "locked": true

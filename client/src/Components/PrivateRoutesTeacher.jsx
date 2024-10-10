@@ -4,6 +4,14 @@ import AuthorizedLayout from "../features/Authorized/AuthorizedLayout";
 function PrivateRoutesTeacher() {
   const userInfo = useSelector((state) => state.user.userDetails);
 
-  return userInfo && userInfo.role === 'teacher' ? <Outlet /> : <Navigate to="/login" replace />;
-}
+  return userInfo ? (
+    userInfo?.role === 'teacher' ? (
+      <Outlet />
+    ) : (
+      <Navigate to="/" replace />
+    )
+  ) : (
+    <Navigate to="/login" replace />
+  );
+} 
 export default PrivateRoutesTeacher;

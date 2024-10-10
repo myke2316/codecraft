@@ -1,0 +1,2735 @@
+{
+  "courses": [
+    {
+      "title": "CSS",
+      "lessons": [
+        {
+          "title": "Lesson 1: Introduction to CSS",
+          "documents": [
+            {
+              "title": "What is CSS?",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "CSS stands for <strong>Cascading Style Sheets</strong>. It is a styling language used to describe the presentation of a document written in HTML or XML."
+                },
+                {
+                  "type": "sentence",
+                  "text": "CSS enables developers to control the layout, colors, fonts, and overall visual appearance of web pages, separating the design from the content structure."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The term 'cascading' refers to the way CSS applies styles, with styles cascading from more general styles to more specific ones."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "body {\n    font-family: Arial, sans-serif;\n    line-height: 1.6;\n    color: #333;\n}\n.container {\n    width: 80%;\n    margin: 0 auto;\n    padding: 20px;\n    background-color: #f4f4f4;\n    border-radius: 5px;\n}\nh1 {\n    color: #0066cc;\n}\np {\n    margin-bottom: 10px;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Example</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"container\">\n        <h1>Welcome to CSS</h1>\n        <p>This is a simple example of how CSS can style an HTML document.</p>\n        <p>CSS makes it easy to create consistent, attractive designs across your entire website.</p>\n    </div>\n</body>\n</html>",
+                  "text": "This example demonstrates a simple CSS file with basic styling. The CSS rules define the layout, colors, and typography for the page."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Key points from the example:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• The <strong>body</strong> selector sets global styles for the entire page, including font family and text color."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• The <strong>.container</strong> class creates a centered content area with a light gray background."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• The <strong>h1</strong> selector specifically styles the main heading with a blue color."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• The <strong>p</strong> selector adds some spacing between paragraphs."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "The Role of CSS in Web Design",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "CSS plays a crucial role in modern web design and development:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>Separation of Concerns</strong>: CSS allows developers to separate the presentation layer from the content and structure, making code more maintainable and easier to update."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>Consistency</strong>: With CSS, you can ensure a consistent look and feel across an entire website by defining styles in one place."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>Flexibility</strong>: CSS provides powerful selectors and properties that allow for complex and flexible designs without changing the HTML structure."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>Responsive Design</strong>: CSS media queries enable the creation of responsive layouts that adapt to different screen sizes and devices."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. <strong>Performance</strong>: By using external CSS files, you can improve page load times as the browser can cache the CSS file."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "/* Global Styles */\nbody {\n    font-family: 'Roboto', sans-serif;\n    line-height: 1.6;\n    color: #333;\n    margin: 0;\n    padding: 0;\n}\n\n/* Header Styles */\nheader {\n    background-color: #0066cc;\n    color: white;\n    text-align: center;\n    padding: 1rem;\n}\n\n/* Main Content Styles */\n.main-content {\n    max-width: 800px;\n    margin: 2rem auto;\n    padding: 0 1rem;\n}\n\n/* Responsive Design */\n@media (max-width: 600px) {\n    header {\n        padding: 0.5rem;\n    }\n    .main-content {\n        margin: 1rem auto;\n    }\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Role in Web Design</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <header>\n        <h1>Welcome to Our Website</h1>\n    </header>\n    <div class=\"main-content\">\n        <h2>About Us</h2>\n        <p>This is an example of how CSS can create responsive and consistent designs.</p>\n    </div>\n</body>\n</html>",
+                  "text": "This CSS example demonstrates various aspects of web design, including global styles, component-specific styles, and responsive design using media queries."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "CSS Syntax and Selectors",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "CSS uses a simple syntax to target HTML elements and apply styles to them. The basic structure of a CSS rule consists of a selector and a declaration block."
+                },
+                {
+                  "type": "snippet",
+                
+                  "code": "selector {\n    property: value;\n    another-property: another-value;\n}"
+            
+                },
+                {
+                  "type": "sentence",
+                  "text": "CSS provides various types of selectors to target elements precisely:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>Element Selector</strong>: Selects all instances of a specific HTML element."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>Class Selector</strong>: Selects elements with a specific class attribute."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>ID Selector</strong>: Selects a single element with a specific id attribute."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>Attribute Selector</strong>: Selects elements based on their attributes or attribute values."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. <strong>Pseudo-class Selector</strong>: Selects elements based on a certain state."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "/* Element Selector */\np {\n    color: #333;\n}\n\n/* Class Selector */\n.highlight {\n    background-color: yellow;\n}\n\n/* ID Selector */\n#header {\n    font-size: 24px;\n}\n\n/* Attribute Selector */\ninput[type=\"text\"] {\n    border: 1px solid #ccc;\n}\n\n/* Pseudo-class Selector */\na:hover {\n    text-decoration: underline;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Selectors Example</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <h1 id=\"header\">CSS Selectors</h1>\n    <p>This is a normal paragraph.</p>\n    <p class=\"highlight\">This paragraph is highlighted.</p>\n    <input type=\"text\" placeholder=\"Enter text here\">\n    <a href=\"#\">Hover over me</a>\n</body>\n</html>"
+                }
+              ],
+              "locked": true
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What does CSS stand for?",
+              "options": [
+                "Cascading Style Sheets",
+                "Computer Style Sheets",
+                "Creative Style Systems",
+                "Colorful Style Sheets"
+              ],
+              "correctAnswer": "Cascading Style Sheets",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which of the following is NOT a valid CSS selector?",
+              "options": [
+                ".class-name",
+                "#id-name",
+                "*element-name",
+                "element-name"
+              ],
+              "correctAnswer": "*element-name",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What is the correct CSS syntax for making all paragraph elements red?",
+              "options": [
+                "p {color: red;}",
+                "p.all {color: red;}",
+                "<p style='color: red;'>",
+                "all.p {color: red;}"
+              ],
+              "correctAnswer": "p {color: red;}",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which property is used to change the background color of an element?",
+              "options": ["color", "bgcolor", "background-color", "background"],
+              "correctAnswer": "background-color",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What is the purpose of CSS media queries?",
+              "options": [
+                "To create responsive designs",
+                "To query a database",
+                "To validate HTML",
+                "To create animations"
+              ],
+              "correctAnswer": "To create responsive designs",
+              "points": 2,
+              "locked": true
+            }
+          ],
+          "activities": [
+            {
+              "title": "My First CSS Styles",
+              "description": "Learn to apply basic text styles using CSS.",
+              "language": "CSS",
+              "difficulty": "easy",
+              "problemStatement": "In this activity, you'll style a simple webpage using CSS. Follow these steps:\n\n1. Set the text color of all paragraphs to blue.\n2. Make the main heading (h1) font size 24 pixels.\n3. Center-align the text in the footer.\n\nWrite your CSS in the CSS tab. The HTML is already provided for you.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>My First CSS</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <h1>Welcome to My Website</h1>\n    <p>This is a paragraph about CSS. CSS helps make web pages look nice.</p>\n    <p>With CSS, you can change colors, fonts, and more!</p>\n    <footer>Created by a beginner coder</footer>\n</body>\n</html>",
+                "css": "/* Write your CSS here */",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "p {\n    color: #000080;\n}\n\nh1 {\n    font-size: 24px;\n}\n\nfooter {\n    text-align: center;\n}",
+                  "required": [
+                    "p { color:blue; }",
+                    "h1 { font-size: 24px; }",
+                    "footer { text-align: center; }"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Set paragraph text color to blue.",
+                    "Make the h1 font size 24 pixels.",
+                    "Center-align the text in the footer."
+                  ],
+                  "expectedImage": "/activities/cssact/1.1.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },
+            {
+              "title": "Colorful Text Styling",
+              "description": "Learn to change text colors and styles using CSS.",
+              "language": "CSS",
+              "difficulty": "easy",
+              "problemStatement": "In this activity, you'll style text on a webpage using CSS. Follow these steps:\n\n1. Set the text color of all paragraphs to navy.\n2. Make the main heading (h1) color red.\n3. Set the font-weight of the span with class 'highlight' to bold.\n4. Make the text in the footer italic.\n\nWrite your CSS in the CSS tab. The HTML is already provided for you.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Colorful Text</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <h1>Welcome to Colorful CSS</h1>\n    <p>This is a paragraph about <span class=\"highlight\">colorful</span> text styling.</p>\n    <p>CSS makes it easy to add color and style to your web pages!</p>\n    <footer>Created by a beginner coder</footer>\n</body>\n</html>",
+                "css": "/* Write your CSS here */",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "p {\n    color: navy;\n}\n\nh1 {\n    color: red;\n}\n\n.highlight {\n    font-weight: bold;\n}\n\nfooter {\n    font-style: italic;\n}",
+                  "required": [
+                    "p { color: navy; }",
+                    "h1 { color: red; }",
+                    ".highlight { font-weight: bold; }",
+                    "footer { font-style: italic; }"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Set paragraph text color to navy.",
+                    "Make the h1 color red.",
+                    "Set the font-weight of the 'highlight' class to bold.",
+                    "Make the footer text italic."
+                  ],
+                  "expectedImage": "/activities/cssact/1.2.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            }
+          ],
+          "totalPoints": 0,
+          "locked": true
+        },
+        {
+          "title": "Lesson 2: CSS Syntax and Selectors",
+          "documents": [
+            {
+              "title": "Introduction to CSS Syntax",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>CSS syntax</strong> is the way in which CSS is written to style web pages."
+                },
+                {
+                  "type": "sentence",
+                  "text": "It consists of a selector, which specifies the HTML element to be styled, followed by a declaration block containing the styles to be applied."
+                },
+                {
+                  "type": "snippet",
+                  "code": "selector {\n    property: value;\n    another-property: another-value;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• In the <strong>example above</strong>, the selector targets an HTML element, while the properties define what styles should be applied."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Each <strong>CSS declaration</strong> consists of a property and a value, <strong>separated by a colon.</strong> <strong>Declarations</strong>are enclosed within <strong>curly braces and separated by a semicolon.</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Next, we will explore CSS selectors and how to target specific elements on the page."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Common CSS Selectors",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<srong>CSS selectors</strong> are patterns used to select the elements you want to style."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here are some of the most common selectors:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>1. Element Selector:</strong> Targets all elements of a given type."
+                },
+                {
+                  "type": "snippet",
+                  "code": "h1 {\n    color: blue;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>Explanation:</strong> This targets all `<h1>` elements, making them blue."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>2. Class Selector:</strong> Targets elements with a specific class attribute."
+                },
+                {
+                  "type": "snippet",
+                  "code": ".highlight {\n    background-color: yellow;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>Explanation:</strong>This targets elements with the class 'highlight', giving them a yellow background."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>3. ID Selector:</strong> Targets a single element with a specific ID."
+                },
+                {
+                  "type": "snippet",
+                  "code": "#main-header {\n    font-size: 24px;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>Explanation:<s/trong>This targets the element with the ID 'main-header', setting its font size to 24px."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Advanced Selectors and Pseudo-classes",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "CSS also provides more <strong>advanced selectors and pseudo-classes</strong> for fine-tuning styles."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>1. Attribute Selector:</strong> Selects elements based on their attributes."
+                },
+                {
+                  "type": "snippet",
+                  "code": "input[type=\"text\"] {\n    border: 1px solid #ccc;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>Explanation:</strong>This selects all <strong>`<input>`<strong> elements of type <strong>'text'<strong>, giving them a gray border."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>2. Pseudo-class Selector:</strong> Selects elements based on their state."
+                },
+                {
+                  "type": "snippet",
+                  "code": "a:hover {\n    text-decoration: underline;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>Explanation:</strong>This targets <strong>`<a>`</strong> elements when hovered over by the user, underlining them."
+                },
+                {
+                  "type": "code",
+                  "language": "html",
+                  "supportingCode": "<h1>Header</h1><p>First paragraph.</p><p>Second paragraph.</p>"
+                }
+              ],
+              "locked": true
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What is the correct CSS syntax to change the text color of an <h1> element to blue?",
+              "options": [
+                "h1 {color: blue;}",
+                "h1 {text-color: blue;}",
+                "<h1 style=\"color: blue;\">",
+                "h1: color blue;"
+              ],
+              "correctAnswer": "h1 {color: blue;}",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which part of the CSS rule h1 { color: blue; } is the selector?",
+              "options": ["h1", "color", "blue", ";"],
+              "correctAnswer": "h1",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which CSS rule correctly targets all elements with the class 'container' and adds a black border?",
+              "options": [
+                "container { border: 2px solid black; }",
+                ".container { border: 2px solid black; }",
+                "#container { border: 2px solid black; }",
+                "<container border=\"2px solid black\">"
+              ],
+              "correctAnswer": ".container { border: 2px solid black; }",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What does the CSS rule p { color: green; } do?",
+              "options": [
+                "It changes the background color of all <p> elements to green.",
+                "It changes the text color of all <p> elements to green.",
+                "It changes the border color of all <p> elements to green.",
+                "It adds a green border to all <p> elements."
+              ],
+              "correctAnswer": "It changes the text color of all <p> elements to green.",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "How do you select an HTML element with a unique ID using CSS?",
+              "options": [
+                ".id-selector",
+                "#id-selector",
+                "*id-selector*",
+                "id-selector"
+              ],
+              "correctAnswer": "#id-selector",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What is the correct syntax for a class selector in CSS?",
+              "options": [
+                ".classname",
+                "#classname",
+                "*classname*",
+                "classname"
+              ],
+              "correctAnswer": ".classname",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What is the purpose of the CSS property 'display: none;'?",
+              "options": [
+                "Hides the element and removes it from the layout",
+                "Hides the element but keeps it in the layout",
+                "Makes the element invisible but keeps its space",
+                "Removes the element from the DOM"
+              ],
+              "correctAnswer": "Hides the element and removes it from the layout",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which CSS property is used to change the background color of an element?",
+              "options": ["color", "background-color", "bgcolor", "background"],
+              "correctAnswer": "background-color",
+              "points": 2,
+              "locked": true
+            }
+          ],
+
+          "activities": [
+            {
+              "title": "Basic CSS Selectors",
+              "description": "Style a heading and a paragraph using basic CSS selectors.",
+              "language": "CSS",
+              "difficulty": "easy",
+              "problemStatement": "Create a CSS file with the following styles:\n1. For the <h1> element, set the color to navy and apply the Arial font family with a fallback to sans-serif.\n2. For the <p> element, set the color to gray and apply the Times New Roman font family with a fallback to serif.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Basic CSS Selectors</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <h1>Welcome to My Page</h1>\n    <p>This is a simple paragraph of text.</p>\n</body>\n</html>",
+                "css": "/* Add your CSS here */",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head><title>Basic CSS Selectors</title><link rel=\"stylesheet\" href=\"styles.css\"></head><body><h1>Welcome to My Page</h1><p>This is a simple paragraph of text.</p></body></html>",
+                  "required": [
+                    "h1 { color: navy; font-family: Arial, sans-serif; }",
+                    "p { color: gray; font-family: 'Times New Roman', serif; }"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Style the heading (h1) with a color of navy and a font family of Arial with a fallback to sans-serif.",
+                    "Style the paragraph (p) with a color of gray and a font family of Times New Roman with a fallback to serif."
+                  ],
+                  "expectedImage": "/activities/cssact/2.1.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },
+            {
+              "title": "CSS Pseudo-Class Selectors",
+              "description": "Apply styles to text elements using pseudo-class selectors.",
+              "language": "CSS",
+              "difficulty": "easy",
+              "problemStatement": "Style the html with the following styles:\n1. For the <h1> element, change the color to green when hovered over.\n2. For the <p> element, change the color to red when focused.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>CSS Pseudo-Class Selectors</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <h1>Hover over this heading</h1>\n    <p>Focus on this paragraph.</p>\n</body>\n</html>",
+                "css": "/* Add your CSS here */",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head><title>CSS Pseudo-Class Selectors</title><link rel=\"stylesheet\" href=\"styles.css\"></head><body><h1>Hover over this heading</h1><p>Focus on this paragraph.</p></body></html>",
+                  "required": [
+                    "h1:hover { color: green; }",
+                    "p:focus { color: red; }"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Change the color of the heading (h1) to green when hovered over.",
+                    "Change the color of the paragraph (p) to red when focused."
+                  ],
+                  "expectedImage": "/activities/cssact/2.2.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },
+            {
+              "title": "CSS Syntax and Selectors Overview",
+              "description": "Learn about CSS syntax and different types of selectors.",
+              "language": "CSS",
+              "difficulty": "easy",
+              "problemStatement": "Create a CSS file that demonstrates the use of different selectors.\n1. Use a class selector to style elements with the class 'highlight'.\n2. Use an ID selector to style an element with the ID 'main-title'.\n3. Use a descendant selector to style <p> elements within a <div>.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>CSS Syntax and Selectors Overview</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <h1 id=\"main-title\">CSS Selectors</h1>\n    <div>\n        <p class=\"highlight\">This paragraph should be highlighted.</p>\n        <p>This is another paragraph.</p>\n    </div>\n</body>\n</html>",
+                "css": "/* Add your CSS here */",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head><title>CSS Syntax and Selectors Overview</title><link rel=\"stylesheet\" href=\"styles.css\"></head><body><h1 id=\"main-title\">CSS Selectors</h1><div><p class=\"highlight\">This paragraph should be highlighted.</p><p>This is another paragraph.</p></div></body></html>",
+                  "required": [
+                    "#main-title { color: blue; font-size: 24px; }",
+                    ".highlight { background-color: yellow; }",
+                    "div p { color: gray; }"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Style the main title (h1) with an ID of 'main-title' to have a color of blue and a font size of 24px.",
+                    "Use a class selector to give the paragraph with the class 'highlight' a yellow background.",
+                    "Use a descendant selector to change the color of <p> elements inside a <div> to gray."
+                  ],
+                  "expectedImage": "/activities/cssact/2.3.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            }
+          ],
+          "totalPoints": 0,
+          "locked": true
+        },
+        {
+          "title": "Lesson 3: Mastering CSS Text Formatting",
+          "documents": [
+            {
+              "title": "CSS: Text Decoration Properties",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>The text-decoration property</strong> in CSS allows you to add visual styling to text, such as underlining, overlining, striking through, or applying custom styles."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Basic Usage</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "To apply a simple underline to text, you can use the following CSS rule:"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "span {\n  text-decoration: underline;\n}"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example Description:</strong> In this example, the text inside the <strong><span></strong> element is underlined, making it stand out or indicate importance."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Syntax</strong>"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "text-decoration: value | initial | inherit;"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Common Values:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>underline:</strong> Adds a line below the text."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>overline:</strong> Adds a line above the text."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>line-through:</strong> Adds a line through the middle of the text."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>none:</strong> Removes any text decoration."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. <strong>inherit:</strong> Inherits the decoration from the parent element."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": ".cc-underline {\n  text-decoration: underline;\n  font-family: 'CodeCraft Sans', Arial, sans-serif;\n}\n\n.cc-line-through {\n  text-decoration: line-through;\n  color: #b00; /* CodeCraft's red color for outdated content */\n}\n\n.cc-overline {\n  text-decoration: overline;\n  font-weight: bold;\n  color: #333; /* Neutral color for emphasis */\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Hello, World!</title>\n  <link rel=\"stylesheet\" href=\"styles.css\" />\n</head>\n<body>\n  <div class=\"cc-underline\">Learn HTML with CodeCraft</div>\n  <div class=\"cc-line-through\">This content is outdated.</div>\n  <div class=\"cc-overline\">Special Announcement</div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Shorthand Property</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong>text-decoration</strong> property can also serve as a shorthand for multiple related properties, including line style, color, and thickness:"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "text-decoration: text-decoration-line text-decoration-color text-decoration-style text-decoration-thickness | initial | inherit;"
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": ".cc-advanced-decoration {\n  text-decoration-line: underline overline;\n  text-decoration-style: solid;\n  text-decoration-color: #1e90ff; /* CodeCraft blue for emphasis */\n  text-decoration-thickness: 2px;\n  margin-bottom: 20px; /* Space between elements */\n}\n\n.cc-wavy-decoration {\n  text-decoration-line: underline;\n  text-decoration-style: wavy;\n  text-decoration-color: #ff6347; /* CodeCraft accent color */\n  text-decoration-thickness: 3px;\n  margin-bottom: 20px; /* Space between elements */\n}\n\n.cc-thick-underline {\n  text-decoration-line: underline;\n  text-decoration-style: solid;\n  text-decoration-color: #333; /* Neutral color */\n  text-decoration-thickness: 4px; /* Thicker line for emphasis */\n  margin-bottom: 20px; /* Space between elements */\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Hello, World!</title>\n  <link rel=\"stylesheet\" href=\"styles.css\" />\n</head>\n<body>\n  <div class=\"cc-advanced-decoration\">Welcome to CodeCraft E-Learning!</div>\n  <div class=\"cc-wavy-decoration\">Check out our latest courses!</div>\n  <div class=\"cc-thick-underline\">Important Update: Please read</div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Related Properties</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>text-decoration-line:</strong> Defines the type of line (underline, overline, etc.)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>text-decoration-style:</strong> Specifies the style of the line (solid, wavy, etc.)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>text-decoration-color:</strong> Sets the color of the line."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>text-decoration-thickness:</strong> Determines the thickness of the decoration line."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Note:</strong> The value for text-decoration-line is mandatory when using the shorthand notation, while other values are optional."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "CSS: Text Transform Properties",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>The text-transform property</strong> in CSS allows you to manipulate the case of text, making it uppercase, lowercase, or capitalizing the first letter of each word."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Syntax</strong>"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "text-transform: none | capitalize | uppercase | lowercase | initial | inherit;"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Value Descriptions:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>none:</strong> Default value; no transformation is applied."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>capitalize:</strong> Capitalizes the first character of each word."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>uppercase:</strong> Converts all characters to uppercase."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>lowercase:</strong> Converts all characters to lowercase."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. <strong>initial:</strong> Sets the property to its default value."
+                },
+                {
+                  "type": "sentence",
+                  "text": "6. <strong>inherit:</strong> Inherits the value from the parent element."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "/* No transformation applied */\np.none {\n  text-transform: none;\n}\n\n/* Capitalizes the first letter of each word */\np.capitalize {\n  text-transform: capitalize;\n}\n\n/* Converts all text to uppercase */\np.uppercase {\n  text-transform: uppercase;\n}\n\n/* Converts all text to lowercase */\np.lowercase {\n  text-transform: lowercase;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Hello, World!</title>\n  <link rel=\"stylesheet\" href=\"styles.css\" />\n</head>\n<body>\n  <p class=\"none\">This text will remain unchanged.</p>\n  <p class=\"capitalize\">this text will be capitalized.</p>\n  <p class=\"uppercase\">this text will be in uppercase.</p>\n  <p class=\"lowercase\">THIS TEXT WILL BE IN LOWERCASE.</p>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example Descriptions:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>none:</strong> The text remains in its original form."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>capitalize:</strong> Each word's first letter is converted to uppercase."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>uppercase:</strong> All characters are transformed to uppercase, often used for headings."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>lowercase:</strong> All characters are converted to lowercase, useful for a minimalist style."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "CSS Text Spacing Properties",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>CSS text spacing properties</strong> help control the amount of space between characters, words, and lines of text, affecting the overall readability and appearance of text content. The key text spacing properties are letter-spacing, word-spacing, text-indent, and line-height."
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>CSS letter-spacing Property</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong> letter-spacing property</strong> adjusts the spacing between each character in a text block."
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "letter-spacing: normal | length | initial | inherit;"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Values:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• normal: </strong> Default spacing between characters."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• length:</strong> Defines spacing using units like px, em, %, etc. Negative values are also allowed."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong> • initial:</strong> Sets the property to its default value."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• inherit:</strong> Inherits the spacing value from the parent element."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "/* Widens the space between characters by 3px */\np.positive_value {\n    letter-spacing: 3px;\n}\n\n/* Narrows the space between characters by 3px */\np.negative_value {\n    letter-spacing: -3px;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Hello, World!</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n   <p class=\"positive_value\">Increased letter spacing.</p>\n<p class=\"negative_value\">Decreased letter spacing.</p>\n  </body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example Description:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• positive_value:</strong> Increases the space between each letter by 3px."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong> • negative_value:</strong> Decreases the space between each letter by 3px."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>CSS word-spacing Property</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong> word-spacing </strong> property controls the space between words in a text block."
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "word-spacing: normal | length | initial | inherit;"
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "/* Widens the space between words by 6px */\np {\n    word-spacing: 6px;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Hello, World!</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n  <p>Increased word spacing.</p>\n\n  </body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example Description:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong> • word-spacing:</strong> Increases the space between each word by 6px."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>CSS text-indent Property</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong>text-indent </strong>property adjusts the indentation of the first line in a block of text."
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "text-indent: length | initial | inherit;"
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "/* Indents the first line by 40px */\np {\n    text-indent: 40px;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Hello, World!</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n <p>eLearning, also known as electronic learning or online learning, is the delivery of learning and training through digital resources.</p>\n\n  </body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example Description:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong> • text-indent: </strong> Indents the first line of the paragraph by 40px."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong> CSS line-height Property</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong>line-height</strong>property controls the height of the line box, affecting the space between lines of text."
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "line-height: normal | number | length | initial | inherit;"
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "p.normal-value {\n    line-height: normal;\n}\n\n/* Sets line height to 2 times the current font size */\np.numeric-value {\n    line-height: 2;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Hello, World!</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n <p class=\"normal-value\">Default line height.</p>\n<p class=\"numeric-value\">Increased line height.</p>\n\n  </body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example Description:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• normal-value: </strong> Uses the default line height."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong> • numeric-value:</strong> Sets the line height to twice the current font size, improving readability with more vertical space."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Note:</strong> Using a number for line-height is generally preferred over using length values for consistent scaling with the font size."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "CSS: Text Shadow Properties",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>The text-shadow property</strong> in CSS adds shadow effects to text, enhancing its appearance with depth and emphasis. This property allows you to create visually appealing text styles by adding a shadow that can be customized in terms of position, blur, and color."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Basic Syntax</strong>"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "text-shadow: h-shadow v-shadow blur-radius color | none | initial | inherit;"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Parameters:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>h-shadow:</strong> Horizontal offset of the shadow. Positive values shift the shadow to the right, while negative values shift it to the left."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>v-shadow:</strong> Vertical offset of the shadow. Positive values shift the shadow downwards, while negative values shift it upwards."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>blur-radius:</strong> The amount of blur applied to the shadow. A higher value creates a more blurred shadow."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>color:</strong> The color of the shadow. Can be specified using named colors, hex codes, RGB, RGBA, HSL, or HSLA values."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. <strong>none:</strong> Removes any shadow effect."
+                },
+                {
+                  "type": "sentence",
+                  "text": "6. <strong>initial:</strong> Sets the property to its default value."
+                },
+                {
+                  "type": "sentence",
+                  "text": "7. <strong>inherit:</strong> Inherits the shadow value from the parent element."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Note:</strong> The horizontal and vertical shadow values are required."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "h1 {\n  text-shadow: 1px 1px 2px red;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Hello, World!</title>\n  <link rel=\"stylesheet\" href=\"styles.css\" />\n</head>\n<body>\n  <h1>Shadowed Heading</h1>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example Description:</strong> In this example, the text-shadow property creates a red shadow that is offset by 1px horizontally and 1px vertically with a 2px blur radius. This adds a subtle shadow effect behind the text."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "CSS text-align Property",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "The <strong>text-align </strong>property is used to control the horizontal alignment of text within an element. It affects block-level elements and inline elements within block-level containers."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Basic Syntax</strong>"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "text-align: left | right | center | justify | initial | inherit;"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Values:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>left:</strong> Aligns the text to the left (default value)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>right:</strong> Aligns the text to the right."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>center:</strong> Centers the text horizontally."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>justify:</strong> Justifies the text, creating a straight edge on both sides."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. <strong>initial:</strong> Sets the property to its default value."
+                },
+                {
+                  "type": "sentence",
+                  "text": "6. <strong>inherit:</strong> Inherits the value from its parent element."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": ".description {\n    text-align: left;\n}\n\n.code-center {\n    text-align: center;\n}\n\n.code-right {\n    text-align: right;\n}\n\n.code-justify {\n    text-align: justify;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Hello, World!</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n<div class=\"description\">Discover the latest in CodeCraft with our aligned text examples.</div>\n<div class=\"code-center\">Code snippet are centered to ensure readability.</div>\n<div class=\"code-right\">Align code examples to the right for better formatting.</div>\n<div class=\"code-justify\">Justify CodeCraft documentation text for a clean look.</div>\n  </body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example Descriptions:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• .description:</strong> Aligns the text to the left for standard descriptions."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• .code-center: </strong>Centers text for better visual appeal in code snippet."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• .code-right:</strong> Right-aligns text to fit specific formatting needs."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• .code-justify:</strong> Justifies text in documentation for a clean layout."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "CSS text-align-last Property",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "The <strong>text-align-last</strong> property specifies the alignment of the last line of text within a block. It works well for justified text."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Syntax:</strong>"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "text-align-last: auto | left | right | center | justify | start | end | initial | inherit;"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Values:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>auto:</strong> Matches the text-align value. Aligns left if text-align is not set."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>left:</strong> Aligns the last line to the left."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>right:</strong> Aligns the last line to the right."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>center:</strong> Centers the last line."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. <strong>justify:</strong> Justifies the last line."
+                },
+                {
+                  "type": "sentence",
+                  "text": "6. <strong>start:</strong> Aligns to the start (left for LTR, right for RTL)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "7. <strong>end:</strong> Aligns to the end (right for LTR, left for RTL)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "8. <strong>initial:</strong> Sets the property to its default value."
+                },
+                {
+                  "type": "sentence",
+                  "text": "9. <strong>inherit:</strong> Inherits the value from its parent element."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": ".last-left {\n    text-align: justify;\n    text-align-last: left;\n}\n\n.last-center {\n    text-align: justify;\n    text-align-last: center;\n}\n\n.last-right {\n    text-align: justify;\n    text-align-last: right;\n}\n\n.last-justify {\n    text-align: justify;\n    text-align-last: justify;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Hello, World!</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n<p class=\"last-left\">This is a justified paragraph with the last line aligned to the left.</p>\n<p class=\"last-center\">This text is centered, including the last line.</p>\n<p class=\"last-right\">This text is right-aligned, and so is the last line.</p>\n<p class=\"last-justify\">The last line of this text is also justified for consistency.</p>\n  </body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example Descriptions:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong> • .last-left: </strong>Aligns the last line to the left in a justified block."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• .last-center: </strong>Centers the last line in a justified block."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>.last-right:</strong> Aligns the last line to the right in a justified block."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• .last-justify:</strong> Justifies the last line for consistency with the rest of the block."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "CSS: Vertical Align Properties",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>The vertical-align property</strong> controls the vertical alignment of inline-level elements relative to the line box. This property does not apply to block-level elements."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Basic Syntax</strong>"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "vertical-align: baseline | length | sub | super | top | text-top | middle | bottom | text-bottom | initial | inherit;"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Values:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>baseline:</strong> Aligns the element with the baseline of the parent element (default value)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>length:</strong> Aligns the element relative to the baseline using a specified length (e.g., px, em). Negative values are allowed."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>sub:</strong> Aligns the element as a subscript relative to the baseline."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>super:</strong> Aligns the element as a superscript relative to the baseline."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. <strong>top:</strong> Aligns the top of the element with the top of the parent element."
+                },
+                {
+                  "type": "sentence",
+                  "text": "6. <strong>middle:</strong> Aligns the middle of the element with the middle of the parent element."
+                },
+                {
+                  "type": "sentence",
+                  "text": "7. <strong>bottom:</strong> Aligns the bottom of the element with the bottom of the parent element."
+                },
+                {
+                  "type": "sentence",
+                  "text": "8. <strong>text-top:</strong> Aligns the top of the element with the top of the parent element's font."
+                },
+                {
+                  "type": "sentence",
+                  "text": "9. <strong>text-bottom:</strong> Aligns the bottom of the element with the bottom of the parent element's font."
+                },
+                {
+                  "type": "sentence",
+                  "text": "10. <strong>initial:</strong> Sets the property to its default value."
+                },
+                {
+                  "type": "sentence",
+                  "text": "11. <strong>inherit:</strong> Inherits the value from the parent element."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "/* Container styling */\n.aligned-text {\n  border: 1px solid black;\n  line-height: 2;\n  margin-bottom: 10px; /* Adds spacing between paragraphs */\n}\n\n/* Aligns span to the baseline of the parent element */\n.baseline {\n  vertical-align: baseline;\n}\n\n/* Aligns span 10px relative to the baseline of the parent element */\n.length {\n  vertical-align: 10px;\n}\n\n/* Aligns span to subscript position */\n.sub {\n  vertical-align: sub;\n}\n\n/* Aligns span to superscript position */\n.super {\n  vertical-align: super;\n}\n\n/* Aligns span to the top of the parent element */\n.top {\n  vertical-align: top;\n}\n\n/* Aligns span to the top of the parent element's font */\n.text-top {\n  vertical-align: text-top;\n}\n\n/* Aligns span to the middle of the parent element */\n.middle {\n  vertical-align: middle;\n}\n\n/* Aligns span to the bottom of the parent element */\n.bottom {\n  vertical-align: bottom;\n}\n\n/* Aligns span to the bottom of the parent element's font */\n.text-bottom {\n  vertical-align: text-bottom;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Vertical Align Examples</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <p class=\"aligned-text\">Explore <span class=\"baseline\">CodeCraft</span> with precise vertical alignment examples.</p>\n  <p class=\"aligned-text\">The term <span class=\"super\">Super</span> is used in various contexts.</p>\n  <p class=\"aligned-text\">The word <span class=\"sub\">Sub</span> appears as a subscript.</p>\n  <p class=\"aligned-text\">Compare <span class=\"top\">Top</span> and <span class=\"bottom\">Bottom</span> alignments.</p>\n  <p class=\"aligned-text\">Test <span class=\"text-top\">Text-Top</span> and <span class=\"text-bottom\">Text-Bottom</span> alignments.</p>\n  <p class=\"aligned-text\">This is an example with <span class=\"middle\">Middle</span> alignment.</p>\n  <p class=\"aligned-text\">An example with <span class=\"length\">10px</span> relative to the baseline.</p>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The above example demonstrates the working of different values of the <strong> vertical-align</strong>property."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "CSS: Direction Property",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>The CSS direction property</strong> specifies the base direction of text and layout within a block element. This property is especially useful for managing text direction in languages that are read from right to left or for creating specific layout effects."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Syntax</strong>"
+                },
+                {
+                  "type": "snippet",
+
+                  "code": "direction: ltr | rtl | initial | inherit;"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>ltr:</strong> Sets the text direction from left to right. This is the default value."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>rtl:</strong> Sets the text direction from right to left."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>initial:</strong> Sets the property to its default value."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>inherit:</strong> Inherits the direction from its parent element."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": ".ltr-text {\n  border: 1px solid green;\n  padding: 10px;\n  direction: ltr; /* Text flows from left to right */\n}\n\n.rtl-text {\n  border: 1px solid blue;\n  padding: 10px;\n  direction: rtl; /* Text flows from right to left */\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>CSS Direction Property Examples</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <div class=\"ltr-text\">\n    <p>Welcome to CodeCraft, where we explore various coding concepts.</p>\n  </div>\n  <div class=\"rtl-text\">\n    <p>Learn more about our features and tutorials.</p>\n  </div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Description</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• The <strong>.ltr-text</strong> class applies a left-to-right direction, which is useful for most languages like English."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• The <strong>.rtl-text</strong> class applies a right-to-left direction, which is useful for languages like Arabic or Hebrew."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Note: </strong>By using the <strong>direction</strong> property, you can effectively manage text flow and layout in your web projects to accommodate different language requirements."
+                }
+              ],
+              "locked": true
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What does the text-decoration: underline; property do to the text within an element?",
+              "options": [
+                "Adds a line below the text",
+                "Adds a line above the text",
+                "Adds a line through the middle of the text",
+                "Removes any text decoration"
+              ],
+              "correctAnswer": "Adds a line below the text",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which text-decoration property value would you use to apply a solid line through the middle of the text?",
+              "options": ["underline", "overline", "line-through", "none"],
+              "correctAnswer": "line-through",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "When using the shorthand text-decoration property, which value is mandatory?",
+              "options": [
+                "text-decoration-line",
+                "text-decoration-color",
+                "text-decoration-style",
+                "text-decoration-thickness"
+              ],
+              "correctAnswer": "text-decoration-line",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which text-transform property value will leave the text in its original form without any transformation?",
+              "options": ["none", "capitalize", "uppercase", "lowercase"],
+              "correctAnswer": "none",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What effect does the text-transform: capitalize; property have on text?",
+              "options": [
+                "Converts all characters to uppercase",
+                "Converts all characters to lowercase",
+                "Capitalizes the first character of each word",
+                "Leaves the text unchanged"
+              ],
+              "correctAnswer": "Capitalizes the first character of each word",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which letter-spacing value increases the space between characters in a text block?",
+              "options": ["normal", "length", "initial", "inherit"],
+              "correctAnswer": "length",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What effect does the word-spacing: 6px; property have on the text?",
+              "options": [
+                "Increases the space between each character by 6px",
+                "Increases the space between each word by 6px",
+                "Decreases the space between each character by 6px",
+                "Decreases the space between each word by 6px"
+              ],
+              "correctAnswer": "Increases the space between each word by 6px",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which property adjusts the indentation of the first line in a block of text?",
+              "options": [
+                "letter-spacing",
+                "word-spacing",
+                "text-indent",
+                "line-height"
+              ],
+              "correctAnswer": "text-indent",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which text-shadow value sets the property to its default value?",
+              "options": ["initial", "inherit", "none", "rgba(0,0,0,0)"],
+              "correctAnswer": "initial",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What effect do positive values for h-shadow and v-shadow have on the shadow?",
+              "options": [
+                "Positive values shift the shadow to the right and downwards",
+                "Positive values shift the shadow to the left and upwards",
+                "Positive values increase the blur radius",
+                "Positive values set the shadow color"
+              ],
+              "correctAnswer": "Positive values shift the shadow to the right and downwards",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which vertical-align value aligns the element with the baseline of the parent element?",
+              "options": ["baseline", "top", "middle", "bottom"],
+              "correctAnswer": "baseline",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What does the vertical-align: sub; property do?",
+              "options": [
+                "Aligns the element as a superscript relative to the baseline",
+                "Aligns the element as a subscript relative to the baseline",
+                "Aligns the middle of the element with the middle of the parent element",
+                "Aligns the top of the element with the top of the parent element"
+              ],
+              "correctAnswer": "Aligns the element as a subscript relative to the baseline",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which vertical-align value aligns the top of the element with the top of the parent element's font?",
+              "options": ["text-top", "top", "middle", "text-bottom"],
+              "correctAnswer": "text-top",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What effect does the vertical-align: middle; property have on an inline-level element?",
+              "options": [
+                "Aligns the middle of the element with the middle of the parent element",
+                "Aligns the element with the baseline of the parent element",
+                "Aligns the bottom of the element with the bottom of the parent element",
+                "Aligns the top of the element with the top of the parent element"
+              ],
+              "correctAnswer": "Aligns the middle of the element with the middle of the parent element",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which direction value sets the text direction from right to left?",
+              "options": ["ltr", "rtl", "initial", "inherit"],
+              "correctAnswer": "rtl",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What effect does the direction: ltr; property have on the text?",
+              "options": [
+                "Aligns the text direction from right to left",
+                "Sets the text direction from left to right",
+                "Sets the text direction to its default value",
+                "Inherits the direction from its parent element"
+              ],
+              "correctAnswer": "Sets the text direction from left to right",
+              "points": 2,
+              "locked": true
+            }
+          ],
+          "activities": [
+            {
+              "title": "Text Decoration Properties",
+              "description": "Apply text decoration properties to text elements using CSS.",
+              "language": "CSS",
+              "difficulty": "easy",
+              "problemStatement": "Style the following text elements using CSS:\n1. An <h1> element with the text 'Underlined Heading' should have an underline text decoration.\n2. A <p> element with the text 'This paragraph has a line-through.' should have a line-through text decoration.\n\nAll CSS styles should be written in an external CSS file.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Text Decoration Properties</title>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<h1>Underlined Heading</h1>\n<p>This paragraph has a line-through.</p>\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head><title>Text Decoration Properties</title></head><body><h1>Underlined Heading</h1><p>This paragraph has a line-through.</p></body></html>",
+                  "required": [
+                    "h1 { text-decoration: underline; }",
+                    "p { text-decoration: line-through; }"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Apply an underline text decoration to the <h1> element.",
+                    "Apply a line-through text decoration to the <p> element."
+                  ],
+                  "expectedImage": "/activities/cssact/3.1.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },
+            {
+              "title": "Text Alignment",
+              "description": "Apply text alignment properties to text elements using CSS.",
+              "language": "CSS",
+              "difficulty": "easy",
+              "problemStatement": "Style the following text elements using CSS:\n1. An <h1> element with the text 'Centered Heading' should be centered.\n2. A <p> element with the text 'This paragraph is aligned to the right.' should be right-aligned.\n\nAll CSS styles should be written in an external CSS file.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Text Alignment</title>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<h1>Centered Heading</h1>\n<p>This paragraph is aligned to the right.</p>\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head><title>Text Alignment</title></head><body><h1>Centered Heading</h1><p>This paragraph is aligned to the right.</p></body></html>",
+                  "required": [
+                    "h1 { text-align: center; }",
+                    "p { text-align: right; }"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Center the text of the <h1> element.",
+                    "Align the text of the <p> element to the right."
+                  ],
+                  "expectedImage": "/activities/cssact/3.2.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },
+            {
+              "title": "Text Transform Properties",
+              "description": "Apply text transform properties to text elements using CSS.",
+              "language": "CSS",
+              "difficulty": "medium",
+              "problemStatement": "Style the following text elements using CSS:\n1. An <h1> element with the text 'Uppercase Heading' should use uppercase text transformation.\n2. A <p> element with the text 'This paragraph is capitalized.' should use capitalize text transformation.\n\nAll CSS styles should be written in an external CSS file.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Text Transform Properties</title>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<h1>Uppercase Heading</h1>\n<p>This paragraph is capitalized.</p>\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head><title>Text Transform Properties</title></head><body><h1>Uppercase Heading</h1><p>This paragraph is capitalized.</p></body></html>",
+                  "required": [
+                    "h1 { text-transform: uppercase; }",
+                    "p { text-transform: capitalize; }"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Transform the text of the <h1> element to uppercase.",
+                    "Capitalize the text of the <p> element."
+                  ],
+                  "expectedImage": "/activities/cssact/3.3.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },
+            {
+              "title": "Advanced Text Styling",
+              "description": "Apply advanced text styling properties to text elements using CSS.",
+              "language": "CSS",
+              "difficulty": "hard",
+              "problemStatement": "Style the following text elements using CSS.\n1. For the <h1> element with the text 'Fancy Heading,' apply a text shadow with a horizontal offset of 3px, a vertical offset of 3px, a blur radius of 6px, and a color of black. Additionally, set the text decoration to underline and adjust the letter spacing to 1px.\n2. For the <p> element with the text 'Detailed paragraph with various text styles,' apply a text transform to capitalize the text, set the letter spacing to 0.5px, and apply a text shadow with a horizontal offset of 1px, a vertical offset of 1px, a blur radius of 3px, and a color of black.\nAll CSS styles should be written in an external CSS file.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Advanced Text Styling</title>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<h1>Fancy Heading</h1>\n<p>Detailed paragraph with various text styles.</p>\n</body>\n</html>",
+                "css": "",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": "",
+                  "output": "<!DOCTYPE html><html><head><title>Advanced Text Styling</title></head><body><h1>Fancy Heading</h1><p>Detailed paragraph with various text styles.</p></body></html>",
+                  "required": [
+                    "h1 { text-shadow: 3px 3px 6px black;",
+                    "text-decoration: underline;letter-spacing: 1px; }",
+                    "p { text-transform: capitalize; letter-spacing: 0.5px; text-shadow: 1px 1px 3px black; }"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Apply a text shadow with 3px horizontal offset, 3px vertical offset, 6px blur radius, and blackcolor to the <h1> element.",
+                    "Underline the text of the <h1> element and set its letter spacing to 1px.",
+                    "Capitalize the text of the <p> element, set its letter spacing to 0.5px, and apply a text shadow with 1px horizontal offset, 1px vertical offset, 3px blur radius, and black color."
+                  ],
+                  "expectedImage": "/activities/cssact/3.4.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            }
+          ],
+          "totalPoints": 0,
+          "locked": true
+        },
+        {
+          "title": "Lesson 4: CSS Flex Layout",
+          "documents": [
+            {
+              "title": "CSS Flex Layout",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "The <strong>CSS flex layout</strong> provides a modern and efficient way to layout, align, and distribute space among elements within a container. This layout system, known as Flexbox, offers more flexibility compared to traditional layout methods using tables, floats, and positioning."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>What is Flexbox?</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Flexbox, or the Flexible Box Layout, is designed to provide a consistent layout structure that adapts to different screen sizes and devices. It simplifies complex layout tasks and ensures responsive design."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Flex Container and Flex Items</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>Flex Container:</strong> To create a flex layout, start by defining a flex container. Any element can be turned into a flex container by applying <code>display: flex</code> to it."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>Flex Items:</strong> The elements inside the flex container are called flex items. These items are automatically aligned and distributed within the container according to the flexbox properties."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example of a Flex Container with Three Flex Items</strong>"
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": ".flex-container {\n  display: flex;\n  border: 2px solid #663399; /* Purple border */\n  padding: 10px;\n}\n\n.flex-item {\n  background-color: #FF8C00; /* Dark orange */\n  padding: 20px;\n  margin: 5px;\n  color: white;\n  font-weight: bold;\n  text-align: center;\n  flex: 1; /* Flex grow property */\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"styles.css\">\n    <title>flex-container</title>\n</head>\n<body>\n    <div class=\"flex-container\">\n  <div class=\"flex-item\">Item 1</div>\n  <div class=\"flex-item\">Item 2</div>\n  <div class=\"flex-item\">Item 3</div>\n</div>\n\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Explanation:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• In this example, the <code>.flex-container</code> is the flex container, and each <code>.flex-item</code> is a flex item. The <code>flex</code> property in the flex items allows them to grow equally within the container."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Understanding Flexbox Terminologies</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>Main Axis:</strong> The primary axis along which the flex items are arranged. The direction of the main axis is determined by the <code>flex-direction</code> property. If <code>flex-direction: row;</code>, the main axis is horizontal; if <code>flex-direction: column;</code>, the main axis is vertical."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>Main Start and Main End:</strong> These refer to the starting and ending points of the main axis. Flex items are positioned from the main start to the main end."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>Main Size:</strong> The size of a flex item along the main axis (either width or height, depending on the axis direction)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>Cross Axis:</strong> The perpendicular axis to the main axis. For a horizontal main axis, the cross axis is vertical, and vice versa."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. <strong>Cross Start and Cross End:</strong> The start and end points along the cross axis."
+                },
+                {
+                  "type": "sentence",
+                  "text": "6. <strong>Cross Size:</strong> The size of a flex item along the cross axis."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Flexbox vs. Grid Layout</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "While Flexbox is great for layouts in a single direction (either horizontal or vertical), the CSS Grid Layout provides more powerful capabilities for creating complex layouts in both directions simultaneously."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "CSS Flex Container",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "A <strong>flex container</strong> is a parent element that holds child elements known as flex items. The flex container's primary purpose is to enable the layout of its children using the Flexbox layout model. This layout model provides various properties to align and distribute space among the flex items efficiently."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Flex Container Properties</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>flex-direction</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>flex-wrap</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>flex-flow</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>justify-content</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>align-items</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>align-content</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>gap, row-gap, column-gap</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Flex Direction</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong>flex-direction</strong> property specifies the direction in which the flex items are placed in the flex container."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Possible values:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• row (default):</strong> Arranges items horizontally from left to right."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• row-reverse:</strong> Arranges items horizontally from right to left."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• column:</strong> Arranges items vertically from top to bottom."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• column-reverse:</strong> Arranges items vertically from bottom to top."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "/* General styling for the page */\nbody {\n    font-family: Arial, sans-serif;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    min-height: 100vh;\n    margin: 0;\n    background-color: #f0f0f0;\n}\n\n/* Flex container styling */\n.container {\n    display: flex;\n    flex-direction: column;\n    gap: 20px;\n}\n\n/* Flex box styling */\n.flex-box {\n    display: flex;\n    gap: 10px;\n    border: 2px solid #000;\n    padding: 10px;\n    background-color: #fff;\n    align-items: center;\n    flex-wrap: wrap; /* Ensure items wrap if necessary */\n}\n\n/* Flex items styling */\n.box {\n    width: 60px;\n    height: 60px;\n    background-color: #ff8c00; /* Dark orange */\n    color: white;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    font-size: 16px;\n}\n\n/* Label styling */\n.label {\n    flex: 1 100%;\n    margin-bottom: 10px;\n    font-weight: bold;\n    text-align: center;\n}\n\n/* Specific direction classes */\n.row {\n    flex-direction: row;\n}\n\n.row-reverse {\n    flex-direction: row-reverse;\n}\n\n.column {\n    flex-direction: column;\n}\n\n.column-reverse {\n    flex-direction: column-reverse;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"styles.css\">\n    <title>Flex Direction Demo</title>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"flex-box row\">\n            <div class=\"label\">Flex Direction: row</div>\n            <div class=\"box\">Item 1</div>\n            <div class=\"box\">Item 2</div>\n            <div class=\"box\">Item 3</div>\n        </div>\n        <div class=\"flex-box row-reverse\">\n            <div class=\"label\">Flex Direction: row-reverse</div>\n            <div class=\"box\">Item 1</div>\n            <div class=\"box\">Item 2</div>\n            <div class=\"box\">Item 3</div>\n        </div>\n        <div class=\"flex-box column\">\n            <div class=\"label\">Flex Direction: column</div>\n            <div class=\"box\">Item 1</div>\n            <div class=\"box\">Item 2</div>\n            <div class=\"box\">Item 3</div>\n        </div>\n        <div class=\"flex-box column-reverse\">\n            <div class=\"label\">Flex Direction: column-reverse</div>\n            <div class=\"box\">Item 1</div>\n            <div class=\"box\">Item 2</div>\n            <div class=\"box\">Item 3</div>\n        </div>\n    </div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Explanation:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>Flex Direction: row:</strong> Items are arranged horizontally from left to right."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>Flex Direction: row-reverse:</strong> Items are arranged horizontally from right to left."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>Flex Direction: column:</strong> Items are arranged vertically from top to bottom."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>Flex Direction: column-reverse:</strong> Items are arranged vertically from bottom to top."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Flex Wrap</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong>flex-wrap</strong> property controls whether the flex items are forced into a single line or can wrap onto multiple lines."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Possible values:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong• >nowrap (default):</strong> All flex items will be on one line."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• wrap:</strong> Flex items will wrap onto multiple lines from top to bottom."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• wrap-reverse:</strong> Flex items will wrap onto multiple lines from bottom to top."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "/* General styling for the page */\nbody {\n    font-family: Arial, sans-serif;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    min-height: 100vh;\n    margin: 0;\n    background-color: #f0f0f0;\n}\n\n/* Flex container styling */\n.container {\n    display: flex;\n    flex-direction: column;\n    gap: 20px;\n    width: 100%;\n}\n\n/* Flex box styling */\n.flex-box {\n    display: flex;\n    gap: 10px;\n    border: 2px solid #000;\n    padding: 10px;\n    background-color: #fff;\n    flex-wrap: nowrap; /* Default value, will be overridden by specific classes */\n}\n\n/* Flex items styling */\n.box {\n    width: 80px;\n    height: 80px;\n    background-color: #ff8c00; /* Dark orange */\n    color: white;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    font-size: 16px;\n}\n\n/* Label styling */\n.label {\n    flex: 1 100%;\n    margin-bottom: 10px;\n    font-weight: bold;\n    text-align: center;\n}\n\n/* Specific wrap classes */\n.nowrap {\n    flex-wrap: nowrap;\n}\n\n.wrap {\n    flex-wrap: wrap;\n}\n\n.wrap-reverse {\n    flex-wrap: wrap-reverse;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"styles.css\">\n    <title>Flex Wrap Demo</title>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"flex-box nowrap\">\n            <div class=\"label\">Flex Wrap: nowrap</div>\n            <div class=\"box\">Item 1</div>\n            <div class=\"box\">Item 2</div>\n            <div class=\"box\">Item 3</div>\n            <div class=\"box\">Item 4</div>\n            <div class=\"box\">Item 5</div>\n        </div>\n        <div class=\"flex-box wrap\">\n            <div class=\"label\">Flex Wrap: wrap</div>\n            <div class=\"box\">Item 1</div>\n            <div class=\"box\">Item 2</div>\n            <div class=\"box\">Item 3</div>\n            <div class=\"box\">Item 4</div>\n            <div class=\"box\">Item 5</div>\n        </div>\n        <div class=\"flex-box wrap-reverse\">\n            <div class=\"label\">Flex Wrap: wrap-reverse</div>\n            <div class=\"box\">Item 1</div>\n            <div class=\"box\">Item 2</div>\n            <div class=\"box\">Item 3</div>\n            <div class=\"box\">Item 4</div>\n            <div class=\"box\">Item 5</div>\n        </div>\n    </div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Explanation:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>Flex Wrap: nowrap:</strong> Items will not wrap and will stay on one line. If there’s not enough space, the items will overflow the container."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>Flex Wrap: wrap:</strong> Items will wrap onto multiple lines from top to bottom if they exceed the container width."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>Flex Wrap: wrap-reverse:</strong> Items will wrap onto multiple lines from bottom to top if they exceed the container width."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "CSS Flex Item Properties",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "In a <strong>Flexbox layout</strong>, the flex container and its direct child elements (flex items) are aligned and arranged based on the container's properties."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The following properties adjust the individual flex items within the flexbox container."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>order</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>flex-grow</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>flex-shrink</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>flex-basis</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• <strong>align-self</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Order Property</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong>order</strong> property specifies the order in which the flex items appear in the flex container."
+                },
+                {
+                  "type": "sentence",
+                  "text": "By default, all items have an order of 0, and items with a lower order value appear first."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": ".container {\n    display: flex;\n    background-color: #f0f0f0;\n    padding: 10px;\n    border: 1px solid #ccc;\n}\n\n.box {\n    padding: 20px;\n    margin: 5px;\n    color: white;\n    background-color: #5a5a5a;\n    text-align: center;\n}\n\n.order1 {\n    order: 1;\n}\n\n.order2 {\n    order: 2;\n}\n\n.order3 {\n    order: 3;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"styles.css\">\n    <title>Flexbox Properties Example</title>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"box order3\">Item 1 (order: 3)</div>\n        <div class=\"box order1\">Item 2 (order: 1)</div>\n        <div class=\"box order2\">Item 3 (order: 2)</div>\n    </div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Flex-Grow Property</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong>flex-grow</strong> property specifies how much a flex item will grow relative to the rest of the items inside the flex container."
+                },
+                {
+                  "type": "sentence",
+                  "text": "A value of 0 means the item will not grow, while a positive number means the item will grow."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": ".container {\n    display: flex;\n    background-color: #f0f0f0;\n    padding: 10px;\n    border: 1px solid #ccc;\n}\n\n.box {\n    padding: 20px;\n    margin: 5px;\n    color: white;\n    background-color: #5a5a5a;\n    text-align: center;\n}\n\n.grow1 {\n    flex-grow: 1;\n}\n\n.grow2 {\n    flex-grow: 2;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"styles.css\">\n    <title>Flexbox Properties Example</title>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"box grow1\">Item 1 (grow: 1)</div>\n        <div class=\"box grow2\">Item 2 (grow: 2)</div>\n        <div class=\"box grow1\">Item 3 (grow: 1)</div>\n    </div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Flex-Shrink Property</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong>flex-shrink</strong> property specifies how much a flex item will shrink relative to the rest of the flex items when there is not enough space."
+                },
+                {
+                  "type": "sentence",
+                  "text": "By default, it is set to 1, meaning items shrink equally."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": ".container {\n    display: flex;\n    width: 300px;\n    background-color: #f0f0f0;\n    padding: 10px;\n    border: 1px solid #ccc;\n}\n\n.box {\n    padding: 20px;\n    margin: 5px;\n    color: white;\n    background-color: #5a5a5a;\n    text-align: center;\n    width: 150px;\n}\n\n.shrink1 {\n    flex-shrink: 1;\n}\n\n.shrink2 {\n    flex-shrink: 2;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"styles.css\">\n    <title>Flexbox Properties Example</title>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"box shrink1\">Item 1 (shrink: 1)</div>\n        <div class=\"box shrink2\">Item 2 (shrink: 2)</div>\n        <div class=\"box shrink1\">Item 3 (shrink: 1)</div>\n    </div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Flex-Basis Property</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong>flex-basis</strong> property defines the initial size of the flex item before the remaining space is distributed according to flex-grow and flex-shrink."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": ".container {\n    display: flex;\n    background-color: #f0f0f0;\n    padding: 10px;\n    border: 1px solid #ccc;\n}\n\n.box {\n    padding: 20px;\n    margin: 5px;\n    color: white;\n    background-color: #5a5a5a;\n    text-align: center;\n}\n\n.basis100 {\n    flex-basis: 100px;\n}\n\n.basis150 {\n    flex-basis: 150px;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"styles.css\">\n    <title>Flexbox Properties Example</title>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"box basis100\">Item 1 (basis: 100px)</div>\n        <div class=\"box basis150\">Item 2 (basis: 150px)</div>\n        <div class=\"box basis100\">Item 3 (basis: 100px)</div>\n    </div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Align-Self Property</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong>align-self</strong> property allows the default alignment (or the one specified by align-items) to be overridden for individual flex items."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": ".container {\n    display: flex;\n    background-color: #f0f0f0;\n    padding: 10px;\n    border: 1px solid #ccc;\n    height: 200px; /* Height is necessary to see the align-self effect */\n}\n\n.box {\n    padding: 20px;\n    margin: 5px;\n    color: white;\n    background-color: #5a5a5a;\n    text-align: center;\n    width: 100px;\n}\n\n.align-start {\n    align-self: flex-start;\n}\n\n.align-center {\n    align-self: center;\n}\n\n.align-end {\n    align-self: flex-end;\n}\n\n.align-stretch {\n    align-self: stretch;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"styles.css\">\n    <title>Flexbox Properties Example</title>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"box align-start\">Item 1 (align-self: flex-start)</div>\n        <div class=\"box align-center\">Item 2 (align-self: center)</div>\n        <div class=\"box align-end\">Item 3 (align-self: flex-end)</div>\n        <div class=\"box align-stretch\">Item 4 (align-self: stretch)</div>\n    </div>\n</body>\n</html>"
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Responsive Layout Using CSS Flexbox",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>CSS Flexbox</strong> simplifies creating layouts that adapt to different screen sizes."
+                },
+                {
+                  "type": "sentence",
+                  "text": "By using Flexbox, you can design responsive layouts that automatically adjust to fit various devices, ensuring an optimal user experience across desktops, tablets, and mobile phones."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Multi-Column Layouts with Flexbox</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Flexbox allows you to create flexible column layouts that adjust based on screen size."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Here, we'll look at how to set up a three-column layout that adapts to different devices."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "/* Base styles for the flex container */\nmain {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 10px;\n}\n\n/* Base styles for the columns */\n.column {\n    padding: 20px;\n    color: white;\n    text-align: center;\n}\n\n.column1 {\n    background-color: #f56c6c;\n    flex: 1 1 20%;\n}\n\n.column2 {\n    background-color: #ffbb33;\n    flex: 1 1 60%;\n}\n\n.column3 {\n    background-color: #3bafda;\n    flex: 1 1 20%;\n}\n\n/* Styles for tablets */\n@media screen and (max-width: 768px) {\n    .column1, .column2 {\n        flex: 1 1 50%;\n    }\n\n    .column3 {\n        flex: 1 1 100%;\n    }\n}\n\n/* Styles for mobile devices */\n@media screen and (max-width: 450px) {\n    .column {\n        flex: 1 1 100%;\n    }\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Multi-Column Layout</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <main>\n        <div class=\"column column1\">Column 1</div>\n        <div class=\"column column2\">Column 2</div>\n        <div class=\"column column3\">Column 3</div>\n    </main>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Description: This layout initially displays three columns."
+                },
+                {
+                  "type": "sentence",
+                  "text": "On tablets, it shifts to two columns, and on mobile devices, it switches to a single-column layout."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Image Gallery Using Flexbox</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Create a responsive image gallery that adjusts to different screen sizes using Flexbox."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "/* Base styles for the image gallery */\n.gallery {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 10px;\n    border: 2px solid #ddd;\n    padding: 10px;\n}\n\n.gallery img {\n    width: calc(33% - 20px);\n    height: auto;\n    border-radius: 8px;\n}\n\n/* Styles for tablets */\n@media screen and (max-width: 768px) {\n    .gallery img {\n        width: calc(50% - 20px);\n    }\n}\n\n/* Styles for mobile devices */\n@media screen and (max-width: 450px) {\n    .gallery img {\n        width: calc(100% - 20px);\n    }\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Responsive Image Gallery</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"gallery\">\n        <img src=\"https://elearningindustry.com/wp-content/uploads/2019/07/the-benefits-of-elearning.jpg\" alt=\"Image 1\">\n        <img src=\"https://eviet.edu.vn/uploads/57(1)(1).jpg\" alt=\"Image 2\">\n        <img src=\"https://a.storyblok.com/f/262429/1080x1920/35b3fb1bb0/blogpost-e-learnings.jpg\" alt=\"Image 3\">\n        <img src=\"https://www.simplilearn.com/ice9/free_resources_article_thumb/Why_E-Learning_Insights_into_the_World_of_Online_Learning_and_Development.jpg\" alt=\"Image 4\">\n        <img src=\"https://elearningindustry.com/wp-content/uploads/2019/07/the-benefits-of-elearning.jpg\" alt=\"Image 5\">\n        <img src=\"https://elearningindustry.com/wp-content/uploads/2019/07/the-benefits-of-elearning.jpg\" alt=\"Image 6\">\n    </div>\n</body>\n</html>"
+                }
+              ],
+              "locked": true
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What is a flex container in CSS Flexbox?",
+              "options": [
+                "A child element within a layout that can be aligned and positioned.",
+                "A parent element that enables the layout of its child elements using the Flexbox model.",
+                "A specific type of CSS property that deals with flexible layouts.",
+                "A predefined layout style in CSS."
+              ],
+              "correctAnswer": "A parent element that enables the layout of its child elements using the Flexbox model.",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which value of the flex-direction property arranges flex items horizontally from right to left?",
+              "options": ["row", "row-reverse", "column", "column-reverse"],
+              "correctAnswer": "row-reverse",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What is the default value of the flex-wrap property?",
+              "options": ["nowrap", "wrap", "wrap-reverse", "wrap-start"],
+              "correctAnswer": "nowrap",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "If you want flex items to wrap onto multiple lines from bottom to top, which flex-wrap value should you use?",
+              "options": ["nowrap", "wrap", "wrap-reverse", "no-wrap-reverse"],
+              "correctAnswer": "wrap-reverse",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which CSS property determines the order of flex items within a flex container?",
+              "options": ["order", "flex-order", "order-index", "item-order"],
+              "correctAnswer": "order",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What does a value of 2 for the flex-grow property indicate about a flex item?",
+              "options": [
+                "The item will grow twice as fast as items with a flex-grow value of 1.",
+                "The item will not grow at all.",
+                "The item will grow to double its initial size.",
+                "The item will be the first to grow in the container."
+              ],
+              "correctAnswer": "The item will grow twice as fast as items with a flex-grow value of 1.",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "If an item's flex-shrink property is set to 2, what does it mean?",
+              "options": [
+                "The item will shrink twice as much as items with a flex-shrink value of 1 when space is limited.",
+                "The item will shrink to half its size.",
+                "The item will not shrink at all.",
+                "The item will shrink first before other items."
+              ],
+              "correctAnswer": "The item will shrink twice as much as items with a flex-shrink value of 1 when space is limited.",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which align-self value stretches a flex item to fill the flex container's cross-axis?",
+              "options": ["flex-start", "flex-end", "center", "stretch"],
+              "correctAnswer": "stretch",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What is one use of Flexbox in responsive design?",
+              "options": [
+                "By allowing you to create flexible column layouts that adjust based on screen size.",
+                "By animating elements on a page.",
+                "By creating fixed-width layouts for desktop screens.",
+                "By handling complex grid systems."
+              ],
+              "correctAnswer": "By allowing you to create flexible column layouts that adjust based on screen size.",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "How can Flexbox be used to enhance the layout of images on a webpage?",
+              "options": [
+                "By creating a responsive image gallery that adjusts to different screen sizes using Flexbox.",
+                "By creating overlapping image effects.",
+                "By forcing images to be displayed in a single column only.",
+                "By automatically resizing images to fit the container."
+              ],
+              "correctAnswer": "By creating a responsive image gallery that adjusts to different screen sizes using Flexbox.",
+              "points": 2,
+              "locked": true
+            }
+          ],
+          "activities": [
+            {
+              "title": "Creating a Flex Container",
+              "description": "Practice creating a flex container and observing how flex items behave.",
+              "language": "CSS",
+              "difficulty": "easy",
+              "problemStatement": "In this activity, you will create a flex container with three flex items.\n\n1. Add the necessary CSS to make the container a flex container.\n2. Set the height of the container to 200px.\n",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"container\">\n  <div class=\"item\">Item 1</div>\n  <div class=\"item\">Item 2</div>\n  <div class=\"item\">Item 3</div>\n</div>\n</body>\n</html>",
+                "css": "/* Your CSS code goes here */",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": ".container {\n  display: flex;\n  height: 200px;\n}",
+                  "output": "",
+                  "required": [
+                    ".container{display: flex;",
+                    "height: 200px;",
+                    "background-color:"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Set the container as a flex container",
+                    "Set the height of the container to 200px",
+                    "Give each item a different background color"
+                  ],
+                  "expectedImage": "/activities/cssact/4.1.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },
+            {
+              "title": "Adding Space Between Flex Items",
+              "description": "Practice adding space between flex items using gap.",
+              "language":"CSS",
+              "difficulty": "easy",
+              "problemStatement": "In this activity, you will add space between the flex items in a container.\n\n1. Add the necessary CSS to create a gap of 20px between the items.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"container\">\n  <div class=\"item\">Item 1</div>\n  <div class=\"item\">Item 2</div>\n  <div class=\"item\">Item 3</div>\n</div>\n</body>\n</html>",
+                "css": "/* Your CSS code goes here */",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": ".container {\n  display: flex;\n  gap: 20px;\n}",
+                  "output": "",
+                  "required": [".container{display: flex;", "gap: 20px;"],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Make the container a flex container.",
+                    "Add a gap of 20px between the flex items."
+                  ],
+                  "expectedImage": "/activities/cssact/4.2.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },
+            {
+              "title": "Aligning Flex Items",
+              "description": "Practice aligning flex items using justify-content and align-items.",
+              "language":"CSS",
+              "difficulty": "easy",
+              "problemStatement": "In this activity, you will align flex items within a flex container.\n\n1. Add the necessary CSS to align items in the center both horizontally and vertically.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"container\">\n  <div class=\"item\">Item 1</div>\n  <div class=\"item\">Item 2</div>\n  <div class=\"item\">Item 3</div>\n</div>\n</body>\n</html>",
+                "css": "/* Your CSS code goes here */",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": ".container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 200px;\n}",
+                  "output": "",
+                  "required": [
+                    ".container{display: flex;",
+                    "justify-content: center;",
+                    "align-items: center;",
+                    "height: 200px;"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Set the container's display to 'flex'",
+                    "Center the items horizontally.",
+                    "Center the items vertically.",
+                    "Set the height of the container to 200px"
+                  ],
+                  "expectedImage": "/activities/cssact/4.3.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },
+            {
+              "title": "Justifying Flex Items",
+              "description": "Practice using justify-content to align flex items along the main axis.",
+              "language":"CSS",
+              "difficulty": "easy",
+              "problemStatement": "In this activity, you will use justify-content to align the flex items within a flex container.\n\n1. Add the necessary CSS to space the items evenly along the main axis.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"container\">\n  <div class=\"item\">Item 1</div>\n  <div class=\"item\">Item 2</div>\n  <div class=\"item\">Item 3</div>\n</div>\n</body>\n</html>",
+                "css": "/* Your CSS code goes here */",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": ".container {\n  display: flex;\n  justify-content: space-evenly;\n  height: 200px;\n}",
+                  "output": "",
+                  "required": [
+                    ".container{display: flex;",
+                    "justify-content: space-evenly;",
+                    "height: 200px;"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Make the container a flex container",
+                    "Space the items evenly along the main axis",
+                    "Set the height of the container to 200px"
+                  ],
+                  "expectedImage": "/activities/cssact/4.4.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            }
+          ],
+          "totalPoints": 0,
+          "locked": true
+        },
+
+        {
+          "title": "Lesson 5: CSS Grid ",
+          "documents": [
+            {
+              "title": "CSS Grid Layout Introduction",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>CSS Grid Layout</strong> is a powerful layout system that enables developers to create complex and responsive designs using rows and columns."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Unlike traditional layout methods like floats or tables, CSS Grid provides a more intuitive way to control both the horizontal and vertical placement of elements on the page."
+                },
+                {
+                  "type": "sentence",
+                  "text": "With CSS Grid, you can easily create grids with a dynamic number of rows and columns, adjust their sizes, and place items precisely where you want them."
+                },
+                {
+                  "type": "sentence",
+                  "text": "This makes it possible to design layouts that adapt seamlessly to different screen sizes and resolutions."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Basic Concepts of CSS Grid</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. <strong>Grid Container:</strong> The parent element that contains the grid items. You define a grid container by setting the display property to grid."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. <strong>Grid Lines:</strong> The lines that form the boundaries of the rows and columns in the grid. They are used to position grid items."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. <strong>Grid Cells:</strong> The individual units formed by the intersection of grid rows and columns. Each cell can contain one grid item."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. <strong>Grid Areas:</strong> A rectangular space bounded by four grid lines. A grid area can cover multiple grid cells."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. <strong>Grid Gap:</strong> The space between grid rows and columns. It can be used to create gaps between grid items."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "/* styles.css */\n.grid-container {\n    display: grid;\n    grid-template-columns: 1fr 2fr; /* Two columns with different widths */\n    grid-template-rows: auto 1fr auto; /* Header and footer heights are automatic, main content takes remaining space */\n    grid-template-areas: \n        \"header header\"\n        \"aside main\"\n        \"footer footer\"; /* Layout areas */\n    gap: 10px; /* Space between grid items */\n}\n\n.header {\n    grid-area: header;\n    background-color: #4CAF50; /* Green background */\n    color: white; /* White text color */\n    padding: 20px; /* Padding inside header */\n    text-align: center; /* Centered text */\n}\n\n.main {\n    grid-area: main;\n    background-color: #2196F3; /* Blue background */\n    color: white; /* White text color */\n    padding: 20px; /* Padding inside main content */\n}\n\n.aside {\n    grid-area: aside;\n    background-color: #FFC107; /* Yellow background */\n    color: black; /* Black text color */\n    padding: 20px; /* Padding inside aside */\n}\n\n.footer {\n    grid-area: footer;\n    background-color: #f44336; /* Red background */\n    color: white; /* White text color */\n    padding: 20px; /* Padding inside footer */\n    text-align: center; /* Centered text */\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Grid Layout Example</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"grid-container\">\n        <header class=\"grid-item header\">Header</header>\n        <main class=\"grid-item main\">Main Content</main>\n        <aside class=\"grid-item aside\">Aside</aside>\n        <footer class=\"grid-item footer\">Footer</footer>\n    </div>\n</body>\n</html>"
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Grid Container",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>A Grid Container</strong> is an HTML element that organizes its child elements (grid items) into rows and columns. By setting an element to <strong>display: grid</strong>, you turn it into a grid container."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Setting Up Your Grid Container</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Basic Setup:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• display: grid:</strong> Converts the element into a grid container."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Defining Columns and Rows:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• grid-template-columns:</strong> Specifies the width of columns."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• grid-template-rows:</strong> Specifies the height of rows."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• grid-template-areas:</strong> Defines named areas in the grid."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": ".grid-container {\n  display: grid;\n  grid-template-columns: 200px 1fr; /* Fixed width sidebar, flexible main */\n  grid-template-rows: auto 1fr auto; /* Dynamic header and footer heights */\n  grid-template-areas:\n    \"header header\"\n    \"sidebar main\"\n    \"footer footer\";\n  gap: 10px; /* Gap between grid items */\n}\n\n.header { grid-area: header; background-color: #f8b400; }\n.sidebar { grid-area: sidebar; background-color: #f85f73; }\n.main { grid-area: main; background-color: #6a8d92; }\n.footer { grid-area: footer; background-color: #f85f73; }",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Grid Example</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <div class=\"grid-container\">\n    <div class=\"header\">Header</div>\n    <div class=\"sidebar\">Sidebar</div>\n    <div class=\"main\">Main</div>\n    <div class=\"footer\">Footer</div>\n  </div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Explanation:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Columns:</strong> 200px 1fr defines a fixed-width sidebar and a flexible-width main content area."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Rows:</strong> auto 1fr auto specifies that the header and footer heights are dynamic, while the main content expands to fill the remaining space."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Areas:</strong> Named areas provide descriptive management of the layout."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Adjusting Spacing</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Gaps:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• grid-gap:</strong> Defines the spacing between rows and columns."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": ".grid-container {\n  display: grid;\n  grid-template-columns: 1fr 1fr; /* Two equal-width columns */\n  grid-template-rows: auto; /* Automatic height based on content */\n  grid-gap: 20px; /* Gap between grid items */\n}\n\n.item1 { background-color: #f8b400; }\n.item2 { background-color: #f85f73; }\n.item3 { background-color: #6a8d92; }",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Grid Item Example</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <div class=\"grid-container\">\n    <div class=\"item1\">Item 1</div>\n    <div class=\"item2\">Item 2</div>\n    <div class=\"item3\">Item 3</div>\n  </div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Aligning Grid Items</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Alignment Properties:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• justify-items:</strong> Aligns grid items horizontally within their grid cells."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• align-items:</strong> Aligns grid items vertically within their grid cells."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• justify-content:</strong> Aligns the entire grid along the horizontal axis."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• align-content:</strong> Aligns the entire grid along the vertical axis."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": ".grid-item {\n    background-color: #8ebf42;\n    border: 1px solid #333; /* Border for items */\n    text-align: center;\n    font-size: 20px;\n    padding: 20px; /* Increased padding */\n    transition: background-color 0.2s;\n}\n\n.grid-item:hover {\n    background-color: #7cae39; /* Darker green on hover */\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Grid Alignment Example</title>\n    <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n    <div class=\"grid-item\">Item 1</div>\n    <div class=\"grid-item\">Item 2</div>\n    <div class=\"grid-item\">Item 3</div>\n    <div class=\"grid-item\">Item 4</div>\n    <div class=\"grid-item\">Item 5</div>\n    <div class=\"grid-item\">Item 6</div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Automatic Tracks and Shorthand Properties</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Automatic Tracks:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• grid-auto-columns:</strong> Defines the size of automatically generated columns."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• grid-auto-rows: </strong> Defines the size of automatically generated rows."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Shorthand Property:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• grid:</strong>  Combines grid-template-rows, grid-template-columns, and grid-template-areas into one property."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "body {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 100vh;\n    margin: 0;\n    background-color: #f0f0f0;\n}\n\n.grid-container {\n    display: grid;\n    grid-template-columns: repeat(3, 200px); /* Set column width */\n    grid-template-rows: auto repeat(2, 100px); /* First row auto height for headers */\n    justify-items: stretch; /* Stretch items to fill their cells */\n    align-items: center;   /* Align items vertically */\n    grid-gap: 0; /* No gap for a table-like appearance */\n    padding: 20px;\n    border: 2px solid #333;\n    border-radius: 8px;\n    background-color: #fff;\n}\n\n.grid-header {\n    background-color: #4CAF50; /* Header color */\n    color: white;\n    text-align: center;\n    font-size: 24px;\n    padding: 15px 0; /* Padding for header */\n    border-bottom: 2px solid #333; /* Bottom border */\n}\n\n.grid-item {\n    background-color: #8ebf42;\n    border: 1px solid #333; /* Border for items */\n    text-align: center;\n    font-size: 20px;\n    padding: 20px; /* Increased padding */\n    transition: background-color 0.2s;\n}\n\n.grid-item:hover {\n    background-color: #7cae39; /* Darker green on hover */\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Grid Automatic Tracks Example</title>\n    <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n    <div class=\"grid-container\">\n        <div class=\"grid-header\">Header 1</div>\n        <div class=\"grid-header\">Header 2</div>\n        <div class=\"grid-header\">Header 3</div>\n        <div class=\"grid-item\">1</div>\n        <div class=\"grid-item\">2</div>\n        <div class=\"grid-item\">3</div>\n        <div class=\"grid-item\">4</div>\n        <div class=\"grid-item\">5</div>\n        <div class=\"grid-item\">6</div>\n    </div>\n</body>\n</html>"
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Grid ConatinerLines",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>CSS Grid </strong>: uses horizontal and vertical lines to create a grid. These lines are referred to by their line numbers."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Placing Grid Items with Line Numbers</strong>: Grid items can be positioned using grid line numbers with the following properties:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• grid-column-start</strong>: Defines the starting column line number."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• grid-column-end</strong>: Defines the ending column line number."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• grid-row-start</strong>: Defines the starting row line number."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• grid-row-end</strong>: Defines the ending row line number."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Values: line-number refers to a numbered grid line, and span <number> allows the grid item to span across the specified number of grid tracks."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "div.container {\n    display: grid;\n    grid-template: 100px 100px 50px / 100px 150px 100px;\n    width: 550px;\n    border: 2px solid black;\n    background-color: lightgrey;\n    padding: 12px;\n}\n\ndiv.item {\n    border: 1px solid black;\n    background-color: lightcoral;\n    text-align: center;\n    padding: 5px;\n    font-weight: bold;\n}\n\ndiv.item-1 {\n    grid-row-start: 1;\n    grid-row-end: 3;\n    background-color: lightblue;\n}\n\ndiv.item-2 {\n    grid-column-start: 2;\n    grid-column-end: 4;\n    background-color: lightgreen;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Grid - Placing Grid Items</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"item item-1\">Item 1</div>\n        <div class=\"item item-2\">Item 2</div>\n    </div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Shorthand Properties</strong>:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• grid-row:</strong> combines grid-row-start and grid-row-end."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>•grid-column:</strong> Combines grid-column-start and grid-column-end."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "div.container {\n    display: grid;\n    grid-template: 100px 100px 100px / 100px 150px 100px;\n    width: 550px;\n    border: 2px solid black;\n    background-color: lightgrey;\n    padding: 12px;\n}\n\ndiv.item {\n    border: 1px solid black;\n    background-color: lightcoral;\n    text-align: center;\n    padding: 5px;\n    font-weight: bold;\n}\n\ndiv.item-1 {\n    grid-row: 1 / 3; /* Spans from row 1 to row 3 */\n    grid-column: 1 / 3; /* Spans from column 1 to column 3 */\n    background-color: lightblue;\n}\n\ndiv.item-2 {\n    grid-row: 2 / 4; /* Spans from row 2 to row 4 */\n    grid-column: 2 / 4; /* Spans from column 2 to column 4 */\n    background-color: lightgreen;\n}\n\ndiv.item-3 {\n    grid-row: 1 / 2; /* Spans from row 1 to row 2 */\n    grid-column: 2 / 4; /* Spans from column 2 to column 4 */\n    background-color: lightyellow;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Grid - Shorthand Properties</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"item item-1\">Item 1</div>\n        <div class=\"item item-2\">Item 2</div>\n        <div class=\"item item-3\">Item 3</div>\n    </div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Spanning Rows and Columns</strong>: The span keyword extends a grid item across a specified number of rows or columns."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "div.container {\n    display: grid;\n    grid-template: 100px 100px 50px / 100px 150px 100px;\n    width: 550px;\n    border: 2px solid black;\n    background-color: lightgrey;\n    padding: 12px;\n}\n\ndiv.item {\n    border: 1px solid black;\n    background-color: lightcoral;\n    text-align: center;\n    padding: 5px;\n    font-weight: bold;\n}\n\ndiv.item-1 {\n    grid-column: 1 / span 3;\n    background-color: lightblue;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Grid - Spanning Rows and Columns</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"item item-1\">Item 1</div>\n    </div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>grid-area Property</strong>: The grid-area property specifies both row and column positions in a single declaration."
+                },
+                {
+                  "type": "snippet",
+                  "text": "Syntax: grid-area: row-start / column-start / row-end / column-end | item-name;"
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "div.container {\n    display: grid;\n    grid-template: 100px 100px 100px 100px / 100px 150px 100px 150px;\n    width: 650px;\n    border: 2px solid black;\n    background-color: lightgrey;\n    padding: 12px;\n}\n\ndiv.item {\n    border: 1px solid black;\n    text-align: center;\n    padding: 5px;\n    font-weight: bold;\n}\n\ndiv.item-1 {\n    grid-area: 1 / 1 / 3 / 3; /* from row 1 to row 3, column 1 to column 3 */\n    background-color: lightblue;\n}\n\ndiv.item-2 {\n    grid-area: 2 / 2 / 4 / 4; /* from row 2 to row 4, column 2 to column 4 */\n    background-color: lightgreen;\n}\n\ndiv.item-3 {\n    grid-area: 1 / 3 / 2 / 5; /* from row 1 to row 2, column 3 to column 5 */\n    background-color: lightcoral;\n}\n\ndiv.item-4 {\n    grid-area: 3 / 1 / 4 / 3; /* from row 3 to row 4, column 1 to column 3 */\n    background-color: lightyellow;\n}\n\ndiv.item-5 {\n    grid-area: 3 / 3 / 5 / 5; /* from row 3 to row 5, column 3 to column 5 */\n    background-color: lightpink;\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Grid - grid-area Property</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"item item-1\">Item 1</div>\n        <div class=\"item item-2\">Item 2</div>\n        <div class=\"item item-3\">Item 3</div>\n        <div class=\"item item-4\">Item 4</div>\n        <div class=\"item item-5\">Item 5</div>\n    </div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Alignment Properties</strong>: Grid items can be aligned using the following properties:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• justify-self: </strong>: Controls horizontal alignment within a grid cell."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• align-self:</strong>: Controls vertical alignment within a grid cell."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• place-self:</strong>:  A shorthand for justify-self and align-self."
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": "div.container {\n    display: grid;\n    grid-template: 100px 100px / 100px 150px 100px;\n    width: 550px;\n    border: 2px solid black;\n    background-color: lightgrey;\n    padding: 12px;\n}\n\ndiv.item {\n    border: 1px solid black;\n    text-align: center;\n    padding: 10px;\n    font-weight: bold;\n}\n\n/* Alignment Properties Examples */\n\n/* Horizontal alignment using justify-self */\ndiv.item-1 {\n    grid-area: 1 / 1 / 2 / 2;\n    background-color: lightblue;\n    justify-self: start; /* Aligns item to the start (left) of its grid cell */\n}\n\ndiv.item-2 {\n    grid-area: 1 / 2 / 2 / 3;\n    background-color: lightgreen;\n    justify-self: center; /* Centers item horizontally within its grid cell */\n}\n\ndiv.item-3 {\n    grid-area: 2 / 1 / 3 / 2;\n    background-color: lightcoral;\n    justify-self: end; /* Aligns item to the end (right) of its grid cell */\n}\n\ndiv.item-4 {\n    grid-area: 2 / 2 / 3 / 3;\n    background-color: lightyellow;\n    justify-self: stretch; /* Stretches item to fill the grid cell horizontally */\n}\n\n/* Vertical alignment using align-self */\ndiv.item-5 {\n    grid-area: 1 / 3 / 2 / 4;\n    background-color: lightpink;\n    align-self: start; /* Aligns item to the start (top) of its grid cell */\n}\n\ndiv.item-6 {\n    grid-area: 2 / 3 / 3 / 4;\n    background-color: lightblue;\n    align-self: center; /* Centers item vertically within its grid cell */\n}\n\ndiv.item-7 {\n    grid-area: 1 / 1 / 2 / 2;\n    background-color: lightgreen;\n    align-self: end; /* Aligns item to the end (bottom) of its grid cell */\n}\n\ndiv.item-8 {\n    grid-area: 2 / 2 / 3 / 3;\n    background-color: lightcoral;\n    align-self: stretch; /* Stretches item to fill the grid cell vertically */\n}\n\n/* Combined alignment using place-self */\ndiv.item-9 {\n    grid-area: 1 / 1 / 2 / 2;\n    background-color: lightyellow;\n    place-self: start end; /* Aligns item to the start horizontally and end vertically */\n}\n\ndiv.item-10 {\n    grid-area: 1 / 2 / 2 / 3;\n    background-color: lightpink;\n    place-self: center center; /* Centers item both horizontally and vertically */\n}\n\ndiv.item-11 {\n    grid-area: 2 / 1 / 3 / 2;\n    background-color: lightblue;\n    place-self: end stretch; /* Aligns item to the end horizontally and stretches vertically */\n}\n\ndiv.item-12 {\n    grid-area: 2 / 2 / 3 / 3;\n    background-color: lightgreen;\n    place-self: stretch start; /* Stretches item horizontally and aligns to the start vertically */\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Grid - Alignment Properties Example</title>\n    <link rel=\"stylesheet\" href=\"alignment-properties.css\">\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"item item-1\">Item 1</div>\n        <div class=\"item item-2\">Item 2</div>\n        <div class=\"item item-3\">Item 3</div>\n        <div class=\"item item-4\">Item 4</div>\n    </div>\n</body>\n</html>"
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Responsive Image Gallery Using CSS Grid",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>Responsive Image Gallery Using CSS Grid</strong> allows you to create responsive and dynamic layouts that adapt to various screen sizes and devices."
+                },
+                {
+                  "type": "sentence",
+                  "text": "By using flexible rows and columns, CSS Grid enables the creation of layouts that can easily change based on the viewing context."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example: Responsive Image Gallery</strong>"
+                },
+                {
+                  "type": "code",
+                  "language":"CSS",
+                  "code": ".gallery {\n    display: grid;\n    grid-template-columns: repeat(2, 1fr); /* Two-column layout */\n    gap: 6px;\n    padding: 10px;\n    border: 1px solid #ccc;\n    background-color: #f9f9f9;\n}\n\n.gallery img {\n    width: 100%;\n    height: auto; /* Maintain aspect ratio */\n    object-fit: cover;\n    display: block;\n}\n\nimg.four-grid-cells {\n    grid-column: span 2;\n}\n\nimg.wide-image {\n    grid-column: span 2;\n}\n\n@media screen and (max-width: 768px) {\n    .gallery {\n        grid-template-columns: 1fr; /* Single column layout for small screens */\n    }\n    img.four-grid-cells, img.wide-image {\n        grid-column: auto;\n    }\n}",
+                  "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Responsive Image Gallery</title>\n    <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n    <div class=\"gallery\">\n        <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png\" alt=\"JavaScript\" class=\"wide-image\">\n        <img src=\"https://media.licdn.com/dms/image/D5612AQHTGcgR9_RlDg/article-cover_image-shrink_600_2000/0/1705826273539?e=2147483647&v=beta&t=hZkuaC9fOago3ij77UdR45nXktn2C_R9nIwYiEGxVpU\" alt=\"Python\">\n        <img src=\"https://contentstatic.techgig.com/photo/90078629.cms\" alt=\"Java\">\n        <img src=\"https://training.digigrowhub.in/wp-content/uploads/2021/02/do-coding-of-any-program-by-c-plus-plus-perfectly-and-within-time.jpg\" alt=\"C++\" class=\"four-grid-cells\">\n        <img src=\"https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190902124355/ruby-programming-language.png\" alt=\"Ruby\">\n        <img src=\"https://impreza.host/wp-content/uploads/2020/02/PHP2.jpg\" alt=\"PHP\">\n        <img src=\"https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/4087150/cover_image/retina_1708x683/cover-0828_AfterAllTheseYearstheWorldisStillPoweredbyCProgramming_Razvan_Newsletter-e85854c3f0bb99704e83139475284901.png\" alt=\"C#\">\n    </div>\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Explanation:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong>.gallery</strong> class sets up a grid layout with two columns for the images."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Image styles ensure that they maintain their aspect ratio while covering their grid area."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Media queries adjust the layout to a single column for smaller screens."
+                }
+              ],
+              "locked": true
+            }
+          ],
+          "quiz": [
+            {
+              "question": "What is a Grid Container in CSS Grid Layout?",
+              "options": [
+                "The parent element that contains the grid items.",
+                "A boundary line that defines the grid's rows and columns.",
+                "An individual unit formed by the intersection of rows and columns.",
+                "A rectangular space bounded by four grid lines."
+              ],
+              "correctAnswer": "The parent element that contains the grid items.",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What are Grid Lines in CSS Grid Layout?",
+              "options": [
+                "The lines that form the boundaries of the rows and columns in the grid.",
+                "The spaces between grid items.",
+                "The individual units formed by the intersection of rows and columns.",
+                "The rectangular spaces that can cover multiple grid cells."
+              ],
+              "correctAnswer": "The lines that form the boundaries of the rows and columns in the grid.",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What defines a Grid Cell in CSS Grid Layout?",
+              "options": [
+                "The individual units formed by the intersection of grid rows and columns.",
+                "The spaces between grid rows and columns.",
+                "The parent element that contains the grid items.",
+                "A rectangular space bounded by four grid lines."
+              ],
+              "correctAnswer": "The individual units formed by the intersection of grid rows and columns.",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What is a Grid Area in CSS Grid Layout?",
+              "options": [
+                "A rectangular space bounded by four grid lines.",
+                "The space between grid rows and columns.",
+                "The lines that form the boundaries of the rows and columns in the grid.",
+                "The parent element that contains the grid items."
+              ],
+              "correctAnswer": "A rectangular space bounded by four grid lines.",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What is Grid Gap in CSS Grid Layout?",
+              "options": [
+                "The space between grid rows and columns.",
+                "The lines that form the boundaries of the rows and columns in the grid.",
+                "The individual units formed by the intersection of rows and columns.",
+                "A rectangular space bounded by four grid lines."
+              ],
+              "correctAnswer": "The space between grid rows and columns.",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "How does CSS Grid Layout improve design flexibility compared to traditional layout methods?",
+              "options": [
+                "By allowing precise control over both horizontal and vertical placement of elements using rows and columns.",
+                "By using floats to position elements in a linear flow.",
+                "By creating fixed-width layouts for each element.",
+                "By using absolute positioning for layout control."
+              ],
+              "correctAnswer": "By allowing precise control over both horizontal and vertical placement of elements using rows and columns.",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What does the display: grid; property do in CSS Grid Layout?",
+              "options": [
+                "Converts the element into a grid container.",
+                "Specifies the width of columns.",
+                "Specifies the height of rows.",
+                "Defines named areas in the grid."
+              ],
+              "correctAnswer": "Converts the element into a grid container.",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which CSS property specifies the width of columns in a grid container?",
+              "options": [
+                "grid-template-columns",
+                "grid-template-rows",
+                "grid-template-areas",
+                "display: grid"
+              ],
+              "correctAnswer": "grid-template-columns",
+              "points": 2,
+              "locked": true
+            }
+          ],
+          "activities": [
+            {
+              "title": "Creating a Basic Grid",
+              "description": "Practice creating a simple CSS grid layout.",
+              "language": "CSS",
+              "difficulty": "easy",
+              "problemStatement": "In this activity, you will create a basic grid layout with three columns and two rows.\n\n1. Add the necessary CSS to define the grid structure.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"grid-container\">\n  <div class=\"grid-item\">Item 1</div>\n  <div class=\"grid-item\">Item 2</div>\n  <div class=\"grid-item\">Item 3</div>\n  <div class=\"grid-item\">Item 4</div>\n  <div class=\"grid-item\">Item 5</div>\n  <div class=\"grid-item\">Item 6</div>\n</div>\n</body>\n</html>",
+                "css": "/* Your CSS code goes here */",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": ".grid-container {\n  display: grid;\n  grid-template-columns: 100px 100px 100px;\n  grid-template-rows: 100px 100px;\n}\n.grid-item {\n  border: 1px solid black;\n  padding: 10px;\n  text-align: center;\n}",
+                  "output": "",
+                  "required": [
+                    ".grid-container{display: grid;",
+                    "grid-template-columns: 100px 100px 100px;",
+                    "grid-template-rows: 100px 100px;",
+                    ".grid-item{border: 1px solid black;"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Set the container as a grid using 'display: grid'.",
+                    "Define three columns, each 100px wide, using 'grid-template-columns'.",
+                    "Define two rows, each 100px tall, using 'grid-template-rows'.",
+                    "Add a 1px solid black border to each grid item for visibility."
+                  ],
+                  "expectedImage": "/activities/cssact/5.1.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },
+            {
+              "title": "Adding Gap to Grid Items",
+              "description": "Practice using grid gap to space out grid items.",
+              "language": "CSS",
+              "difficulty": "easy",
+              "problemStatement": "In this activity, you will add space between grid items using the gap property.\n\n1. Add the necessary CSS to create a gap of 20px between grid items.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"grid-container\">\n  <div class=\"grid-item\">Item 1</div>\n  <div class=\"grid-item\">Item 2</div>\n  <div class=\"grid-item\">Item 3</div>\n  <div class=\"grid-item\">Item 4</div>\n</div>\n</body>\n</html>",
+                "css": "/* Your CSS code goes here */",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": ".grid-container {\n  display: grid;\n  grid-template-columns: 100px 100px;\n  grid-template-rows: 100px 100px;\n  gap: 20px;\n}\n.grid-item {\n  border: 1px solid black;\n  padding: 10px;\n  text-align: center;\n}",
+                  "output": "",
+                  "required": [
+                    ".grid-container{display: grid;",
+                    "grid-template-columns: 100px 100px;",
+                    "grid-template-rows: 100px 100px;/",
+                    "gap: 20px;",
+                    ".grid-item{border: 1px solid black;"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Set the container as a grid using 'display: grid'.",
+                    "Define two columns, each 100px wide, using 'grid-template-columns'.",
+                    "Define two rows, each 100px tall, using 'grid-template-rows'.",
+                    "Add a gap of 20px between the grid items using the 'gap' property.",
+                    "Add a 1px solid black border to each grid item for visibility."
+                  ],
+                  "expectedImage": "/activities/cssact/5.2.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            },
+            {
+              "title": "Aligning Grid Items",
+              "description": "Practice aligning grid items both vertically and horizontally.",
+              "language": "CSS",
+              "difficulty": "easy",
+              "problemStatement": "In this activity, you will align grid items to the center of their cells.\n\n1. Add the necessary CSS to achieve this alignment.",
+              "codeEditor": {
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"grid-container\">\n  <div class=\"grid-item\">Item 1</div>\n  <div class=\"grid-item\">Item 2</div>\n  <div class=\"grid-item\">Item 3</div>\n  <div class=\"grid-item\">Item 4</div>\n</div>\n</body>\n</html>",
+                "css": "/* Your CSS code goes here */",
+                "js": ""
+              },
+              "testCases": [
+                {
+                  "input": ".grid-container {\n  display: grid;\n  grid-template-columns: 100px 100px;\n  grid-template-rows: 100px 100px;\n  align-items: center;\n  justify-items: center;\n}\n.grid-item {\n  border: 1px solid black;\n  padding: 10px;\n  text-align: center;\n}",
+                  "output": "",
+                  "required": [
+                    ".grid-container{display: grid;",
+                    "grid-template-columns: 100px 100px;",
+                    "grid-template-rows: 100px 100px;",
+                    "align-items: center;",
+                    "justify-items: center;",
+                    ".grid-item{border: 1px solid black;"
+                  ],
+                  "isHidden": false,
+                  "testCaseSentences": [
+                    "Set the container as a grid using 'display: grid'.",
+                    "Define two columns, each 100px wide, using 'grid-template-columns'.",
+                    "Define two rows, each 100px tall, using 'grid-template-rows'.",
+                    "Align the grid items vertically in the center using 'align-items: center'.",
+                    "Align the grid items horizontally in the center using 'justify-items: center'.",
+                    "Add a 1px solid black border to each grid item for visibility."
+                  ],
+                  "expectedImage": "/activities/cssact/5.3.png"
+                }
+              ],
+              "locked": true,
+              "completed": false
+            }
+          ],
+          "totalPoints": 0,
+          "locked": true
+        }
+      ],
+      "locked": true
+    }
+  ]
+}

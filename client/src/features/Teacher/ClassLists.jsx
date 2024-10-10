@@ -31,10 +31,8 @@ const ClassLists = () => {
       if (userInfo && userInfo.role === "teacher") {
         try {
           const data = await fetchClassById(userInfo._id);
-        
-            console.log(data)
-            dispatch(setClass(data.data));
-      
+
+          dispatch(setClass(data.data));
         } catch (error) {
           console.error("Error fetching classes:", error);
         }
@@ -49,7 +47,7 @@ const ClassLists = () => {
       await updateRole({ userId: userInfo._id, role: "student" });
       toast.success("Role changed to student.");
       dispatch(logout());
-      navigate("/login")
+      navigate("/login");
       setOpenDialog(false); // Close the dialog after successful role change
     } catch (error) {
       toast.error("Error changing role.");
@@ -67,8 +65,8 @@ const ClassLists = () => {
       </div>
     );
   }
-
-  if (!userInfo.approved) {
+  console.log(userInfo);
+  if (!(userInfo?.approved ?? userInfo?.userData?.[0]?.approved)) {
     return (
       <div className="text-center text-gray-600 mt-10">
         <p>Waiting for approval</p>
@@ -105,7 +103,7 @@ const ClassLists = () => {
   }
 
   if (error) {
-    console.log(error)
+    console.log(error);
     return (
       <div className="text-center text-red-600 mt-10">
         Error loading classes.

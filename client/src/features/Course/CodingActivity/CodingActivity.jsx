@@ -189,7 +189,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit, output }) => {
   const resizerRef = useRef(null);
   const editorRef = useRef(null);
   const outputRef = useRef(null);
-
+console.log(submissionResult)
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));

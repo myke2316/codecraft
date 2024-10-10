@@ -56,10 +56,17 @@ export const classService = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    fetchCompletedStudents: builder.query({
+      query: (classId) => ({
+        url: classId ? `${CLASS_URL}/fetchCompletedStudents/${classId}` : `${CLASS_URL}/fetchCompletedStudents`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
 export const {
+  useFetchCompletedStudentsQuery,
   useDeleteClassMutation,
   useFetchClassByIdMutation,
   useUpdateClassMutation,

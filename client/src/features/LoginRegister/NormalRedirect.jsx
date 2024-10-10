@@ -30,15 +30,18 @@ function NormalRedirect() {
 
   const [fetchClass, { isLoading }] = useFetchClassMutation();
   const userDetails = useSelector((state) => state.user.userDetails);
-  
+
   async function getClass(role) {
     try {
+ 
       const userDetails = JSON.parse(localStorage.getItem("userDetails"));
       if (!userDetails || !userDetails._id) {
         console.error("User details not found or missing user ID");
         return;
       }
-
+      if (userDetails.role === "admin") {
+        navigate("/admin-dashboard");
+      } 
       const userId = userDetails._id;
       const classData = await fetchClass(userId).unwrap();
 
@@ -52,10 +55,10 @@ function NormalRedirect() {
         fetchUserActivitySubmission,
         userDetails._id
       );
-      if(userDetails.role === "teacher"){
-        navigate("/classes")
-      }else{
-
+      
+      if (userDetails.role === "teacher") {
+        navigate("/classes");
+      } else {
         navigate(`/studentClass/${classData[0]._id}/classHome`);
       }
     } catch (error) {

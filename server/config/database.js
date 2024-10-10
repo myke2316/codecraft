@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Grid from "gridfs-stream";
 import { GridFSBucket } from "mongodb";
-let gfs, gridfsBucket, assignmentBucket, sandboxBucket;
+let gfs, gridfsBucket, assignmentBucket, sandboxBucket, signatureBucket;
 const connectDb = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGODB_URL);
@@ -16,6 +16,9 @@ const connectDb = async () => {
     });
     sandboxBucket = new GridFSBucket(conn.connection.db, {
       bucketName: "sandbox", // Bucket for assignment ZIP files
+    });
+    signatureBucket = new GridFSBucket(conn.connection.db, {
+      bucketName: "signature", // Bucket for assignment ZIP files
     });
     // gfs = Grid(conn.connection.db, mongoose.mongo);
     // gfs.collection("uploads");
@@ -33,4 +36,5 @@ export {
   gridfsBucket,
   assignmentBucket,
   sandboxBucket,
+  signatureBucket,
 };

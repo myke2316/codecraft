@@ -5,6 +5,7 @@ import {
   fetchAllClass,
   fetchClass,
   fetchClassById,
+  fetchCompletedStudents,
   joinClass,
   removeStudentFromClass,
   updateClassName,
@@ -20,4 +21,5 @@ router.post("/joinClass", joinClass);
 router.put("/updateClass", updateClassName);
 router.delete("/remove-student", removeStudentFromClass);
 router.delete("/delete-class/:classId", deleteClass);
+router.get("/completed-students/:classId?", fetchCompletedStudents);
 export { router as classRouter };

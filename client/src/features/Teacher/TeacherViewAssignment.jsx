@@ -137,12 +137,14 @@ function TeacherViewAssignment() {
   );
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+    <Container maxWidth="lg" sx={{ mt: 2, mb: 2 }}>
       <Grid container spacing={4}>
         {/* Left Side: Assignment Details */}
+      
         <Grid item xs={12} md={6}>
+       
           {selectedAssignment && (
-            <Card variant="outlined" sx={{ p: 3 }}>
+            <Card variant="outlined" sx={{ p: 3 }}> <Button onClick={() => navigate(-1)}>Back</Button>
               <CardContent>
                 <Typography variant="h4" gutterBottom>
                   {selectedAssignment.title}

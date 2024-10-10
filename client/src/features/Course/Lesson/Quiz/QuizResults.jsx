@@ -65,7 +65,7 @@ export default function QuizResults() {
             <Card className="h-full bg-white shadow-md">
               <CardContent>
                 <Typography variant="h4" className="font-bold text-center mb-4 text-indigo-700">
-                  Quiz Results
+                  Quiz Results - 2pts each
                 </Typography>
                 <Box className="text-center mb-6">
                   <Typography variant="h3" className="font-bold text-indigo-900">

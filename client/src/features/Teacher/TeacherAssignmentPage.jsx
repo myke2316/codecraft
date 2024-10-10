@@ -50,7 +50,7 @@ function TeacherAssignmentsPage() {
         setAssignments([]); // Set an empty array or handle as appropriate
       }
 
-      console.log("Fetched assignments:", response);
+   
     } catch (err) {
       // Catch and handle errors
       setError(err.message || "Failed to fetch assignments");

@@ -82,10 +82,31 @@ export const userService = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    completeCourse: builder.mutation({
+      query: (userId) => ({
+        url: `${USER_URL}/users/${userId}/complete-course`,
+        method: "PATCH",
+      }),
+    }),
+    userCompletedCourse: builder.query({
+      query: () => ({
+        url: `${USER_URL}/users/completed-course`,
+        method: "GET",
+      }),
+    }),
+    permanentDelete: builder.mutation({
+      query: (userId) => ({
+        url: `${USER_URL}/permanentDelete/${userId}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
 export const {
+  useUserCompletedCourseQuery,
+  usePermanentDeleteMutation,
+  useCompleteCourseMutation,
   useUndeleteUserMutation,
   useGetUserMutation,
   useEditUsernameMutation,

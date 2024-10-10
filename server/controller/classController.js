@@ -214,7 +214,42 @@ const deleteClass = asyncHandler(async (req, res) => {
     throw new Error("Failed to delete class and remove student data");
   }
 });
+
+const fetchCompletedStudents = asyncHandler(async (req, res) => {
+  const { classId } = req.params;
+
+  try {
+    let students;
+
+    if (classId) {
+      // Fetch the specific class data
+      const classData = await ClassModel.findById(classId);
+
+      if (!classData) {
+        return res.status(404).json({ error: "Class not found" });
+      }
+
+      // Fetch all students in the class who have completed the course
+      students = await UserModel.find({
+        _id: { $in: classData.students },
+        completedCourse: true,
+      });
+    } else {
+      // Fetch all students who have completed the course from all classes
+      students = await UserModel.find({ completedCourse: true });
+    }
+
+    res.status(200).json(students);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch completed students" });
+    throw new Error("Failed to fetch completed students");
+  }
+});
+
+
 export {
+  fetchCompletedStudents,
   deleteClass,
   createClass,
   fetchClass,

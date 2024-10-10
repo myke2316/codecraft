@@ -21,24 +21,28 @@ import {
   TextField,
   Typography,
   Grid,
+  Box,
 } from "@mui/material";
 import {
   useDeleteUserMutation,
   useGetAllUserMutation,
-  useUndeleteUserMutation, // Import the undelete user mutation
+  usePermanentDeleteMutation,
+  useUndeleteUserMutation,
 } from "../../LoginRegister/userService";
 import { toast } from "react-toastify";
 
-const AdminUsers = () => {
-  const [users, setUsers] = useState([]); // Active users
-  const [deletedUsers, setDeletedUsers] = useState([]); // Deleted users
+export default function AdminUsers() {
+  const [users, setUsers] = useState([]);
+  const [deletedUsers, setDeletedUsers] = useState([]);
   const [roleFilter, setRoleFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [getAllUser] = useGetAllUserMutation();
   const [open, setOpen] = useState(false);
+  const [permanentDeleteOpen, setPermanentDeleteOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [userDelete, { isLoading: isLoadingDeleteUser }] = useDeleteUserMutation();
-  const [userUndelete, { isLoading: isLoadingUndeleteUser }] = useUndeleteUserMutation(); // Use undelete mutation
+  const [userUndelete, { isLoading: isLoadingUndeleteUser }] = useUndeleteUserMutation();
+  const [permanentlyDeleteUser, { isLoading: isLoadingPermanentDelete }] = usePermanentDeleteMutation();
 
   useEffect(() => {
     fetchUsers();
@@ -47,11 +51,11 @@ const AdminUsers = () => {
   const fetchUsers = async () => {
     try {
       const usersResponse = await getAllUser();
-      const activeUsers = usersResponse.data.filter((user) => !user.isDeleted); // Filter out deleted users
-      const removedUsers = usersResponse.data.filter((user) => user.isDeleted); // Filter only deleted users
+      const activeUsers = usersResponse.data.filter((user) => !user.isDeleted);
+      const removedUsers = usersResponse.data.filter((user) => user.isDeleted);
 
-      setUsers(activeUsers); // Set active users
-      setDeletedUsers(removedUsers); // Set deleted users
+      setUsers(activeUsers);
+      setDeletedUsers(removedUsers);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
@@ -67,19 +71,38 @@ const AdminUsers = () => {
     setSelectedUser(null);
   };
 
+  const handleOpenPermanentDeleteDialog = (user) => {
+    setSelectedUser(user);
+    setPermanentDeleteOpen(true);
+  };
+
+  const handleClosePermanentDeleteDialog = () => {
+    setPermanentDeleteOpen(false);
+    setSelectedUser(null);
+  };
+
+  const handlePermanentlyDeleteUser = async () => {
+    try {
+      await permanentlyDeleteUser(selectedUser._id).unwrap();
+      toast.success("User permanently deleted!");
+      setDeletedUsers(deletedUsers.filter((user) => user._id !== selectedUser._id));
+      handleClosePermanentDeleteDialog();
+    } catch (error) {
+      console.error("Error permanently deleting user:", error);
+      toast.error("Failed to permanently delete user.");
+    }
+  };
+
   const handleRemoveUser = async () => {
     try {
       if (selectedUser) {
-        await userDelete(selectedUser._id).unwrap(); // Use unwrap to get the result directly
+        await userDelete(selectedUser._id).unwrap();
         toast.success("Successfully deleted user!");
-        
-        // Update local state to reflect the change
-        setUsers(users.filter((user) => user._id !== selectedUser._id)); // Remove from active users
+        setUsers(users.filter((user) => user._id !== selectedUser._id));
         setDeletedUsers((prevDeletedUsers) => [
           ...prevDeletedUsers,
-          { ...selectedUser, isDeleted: true }, // Add to deleted users
+          { ...selectedUser, isDeleted: true },
         ]);
-
         handleCloseDialog();
       }
     } catch (error) {
@@ -92,13 +115,13 @@ const AdminUsers = () => {
     try {
       await userUndelete(userId).unwrap();
       toast.success("User restored successfully!");
-
-      // Update local state to reflect the restoration
       const restoredUser = deletedUsers.find((user) => user._id === userId);
-      setDeletedUsers(deletedUsers.filter((user) => user._id !== userId)); // Remove from deleted users
-      setUsers((prevUsers) => [...prevUsers, { ...restoredUser, isDeleted: false }]); // Add back to active users
-
-      fetchUsers(); // Optionally re-fetch if necessary
+      setDeletedUsers(deletedUsers.filter((user) => user._id !== userId));
+      setUsers((prevUsers) => [
+        ...prevUsers,
+        { ...restoredUser, isDeleted: false },
+      ]);
+      fetchUsers();
     } catch (error) {
       console.error("Error restoring user:", error);
       toast.error("Failed to restore user.");
@@ -113,15 +136,19 @@ const AdminUsers = () => {
     setSearchQuery(event.target.value.toLowerCase());
   };
 
-  const filteredUsers = users.filter((user) =>
-    user.username.toLowerCase().includes(searchQuery)
-  );
+  const filteredUsers = users.filter((user) => {
+    const matchesRole =
+      roleFilter === "all"
+        ? user.role !== "admin"
+        : user.role === roleFilter;
+    const matchesSearch = user.username.toLowerCase().includes(searchQuery);
+    return matchesRole && matchesSearch;
+  });
 
   const filteredDeletedUsers = deletedUsers.filter((user) =>
     user.username.toLowerCase().includes(searchQuery)
   );
 
-  // Function to calculate remaining time until deletion
   const getRemainingTime = (deleteExpiresAt) => {
     const now = new Date();
     const expiresAt = new Date(deleteExpiresAt);
@@ -139,15 +166,12 @@ const AdminUsers = () => {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>
-      {/* Header */}
       <Typography variant="h4" gutterBottom>
         Manage Users
       </Typography>
 
-      {/* Search and Filter Row */}
       <Grid container spacing={2} sx={{ mb: 3 }}>
         <Grid item xs={12} sm={6}>
-          {/* Search Filter */}
           <TextField
             fullWidth
             label="Search by Username"
@@ -157,7 +181,6 @@ const AdminUsers = () => {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          {/* Role Filter */}
           <FormControl fullWidth variant="outlined">
             <InputLabel>Filter by Role</InputLabel>
             <Select
@@ -173,7 +196,6 @@ const AdminUsers = () => {
         </Grid>
       </Grid>
 
-      {/* User Table */}
       <Typography variant="h5" gutterBottom>
         Active Users
       </Typography>
@@ -218,7 +240,6 @@ const AdminUsers = () => {
         </Table>
       </TableContainer>
 
-      {/* Deleted Users Section */}
       <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
         Deleted Users
       </Typography>
@@ -230,7 +251,7 @@ const AdminUsers = () => {
               <TableCell>Username</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Role</TableCell>
-              <TableCell>Time Until Deletion</TableCell> {/* New column for time remaining */}
+              <TableCell>Time Until Deletion</TableCell>
               <TableCell align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -243,17 +264,28 @@ const AdminUsers = () => {
                   <TableCell>{user.email}</TableCell>
                   <TableCell>{user.role}</TableCell>
                   <TableCell>
-                    {getRemainingTime(user.deleteExpiresAt)} {/* Calculate remaining time */}
+                    {getRemainingTime(user.deleteExpiresAt)}
                   </TableCell>
                   <TableCell align="center">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleRestoreUser(user._id)} // Restore user
-                      disabled={isLoadingUndeleteUser}
-                    >
-                      Restore
-                    </Button>
+                    <Box display="flex" justifyContent="center" alignItems="center">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleRestoreUser(user._id)}
+                        disabled={isLoadingUndeleteUser}
+                      >
+                        Restore
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={() => handleOpenPermanentDeleteDialog(user)}
+                        disabled={isLoadingPermanentDelete}
+                        sx={{ ml: 2 }}
+                      >
+                        Delete
+                      </Button>
+                    </Box>
                   </TableCell>
                 </TableRow>
               ))
@@ -268,7 +300,6 @@ const AdminUsers = () => {
         </Table>
       </TableContainer>
 
-      {/* Confirmation Dialog */}
       <Dialog
         open={open}
         onClose={handleCloseDialog}
@@ -277,7 +308,8 @@ const AdminUsers = () => {
         <DialogTitle id="confirm-delete-dialog">Confirm Delete</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this user? This action cannot be undone, and all associated data will be permanently deleted.
+            Are you sure you want to delete this user? This action cannot be
+            undone, and all associated data will be permanently deleted.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -294,8 +326,32 @@ const AdminUsers = () => {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <Dialog
+        open={permanentDeleteOpen}
+        onClose={handleClosePermanentDeleteDialog}
+        aria-labelledby="confirm-permanent-delete-dialog"
+      >
+        <DialogTitle id="confirm-permanent-delete-dialog">Warning: Permanent Deletion</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            You are about to permanently delete this user. This action cannot be undone, and all associated data will be irretrievably lost. Are you absolutely sure you want to proceed?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClosePermanentDeleteDialog} color="primary">
+            Cancel
+          </Button>
+          <Button
+            onClick={handlePermanentlyDeleteUser}
+            color="error"
+            variant="contained"
+            disabled={isLoadingPermanentDelete}
+          >
+            Permanently Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
-};
-
-export default AdminUsers;
+}

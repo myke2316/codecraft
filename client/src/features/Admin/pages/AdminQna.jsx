@@ -263,7 +263,7 @@ function AdminQna() {
                           {question.title}
                         </Button>
                       </TableCell>
-                      <TableCell>{question.author.username}</TableCell>
+                      <TableCell>{question.author?.username}</TableCell>
                       <TableCell>
                         {new Date(question.createdAt).toLocaleDateString()}
                       </TableCell>

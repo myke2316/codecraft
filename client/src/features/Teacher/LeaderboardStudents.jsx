@@ -123,9 +123,9 @@ const LeaderboardStudents = ({ students, classId }) => {
                     <p className="text-xl font-semibold">
                       {student.username}
                     </p>
-                    <p className="text-sm">
+                {userRole === "teacher" ? (    <p className="text-sm">
                       {student.email}
-                    </p>
+                    </p>) : null}
                   </div>
                 </div>
                 {/* Conditionally render points based on sorting */}

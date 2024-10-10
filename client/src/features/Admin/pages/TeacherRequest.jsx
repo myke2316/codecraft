@@ -37,6 +37,7 @@ const TeacherRequest = () => {
     const fetchData = async () => {
       try {
         const response = await getAllUser();
+        console.log(response)
         const filteredTeachers = response.data.filter(
           (user) => user.role === "teacher" && !user.approved
         );

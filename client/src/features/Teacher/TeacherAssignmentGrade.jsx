@@ -3,7 +3,7 @@ import { TextField, Button, Typography, Box, Paper, Grid } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useFetchSubmissionByAssignmentAndStudentIdQuery, useTeacherGradeFeedBackMutation } from "../Class/submissionAssignmentService";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { BACKEND_URL, BASE_URLS } from "../../constants";
 
 function TeacherAssignmentGrade() {
@@ -56,7 +56,7 @@ function TeacherAssignmentGrade() {
       });
     }
   }, [submission]);
-
+const navigate = useNavigate()
   // Handle file download
   const handleDownload = async () => {
     try {
@@ -82,6 +82,7 @@ function TeacherAssignmentGrade() {
 
   return (
     <Box p={3} component={Paper} elevation={3}>
+      <Button onClick={() => navigate(-1)}>Back</Button>
       <Typography variant="h5" gutterBottom>
         {isGraded ? "Edit Grade and Feedback" : "Grade Submission"}
       </Typography>

@@ -1,0 +1,1703 @@
+{
+  "courses": [
+    {
+      "title": "Learn PHP",
+      "locked": true,
+      "lessons": [
+        {
+          "title": "Introduction to PHP Syntax",
+          "documents": [
+            {
+              "title": "What is PHP?",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>PHP (Hypertext Preprocessor)</strong>is a popular server-side scripting language widely used for web development. It is known for its simplicity, flexibility, and compatibility with HTML, CSS, and JavaScript."
+                },
+                {
+                  "type": "sentence",
+                  "text": "In this lesson, we will explore the basic syntax of PHP and how it integrates with HTML to create dynamic web pages."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>What is a PHP File?</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "A <strong>PHP file </strong>is a text file that contains a mix of PHP code and other web technologies like HTML, CSS, and JavaScript."
+                },
+                {
+                  "type": "sentence",
+                  "text": "These files typically have a <strong> '.php' </strong> extension and must be processed by a web server with PHP installed."
+                },
+                {
+                  "type": "sentence",
+                  "text": "When you open a PHP file through a web server (e.g., via http://localhost/index.php), the server executes the PHP code and sends the output (usually HTML) to the client's browser."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Basic PHP Syntax</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>PHP Tags</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "PHP code is embedded within HTML using special tags."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The most common tags are <strong>Canonical PHP Tags</strong>:"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   // PHP code goes here\n?>",
+                  "text": "• These tags are universally recognized and should be used in all PHP files to ensure compatibility."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Short-Open (SGML-style) Tags</strong>:"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<? \n   // PHP code goes here\n?>",
+                  "text": "• These tags are shorter but require specific configuration in the php.ini file (short_open_tag=on). They are generally discouraged because they can conflict with XML syntax."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Mixing PHP with HTML</strong>:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "One of the strengths of PHP is its ability to seamlessly integrate with HTML."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<!DOCTYPE html>\n<html>\n<body>\n\n<h1>Welcome to My Website</h1>\n\n<?php\necho \"Hello, World! This is a PHP statement.\";\n?>\n\n<p>This is an HTML paragraph.</p>\n\n</body>\n</html>",
+                  "text": "• This example shows how PHP and HTML can be combined in a single file."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>PHP Statements and Expressions</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In PHP, a statement is an instruction that the PHP engine executes. Every statement in PHP must end with a <strong>semicolon (;)</strong>."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$greeting = \"Welcome to PHP!\";\necho $greeting;\n?>",
+                  "text": "• This example demonstrates a simple PHP statement."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Variables in PHP</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Variables in PHP are used to store data that can be used later in the script. Variables start with the <strong> $ </strong>symbol."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$color = \"blue\";\necho \"The color is \" . $color;\n?>",
+                  "text": "• This example demonstrates the usage of variables in PHP."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Case Sensitivity in PHP</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "PHP is case-sensitive when it comes to variable names, but not for keywords like if, else, echo, etc."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$color = \"red\";\necho $color;  // Outputs: red\necho $Color;  // Error: Undefined variable\n?>",
+                  "text": "• This example shows the case sensitivity of variables in PHP."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>PHP Syntax Recap</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>1.</strong> PHP scripts start with <strong><?php</strong> and end with <strong>?></strong>."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>2.</strong> Statements end with a semicolon <strong>(;)</strong>."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>3.</strong> PHP is case-sensitive with variables but not with keywords."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>4.</strong> PHP files can contain HTML, CSS, and JavaScript, and are processed by a web server to produce dynamic content."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Introduction to PHP Comments",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>When writing code, clarity and maintainability are essential.</strong> This is where comments come into play. Comments in PHP allow you to add explanatory notes within your code, making it easier to understand, debug, and maintain."
+                },
+                {
+                  "type": "sentence",
+                  "text": "These notes are ignored by the PHP interpreter, meaning they do not affect how your code runs. Instead, they serve as helpful annotations for you and other developers who might work on the same code in the future."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Why Use Comments?</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>1. Clarity:</strong> Comments explain what specific parts of your code are doing, especially if the code is complex or uses non-obvious logic."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>2. Maintenance:</strong> Well-documented code is easier to update and debug. Comments can remind you (or others) of why certain decisions were made."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>3. Collaboration:</strong> If you're working in a team, comments help others understand your code quickly without having to decipher everything from scratch."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Types of Comments in PHP</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "PHP provides two main types of comments:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>1. Single-line Comments</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Single-line comments</strong> are ideal for brief notes or explanations. In PHP, you can create single-line comments using two different syntaxes:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Using //:</strong> This is the most common way to write a single-line comment. Anything after // on that line will be ignored by the PHP interpreter."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n// This is a single-line comment explaining the next line of code\necho \"This text will be displayed on the webpage.\";\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Using #:</strong> PHP also allows comments starting with #. This is less common but still perfectly valid."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n# This is another single-line comment\necho \"This will also be displayed.\";\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example: Single-line Comment</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n// Define a variable to hold a greeting message\n$greeting = \"Hello, World!\";\n\n// Output the greeting message\necho $greeting;\n?>",
+                  "text": "• In this example, the comments explain what the code is doing at each step. The PHP interpreter ignores the comments, and only the $greeting variable is defined and displayed."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>2. Multi-line Comments</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Multi-line comments</strong> are used when you need to write longer explanations or when documenting larger sections of code. Multi-line comments start with /* and end with */. Everything in between is treated as a comment."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n/*\nThis is a multi-line comment.\nIt spans several lines and is useful for\nproviding detailed explanations or for\ntemporarily disabling blocks of code.\n*/\necho \"Only this line will be executed.\";\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example: Multi-line Comment</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n/*\nThis block of code calculates the sum of two numbers\nand prints the result to the screen. It uses the $num1\nand $num2 variables to store the numbers and the $sum\nvariable to store their sum.\n*/\n\n$num1 = 10;\n$num2 = 20;\n\n// Calculate the sum of $num1 and $num2\n$sum = $num1 + $num2;\n\necho \"The sum of $num1 and $num2 is: $sum\";\n?>",
+                  "text": "In this example, the multi-line comment provides a detailed explanation of the code block's purpose. This can be particularly useful for future reference or when working in a team."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Explaining Code Logic</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Use comments to explain why a particular piece of code exists or to clarify complex logic.</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n// Calculate the total price after applying a discount\n$originalPrice = 100;\n$discount = 0.2; // 20% discount\n$finalPrice = $originalPrice - ($originalPrice * $discount);\necho \"The final price is: $finalPrice\";\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Debugging</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Comments are also useful for debugging.</strong> You can temporarily disable parts of your code by commenting them out without deleting them."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$number = 10;\n// echo $number; // Disabling this line for now\n$number += 5;\necho $number; // This will print 15\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Documenting Code for Future Reference</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>If your code includes non-obvious logic or calculations, use comments to explain the reasoning.</strong> This makes future updates easier."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n// Convert temperature from Celsius to Fahrenheit\n$celsius = 30;\n$fahrenheit = ($celsius * 9/5) + 32; // F = C * 9/5 + 32\necho \"The temperature in Fahrenheit is: $fahrenheit\";\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Best Practices for Writing Comments</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Be Concise:</strong> Write clear and concise comments. Avoid overly verbose explanations that can clutter the code."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Keep Comments Updated:</strong> Ensure comments stay relevant and accurate as the code evolves."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Use Comments Sparingly:</strong> Code should be self-explanatory when possible. Use comments to clarify, not to state the obvious."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "PHP Variables: Fundamentals and Scope",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>In PHP, variables are fundamental building blocks used to store and manipulate data.</strong> This lesson explores PHP variables, including their assignment, types, and scope. Understanding these concepts is crucial for effective PHP programming."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Understanding PHP Variables</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>1. What is a Variable?</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>A variable in PHP is a named memory location used to store data.</strong> It starts with a <strong>dollar sign ($)</strong> followed by the variable name. PHP is dynamically typed, meaning you don't need to declare a variable's type; PHP automatically assigns the type based on the value."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$age = 30; // Integer\n$name = \"Alice\"; // String\n$price = 99.99; // Float\n$isAvailable = true; // Boolean\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>2. Variable Naming Rules</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Starts with $:</strong> Every PHP variable name begins with a dollar sign."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Begins with a Letter or Underscore:</strong> Variable names must start with a letter (A-Z or a-z) or an underscore (_)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Contains Letters, Numbers, and Underscores:</strong> After the initial character, names can include letters, numbers, or underscores."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Case-Sensitive:</strong> $age and $AGE are considered different variables."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• No Special Characters:</strong> Special characters like +, -, #, etc., are not allowed."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Examples of Valid Variable Names:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$age = 25;\n$total_price = 99.99;\n$_userName = \"JohnDoe\";\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>•Examples of Invalid Variable Names:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  "code": "<?php\n$name = \"Jane\"; // Valid\n$rate of int = 5; // Invalid: space not allowed\n$Age#1 = 30; // Invalid: special character # not allowed\n$11 = 100; // Invalid: cannot start with a number\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>3. Variable Assignment</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Variables are assigned using the equals sign (=).</strong> The variable name goes on the left, and the value goes on the right."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$x = 10; // Assigning an integer\n$name = \"Alice\"; // Assigning a string\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>PHP Variable Types</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>PHP's dynamic nature means variables can change types based on the assigned value.</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Common Data Types:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• String:</strong> Sequence of characters"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Integer:</strong> Whole numbers"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Float:</strong> Decimal numbers"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Boolean:</strong> true or false"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Array:</strong> Collection of values"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Object:</strong> Instances of classes"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• NULL:</strong> Represents no value"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>v Resource:</strong> Special variables holding references to resources"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$integerValue = 10; // Integer\n$stringValue = \"Hello, World!\"; // String\n$floatValue = 3.14; // Float\n$booleanValue = true; // Boolean\n$arrayValue = array(1, 2, 3); // Array\n$nullValue = NULL; // NULL\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Check Variable Types</strong> "
+                },
+                {
+                  "type": "sentence",
+                  "text": "Use <strong>var_dump() </strong> to get detailed information about a variable's type and value."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\nvar_dump(5); // Outputs: int(5)\nvar_dump(\"John\"); // Outputs: string(4) \"John\"\nvar_dump(3.14); // Outputs: float(3.14)\nvar_dump(true); // Outputs: bool(true)\nvar_dump(array(2, 3, 56)); // Outputs: array(3) { [0]=> int(2) [1]=> int(3) [2]=> int(56) }\nvar_dump(NULL); // Outputs: NULL\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>PHP Variable Scope</strong> "
+                },
+                {
+                  "type": "sentence",
+                  "text": "The scope of a variable determines where it can be accessed in the script. PHP has three main variable scopes:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>1. Global Scope</strong> "
+                },
+                {
+                  "type": "sentence",
+                  "text": "Variables declared outside any function are in the global scope and can be accessed anywhere in the script except inside functions."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$x = 5; // Global variable\n\nfunction myTest() {\n  // Accessing global variable directly here will generate an error\n  echo \"<p>Variable x inside function is: $x</p>\";\n}\n\nmyTest();\necho \"<p>Variable x outside function is: $x</p>\"; // This works\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>2. Local Scope</strong> "
+                },
+                {
+                  "type": "sentence",
+                  "text": "Variables declared inside a function have local scope and are accessible only within that function."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\nfunction myTest() {\n  $x = 5; // Local variable\n  echo \"<p>Variable x inside function is: $x</p>\";\n}\n\nmyTest();\necho \"<p>Variable x outside function is: $x</p>\"; // This will generate an error\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Local variables can have the same name in different functions, as they are only recognized within their specific function.</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>3. Static Scope</strong> "
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong> static </strong> keyword allows a local variable to retain its value across function calls. This variable is not destroyed when the function execution is complete."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\nfunction myTest() {\n  static $x = 0; // Static variable\n  echo $x . \"<br>\";\n  $x++;\n}\n\nmyTest(); // Outputs: 0\nmyTest(); // Outputs: 1\nmyTest(); // Outputs: 2\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>PHP The global Keyword</strong> "
+                },
+                {
+                  "type": "sentence",
+                  "text": "To access global variables within a function, use the <strong>global </strong> keyword."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$x = 5;\n$y = 10;\n\nfunction myTest() {\n  global $x, $y;\n  $y = $x + $y;\n}\n\nmyTest();\necho $y; // Outputs: 15\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "PHP also stores global variables in an array called <strong>$GLOBALS </strong>, which can be used to access or modify global variables from within functions."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$x = 5;\n$y = 10;\n\nfunction myTest() {\n  $GLOBALS['y'] = $GLOBALS['x'] + $GLOBALS['y'];\n}\n\nmyTest();\necho $y; // Outputs: 15\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Understanding PHP variables, their types, and their scope is essential for writing efficient PHP code. Global and local scopes, as well as the use of <strong>static and global</strong> keywords, allow you to manage variable accessibility and persistence effectively."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "PHP - echo and print Statements",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "In PHP,<strong>echo and print</strong> are used to output data to the browser or console. Both are language constructs, not functions, and do not require parentheses around their arguments. However, there are subtle differences between them."
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong>echo</strong> Statement"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>The echo statement</strong> is used to output one or more expressions. It does not return a value and can be used with or without parentheses."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Syntax:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "echo(string ...$expressions): void"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Key Points:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Can output multiple expressions separated by commas."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Does not return a value."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$name = \"Rajesh\";\necho \"Hello \" . $name . \" How are you?\"; // Outputs: Hello Rajesh How are you?\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example with Double Quotes:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$name = \"Rajesh\";\necho \"Hello $name How are you?\"; // Outputs: Hello Rajesh How are you?\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example with Single Quotes:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$name = \"Rajesh\";\necho 'Hello $name How are you?'; // Outputs: Hello $name How are you?\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Concatenation and Multiple Parameters:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\necho 'Hello ', 'how ', 'are ', 'you?', \"\\n\";\necho 'Hello ' . 'how ' . 'are ' . 'you?' . \"\\n\";\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example of Output on Same Line:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\necho \"hello\";\necho \"world\"; // Outputs: helloworld\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>The print Statement</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "The <strong>print</strong> statement is similar to echo but has a few differences. It always returns 1, which can be useful in expressions."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Syntax:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "print(string $expression): int"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Key Points:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Accepts only a single argument."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Returns 1, allowing it to be used in expressions."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$name = \"Rajesh\";\nprint \"Hello \" . $name . \" How are you?\\n\"; // Outputs: Hello Rajesh How are you?\nprint \"Hello $name How are you?\"; // Outputs: Hello Rajesh How are you?\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Output Multiline Strings</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Both <strong>echo and print</strong> can output multiline strings."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example with print:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\nprint \"\nMulti-line\nstring can be output  \nby echo as well as \nprint statement in PHP\n\";\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Same Example with echo:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\necho \"\nMulti-line\nstring can be output  \nby echo as well as \nprint statement in PHP\n\";\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Differences Between echo and print</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Return Value:</strong> print always returns 1, while echo does not return any value."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Arguments:</strong> echo can accept multiple arguments separated by commas, while print can only accept a single argument."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Performance:</strong> echo is marginally faster than print due to its simpler nature."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Using echo and print to Display Text and Variables</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Displaying Text:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\necho \"<h2>PHP is Fun!</h2>\";\necho \"Hello world!<br>\";\necho \"I'm about to learn PHP!<br>\";\necho \"This \", \"string \", \"was \", \"made \", \"with multiple parameters.\";\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Using print:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\nprint \"<h2>PHP is Fun!</h2>\";\nprint \"Hello world!<br>\";\nprint \"I'm about to learn PHP!\";\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Displaying Variables with echo:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$txt1 = \"Learn PHP\";\n$txt2 = \"W3Schools.com\";\necho \"<h2>$txt1</h2>\";\necho \"<p>Study PHP at $txt2</p>\";\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Using Single Quotes with echo:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$txt1 = \"Learn PHP\";\n$txt2 = \"W3Schools.com\";\necho '<h2>' . $txt1 . '</h2>';\necho '<p>Study PHP at ' . $txt2 . '</p>';\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Displaying Variables with print:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$txt1 = \"Learn PHP\";\n$txt2 = \"W3Schools.com\";\nprint \"<h2>\" . $txt1 . \"</h2>\";\nprint \"<p>Study PHP at \" . $txt2 . \"</p>\";\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Using Single Quotes with print:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$txt1 = \"Learn PHP\";\n$txt2 = \"W3Schools.com\";\nprint '<h2>' . $txt1 . '</h2>';\nprint '<p>Study PHP at ' . $txt2 . '</p>';\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Summary</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>echo:</strong> Used for outputting one or more expressions. More flexible with multiple parameters and faster."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>print:</strong> Outputs a single expression and always returns 1. Useful in expressions and slightly less performant than echo."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Both <strong>echo and print</strong> can be used to render text and variables in PHP, with the choice depending on the specific needs of your application."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "PHP Data Types Overview",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "In PHP, <strong>data types</strong> determine the kind of values that variables can hold and how they can be manipulated. PHP has a diverse range of data types, categorized into simple and compound types. "
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>1. Integers: </strong> are whole numbers without a decimal point. They can be positive or negative."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Types of Integer Literals:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Decimal:</strong> Standard base-10 numbers."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Octal<strong>: Base-8 numbers, prefixed with 0o or 0O."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Hexadecimal:</strong> Base-16 numbers, prefixed with 0x."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Binary:</strong> Base-2 numbers, prefixed with 0b."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$decimal = 123;         // Decimal\n$octal = 0o17;          // Octal\n$hexadecimal = 0x1A;    // Hexadecimal\n$binary = 0b1010;       // Binary\n\necho $decimal;          // Outputs: 123\necho $octal;            // Outputs: 15\necho $hexadecimal;      // Outputs: 26\necho $binary;           // Outputs: 10\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong> 2. Float (Double): </strong> represent numbers with fractional parts. They are useful for precise calculations."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Scientific Notation:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Use E or e to denote the exponent."
+                },
+                {
+                  "type": "snippet",
+                  "langauge": "php",
+                  "code": "<?php\n$float1 = 3.14;          // Standard float\n$float2 = 1.5e2;        // Scientific notation (150)\n\necho $float1;           // Outputs: 3.14\necho $float2;           // Outputs: 150\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>3. Boolean: </strong> represent truth values and can be either true or false."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$is_active = true;\n$is_deleted = false;\n\nif ($is_active) {\n    echo \"Active\";\n} else {\n    echo \"Inactive\";\n}\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>4. String:</strong> are sequences of characters enclosed in quotes. PHP supports single-quoted and double-quoted strings, each with different parsing rules."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Single-Quoted Strings:</strong> Literal interpretation without variable interpolation."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Double-Quoted Strings:</strong> Allows variable interpolation and escape sequences."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$single_quoted = 'Hello, World!';\n$double_quoted = \"The value is $float1\";\n\necho $single_quoted;   // Outputs: Hello, World!\necho $double_quoted;   // Outputs: The value is 3.14\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Heredoc Syntax</strong>: For multi-line strings with variable interpolation."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$text = <<<EOD\nThis is a multi-line string\nusing Heredoc syntax.\nEOD;\n\necho $text;\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Nowdoc Syntax</strong>: Similar to Heredoc but without variable parsing."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$text = <<<'EOD'\nThis is a multi-line string\nusing Nowdoc syntax, with no variable parsing.\nEOD;\n\necho $text;\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>5. NULL:</strong> represents the absence of value. It indicates that a variable has no value assigned."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$unset_variable = NULL;\n\nif (is_null($unset_variable)) {\n    echo \"The variable is NULL\";\n}\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>6. Array:</strong> store multiple values in a single variable. PHP arrays can be indexed or associative."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Indexed Array:</strong> Uses numeric indices."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Associative Array:</strong> Uses named keys."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n// Indexed Array\n$colors = array(\"Red\", \"Green\", \"Blue\");\n\n// Associative Array\n$person = array(\"first_name\" => \"John\", \"last_name\" => \"Doe\");\n\necho $colors[1];        // Outputs: Green\necho $person[\"first_name\"]; // Outputs: John\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Multi-Dimensional Array</strong>: Arrays within arrays."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$multi_dim = array(\n    \"fruits\" => array(\"Apple\", \"Banana\"),\n    \"vegetables\" => array(\"Carrot\", \"Lettuce\")\n);\n\necho $multi_dim[\"fruits\"][0];  // Outputs: Apple\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>7. Object:</strong> are instances of classes, encapsulating data and functions."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\nclass Car {\n    public $make;\n    public $model;\n\n    function __construct($make, $model) {\n        $this->make = $make;\n        $this->model = $model;\n    }\n\n    function display() {\n        echo \"Car: $this->make $this->model\";\n    }\n}\n\n$myCar = new Car(\"Toyota\", \"Corolla\");\n$myCar->display();  // Outputs: Car: Toyota Corolla\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>8. Resources:</strong> are special variables that hold references to external resources, like file handles or database connections."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$file_handle = fopen(\"example.txt\", \"w\");\n\nif ($file_handle) {\n    fwrite($file_handle, \"Hello, File!\");\n    fclose($file_handle);\n}\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Determining Variable Types:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Use <strong>gettype()</strong> and <strong>var_dump()</strong> to determine the type of a variable."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n$var = 123;\n\necho gettype($var); // Outputs: integer\nvar_dump($var);     // Outputs: int(123)\n?>"
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "PHP Strings",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>Strings</strong> in PHP are sequences of characters used to represent text. They can be enclosed in either single quotes or double quotes, and PHP provides various ways to work with them. This guide covers the different types of strings, escape sequences, and common string functions."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Types of String Representation</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>1. Single-Quoted Strings</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Single-quoted strings are enclosed in <strong>single quotes (')</strong>. They are interpreted literally, meaning special characters and variables within them are not expanded."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   $str = 'This is a \\'simple\\' string';\n   echo $str;\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "To include a literal backslash, use double backslashes (\\\\)."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   $str = 'The command C:\\\\*.* will delete all files.';\n   echo $str;\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Escape sequences and variables are not processed in single-quoted strings."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   $str = 'This will not expand: \\n a newline';\n   echo $str . PHP_EOL;\n   $x = 100;\n   $str = 'Value of x = $x';\n   echo $str;\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>2. Double-Quoted Strings</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Double-quoted strings are enclosed in <strong>double quotes (\")</strong>. They allow for escape sequences and variable interpolation."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   $str = \"This is a simple string\";\n   echo $str;\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Special Escape Sequences in Double Quotes:\n\n\\n: Linefeed (LF)\n\n\\r: Carriage return (CR)\n\n\\t: Horizontal tab (HT)\n\n\\v: Vertical tab (VT)\n\n\\e: Escape (ESC)\n\n\\f: Form feed (FF)\n\n\\\\: Backslash\n\n\\$: Dollar sign\n\n\\\": Double-quote"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   $price = 200;\n   echo \"Price = \\$ $price\";\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>3. Heredoc and Nowdoc Strings</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "Heredoc and Nowdoc are used for multi-line strings."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Heredoc:</strong> Heredoc syntax allows for multi-line strings with variable interpolation."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   $str = <<<EOD\nThis is a multi-line string\nusing Heredoc syntax.\nEOD;\n   echo $str;\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Nowdoc:</strong> Nowdoc syntax is similar to Heredoc but does not interpolate variables."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   $str = <<<'EOD'\nThis is a multi-line string\nusing Nowdoc syntax, with no variable parsing.\nEOD;\n   echo $str;\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>4. Escaping Octal and Hexadecimal Characters</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "PHP supports octal (\\o) and hexadecimal (\\x) escaping for characters."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   $str = \"\\120\\110\\120\"; // Octal\n   echo \"PHP with Octal: \". $str;\n   echo PHP_EOL;\n   $str = \"\\x50\\x48\\x50\"; // Hexadecimal\n   echo \"PHP with Hexadecimal: \". $str;\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>5. String Concatenation</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "To concatenate strings, use the <strong>dot (.)</strong>operator."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   $string1 = \"Hello World\";\n   $string2 = \"1234\";\n   echo $string1 . \" \" . $string2;\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>6. Common String Functions</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>strlen()</strong>: Returns the length of a string."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   echo strlen(\"Hello world!\");\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>strpos()</strong>: Finds the position of the first occurrence of a substring in a string."
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   echo strpos(\"Hello world!\", \"world\");\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "In this example, the function returns 6 because the first character of \"world\" is at position 6 in the string \"Hello world!\" (indexing starts at 0)."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Summary</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Single-Quoted Strings:</strong> Literal representation; escape sequences and variables are not processed.\n<strong>Double-Quoted Strings:</strong> Process escape sequences and variables.\n<strong>Heredoc:<s/trong> Multi-line string with variable interpolation.\n<strong>Nowdoc:</strong> Multi-line string without variable interpolation.\n<strong>String Functions:</strong> <strong>strlen()</strong> for length, <strong>strpos() </strong> for finding substrings."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Overview of PHP Numbers",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "PHP supports three primary numeric types: <strong>Integer, Float, and Number Strings</strong>. Additionally, PHP recognizes two more numeric types:<strong>Infinity and NaN (Not a Number)</strong>."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Integer</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "An integer is a number without any decimal part. In PHP, integers are represented in the following formats:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Decimal</strong> (base 10)"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>•Hexadecimal</strong> (base 16, prefixed with 0x)"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Octal</strong> (base 8, prefixed with 0)"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• Binary</strong> (base 2, prefixed with 0b)"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Integer Rules:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Must have at least one digit."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Cannot have a decimal point."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• Can be positive or negative."
+                },
+                {
+                  "type": "sentence",
+                  "text": "• The range is system-dependent:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "   1. 32-bit: -2147483648 to 2147483647"
+                },
+                {
+                  "type": "sentence",
+                  "text": "   2. 64-bit: -9223372036854775808 to 9223372036854775807"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   $x = 5985;\n   var_dump(is_int($x));  // Outputs: bool(true)\n\n   $y = 59.85;\n   var_dump(is_int($y));  // Outputs: bool(false)\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Useful Constants:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• PHP_INT_MAX:</strong> Maximum integer value"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• PHP_INT_MIN:</strong> Minimum integer value"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• PHP_INT_SIZE:</strong> Size of an integer in bytes"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Float</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "A <strong>float</strong> is a number that includes a decimal point or is expressed in exponential form."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   $x = 10.365;\n   var_dump(is_float($x));  // Outputs: bool(true)\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Useful Constants:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• PHP_FLOAT_MAX:</strong> Largest representable floating point number"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• PHP_FLOAT_MIN:</strong> Smallest representable positive floating point number"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• PHP_FLOAT_DIG:</strong> Number of decimal digits that can be rounded into a float and back without precision loss"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• PHP_FLOAT_EPSILON:</strong> Smallest representable positive number x such that x + 1.0 != 1.0"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Infinity</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "A number larger than <strong>PHP_FLOAT_MAX</strong> is considered infinite."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   $x = 1.9e411;\n   var_dump($x);  // Outputs: float(INF)\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Checking Functions:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• is_finite():</strong> Checks if a value is finite"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• is_infinite():</strong> Checks if a value is infinite"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>NaN (Not a Number)</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "NaN is used for results of impossible mathematical operations."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   $x = acos(8);\n   var_dump($x);  // Outputs: float(NAN)\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Checking Function:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>• is_nan():</strong> Checks if a value is NaN"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Numerical Strings</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "A numerical string is a string that represents a number. PHP can evaluate if a string is numeric using the is_numeric() function."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   $x = \"5985\";\n   var_dump(is_numeric($x));  // Outputs: bool(true)\n\n   $y = \"Hello\";\n   var_dump(is_numeric($y));  // Outputs: bool(false)\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Note:</strong> From PHP 7.0, hexadecimal numeric strings (e.g., 0xf4c3b00c) are not considered numeric."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Casting Strings and Floats to Integers</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "You can cast numerical values from strings or floats to integers using <strong>(int), (integer), or intval()</strong>."
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>Example:</strong>"
+                },
+                {
+                  "type": "snippet",
+                  
+                  "code": "<?php\n   // Cast float to int\n   $x = 23465.768;\n   $int_cast = (int)$x;\n   echo $int_cast;  // Outputs: 23465\n\n   // Cast string to int\n   $y = \"23465.768\";\n   $int_cast = (int)$y;\n   echo $int_cast;  // Outputs: 23465\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "This concludes an overview of numbers in PHP, detailing how to work with different numeric types, constants, and conversion methods."
+                }
+              ],
+              "locked": true
+            }           
+          ],
+          "quiz": [
+            {
+              "question": "Why are comments important in PHP code?",
+              "options": [
+                "They are executed by the PHP interpreter.",
+                "They help clarify code and make it easier to maintain and debug.",
+                "They increase the speed of code execution.",
+                "They are mandatory in every PHP file."
+              ],
+              "correctAnswer": "They help clarify code and make it easier to maintain and debug.",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which of the following is a valid way to write a single-line comment in PHP?",
+              "options": [
+                "// This is a comment",
+                "/* This is a comment */",
+                "<!-- This is a comment -->",
+                "/** This is a comment **/"
+              ],
+              "correctAnswer": "// This is a comment",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What is the primary purpose of multi-line comments in PHP?",
+              "options": [
+                "To execute multiple lines of code.",
+                "To write detailed explanations or temporarily disable blocks of code.",
+                "To create a loop in PHP.",
+                "To improve code performance."
+              ],
+              "correctAnswer": "To write detailed explanations or temporarily disable blocks of code.",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which of the following is a best practice for writing comments in PHP?",
+              "options": [
+                "Write comments that are longer than the code they describe.",
+                "Use comments to explain every single line of code.",
+                "Keep comments concise and relevant, updating them as the code evolves.",
+                "Avoid using comments entirely to keep the code clean."
+              ],
+              "correctAnswer": "Keep comments concise and relevant, updating them as the code evolves.",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "In which scenario would it be most appropriate to use a comment in PHP code?",
+              "options": [
+                "To explain the purpose of a complex calculation.",
+                "To duplicate code functionality.",
+                "To decrease code execution time.",
+                "To replace the need for variables."
+              ],
+              "correctAnswer": "To explain the purpose of a complex calculation.",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What is the primary purpose of a variable in PHP?",
+              "options": [
+                "To execute code",
+                "To store and manipulate data",
+                "To define functions",
+                "To create HTML elements"
+              ],
+              "correctAnswer": "To store and manipulate data",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which of the following is an invalid variable name in PHP?",
+              "options": ["$total_price", "$_userName", "$Age#1", "$11"],
+              "correctAnswer": "$Age#1",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "How can you access a global variable within a PHP function?",
+              "options": [
+                "By using the static keyword",
+                "By using the local keyword",
+                "By using the global keyword",
+                "By using the GLOBALS array"
+              ],
+              "correctAnswer": "By using the global keyword",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What is a key difference between echo and print in PHP?",
+              "options": [
+                "print can output multiple expressions, whereas echo can only output one.",
+                "echo always returns 1, while print does not return a value.",
+                "print always returns 1 and accepts only a single argument, while echo can accept multiple arguments.",
+                "echo is used for outputting variables, while print is used for outputting strings."
+              ],
+              "correctAnswer": "print always returns 1 and accepts only a single argument, while echo can accept multiple arguments.",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which PHP statement can output multiple expressions separated by commas?",
+              "options": ["print", "echo", "printf", "var_dump"],
+              "correctAnswer": "echo",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What is the prefix used for hexadecimal integer literals in PHP?",
+              "options": ["0b", "0x", "0o", "0d"],
+              "correctAnswer": "0x",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "Which type of PHP string allows for variable interpolation and special escape sequences?",
+              "options": [
+                "Single-Quoted Strings",
+                "Double-Quoted Strings",
+                "Heredoc Strings",
+                "Nowdoc Strings"
+              ],
+              "correctAnswer": "Double-Quoted Strings",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "What function would you use to check if a value is infinite in PHP?",
+              "options": [
+                "is_finite()",
+                "is_infinite()",
+                "is_nan()",
+                "is_numeric()"
+              ],
+              "correctAnswer": "is_infinite()",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "In PHP, which constant represents the largest representable floating point number?",
+              "options": [
+                "PHP_FLOAT_DIG",
+                "PHP_FLOAT_MAX",
+                "PHP_FLOAT_MIN",
+                "PHP_FLOAT_EPSILON"
+              ],
+              "correctAnswer": "PHP_FLOAT_MAX",
+              "points": 2,
+              "locked": true
+            },
+            {
+              "question": "How does PHP interpret a string with a leading zero, such as 0123?",
+              "options": [
+                "As a decimal number",
+                "As a hexadecimal number",
+                "As an octal number",
+                "As a binary number"
+              ],
+              "correctAnswer": "As an octal number",
+              "points": 2,
+              "locked": true
+            }
+          ],
+          "totalPoints": 0,
+          "locked": true
+        }, 
+        {
+          "title": "Connecting PHP to phpMyAdmin using XAMPP: A Comprehensive Guide",
+          "documents": [
+            {
+              "title": "Installing XAMPP",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>XAMPP</strong> is a popular, free, and open-source cross-platform web server solution stack package. <strong>It primarily consists of the Apache HTTP Server, MariaDB database, and interpreters for scripts written in the PHP and Perl programming languages.</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "<strong>To install XAMPP, follow these steps:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. Visit the official XAMPP website <strong>(https://www.apachefriends.org/index.html)</strong> and download the latest version for your operating system."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. Once the download is complete, <strong>run the installer.</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. You may receive a warning about antivirus software. It's recommended to temporarily disable your antivirus during installation to avoid any conflicts."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. In the component selection screen, ensure that at least <strong>Apache, MySQL, PHP, and phpMyAdmin</strong> are selected."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. Choose the installation directory. By default, it's <strong>C:\\xampp on Windows.</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "6. Complete the installation process by following the on-screen instructions."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Starting XAMPP and Accessing the Control Panel",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>After installation, you need to start XAMPP and access its control panel:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. Launch the XAMPP Control Panel. On Windows, you can find it in the Start menu or on your desktop if you created a shortcut."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. In the XAMPP Control Panel, you'll see a list of modules including Apache and MySQL."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. Click the 'Start' button next to Apache and MySQL. When they're running, their names will be highlighted in green."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. If you encounter any errors, ensure that no other software is using ports 80 or 443 (for Apache) or 3306 (for MySQL)."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Accessing phpMyAdmin",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "<strong>phpMyAdmin</strong> is a free software tool written in PHP, intended to handle the administration of MySQL over the Web. Here's how to access it:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. Open your web browser and navigate to <strong>http://localhost/phpmyadmin</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. You should see the phpMyAdmin login page. By default, the username is <strong>'root'</strong>and there is no password."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. Click 'Go' to log in without a password, or enter the password if you've set one during XAMPP installation."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. You're now in the phpMyAdmin interface, where you can manage your MySQL databases."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Locating the htdocs Directory",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "The <strong>'htdocs'</strong> directory is where you'll place your PHP files to be served by Apache. Here's how to find it:"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. Navigate to your XAMPP installation directory. By default, it's <strong>C:\\xampp on Windows or /opt/lampp </strong>on Linux."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. Inside the XAMPP directory, you'll find a folder named <strong>'htdocs'</strong>."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. This <strong>'htdocs'</strong> folder is your web root. Any PHP files placed here can be accessed via <strong>http://localhost/your_file.php </strong>in your web browser."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. It's a good practice to create a new folder inside 'htdocs' for each of your projects."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Creating a PHP File to Connect to MySQL",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Now that we have XAMPP set up and we know where to place our files, let's create a <strong>PHP script to connect to MySQL:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. Open your favorite text editor or IDE."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. Create a new file and save it as <strong>'db_connect.php' in the 'htdocs' directory.</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. Add the following code to your file:"
+                },
+                {
+                  "type": "snippet",
+                  "language": "php",
+                  "code": "<?php\n$servername = \"localhost\";\n$username = \"root\";\n$password = \"\";\n$dbname = \"test_db\";\n\n// Create connection\n$conn = new mysqli($servername, $username, $password, $dbname);\n\n// Check connection\nif ($conn->connect_error) {\n    die(\"Connection failed: \" . $conn->connect_error);\n}\necho \"Connected successfully\";\n\n// Close connection\n$conn->close();\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. Save the file and navigate to <strong>http://localhost/db_connect.php</strong> in your web browser."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. If you see 'Connected successfully', your PHP script has successfully connected to the MySQL server."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Creating a Database and Table",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Let's create a <strong>database and a table using phpMyAdmin:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. Open phpMyAdmin <strong>(http://localhost/phpmyadmin)</strong>."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. Click on 'New' in the left sidebar to create a new database."
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. Enter 'test_db' as the database name and click 'Create'."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. With 'test_db' selected, click on the 'SQL' tab at the top."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. Enter the following SQL command to create a 'users' table:"
+                },
+                {
+                  "type": "snippet",
+                  "language": "sql",
+                  "code": "CREATE TABLE users (\n    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,\n    firstname VARCHAR(30) NOT NULL,\n    lastname VARCHAR(30) NOT NULL,\n    email VARCHAR(50),\n    reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n)"
+                },
+                {
+                  "type": "sentence",
+                  "text": "6. Click 'Go' to execute the SQL command and create the table."
+                }
+              ],
+              "locked": true
+            },
+            {
+              "title": "Inserting Data Using PHP",
+              "content": [
+                {
+                  "type": "sentence",
+                  "text": "Finally, let's create a <strong>PHP script to insert data into our new table:</strong>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "1. Create a new file named 'insert_user.php' in the 'htdocs' directory."
+                },
+                {
+                  "type": "sentence",
+                  "text": "2. Add the following code to the file:"
+                },
+                {
+                  "type": "snippet",
+                  "language": "php",
+                  "code": "<?php\n$servername = \"localhost\";\n$username = \"root\";\n$password = \"\";\n$dbname = \"test_db\";\n\n// Create connection\n$conn = new mysqli($servername, $username, $password, $dbname);\n\n// Check connection\nif ($conn->connect_error) {\n    die(\"Connection failed: \" . $conn->connect_error);\n}\n\n$sql = \"INSERT INTO users (firstname, lastname, email)\nVALUES ('John', 'Doe', 'john@example.com')\";\n\nif ($conn->query($sql) === TRUE) {\n    echo \"New record created successfully\";\n} else {\n    echo \"Error: \" . $sql . \"<br>\" . $conn->error;\n}\n\n$conn->close();\n?>"
+                },
+                {
+                  "type": "sentence",
+                  "text": "3. Save the file and navigate to <strong>http://localhost/insert_user.php</strong> in your web browser."
+                },
+                {
+                  "type": "sentence",
+                  "text": "4. If you see 'New record created successfully', your PHP script has inserted a new record into the 'users' table."
+                },
+                {
+                  "type": "sentence",
+                  "text": "5. You can verify this by going back to phpMyAdmin, selecting the 'test_db' database, clicking on the 'users' table, and then clicking on the 'Browse' tab."
+                }
+              ],
+              "locked": true
+            }
+          ],
+          "totalPoints": 0,
+          "locked": true
+        }
+      ]
+    }
+  ]
+}

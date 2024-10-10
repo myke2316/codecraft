@@ -1,7 +1,15 @@
 import { Box, Typography, Grid } from "@mui/material";
 import React from "react";
+import { BACKEND_URL } from "../../constants";
 
-function Certificate({ name, dateFinished }) {
+function Certificate({
+  name,
+  dateFinished,
+  teacherSignature,
+  teacherSignatureDetails,
+  adminSignature,
+  adminSignatureDetails,
+}) {
   return (
     <Box
       className="max-w-4xl mx-auto p-8 bg-white rounded-lg border-4 border-indigo-500"
@@ -46,7 +54,10 @@ function Certificate({ name, dateFinished }) {
 
         {/* Course Title */}
         <Grid item xs={12} textAlign="center">
-          <Typography className="text-gray-600 italic mb-2" style={{ fontSize: "1rem" }}>
+          <Typography
+            className="text-gray-600 italic mb-2"
+            style={{ fontSize: "1rem" }}
+          >
             the full course on
           </Typography>
           <Typography
@@ -60,21 +71,36 @@ function Certificate({ name, dateFinished }) {
       </Grid>
 
       {/* Certificate Footer */}
-      <Grid container justifyContent="center" spacing={4} mt={2}>
-        <Grid item xs={12} textAlign="center">
-          <Typography
-            className="text-gray-500 italic"
-            style={{ fontSize: "1rem" }}
-          >
-            We congratulate you on your dedication and hard work.
-          </Typography>
+      {/* Certificate Footer */}
+      <Grid container justifyContent="center" spacing={4} mt={8}>
+        {/* Signature Section */}
+        <Grid item xs={12} sm={4} textAlign="center">
+          <div className="block underline my-4">
+            <img
+              src={`${BACKEND_URL}/certificate/signatures/${teacherSignature}`}
+              alt="Signature"
+              className="mx-auto w-32"
+            />
+          </div>
+
+          <Typography className="font-bold text-gray-800">{teacherSignatureDetails}</Typography>
+        </Grid>{" "}
+        <Grid item xs={12} sm={4} textAlign="center">
+          <div className="block underline my-4">
+            <img
+              src={`${BACKEND_URL}/certificate/signatures/${adminSignature}`}
+              alt="Signature"
+              className="mx-auto w-32"
+            />
+          </div>
+          <Typography className="font-bold text-gray-800">{adminSignatureDetails}</Typography>
         </Grid>
       </Grid>
 
       {/* Date of Completion */}
-      <Box className="mt-12 text-center">
-        <Typography className="text-gray-600 italic" style={{ fontSize: "1rem" }}>
-          Date of Completion: {dateFinished}
+      <Box className="mt-8 text-center">
+        <Typography className="text-gray-600 italic">
+          Completed on: {dateFinished}
         </Typography>
       </Box>
     </Box>

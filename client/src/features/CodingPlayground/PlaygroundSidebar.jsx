@@ -232,7 +232,7 @@ const PlaygroundSidebar = ({
                 },
               }}
               onClick={() =>
-                navigate(`/studentClass/${classData._id}/classHome`)
+                userInfo.role === "teacher" ? navigate(-1) : navigate(`/studentClass/${classData._id}/classHome`)
               }
             >
               Home

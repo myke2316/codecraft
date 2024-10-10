@@ -77,7 +77,6 @@ export const submitAssignment = async (req, res) => {
   }
 };
 
-
 // Function to handle deleting an assignment submission
 // export const deleteSubmission = async (req, res) => {
 //   const { submissionId } = req.params;
@@ -136,12 +135,12 @@ export const deleteSubmission = async (req, res) => {
 
       // Access the MongoDB database
       const db = mongoose.connection.db;
-      
+
       // Delete the file metadata from GridFS (assignment.files)
-      await db.collection('assignment.files').deleteOne({ _id: fileId });
+      await db.collection("assignment.files").deleteOne({ _id: fileId });
 
       // Delete chunks associated with the file (assignment.chunks)
-      await db.collection('assignment.chunks').deleteMany({ files_id: fileId });
+      await db.collection("assignment.chunks").deleteMany({ files_id: fileId });
     }
 
     // Delete the submission record
@@ -175,12 +174,10 @@ export const getSubmissionsByClassId = async (req, res) => {
 
     // Check if there are submissions
     if (submissions.length === 0) {
-      return res
-        .status(200)
-        .json({
-          submissions: [],
-          message: "No submissions found for this class",
-        });
+      return res.status(200).json({
+        submissions: [],
+        message: "No submissions found for this class",
+      });
     }
 
     // Return the list of submissions
@@ -218,11 +215,9 @@ export const getSubmissionByStudentAndAssignment = async (req, res) => {
 
     // Check if the submission exists
     if (!submission) {
-      return res
-        .status(404)
-        .json({
-          message: "No submission found for this student and assignment",
-        });
+      return res.status(404).json({
+        message: "No submission found for this student and assignment",
+      });
     }
 
     // Fetch the file from GridFS
@@ -239,12 +234,10 @@ export const getSubmissionByStudentAndAssignment = async (req, res) => {
       .status(200)
       .json({ submission, file: file.length > 0 ? file[0] : null });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        error: "An error occurred while fetching the submission",
-        details: error.message,
-      });
+    res.status(500).json({
+      error: "An error occurred while fetching the submission",
+      details: error.message,
+    });
   }
 };
 
@@ -290,7 +283,9 @@ export const downloadSubmissionFile = async (req, res) => {
 
     // Check if the submission has a zip file
     if (!submission.zipFile) {
-      return res.status(400).json({ error: "No zip file associated with this submission" });
+      return res
+        .status(400)
+        .json({ error: "No zip file associated with this submission" });
     }
 
     // Fetch the student details
@@ -313,13 +308,14 @@ export const downloadSubmissionFile = async (req, res) => {
 
     // Stream the file to the response
     const downloadStream = assignmentBucket.openDownloadStream(file[0]._id);
-    res.setHeader('Content-Disposition', `attachment; filename=${fileName}`);
+    res.setHeader("Content-Disposition", `attachment; filename=${fileName}`);
     downloadStream.on("data", (chunk) => res.write(chunk));
     downloadStream.on("end", () => res.end());
     downloadStream.on("error", (err) => {
-      res.status(500).json({ error: "Error streaming file", details: err.message });
+      res
+        .status(500)
+        .json({ error: "Error streaming file", details: err.message });
     });
-
   } catch (error) {
     res.status(500).json({
       error: "An error occurred while fetching the submission file",
@@ -349,8 +345,12 @@ export const teacherSubmitFeedback = async (req, res) => {
     // Save the updated submission
     await submission.save();
 
-    res.status(200).json({ message: "Submission graded successfully", submission });
+    res
+      .status(200)
+      .json({ message: "Submission graded successfully", submission });
   } catch (error) {
-    res.status(500).json({ error: "Error grading submission", details: error.message });
+    res
+      .status(500)
+      .json({ error: "Error grading submission", details: error.message });
   }
 };

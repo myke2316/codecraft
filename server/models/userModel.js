@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema(
       // required: true,
       // default: "student"
     },
+    courseCompleted: {type:Boolean},
     approved: { type: Boolean },
     passwordResetToken: String,
     passwordResetExpires: Date,

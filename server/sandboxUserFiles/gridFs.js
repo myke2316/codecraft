@@ -7,6 +7,7 @@ import {
   gridfsBucket,
   assignmentBucket,
   sandboxBucket,
+  signatureBucket,
 } from "../config/database.js";
 // Import from the central database file
 
@@ -43,6 +44,18 @@ const sandboxStorage = new GridFsStorage({
 });
 const sandboxUpload = multer({ storage: sandboxStorage });
 
+//for signatures of certificate
+const signaturesStorage = new GridFsStorage({
+  url: process.env.MONGODB_URL,
+  file: (req, file) => {
+    return {
+      bucketName: "signature", // Collection name
+      filename: file.originalname,
+    };
+  },
+});
+const signaturesUpload = multer({ storage: signaturesStorage });
+
 //this is for teacher already
 const storage = new GridFsStorage({
   url: process.env.MONGODB_URL,
@@ -64,4 +77,6 @@ export {
   assignmentUpload,
   sandboxUpload,
   sandboxBucket,
+  signatureBucket,
+  signaturesUpload,
 };

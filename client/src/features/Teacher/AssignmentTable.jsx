@@ -35,6 +35,7 @@ import {
 } from "./assignmentService";
 import { useNavigate, useParams } from "react-router";
 import { BACKEND_URL, BASE_URLS } from "../../constants";
+import { useFetchAllSubmissionByClassIdQuery } from "../Class/submissionAssignmentService";
 
 // Validation Schema for Editing
 const validationSchema = Yup.object({
@@ -98,6 +99,9 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedAssignmentId, setSelectedAssignmentId] = useState(null);
+  const { data: submissionsData } =
+    useFetchAllSubmissionByClassIdQuery(classId);
+
   // State to store the preview URL and file name
   const [imagePreview, setImagePreview] = useState(null);
   const [imageName, setImageName] = useState("");
@@ -144,48 +148,6 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
     }
   };
 
-  // const handleEditAssignment = async (values) => {
-  //   console.log(selectedAssignment._id);
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("assignmentId", selectedAssignment._id);
-  //     formData.append("title", values.title);
-  //     formData.append("description", values.description);
-  //     formData.append("dueDate", values.dueDate);
-  //     formData.append("instructions", values.instructions);
-  //     formData.append("target", values.target);
-  //     formData.append(
-  //       "classId",
-  //       values.target === "all" ? "" : selectedAssignment.classId || ""
-  //     );
-  //     formData.append("editForAll", values.target === "all");
-
-  //     if (values.image) {
-  //       formData.append("image", values.image);
-  //     }
-  //     console.log(selectedAssignment);
-  //     const res = await editAssignmentTeacher({
-  //       assignmentId: selectedAssignment._id,
-  //       title: values.title,
-  //       description: values.description,
-  //       dueDate: values.dueDate,
-  //       instructions: values.instructions,
-  //       target: values.target,
-  //       classId: values.target === "all" ? "" : classId || "",
-  //       editForAll: values.target === "all",
-  //       image: values.image ? values.image : null,
-  //     }).unwrap();
-  //     console.log(res);
-  //     toast.success("Assignment edited successfully!");
-  //     setImagePreview(null); // Clear the image preview
-  //     setImageName(""); // Clear the image name
-  //     handleCloseEditDialog();
-  //     refreshAssignments();
-  //   } catch (error) {
-  //     toast.error(`Failed to edit assignment: ${error.message}`);
-  //   }
-  // };
-
   const handleOpenDeleteDialog = (assignment) => {
     setSelectedAssignment(assignment);
     setOpenDeleteDialog(true);
@@ -211,6 +173,17 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
     navigate(`${assignmentId}/view/teacher`);
   }
 
+  const getSubmissionStats = (assignmentId) => {
+    if (!submissionsData) return { total: 0, graded: 0 };
+
+    const assignmentSubmissions = submissionsData.submissions.filter(
+      (sub) => sub.assignmentId._id === assignmentId
+    );
+    const total = assignmentSubmissions.length;
+    const graded = assignmentSubmissions.filter((sub) => sub.graded === true).length;
+
+    return { total, graded };
+  };
   return (
     <TableContainer component={Paper}>
       <Button
@@ -243,45 +216,50 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
               </TableCell>
             </TableRow>
           ) : (
-            assignments.map((assignment) => (
-              <TableRow key={assignment._id}>
-                <TableCell>{assignment.title}</TableCell>
-                <TableCell>{assignment.submissions}</TableCell>
-                <TableCell>{assignment.graded}</TableCell>
-                <TableCell>
-                  {assignment.target === "all" ? "All Class" : "This Class"}
-                </TableCell>
-                <TableCell>
-                  {formatDateToReadable(assignment.createdAt) || "X"}
-                </TableCell>
-                <TableCell>
-                  {formatDateToReadable(assignment.dueDate) || "X"}
-                </TableCell>
-                <TableCell>
-                  <IconButton
-                    color="primary"
-                    aria-label="view assignment"
-                    onClick={() => handleViewClick(assignment._id)}
-                  >
-                    <VisibilityIcon />
-                  </IconButton>
-                  <IconButton
-                    color="primary"
-                    aria-label="edit assignment"
-                    onClick={() => handleOpenEditDialog(assignment)}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    color="secondary"
-                    aria-label="delete assignment"
-                    onClick={() => handleOpenDeleteDialog(assignment)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))
+            assignments.map((assignment) => {
+              const { total, graded } = getSubmissionStats(assignment._id);
+              console.log("total:", total, "graded:",graded);
+
+              return (
+                <TableRow key={assignment._id}>
+                  <TableCell>{assignment.title}</TableCell>
+                  <TableCell>{total}</TableCell>
+                  <TableCell>{graded}</TableCell>
+                  <TableCell>
+                    {assignment.target === "all" ? "All Class" : "This Class"}
+                  </TableCell>
+                  <TableCell>
+                    {formatDateToReadable(assignment.createdAt) || "X"}
+                  </TableCell>
+                  <TableCell>
+                    {formatDateToReadable(assignment.dueDate) || "X"}
+                  </TableCell>
+                  <TableCell>
+                    <IconButton
+                      color="primary"
+                      aria-label="view assignment"
+                      onClick={() => handleViewClick(assignment._id)}
+                    >
+                      <VisibilityIcon />
+                    </IconButton>
+                    <IconButton
+                      color="primary"
+                      aria-label="edit assignment"
+                      onClick={() => handleOpenEditDialog(assignment)}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
+                      color="secondary"
+                      aria-label="delete assignment"
+                      onClick={() => handleOpenDeleteDialog(assignment)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              );
+            })
           )}
         </TableBody>
       </Table>

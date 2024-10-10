@@ -25,7 +25,7 @@ function GoogleRedirect() {
   const [fetchClass, { isLoading }] = useFetchClassMutation();
   const isAuthenticated = localStorage.getItem("userDetails");
   const userDetails = useSelector((state) => state.user.userDetails);
-
+  const classDetails = useSelector(state => state.class.class)
   const [fetchUserQuizSubmission, { isLoading: isLoadingFetchQuizSubmission }] =
     useFetchUserQuizSubmissionMutation();
 
@@ -39,22 +39,22 @@ function GoogleRedirect() {
       const res = await axios.get(`${BACKEND_URL}/auth/login/success`, {
         withCredentials: true,
       });
-    
+
       const { user, _id, message, isNewUser } = res.data;
-      const userId = _id
-      console.log(userId)
-      const userData = await getUserApi(userId).unwrap(); 
-      console.log(userData)
+      const userId = _id;
+      console.log(userId);
+      const userData = await getUserApi(userId).unwrap();
+      console.log(userData);
       dispatch(
         setCredentials({
           ...user._json, // Using destructured 'user' instead of 'res.data.user'
           _id: _id,
           role: user.role,
           approved: user.approved,
-          userData:userData // Using destructured 'user' instead of 'res.data.user'
+          userData: userData, // Using destructured 'user' instead of 'res.data.user'
         })
       );
-      
+
       if (userDetails) {
         console.log(userDetails);
         fetchProgress();
@@ -94,19 +94,19 @@ function GoogleRedirect() {
       // Fetch class using the user ID
       const classData = await fetchClass(userId).unwrap();
       if (classData && classData.length > 0) {
-        dispatch(setClass(classData));
+        dispatch(setClass(classData?.[0]));
       } else {
         dispatch(setClass([]));
         // toast.error("No classess fetched");
       }
 
-      console.log(classData)
+      console.log(classData);
 
       console.log(userDetails);
       if (userDetails.role === "teacher") {
         navigate("/classes");
-      } else {
-        navigate(`/studentClass/${classData[0]._id}/classHome`);
+      }else if(classData.length === 0){navigate('/')} else {
+        navigate(`/studentClass/${classData?.[0]?._id}/classHome`);
       }
     } catch (error) {
       console.error("Error fetching class:", error);

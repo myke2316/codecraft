@@ -16,3 +16,5 @@ export const ACTIVITY_ASSIGNMENT_URL  = '/api/assignment'
 export const BASE_URLS = 'http://localhost:8000';
 export const SUBMISSION_URL = '/api/student-submit'
 export const SANDBOX_URL = '/sandbox/files'
+export const CERTIFICATE_URL = '/certificate'
+export const SIGNATURE_URL = '/signature'

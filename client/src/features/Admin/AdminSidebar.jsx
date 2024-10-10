@@ -17,7 +17,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Button
+  Button,
 } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
@@ -25,6 +25,7 @@ import SchoolIcon from "@mui/icons-material/School";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AdminHeader from "./AdminHeader";
+import { Article } from "@mui/icons-material";
 
 const AdminSidebar = () => {
   const dispatch = useDispatch();
@@ -37,8 +38,13 @@ const AdminSidebar = () => {
   const menuItems = [
     { text: "Dashboard", icon: <DashboardIcon />, path: "/admin-dashboard" },
     { text: "Manage Users", icon: <PeopleIcon />, path: "/admin-users" },
-    { text: "Teacher Requests", icon: <SchoolIcon />, path: "/admin-teacherRequest" },
+    {
+      text: "Teacher Requests",
+      icon: <SchoolIcon />,
+      path: "/admin-teacherRequest",
+    },
     { text: "Manage QnA", icon: <QuestionAnswerIcon />, path: "/admin-qna" },
+    { text: "Manage Certificate", icon: <Article />, path: "/certificate/admin/manage" },
   ];
 
   const toggleDrawer = () => {
@@ -93,12 +99,18 @@ const AdminSidebar = () => {
                 minWidth: 0,
                 mr: open ? 3 : "auto",
                 justifyContent: "center",
-                color: location.pathname === item.path ? theme.palette.primary.contrastText : "inherit",
+                color:
+                  location.pathname === item.path
+                    ? theme.palette.primary.contrastText
+                    : "inherit",
               }}
             >
               {item.icon}
             </ListItemIcon>
-            <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0, transition: "opacity 0.3s ease" }} />
+            <ListItemText
+              primary={item.text}
+              sx={{ opacity: open ? 1 : 0, transition: "opacity 0.3s ease" }}
+            />
           </ListItem>
         ))}
         <Divider sx={{ my: 1 }} />
@@ -121,7 +133,10 @@ const AdminSidebar = () => {
           >
             <ExitToAppIcon />
           </ListItemIcon>
-          <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0, transition: "opacity 0.3s ease" }} />
+          <ListItemText
+            primary="Logout"
+            sx={{ opacity: open ? 1 : 0, transition: "opacity 0.3s ease" }}
+          />
         </ListItem>
       </List>
 
@@ -132,7 +147,9 @@ const AdminSidebar = () => {
         aria-labelledby="logout-dialog-title"
         aria-describedby="logout-dialog-description"
       >
-        <DialogTitle id="logout-dialog-title">{"Are you sure you want to logout?"}</DialogTitle>
+        <DialogTitle id="logout-dialog-title">
+          {"Are you sure you want to logout?"}
+        </DialogTitle>
         <DialogContent dividers>
           You will be logged out of the system.
         </DialogContent>

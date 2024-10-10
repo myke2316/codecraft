@@ -29,6 +29,7 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
+import { useCompleteCourseMutation } from "../../../LoginRegister/userService";
 
 const theme = {
   primary: "#9683ec", // Yellow
@@ -220,6 +221,8 @@ function DocumentContent() {
   const document = lesson.documents.find((doc) => doc._id === documentId);
   const quiz = lesson.quiz;
 
+  const [completeCourse, {isLoading:isLoadingCompleteCourse}] = useCompleteCourseMutation()
+  
   async function handleNext() {
     if (isProcessing) return;
 
@@ -376,6 +379,8 @@ function DocumentContent() {
             }).unwrap();
             dispatch(updateCourseProgress(updateProgressData));
 
+        
+
             const updateAnalyticsData = await updateUserAnalyticsMutation({
               userId,
               analyticsData: {
@@ -402,7 +407,7 @@ function DocumentContent() {
               },
             }).unwrap();
             dispatch(updateUserAnalytics(updateAnalyticsData));
-
+            
             navigate(`/course/${userId}/certification`);
           } catch (error) {
             console.log(error);

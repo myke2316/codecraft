@@ -24,6 +24,8 @@ import { assignmentRouter } from "./routes/teacherFunction/teacherAssignmentRout
 
 import { submissionRouter } from "./routes/teacherFunction/submissionRoute.js";
 import {JSDOM} from 'jsdom'
+import { certificateRouter } from "./routes/certificationRoute.js";
+
 dotenv.config();
 connectDb();
 const PORT = process.env.SERVER_PORT || 8000;
@@ -64,6 +66,7 @@ app.use("/qna", questionRouter);
 app.use("/api/announcement", announcementRouter);
 app.use("/api/assignment", assignmentRouter);
 app.use("/api/student-submit", submissionRouter);
+app.use('/certificate', certificateRouter)
 
 //for CODING ACTIVITY(Separate file soon) ===============================================================
 // const executeCode = (jsCode, input) => {
@@ -569,7 +572,7 @@ app.post("/submit/javascriptconsole", (req, res) => {
     for (let i = 0; i < testCase.required.length; i++) {
       const requirement = testCase.required[i];
       const testCaseSentence = testCase.testCaseSentences[i]; // Get the corresponding sentence for this test case
-
+      console.log(testCaseSentence)
       const normalizedRequirement = jsNormalizeCode(requirement, false);
       const cleanRequirement = normalizedRequirement.replace(/;/g, '');
       const cleanUserCode = normalizedJsCode.replace(/;/g, '');
@@ -602,18 +605,18 @@ app.post("/submit/javascriptconsole", (req, res) => {
 
     if (normalizedUserOutput !== normalizedRequiredOutput) {
       allTestsPassed = false;
-      feedback.push({
-        index: testCase.required.length, // Output comparison feedback comes after all requirements
-        sentence: `Expected output: ${requiredOutput.output}, Got: ${consoleOutput}`,
-        status: "incorrect",
-      });
+      // feedback.push({
+      //   index: testCase.required.length, // Output comparison feedback comes after all requirements
+      //   sentence: `Expected output: ${requiredOutput.output}, Got: ${consoleOutput}`,
+      //   status: "incorrect",
+      // });
       console.log(`Output mismatch. Expected: ${requiredOutput.output}, Got: ${consoleOutput}`);
     } else {
-      feedback.push({
-        index: testCase.required.length,
-        sentence: `Output matches expected result.`,
-        status: "correct",
-      });
+      // feedback.push({
+      //   index: testCase.required.length,
+      //   sentence: `Output matches expected result.`,
+      //   status: "correct",
+      // });
       console.log("Output matches expected result.");
     }
 

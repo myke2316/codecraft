@@ -10,6 +10,13 @@ import UserProgressModel from "../models/studentCourseProgressModel.js";
 import UserAnalyticsModel from "../models/userAnalyticsModel.js";
 import QuestionModel from "../models/QuestionAndAnswerModels/questionsModel.js";
 import Submission from "../models/teacherFunction/submissionModel.js";
+import { readdirSync } from "fs";
+import CertificateModel from "../models/certificationModel.js";
+import SignatureModel from "../models/signatureModel.js";
+import ActivityAssignment from "../models/teacherFunction/activityAssignmentModel.js";
+import { gridfsBucket } from "../config/database.js";
+import mongoose from "mongoose";
+import Announcement from "../models/teacherFunction/announcementModel.js";
 
 const editUsername = asyncHandler(async (req, res) => {
   const { userId, newUsername } = req.body;
@@ -45,7 +52,6 @@ const editUsername = asyncHandler(async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
 
 const approveTeacher = asyncHandler(async (req, res) => {
   const { userId } = req.body;
@@ -100,7 +106,8 @@ const loginUser = asyncHandler(async (req, res) => {
       email: user.email,
       role: user.role,
       approved: user.approved,
-      isDeleted : user.isDeleted, deleteExpiresAt : user.deleteExpiresAt
+      isDeleted: user.isDeleted,
+      deleteExpiresAt: user.deleteExpiresAt,
     });
   } else {
     res.status(401).json({ error: "Invalid email or password!" });
@@ -357,7 +364,6 @@ const resetPassword = asyncHandler(async (req, res) => {
   });
 });
 
-
 const getAllUsers = asyncHandler(async (req, res) => {
   try {
     const users = await UserModel.find().select("-password"); // Exclude password from the response
@@ -367,77 +373,81 @@ const getAllUsers = asyncHandler(async (req, res) => {
   }
 });
 
+const permanentDeleteUser = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
 
+  try {
+    // Find the user by ID
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-// const deleteUser = asyncHandler(async (req, res) => {
-//   const { userId } = req.params;
+    // Handle the deletion of the teacher and related data
+    if (user.role === "teacher") {
+      // Find all classes taught by the teacher
+      const classes = await ClassModel.find({ teacher: userId });
 
-//   try {
-//     // Find the user by ID
-//     const user = await UserModel.findById(userId);
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
+      // Delete all classes taught by the teacher
+      await ClassModel.deleteMany({ teacher: userId });
+      // For each class, remove the teacher and delete related data
+      for (const cls of classes) {
+        // Remove the teacher from the class
+        await ClassModel.findByIdAndUpdate(cls._id, { teacher: null });
 
-//     // Handle the deletion of the teacher and related data
-//     if (user.role === "teacher") {
-//       // Find all classes taught by the teacher
-//       const classes = await ClassModel.find({ teacher: userId });
+        // Remove the students from the class
+        await ClassModel.updateMany(
+          { _id: cls._id },
+          { $pull: { students: { $in: cls.students } } }
+        );
 
-//       // Delete all classes taught by the teacher
-//       await ClassModel.deleteMany({ teacher: userId });
-//       // For each class, remove the teacher and delete related data
-//       for (const cls of classes) {
-//         // Remove the teacher from the class
-//         await ClassModel.findByIdAndUpdate(cls._id, { teacher: null });
+        // Delete student-related data in analytics, progress, etc.
+        await UserAnalyticsModel.deleteMany({ userId: { $in: cls.students } });
+        await UserProgressModel.deleteMany({ userId: { $in: cls.students } });
+        await ActivitySubmissionModel.deleteMany({
+          userId: { $in: cls.students },
+        });
+        await QuizSubmissionModel.deleteMany({ userId: { $in: cls.students } });
+        await Submission.deleteMany({ studentId: { $in: cls.students } });
+        await CertificateModel.deleteMany({ studentId: { $in: cls.students } });
+        await SignatureModel.deleteMany({ userId });
+        await ActivityAssignment.deleteMany({ classId: cls._id }); 
+        await Announcement.deleteMany({ classId: cls._id }); 
+      }
+    }
 
-//         // Remove the students from the class
-//         await ClassModel.updateMany(
-//           { _id: cls._id },
-//           { $pull: { students: { $in: cls.students } } }
-//         );
+    // Remove the user from any classes where they are a student
+    await ClassModel.updateMany(
+      { students: userId },
+      { $pull: { students: userId } }
+    );
 
-//         // Delete student-related data in analytics, progress, etc.
-//         await UserAnalyticsModel.deleteMany({ userId: { $in: cls.students } });
-//         await UserProgressModel.deleteMany({ userId: { $in: cls.students } });
-//         await ActivitySubmissionModel.deleteMany({
-//           userId: { $in: cls.students },
-//         });
-//         await QuizSubmissionModel.deleteMany({ userId: { $in: cls.students } });
-//         await Submission.deleteMany({ studentId: { $in: cls.students } });
-//       }
-//     }
+    // Delete related data for the user (whether they are a teacher or student)
+    await ActivitySubmissionModel.deleteMany({ userId });
+    await QuizSubmissionModel.deleteMany({ userId });
+    await UserProgressModel.deleteMany({ userId });
+    await UserAnalyticsModel.deleteMany({ userId });
+    await QuestionModel.deleteMany({ author: userId });
+    await Submission.deleteMany({ studentId: userId });
+    await CertificateModel.deleteMany({ studentId: userId }); // Deleting certificates for the user
 
-//     // Remove the user from any classes where they are a student
-//     await ClassModel.updateMany(
-//       { students: userId },
-//       { $pull: { students: userId } }
-//     );
+    // Optionally, if you need to do something similar for answers
+    await QuestionModel.updateMany(
+      { "answers.author": userId },
+      { $pull: { answers: { author: userId } } }
+    );
 
-//     // Delete related data for the user (whether they are a teacher or student)
-//     await ActivitySubmissionModel.deleteMany({ userId });
-//     await QuizSubmissionModel.deleteMany({ userId });
-//     await UserProgressModel.deleteMany({ userId });
-//     await UserAnalyticsModel.deleteMany({ userId });
-//     await QuestionModel.deleteMany({ author: userId });
-//     await Submission.deleteMany({ studentId: userId });
-//     // Optionally, if you need to do something similar for answers
-//     await QuestionModel.updateMany(
-//       { "answers.author": userId },
-//       { $pull: { answers: { author: userId } } }
-//     );
+    // Finally, delete the user
+    await user.deleteOne();
 
-//     // Finally, delete the user
-//     await user.deleteOne();
-
-//     res
-//       .status(200)
-//       .json({ message: "User and all related data deleted successfully" });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: error.message });
-//   }
-// });
+    res
+      .status(200)
+      .json({ message: "User and all related data deleted successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+});
 
 const deleteUser = asyncHandler(async (req, res) => {
   const { userId } = req.params;
@@ -457,7 +467,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 
     // Respond with success message
     res.status(200).json({
-      message: "User soft-deleted. Will be fully removed after 15 days."
+      message: "User soft-deleted. Will be fully removed after 15 days.",
     });
   } catch (error) {
     console.log(error);
@@ -488,7 +498,7 @@ const undeleteUser = asyncHandler(async (req, res) => {
 
     // Respond with success message
     res.status(200).json({
-      message: "User successfully restored."
+      message: "User successfully restored.",
     });
   } catch (error) {
     console.log(error);
@@ -496,11 +506,59 @@ const undeleteUser = asyncHandler(async (req, res) => {
   }
 });
 
+const completeCourse = async (req, res) => {
+  const { userId } = req.params;
 
+  try {
+    // Find the user by ID and update the courseCompleted field to true
+    const user = await UserModel.findByIdAndUpdate(
+      userId,
+      { courseCompleted: true },
+      { new: true } // This option returns the updated document
+    );
+
+    // Check if the user was found and updated
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Send a success response
+    res.status(200).json({
+      message: "Course completed status updated successfully",
+      user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "An error occurred while updating the course status",
+      error: error.message,
+    });
+  }
+};
+
+const userCompleteCourse = async (req, res) => {
+  try {
+    const users = await UserModel.find({ courseCompleted: true });
+    if (users.length === 0) {
+      return res.status(404).json({
+        message: "No users found who have completed the course.",
+      });
+    }
+    res.status(200).json({
+      message: "Users who have completed the course fetched successfully.",
+      users,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message:
+        "An error occurred while fetching student who finsihed the course.",
+      error: error.message,
+    });
+  }
+};
 const getSingleUser = asyncHandler(async (req, res) => {
   try {
     const userId = req.params.userId; // Get the user ID from the request parameters
-    const user = await UserModel.find({_id:userId}); // Exclude password from the response
+    const user = await UserModel.find({ _id: userId }); // Exclude password from the response
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -513,6 +571,8 @@ const getSingleUser = asyncHandler(async (req, res) => {
 });
 
 export {
+  userCompleteCourse,
+  permanentDeleteUser,
   undeleteUser,
   getSingleUser,
   editUsername,
@@ -526,4 +586,5 @@ export {
   updateRole,
   getAllUsers,
   approveTeacher,
+  completeCourse,
 };

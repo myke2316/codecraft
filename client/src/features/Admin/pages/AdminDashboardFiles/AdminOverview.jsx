@@ -45,15 +45,17 @@ const AdminOverview = ({ users }) => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalStudents, setTotalStudents] = useState(0);
   const [totalTeachers, setTotalTeachers] = useState(0);
+  const [totalTeachersRequest, setTotalTeachersRequest] = useState(0);
 
   useEffect(() => {
     setTotalUsers(users.length);
 
     const studentCount = users.filter((user) => user.role === "student").length;
     const teacherCount = users.filter((user) => user.role === "teacher").length;
-
+    const teacherRequestCount = users.filter((user) => user.approved === false).length;
     setTotalStudents(studentCount);
     setTotalTeachers(teacherCount);
+    setTotalTeachersRequest(teacherRequestCount)
   }, [users]);
 
   return (
@@ -63,7 +65,7 @@ const AdminOverview = ({ users }) => {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} md={3}>
-          <StatCard title="Total Users" value={totalUsers - 1} icon={PeopleAltIcon} />
+          <StatCard title="Total Users" value={totalUsers - 2} icon={PeopleAltIcon} />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <StatCard title="Total Students" value={totalStudents} icon={SchoolIcon} />
@@ -72,7 +74,7 @@ const AdminOverview = ({ users }) => {
           <StatCard title="Total Teachers" value={totalTeachers} icon={SupervisorAccountIcon} />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <StatCard title="Teacher Requests" value="X" icon={HourglassEmptyIcon} />
+          <StatCard title="Teacher Requests" value={totalTeachersRequest} icon={HourglassEmptyIcon} />
         </Grid>
       </Grid>
     </Container>
