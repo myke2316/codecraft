@@ -107,7 +107,7 @@ export default function AuthorizedSidebar({
       items = [{ text: "Home", icon: <HomeIcon />, link: "/" }];
     } else if (
       userInfo.role === "teacher" &&
-      (userInfo.approved || userInfo?.userData?.[0]?.approved)
+      (userInfo.approved === "true"|| userInfo?.userData?.[0]?.approved=== "true")
     ) {
       items = [
         { text: "Classes", icon: <ClassIcon />, link: "/classes" },

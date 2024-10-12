@@ -59,7 +59,7 @@ function ManageCertificate() {
     isLoading: isSignatureLoading,
     refetch: refetchSignature,
   } = useGetSignatureQuery(userDetails._id);
-
+  console.log(data);
   useEffect(() => {
     const fetchPoints = async () => {
       if (data?.users?.length) {
@@ -106,12 +106,11 @@ function ManageCertificate() {
     setOpenDialog(false);
   };
 
-const validationSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
-  teacherName: Yup.string().required("Name is required"),
-  signature: Yup.mixed().nullable(),
-
-});
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required("Title is required"),
+    teacherName: Yup.string().required("Name is required"),
+    signature: Yup.mixed().nullable(),
+  });
 
   const handleFormSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
@@ -147,7 +146,7 @@ const validationSchema = Yup.object().shape({
   };
 
   // Filter and search logic for students
- const filteredStudents = studentsWithPoints
+  const filteredStudents = studentsWithPoints
     .filter((student) => {
       if (isAdmin) {
         return true; // Admin sees all students
@@ -289,43 +288,43 @@ const validationSchema = Yup.object().shape({
                   </FormControl>
                 )}
 
-{(!signatureData || !values.keepExistingSignature) && (
-  <div>
-    <input
-      type="file"
-      accept="image/*"
-      onChange={(event) => {
-        const file = event.currentTarget.files[0];
-        setFieldValue("signature", file);
-        if  (file) {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            setFieldValue("signaturePreview", reader.result);
-          };
-          reader.readAsDataURL(file);
-        } else {
-          setFieldValue("signaturePreview", null);
-        }
-      }}
-      style={{ marginTop: "16px" }}
-    />
-    {values.signaturePreview && (
-      <Box mt={2}>
-        <Typography variant="subtitle1">Preview:</Typography>
-        <img
-          src={values.signaturePreview}
-          alt="Signature Preview"
-          style={{
-            maxWidth: "100%",
-            maxHeight: "200px",
-            objectFit: "contain",
-          }}
-        />
-      </Box>
-    )}
-  </div>
-)}
-                  
+                {(!signatureData || !values.keepExistingSignature) && (
+                  <div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(event) => {
+                        const file = event.currentTarget.files[0];
+                        setFieldValue("signature", file);
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            setFieldValue("signaturePreview", reader.result);
+                          };
+                          reader.readAsDataURL(file);
+                        } else {
+                          setFieldValue("signaturePreview", null);
+                        }
+                      }}
+                      style={{ marginTop: "16px" }}
+                    />
+                    {values.signaturePreview && (
+                      <Box mt={2}>
+                        <Typography variant="subtitle1">Preview:</Typography>
+                        <img
+                          src={values.signaturePreview}
+                          alt="Signature Preview"
+                          style={{
+                            maxWidth: "100%",
+                            maxHeight: "200px",
+                            objectFit: "contain",
+                          }}
+                        />
+                      </Box>
+                    )}
+                  </div>
+                )}
+
                 {errors.signature && touched.signature && (
                   <div className="text-red-500">{errors.signature}</div>
                 )}

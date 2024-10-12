@@ -69,12 +69,12 @@ const approveTeacher = asyncHandler(async (req, res) => {
       return res.status(400).json({ message: "User is not a teacher" });
     }
 
-    if (user.approved === true) {
+    if (user.approved === "true") {
       return res.status(400).json({ message: "Teacher is already approved" });
     }
 
     // Update the approved field to true
-    user.approved = true;
+    user.approved = "true";
     await user.save();
 
     res.status(200).json({
@@ -91,7 +91,44 @@ const approveTeacher = asyncHandler(async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+const declineTeacher = asyncHandler(async (req, res) => {
+  const { userId } = req.body;
 
+  try {
+    // Find the user by ID
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Check if the user is a teacher and not already declined
+    if (user.role !== "teacher") {
+      return res.status(400).json({ message: "User is not a teacher" });
+    }
+
+    if (user.approved === "declined") {
+      return res.status(400).json({ message: "Teacher is already declined" });
+    }
+
+    // Update the approved field to false (or you can remove the teacher entirely)
+    user.approved = "declined";
+    await user.save();
+
+    res.status(200).json({
+      message: "Teacher declined successfully",
+      user: {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        approved: user.approved,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -586,5 +623,5 @@ export {
   updateRole,
   getAllUsers,
   approveTeacher,
-  completeCourse,
+  completeCourse,declineTeacher
 };

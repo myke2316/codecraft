@@ -108,7 +108,7 @@ function LessonContent() {
   
   const handleClick = (id) => navigate(`document/${id}`);
   const handleQuizClick = () => navigate(`quiz/${quiz._id}`);
-  const handleActivityClick = () => navigate(`activity/${activities[0]._id}`);
+  const handleActivityClick = (id) => navigate(`activity/${id}`);
 
   const toggleSection = (section) => {
     setExpandedSections((prev) => ({ ...prev, [section]: !prev[section] }));
@@ -315,7 +315,7 @@ function LessonContent() {
                               variant="body2"
                               className="text-gray-600"
                             >
-                              Status: {quizScore}
+                              Status:  {quizProgress?.locked ? "Locked" : quizProgress?.dateFinished !== null ? "Finished" : "In Progress"}
                             </Typography>
                           </Box>
                           <Button
@@ -432,7 +432,7 @@ function LessonContent() {
                                   onClick={
                                     activityProgress?.locked
                                       ? null
-                                      : handleActivityClick
+                                      : () =>handleActivityClick(activity._id)
                                   }
                                   disabled={activityProgress?.locked}
                                   className="transition-all duration-300 hover:scale-105"

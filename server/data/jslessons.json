@@ -378,7 +378,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Example: </strong>3, 3.14"
+                  "text": "Example: 3, 3.14"
                 },
                 {
                   "type": "sentence",
@@ -386,7 +386,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Example: </strong>900719925124740999n"
+                  "text": "Example: 900719925124740999n"
                 },
                 {
                   "type": "sentence",
@@ -486,11 +486,7 @@
                   "language": "javascript",
                   "code": "// Arithmetic\nlet x = 5;\nconsole.log(x + 3);  // 8\nconsole.log(x ** 2);  // 25"
                 },
-                {
-                  "type": "codeconsole",
-                  "language": "javascript",
-                  "code": "// Assignment\nx += 5;  // x = x + 5\nconsole.log(x);  // 10"
-                },
+               
                 {
                   "type": "codeconsole",
                   "language": "javascript",
@@ -499,7 +495,7 @@
                 {
                   "type": "codeconsole",
                   "language": "javascript",
-                  "code": "// Logical\nconsole.log((x < 15) && (x > 5));  // true"
+                  "code": "// Logical\nlet x = 6;\nconsole.log((x < 15) && (x > 5));  // true"
                 },
                 {
                   "type": "codeconsole",
@@ -509,7 +505,7 @@
                 {
                   "type": "codeconsole",
                   "language": "javascript",
-                  "code": "// Ternary\nlet result = (x > 5) ? 'Greater' : 'Less or Equal';\nconsole.log(result);  // 'Greater'"
+                  "code": "// Ternary\nlet x = 6\nlet result = (x > 5) ? 'Greater' : 'Less or Equal';\nconsole.log(result);  // 'Greater'"
                 }
               ],
               "locked": true

@@ -530,7 +530,7 @@
                 {
                   "type": "snippet",
                   "language": "javascript",
-                  "code": "// Logical\nconsole.log((x < 15) && (x > 5));  // true"
+                  "code": "// Logical\nlet x=6;\nconsole.log((x < 15) && (x > 5));  // true"
                 },
                 {
                   "type": "snippet",

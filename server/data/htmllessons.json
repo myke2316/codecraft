@@ -11,36 +11,37 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML (HyperText Markup Language)</strong> is used to structure and format the content of websites on the World Wide Web. Web Developers use it to create a skeleton of modern websites and web apps."
+                  "text": "HTML (HyperText Markup Language) is used to structure and format the content of websites on the World Wide Web. Web Developers use it to create a skeleton of modern websites and web apps."
                 },
                 {
                   "type": "sentence",
-                  "text": "Let's see what <strong>HyperText Markup Language</strong> means."
+                  "text": "Let's see what HyperText Markup Language means."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HyperText</strong>"
+                  "text": "• HyperText"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HyperText</strong> is a way of organizing text that allows the reader to easily navigate and access related information. It takes the reader to a different part of the same web page, or to a different web page altogether."
+                  "text": "HyperText is a way of organizing text that allows the reader to easily navigate and access related information. It takes the reader to a different part of the same web page, or to a different web page altogether."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Markup language</strong>"
+                  "text": "• Markup language"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>A markup language</strong> is a computer language that is used to add structure and formatting to a text document. Markup languages use a system of tags to define the structure and content of a document. These tags are interpreted by a program or application to display the document in a specific way."
+                  "text": "A markup language is a computer language that is used to add structure and formatting to a text document. Markup languages use a system of tags to define the structure and content of a document. These tags are interpreted by a program or application to display the document in a specific way."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Example of HTML</strong>"
+                  "text": "Example of HTML"
                 },
                 {
                   "type": "sentence",
                   "text": "Let's see a simple example of HTML."
                 },
+
                 {
                   "type": "snippet",
                   "code": "<!DOCTYPE html>\n<html>\n<head>\n<title>CodeCraft</title>\n</head>\n<body>\n<h1>HTML Tutorial</h1>\n<p>You'll learn about HTML.</p>\n</body>\n</html>"
@@ -51,58 +52,58 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>• !DOCTYPE html</strong> - defines that this document is an HTML document"
+                  "text": "•<pre>!DOCTYPE html</pre>  - defines that this document is an HTML document"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>• html</strong> - root element of an HTML page which encloses all other elements in the HTML page"
+                  "text": "<pre>html</pre> - root element of an HTML page which encloses all other elements in the HTML page"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>• head</strong> - contains information about the page, such as the title and metadata"
+                  "text": "<pre>head</pre> - contains information about the page, such as the title and metadata"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>• title</strong> - specifies a title for the HTML page which is shown in the browser's title bar"
+                  "text": "<pre>title</pre> - specifies a title for the HTML page which is shown in the browser's title bar"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>• body</strong> - defines the main content of the page and is a container for all the visible contents, such as headings, paragraphs, lists, etc."
+                  "text": "<pre>body</pre> - defines the main content of the page and is a container for all the visible contents, such as headings, paragraphs, lists, etc"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>• h1</strong> - defines a heading"
+                  "text": "<pre>h1</pre> - defines a heading"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>• p</strong> - defines a paragraph of HTML document"
+                  "text": "<pre>p</pre> - defines a paragraph of HTML document"
                 }
               ],
               "locked": false,
-              "badges": "First Step"
+              "badges":"First Step"
             },
             {
               "title": "HTML Structure",
               "content": [
                 {
                   "type": "sentence",
-                  "text": "HTML documents have a structure that includes elements such as <strong>doctype</strong>, <strong>html</strong>, <strong>head</strong>, and <strong>body</strong> tags."
+                  "text": "HTML documents have a structure that includes elements such as doctype, html, head, and body tags."
                 },
                 {
                   "type": "sentence",
-                  "text": "• The <strong>doctype declaration</strong> defines the document type."
+                  "text": "The doctype declaration defines the document type."
                 },
                 {
                   "type": "sentence",
-                  "text": "• The <strong>html element</strong> is the root element of an HTML page."
+                  "text": "The html element is the root element of an HTML page."
                 },
                 {
                   "type": "sentence",
-                  "text": "• The <strong>head element</strong> contains meta-information about the HTML document."
+                  "text": "The head element contains meta-information about the HTML document."
                 },
                 {
                   "type": "sentence",
-                  "text": "• The <strong>body element</strong> contains the visible page content."
+                  "text": "The body element contains the visible page content."
                 },
                 {
                   "type": "code",
@@ -117,28 +118,28 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "Learn about basic HTML tags like <strong>p</strong>, <strong>a</strong>, <strong>div</strong> and more."
+                  "text": "Learn about basic HTML tags like <pre>p</pre> <pre>a</pre> <pre>div</pre> and more."
                 },
                 {
                   "type": "sentence",
-                  "text": "The <strong>p</strong> tag defines a paragraph."
+                  "text": "The p tag defines a paragraph."
                 },
                 {
                   "type": "sentence",
-                  "text": "The <strong>a</strong> tag defines a hyperlink."
+                  "text": "The a tag defines a hyperlink."
                 },
                 {
                   "type": "sentence",
-                  "text": "The <strong>div</strong> tag defines a division or a section in an HTML document."
+                  "text": "The <pre>div</pre> tag defines a division or a section in an HTML document."
                 },
                 {
                   "type": "code",
                   "language": "html",
-                  "code": "<div>\n<p>This is a paragraph.</p>\n<a href=\"https://i.sstatic.net/8CNWw.jpg\">This is a link</a>\n</div>"
+                  "code": "<div>\n<p>This is a paragraph.</p>\n<a href=\"https://www.example.com\">This is a link</a>\n</div>"
                 }
               ],
               "locked": true
-            }            
+            }
           ],
           "quiz": [
             {
@@ -337,7 +338,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "The HTML <strong>p</strong> tag is used to create paragraphs. For example,"
+                  "text": "The HTML <code>p<code> tag is used to create paragraphs. For example,"
                 },
                 {
                   "type": "code",
@@ -346,7 +347,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "As we can see, a paragraph starts with the <strong><p></strong> and ends with the <strong></p></strong> tag."
+                  "text": "As we can see, a paragraph starts with the <code>p<code> and ends with the <code>/p<code> tag."
                 },
                 {
                   "type": "sentence",
@@ -359,11 +360,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "The above HTML code contains two paragraphs and each paragraph <strong>starts on a new line</strong> even though there is sufficient space after the first paragraph."
+                  "text": "The above HTML code contains two paragraphs. And each paragraph starts on a new line even though there is sufficient space after the first paragraph."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML Paragraphs and Spaces</strong>"
+                  "text": "HTML Paragraphs and Spaces"
                 },
                 {
                   "type": "sentence",
@@ -374,9 +375,10 @@
                   "language": "html",
                   "code": "<p>\nThe paragraph tag removes all extra spaces.\n\nThe paragraph tag also removes all extra lines.\n</p>"
                 },
+
                 {
                   "type": "sentence",
-                  "text": "We can use the HTML line break tag, <strong>br</strong>, to add line breaks within our paragraphs. For example,"
+                  "text": "We can use the HTML line break tag, <code>br<code>, to add line breaks within our paragraphs. For example,"
                 },
                 {
                   "type": "code",
@@ -385,19 +387,19 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Note: </strong>The <strong>br</strong> tag does not need a closing tag like the <strong>p</strong> tag."
+                  "text": "Note: The <code>br<code> tag does not need a closing tag like the <p> tag."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Pre-formatted Text in HTML</strong>"
+                  "text": "Pre-formatted Text in HTML"
                 },
                 {
                   "type": "sentence",
-                  "text": "As we have discussed, paragraphs cannot preserve extra lines and space. If we need to create content that uses multiple spaces and lines, we can use the HTML <strong>pre</strong> tag."
+                  "text": "As we have discussed, paragraphs cannot preserve extra lines and space. If we need to create content that uses multiple spaces and lines, we can use the HTML <code>pre<code> tag."
                 },
                 {
                   "type": "sentence",
-                  "text": "The <strong>pre</strong> tag creates preformatted text. Preformatted texts are displayed as written in the HTML file. For example,"
+                  "text": "The <code>pre<code> tag creates preformatted text. Preformatted texts are displayed as written in the HTML file. For example,"
                 },
                 {
                   "type": "code",
@@ -406,11 +408,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Other Elements Inside Paragraphs</strong>"
+                  "text": "Other Elements Inside Paragraphs"
                 },
                 {
                   "type": "sentence",
-                  "text": "It's possible to include one HTML element inside another. This is also true for <strong>p</strong> tags. For example,"
+                  "text": "It's possible to include one HTML element inside another. This is also true for <code>p<code> tags. For example,"
                 },
                 {
                   "type": "code",
@@ -419,23 +421,23 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "In the above example, we have used the <strong>strong</strong> tag inside the <strong>p</strong> tag. Browsers automatically make the contents inside <strong>strong</strong> tags bold."
+                  "text": "In the above example, we have used the <code>strong<code> tag inside the <code>p<code> tag. Browsers automatically make the contents inside <code>strong<code> tags bold."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Paragraph is Block-level: </strong>The <strong>p</strong> tag is a block-level element. It starts on a new line and takes up the full width (of its parent element)."
+                  "text": "Paragraph is Block-level: The <code>p<code> tag is a block-level element. It starts on a new line and takes up the full width (of its parent element)."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Note: </strong>Keep note of which elements are inline-level and which are block-level. It will be important later when we learn CSS."
+                  "text": "Note: Keep note of which elements are inline-level and which are block-level. It will be important later when we learn CSS."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Add Extra Space Inside Paragraphs</strong>"
+                  "text": "Add Extra Space Inside Paragraphs"
                 },
                 {
                   "type": "sentence",
-                  "text": "As discussed earlier, we cannot normally add extra empty spaces inside paragraphs. However, we can use a certain HTML entity called <strong>non-breaking space</strong> to add extra spaces. For example,"
+                  "text": "As discussed earlier, we cannot normally add extra empty spaces inside paragraphs. However, we can use a certain HTML entity called non-breaking space to add extra spaces. For example,"
                 },
                 {
                   "type": "code",
@@ -450,7 +452,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "The HTML heading tags <strong>(h1 to h6))</strong> are used to add headings to a webpage. For example,"
+                  "text": "The HTML heading tags (<code>h1 to h6<code>) are used to add headings to a webpage. For example,"
                 },
                 {
                   "type": "code",
@@ -459,11 +461,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "In the example, we have used tags <strong>h1 to h6</strong> to create headings of varying sizes and importance."
+                  "text": "In the example, we have used tags <code>h1 to h6<code> to create headings of varying sizes and importance."
                 },
                 {
                   "type": "sentence",
-                  "text": "The <strong>h1</strong> tag denotes the most important heading on a webpage. Similarly, <strong>h6</strong> denotes the least important heading."
+                  "text": "The <code>h1<code> tag denotes the most important heading on a webpage. Similarly, <code>h6<code> denotes the least important heading."
                 },
                 {
                   "type": "sentence",
@@ -471,31 +473,31 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Note: </strong>Do not use heading tags to create large texts. It's because search engines like Google use heading tags to understand what a page is about."
+                  "text": "Note: Do not use heading tags to create large texts. It's because search engines like Google use heading tags to understand what a page is about."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>h1 Tag is Important</strong>"
+                  "text": "h1 Tag is Important"
                 },
                 {
                   "type": "sentence",
-                  "text": "The HTML <strong>h1</strong> tag defines the most important heading in a webpage."
+                  "text": "The HTML h1 tag defines the most important heading in a webpage."
                 },
                 {
                   "type": "sentence",
-                  "text": "Although it's possible to include multiple <strong>h1</strong> tags in a webpage, the general practice is to use a single <strong>h1</strong> tag (usually at the beginning of the page)."
+                  "text": "Although it's possible to include multiple h1 tags in a webpage, the general practice is to use a single h1 tag (usually at the beginning of the page)."
                 },
                 {
                   "type": "sentence",
-                  "text": "The <strong>h1</strong> tag is also important for SEO. Search engines (such as Google) treat content inside <strong>h1</strong> with greater importance compared to other tags."
+                  "text": "The h1 tag is also important for SEO. Search engines (such as Google) treat content inside h1 with greater importance compared to other tags."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Headings are block-level elements</strong>"
+                  "text": "Headings are block-level elements"
                 },
                 {
                   "type": "sentence",
-                  "text": "The Headings <strong>h1 to h6</strong> tags are block-level elements. They start on a new line and take up the full width of their parent element. For example,"
+                  "text": "The Headings h1 to h6 tags are block-level elements. They start on a new line and take up the full width of their parent element. For example,"
                 },
                 {
                   "type": "code",
@@ -510,12 +512,12 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "The HTML <strong>table</strong> tag is used to represent data in a structured way by creating a table. For example,"
+                  "text": "The HTML table tag (<code>table<code>) is used to represent data in a structured way by creating a table. For example,"
                 },
                 {
                   "type": "code",
                   "language": "html",
-                  "code": "<table border=\"1\">\n  <tr>\n    <th>Name</th>\n    <th>Age</th>\n    <th>Country</th>\n  </tr>\n  <tr>\n    <td>Harry Depp</td>\n    <td>28</td>\n    <td>Britain</td>\n  </tr>\n  <tr>\n    <td>John Smith</td>\n    <td>35</td>\n    <td>USA</td>\n  </tr>\n  <tr>\n    <td>Ram Krishna</td>\n    <td>19</td>\n    <td>Nepal</td>\n  </tr>\n</table>"
+                  "code": "<table border=\"1\" >\n  <tr>\n    <th>Name</th>\n    <th>Age</th>  \n    <th>Country</th>\n  </tr>\n  <tr>\n    <td>Harry Depp</td>\n    <td>28</td>\n    <td>Britain</td>\n  </tr>\n  <tr>\n    <td>John Smith</td>\n    <td>35</td>\n    <td>USA</td>\n  </tr>\n  <tr>\n    <td>Ram Krishna</td>\n    <td>19</td>\n    <td>Nepal</td>\n  </tr>\n</table>"
                 },
                 {
                   "type": "sentence",
@@ -523,50 +525,52 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>table</strong>"
+                  "text": "• <code>table<code>"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>tr</strong>"
+                  "text": "• <code>tr<code>"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>td</strong>"
+                  "text": "• <code>td<code>"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>th</strong>"
+                  "text": "• <code>th<code>"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Table tag table in HTML</strong>"
+                  "text": "Table tag <code>table<code> in HTML"
                 },
                 {
                   "type": "sentence",
-                  "text": "The <strong>table</strong> tag is used to define a table. For example,"
+                  "text": "The <code>table<code> tag is used to define a table. For example,"
                 },
                 {
                   "type": "snippet",
-                  "code": "<table>\n  ...\n</table>"
+                  "code": "<table>\n  ….\n<table>"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Table Row tr in HTML</strong>"
+                  "text": "Table Row <code>tr<code> in HTML"
                 },
                 {
                   "type": "sentence",
-                  "text": "The <strong>tr</strong> tag is used to define a row in a table. For example,"
+                  "text": "The <code>tr<code> tag is used to define a row in a table. For example,"
                 },
                 {
                   "type": "snippet",
+
                   "code": "<table>\n<tr>\n  ...\n</tr>\n</table>"
                 },
                 {
                   "type": "sentence",
-                  "text": "The table row can include either table heading, <strong>th</strong> or table data, <strong>td</strong>."
+                  "text": "The table row can include either table heading, <code>th<code> or table data, <code>td<code>."
                 },
                 {
                   "type": "snippet",
+
                   "code": "<table><tr>\n  <th>Name</th>\n  <th>Country</th>\n</tr>\n<tr>\n  <td>Prasanna</td>\n  <td>Nepal</td>\n</tr>\n<tr>\n  <td>Simon</td>\n  <td>USA</td>\n</tr></table>"
                 },
                 {
@@ -575,11 +579,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Table Heading, th in HTML</strong>"
+                  "text": "Table Heading, <code>th<code> in HTML"
                 },
                 {
                   "type": "sentence",
-                  "text": "The <strong>th</strong> tag is used to define a table header. It is generally the top row of the table. For example,"
+                  "text": "The <code>th</code> tag is used to define a table header. It is generally the top row of the table. For example,"
                 },
                 {
                   "type": "code",
@@ -592,15 +596,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, the styling of the table headers is bold and center-aligned. This is because the <strong>th</strong> tag has some default styling."
+                  "text": "Here, the styling of the table headers is bold and center-aligned. This is because the <code>th<code> tag has some default styling."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Table Cell td in HTML</strong>"
+                  "text": "Table Cell <code>td<code> in HTML"
                 },
                 {
                   "type": "sentence",
-                  "text": "The <strong>td</strong> tag is used to define table cells (data). The table cells store data to be displayed in the table. For example,"
+                  "text": "The <code>td<code> tag is used to define table cells (data). The table cells store data to be displayed in the table. For example,"
                 },
                 {
                   "type": "code",
@@ -617,7 +621,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Table Border</strong>"
+                  "text": "Table Border"
                 },
                 {
                   "type": "sentence",
@@ -625,6 +629,7 @@
                 },
                 {
                   "type": "snippet",
+
                   "code": "<table border=\"1\">\n  ...\n</table>"
                 },
                 {
@@ -633,75 +638,80 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Note: </strong>We can have borders of various styles in tables, however for more specific borders, we need to use CSS."
+                  "text": "Note: We can have borders of various styles in tables, however for more specific borders, we need to use CSS."
                 },
+
                 {
                   "type": "snippet",
+
                   "code": "<table border=\"1\" style=\"border-collapse: collapse;\">\n  ...\n</table>"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Table Head, Body, and Footer</strong>"
+                  "text": "Table Head, Body, and Footer"
                 },
                 {
                   "type": "sentence",
-                  "text": "The HTML table can be divided into three parts: <strong>header</strong>, <strong>body</strong>, and <strong>footer</strong>."
+                  "text": "The HTML table can be divided into three parts: a header, a body, and a footer."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>1. Table Header</strong>"
+                  "text": "1. Table Header"
                 },
                 {
                   "type": "sentence",
-                  "text": "We use the <strong>thead</strong> tag to add a table head. The <strong>thead</strong> tag must come before any other tags inside a table. For example,"
+                  "text": "We use the <code>thead<code> tag to add a table head. The <code>thead<code> tag must come before any other tags inside a table. For example,"
                 },
                 {
                   "type": "snippet",
+
                   "code": "<table>\n  <thead>\n    <tr>\n        <th>Head1</th>\n        <th>Head2</th>\n    </tr>\n  </thead>\n\n  ...\n  ...\n</table>"
                 },
                 {
                   "type": "sentence",
-                  "text": "The content of <strong>thead</strong> is placed on the top part of the table and we usually place the rows with table headers inside the <strong>thead</strong> tag."
+                  "text": "The content of <code>thead<code> is placed on the top part of the table and we usually place the rows with table headers inside the <code>thead<code> tag."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>2. Table Body</strong>"
+                  "text": "2. Table Body"
                 },
                 {
                   "type": "sentence",
-                  "text": "We use the <strong>tbody</strong> tag to add a table body. The <strong>tbody</strong> tag must come after <strong>thead</strong> and before any other tags inside a table. For example,"
+                  "text": "We use the <code>tbody<code> tag to add a table body. The <code>tbody<code> tag must come after <code>thead<code> and before any other tags inside a table. For example,"
                 },
                 {
                   "type": "snippet",
+
                   "code": "<table>\n  <thead>\n    ...\n  </thead>\n  <tbody>\n    <tr>\n      <td>Cell 1</td>\n      <td>Cell 2</td>\n    </tr>\n  </tbody>\n\n  ...\n  ...\n</table>"
                 },
                 {
                   "type": "sentence",
-                  "text": "The content of <strong>tbody</strong> is placed on the center part of the table and we usually place the rows with the content we want to represent in the <strong>tbody</strong>."
+                  "text": "The content of <code>tbody<code> is placed on the center part of the table and we usually place the rows with the content we want to represent in the <code>tbody<code>."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>3. Table Footer</strong>"
+                  "text": "3. Table Footer"
                 },
                 {
                   "type": "sentence",
-                  "text": "We use the <strong>tfoot</strong> tag to add a table footer. The <strong>tfoot</strong> tag must come after <strong>tbody</strong> and before any other tags inside a table. For example,"
+                  "text": "We use the <code>tfoot<code> tag to add a table footer. The tfoot tag must come after tbody and before any other tags inside a table. For example,"
                 },
                 {
                   "type": "snippet",
-                  "code": "<table>\n  <thead>\n    ...\n  </thead>\n  <tbody>\n    ,,,,\n  </tbody>\n  <tfoot>\n    <tr>\n      <td>Last Cell 1</td>\n      <td>Last Cell 2</td>\n    </tr>\n  </tfoot>\n\n  ...\n  ...\n</table>"
+
+                  "code": "<table>\n  <thead>\n    ...\n  </thead>\n  <tbody>\n    ,,,,\n  </tbody>\n  <tfoot>\n    <tr>\n      <td>foot 1</td>\n      <td>foot 2</td>\n    </tr>\n  </tfoot>\n</table>"
                 },
                 {
                   "type": "sentence",
-                  "text": "The content of <strong>tfoot</strong> is placed at the bottom part of the table and we usually place the rows with totals or other bottom line information in the <strong>tfoot</strong>."
+                  "text": "The content of tbody is placed on the bottom part of the table and we usually place the rows with the footer in the <tfoot>."
                 },
                 {
                   "type": "sentence",
-                  "text": "All these tags must be placed inside a <strong>table</strong> and must contain at least one <strong>tr</strong>. For example,"
+                  "text": "All these tags must be placed inside a <code>table<code> and must contain at least one <code>tr<code>. For example,"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Example: </strong>HTML Table Head, Body, and Footer"
+                  "text": "Example: HTML Table Head, Body, and Footer"
                 },
                 {
                   "type": "code",
@@ -710,15 +720,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Colspan</strong> and <strong>Rowspan</strong>"
+                  "text": "Colspan and Rowspan"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Colspan</strong>"
+                  "text": "Colspan"
                 },
                 {
                   "type": "sentence",
-                  "text": "The <strong>colspan</strong> attribute merges cells across multiple columns. For example,"
+                  "text": "The colspan attribute merges cells across multiple columns. For example,"
                 },
                 {
                   "type": "code",
@@ -731,15 +741,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "The value of the <strong>colspan</strong> attribute determines how many columns the cell occupies."
+                  "text": "The value of the colspan attribute determines how many columns the cell occupies."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Rowspan</strong>"
+                  "text": "Rowspan"
                 },
                 {
                   "type": "sentence",
-                  "text": "The <strong>rowspan</strong> attribute merges cells across multiple rows. For example,"
+                  "text": "The rowspan attribute merges cells across multiple rows. For example,"
                 },
                 {
                   "type": "code",
@@ -752,7 +762,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "The value of the <strong>rowspan</strong> attribute determines how many rows the cell occupies."
+                  "text": "The value of the rowspan attribute determines how many rows the cell occupies."
                 }
               ],
               "locked": true
@@ -762,7 +772,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML lists</strong> are used to display related information in an easy-to-read and concise way as lists."
+                  "text": "HTML lists are used to display related information in an easy-to-read and concise way as lists."
                 },
                 {
                   "type": "sentence",
@@ -770,15 +780,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>1. Unordered List ul</strong>"
+                  "text": "1. Unordered List <code>ul<code>"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>2. Ordered List ol</strong>"
+                  "text": "2. Ordered List <code>ol<code>"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Unordered List</strong>"
+                  "text": "Unordered List"
                 },
                 {
                   "type": "sentence",
@@ -786,7 +796,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "In HTML, we use the <strong>ul</strong> tag to create unordered lists. Each item of the list must be a <strong>li</strong> tag which represents list items. For example,"
+                  "text": "In HTML, we use the <code>ul</code> tag to create unordered lists. Each item of the list must be a <code>li</code> tag which represents list items. For example,"
                 },
                 {
                   "type": "code",
@@ -799,7 +809,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Ordered List</strong>"
+                  "text": "Ordered List"
                 },
                 {
                   "type": "sentence",
@@ -807,7 +817,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "The <strong>ol</strong> tag is used to create ordered lists. Similar to unordered lists, each item in the ordered list must be a <strong>li</strong> tag. For example,"
+                  "text": "The <code>ol</code> tag is used to create ordered lists. Similar to unordered lists, each item in the ordered list must be a <code>li</code> tag. For example,"
                 },
                 {
                   "type": "code",
@@ -818,9 +828,10 @@
                   "type": "sentence",
                   "text": "Here, you can see list items are represented with numbers to represent a certain order."
                 },
+
                 {
                   "type": "sentence",
-                  "text": "<strong>Tags used in HTML lists</strong>"
+                  "text": "Tags used in HTML lists"
                 },
                 {
                   "type": "sentence",
@@ -828,15 +839,16 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>ol</strong> - Defines an ordered list."
+                  "text": "<code>ol</code> - Defines an ordered list."
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>ul</strong> - Defines an unordered list."
+                  "text": "<code>ul</code> - Defines an unordered list."
                 },
+
                 {
                   "type": "sentence",
-                  "text": "• <strong>li</strong> - Defines a list item in ordered or unordered lists."
+                  "text": "<code>liul</code> - Defines a list item in ordered or unordered lists."
                 }
               ],
               "locked": true
@@ -846,11 +858,11 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "We use the <strong>HTML unordered list</strong> to define a list where the sequence or order of the list items doesn't matter. We can use an unordered list for keeping track of groceries, supplies, and random objects."
+                  "text": "We use the HTML unordered list to define a list where the sequence or order of the list items doesn't matter. We can use an unordered list for keeping track of groceries, supplies, and random objects."
                 },
                 {
                   "type": "sentence",
-                  "text": "In HTML, we use the <strong>ul</strong> tag to create an unordered list. For example,"
+                  "text": "In HTML, we use the <code>ul</code> tag to create an unordered list. For example,"
                 },
                 {
                   "type": "code",
@@ -859,15 +871,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Each item of the list is enclosed inside the <strong>li</strong> tag and they are represented by the dot bullet point symbol."
+                  "text": "Each item of the list is enclosed inside the <code>li</code> tag and they are represented by the dot bullet point symbol."
                 },
                 {
                   "type": "sentence",
-                  "text": "By default, the symbol to represent an unordered list in HTML is a dot bullet point; however, we can change them as per our choice."
+                  "text": "By default, the symbol to represent an unordered list in HTML is a dot bullet point, however, we can change them as per our choice."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Nesting Lists</strong>"
+                  "text": "Nesting Lists"
                 },
                 {
                   "type": "sentence",
@@ -880,7 +892,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Ordered List inside Unordered List</strong>"
+                  "text": "Ordered List inside Unordered List"
                 },
                 {
                   "type": "sentence",
@@ -890,14 +902,6 @@
                   "type": "code",
                   "language": "html",
                   "code": "<ul>\n  <li>\n    Coffee\n    <ol>\n      <li>Cappuccino</li>\n      <li>Americano</li>\n      <li>Espresso</li>\n    </ol>\n  </li>\n  <li>\n    Tea\n    <ol>\n      <li>Milk Tea</li>\n      <li>Black Tea</li>\n    </ol>\n  </li>\n  <li>Milk</li>\n</ul>"
-                },
-                {
-                  "type": "sentence",
-                  "text": "<strong>Multi-level Nesting of Unordered List</strong>"
-                },
-                {
-                  "type": "sentence",
-                  "text": "In our examples, we are nesting the list up to a single level; however, we can also nest lists up to multiple levels. This might be important while creating lists like a Table of Contents. For example,"
                 }
               ],
               "locked": true
@@ -907,11 +911,11 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "We use the <strong>HTML ordered list</strong> to define a list where the sequence or order of the list items is important. We can use the HTML ordered list for recipes, algorithms, top ten lists, and so on."
+                  "text": "We use the HTML ordered list to define a list where the sequence or order of the list items is important. We can use the HTML ordered list for recipes, algorithms, top ten lists, and so on."
                 },
                 {
                   "type": "sentence",
-                  "text": "We use the <strong>ol</strong> tag to create an ordered list. For example,"
+                  "text": "We use the <code>ol</code> tag to create an ordered list. For example,"
                 },
                 {
                   "type": "code",
@@ -920,7 +924,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Each item of the list is enclosed inside the <strong>li</strong> tag and they are numbered by decimal numbers."
+                  "text": "Each item of the list is enclosed inside the <code>li</code> tag and they are numbered by decimal numbers."
                 }
               ],
               "locked": true
@@ -930,7 +934,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "The <strong>HTML Horizontal rule tag hr</strong> is used to insert a horizontal line between paragraphs. For example,"
+                  "text": "The HTML Horizontal rule tag, <code>hr</code>, is used to insert a horizontal line between paragraphs. For example,"
                 },
                 {
                   "type": "code",
@@ -939,15 +943,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "The <strong>hr</strong> tag is an empty tag, meaning it doesn't require a closing tag."
+                  "text": "The <code>hr</code> tag is an empty tag, meaning it doesn't require a closing tag."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML horizontal line to separate Page sections</strong>"
+                  "text": "HTML horizontal line to separate Page sections"
                 },
                 {
                   "type": "sentence",
-                  "text": "The <strong>hr</strong> tag is used to apply a thematic break in HTML. It is used when there is a change of topic or to specify separation between content. Commonly, a <strong>hr</strong> tag is used between sections in an article. For example,"
+                  "text": "The <code>hr</code> tag is used to apply a thematic break in HTML. It is used when there is a change of topic or to specify separation between content. Commonly, a <code>hr</code> tag is used between sections in an article. For example,"
                 },
                 {
                   "type": "code",
@@ -956,11 +960,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "As you can see, we use the <strong>hr</strong> tag to separate sections of a tutorial."
+                  "text": "As you can see, we use the <code>hr</code> tag to separate sections of a tutorial."
                 }
               ],
               "locked": true
-            }            
+            }
           ],
           "quiz": [
             {
@@ -1184,19 +1188,19 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• Inline Elements: <strong>span, a, strong, img</strong> etc."
+                  "text": "• Inline Elements: <pre>span, a, strong, img<pre> etc."
                 },
                 {
                   "type": "sentence",
-                  "text": "• Block Elements: <strong>p, div, h1, figure</strong> etc."
+                  "text": "• Block Elements: <pre>p, div, h1, figure</pre> etc."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML Inline Elements</strong>"
+                  "text": "HTML Inline Elements"
                 },
                 {
                   "type": "sentence",
-                  "text": "Inline elements are displayed on the same line. They do not start on a new line and take up only as much width as their contents require. An example of an inline element is the <strong>span</strong> tag."
+                  "text": "Inline elements are displayed on the same line. They do not start on a new line and take up only as much width as their contents require. An example of an inline element is the <code>span></code> tag."
                 },
                 {
                   "type": "code",
@@ -1218,15 +1222,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>a</strong> tag"
+                  "text": "• HTML <code>a</code> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>input</strong> tag"
+                  "text": "• HTML  <code>input</code> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>span</strong> tag"
+                  "text": "• HTML  <code>span</code> tag"
                 },
                 {
                   "type": "sentence",
@@ -1234,15 +1238,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>em</strong> tag"
+                  "text": "• HTML  <code>em</code> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>strong</strong> tag, etc."
+                  "text": "• HTML  <code>strong</code> tag, etc"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML Block Elements</strong>"
+                  "text": "HTML Block Elements"
                 },
                 {
                   "type": "sentence",
@@ -1272,19 +1276,19 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>div</strong> tag"
+                  "text": "• HTML  <code>div</code> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML Headings <strong>h1</strong> - <strong>h6</strong>"
+                  "text": "• HTML Headings <code>h1</code> - <h6>"
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>p</strong> tag, etc."
+                  "text": "• HTML <code>p</code> tag, etc"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>CSS with HTML Inline and Block Elements</strong>"
+                  "text": "CSS with HTML Inline and Block Elements"
                 },
                 {
                   "type": "sentence",
@@ -1319,7 +1323,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "We use the HTML <strong>a</strong> tag to create hyperlinks. The syntax for the <strong>a</strong> tag is"
+                  "text": "We use the HTML  <code>a</code> tag to create hyperlinks. The syntax for the  <code>a</code> tag is"
                 },
                 {
                   "type": "snippet",
@@ -1331,11 +1335,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>URL</strong> - the destination of the link"
+                  "text": "• URL - the destination of the link"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>Text</strong> - the part that will be visible as a link"
+                  "text": "• Text - the part that will be visible as a link"
                 },
                 {
                   "type": "sentence",
@@ -1352,15 +1356,16 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "\"https://codecrafts.online\""
+                  "text": "codecrafts.online"
+                },
+
+                {
+                  "type": "sentence",
+                  "text": "Image Links"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Image Links</strong>"
-                },
-                {
-                  "type": "sentence",
-                  "text": "You can insert almost any content inside a <strong>a</strong> tag to make it a link. Hence, we can also use images as a link."
+                  "text": "You can insert almost any content inside a  <code>a</code> tag to make it a link. Hence, we can also use images as a link."
                 },
                 {
                   "type": "code",
@@ -1369,7 +1374,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>target Attribute</strong>"
+                  "text": "target Attribute"
                 },
                 {
                   "type": "sentence",
@@ -1382,7 +1387,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, <strong>target=\"_blank\"</strong> opens the link in a new browser tab."
+                  "text": "Here,  <code>target=\"_blank\"</code> opens the link in a new browser tab."
                 },
                 {
                   "type": "sentence",
@@ -1390,19 +1395,19 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>_self</strong> : (Default) Opens the link in the same browser tab."
+                  "text": "_self : (Default) Opens the link in the same browser tab."
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>_blank</strong> : Opens the link in a new browser tab."
+                  "text": "_blank : Opens the link in a new browser tab."
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>_parent</strong> : Opens the link in the parent frame."
+                  "text": "_parent : Opens the link in the parent frame."
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>_top</strong> : Opens the link in the current tab window (topmost parent)."
+                  "text": "_top : Opens the link in the current tab window (topmost parent)."
                 }
               ],
               "locked": true
@@ -1412,7 +1417,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "The <strong>HTML img tag</strong> embeds an image within the HTML web page. For example,"
+                  "text": "The HTML  <code>img</code> tag embeds an image within the HTML web page. For example,"
                 },
                 {
                   "type": "code",
@@ -1437,11 +1442,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Note: </strong>The  <strong>img</strong> tag is an empty tag, i.e. It doesn't require a closing tag."
+                  "text": "Note: The  <code>img</code> tag is an empty tag, i.e. It doesn't require a closing tag."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML Image src Attribute</strong>"
+                  "text": "HTML Image src Attribute"
                 },
                 {
                   "type": "sentence",
@@ -1466,7 +1471,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML Image alt Attribute</strong>"
+                  "text": "HTML Image alt Attribute"
                 },
                 {
                   "type": "sentence",
@@ -1475,7 +1480,7 @@
                 {
                   "type": "code",
                   "language": "html",
-                  "code": "<img src=\"computer.png\" alt=\"A standard Computer\">"
+                  "code": "<img src=\"/computer.png\" alt=\"A standard Computer\">"
                 },
                 {
                   "type": "sentence",
@@ -1484,7 +1489,7 @@
 
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML Image title Attribute</strong>"
+                  "text": "HTML Image title Attribute"
                 },
                 {
                   "type": "sentence",
@@ -1497,7 +1502,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML Image Size - Width and Height</strong>"
+                  "text": "HTML Image Size - Width and Height"
                 },
                 {
                   "type": "sentence",
@@ -1522,7 +1527,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Note: </strong>The above two code samples give the same output, however, it is best practice to use the style attribute rather than the height and width attributes."
+                  "text": "Note: The above two code samples give the same output, however, it is best practice to use the style attribute rather than the height and width attributes."
                 },
                 {
                   "type": "sentence",
@@ -1530,23 +1535,23 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>GIF (Graphics Interchange Format) </strong>with the extension .gif"
+                  "text": "<strong>GIF (Graphics Interchange Format) </strong>with the extension .gif"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>PNG (Portable Network Graphics)</strong> with the extension .png"
+                  "text": "<strong>PNG (Portable Network Graphics)</strong> with the extension .png"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>SVG (Scalable Vector Graphics) </strong>with the extension .svg"
+                  "text": "<strong>SVG (Scalable Vector Graphics) </strong>with the extension .svg"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>JPEG (Joint Photographic Expert Group)</strong> with extensions .jpg or .jpeg"
+                  "text": "<strong>JPEG (Joint Photographic Expert Group)</strong> with extensions .jpg or .jpeg"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>WEBP (Web Picture)</strong> with the extension .webp."
+                  "text": "<strong>WEBP (Web Picture)</strong> with the extension .webp."
                 }
               ],
               "locked": true
@@ -1556,7 +1561,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "We use the HTML <strong>b</strong> tag or the HTML <strong>strong</strong> tag to make text bold. For example,"
+                  "text": "We use the HTML <code>b</code> tag or the HTML <code>strong</code> tag to make text bold. For example,"
                 },
                 {
                   "type": "code",
@@ -1565,23 +1570,23 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML b vs strong Tag</strong>"
+                  "text": "HTML <code>b</code> vs <code>strong</code> Tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "Both <strong>b</strong> and <strong>strong</strong> tags make the text inside them bold, and there is no difference in how browsers render these tags."
+                  "text": "Both b and strong tags make the text inside them bold, and there is no difference in how browsers render these tags."
                 },
                 {
                   "type": "sentence",
-                  "text": "However, the <strong>strong</strong> tag is a semantic tag that indicates the text content is of strong importance, seriousness, or urgency (for example, Warning! Falling rocks), whereas the <strong>b</strong> tag has no semantic meaning and only makes the text bold."
+                  "text": "However, the <code>strong</code> tag is a semantic tag that indicates the text content is of strong importance, seriousness, or urgency (for example, Warning! Falling rocks), whereas the <code>b</code> tag has no semantic meaning and only makes the text bold."
                 },
                 {
                   "type": "sentence",
-                  "text": "Hence, it is generally preferred to use the HTML <strong>strong</strong> tag."
+                  "text": "Hence, it is generally preferred to use the HTML <code>strong</code> tag."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Note: </strong>You can also use the CSS property font-weight to make the text bold."
+                  "text": "Note: You can also use the CSS property font-weight to make the text bold."
                 }
               ],
               "locked": true
@@ -1591,11 +1596,11 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "HTML provides us with several tags to help format text, such as <strong>b</strong> for bold, <strong>i</strong> for italic, and <strong>u</strong> for underlining. These tags are divided into two categories: Physical Tags and Semantic Tags."
+                  "text": "HTML provides us with several tags to help format text, such as <code>b</code> for bold, <code>i</code> for italic, and <code>u</code> for underlining. These tags are divided into two categories: Physical Tags and Semantic Tags."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Physical Tags: </strong>These tags are presentational. They don't add extra meaning to the text."
+                  "text": "Physical Tags: These tags are presentational. They don't add extra meaning to the text."
                 },
                 {
                   "type": "code",
@@ -1604,11 +1609,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, the <strong>i</strong> tag is only for text styling and has no other meaning."
+                  "text": "Here, the <code>i</code> tag is only for text styling and has no other meaning."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Semantic Tags: </strong>These tags add some special meaning to the text along with styling."
+                  "text": "Semantic Tags: These tags add some special meaning to the text along with styling."
                 },
                 {
                   "type": "code",
@@ -1617,15 +1622,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, the <strong>em</strong> tag is used to emphasize text. Screen readers also emphasize text inside the <strong>em</strong> tag while reading."
+                  "text": "Here, the <code>em</code> tag is used to emphasize text. Screen readers also emphasize text inside the <code>em</code> tag while reading."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Note: </strong>The formatting tags are mostly inline tags like <strong>b</strong>, <strong>u</strong>, <strong>i</strong>, etc., and are used for styling texts."
+                  "text": "Note: The formatting tags are mostly inline tags like <strong>b</strong>, <strong>u</strong>, <strong>i</strong>, etc., and are used for styling texts."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML Formatting tags</strong>"
+                  "text": "HTML Formatting tags"
                 },
                 {
                   "type": "sentence",
@@ -1633,23 +1638,23 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>b</strong> tag - Bold Text"
+                  "text": "• <code>b</code> tag - Bold Text"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>i</strong> tag - Italic Text"
+                  "text": "• <code>i</code> tag - Italic Text"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>u</strong> tag - Underlined Text"
+                  "text": "• <code>u</code> tag - Underlined Text"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>strong</strong> tag - Strong Text"
+                  "text": "• <code>strong</code> tag - Strong Text"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>em</strong> tag - Emphasized Text"
+                  "text": "• <code>em</code> tag - Emphasized Text"
                 }
               ],
               "locked": true
@@ -1792,7 +1797,7 @@
               "description": "Utilize HTML links and images to create an interactive webpage. Incorporate various link types and image attributes to see their effects.",
               "language": "HTML",
               "difficulty": "hard",
-              "problemStatement": "Create an HTML page with the following elements:\n1. Add a link to an external website (opens up a new tab) using the <a> tag with the text 'Visit CodeCraft' and a link of 'https://www.codecrafts.online/'.\n2. Add an image('/cat.png') link using the <a> tag to link to an external site('https://www.codecrafts.online/'). Inside this link, include an <img> tag with a source (src) and alt text.",
+              "problemStatement": "Create an HTML page with the following elements:\n1. Add a link to an external website (opens up a new tab target='_blank') using the <a> tag with the text 'Visit CodeCraft' and a link of 'https://www.codecraft.com'.\n2. Add an image('/cat.png') link using the <a> tag to link to an external site('https://www.codecraft.com'). Inside this link, include an <img> tag with a source (src) and alt text.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n</head>\n<body>\n</body>\n</html>",
                 "css": "",
@@ -1801,13 +1806,13 @@
               "testCases": [
                 {
                   "input": "",
-                  "output": "<!DOCTYPE html><html><head><style>.link { display: block; margin-bottom: 10px; } .img { width: 200px; height: 200px; border: 1px solid black; }</style></head><body><a href=\"https://www.codecrafts.online/\" target=\"_blank\">Visit CodeCraft</a><a href=\"https://www.codecrafts.online/\"><img src=\"/cat.png\" alt=\"CodeCraft Logo\"></a></body></html>",
+                  "output": "<!DOCTYPE html><html><head><style>.link { display: block; margin-bottom: 10px; } .img { width: 200px; height: 200px; border: 1px solid black; }</style></head><body><a href=\"https://www.codecraft.com\" target=\"_blank\">Visit CodeCraft</a><a href=\"https://www.codecraft.com\"><img src=\"/cat.png\" alt=\"CodeCraft Logo\"></a></body></html>",
                   "required": [
-                    "<a href=\"https://www.codecrafts.online/\" target=\"_blank\">Visit CodeCraft</a>",
-                    "<a href=\"https://www.codecrafts.online/\"><img src=\"/cat.png\""
+                    "<a href=\"https://www.codecraft.com\" target=\"_blank\">Visit CodeCraft</a>",
+                    "<a href=\"https://www.codecraft.com\"><img src=\"/cat.png\""
                   ],
                   "testCaseSentences": [
-                    "Include a hyperlink that redirects a new uset to the specified link and opens up a new page.",
+                    "Include a hyperlink that redirects a new user to the specified link and opens up a new page.",
                     "Include an image link"
                   ],
                   "expectedImage": "/activities/htmlacts/3.3.png",
@@ -1841,43 +1846,43 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Note: </strong>The head and the body sections together make up the HTML document."
+                  "text": "Note: The head and the body sections together make up the HTML document."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Elements of head Tag</strong>"
+                  "text": "Elements of head Tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "The HTML <strong>head</strong> tag can contain the following tags:"
+                  "text": "The HTML <code>head</code> tag can contain the following tags:"
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>title</strong> tag"
+                  "text": "• HTML <code>title</code> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>meta</strong> tag"
+                  "text": "• HTML <code>meta</code> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>link</strong> tag"
+                  "text": "• HTML <code>link</code> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>style</strong> tag"
+                  "text": "• HTML <code>style</code> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>script</strong> tag"
+                  "text": "• HTML <code>script</code> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>base</strong> tag"
+                  "text": "• HTML <code>base</code> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML title tag</strong>"
+                  "text": "HTML title tag"
                 },
                 {
                   "type": "sentence",
@@ -1889,7 +1894,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML meta tag</strong>"
+                  "text": "HTML meta tag"
                 },
                 {
                   "type": "sentence",
@@ -1901,7 +1906,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML link tag</strong>"
+                  "text": "HTML link tag"
                 },
                 {
                   "type": "sentence",
@@ -1917,11 +1922,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Note: </strong>It is mostly used to add stylesheets and favicons."
+                  "text": "Note: It is mostly used to add stylesheets and favicons."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML style tag</strong>"
+                  "text": "HTML style tag"
                 },
                 {
                   "type": "sentence",
@@ -1937,7 +1942,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML script tag</strong>"
+                  "text": "HTML script tag"
                 },
                 {
                   "type": "sentence",
@@ -1961,7 +1966,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, using the <strong>script</strong> tag, we can add JavaScript features from main.js in our HTML document."
+                  "text": "Here, using the <script> tag, we can add JavaScript features from main.js in our HTML document."
+                },
+                {
+                  "type": "sentence",
+                  "text": "Complete Example"
                 },
                 {
                   "type": "sentence",
@@ -1969,7 +1978,8 @@
                 },
                 {
                   "type": "snippet",
-                  "code": "<head>\n  <title>HTML Head Article</title>\n\n  <meta charset=\"UTF-8\">\n  <meta name=\"description\" content=\"HTML Tutorial\">\n  <meta name=\"keywords\" content=\"HTML, Learn, Tutorial\">\n  <meta name=\"author\" content=\"codecraft team\">\n\n  <base href=\"https://www.codecrafts.online/\" target=\"_blank\">\n\n  <link href=\"/styles/index.css\" rel=\"stylesheet\">\n\n  <script src=\"scripts/main.js\">\n</head>"
+
+                  "code": "<head>\n  <title>HTML Head Article</title>\n\n  <meta charset=\"UTF-8\">\n  <meta name=\"description\" content=\"HTML Tutorial\">\n  <meta name=\"keywords\" content=\"HTML, Learn, Tutorial\">\n  <meta name=\"author\" content=\"codecraft team\">\n\n  <base href=\"https://codecraft.com\" target=\"_blank\">\n\n  <link href=\"/styles/index.css\" rel=\"stylesheet\">\n\n  <script src=\"scripts/main.js\">\n</head>"
                 }
               ],
               "locked": true
@@ -1979,15 +1989,15 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "The HTML <code>meta</code> tag is used to represent <strong>metadata</strong> about the HTML document."
+                  "text": "The HTML <code>meta</code> tag is used to represent metadata about the HTML document."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Metadata</strong> refers to the information about data (data about the HTML document). The metadata consists of information like charset attribute, name attribute, http-equiv attribute, etc."
+                  "text": "Metadata refers to the information about data (data about the HTML document). The metadata consists of information like charset attribute, name attribute, http-equiv attribute, etc."
                 },
                 {
                   "type": "sentence",
-                  "text": "The <code>meta</code> tag should always go inside the <strong>&lt;head&gt;</strong> element. For example,"
+                  "text": "The <code>meta</code> tag should always go inside the <head> element. For example,"
                 },
                 {
                   "type": "snippet",
@@ -1995,7 +2005,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, <strong>'meta charset=\"utf-8\"'</strong> tells the browser to use the UTF-8 character encoding to convert machine code into human-readable code."
+                  "text": "Here, 'meta charset=\"utf-8\"' tells the browser to use the UTF-8 character encoding to convert machine code into human-readable code."
                 },
                 {
                   "type": "snippet",
@@ -2003,11 +2013,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "It helps to display an HTML page correctly in the browser. <strong>UTF-8</strong> is the only valid encoding for HTML5 documents."
+                  "text": "It helps to display an HTML page correctly in the browser. UTF-8 is the only valid encoding for HTML5 documents."
                 }
               ],
               "locked": true
-            }            
+            }
           ],
           "quiz": [
             {
@@ -2163,15 +2173,15 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "An <strong>HTML Form</strong> is a section of the document that collects input from the user. The input from the user is generally sent to a server (<strong>Web servers</strong>, <strong>Mail clients</strong>, etc). We use the HTML <code>form</code> element to create forms in HTML."
+                  "text": "An HTML Form is a section of the document that collects input from the user. The input from the user is generally sent to a server (Web servers, Mail clients, etc). We use the HTML <code>form</code> element to create forms in HTML."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Example: </strong>HTML Form"
+                  "text": "Example: HTML Form"
                 },
                 {
                   "type": "sentence",
-                  "text": "The HTML <strong>form</strong> element is used to create HTML forms. For example,"
+                  "text": "The HTML <code>form</code> element is used to create HTML forms. For example,"
                 },
                 {
                   "type": "code",
@@ -2180,11 +2190,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML Form Elements</strong>"
+                  "text": "HTML Form Elements"
                 },
                 {
                   "type": "sentence",
-                  "text": "A form contains special interactive elements that users use to send the input. They are <strong>text inputs</strong>, <strong>textarea fields</strong>, <strong>checkboxes</strong>, <strong>dropdowns</strong>, and much more. For example,"
+                  "text": "A form contains special interactive elements that users use to send the input. They are text inputs, textarea fields, checkboxes, dropdowns, and much more. For example,"
                 },
                 {
                   "type": "code",
@@ -2193,7 +2203,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Form Attributes</strong>"
+                  "text": "Form Attributes"
                 },
                 {
                   "type": "sentence",
@@ -2201,11 +2211,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>action</strong>"
+                  "text": "action"
                 },
                 {
                   "type": "sentence",
-                  "text": "The action attributes define the action to be performed when the form is submitted. It is usually the <strong>url</strong> for the server where the form data is to be sent."
+                  "text": "The action attributes define the action to be performed when the form is submitted. It is usually the url for the server where the form data is to be sent."
                 },
                 {
                   "type": "code",
@@ -2214,11 +2224,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "In the above example, when the form is submitted, the data from the form is sent to <strong>/login</strong>."
+                  "text": "In the above example, when the form is submitted, the data from the form is sent to /login."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>method</strong>"
+                  "text": "method"
                 },
                 {
                   "type": "sentence",
@@ -2226,43 +2236,46 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>post</strong> - It is used to send data to a server to update a resource."
+                  "text": "• post - It is used to send data to a server to update a resource."
                 },
                 {
                   "type": "snippet",
+
                   "code": "<form method=\"post\">\n...\n</form>"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>get</strong>: It is used to request data from a specified resource."
+                  "text": "• get: It is used to request data from a specified resource."
                 },
                 {
                   "type": "snippet",
+
                   "code": "<form method='get'>\n...\n</form>"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>dialog</strong>: This method is used when the form is inside a <dialog> element. Using this method closes the dialog and sends a form-submit event."
+                  "text": "• dialog: This method is used when the form is inside a <dialog> element. Using this method closes the dialog and sends a form-submit event."
                 },
                 {
                   "type": "sentence",
-                  "text": "To learn more about HTTP methods <strong>GET</strong> and <strong>POST</strong>, visit <strong>HTML Form Action</strong>: POST and GET."
+                  "text": "To learn more about HTTP methods GET and POST, visit HTML Form Action: POST and GET."
                 },
                 {
                   "type": "sentence",
-                  "text": "It specifies how the form data should be encoded for the request. It is only applicable if we use the <strong>POST</strong> method."
+                  "text": "It specifies how the form data should be encoded for the request. It is only applicable if we use the POST method."
                 },
                 {
                   "type": "snippet",
+
                   "code": "<form method=\"post\" enctype=\"application/x-www-form-urlencoded\">\n</form>"
                 },
                 {
                   "type": "sentence",
-                  "text": "In the above example, data from the form will be encoded in the <strong>x-www-form-urlencoded</strong> format (which is the default encoding format)."
+                  "text": "In the above example, data from the form will be encoded in the x-www-form-urlencoded format (which is the default encoding format)."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>name</strong>"
+                  "text": "name"
                 },
                 {
                   "type": "sentence",
@@ -2275,7 +2288,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>novalidate</strong>"
+                  "text": "novalidate"
                 },
                 {
                   "type": "sentence",
@@ -2288,11 +2301,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "In the above example, the form will be submitted even if we enter some invalid value in the email field, such as <strong>'Hi'</strong>."
+                  "text": "In the above example, the form will be submitted even if we enter some invalid value in the email field, such as 'Hi'."
                 }
               ],
               "locked": true
-            },            
+            },
             {
               "title": "HTML Form Elements",
               "content": [
@@ -2307,7 +2320,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, <strong>input</strong> and <strong>label</strong> are all HTML Form Elements."
+                  "text": "Here, <code>input</code> and <code>label</code> are all HTML Form Elements."
                 },
                 {
                   "type": "sentence",
@@ -2315,52 +2328,54 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>input</strong> tag"
+                  "text": "• HTML <code>input</code> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>label</strong> tag"
+                  "text": "• HTML <code>label</code> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>button</strong> tag"
+                  "text": "• HTML <code>button</code> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>select</strong> and <strong>option</strong> tags"
+                  "text": "• HTML <code>select</code> and <code>option</code> tags"
                 },
                 {
                   "type": "sentence",
-                  "text": "• HTML <strong>textarea</strong> tag"
+                  "text": "• HTML <code>textarea</code> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML input tag</strong>"
+                  "text": "HTML <code>input</code> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "The HTML <strong>input</strong> tag defines the field where the user can enter data. For example,"
+                  "text": "The HTML <code>input</code> tag defines the field where the user can enter data. For example,"
                 },
                 {
                   "type": "code",
                   "language": "html",
                   "code": "<input type=\"text\" name=\"firstname\">"
                 },
+
                 {
                   "type": "sentence",
-                  "text": "• <strong>type</strong> - determines the type of input the input tag takes"
+                  "text": "• <code>type</code> - determines the type of input the input tag takes"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>name</strong> - specifies the name of the input"
+                  "text": "• <code>name</code> - specifies the name of the input"
+                },
+
+                {
+                  "type": "sentence",
+                  "text": "HTML <code>label</tag> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML label tag</strong>"
-                },
-                {
-                  "type": "sentence",
-                  "text": "The HTML <strong>label</strong> tag is used to create a caption for a form element. The text inside the <strong>label</strong> tag is shown to the user."
+                  "text": "The HTML<code>label</code>tag is used to create a caption for a form element. The text inside the <code>label<code> tag is shown to the user."
                 },
                 {
                   "type": "code",
@@ -2369,11 +2384,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "The <strong>for</strong> attribute is used to associate a label with the form element. The value for the for attribute is set as the id of the form element, which is 'firstname' in the above example."
+                  "text": "The <code>for</code> attribute is used to associate a label with the form element. The value for the for attribute is set as the id of the form element which is firstname in the above example."
                 },
                 {
                   "type": "sentence",
-                  "text": "HTML Label is mainly used for accessibility, as screen-readers read out the label associated with the field, and it also improves user experience as clicking on the label also focuses on the input field."
+                  "text": "HTML Label is mainly used for accessibility as screen-readers read out the label associated with the field and it also improves user experience as clicking on the label also focuses on the input field."
                 },
                 {
                   "type": "sentence",
@@ -2381,11 +2396,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>HTML button tag</strong>"
+                  "text": "HTML <code>button</code> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "The HTML <strong>button</strong> element is an interactive element that is activated by a user with a mouse, keyboard, finger, voice command, or other assistive technology."
+                  "text": "The HTML <code>button</code> element is an interactive element that is activated by a user with a mouse, keyboard, finger, voice command, or other assistive technology."
                 },
                 {
                   "type": "sentence",
@@ -2398,15 +2413,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "The <strong>type</strong> attribute determines the action performed by clicking the button. It has 3 possible values:"
+                  "text": "The type attribute determines the action performed by clicking the button. It has 3 possible values:"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>submit</strong>"
+                  "text": "• submit"
                 },
                 {
                   "type": "sentence",
-                  "text": "If the value of <strong>type</strong> is submit, the button click action submits the form. For example,"
+                  "text": "If the value of type is submit, the button click action submits the form. For example,"
                 },
                 {
                   "type": "code",
@@ -2415,11 +2430,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>reset</strong>"
+                  "text": "• reset"
                 },
                 {
                   "type": "sentence",
-                  "text": "If the value of <strong>type</strong> is reset, the button click action resets the value of all form elements to their initial value. For example,"
+                  "text": "If the value of type is reset, the button click action resets the value of all form elements to their initial value. For example,"
                 },
                 {
                   "type": "code",
@@ -2428,11 +2443,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>button</strong>"
+                  "text": "• button"
                 },
                 {
                   "type": "sentence",
-                  "text": "If the value of <strong>type</strong> is button, the button click action does not have a default function. Generally, JavaScript is used to add functionality to such buttons. For example,"
+                  "text": "If the value of type is button, the button click action does not have a default function. Generally, javascript is used to add functionality to such buttons. For example,"
                 },
                 {
                   "type": "code",
@@ -2441,11 +2456,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "HTML <strong>select</strong> and <strong>option</strong> tags"
+                  "text": "HTML <code>select</code>, <code>option</code> tags"
                 },
                 {
                   "type": "sentence",
-                  "text": "The HTML <strong>select</strong> tag is used to create a menu of options. Each of the options is represented by the <strong>option</strong> tag. For example,"
+                  "text": "The HTML <code>select</code> tag is used to create a menu of options. Each of the options is represented by the <code>option</code> tag. For example,"
                 },
                 {
                   "type": "code",
@@ -2454,16 +2469,16 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "</strong>HTML textarea tag</strong>"
+                  "text": "HTML <code>textarea</code> tag"
                 },
                 {
                   "type": "sentence",
-                  "text": "The HTML <strong>textarea</strong> tag is used to define a customizable multiline text input field. For example,"
+                  "text": "The HTML <code>textarea</code> tag is used to define a customizable multiline text input field. For example,"
                 },
                 {
                   "type": "code",
                   "language": "html",
-                  "code": "<textarea rows=\"10\" cols=\"30\">Type something…</textarea>"
+                  "code": "<textarea rows=\"10\" cols=\"30\"> Type something…</textarea>"
                 },
                 {
                   "type": "sentence",
@@ -2477,7 +2492,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "The HTML <strong>input</strong> tag defines the field where the user can enter data. The type attribute determines what type of user input is taken."
+                  "text": "The HTML <code>input</code> tag defines the field where the user can enter data. The type attribute determines what type of user input is taken."
                 },
                 {
                   "type": "code",
@@ -2486,19 +2501,19 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Here,"
+                  "text": "Here"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>type</strong> - determines the type of input the <input> tag takes"
+                  "text": "• type - determines the type of input the <input> tag takes"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>name</strong> - specifies the name of the input which is what the data is named as when submitting the data to a server."
+                  "text": "• name - specifies the name of the input which is what the data is named as when submitting the data to a server."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Different Input Types</strong>"
+                  "text": "Different Input Types"
                 },
                 {
                   "type": "sentence",
@@ -2506,91 +2521,91 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>1. text</strong> - creates a single-line text fields (default)"
+                  "text": "1. text - creates a single-line text fields (default)"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>2. button</strong> - creates a button with no default functionality"
+                  "text": "2. button - creates a button with no default functionality"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>3. checkbox</strong> - creates a checkbox"
+                  "text": "3. checkbox - creates a checkbox"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>4. color</strong> - creates a color picker"
+                  "text": "4. color - creates a color picker"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>5. date</strong> - creates a date picker"
+                  "text": "5. date - creates a date picker"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>6. datetime-local</strong> - creates a date and time picker"
+                  "text": "6. datetime-local - creates a date and time picker"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>7. email</strong> - creates an input field that allows the user to input a valid email address"
+                  "text": "7. email - creates an input field that allows the user to input a valid email address"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>8. file</strong> - creates an input field that lets the user upload a file or multiple files"
+                  "text": "8. file - creates an input field that lets the user upload a file or multiple files"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>9. hidden</strong> - creates an invisible input field"
+                  "text": "9. hidden - creates an invisible input field"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>10. image</strong> - creates a button using an image"
+                  "text": "10. image - creates a button using an image"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>11. month</strong> - creates an input field that lets the user enter month and year"
+                  "text": "11. month - creates an input field that lets the user enter month and year"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>12. password</strong> - creates an input field that lets the user enter information securely"
+                  "text": "12. password - creates an input field that lets the user enter information securely"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>13. radio</strong> - creates a radio button"
+                  "text": "13. radio - creates a radio button"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>14. range</strong> - creates a range picker from which the user can select the value"
+                  "text": "14. range - creates a range picker from which the user can select the value"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>15. reset</strong> - creates the button which clears all the form values to their default value"
+                  "text": "15. reset - creates the button which clears all the form values to their default value"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>16. search</strong> - allows user to enter their search queries in the text fields"
+                  "text": "16. search - allows user to enter their search queries in the text fields"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>17. submit</strong> - allows user to submit form to the server"
+                  "text": "17. submit - allows user to submit form to the server"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>18. tel</strong> - defines the field to enter a telephone number"
+                  "text": "18. tel - defines the field to enter a telephone number"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>19. time</strong> - creates an input field that accepts time value"
+                  "text": "19. time - creates an input field that accepts time value"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>20. url</strong> - lets the user enter and edit a URL"
+                  "text": "20. url - lets the user enter and edit a URL"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>21. week</strong> - lets the user pick a week and a year from a calendar"
+                  "text": "21. week - lets the user pick a week and a year from a calendar"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>1. Input Type text</strong>"
+                  "text": "1. Input Type text"
                 },
                 {
                   "type": "sentence",
@@ -2616,11 +2631,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Note: </strong>If the type attribute is not provided, the tag becomes the type of text."
+                  "text": "Note: If the type attribute is not provided, the tag becomes the type of text."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>2. Input Type button</strong>"
+                  "text": "2. Input Type button"
                 },
                 {
                   "type": "sentence",
@@ -2637,11 +2652,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Note: </strong>Generally, JavaScript is used to add functionality to such buttons."
+                  "text": "Note: Generally, JavaScript is used to add functionality to such buttons."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>3. Input Type checkbox</strong>"
+                  "text": "3. Input Type checkbox"
                 },
                 {
                   "type": "sentence",
@@ -2662,7 +2677,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>4. Input Type color</strong>"
+                  "text": "4. Input Type color"
                 },
                 {
                   "type": "sentence",
@@ -2679,7 +2694,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>5. Input Type date</strong>"
+                  "text": "5. Input Type date"
                 },
                 {
                   "type": "sentence",
@@ -2692,7 +2707,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>6. Input Type datetime-local</strong>"
+                  "text": "6. Input Type datetime-local"
                 },
                 {
                   "type": "sentence",
@@ -2705,7 +2720,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>7. Input Type email</strong>"
+                  "text": "7. Input Type email"
                 },
                 {
                   "type": "sentence",
@@ -2722,7 +2737,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>8. Input Type file</strong>"
+                  "text": "8. Input Type file"
                 },
                 {
                   "type": "sentence",
@@ -2735,7 +2750,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>9. Input Type hidden</strong>"
+                  "text": "9. Input Type hidden"
                 },
                 {
                   "type": "sentence",
@@ -2748,7 +2763,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>10. Input Type image</strong>"
+                  "text": "10. Input Type image"
                 },
                 {
                   "type": "sentence",
@@ -2770,7 +2785,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>11. Input Type month</strong>"
+                  "text": "11. Input Type month"
                 },
                 {
                   "type": "sentence",
@@ -2783,7 +2798,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>12. Input Type password</strong>"
+                  "text": "12. Input Type password"
                 },
                 {
                   "type": "sentence",
@@ -2800,7 +2815,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>13. Input Type radio</strong>"
+                  "text": "13. Input Type radio"
                 },
                 {
                   "type": "sentence",
@@ -2821,11 +2836,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Note: </strong>The name attribute is used as the key for the data when submitting the form."
+                  "text": "Note: The name attribute is used as the key for the data when submitting the form."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>14. Input Type range</strong>"
+                  "text": "14. Input Type range"
                 },
                 {
                   "type": "sentence",
@@ -2838,7 +2853,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>15. Input Type reset</strong>"
+                  "text": "15. Input Type reset"
                 },
                 {
                   "type": "sentence",
@@ -2851,7 +2866,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>16. Input Type search</strong>"
+                  "text": "16. Input Type search"
                 },
                 {
                   "type": "sentence",
@@ -2864,11 +2879,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Note: </strong>The search input does not work as a search unless we use some JavaScript to do the search calculation."
+                  "text": "Note: The search input does not work as a search unless we use some JavaScript to do the search calculation."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>17. Input Type submit</strong>"
+                  "text": "17. Input Type submit"
                 },
                 {
                   "type": "sentence",
@@ -2885,7 +2900,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>18. Input Type tel</strong>"
+                  "text": "18. Input Type tel"
                 },
                 {
                   "type": "sentence",
@@ -2902,7 +2917,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>19. Input Type time</strong>"
+                  "text": "19. Input Type time"
                 },
                 {
                   "type": "sentence",
@@ -2915,7 +2930,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>20. Input Type url</strong>"
+                  "text": "20. Input Type url"
                 },
                 {
                   "type": "sentence",
@@ -2932,7 +2947,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>21. Input Type week</strong>"
+                  "text": "21. Input Type week"
                 },
                 {
                   "type": "sentence",
@@ -2951,7 +2966,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "The method attribute in the <strong>form</strong> element specifies how the data is sent to the server."
+                  "text": "The method attribute in the <code>form</code> element specifies how the data is sent to the server."
                 },
                 {
                   "type": "sentence",
@@ -2959,15 +2974,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>GET method</strong> - used to request data from a specified resource"
+                  "text": "• GET method - used to request data from a specified resource"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>POST method</strong> - used to send data to a server to update a resource"
+                  "text": "• POST method - used to send data to a server to update a resource"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>The GET Method</strong>"
+                  "text": "The GET Method"
                 },
                 {
                   "type": "sentence",
@@ -2976,11 +2991,11 @@
                 {
                   "type": "code",
                   "language": "html",
-                  "code": "<form method=\"get\" action=\"https://www.codecrafts.online/search\">\n    <input type=\"search\" name=\"location\" placeholder=\"Search..\" />\n    <input type=\"submit\" value=\"Go\" />\n</form>"
+                  "code": "<form method=\"get\" action=\"www.codecraft.com/search\">\n    <input type=\"search\" name=\"location\" placeholder=\"Search..\" />\n    <input type=\"submit\" value=\"Go\" />\n</form>"
                 },
                 {
                   "type": "sentence",
-                  "text": "When we submit the above form by entering California in the input field, the request sent to the server will be https://www.codecrafts.online/search/?location=California."
+                  "text": "When we submit the above form by entering California in the input field, the request sent to the server will be www.codecraft.com/search/?location=California."
                 },
                 {
                   "type": "sentence",
@@ -2992,19 +3007,19 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>key</strong> - location"
+                  "text": "• key - location"
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>value</strong> - California"
+                  "text": "• value - California"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Note: </strong>If there is more than one query, the query string will be separated by a & symbol."
+                  "text": "Note: If there is more than one query, the query string will be separated by a & symbol."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>The POST Method</strong>"
+                  "text": "The POST Method"
                 },
                 {
                   "type": "sentence",
@@ -3013,7 +3028,7 @@
                 {
                   "type": "code",
                   "language": "html",
-                  "code": "<form method=\"post\" action=\"https://www.codecrafts.online/user\">\n    <label for=\"firstname\">First name:</label>\n    <input type=\"text\" name=\"firstname\" /><br />\n    <label for=\"lastname\">Last name:</label>\n    <input type=\"text\" name=\"lastname\" /><br />\n    <input type=\"submit\" />\n</form>"
+                  "code": "<form method=\"post\" action=\"www.codecraft.com/user\">\n    <label for=\"firstname\">First name:</label>\n    <input type=\"text\" name=\"firstname\" /><br />\n    <label for=\"lastname\">Last name:</label>\n    <input type=\"text\" name=\"lastname\" /><br />\n    <input type=\"submit\" />\n</form>"
                 },
                 {
                   "type": "sentence",
@@ -3021,7 +3036,7 @@
                 },
                 {
                   "type": "snippet",
-                  "code": "POST /user HTTP/2.0\nHost: https://www.codecrafts.online/\nContent-Type: application/x-www-form-urlencoded\nContent-Length: 33\n\nfirstname=Robin&lastname=Williams"
+                  "code": "POST /user HTTP/2.0\nHost: www.codecraft.com\nContent-Type: application/x-www-form-urlencoded\nContent-Length: 33\n\nfirstname=Robin&lastname=Williams"
                 },
                 {
                   "type": "sentence",
@@ -3029,11 +3044,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>GET</strong> and <strong>POST</strong> are two commonly used HTTP methods for sending data to a server. Here's a comparison between the two:"
+                  "text": "GET and POST are two commonly used HTTP methods for sending data to a server. Here's a comparison between the two:"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>GET</strong>"
+                  "text": "GET"
                 },
                 {
                   "type": "sentence",
@@ -3057,7 +3072,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>POST</strong>"
+                  "text": "POST"
                 },
                 {
                   "type": "sentence",
@@ -3081,7 +3096,7 @@
                 }
               ],
               "locked": true
-            }            
+            }
           ],
           "quiz": [
             {
@@ -3187,16 +3202,16 @@
                     "<label for='email'>Email: </label>",
                     "<input type='email' id='email' name='email' required",
 
-                    "<input type='submit' value='Submit'>",
+                    "<input type='submit'>",
                     "</form>"
                   ],
                   "testCaseSentences": [
                     "Include a form tag",
                     "Add a label for the name input",
-                    "An input field for name",
+                    "A input field for name",
                     "Label for email",
-                    "An input field for email",
-                    "An input field for submit",
+                    "A input field for email",
+                    "A input field for submit",
                     "Closing form tag"
                   ],
                   "expectedImage": "/activities/htmlacts/5.1.png",
@@ -3220,14 +3235,14 @@
               "testCases": [
                 {
                   "input": "",
-                  "output": "<form><label for='name'>Name: </label><input type='text' id='name' name='name' required><br><label for='email'>Email: </label><input type='email' id='email' name='email' required><br><button type='submit'>Subscribe</button></form>",
+                  "output": "<form><label for='name'>Name: </label><input type='text' id='name' name='name' required><br><label for='email'>Email: </label><input type='email' id='email' name='email' required><br><input type='submit' value='Subscribe'></form>",
                   "required": [
                     "<form>",
                     "<label for='name'>Name: </label>",
                     "<input type='text' id='name' name='name' required>",
                     "<label for='email'>Email: </label>",
                     "<input type='email' id='email' name='email' required>",
-                    "<button type='submit'>Subscribe</button>",
+                    "<input type='submit' value='Subscribe'>",
                     "</form>"
                   ],
                   "isHidden": false,
@@ -3261,7 +3276,7 @@
               "testCases": [
                 {
                   "input": "",
-                  "output": "<form><label for='name'>Name: </label><input type='text' id='name' name='name' required><br><label for='email'>Email: </label><input type='email' id='email' name='email' required><br><label>Gender:</label><input type='radio' id='male' name='gender' value='male' required><label for='male'>Male</label><input type='radio' id='female' name='gender' value='female' required><label for='female'>Female</label><br><button type='submit'>Register</button></form>",
+                  "output": "<form><label for='name'>Name: </label><input type='text' id='name' name='name' required><br><label for='email'>Email: </label><input type='email' id='email' name='email' required><br><label>Gender:</label><input type='radio' id='male' name='gender' value='male' required><label for='male'>Male</label><input type='radio' id='female' name='gender' value='female' required><label for='female'>Female</label><br><input type='submit' value='Register'></form>",
                   "required": [
                     "<form>",
                     "<label for='name'>Name: </label>",
@@ -3273,7 +3288,7 @@
                     "<label for='male'>Male</label>",
                     "<input type='radio' id='female' name='gender' value='female' required>",
                     "<label for='female'>Female</label>",
-                    "<button type='submit'>Register</button>",
+                    "<input type='submit' value='Register'>",
                     "</form>"
                   ],
                   "isHidden": false,

@@ -9,6 +9,11 @@ export const certificateService = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+    }),  getCertificate: builder.query({
+      query: (userId) => ({
+        url: `${CERTIFICATE_URL}/getCertificate/${userId}`,
+        method: "GET",
+      }),
     }),
 
     createSignature: builder.mutation({
@@ -41,7 +46,7 @@ export const certificateService = apiSlice.injectEndpoints({
 
 export const {
   useCreateCertificateMutation,useGetSignatureQuery,useGetSignatureForStudentQuery,
-
+useGetCertificateQuery,
   useUpdateSignatureMutation,
   useCreateSignatureMutation,
 } = certificateService;

@@ -17,6 +17,7 @@ import {
   completeCourse,
   userCompleteCourse,
   permanentDeleteUser,
+  declineTeacher,
 } from "../controller/userController.js";
 
 const router = express.Router();
@@ -33,7 +34,7 @@ router.get("/getAllUser", getAllUsers);
 router.delete("/deleteUser/:userId", deleteUser);
 router.delete("/permanentDelete/:userId", permanentDeleteUser);
 router.patch("/unDeleteUser/:userId", undeleteUser);
-router.patch("/approveTeacher", approveTeacher);
+router.patch("/approveTeacher", approveTeacher);router.patch("/declineTeacher", declineTeacher);
 router.put("/edit-username", editUsername);
 router.patch("/users/:userId/complete-course", completeCourse);
 router.get("/users/completed-course", userCompleteCourse);

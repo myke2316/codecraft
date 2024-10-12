@@ -15,11 +15,14 @@ import {
   DialogContentText,
   DialogTitle,
   Typography,
-  TextField,   // Import TextField for search input
+  TextField,
   Box,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import {
   useApproveTeacherMutation,
+  useDeclineTeacherMutation,
   useGetAllUserMutation,
 } from "../../LoginRegister/userService";
 import { toast } from "react-toastify";
@@ -27,22 +30,27 @@ import { toast } from "react-toastify";
 const TeacherRequest = () => {
   const [teachers, setTeachers] = useState([]);
   const [filteredTeachers, setFilteredTeachers] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");  // State for search input
+  const [searchTerm, setSearchTerm] = useState("");
+  const [approvalFilter, setApprovalFilter] = useState("false"); // Add state for approval filter
   const [getAllUser] = useGetAllUserMutation();
   const [approveTeacher] = useApproveTeacherMutation();
+  const [declineTeacher] = useDeclineTeacherMutation();
   const [open, setOpen] = useState(false);
   const [selectedTeacher, setSelectedTeacher] = useState(null);
+  const [isDeclining, setIsDeclining] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await getAllUser();
-        console.log(response)
-        const filteredTeachers = response.data.filter(
-          (user) => user.role === "teacher" && !user.approved
+        // Fetch all teachers excluding approved ones
+        const allTeachers = response.data.filter(
+          (user) => user.role === "teacher" && user.approved !== "true"
         );
-        setTeachers(filteredTeachers);
-        setFilteredTeachers(filteredTeachers);  // Initialize with all teachers
+        setTeachers(allTeachers);
+        // Initially filter by unapproved teachers
+        const filteredTeachers = allTeachers.filter((teacher) => teacher.approved === "false");
+        setFilteredTeachers(filteredTeachers);
       } catch (error) {
         console.error("Error fetching teachers:", error);
       }
@@ -51,12 +59,10 @@ const TeacherRequest = () => {
     fetchData();
   }, [getAllUser]);
 
-  // Handle search input change
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  // Handle search button click
   const handleSearch = () => {
     const filtered = teachers.filter((teacher) =>
       teacher.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -65,14 +71,22 @@ const TeacherRequest = () => {
     setFilteredTeachers(filtered);
   };
 
-  const handleOpenDialog = (teacher) => {
+  const handleApprovalFilterChange = (e) => {
+    setApprovalFilter(e.target.value);
+    const filtered = teachers.filter((teacher) => teacher.approved === e.target.value);
+    setFilteredTeachers(filtered);
+  };
+
+  const handleOpenDialog = (teacher, decline = false) => {
     setSelectedTeacher(teacher);
+    setIsDeclining(decline);
     setOpen(true);
   };
 
   const handleCloseDialog = () => {
     setOpen(false);
     setSelectedTeacher(null);
+    setIsDeclining(false);
   };
 
   const handleApproveTeacher = async () => {
@@ -80,12 +94,8 @@ const TeacherRequest = () => {
       if (selectedTeacher) {
         await approveTeacher({ userId: selectedTeacher._id });
         toast.success("Teacher approved successfully!");
-        setTeachers(
-          teachers.filter((teacher) => teacher._id !== selectedTeacher._id)
-        );
-        setFilteredTeachers(
-          filteredTeachers.filter((teacher) => teacher._id !== selectedTeacher._id)
-        );
+        setTeachers(teachers.filter((teacher) => teacher._id !== selectedTeacher._id));
+        setFilteredTeachers(filteredTeachers.filter((teacher) => teacher._id !== selectedTeacher._id));
         handleCloseDialog();
       }
     } catch (error) {
@@ -94,13 +104,28 @@ const TeacherRequest = () => {
     }
   };
 
+  const handleDeclineTeacher = async () => {
+    try {
+      if (selectedTeacher) {
+        await declineTeacher({ userId: selectedTeacher._id });
+        toast.success("Teacher declined successfully!");
+        setTeachers(teachers.filter((teacher) => teacher._id !== selectedTeacher._id));
+        setFilteredTeachers(filteredTeachers.filter((teacher) => teacher._id !== selectedTeacher._id));
+        handleCloseDialog();
+      }
+    } catch (error) {
+      console.error("Error declining teacher:", error);
+      toast.error("Failed to decline teacher.");
+    }
+  };
+
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Typography variant="h4" gutterBottom>
         Pending Teacher Requests
       </Typography>
-      
-      {/* Search Field and Button */}
+
+      {/* Search and Filter Section */}
       <Box display="flex" alignItems="center" mb={2}>
         <TextField
           label="Search by Username or Email"
@@ -109,6 +134,15 @@ const TeacherRequest = () => {
           onChange={handleSearchChange}
           sx={{ mr: 2, flex: 1 }}
         />
+        <Select
+          value={approvalFilter}
+          onChange={handleApprovalFilterChange}
+          displayEmpty
+          sx={{ mr: 2 }}
+        >
+          <MenuItem value="false">Not Approved</MenuItem>
+          <MenuItem value="declined">Declined</MenuItem>
+        </Select>
         <Button variant="contained" color="primary" onClick={handleSearch}>
           Search
         </Button>
@@ -136,9 +170,18 @@ const TeacherRequest = () => {
                       variant="contained"
                       color="primary"
                       onClick={() => handleOpenDialog(teacher)}
-                      sx={{ textTransform: "none" }}
+                      sx={{ textTransform: "none", mr: 1 }}
                     >
                       Approve
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => handleOpenDialog(teacher, true)}
+                      sx={{ textTransform: "none" }}
+                      disabled={teacher.approved === "declined"}
+                    >
+                      Decline
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -156,16 +199,18 @@ const TeacherRequest = () => {
         </Table>
       </TableContainer>
 
-      {/* Approval Confirmation Dialog */}
+      {/* Approval/Decline Confirmation Dialog */}
       <Dialog
         open={open}
         onClose={handleCloseDialog}
-        aria-labelledby="confirm-approve-dialog"
+        aria-labelledby="confirm-approve-decline-dialog"
       >
-        <DialogTitle id="confirm-approve-dialog">Confirm Approval</DialogTitle>
+        <DialogTitle id="confirm-approve-decline-dialog">
+          Confirm {isDeclining ? "Decline" : "Approval"}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to approve this teacher? This action will change their status to approved.
+            Are you sure you want to {isDeclining ? "decline" : "approve"} this teacher? This action will change their status to {isDeclining ? "declined" : "approved"}.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -173,12 +218,12 @@ const TeacherRequest = () => {
             Cancel
           </Button>
           <Button
-            onClick={handleApproveTeacher}
+            onClick={isDeclining ? handleDeclineTeacher : handleApproveTeacher}
             color="primary"
             variant="contained"
             sx={{ textTransform: "none" }}
           >
-            Approve
+            {isDeclining ? "Decline" : "Approve"}
           </Button>
         </DialogActions>
       </Dialog>

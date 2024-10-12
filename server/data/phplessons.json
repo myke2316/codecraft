@@ -128,7 +128,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>1.</strong> PHP scripts start with <strong><?php</strong> and end with <strong>?></strong>."
+                  "text": "<strong>1.</strong> PHP scripts start with <strong>&lt;?php</strong> and end with <strong>?&gt;</strong>."
                 },
                 {
                   "type": "sentence",
@@ -776,7 +776,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>• Octal<strong>: Base-8 numbers, prefixed with 0o or 0O."
+                  "text": "<strong>• Octal</strong>: Base-8 numbers, prefixed with 0o or 0O."
                 },
                 {
                   "type": "sentence",
@@ -1069,7 +1069,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Single-Quoted Strings:</strong> Literal representation; escape sequences and variables are not processed.\n<strong>Double-Quoted Strings:</strong> Process escape sequences and variables.\n<strong>Heredoc:<s/trong> Multi-line string with variable interpolation.\n<strong>Nowdoc:</strong> Multi-line string without variable interpolation.\n<strong>String Functions:</strong> <strong>strlen()</strong> for length, <strong>strpos() </strong> for finding substrings."
+                  "text": "<strong>Single-Quoted Strings:</strong> Literal representation; escape sequences and variables are not processed.\n<strong>Double-Quoted Strings:</strong> Process escape sequences and variables.\n<strong>Heredoc:</strong> Multi-line string with variable interpolation.\n<strong>Nowdoc:</strong> Multi-line string without variable interpolation.\n<strong>String Functions:</strong> <strong>strlen()</strong> for length, <strong>strpos() </strong> for finding substrings."
                 }
               ],
               "locked": true

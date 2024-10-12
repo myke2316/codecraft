@@ -116,7 +116,33 @@ const createSignature = asyncHandler(async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 });
+const getCertificate = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
 
+  try {
+    const certificate = await CertificateModel.findOne({ studentId:userId });
+
+    if (!certificate) {
+      return res
+        .status(404)
+        .json({ message: "certificate not found for this user" });
+    }
+
+    res.status(200).json({
+      message: "certificate found",
+      certificate: {
+        studentId: certificate.studentId,
+        clasId: certificate.classId,
+        verificationId: certificate.certificateId,
+        dateFinished: certificate.dateFinished
+        
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching certificate:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
 const getSignatureForStudent = asyncHandler(async (req, res) => {
   const { studentId, classId } = req.params;
 
@@ -223,14 +249,15 @@ const getSignatureImage = asyncHandler(async (req, res) => {
 });
 const updateSignature = asyncHandler(async (req, res) => {
   const { userId, name, role } = req.body;
-  const file = req.file; // File is optional
+  const file = req.file; // File is optional (image)
 
   try {
-    // Validate userId, name, role
+    // Validate required fields
     if (!userId || !name || !role) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
+    // Validate role
     if (role !== "teacher" && role !== "admin") {
       return res.status(400).json({ message: "Invalid role specified" });
     }
@@ -242,36 +269,40 @@ const updateSignature = asyncHandler(async (req, res) => {
       return res.status(404).json({ message: "Signature not found" });
     }
 
-    // Delete the old signature image from GridFS if it exists
-    if (existingSignature.signature) {
-      try {
-        await signatureBucket.delete(new mongoose.Types.ObjectId(existingSignature.signature));
-        console.log("Old signature image deleted successfully");
-      } catch (error) {
-        console.error("Error deleting old signature image:", error);
-        // We'll continue with the update even if deletion fails
-      }
-    }
-
-    // Update the signature record with the new details
+    // Update the name regardless of the file presence
     existingSignature.name = name;
+
+    // If a new file is uploaded, delete the old signature and update it
     if (file) {
-      existingSignature.signature = file.id; // Update with the new file's ObjectId
+      if (existingSignature.signature) {
+        try {
+          await signatureBucket.delete(new mongoose.Types.ObjectId(existingSignature.signature));
+          console.log("Old signature image deleted successfully");
+        } catch (error) {
+          console.error("Error deleting old signature image:", error);
+        }
+      }
+
+      // Set the new signature file's ObjectId
+      existingSignature.signature = file.id;
     }
 
+    // Save the updated signature
     await existingSignature.save();
 
     return res.status(200).json({
       message: "Signature updated successfully",
       signature: existingSignature,
     });
+
   } catch (error) {
     console.error("Error updating signature:", error);
-    res.status(500).json({ message: "Server error", error: error.message });
+    return res.status(500).json({ message: "Server error", error: error.message });
   }
 });
+
 export {
-  createCertificate,getSignatureForStudent,
+  createCertificate,getSignatureForStudent,getCertificate,
   createSignature,
   getSignature,
   getSignatureImage,

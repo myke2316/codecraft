@@ -65,11 +65,12 @@ const ClassLists = () => {
       </div>
     );
   }
-  console.log(userInfo);
-  if (!(userInfo?.approved ?? userInfo?.userData?.[0]?.approved)) {
+  console.log(userInfo?.userData?.[0]?.approved);
+  if ((userInfo?.approved === "false" || userInfo?.userData?.[0]?.approved === "false") ||(userInfo?.approved === "declined" || userInfo?.userData?.[0]?.approved === "declined") ) {
     return (
       <div className="text-center text-gray-600 mt-10">
-        <p>Waiting for approval</p>
+        <p>{userInfo.approved === "false" || userInfo?.userData?.[0]?.approved === "false" ? "Waiting for approval" : "Request Declined, Please change role to student if you want to keep the account."}</p>
+       
         <button
           onClick={handleOpenDialog}
           className="bg-blue-500 text-white px-4 py-2 rounded mt-4"

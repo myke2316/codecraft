@@ -16,6 +16,7 @@ import Certificatev2 from "./Certificatev2";
 import { useCompleteCourseMutation } from "../LoginRegister/userService";
 import {
   useCreateCertificateMutation,
+  useGetCertificateQuery,
   useGetSignatureForStudentQuery,
 } from "./certificateService";
 
@@ -57,6 +58,12 @@ const CertificationPage = () => {
   console.log(signatureData)
   const [completeCourse] = useCompleteCourseMutation();
   const [createCertificate] = useCreateCertificateMutation();
+  const {
+    data: certificateFetch,
+    isLoading: isCertificateLoading,
+    refetch: refetchCertificate,
+  } = useGetCertificateQuery(userId);
+
   // Open Dialog
   const handleOpen = async () => {
     const updateUserCompleteCourse = await completeCourse(userId).unwrap();
@@ -65,7 +72,7 @@ const CertificationPage = () => {
       dateFinished,
       classId,
     });
-    console.log(createCertificateRes);
+  
     setOpen(true);
   };
 
@@ -74,8 +81,7 @@ const CertificationPage = () => {
     setOpen(false);
   };
 
-  // Download as Image
-// Download as Image
+
 const downloadImage = () => {
   html2canvas(certificateRef.current, {
     useCORS: true, // Enable CORS to load external images
@@ -88,8 +94,6 @@ const downloadImage = () => {
   });
 };
 
-  // Download as PDF
-// Download as PDF
 const downloadPDF = () => {
   html2canvas(certificateRef.current, {
     useCORS: true, // Enable CORS to load external images
@@ -120,7 +124,7 @@ const downloadPDF = () => {
     pdf.save("certificate.pdf");
   });
 };
-
+console.log(signatureData)
 
   return (
     <Box
@@ -148,15 +152,16 @@ const downloadPDF = () => {
         <DialogTitle>Certificate of Completion</DialogTitle>
         <DialogContent>
           {/* Ref for certificate content */}
-          <div ref={certificateRef} style={{ padding: "20px" }}>
+          <div ref={certificateRef}>
             <Certificate
               name={certificateData.name}
               dateFinished={certificateData.dateOfCompletion}
               course={certificateData.course}
-              adminSignature={signatureData?.adminSignature.signatureId}
-              adminSignatureDetails={signatureData?.adminSignature.name}
-              teacherSignature={signatureData?.teacherSignature.signatureId}
-              teacherSignatureDetails={signatureData?.teacherSignature.name}
+              adminSignature={signatureData?.adminSignature?.signatureId}
+              adminSignatureDetails={signatureData?.adminSignature?.name}
+              teacherSignature={signatureData?.teacherSignature?.signatureId}
+              teacherSignatureDetails={signatureData?.teacherSignature?.name}
+              verificationId = {certificateFetch?.certificate?.verificationId}
             />
           </div>
         </DialogContent>

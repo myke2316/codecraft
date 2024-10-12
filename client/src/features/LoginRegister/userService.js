@@ -74,6 +74,12 @@ export const userService = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+    }),    declineTeacher: builder.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/declineTeacher`,
+        method: "PATCH",
+        body: data,
+      }),
     }),
     editUsername: builder.mutation({
       query: (data) => ({
@@ -104,7 +110,7 @@ export const userService = apiSlice.injectEndpoints({
 });
 
 export const {
-  useUserCompletedCourseQuery,
+  useUserCompletedCourseQuery,useDeclineTeacherMutation,
   usePermanentDeleteMutation,
   useCompleteCourseMutation,
   useUndeleteUserMutation,

@@ -51,7 +51,7 @@ function JoinClassForm() {
         user._id
       );
       toast.success("Successfully joined class!");
-      navigate(`/studentClass/${classData.class._id}/classHome`);
+      navigate(`/`);
     } catch (error) {
       toast.error(error?.data?.error || error.message);
     }
