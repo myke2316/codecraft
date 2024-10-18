@@ -97,7 +97,7 @@ export const questionService = apiSlice.injectEndpoints({
 });
 
 export const {
-  useVoteAnswerMutation,useGetAnswerVoteQuery,
+  useVoteAnswerMutation,useGetAnswerVoteQuery,useGetUserVoteQuery,
   useGetQuestionVoteQuery,
   useVoteQuestionMutation,
   useFetchQuestionsMutation,

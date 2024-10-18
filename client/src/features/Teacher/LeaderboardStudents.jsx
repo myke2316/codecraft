@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useGetScoreByStudentIdQuery } from "../Class/submissionAssignmentService";
+import { useGetUserVoteQuery } from "../QnA/questionService";
 
 const LeaderboardStudents = ({ students, classId }) => {
   const [sortBy, setSortBy] = useState("points");
@@ -73,21 +74,25 @@ const LeaderboardStudents = ({ students, classId }) => {
         <ul className="space-y-4">
           {sortedStudents.map((student, index) => {
             const studentId = student._id
-            console.log(studentId)
+            
             const { data: scoresData, isFetching } = useGetScoreByStudentIdQuery(studentId);
+            const { data: userVote, refetch: refetchVotes } = useGetUserVoteQuery({
+              userId: studentId
+            });
           
-          
+            const qnaPoints = userVote?.totalVotes * 5
+            console.log(userVote?.totalVotes,qnaPoints)
             const submissionPoints = scoresData?.scores.reduce((acc, score) => {
               return acc + (score.grade || 0);
             }, 0);
-           
+              
             return (
               <Link
                 key={student._id}
                 to={
                   userRole === "teacher"
                     ? `/${classId}/class/students/${student._id}`
-                    : console.log("STUDENT PROFILE VIEW")
+                    : null
                 }
                 className="block"
               >
@@ -138,7 +143,7 @@ const LeaderboardStudents = ({ students, classId }) => {
                   {/* Conditionally render points based on sorting */}
                   {sortBy === "points" && (
                     <div className="text-lg font-bold">
-                      {student.totalPointsEarned + submissionPoints} Points
+                      {student.totalPointsEarned + submissionPoints + qnaPoints } Points
                     </div>
                   )}
                 </motion.li>

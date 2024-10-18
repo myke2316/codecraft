@@ -14,6 +14,7 @@ import TeacherPlayerDashboard from "./TeacherPlayerDashboard";
 import { useParams } from "react-router";
 import { useGetUserMutation } from "../../LoginRegister/userService";
 import { useGetScoreByStudentIdQuery } from "../../Class/submissionAssignmentService";
+import { useGetUserVoteQuery } from "../../QnA/questionService";
 const theme = createTheme();
 // const userAnalytics = useSelector((state) => state.userAnalytics.userAnalytics);
 
@@ -39,6 +40,10 @@ const TeacherStudentDashboard = ({ userAnalytics, userProgress }) => {
     }
   }, [scoresData, userAnalytics, isFetching]);
   const [userInfo, setUserInfo] = useState();
+  const { data: userVote, refetch: refetchVotes } = useGetUserVoteQuery({
+    userId:studentId
+  });
+  const qnaPoints = userVote?.totalVotes * 5
   const [getUser, { data, isLoading, isError }] = useGetUserMutation();
 
   useEffect(() => {
@@ -65,7 +70,7 @@ const TeacherStudentDashboard = ({ userAnalytics, userProgress }) => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
             <TeacherPlayerDashboard
-              totalPoints={totalPoints+assignmentGrades}
+              totalPoints={totalPoints+assignmentGrades+qnaPoints}
               userProgress={userProgress}
               userInfo={userInfo}
             />

@@ -11,6 +11,7 @@ import OverallPerformanceTable from "./OverallPerformanceTable";
 import CompletionTimelineChart from "./CompletionTimelineChart";
 import PlayerDashboard from "./PlayerDashboard";
 import { useGetScoreByStudentIdQuery } from "../../Class/submissionAssignmentService";
+import { useGetUserVoteQuery } from "../../QnA/questionService";
 
 const Dashboard = () => {
   
@@ -31,17 +32,20 @@ const Dashboard = () => {
       setAssignmentGrades(submissionPoints);
     }
   }, [scoresData, userAnalytics, isFetching]);
-
+  const { data: userVote, refetch: refetchVotes } = useGetUserVoteQuery({
+    userId:studentId
+  });
+  const qnaPoints = userVote?.totalVotes * 5
   // Calculate total points across all courses
   const totalPoints = userAnalytics.coursesAnalytics.reduce((acc, course) => {
     return acc + (course.totalPointsEarned || 0);
   }, 0);
- 
+
   return (
     <Container maxWidth="100%" style={{ padding: "20px" }}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={12}>
-          <PlayerDashboard totalPoints={totalPoints+assignmentGrades} />
+          <PlayerDashboard totalPoints={totalPoints+assignmentGrades + qnaPoints} />
         </Grid>
 
         <Grid item xs={12} md={6}>

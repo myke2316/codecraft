@@ -38,6 +38,7 @@ import {
 import { resetAnalytics } from "../Student/userAnalyticsSlice";
 import { resetActivity } from "../Course/CodingActivity/activitySubmissionSlice";
 import { resetQuiz } from "../Course/Quiz/quizSubmissionSlice";
+import { useGetUserVoteQuery } from "../QnA/questionService";
 
 function ClassStudentHome() {
   const dispatch = useDispatch();
@@ -58,6 +59,8 @@ function ClassStudentHome() {
   const [getAllAnalytics] = useGetAllAnalyticsMutation();
   const [createUserProgress, { isLoading }] = useCreateUserProgressMutation();
 
+
+ 
   const [fetchUserProgress, { isLoading: isLoadingFetch }] =
     useFetchUserProgressMutation();
   const user = useSelector((state) => state.user.userDetails);
@@ -253,7 +256,7 @@ function ClassStudentHome() {
 
       {/* Leaderboard Section */}
 
-      <LeaderboardStudents students={students} classId={classId} />
+      <LeaderboardStudents students={students} classId={classId}  />
 
       {/* Confirmation Dialog */}
       <Dialog open={openDialog} onClose={handleCloseDialog}>

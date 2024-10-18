@@ -24,6 +24,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { SiJavascript, SiHtml5, SiCss3, SiPhp } from "react-icons/si";
+import { useGetUserVoteQuery } from "../../QnA/questionService";
 const fadeIn = keyframes`
   from { opacity: 0; }
   to { opacity: 1; }
@@ -91,7 +92,7 @@ const calculateCourseProgress = (lessons, lessonsProgress) => {
 
 const PlayerDashboard = ({ totalPoints }) => {
   const userInfo = useSelector((state) => state.user.userDetails);
-  const username = userInfo.username;
+  const username = userInfo.username || userInfo.name;
   const [animatedPoints, setAnimatedPoints] = useState(0);
   const [previousLevel, setPreviousLevel] = useState(1);
   const [progress, setProgress] = useState(0);
@@ -100,6 +101,7 @@ const PlayerDashboard = ({ totalPoints }) => {
   );
   const courses = useSelector((state) => state.course.courseData);
 
+  
   const calculateLevel = (points) => {
     let level = 1;
     let pointsRequired = 2;
