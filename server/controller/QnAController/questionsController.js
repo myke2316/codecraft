@@ -7,7 +7,8 @@ export const getQuestions = async (req, res) => {
   try {
     const questions = await QuestionModel.find()
       .populate("author", "username profilePicture")
-      .populate("answers.author", "username profilePicture");
+      .populate("answers.author", "username profilePicture")
+      .populate("votes.user", "username");
     res.status(200).json(questions);
   } catch (error) {
     console.error("Error fetching questions: ", error);
@@ -26,7 +27,8 @@ export const getQuestionById = async (req, res) => {
   try {
     const question = await QuestionModel.findById(id)
       .populate("author", "username profilePicture")
-      .populate("answers.author", "username profilePicture");
+      .populate("answers.author", "username profilePicture")
+      .populate("votes.user", "username");
     if (!question) {
       return res.status(404).json({ message: "Question not found" });
     }
@@ -57,7 +59,9 @@ export const createQuestion = async (req, res) => {
       tags,
       codeBlocks,
       author: authorId,
-      status: "pending", // Set initial status to pending
+      status: "pending",
+      votes: [],
+      voteCount: 0,
     });
 
     await newQuestion.save();
@@ -80,7 +84,7 @@ export const updateQuestion = async (req, res) => {
   try {
     const updatedQuestion = await QuestionModel.findByIdAndUpdate(
       questionId,
-      { title, content, tags, codeBlocks, status, updatedAt: Date.now() }, // Include status update
+      { title, content, tags, codeBlocks, status, updatedAt: Date.now() },
       { new: true }
     );
 
@@ -124,9 +128,10 @@ export const addAnswer = async (req, res) => {
       content,
       codeBlocks,
       author: authorId,
-      status: "pending", // Set initial status to pending
+      status: "pending",
       createdAt: Date.now(),
       updatedAt: Date.now(),
+      
     };
 
     question.answers.push(newAnswer);
@@ -141,7 +146,7 @@ export const addAnswer = async (req, res) => {
 
 // Function to update an answer
 export const updateAnswer = async (req, res) => {
-  const { content, codeBlocks, status } = req.body; // Add status here
+  const { content, codeBlocks, status } = req.body;
   try {
     const question = await QuestionModel.findById(req.params.questionId);
     if (!question) {
@@ -153,7 +158,6 @@ export const updateAnswer = async (req, res) => {
       return res.status(404).json({ message: "Answer not found" });
     }
 
-    // Check if the current user is the author of the answer
     if (answer.author.toString() !== req.body.authorId) {
       return res
         .status(403)
@@ -162,7 +166,7 @@ export const updateAnswer = async (req, res) => {
 
     answer.content = content;
     answer.codeBlocks = codeBlocks;
-    answer.status = status || answer.status; // Update status if provided
+    answer.status = status || answer.status;
     answer.updatedAt = Date.now();
 
     const updatedQuestion = await question.save();
@@ -200,19 +204,16 @@ export const deleteAnswer = async (req, res) => {
     const { questionId, answerId } = req.params;
     const { authorId } = req.body;
 
-    // Find the question by ID
     const question = await QuestionModel.findById(questionId);
     if (!question) {
       return res.status(404).json({ message: "Question not found" });
     }
 
-    // Check if the answer exists in the question's answers array
     const answer = question.answers.id(answerId);
     if (!answer) {
       return res.status(404).json({ message: "Answer not found" });
     }
 
-    // Check if the current user is the author of the answer or the question
     if (
       answer.author.toString() !== authorId &&
       question.author.toString() !== authorId
@@ -225,10 +226,8 @@ export const deleteAnswer = async (req, res) => {
         });
     }
 
-    // Remove the answer from the answers array
     question.answers.pull(answerId);
 
-    // Save the updated question
     await question.save();
     res.json({ message: "Answer deleted successfully" });
   } catch (error) {
@@ -241,23 +240,197 @@ export const getAnswerById = async (req, res) => {
   const { questionId, answerId } = req.params;
 
   try {
-    // Find the question by ID
     const question = await QuestionModel.findById(questionId);
 
     if (!question) {
       return res.status(404).json({ message: "Question not found" });
     }
 
-    // Find the answer by ID within the question
     const answer = question.answers.id(answerId);
 
     if (!answer) {
       return res.status(404).json({ message: "Answer not found" });
     }
 
-    // Return the answer details
     res.json(answer);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+// Vote on a question
+export const voteQuestion = async (req, res) => {
+  const { questionId } = req.params;
+  const { userId, vote } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(questionId) || !mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(400).json({ message: "Invalid question ID or user ID" });
+  }
+
+  try {
+    const question = await QuestionModel.findById(questionId);
+    if (!question) {
+      return res.status(404).json({ message: "Question not found" });
+    }
+   
+    const existingVoteIndex = question.votes.findIndex(v => v.user.toString() === userId);
+
+    if (existingVoteIndex !== -1) {
+      if (vote === 0) {
+        // Remove the vote if the new vote value is 0
+        question.votes.splice(existingVoteIndex, 1);
+      } else {
+        // Update existing vote
+        question.votes[existingVoteIndex].vote = vote;
+      }
+    } else if (vote !== 0) {
+      // Add new vote only if it's not 0
+      question.votes.push({ user: userId, vote });
+    }
+
+    // Recalculate voteCount
+    question.voteCount = question.votes.reduce((sum, v) => sum + v.vote, 0);
+
+    await question.save();
+    res.status(200).json(question);
+  } catch (error) {
+    console.error("Error voting on question: ", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const getQuestionVotes = async (req, res) => {
+  const { questionId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(questionId)) {
+    return res.status(400).json({ message: "Invalid question ID" });
+  }
+
+  try {
+    const question = await QuestionModel.findById(questionId);
+    if (!question) {
+      return res.status(404).json({ message: "Question not found" });
+    }
+
+    res.status(200).json({voteCount: question.voteCount });
+  } catch (error) {
+    console.error("Error fetching question votes: ", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
+
+// Vote on an answer
+export const voteAnswer = async (req, res) => {
+  const { questionId, answerId } = req.params;
+  const { userId, vote } = req.body;
+
+  if (
+    !mongoose.Types.ObjectId.isValid(questionId) ||
+    !mongoose.Types.ObjectId.isValid(answerId) ||
+    !mongoose.Types.ObjectId.isValid(userId)
+  ) {
+    return res.status(400).json({ message: "Invalid question ID, answer ID, or user ID" });
+  }
+
+  try {
+    const question = await QuestionModel.findById(questionId);
+    if (!question) {
+      return res.status(404).json({ message: "Question not found" });
+    }
+
+    const answer = question.answers.id(answerId);
+    if (!answer) {
+      return res.status(404).json({ message: "Answer not found" });
+    }
+
+    // Find if the user has already voted on this answer
+    const existingVoteIndex = answer.votes.findIndex(v => v.user.toString() === userId);
+
+    if (existingVoteIndex !== -1) {
+      if (vote === 0) {
+        // If vote is 0, remove the user's vote
+        answer.votes.splice(existingVoteIndex, 1);
+      } else {
+        // Update the existing vote
+        answer.votes[existingVoteIndex].vote = vote;
+      }
+    } else if (vote !== 0) {
+      // If no existing vote and the vote is not 0, add a new vote
+      answer.votes.push({ user: userId, vote });
+    }
+
+    // Recalculate voteCount for the answer
+    answer.voteCount = answer.votes.reduce((sum, v) => sum + v.vote, 0);
+
+    await question.save();
+    res.status(200).json(answer);
+  } catch (error) {
+    console.error("Error voting on answer: ", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// Get votes for a specific answer
+export const getAnswerVotes = async (req, res) => {
+  const { questionId, answerId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(questionId) || !mongoose.Types.ObjectId.isValid(answerId)) {
+    return res.status(400).json({ message: "Invalid question ID or answer ID" });
+  }
+
+  try {
+    const question = await QuestionModel.findById(questionId);
+    if (!question) {
+      return res.status(404).json({ message: "Question not found" });
+    }
+
+    const answer = question.answers.id(answerId);
+    if (!answer) {
+      return res.status(404).json({ message: "Answer not found" });
+    }
+
+    res.status(200).json({ voteCount: answer.voteCount });
+  } catch (error) {
+    console.error("Error fetching answer votes: ", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const getUserVotes = async (req, res) => {
+  const { userId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(400).json({ message: "Invalid user ID" });
+  }
+
+  try {
+    // Find all questions where the user is the author
+    const userQuestions = await QuestionModel.find({ author: userId });
+
+    // Find all questions where the user has answered
+    const questionsWithUserAnswers = await QuestionModel.find({ "answers.author": userId });
+
+    let totalVotes = 0;
+
+    // Calculate votes for user's questions
+    userQuestions.forEach(question => {
+      totalVotes += question.voteCount;
+    });
+
+    // Calculate votes for user's answers
+    questionsWithUserAnswers.forEach(question => {
+      question.answers.forEach(answer => {
+        if (answer.author.toString() === userId) {
+          totalVotes += answer.voteCount;
+        }
+      });
+    });
+
+    res.status(200).json({ userId, totalVotes });
+  } catch (error) {
+    console.error("Error fetching user votes: ", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };

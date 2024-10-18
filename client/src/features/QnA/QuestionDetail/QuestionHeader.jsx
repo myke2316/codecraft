@@ -37,7 +37,7 @@ const QuestionHeader = ({ question, currentUserId }) => {
         className="w-10 h-10 rounded-full mr-2"
       />
       <span className="mr-4">{question.author.username}</span>
-      <h1 className="text-3xl font-bold">{question.title}</h1>
+
       <div className="ml-auto flex items-center space-x-2">
         <button
           onClick={() => navigate(`/qna/${userId}`)}

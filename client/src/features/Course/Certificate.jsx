@@ -80,7 +80,7 @@ function Certificate({
             as of {dateFinished}, demonstrating exceptional dedication and hard work.
            
           </Typography>  <Typography className="text-black" style={{ fontSize: "1rem" }}>
-          We proudly congratulate them on this well-deserved achievement. well-deserved achievement.
+          We proudly congratulate them on this well-deserved achievement
           </Typography>
         </Box>
 

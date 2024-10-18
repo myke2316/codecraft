@@ -21,6 +21,7 @@ import {
   TextField,
   Grid,
   Box,
+  useTheme,
 } from "@mui/material";
 
 import EditIcon from "@mui/icons-material/Edit";
@@ -29,6 +30,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 function StudentProfilePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const theme = useTheme();  // Get current theme
   const user = useSelector((state) => state.user.userDetails);
   const [logoutApi] = useLogoutMutation();
   const [editUsernameApi] = useEditUsernameMutation();
@@ -68,8 +70,12 @@ function StudentProfilePage() {
         variant="outlined"
         sx={{
           p: 4,
-          background: "linear-gradient(145deg, #f3f4f6, #ffffff)",
-          boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+          background: theme.palette.mode === "dark"
+            ? "linear-gradient(145deg, #424242, #303030)"
+            : "linear-gradient(145deg, #f3f4f6, #ffffff)",
+          boxShadow: theme.palette.mode === "dark"
+            ? "0 8px 16px rgba(0, 0, 0, 0.4)"
+            : "0 8px 16px rgba(0, 0, 0, 0.1)",
           borderRadius: "16px",
         }}
       >
@@ -91,20 +97,42 @@ function StudentProfilePage() {
                 component="h1"
                 fontWeight="bold"
                 gutterBottom
+                sx={{
+                  color: theme.palette.mode === "dark" ? "#fff" : "#000",
+                }}
               >
                 {user.username || (user.userData && user.userData.length > 0 && user.userData[0].username)}
-
               </Typography>
 
-              <Typography variant="h6" color="textSecondary" gutterBottom>
+              <Typography
+                variant="h6"
+                color="textSecondary"
+                gutterBottom
+                sx={{
+                  color: theme.palette.mode === "dark" ? "#bdbdbd" : "#616161",
+                }}
+              >
                 <strong>ID:</strong> {user._id}
               </Typography>
 
-              <Typography variant="body1" color="textSecondary">
+              <Typography
+                variant="body1"
+                color="textSecondary"
+                sx={{
+                  color: theme.palette.mode === "dark" ? "#bdbdbd" : "#616161",
+                }}
+              >
                 <strong>Email:</strong> {user.email}
               </Typography>
 
-              <Typography variant="body1" color="textSecondary" sx={{ mb: 2 }}>
+              <Typography
+                variant="body1"
+                color="textSecondary"
+                sx={{
+                  color: theme.palette.mode === "dark" ? "#bdbdbd" : "#616161",
+                  mb: 2,
+                }}
+              >
                 <strong>Role:</strong> {user.role}
               </Typography>
 
@@ -115,8 +143,10 @@ function StudentProfilePage() {
                 onClick={() => setOpenDialog(true)}
                 sx={{
                   mr: 2,
-                  background: "#4caf50",
-                  "&:hover": { background: "#388e3c" },
+                  background: theme.palette.mode === "dark" ? "#928fce" : "#4b3987",
+                  "&:hover": {
+                    background: theme.palette.mode === "dark" ? "#aab1e5" : "#6e61ab",
+                  },
                 }}
               >
                 Edit Username
@@ -128,7 +158,12 @@ function StudentProfilePage() {
                 color="error"
                 startIcon={<LogoutIcon />}
                 onClick={handleLogout}
-                sx={{ background: "#f44336", "&:hover": { background: "#d32f2f" } }}
+                sx={{
+                  background: theme.palette.mode === "dark" ? "#d32f2f" : "#f44336",
+                  "&:hover": {
+                    background: theme.palette.mode === "dark" ? "#c62828" : "#d32f2f",
+                  },
+                }}
               >
                 Logout
               </Button>
@@ -160,9 +195,9 @@ function StudentProfilePage() {
           <Button
             onClick={handleEditUsername}
             sx={{
-              background: "#1976d2",
+              background: "#928fce",
               color: "#fff",
-              "&:hover": { background: "#1565c0" },
+              "&:hover": { background: "#4b3987" },
             }}
           >
             Save

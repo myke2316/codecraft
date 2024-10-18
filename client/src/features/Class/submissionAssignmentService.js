@@ -37,6 +37,12 @@ export const submissionService = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getScoreByStudentId: builder.query({
+      query: (studentId) => ({
+        url: `${SUBMISSION_URL}/submissions/student/${studentId}/scores`,
+        method: "GET",
+      }),
+    }),
     teacherGradeFeedBack: builder.mutation({
       query: ({ submissionId, grade, feedback }) => ({
         url: `${SUBMISSION_URL}/submissions/${submissionId}/feedback`,
@@ -51,7 +57,7 @@ export const submissionService = apiSlice.injectEndpoints({
 });
 
 export const {
-  useTeacherGradeFeedBackMutation,
+  useTeacherGradeFeedBackMutation,useGetScoreByStudentIdQuery,
   useGetAssignmentByAssignmentIdQuery,
   useFetchSubmissionByAssignmentAndStudentIdQuery,
   useFetchAllSubmissionByClassIdQuery,

@@ -155,6 +155,46 @@ export const deleteSubmission = async (req, res) => {
   }
 };
 
+export const getStudentScores = async (req, res) => {
+  const { studentId } = req.params; // Extract studentId from request parameters
+
+  try {
+    // Validate if the student exists and has the correct role
+    const student = await UserModel.findById(studentId);
+    if (!student || student.role !== "student") {
+      return res.status(404).json({ error: "Student not found or invalid role" });
+    }
+
+    // Find all submissions for the specified studentId
+    const submissions = await Submission.find({ studentId })
+      .select("grade assignmentId") // Select only the grade and assignmentId
+      .populate("assignmentId", "title description"); // Optionally populate assignment details
+
+    // Check if there are any submissions
+    if (submissions.length === 0) {
+      return res.status(200).json({
+        scores: [],
+        message: "No submissions found for this student",
+      });
+    }
+
+    // Extract only grades from the submissions
+    const scores = submissions.map(submission => ({
+      assignmentId: submission.assignmentId._id, // or just submission.assignmentId if not populated
+      assignmentTitle: submission.assignmentId.title, // Use title from populated assignment
+      grade: submission.grade,
+    }));
+
+    // Return the list of scores
+    res.status(200).json({ scores });
+  } catch (error) {
+    res.status(500).json({
+      error: "An error occurred while fetching student scores",
+      details: error.message,
+    });
+  }
+};
+
 // Function to fetch all submissions by classId
 export const getSubmissionsByClassId = async (req, res) => {
   const { classId } = req.params; // Extract classId from request parameters

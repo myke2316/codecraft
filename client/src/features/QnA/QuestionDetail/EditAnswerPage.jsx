@@ -3,12 +3,28 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   useUpdateAnswerMutation,
   useFetchAnswerByIdQuery,
-} from "../questionService"; // Adjust import path as needed
+} from "../questionService";
 import { useSelector } from "react-redux";
+import { Editor } from "@monaco-editor/react";
+import {
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Typography,
+  Paper,
+  Box,
+  CircularProgress,
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-const languageOptions = ["HTML", "CSS", "JavaScript", "PHP"];
+const languageOptions = ["html", "css", "javascript", "php"];
 
-const EditAnswerPage = () => {
+export default function EditAnswerPage() {
   const { questionId, answerId } = useParams();
   const navigate = useNavigate();
   const authorId = useSelector((state) => state.user.userDetails._id);
@@ -29,19 +45,19 @@ const EditAnswerPage = () => {
       setContent(answer.content);
       setCodeBlocks(answer.codeBlocks.map(block => ({
         ...block,
-        language: block.language.toLowerCase() // Ensure lowercase
+        language: block.language.toLowerCase()
       })));
     }
   }, [answer]);
 
   const handleCodeBlockChange = (index, field, value) => {
     const newCodeBlocks = [...codeBlocks];
-    newCodeBlocks[index] = { ...newCodeBlocks[index], [field]: value.toLowerCase() }; // Ensure lowercase
+    newCodeBlocks[index] = { ...newCodeBlocks[index], [field]: value.toLowerCase() };
     setCodeBlocks(newCodeBlocks);
   };
 
   const addCodeBlock = () => {
-    setCodeBlocks([...codeBlocks, { language: "html", content: "" }]); // Default to lowercase
+    setCodeBlocks([...codeBlocks, { language: "html", content: "" }]);
   };
 
   const removeCodeBlock = (index) => {
@@ -59,110 +75,118 @@ const EditAnswerPage = () => {
         codeBlocks,
         authorId,
       }).unwrap();
-      navigate(`/qna/${authorId}/question/${questionId}`); // Redirect after successful update
+      navigate(`/qna/${authorId}/question/${questionId}`);
     } catch (err) {
       console.error("Failed to update answer:", err);
     }
   };
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   if (isFetching) {
-    return <div>Loading...</div>;
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+        <CircularProgress />
+      </Box>
+    );
   }
 
   if (error) {
-    return <div>Error loading answer details</div>;
+    return (
+      <Typography variant="h6" color="error" align="center">
+        Error loading answer details
+      </Typography>
+    );
   }
 
   return (
-    <div className="p-6 bg-white shadow-md rounded-lg">
-      <h1 className="text-2xl font-semibold mb-4">Edit Answer</h1>
+    <Paper elevation={3} className="p-6 max-w-4xl mx-auto mt-8">
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
+      
+        <Typography variant="h4" component="h1">
+          Edit Answer
+        </Typography>
+        <Button
+          startIcon={<ArrowBackIcon />}
+          onClick={handleBack}
+          variant="outlined"
+        >
+          Back
+        </Button>
+      </Box>
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label
-            htmlFor="content"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Answer Content
-          </label>
-          <textarea
-            id="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            rows="4"
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
-            required
-          />
-        </div>
+        <TextField
+          label="Answer Content"
+          multiline
+          rows={4}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          variant="outlined"
+          fullWidth
+          required
+          className="mb-4"
+        />
         {codeBlocks.map((block, index) => (
-          <div
-            key={index}
-            className="mb-4 border p-4 border-gray-200 rounded-md"
-          >
-            <button
-              type="button"
-              onClick={() => removeCodeBlock(index)}
-              className="text-red-500 hover:text-red-700"
-            >
-              Remove Code Block
-            </button>
-            <div className="mt-2">
-              <label
-                htmlFor={`language-${index}`}
-                className="block text-sm font-medium text-gray-700"
+          <Paper key={index} elevation={2} className="p-4 mb-4">
+            <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+              <FormControl variant="outlined" className="w-1/3">
+                <InputLabel>Language</InputLabel>
+                <Select
+                  value={block.language}
+                  onChange={(e) => handleCodeBlockChange(index, "language", e.target.value)}
+                  label="Language"
+                >
+                  {languageOptions.map((lang) => (
+                    <MenuItem key={lang} value={lang}>
+                      {lang.toUpperCase()}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <Button
+                startIcon={<DeleteIcon />}
+                onClick={() => removeCodeBlock(index)}
+                color="secondary"
+                variant="outlined"
               >
-                Language
-              </label>
-              <select
-                id={`language-${index}`}
-                value={block.language}
-                onChange={(e) =>
-                  handleCodeBlockChange(index, "language", e.target.value)
-                }
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
-                required
-              >
-                {languageOptions.map((lang) => (
-                  <option key={lang.toLowerCase()} value={lang.toLowerCase()}>
-                    {lang}
-                  </option>
-                ))}
-              </select>
-              <label
-                htmlFor={`content-${index}`}
-                className="block text-sm font-medium text-gray-700 mt-2"
-              >
-                Code Content
-              </label>
-              <textarea
-                id={`content-${index}`}
-                value={block.content}
-                onChange={(e) =>
-                  handleCodeBlockChange(index, "content", e.target.value)
-                }
-                rows="4"
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
-                required
-              />
-            </div>
-          </div>
+                Remove
+              </Button>
+            </Box>
+            <Editor
+              height="200px"
+              language={block.language}
+              value={block.content}
+              onChange={(value) => handleCodeBlockChange(index, "content", value || "")}
+              theme="vs-dark"
+              options={{
+                minimap: { enabled: false },
+                scrollBeyondLastLine: false,
+                fontSize: 14,
+              }}
+            />
+          </Paper>
         ))}
-        <button
-          type="button"
-          onClick={addCodeBlock}
-          className="mb-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
-        >
-          Add Code Block
-        </button>
-        <button
-          type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-          disabled={isUpdating}
-        >
-          {isUpdating ? "Updating..." : "Update Answer"}
-        </button>
+        <Box display="flex" justifyContent="space-between" mt={2} mb={4}>
+          <Button
+            startIcon={<AddIcon />}
+            onClick={addCodeBlock}
+            variant="contained"
+            color="primary"
+          >
+            Add Code Block
+          </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={isUpdating}
+          >
+            {isUpdating ? "Updating..." : "Update Answer"}
+          </Button>
+        </Box>
       </form>
-    </div>
+    </Paper>
   );
-};
-
-export default EditAnswerPage;
+}

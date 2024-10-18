@@ -133,7 +133,7 @@ const TeacherPlayerDashboard = ({ totalPoints, userProgress,userInfo }) => {
     let progress = 0;
     const interval = setInterval(() => {
       if (progress < totalPoints) {
-        progress += Math.min(5, totalPoints - progress);
+        progress += Math.min(50, totalPoints - progress);
         setAnimatedPoints(progress);
       } else {
         clearInterval(interval);

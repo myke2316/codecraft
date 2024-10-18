@@ -169,7 +169,7 @@ const ActivityHeader = React.memo(
   }
 );
 
-const CodingActivity = ({ activity, onRunCode, onSubmit, output }) => {
+const CodingActivity = ({ activity, onRunCode, onSubmit, output,setOutput }) => {
   const [htmlCode, setHtmlCode] = useState("");
   const [cssCode, setCssCode] = useState("");
   const [jsCode, setJsCode] = useState("");
@@ -189,7 +189,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit, output }) => {
   const resizerRef = useRef(null);
   const editorRef = useRef(null);
   const outputRef = useRef(null);
-console.log(submissionResult)
+  console.log(submissionResult);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
@@ -430,6 +430,10 @@ console.log(submissionResult)
       );
 
       setFinalResult(true);
+      setHtmlCode("");
+      setCssCode("");
+      setJsCode("");
+      setOutput("")
       resetTimer();
     } catch (error) {
       console.error("Error submitting code:", error);

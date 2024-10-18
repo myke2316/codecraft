@@ -1,24 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDeleteAnswerMutation } from "../questionService"; // Adjust the import path as needed
+import { useDeleteAnswerMutation, useVoteAnswerMutation, useGetAnswerVoteQuery } from "../questionService";
 import ConfirmationDialog from "./ConfirmationDialog";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import {
+  Card,
+  CardContent,
+  CardActions,
+  Typography,
+  Button,
+  Avatar,
+  Chip,
+  Alert,
+  IconButton,
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 
 const defaultProfilePicture =
   "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=";
 
-const AnswerItem = ({
-  answer,
-  currentUserId,
-  isQuestionAuthor,
-  currentQuestion,
-}) => {
+export default function AnswerItem({ answer, currentUserId, isQuestionAuthor, currentQuestion, fetchQuestionData }) {
   const navigate = useNavigate();
   const [deleteAnswer] = useDeleteAnswerMutation();
+  const [voteAnswer] = useVoteAnswerMutation();
+  const { data: voteData, refetch: refetchVotes } = useGetAnswerVoteQuery({
+    questionId: currentQuestion._id,
+    answerId: answer._id,
+  });
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(""); // State for success message
-  const [isFading, setIsFading] = useState(false); // State for fade effect
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isFading, setIsFading] = useState(false);
+  const [voteCount, setVoteCount] = useState(0);
+  const [userVote, setUserVote] = useState(0);
 
   const isAnswerAuthor = answer.author._id === currentUserId;
+
+  useEffect(() => {
+    if (voteData) {
+      setVoteCount(voteData.voteCount);
+    }
+  }, [voteData]);
+  useEffect(() => {
+    setVoteCount(answer.voteCount || 0);
+    const userVote = answer.votes?.find(
+      (v) => v.user.toString() === currentUserId
+    );
+    setUserVote(userVote ? userVote.vote : 0);
+  }, [answer]);
 
   const handleEdit = () => {
     navigate(`/edit-answer/${currentQuestion._id}/${answer._id}`, {
@@ -31,85 +64,146 @@ const AnswerItem = ({
       await deleteAnswer({
         answerId: answer._id,
         questionId: currentQuestion._id,
-        authorId: currentQuestion.author._id, // Ensure you pass the current user ID
+        authorId: currentQuestion.author._id,
       }).unwrap();
-      setSuccessMessage("Successfully deleted the answer."); // Set success message
-      setIsFading(true); // Trigger fade-out effect
-
-      // Set a timeout to reload the page after the fade-out transition
-      setTimeout(() => {
-        window.location.reload(); // Reload the page
-      }, 500); // Match the duration of your fade-out transition
+      setSuccessMessage("Successfully deleted the answer.");
+      setIsFading(true);
+      fetchQuestionData();
     } catch (error) {
       console.error("Failed to delete answer:", error);
     } finally {
-      setIsDialogOpen(false); // Close the dialog after action
+      setIsDialogOpen(false);
     }
   };
 
+  const handleVote = async (vote) => {
+    if (isAnswerAuthor) return;
+
+    try {
+      const newVote = userVote === vote ? 0 : vote;
+      const result = await voteAnswer({
+        questionId: currentQuestion._id,
+        answerId: answer._id,
+        userId: currentUserId,
+        vote: newVote,
+      }).unwrap();
+
+      setVoteCount(result.voteCount);
+      setUserVote(newVote);
+      console.log("NEW VOTE:" ,newVote)
+      console.log(userVote , vote)
+      refetchVotes();
+    } catch (error) {
+      console.error("Failed to vote:", error);
+    }
+  };
+
+
   return (
-    <li
-      className={`mb-4 p-4 border border-gray-200 rounded shadow-sm transition-opacity duration-500 ${
+    <Card
+      className={`mb-6 transition-opacity duration-500 ${
         isFading ? "opacity-0" : "opacity-100"
-      }`}
+      } shadow-md hover:shadow-lg`}
     >
-      <div className="flex items-center">
-        <img
-          src={answer.author.profilePicture || defaultProfilePicture}
-          alt={answer.author.username}
-          className="w-8 h-8 rounded-full mr-2"
-        />
-        <div className="text-xl font-semibold">{answer.author.username}</div>
-      </div>
-      <div className="text-lg mt-2">
-        <p className="break-words">{answer.content}</p>
-      </div>
-      {answer.codeBlocks.map((block, index) => (
-        <div key={index} className="mt-2">
-          <div className="text-sm font-medium">
-            {block.language.toUpperCase()}
-          </div>
-          <pre className="p-2 bg-gray-100 rounded overflow-x-auto whitespace-pre-wrap">
-            {block.content}
-          </pre>
+      <CardContent>
+        <div className="flex items-center space-x-4 mb-4">
+          <Avatar
+            src={answer.author.profilePicture || defaultProfilePicture}
+            alt={answer.author.username}
+            className="w-12 h-12"
+          />
+          <Typography variant="h6" component="div" className="font-semibold">
+            {answer.author.username}
+          </Typography>
         </div>
-      ))}
-      {/* Show edit and delete buttons based on author conditions */}
-      {(isAnswerAuthor || isQuestionAuthor) && (
-        <div className="mt-4 flex space-x-2">
+        <Typography variant="body1" className="mb-4 break-words">
+          {answer.content}
+        </Typography>
+        {answer.codeBlocks.map((block, index) => (
+          <div key={index} className="mb-4">
+            <Chip
+              label={block.language.toUpperCase()}
+              color="primary"
+              size="small"
+              className="mb-2"
+            />
+            <SyntaxHighlighter
+              language={block.language}
+              style={atomDark}
+              customStyle={{
+                borderRadius: "0.375rem",
+                padding: "1rem",
+              }}
+              wrapLines={true}
+              wrapLongLines={true}
+              showLineNumbers={true}
+            >
+              {formatCode(block.content)}
+            </SyntaxHighlighter>
+          </div>
+        ))}
+        {successMessage && (
+          <Alert severity="success" className="mt-4">
+            {successMessage}
+          </Alert>
+        )}
+      </CardContent>
+      <CardActions className="flex justify-between items-center bg-gray-50 p-2">
+        <div className="flex items-center space-x-2">
+          <IconButton
+            onClick={() => handleVote(1)}
+            disabled={isAnswerAuthor}
+            color={userVote === 1 ? "primary" : "default"}
+          >
+            <ThumbUpIcon />
+          </IconButton>
+          <Typography variant="body2" className="font-bold">
+            {voteCount}
+          </Typography>
+          <IconButton
+            onClick={() => handleVote(-1)}
+            disabled={isAnswerAuthor}
+            color={userVote === -1 ? "error" : "default"}
+          >
+            <ThumbDownIcon />
+          </IconButton>
+        </div>
+        <div className="flex space-x-2">
           {isAnswerAuthor && (
-            <button
+            <Button
+              variant="outlined"
+              startIcon={<EditIcon />}
               onClick={handleEdit}
-              className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700"
+              className="text-yellow-600 border-yellow-600 hover:bg-yellow-50"
             >
               Edit
-            </button>
+            </Button>
           )}
           {(isAnswerAuthor || isQuestionAuthor) && (
-            <button
+            <Button
+              variant="outlined"
+              startIcon={<DeleteIcon />}
               onClick={() => setIsDialogOpen(true)}
-              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
+              className="text-red-600 border-red-600 hover:bg-red-50"
             >
               Delete
-            </button>
+            </Button>
           )}
         </div>
-      )}
-      {/* Success message */}
-      {successMessage && (
-        <div className="mt-4 p-2 bg-green-100 text-green-800 border border-green-300 rounded">
-          {successMessage}
-        </div>
-      )}
-      {/* Confirmation dialog for deletion */}
+      </CardActions>
       <ConfirmationDialog
         open={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
         onConfirm={handleDelete}
         message="Are you sure you want to delete this answer?"
       />
-    </li>
+    </Card>
   );
-};
+}
 
-export default AnswerItem;
+function formatCode(code) {
+  return code
+    .split("\n")
+    .map((line) => line.trim())
+    .join("\n");
+}

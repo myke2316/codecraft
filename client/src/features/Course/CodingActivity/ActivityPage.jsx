@@ -61,7 +61,7 @@ const ActivityPage = () => {
       <Sidebar courseId={courseId} lessonId={lessonId} userProgress={userProgress} />
       {activity ? (
         <>
-          <CodingActivity activity={activity} onRunCode={handleRunCode} output={output} />
+          <CodingActivity activity={activity} onRunCode={handleRunCode} output={output} setOutput={setOutput}/>
           {/* <OutputPanel output={output} activity={activity} onRunCode={handleRunCode}/> */}
         </>
       ) : (

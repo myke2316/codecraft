@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useGetScoreByStudentIdQuery } from "../Class/submissionAssignmentService";
 
 const LeaderboardStudents = ({ students, classId }) => {
   const [sortBy, setSortBy] = useState("points");
@@ -36,14 +37,10 @@ const LeaderboardStudents = ({ students, classId }) => {
   return (
     <div
       className={`${
-        mode === "light" ? "bg-white text-gray-900" :  "text-white"
+        mode === "light" ? "bg-white text-gray-900" : "text-white"
       } p-6 rounded-lg shadow-md transition-colors duration-300`}
     >
- 
-
-      <h2 className="text-2xl font-semibold mb-4">
-        Students
-      </h2>
+      <h2 className="text-2xl font-semibold mb-4">Students</h2>
 
       {/* Sort options */}
       <motion.div
@@ -52,10 +49,7 @@ const LeaderboardStudents = ({ students, classId }) => {
         transition={{ duration: 0.5 }}
         className="mb-6"
       >
-        <label
-          htmlFor="sort-by"
-          className="block text-sm font-bold mb-2"
-        >
+        <label htmlFor="sort-by" className="block text-sm font-bold mb-2">
           Sort by:
         </label>
         <motion.select
@@ -77,66 +71,80 @@ const LeaderboardStudents = ({ students, classId }) => {
       {/* Display students */}
       {sortedStudents.length > 0 ? (
         <ul className="space-y-4">
-          {sortedStudents.map((student, index) => (
-            <Link
-              key={student._id}
-              to={
-                userRole === "teacher"
-                  ? `/${classId}/class/students/${student._id}`
-                  : console.log("STUDENT PROFILE VIEW")
-              }
-              className="block"
-            >
-              <motion.li
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ scale: 1.03, boxShadow: "0px 4px 15px rgba(0,0,0,0.1)" }}
-                className={`flex justify-between items-center p-5 rounded-lg shadow transition-shadow duration-200 ${
-                  mode === "light"
-                    ? "bg-gradient-to-r  from-purple-100 via-indigo-100 to-indigo-50"
-                    : "bg-gradient-to-r from-gray-700 via-gray-600 to-gray-500"
-                }`}
+          {sortedStudents.map((student, index) => {
+            const studentId = student._id
+            console.log(studentId)
+            const { data: scoresData, isFetching } = useGetScoreByStudentIdQuery(studentId);
+          
+          
+            const submissionPoints = scoresData?.scores.reduce((acc, score) => {
+              return acc + (score.grade || 0);
+            }, 0);
+           
+            return (
+              <Link
+                key={student._id}
+                to={
+                  userRole === "teacher"
+                    ? `/${classId}/class/students/${student._id}`
+                    : console.log("STUDENT PROFILE VIEW")
+                }
+                className="block"
               >
-                <div className="flex items-center">
-                  {/* Display trophy emojis based on rank */}
+                <motion.li
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{
+                    scale: 1.03,
+                    boxShadow: "0px 4px 15px rgba(0,0,0,0.1)",
+                  }}
+                  className={`flex justify-between items-center p-5 rounded-lg shadow transition-shadow duration-200 ${
+                    mode === "light"
+                      ? "bg-gradient-to-r  from-purple-100 via-indigo-100 to-indigo-50"
+                      : "bg-gradient-to-r from-gray-700 via-gray-600 to-gray-500"
+                  }`}
+                >
+                  <div className="flex items-center">
+                    {/* Display trophy emojis based on rank */}
+                    {sortBy === "points" && (
+                      <motion.div
+                        className="mr-4 text-3xl"
+                        animate={{ y: [0, -10, 0] }}
+                        transition={{
+                          duration: 0.8,
+                          repeat: Infinity,
+                          repeatType: "reverse",
+                        }}
+                      >
+                        {index === 0
+                          ? "🥇"
+                          : index === 1
+                          ? "🥈"
+                          : index === 2
+                          ? "🥉"
+                          : ""}
+                      </motion.div>
+                    )}
+                    <div>
+                      <p className="text-xl font-semibold">
+                        {student.username}
+                      </p>
+                      {userRole === "teacher" ? (
+                        <p className="text-sm">{student.email}</p>
+                      ) : null}
+                    </div>
+                  </div>
+                  {/* Conditionally render points based on sorting */}
                   {sortBy === "points" && (
-                    <motion.div
-                      className="mr-4 text-3xl"
-                      animate={{ y: [0, -10, 0] }}
-                      transition={{
-                        duration: 0.8,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                      }}
-                    >
-                      {index === 0
-                        ? "🥇"
-                        : index === 1
-                        ? "🥈"
-                        : index === 2
-                        ? "🥉"
-                        : ""}
-                    </motion.div>
+                    <div className="text-lg font-bold">
+                      {student.totalPointsEarned + submissionPoints} Points
+                    </div>
                   )}
-                  <div>
-                    <p className="text-xl font-semibold">
-                      {student.username}
-                    </p>
-                {userRole === "teacher" ? (    <p className="text-sm">
-                      {student.email}
-                    </p>) : null}
-                  </div>
-                </div>
-                {/* Conditionally render points based on sorting */}
-                {sortBy === "points" && (
-                  <div className="text-lg font-bold">
-                    {student.totalPointsEarned} Points
-                  </div>
-                )}
-              </motion.li>
-            </Link>
-          ))}
+                </motion.li>
+              </Link>
+            );
+          })}
         </ul>
       ) : (
         <motion.p

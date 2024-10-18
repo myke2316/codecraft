@@ -9,6 +9,12 @@ import {
   deleteAnswer,
   deleteQuestion,
   getAnswerById,
+  voteAnswer,
+  voteQuestion,
+  getQuestionVotes,
+  getAnswerVotes,
+  getUserVotes,
+ 
 } from "../../controller/QnAController/questionsController.js";
 
 const router = express.Router();
@@ -36,5 +42,14 @@ router.delete("/delete/:id", deleteQuestion);
 
 // Route to delete an answer
 router.delete("/delete/:questionId/:answerId", deleteAnswer);
+
+//get an answer by id
 router.get("/questions/:questionId/answers/:answerId", getAnswerById);
+
+//VOTING ROUTERS
+router.post('/questions/:questionId/vote', voteQuestion);
+router.get('/questions/:questionId/allVote', getQuestionVotes);
+router.post('/questions/:questionId/answers/:answerId/vote', voteAnswer);
+router.get('/questions/:questionId/answers/:answerId/allVote', getAnswerVotes);
+router.get('/questions/answer/:userId/allVote', getUserVotes)
 export { router as questionRouter };

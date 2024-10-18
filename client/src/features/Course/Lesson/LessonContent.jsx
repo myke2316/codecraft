@@ -85,7 +85,8 @@ function LessonContent() {
     );
       console.log(lessonProgress)
   const completedDocuments = lessonProgress.documentsProgress.filter(
-    (dp) => !dp.locked
+    // (dp) => !dp.locked
+    (dp) => dp.dateFinished !== null
   ).length;
   const completedQuiz = lessonProgress.quizzesProgress.filter(
     (dp) => dp.dateFinished !== null

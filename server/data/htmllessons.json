@@ -2146,13 +2146,11 @@
                   "output": "<!DOCTYPE html><html><head><title>Basic HTML Head</title><meta charset=\"UTF-8\"><style>h1 { color: blue; }</style></head><body><h1>Sample Heading</h1></body></html>",
                   "required": [
                     "<title>Basic HTML Head</title>",
-                    "<meta charset=\"UTF-8\"",
-                    "<style>h1 { color: blue; }</style>"
+                    "<meta charset=\"UTF-8\""
                   ],
                   "testCaseSentences": [
                     "Include a title : Basic HTML Head",
-                    "Set the meta tag with the specified charset.",
-                    "Style all the h1 tags with color blue."
+                    "Set the meta tag with the specified charset."
                   ],
                   "isHidden": false
                 }
@@ -3316,7 +3314,7 @@
           ],
           "totalPoints": 0,
           "locked": true,
-          "badges":"HTML Consistent"
+          "badges":"HTML Finisher"
         }
       ],
       "locked": false,

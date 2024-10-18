@@ -13,6 +13,7 @@ import PlayerDashboard from "../../Student/StudentDashboard/PlayerDashboard";
 import TeacherPlayerDashboard from "./TeacherPlayerDashboard";
 import { useParams } from "react-router";
 import { useGetUserMutation } from "../../LoginRegister/userService";
+import { useGetScoreByStudentIdQuery } from "../../Class/submissionAssignmentService";
 const theme = createTheme();
 // const userAnalytics = useSelector((state) => state.userAnalytics.userAnalytics);
 
@@ -22,10 +23,21 @@ const TeacherStudentDashboard = ({ userAnalytics, userProgress }) => {
   const totalPoints = userAnalytics.coursesAnalytics.reduce((acc, course) => {
     return acc + (course.totalPointsEarned || 0);
   }, 0);
-
+  const [assignmentGrades, setAssignmentGrades] = useState(0);
   const { studentId } = useParams();
   const userId = studentId;
+  const { data: scoresData, isFetching } = useGetScoreByStudentIdQuery(studentId);
+  useEffect(() => {
+    if (!isFetching && scoresData) {
+      // Sum up the grades from the scores array
+      const submissionPoints = scoresData.scores.reduce((acc, score) => {
+        return acc + (score.grade || 0);
+      }, 0);
 
+      // Combine the points from submissions and analytics
+      setAssignmentGrades(submissionPoints);
+    }
+  }, [scoresData, userAnalytics, isFetching]);
   const [userInfo, setUserInfo] = useState();
   const [getUser, { data, isLoading, isError }] = useGetUserMutation();
 
@@ -53,7 +65,7 @@ const TeacherStudentDashboard = ({ userAnalytics, userProgress }) => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
             <TeacherPlayerDashboard
-              totalPoints={totalPoints}
+              totalPoints={totalPoints+assignmentGrades}
               userProgress={userProgress}
               userInfo={userInfo}
             />

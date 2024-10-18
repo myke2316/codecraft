@@ -38,6 +38,22 @@ const AnswerSchema = new Schema({
     enum: ["pending", "accepted", "denied"],
     default: "pending",
   },
+  votes: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+      vote: {
+        type: Number,
+        enum: [-1, 0,1], 
+      },
+    },
+  ],
+  voteCount: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const QuestionSchema = new Schema({
@@ -51,7 +67,7 @@ const QuestionSchema = new Schema({
   },
   tags: {
     type: [String],
-    enum: ["html", "css", "javascript", "php"],
+    // enum: ["html", "css", "javascript", "php"],
     required: true,
   },
   codeBlocks: [CodeBlockSchema],
@@ -73,6 +89,22 @@ const QuestionSchema = new Schema({
     type: String,
     enum: ["pending", "accepted", "denied"],
     default: "pending",
+  },
+  votes: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+      vote: {
+        type: Number,
+        enum: [-1,0, 1],
+      },
+    },
+  ],
+  voteCount: {
+    type: Number,
+    default: 0,
   },
 });
 

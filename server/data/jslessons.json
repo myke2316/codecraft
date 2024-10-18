@@ -83,7 +83,7 @@
                   "text": "Now that you have set everything up to run JavaScript programs on your computer, you'll be learning how the basic program works in JavaScript in the next tutorial."
                 }
               ],
-              "locked": true
+              "locked": true,"badges":"JS Introduction"
             },
             {
               "title": "JavaScript Variables and Constants",
@@ -1039,7 +1039,7 @@
               "description": "Learn about basic data types and arithmetic operators in JavaScript by declaring variables and performing operations.",
               "language": "JavaScriptConsole",
               "difficulty": "easy",
-              "problemStatement": "You are tasked with writing JavaScript code that demonstrates the usage of basic data types (`String`, `Number`, `Boolean`) and arithmetic operators (`+`, `-`, `*`, `/`). The code should declare variables for each data type, perform arithmetic operations, and print the results to the console.\n\n1. tring Data Type:\n   - Create a variable named `greeting` and assign it the value `'Hello, World!'`.\n   - Print the value of `greeting` to the console.\n\n2. Number Data Type:\n   - Create a variable named `year` and assign it the value `2024`.\n   - Print the value of `year` to the console.\n\n3. Boolean Data Type:\n   - Create a variable named `isStudent` and assign it the value `true`.\n   - Print the value of `isStudent` to the console.\n\n4. Using Arithmetic Operators:\n   - Create a variable named `sum` that stores the result of adding `10 + 20`.\n   - Print the value of `sum` to the console.\n   - Create a variable named `difference` that stores the result of subtracting `30 - 10`.\n   - Print the value of `difference` to the console.\n   - Create a variable named `product` that stores the result of multiplying `5 * 4`.\n   - Print the value of `product` to the console.\n   - Create a variable named `quotient` that stores the result of dividing `40 / 5`.\n   - Print the value of `quotient` to the console.\n\nEnsure that the code executes without any errors and that the variables hold the correct values throughout.",
+              "problemStatement": "You are tasked with writing JavaScript code that demonstrates the usage of basic data types (`String`, `Number`, `Boolean`) and arithmetic operators (`+`, `-`, `*`, `/`). The code should declare variables for each data type, perform arithmetic operations, and print the results to the console.\n\n1. String Data Type:\n   - Create a variable named `greeting` and assign it the value `'Hello, World!'`.\n   - Print the value of `greeting` to the console.\n\n2. Number Data Type:\n   - Create a variable named `year` and assign it the value `2024`.\n   - Print the value of `year` to the console.\n\n3. Boolean Data Type:\n   - Create a variable named `isStudent` and assign it the value `true`.\n   - Print the value of `isStudent` to the console.\n\n4. Using Arithmetic Operators:\n   - Create a variable named `sum` that stores the result of adding `10 + 20`.\n   - Print the value of `sum` to the console.\n   - Create a variable named `difference` that stores the result of subtracting `30 - 10`.\n   - Print the value of `difference` to the console.\n   - Create a variable named `product` that stores the result of multiplying `5 * 4`.\n   - Print the value of `product` to the console.\n   - Create a variable named `quotient` that stores the result of dividing `40 / 5`.\n   - Print the value of `quotient` to the console.\n\nEnsure that the code executes without any errors and that the variables hold the correct values throughout.",
               "codeEditor": {
                 "html": "",
                 "css": "",
@@ -1131,7 +1131,7 @@
           ],
           "totalPoints": 0,
           "locked": true,
-          "badges": "JS Start"
+          "badges": "Getting There"
         },
         {
           "title": "Lesson 2: JS Control Flow",
@@ -1737,6 +1737,7 @@
                 },
                 {
                   "type": "codeconsole",
+                  "language":"javascript",
                   "code": "// Function declaration\nfunction greet() {\n    console.log(\"Hello World!\");\n}\n\n// Function expression\nlet displayPI = function() {\n    console.log(\"PI = 3.14\");\n}\n\ngreet();\ndisplayPI();"
                 },
                 {
@@ -1753,7 +1754,7 @@
                   "text": "The <strong>return statement</strong> terminates the function and specifies the value to be returned."
                 },
                 {
-                  "type": "codeconsole",
+                  "type": "codeconsole", "language": "javascript",
                   "code": "function findSquare(num) {\n    return num * num;\n}\n\nlet square = findSquare(3);\nconsole.log(`Square: ${square}`);"
                 },
                 {
@@ -1770,7 +1771,7 @@
                   "text": "Function expressions allow storing functions in variables:"
                 },
                 {
-                  "type": "codeconsole",
+                  "type": "codeconsole", "language": "javascript",
                   "code": "let square = function(num) {\n    return num * num;\n};\n\nconsole.log(square(5));"
                 }
               ],
@@ -3402,7 +3403,7 @@
             }
           ],
           "totalPoints": 0,
-          "locked": true
+          "locked": true,"badges":"JS Consistent"
         },
         {
           "title": "Lesson 5: JS ES6",
@@ -4469,7 +4470,7 @@
             }
           ],
           "totalPoints": 0,
-          "locked": true
+          "locked": true,"badges":"JS Manipulator"
         }
       ],
       "badges": "JS Master",

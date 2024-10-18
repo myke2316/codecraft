@@ -7,6 +7,7 @@ import {
   submitAssignment,
   downloadSubmissionFile,
   teacherSubmitFeedback,
+  getStudentScores,
 } from "../../controller/teacherFunction/submissionController.js";
 import { assignmentUpload } from "../../sandboxUserFiles/gridFs.js";
 
@@ -27,6 +28,7 @@ router.get(
   "/submissions/get/assignment/:assignmentId",
   getSubmissionsByAssignmentId
 );
+router.get("/submissions/student/:studentId/scores", getStudentScores);
 router.get("/download/submission/:submissionId", downloadSubmissionFile);
 router.patch("/submissions/:submissionId/feedback", teacherSubmitFeedback);
 export { router as submissionRouter };

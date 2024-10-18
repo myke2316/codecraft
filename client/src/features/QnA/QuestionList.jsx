@@ -1,15 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { useFetchQuestionsMutation, useDeleteQuestionMutation } from "./questionService";
+import {
+  useFetchQuestionsMutation,
+  useDeleteQuestionMutation,
+} from "./questionService";
+import {
+  Box,
+  Typography,
+  Button,
+  Select,
+  MenuItem,
+  List,
+  ListItem,
+  Chip,
+  Avatar,
+  IconButton,
+  Divider,
+  TextField,
+  FormControl,
+  InputLabel,
+  Paper,
+  Grid,
+  Card,
+  CardContent,
+  CardActions,
+  Tooltip,
+} from "@mui/material";
+import {
+  Refresh as RefreshIcon,
+  Delete as DeleteIcon,
+  ArrowUpward as UpvoteIcon,
+  QuestionAnswer as AnswerIcon,
+  Search as SearchIcon,
+} from "@mui/icons-material";
 
 const QuestionList = ({ userId }) => {
-  const [selectedTag, setSelectedTag] = useState("");
+  const [selectedTags, setSelectedTags] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [sortBy, setSortBy] = useState("date");
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
-  // Fetch questions using the provided format
   const [fetchQuestions, { isLoading: isLoadingFetchQuestions }] =
     useFetchQuestionsMutation();
 
@@ -32,14 +65,15 @@ const QuestionList = ({ userId }) => {
   }, []);
 
   const handleTagChange = (event) => {
-    setSelectedTag(event.target.value);
+    setSelectedTags(event.target.value);
   };
 
   const handleRefresh = () => {
     loadQuestions();
   };
 
-  const handleDeleteQuestion = async (questionId) => {
+  const handleDeleteQuestion = async (questionId, event) => {
+    event.stopPropagation();
     try {
       await deleteQuestion(questionId);
       setQuestions((prevQuestions) =>
@@ -50,117 +84,193 @@ const QuestionList = ({ userId }) => {
     }
   };
 
-  const filteredQuestions = selectedTag
-    ? questions.filter((question) => question.tags.includes(selectedTag))
-    : questions;
-
-  const sortedQuestions = [...filteredQuestions].sort(
-    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-  );
-
   const handleQuestionClick = (id) => {
     navigate(`question/${id}`);
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading questions: {error.message}</div>;
+  const filteredAndSortedQuestions = useMemo(() => {
+    let filtered = questions;
+
+    if (selectedTags.length > 0) {
+      filtered = filtered.filter((question) =>
+        selectedTags.every((tag) => question.tags.includes(tag))
+      );
+    }
+
+    if (searchQuery) {
+      const lowercaseQuery = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (question) =>
+          question.title.toLowerCase().includes(lowercaseQuery) ||
+          question.content.toLowerCase().includes(lowercaseQuery) ||
+          question.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery))
+      );
+    }
+
+    return filtered.sort((a, b) => {
+      if (sortBy === "date") {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      } else if (sortBy === "upvotes") {
+        return (b.upvotes || 0) - (a.upvotes || 0);
+      }
+      return 0;
+    });
+  }, [questions, selectedTags, sortBy, searchQuery]);
+
+  if (isLoading) return <Typography>Loading...</Typography>;
+  if (error) return <Typography color="error">Error loading questions: {error.message}</Typography>;
 
   return (
-    <div className="max-full mx-auto p-4 bg-white rounded shadow-md">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-bold">Questions</h2>
-        <button
-          className="p-2 bg-blue-500 text-white rounded"
-          onClick={handleRefresh}
-        >
-          Refresh
-        </button>
-      </div>
-      <select
-        className="w-full p-2 mb-4 border border-gray-400 rounded"
-        value={selectedTag}
-        onChange={handleTagChange}
-      >
-        <option value="">All</option>
-        {["html", "css", "javascript", "php"].map((tag) => (
-          <option key={tag} value={tag}>
-            {tag.toUpperCase()}
-          </option>
-        ))}
-      </select>
-      <ul>
-        {sortedQuestions.map((question) => {
-          const isOwner = question.author._id === userId;
-          const isAccepted = question.status === "accepted";
-          const isPending = question.status === "pending";
-          const isDenied = question.status === "denied";
+    <Box className="max-w-8xl mx-auto p-4">
+      <Paper elevation={3} className="p-6 bg-gray-50">
+        <Box className="flex justify-between items-center mb-6">
+          <Typography variant="h4" className="font-bold text-gray-800">Questions</Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<RefreshIcon />}
+            onClick={handleRefresh}
+            disabled={isLoadingFetchQuestions}
+            className="bg-blue-600 hover:bg-blue-700"
+          >
+            Refresh
+          </Button>
+        </Box>
+        <Grid container spacing={3} className="mb-6">
+          <Grid item xs={12} md={4}>
+            <FormControl fullWidth variant="outlined">
+              <InputLabel>Sort By</InputLabel>
+              <Select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                label="Sort By"
+              >
+                <MenuItem value="date">Date</MenuItem>
+                <MenuItem value="upvotes">Upvotes</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <FormControl fullWidth variant="outlined">
+              <InputLabel>Filter by Tags</InputLabel>
+              <Select
+                multiple
+                value={selectedTags}
+                onChange={handleTagChange}
+                label="Filter by Tags"
+                renderValue={(selected) => (
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                    {selected.map((value) => (
+                      <Chip key={value} label={value} size="small" />
+                    ))}
+                  </Box>
+                )}
+              >
+                {["html", "css", "javascript", "php"].map((tag) => (
+                  <MenuItem key={tag} value={tag}>
+                    {tag.toUpperCase()}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <TextField
+              fullWidth
+              label="Search questions or tags"
+              variant="outlined"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              InputProps={{
+                startAdornment: <SearchIcon className="text-gray-400 mr-2" />,
+              }}
+            />
+          </Grid>
+        </Grid>
+        <List>
+          {filteredAndSortedQuestions.map((question) => {
+            const isOwner = question.author._id === userId;
+            const isAccepted = question.status === "accepted";
+            const isPending = question.status === "pending";
+            const isDenied = question.status === "denied";
 
-          let questionStyle = "";
-          if (isOwner && isPending) {
-            questionStyle = "opacity-50"; // Greyed out
-          } else if (isOwner && isDenied) {
-            questionStyle = "opacity-50 bg-red-200"; // Greyed out and red
-          } else if (!isAccepted && !isOwner) {
-            return null; // Skip non-accepted questions not owned by the user
-          }
+            if (!isAccepted && !isOwner) {
+              return null;
+            }
 
-          return (
-            <li
-              key={question._id}
-              className={`flex items-start mb-4 cursor-pointer ${questionStyle}`}
-              onClick={() => handleQuestionClick(question._id)}
-            >
-              <div className="mr-4">
-                <img
-                  src={`https://via.placeholder.com/40x40?text=${question.author.username}`}
-                  alt={question.author.username}
-                  className="w-10 h-10 rounded-full"
-                />
-                {question.author.username}
-              </div>
-              <div>
-                <h3 className="text-lg font-bold">{question.title}</h3>
-                <p className="text-gray-600">{question.content}</p>
-                <div className="mt-2">
-                  {question.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="inline-block bg-gray-200 rounded px-2 py-1 text-sm mr-2"
-                    >
-                      {tag.toUpperCase()}
-                    </span>
-                  ))}
-                </div>
-                {isPending && isOwner && (
-                  <span className="inline-block mt-2 text-sm text-yellow-500">
-                    Pending Review
-                  </span>
-                )}
-                {isDenied && isOwner && (
-                  <div className="mt-2">
-                    <span className="text-sm text-red-500 mr-2">Denied</span>
-                    <button
-                      className="p-2 bg-red-500 text-white rounded"
-                      onClick={(e) => {
-                        e.stopPropagation(); // Prevent the question click event
-                        handleDeleteQuestion(question._id);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                )}
-                {isAccepted && (
-                  <span className="inline-block mt-2 text-sm text-green-500">
-                    Accepted
-                  </span>
-                )}
-              </div>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+            return (
+              <Card 
+                key={question._id} 
+                className={`mb-4 cursor-pointer transition-all duration-300 transform hover:scale-102 hover:shadow-lg ${
+                  (isOwner && isPending) ? "opacity-70" : ""
+                } ${(isOwner && isDenied) ? "opacity-70 bg-red-50" : ""}`}
+                onClick={() => handleQuestionClick(question._id)}
+              >
+                <CardContent>
+                  <Grid container spacing={2}>
+                    <Grid item xs={2} sm={1} className="flex flex-col items-center justify-center">
+                      <Tooltip title="Upvotes">
+                        <Box className="flex flex-col items-center">
+                          <UpvoteIcon className="text-gray-500 mb-1" />
+                          <Typography variant="h6" className="font-bold">{question.voteCount || 0}</Typography>
+                        </Box>
+                      </Tooltip>
+                      <Tooltip title="Answers">
+                        <Box className="flex flex-col items-center mt-2">
+                          <AnswerIcon className="text-gray-500 mb-1" />
+                          <Typography variant="h6" className="font-bold">{question.answers?.length || 0}</Typography>
+                        </Box>
+                      </Tooltip>
+                    </Grid>
+                    <Grid item xs={10} sm={11}>
+                      <Typography variant="h6" className="font-bold mb-2 text-blue-600 hover:text-blue-800">
+                        {question.title}
+                      </Typography>
+                      <Box className="flex flex-wrap gap-1 mb-3">
+                        {question.tags.map((tag) => (
+                          <Chip key={tag} label={tag.toUpperCase()} size="small" className="bg-blue-100 text-blue-800" />
+                        ))}
+                      </Box>
+                      <Box className="flex items-center justify-between">
+                        <Box className="flex items-center">
+                          <Avatar 
+                            alt={question.author.username} 
+                            src={`https://via.placeholder.com/32x32?text=${question.author.username.charAt(0)}`}
+                            sx={{ width: 32, height: 32 }}
+                            className="mr-2"
+                          />
+                          <Typography variant="caption" className="text-gray-600">
+                            {question.author.username} asked {new Date(question.createdAt).toLocaleString()}
+                          </Typography>
+                        </Box>
+                        {isPending && isOwner && (
+                          <Chip label="Pending Review" size="small" color="warning" className="bg-yellow-100 text-yellow-800" />
+                        )}
+                        {isDenied && isOwner && (
+                          <Box className="flex items-center">
+                            <Chip label="Denied" size="small" color="error" className="bg-red-100 text-red-800 mr-2" />
+                            <IconButton
+                              size="small"
+                              color="error"
+                              onClick={(e) => handleDeleteQuestion(question._id, e)}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </Box>
+                        )}
+                        {isAccepted && (
+                          <Chip label="Accepted" size="small" color="success" className="bg-green-100 text-green-800" />
+                        )}
+                      </Box>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </List>
+      </Paper>
+    </Box>
   );
 };
 

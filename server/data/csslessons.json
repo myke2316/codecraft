@@ -23,7 +23,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "body {\n    font-family: Arial, sans-serif;\n    line-height: 1.6;\n    color: #333;\n}\n.container {\n    width: 80%;\n    margin: 0 auto;\n    padding: 20px;\n    background-color: #f4f4f4;\n    border-radius: 5px;\n}\nh1 {\n    color: #0066cc;\n}\np {\n    margin-bottom: 10px;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Example</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"container\">\n        <h1>Welcome to CSS</h1>\n        <p>This is a simple example of how CSS can style an HTML document.</p>\n        <p>CSS makes it easy to create consistent, attractive designs across your entire website.</p>\n    </div>\n</body>\n</html>",
                   "text": "This example demonstrates a simple CSS file with basic styling. The CSS rules define the layout, colors, and typography for the page."
@@ -49,7 +49,8 @@
                   "text": "• The <strong>p</strong> selector adds some spacing between paragraphs."
                 }
               ],
-              "locked": true
+              "locked": true,
+              "badges": "Beginner Stylist"
             },
             {
               "title": "The Role of CSS in Web Design",
@@ -80,7 +81,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "/* Global Styles */\nbody {\n    font-family: 'Roboto', sans-serif;\n    line-height: 1.6;\n    color: #333;\n    margin: 0;\n    padding: 0;\n}\n\n/* Header Styles */\nheader {\n    background-color: #0066cc;\n    color: white;\n    text-align: center;\n    padding: 1rem;\n}\n\n/* Main Content Styles */\n.main-content {\n    max-width: 800px;\n    margin: 2rem auto;\n    padding: 0 1rem;\n}\n\n/* Responsive Design */\n@media (max-width: 600px) {\n    header {\n        padding: 0.5rem;\n    }\n    .main-content {\n        margin: 1rem auto;\n    }\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Role in Web Design</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <header>\n        <h1>Welcome to Our Website</h1>\n    </header>\n    <div class=\"main-content\">\n        <h2>About Us</h2>\n        <p>This is an example of how CSS can create responsive and consistent designs.</p>\n    </div>\n</body>\n</html>",
                   "text": "This CSS example demonstrates various aspects of web design, including global styles, component-specific styles, and responsive design using media queries."
@@ -97,9 +98,8 @@
                 },
                 {
                   "type": "snippet",
-                
+
                   "code": "selector {\n    property: value;\n    another-property: another-value;\n}"
-            
                 },
                 {
                   "type": "sentence",
@@ -127,7 +127,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "/* Element Selector */\np {\n    color: #333;\n}\n\n/* Class Selector */\n.highlight {\n    background-color: yellow;\n}\n\n/* ID Selector */\n#header {\n    font-size: 24px;\n}\n\n/* Attribute Selector */\ninput[type=\"text\"] {\n    border: 1px solid #ccc;\n}\n\n/* Pseudo-class Selector */\na:hover {\n    text-decoration: underline;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Selectors Example</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <h1 id=\"header\">CSS Selectors</h1>\n    <p>This is a normal paragraph.</p>\n    <p class=\"highlight\">This paragraph is highlighted.</p>\n    <input type=\"text\" placeholder=\"Enter text here\">\n    <a href=\"#\">Hover over me</a>\n</body>\n</html>"
                 }
@@ -634,7 +634,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": ".cc-underline {\n  text-decoration: underline;\n  font-family: 'CodeCraft Sans', Arial, sans-serif;\n}\n\n.cc-line-through {\n  text-decoration: line-through;\n  color: #b00; /* CodeCraft's red color for outdated content */\n}\n\n.cc-overline {\n  text-decoration: overline;\n  font-weight: bold;\n  color: #333; /* Neutral color for emphasis */\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Hello, World!</title>\n  <link rel=\"stylesheet\" href=\"styles.css\" />\n</head>\n<body>\n  <div class=\"cc-underline\">Learn HTML with CodeCraft</div>\n  <div class=\"cc-line-through\">This content is outdated.</div>\n  <div class=\"cc-overline\">Special Announcement</div>\n</body>\n</html>"
                 },
@@ -653,7 +653,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": ".cc-advanced-decoration {\n  text-decoration-line: underline overline;\n  text-decoration-style: solid;\n  text-decoration-color: #1e90ff; /* CodeCraft blue for emphasis */\n  text-decoration-thickness: 2px;\n  margin-bottom: 20px; /* Space between elements */\n}\n\n.cc-wavy-decoration {\n  text-decoration-line: underline;\n  text-decoration-style: wavy;\n  text-decoration-color: #ff6347; /* CodeCraft accent color */\n  text-decoration-thickness: 3px;\n  margin-bottom: 20px; /* Space between elements */\n}\n\n.cc-thick-underline {\n  text-decoration-line: underline;\n  text-decoration-style: solid;\n  text-decoration-color: #333; /* Neutral color */\n  text-decoration-thickness: 4px; /* Thicker line for emphasis */\n  margin-bottom: 20px; /* Space between elements */\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Hello, World!</title>\n  <link rel=\"stylesheet\" href=\"styles.css\" />\n</head>\n<body>\n  <div class=\"cc-advanced-decoration\">Welcome to CodeCraft E-Learning!</div>\n  <div class=\"cc-wavy-decoration\">Check out our latest courses!</div>\n  <div class=\"cc-thick-underline\">Important Update: Please read</div>\n</body>\n</html>"
                 },
@@ -730,7 +730,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "/* No transformation applied */\np.none {\n  text-transform: none;\n}\n\n/* Capitalizes the first letter of each word */\np.capitalize {\n  text-transform: capitalize;\n}\n\n/* Converts all text to uppercase */\np.uppercase {\n  text-transform: uppercase;\n}\n\n/* Converts all text to lowercase */\np.lowercase {\n  text-transform: lowercase;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Hello, World!</title>\n  <link rel=\"stylesheet\" href=\"styles.css\" />\n</head>\n<body>\n  <p class=\"none\">This text will remain unchanged.</p>\n  <p class=\"capitalize\">this text will be capitalized.</p>\n  <p class=\"uppercase\">this text will be in uppercase.</p>\n  <p class=\"lowercase\">THIS TEXT WILL BE IN LOWERCASE.</p>\n</body>\n</html>"
                 },
@@ -799,7 +799,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "/* Widens the space between characters by 3px */\np.positive_value {\n    letter-spacing: 3px;\n}\n\n/* Narrows the space between characters by 3px */\np.negative_value {\n    letter-spacing: -3px;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Hello, World!</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n   <p class=\"positive_value\">Increased letter spacing.</p>\n<p class=\"negative_value\">Decreased letter spacing.</p>\n  </body>\n</html>"
                 },
@@ -830,7 +830,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "/* Widens the space between words by 6px */\np {\n    word-spacing: 6px;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Hello, World!</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n  <p>Increased word spacing.</p>\n\n  </body>\n</html>"
                 },
@@ -857,7 +857,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "/* Indents the first line by 40px */\np {\n    text-indent: 40px;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Hello, World!</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n <p>eLearning, also known as electronic learning or online learning, is the delivery of learning and training through digital resources.</p>\n\n  </body>\n</html>"
                 },
@@ -884,7 +884,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "p.normal-value {\n    line-height: normal;\n}\n\n/* Sets line height to 2 times the current font size */\np.numeric-value {\n    line-height: 2;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Hello, World!</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n <p class=\"normal-value\">Default line height.</p>\n<p class=\"numeric-value\">Increased line height.</p>\n\n  </body>\n</html>"
                 },
@@ -961,7 +961,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "h1 {\n  text-shadow: 1px 1px 2px red;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Hello, World!</title>\n  <link rel=\"stylesheet\" href=\"styles.css\" />\n</head>\n<body>\n  <h1>Shadowed Heading</h1>\n</body>\n</html>"
                 },
@@ -1018,7 +1018,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": ".description {\n    text-align: left;\n}\n\n.code-center {\n    text-align: center;\n}\n\n.code-right {\n    text-align: right;\n}\n\n.code-justify {\n    text-align: justify;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Hello, World!</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n<div class=\"description\">Discover the latest in CodeCraft with our aligned text examples.</div>\n<div class=\"code-center\">Code snippet are centered to ensure readability.</div>\n<div class=\"code-right\">Align code examples to the right for better formatting.</div>\n<div class=\"code-justify\">Justify CodeCraft documentation text for a clean look.</div>\n  </body>\n</html>"
                 },
@@ -1103,7 +1103,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": ".last-left {\n    text-align: justify;\n    text-align-last: left;\n}\n\n.last-center {\n    text-align: justify;\n    text-align-last: center;\n}\n\n.last-right {\n    text-align: justify;\n    text-align-last: right;\n}\n\n.last-justify {\n    text-align: justify;\n    text-align-last: justify;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Hello, World!</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n<p class=\"last-left\">This is a justified paragraph with the last line aligned to the left.</p>\n<p class=\"last-center\">This text is centered, including the last line.</p>\n<p class=\"last-right\">This text is right-aligned, and so is the last line.</p>\n<p class=\"last-justify\">The last line of this text is also justified for consistency.</p>\n  </body>\n</html>"
                 },
@@ -1196,7 +1196,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "/* Container styling */\n.aligned-text {\n  border: 1px solid black;\n  line-height: 2;\n  margin-bottom: 10px; /* Adds spacing between paragraphs */\n}\n\n/* Aligns span to the baseline of the parent element */\n.baseline {\n  vertical-align: baseline;\n}\n\n/* Aligns span 10px relative to the baseline of the parent element */\n.length {\n  vertical-align: 10px;\n}\n\n/* Aligns span to subscript position */\n.sub {\n  vertical-align: sub;\n}\n\n/* Aligns span to superscript position */\n.super {\n  vertical-align: super;\n}\n\n/* Aligns span to the top of the parent element */\n.top {\n  vertical-align: top;\n}\n\n/* Aligns span to the top of the parent element's font */\n.text-top {\n  vertical-align: text-top;\n}\n\n/* Aligns span to the middle of the parent element */\n.middle {\n  vertical-align: middle;\n}\n\n/* Aligns span to the bottom of the parent element */\n.bottom {\n  vertical-align: bottom;\n}\n\n/* Aligns span to the bottom of the parent element's font */\n.text-bottom {\n  vertical-align: text-bottom;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Vertical Align Examples</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <p class=\"aligned-text\">Explore <span class=\"baseline\">CodeCraft</span> with precise vertical alignment examples.</p>\n  <p class=\"aligned-text\">The term <span class=\"super\">Super</span> is used in various contexts.</p>\n  <p class=\"aligned-text\">The word <span class=\"sub\">Sub</span> appears as a subscript.</p>\n  <p class=\"aligned-text\">Compare <span class=\"top\">Top</span> and <span class=\"bottom\">Bottom</span> alignments.</p>\n  <p class=\"aligned-text\">Test <span class=\"text-top\">Text-Top</span> and <span class=\"text-bottom\">Text-Bottom</span> alignments.</p>\n  <p class=\"aligned-text\">This is an example with <span class=\"middle\">Middle</span> alignment.</p>\n  <p class=\"aligned-text\">An example with <span class=\"length\">10px</span> relative to the baseline.</p>\n</body>\n</html>"
                 },
@@ -1241,7 +1241,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": ".ltr-text {\n  border: 1px solid green;\n  padding: 10px;\n  direction: ltr; /* Text flows from left to right */\n}\n\n.rtl-text {\n  border: 1px solid blue;\n  padding: 10px;\n  direction: rtl; /* Text flows from right to left */\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>CSS Direction Property Examples</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <div class=\"ltr-text\">\n    <p>Welcome to CodeCraft, where we explore various coding concepts.</p>\n  </div>\n  <div class=\"rtl-text\">\n    <p>Learn more about our features and tutorials.</p>\n  </div>\n</body>\n</html>"
                 },
@@ -1587,7 +1587,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": ".flex-container {\n  display: flex;\n  border: 2px solid #663399; /* Purple border */\n  padding: 10px;\n}\n\n.flex-item {\n  background-color: #FF8C00; /* Dark orange */\n  padding: 20px;\n  margin: 5px;\n  color: white;\n  font-weight: bold;\n  text-align: center;\n  flex: 1; /* Flex grow property */\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"styles.css\">\n    <title>flex-container</title>\n</head>\n<body>\n    <div class=\"flex-container\">\n  <div class=\"flex-item\">Item 1</div>\n  <div class=\"flex-item\">Item 2</div>\n  <div class=\"flex-item\">Item 3</div>\n</div>\n\n</body>\n</html>"
                 },
@@ -1707,7 +1707,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "/* General styling for the page */\nbody {\n    font-family: Arial, sans-serif;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    min-height: 100vh;\n    margin: 0;\n    background-color: #f0f0f0;\n}\n\n/* Flex container styling */\n.container {\n    display: flex;\n    flex-direction: column;\n    gap: 20px;\n}\n\n/* Flex box styling */\n.flex-box {\n    display: flex;\n    gap: 10px;\n    border: 2px solid #000;\n    padding: 10px;\n    background-color: #fff;\n    align-items: center;\n    flex-wrap: wrap; /* Ensure items wrap if necessary */\n}\n\n/* Flex items styling */\n.box {\n    width: 60px;\n    height: 60px;\n    background-color: #ff8c00; /* Dark orange */\n    color: white;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    font-size: 16px;\n}\n\n/* Label styling */\n.label {\n    flex: 1 100%;\n    margin-bottom: 10px;\n    font-weight: bold;\n    text-align: center;\n}\n\n/* Specific direction classes */\n.row {\n    flex-direction: row;\n}\n\n.row-reverse {\n    flex-direction: row-reverse;\n}\n\n.column {\n    flex-direction: column;\n}\n\n.column-reverse {\n    flex-direction: column-reverse;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"styles.css\">\n    <title>Flex Direction Demo</title>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"flex-box row\">\n            <div class=\"label\">Flex Direction: row</div>\n            <div class=\"box\">Item 1</div>\n            <div class=\"box\">Item 2</div>\n            <div class=\"box\">Item 3</div>\n        </div>\n        <div class=\"flex-box row-reverse\">\n            <div class=\"label\">Flex Direction: row-reverse</div>\n            <div class=\"box\">Item 1</div>\n            <div class=\"box\">Item 2</div>\n            <div class=\"box\">Item 3</div>\n        </div>\n        <div class=\"flex-box column\">\n            <div class=\"label\">Flex Direction: column</div>\n            <div class=\"box\">Item 1</div>\n            <div class=\"box\">Item 2</div>\n            <div class=\"box\">Item 3</div>\n        </div>\n        <div class=\"flex-box column-reverse\">\n            <div class=\"label\">Flex Direction: column-reverse</div>\n            <div class=\"box\">Item 1</div>\n            <div class=\"box\">Item 2</div>\n            <div class=\"box\">Item 3</div>\n        </div>\n    </div>\n</body>\n</html>"
                 },
@@ -1757,7 +1757,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "/* General styling for the page */\nbody {\n    font-family: Arial, sans-serif;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    min-height: 100vh;\n    margin: 0;\n    background-color: #f0f0f0;\n}\n\n/* Flex container styling */\n.container {\n    display: flex;\n    flex-direction: column;\n    gap: 20px;\n    width: 100%;\n}\n\n/* Flex box styling */\n.flex-box {\n    display: flex;\n    gap: 10px;\n    border: 2px solid #000;\n    padding: 10px;\n    background-color: #fff;\n    flex-wrap: nowrap; /* Default value, will be overridden by specific classes */\n}\n\n/* Flex items styling */\n.box {\n    width: 80px;\n    height: 80px;\n    background-color: #ff8c00; /* Dark orange */\n    color: white;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    font-size: 16px;\n}\n\n/* Label styling */\n.label {\n    flex: 1 100%;\n    margin-bottom: 10px;\n    font-weight: bold;\n    text-align: center;\n}\n\n/* Specific wrap classes */\n.nowrap {\n    flex-wrap: nowrap;\n}\n\n.wrap {\n    flex-wrap: wrap;\n}\n\n.wrap-reverse {\n    flex-wrap: wrap-reverse;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"styles.css\">\n    <title>Flex Wrap Demo</title>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"flex-box nowrap\">\n            <div class=\"label\">Flex Wrap: nowrap</div>\n            <div class=\"box\">Item 1</div>\n            <div class=\"box\">Item 2</div>\n            <div class=\"box\">Item 3</div>\n            <div class=\"box\">Item 4</div>\n            <div class=\"box\">Item 5</div>\n        </div>\n        <div class=\"flex-box wrap\">\n            <div class=\"label\">Flex Wrap: wrap</div>\n            <div class=\"box\">Item 1</div>\n            <div class=\"box\">Item 2</div>\n            <div class=\"box\">Item 3</div>\n            <div class=\"box\">Item 4</div>\n            <div class=\"box\">Item 5</div>\n        </div>\n        <div class=\"flex-box wrap-reverse\">\n            <div class=\"label\">Flex Wrap: wrap-reverse</div>\n            <div class=\"box\">Item 1</div>\n            <div class=\"box\">Item 2</div>\n            <div class=\"box\">Item 3</div>\n            <div class=\"box\">Item 4</div>\n            <div class=\"box\">Item 5</div>\n        </div>\n    </div>\n</body>\n</html>"
                 },
@@ -1825,7 +1825,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": ".container {\n    display: flex;\n    background-color: #f0f0f0;\n    padding: 10px;\n    border: 1px solid #ccc;\n}\n\n.box {\n    padding: 20px;\n    margin: 5px;\n    color: white;\n    background-color: #5a5a5a;\n    text-align: center;\n}\n\n.order1 {\n    order: 1;\n}\n\n.order2 {\n    order: 2;\n}\n\n.order3 {\n    order: 3;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"styles.css\">\n    <title>Flexbox Properties Example</title>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"box order3\">Item 1 (order: 3)</div>\n        <div class=\"box order1\">Item 2 (order: 1)</div>\n        <div class=\"box order2\">Item 3 (order: 2)</div>\n    </div>\n</body>\n</html>"
                 },
@@ -1843,7 +1843,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": ".container {\n    display: flex;\n    background-color: #f0f0f0;\n    padding: 10px;\n    border: 1px solid #ccc;\n}\n\n.box {\n    padding: 20px;\n    margin: 5px;\n    color: white;\n    background-color: #5a5a5a;\n    text-align: center;\n}\n\n.grow1 {\n    flex-grow: 1;\n}\n\n.grow2 {\n    flex-grow: 2;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"styles.css\">\n    <title>Flexbox Properties Example</title>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"box grow1\">Item 1 (grow: 1)</div>\n        <div class=\"box grow2\">Item 2 (grow: 2)</div>\n        <div class=\"box grow1\">Item 3 (grow: 1)</div>\n    </div>\n</body>\n</html>"
                 },
@@ -1861,7 +1861,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": ".container {\n    display: flex;\n    width: 300px;\n    background-color: #f0f0f0;\n    padding: 10px;\n    border: 1px solid #ccc;\n}\n\n.box {\n    padding: 20px;\n    margin: 5px;\n    color: white;\n    background-color: #5a5a5a;\n    text-align: center;\n    width: 150px;\n}\n\n.shrink1 {\n    flex-shrink: 1;\n}\n\n.shrink2 {\n    flex-shrink: 2;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"styles.css\">\n    <title>Flexbox Properties Example</title>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"box shrink1\">Item 1 (shrink: 1)</div>\n        <div class=\"box shrink2\">Item 2 (shrink: 2)</div>\n        <div class=\"box shrink1\">Item 3 (shrink: 1)</div>\n    </div>\n</body>\n</html>"
                 },
@@ -1875,7 +1875,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": ".container {\n    display: flex;\n    background-color: #f0f0f0;\n    padding: 10px;\n    border: 1px solid #ccc;\n}\n\n.box {\n    padding: 20px;\n    margin: 5px;\n    color: white;\n    background-color: #5a5a5a;\n    text-align: center;\n}\n\n.basis100 {\n    flex-basis: 100px;\n}\n\n.basis150 {\n    flex-basis: 150px;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"styles.css\">\n    <title>Flexbox Properties Example</title>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"box basis100\">Item 1 (basis: 100px)</div>\n        <div class=\"box basis150\">Item 2 (basis: 150px)</div>\n        <div class=\"box basis100\">Item 3 (basis: 100px)</div>\n    </div>\n</body>\n</html>"
                 },
@@ -1889,7 +1889,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": ".container {\n    display: flex;\n    background-color: #f0f0f0;\n    padding: 10px;\n    border: 1px solid #ccc;\n    height: 200px; /* Height is necessary to see the align-self effect */\n}\n\n.box {\n    padding: 20px;\n    margin: 5px;\n    color: white;\n    background-color: #5a5a5a;\n    text-align: center;\n    width: 100px;\n}\n\n.align-start {\n    align-self: flex-start;\n}\n\n.align-center {\n    align-self: center;\n}\n\n.align-end {\n    align-self: flex-end;\n}\n\n.align-stretch {\n    align-self: stretch;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"styles.css\">\n    <title>Flexbox Properties Example</title>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"box align-start\">Item 1 (align-self: flex-start)</div>\n        <div class=\"box align-center\">Item 2 (align-self: center)</div>\n        <div class=\"box align-end\">Item 3 (align-self: flex-end)</div>\n        <div class=\"box align-stretch\">Item 4 (align-self: stretch)</div>\n    </div>\n</body>\n</html>"
                 }
@@ -1921,7 +1921,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "/* Base styles for the flex container */\nmain {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 10px;\n}\n\n/* Base styles for the columns */\n.column {\n    padding: 20px;\n    color: white;\n    text-align: center;\n}\n\n.column1 {\n    background-color: #f56c6c;\n    flex: 1 1 20%;\n}\n\n.column2 {\n    background-color: #ffbb33;\n    flex: 1 1 60%;\n}\n\n.column3 {\n    background-color: #3bafda;\n    flex: 1 1 20%;\n}\n\n/* Styles for tablets */\n@media screen and (max-width: 768px) {\n    .column1, .column2 {\n        flex: 1 1 50%;\n    }\n\n    .column3 {\n        flex: 1 1 100%;\n    }\n}\n\n/* Styles for mobile devices */\n@media screen and (max-width: 450px) {\n    .column {\n        flex: 1 1 100%;\n    }\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Multi-Column Layout</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <main>\n        <div class=\"column column1\">Column 1</div>\n        <div class=\"column column2\">Column 2</div>\n        <div class=\"column column3\">Column 3</div>\n    </main>\n</body>\n</html>"
                 },
@@ -1943,7 +1943,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "/* Base styles for the image gallery */\n.gallery {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 10px;\n    border: 2px solid #ddd;\n    padding: 10px;\n}\n\n.gallery img {\n    width: calc(33% - 20px);\n    height: auto;\n    border-radius: 8px;\n}\n\n/* Styles for tablets */\n@media screen and (max-width: 768px) {\n    .gallery img {\n        width: calc(50% - 20px);\n    }\n}\n\n/* Styles for mobile devices */\n@media screen and (max-width: 450px) {\n    .gallery img {\n        width: calc(100% - 20px);\n    }\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Responsive Image Gallery</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"gallery\">\n        <img src=\"https://elearningindustry.com/wp-content/uploads/2019/07/the-benefits-of-elearning.jpg\" alt=\"Image 1\">\n        <img src=\"https://eviet.edu.vn/uploads/57(1)(1).jpg\" alt=\"Image 2\">\n        <img src=\"https://a.storyblok.com/f/262429/1080x1920/35b3fb1bb0/blogpost-e-learnings.jpg\" alt=\"Image 3\">\n        <img src=\"https://www.simplilearn.com/ice9/free_resources_article_thumb/Why_E-Learning_Insights_into_the_World_of_Online_Learning_and_Development.jpg\" alt=\"Image 4\">\n        <img src=\"https://elearningindustry.com/wp-content/uploads/2019/07/the-benefits-of-elearning.jpg\" alt=\"Image 5\">\n        <img src=\"https://elearningindustry.com/wp-content/uploads/2019/07/the-benefits-of-elearning.jpg\" alt=\"Image 6\">\n    </div>\n</body>\n</html>"
                 }
@@ -2054,7 +2054,7 @@
               "description": "Practice creating a flex container and observing how flex items behave.",
               "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will create a flex container with three flex items.\n\n1. Add the necessary CSS to make the container a flex container.\n2. Set the height of the container to 200px.\n",
+              "problemStatement": "In this activity, you will create a flex container with three flex items.\n\n1. Set the container as a flex container.\n2. Set the height of the container to 200px.\n3.Give each item a different background color",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"container\">\n  <div class=\"item\">Item 1</div>\n  <div class=\"item\">Item 2</div>\n  <div class=\"item\">Item 3</div>\n</div>\n</body>\n</html>",
                 "css": "/* Your CSS code goes here */",
@@ -2084,9 +2084,9 @@
             {
               "title": "Adding Space Between Flex Items",
               "description": "Practice adding space between flex items using gap.",
-              "language":"CSS",
+              "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will add space between the flex items in a container.\n\n1. Add the necessary CSS to create a gap of 20px between the items.",
+              "problemStatement": "In this activity, you will add space between the flex items in a container.\n\n1. Make the container a flex container.\n2. Add a gap of 20px between the flex items.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"container\">\n  <div class=\"item\">Item 1</div>\n  <div class=\"item\">Item 2</div>\n  <div class=\"item\">Item 3</div>\n</div>\n</body>\n</html>",
                 "css": "/* Your CSS code goes here */",
@@ -2111,9 +2111,9 @@
             {
               "title": "Aligning Flex Items",
               "description": "Practice aligning flex items using justify-content and align-items.",
-              "language":"CSS",
+              "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will align flex items within a flex container.\n\n1. Add the necessary CSS to align items in the center both horizontally and vertically.",
+              "problemStatement": "In this activity, you will align flex items within a flex container.\n\n1.Set the container's display to 'flex' .\n2.Center the items horizontally. \n3.Center the items vertically. \n4.Set the height of the container to 200px",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"container\">\n  <div class=\"item\">Item 1</div>\n  <div class=\"item\">Item 2</div>\n  <div class=\"item\">Item 3</div>\n</div>\n</body>\n</html>",
                 "css": "/* Your CSS code goes here */",
@@ -2145,9 +2145,9 @@
             {
               "title": "Justifying Flex Items",
               "description": "Practice using justify-content to align flex items along the main axis.",
-              "language":"CSS",
+              "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will use justify-content to align the flex items within a flex container.\n\n1. Add the necessary CSS to space the items evenly along the main axis.",
+              "problemStatement": "In this activity, you will use justify-content to align the flex items within a flex container.\n\n1.Make the container a flex container \n2.Space the items evenly along the main axis \n3.Set the height of the container to 200px",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"container\">\n  <div class=\"item\">Item 1</div>\n  <div class=\"item\">Item 2</div>\n  <div class=\"item\">Item 3</div>\n</div>\n</body>\n</html>",
                 "css": "/* Your CSS code goes here */",
@@ -2176,7 +2176,8 @@
             }
           ],
           "totalPoints": 0,
-          "locked": true
+          "locked": true,
+          "badges": "CSS Flex"
         },
 
         {
@@ -2227,7 +2228,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "/* styles.css */\n.grid-container {\n    display: grid;\n    grid-template-columns: 1fr 2fr; /* Two columns with different widths */\n    grid-template-rows: auto 1fr auto; /* Header and footer heights are automatic, main content takes remaining space */\n    grid-template-areas: \n        \"header header\"\n        \"aside main\"\n        \"footer footer\"; /* Layout areas */\n    gap: 10px; /* Space between grid items */\n}\n\n.header {\n    grid-area: header;\n    background-color: #4CAF50; /* Green background */\n    color: white; /* White text color */\n    padding: 20px; /* Padding inside header */\n    text-align: center; /* Centered text */\n}\n\n.main {\n    grid-area: main;\n    background-color: #2196F3; /* Blue background */\n    color: white; /* White text color */\n    padding: 20px; /* Padding inside main content */\n}\n\n.aside {\n    grid-area: aside;\n    background-color: #FFC107; /* Yellow background */\n    color: black; /* Black text color */\n    padding: 20px; /* Padding inside aside */\n}\n\n.footer {\n    grid-area: footer;\n    background-color: #f44336; /* Red background */\n    color: white; /* White text color */\n    padding: 20px; /* Padding inside footer */\n    text-align: center; /* Centered text */\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Grid Layout Example</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"grid-container\">\n        <header class=\"grid-item header\">Header</header>\n        <main class=\"grid-item main\">Main Content</main>\n        <aside class=\"grid-item aside\">Aside</aside>\n        <footer class=\"grid-item footer\">Footer</footer>\n    </div>\n</body>\n</html>"
                 }
@@ -2271,7 +2272,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": ".grid-container {\n  display: grid;\n  grid-template-columns: 200px 1fr; /* Fixed width sidebar, flexible main */\n  grid-template-rows: auto 1fr auto; /* Dynamic header and footer heights */\n  grid-template-areas:\n    \"header header\"\n    \"sidebar main\"\n    \"footer footer\";\n  gap: 10px; /* Gap between grid items */\n}\n\n.header { grid-area: header; background-color: #f8b400; }\n.sidebar { grid-area: sidebar; background-color: #f85f73; }\n.main { grid-area: main; background-color: #6a8d92; }\n.footer { grid-area: footer; background-color: #f85f73; }",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Grid Example</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <div class=\"grid-container\">\n    <div class=\"header\">Header</div>\n    <div class=\"sidebar\">Sidebar</div>\n    <div class=\"main\">Main</div>\n    <div class=\"footer\">Footer</div>\n  </div>\n</body>\n</html>"
                 },
@@ -2305,7 +2306,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": ".grid-container {\n  display: grid;\n  grid-template-columns: 1fr 1fr; /* Two equal-width columns */\n  grid-template-rows: auto; /* Automatic height based on content */\n  grid-gap: 20px; /* Gap between grid items */\n}\n\n.item1 { background-color: #f8b400; }\n.item2 { background-color: #f85f73; }\n.item3 { background-color: #6a8d92; }",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Grid Item Example</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <div class=\"grid-container\">\n    <div class=\"item1\">Item 1</div>\n    <div class=\"item2\">Item 2</div>\n    <div class=\"item3\">Item 3</div>\n  </div>\n</body>\n</html>"
                 },
@@ -2335,7 +2336,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": ".grid-item {\n    background-color: #8ebf42;\n    border: 1px solid #333; /* Border for items */\n    text-align: center;\n    font-size: 20px;\n    padding: 20px; /* Increased padding */\n    transition: background-color 0.2s;\n}\n\n.grid-item:hover {\n    background-color: #7cae39; /* Darker green on hover */\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Grid Alignment Example</title>\n    <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n    <div class=\"grid-item\">Item 1</div>\n    <div class=\"grid-item\">Item 2</div>\n    <div class=\"grid-item\">Item 3</div>\n    <div class=\"grid-item\">Item 4</div>\n    <div class=\"grid-item\">Item 5</div>\n    <div class=\"grid-item\">Item 6</div>\n</body>\n</html>"
                 },
@@ -2365,7 +2366,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "body {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 100vh;\n    margin: 0;\n    background-color: #f0f0f0;\n}\n\n.grid-container {\n    display: grid;\n    grid-template-columns: repeat(3, 200px); /* Set column width */\n    grid-template-rows: auto repeat(2, 100px); /* First row auto height for headers */\n    justify-items: stretch; /* Stretch items to fill their cells */\n    align-items: center;   /* Align items vertically */\n    grid-gap: 0; /* No gap for a table-like appearance */\n    padding: 20px;\n    border: 2px solid #333;\n    border-radius: 8px;\n    background-color: #fff;\n}\n\n.grid-header {\n    background-color: #4CAF50; /* Header color */\n    color: white;\n    text-align: center;\n    font-size: 24px;\n    padding: 15px 0; /* Padding for header */\n    border-bottom: 2px solid #333; /* Bottom border */\n}\n\n.grid-item {\n    background-color: #8ebf42;\n    border: 1px solid #333; /* Border for items */\n    text-align: center;\n    font-size: 20px;\n    padding: 20px; /* Increased padding */\n    transition: background-color 0.2s;\n}\n\n.grid-item:hover {\n    background-color: #7cae39; /* Darker green on hover */\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Grid Automatic Tracks Example</title>\n    <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n    <div class=\"grid-container\">\n        <div class=\"grid-header\">Header 1</div>\n        <div class=\"grid-header\">Header 2</div>\n        <div class=\"grid-header\">Header 3</div>\n        <div class=\"grid-item\">1</div>\n        <div class=\"grid-item\">2</div>\n        <div class=\"grid-item\">3</div>\n        <div class=\"grid-item\">4</div>\n        <div class=\"grid-item\">5</div>\n        <div class=\"grid-item\">6</div>\n    </div>\n</body>\n</html>"
                 }
@@ -2405,7 +2406,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "div.container {\n    display: grid;\n    grid-template: 100px 100px 50px / 100px 150px 100px;\n    width: 550px;\n    border: 2px solid black;\n    background-color: lightgrey;\n    padding: 12px;\n}\n\ndiv.item {\n    border: 1px solid black;\n    background-color: lightcoral;\n    text-align: center;\n    padding: 5px;\n    font-weight: bold;\n}\n\ndiv.item-1 {\n    grid-row-start: 1;\n    grid-row-end: 3;\n    background-color: lightblue;\n}\n\ndiv.item-2 {\n    grid-column-start: 2;\n    grid-column-end: 4;\n    background-color: lightgreen;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Grid - Placing Grid Items</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"item item-1\">Item 1</div>\n        <div class=\"item item-2\">Item 2</div>\n    </div>\n</body>\n</html>"
                 },
@@ -2423,7 +2424,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "div.container {\n    display: grid;\n    grid-template: 100px 100px 100px / 100px 150px 100px;\n    width: 550px;\n    border: 2px solid black;\n    background-color: lightgrey;\n    padding: 12px;\n}\n\ndiv.item {\n    border: 1px solid black;\n    background-color: lightcoral;\n    text-align: center;\n    padding: 5px;\n    font-weight: bold;\n}\n\ndiv.item-1 {\n    grid-row: 1 / 3; /* Spans from row 1 to row 3 */\n    grid-column: 1 / 3; /* Spans from column 1 to column 3 */\n    background-color: lightblue;\n}\n\ndiv.item-2 {\n    grid-row: 2 / 4; /* Spans from row 2 to row 4 */\n    grid-column: 2 / 4; /* Spans from column 2 to column 4 */\n    background-color: lightgreen;\n}\n\ndiv.item-3 {\n    grid-row: 1 / 2; /* Spans from row 1 to row 2 */\n    grid-column: 2 / 4; /* Spans from column 2 to column 4 */\n    background-color: lightyellow;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Grid - Shorthand Properties</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"item item-1\">Item 1</div>\n        <div class=\"item item-2\">Item 2</div>\n        <div class=\"item item-3\">Item 3</div>\n    </div>\n</body>\n</html>"
                 },
@@ -2433,7 +2434,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "div.container {\n    display: grid;\n    grid-template: 100px 100px 50px / 100px 150px 100px;\n    width: 550px;\n    border: 2px solid black;\n    background-color: lightgrey;\n    padding: 12px;\n}\n\ndiv.item {\n    border: 1px solid black;\n    background-color: lightcoral;\n    text-align: center;\n    padding: 5px;\n    font-weight: bold;\n}\n\ndiv.item-1 {\n    grid-column: 1 / span 3;\n    background-color: lightblue;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Grid - Spanning Rows and Columns</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"item item-1\">Item 1</div>\n    </div>\n</body>\n</html>"
                 },
@@ -2447,7 +2448,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "div.container {\n    display: grid;\n    grid-template: 100px 100px 100px 100px / 100px 150px 100px 150px;\n    width: 650px;\n    border: 2px solid black;\n    background-color: lightgrey;\n    padding: 12px;\n}\n\ndiv.item {\n    border: 1px solid black;\n    text-align: center;\n    padding: 5px;\n    font-weight: bold;\n}\n\ndiv.item-1 {\n    grid-area: 1 / 1 / 3 / 3; /* from row 1 to row 3, column 1 to column 3 */\n    background-color: lightblue;\n}\n\ndiv.item-2 {\n    grid-area: 2 / 2 / 4 / 4; /* from row 2 to row 4, column 2 to column 4 */\n    background-color: lightgreen;\n}\n\ndiv.item-3 {\n    grid-area: 1 / 3 / 2 / 5; /* from row 1 to row 2, column 3 to column 5 */\n    background-color: lightcoral;\n}\n\ndiv.item-4 {\n    grid-area: 3 / 1 / 4 / 3; /* from row 3 to row 4, column 1 to column 3 */\n    background-color: lightyellow;\n}\n\ndiv.item-5 {\n    grid-area: 3 / 3 / 5 / 5; /* from row 3 to row 5, column 3 to column 5 */\n    background-color: lightpink;\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Grid - grid-area Property</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"item item-1\">Item 1</div>\n        <div class=\"item item-2\">Item 2</div>\n        <div class=\"item item-3\">Item 3</div>\n        <div class=\"item item-4\">Item 4</div>\n        <div class=\"item item-5\">Item 5</div>\n    </div>\n</body>\n</html>"
                 },
@@ -2469,7 +2470,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": "div.container {\n    display: grid;\n    grid-template: 100px 100px / 100px 150px 100px;\n    width: 550px;\n    border: 2px solid black;\n    background-color: lightgrey;\n    padding: 12px;\n}\n\ndiv.item {\n    border: 1px solid black;\n    text-align: center;\n    padding: 10px;\n    font-weight: bold;\n}\n\n/* Alignment Properties Examples */\n\n/* Horizontal alignment using justify-self */\ndiv.item-1 {\n    grid-area: 1 / 1 / 2 / 2;\n    background-color: lightblue;\n    justify-self: start; /* Aligns item to the start (left) of its grid cell */\n}\n\ndiv.item-2 {\n    grid-area: 1 / 2 / 2 / 3;\n    background-color: lightgreen;\n    justify-self: center; /* Centers item horizontally within its grid cell */\n}\n\ndiv.item-3 {\n    grid-area: 2 / 1 / 3 / 2;\n    background-color: lightcoral;\n    justify-self: end; /* Aligns item to the end (right) of its grid cell */\n}\n\ndiv.item-4 {\n    grid-area: 2 / 2 / 3 / 3;\n    background-color: lightyellow;\n    justify-self: stretch; /* Stretches item to fill the grid cell horizontally */\n}\n\n/* Vertical alignment using align-self */\ndiv.item-5 {\n    grid-area: 1 / 3 / 2 / 4;\n    background-color: lightpink;\n    align-self: start; /* Aligns item to the start (top) of its grid cell */\n}\n\ndiv.item-6 {\n    grid-area: 2 / 3 / 3 / 4;\n    background-color: lightblue;\n    align-self: center; /* Centers item vertically within its grid cell */\n}\n\ndiv.item-7 {\n    grid-area: 1 / 1 / 2 / 2;\n    background-color: lightgreen;\n    align-self: end; /* Aligns item to the end (bottom) of its grid cell */\n}\n\ndiv.item-8 {\n    grid-area: 2 / 2 / 3 / 3;\n    background-color: lightcoral;\n    align-self: stretch; /* Stretches item to fill the grid cell vertically */\n}\n\n/* Combined alignment using place-self */\ndiv.item-9 {\n    grid-area: 1 / 1 / 2 / 2;\n    background-color: lightyellow;\n    place-self: start end; /* Aligns item to the start horizontally and end vertically */\n}\n\ndiv.item-10 {\n    grid-area: 1 / 2 / 2 / 3;\n    background-color: lightpink;\n    place-self: center center; /* Centers item both horizontally and vertically */\n}\n\ndiv.item-11 {\n    grid-area: 2 / 1 / 3 / 2;\n    background-color: lightblue;\n    place-self: end stretch; /* Aligns item to the end horizontally and stretches vertically */\n}\n\ndiv.item-12 {\n    grid-area: 2 / 2 / 3 / 3;\n    background-color: lightgreen;\n    place-self: stretch start; /* Stretches item horizontally and aligns to the start vertically */\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CSS Grid - Alignment Properties Example</title>\n    <link rel=\"stylesheet\" href=\"alignment-properties.css\">\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"item item-1\">Item 1</div>\n        <div class=\"item item-2\">Item 2</div>\n        <div class=\"item item-3\">Item 3</div>\n        <div class=\"item item-4\">Item 4</div>\n    </div>\n</body>\n</html>"
                 }
@@ -2493,7 +2494,7 @@
                 },
                 {
                   "type": "code",
-                  "language":"CSS",
+                  "language": "CSS",
                   "code": ".gallery {\n    display: grid;\n    grid-template-columns: repeat(2, 1fr); /* Two-column layout */\n    gap: 6px;\n    padding: 10px;\n    border: 1px solid #ccc;\n    background-color: #f9f9f9;\n}\n\n.gallery img {\n    width: 100%;\n    height: auto; /* Maintain aspect ratio */\n    object-fit: cover;\n    display: block;\n}\n\nimg.four-grid-cells {\n    grid-column: span 2;\n}\n\nimg.wide-image {\n    grid-column: span 2;\n}\n\n@media screen and (max-width: 768px) {\n    .gallery {\n        grid-template-columns: 1fr; /* Single column layout for small screens */\n    }\n    img.four-grid-cells, img.wide-image {\n        grid-column: auto;\n    }\n}",
                   "supportingCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Responsive Image Gallery</title>\n    <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n    <div class=\"gallery\">\n        <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png\" alt=\"JavaScript\" class=\"wide-image\">\n        <img src=\"https://media.licdn.com/dms/image/D5612AQHTGcgR9_RlDg/article-cover_image-shrink_600_2000/0/1705826273539?e=2147483647&v=beta&t=hZkuaC9fOago3ij77UdR45nXktn2C_R9nIwYiEGxVpU\" alt=\"Python\">\n        <img src=\"https://contentstatic.techgig.com/photo/90078629.cms\" alt=\"Java\">\n        <img src=\"https://training.digigrowhub.in/wp-content/uploads/2021/02/do-coding-of-any-program-by-c-plus-plus-perfectly-and-within-time.jpg\" alt=\"C++\" class=\"four-grid-cells\">\n        <img src=\"https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190902124355/ruby-programming-language.png\" alt=\"Ruby\">\n        <img src=\"https://impreza.host/wp-content/uploads/2020/02/PHP2.jpg\" alt=\"PHP\">\n        <img src=\"https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/4087150/cover_image/retina_1708x683/cover-0828_AfterAllTheseYearstheWorldisStillPoweredbyCProgramming_Razvan_Newsletter-e85854c3f0bb99704e83139475284901.png\" alt=\"C#\">\n    </div>\n</body>\n</html>"
                 },
@@ -2621,7 +2622,7 @@
               "description": "Practice creating a simple CSS grid layout.",
               "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will create a basic grid layout with three columns and two rows.\n\n1. Add the necessary CSS to define the grid structure.",
+              "problemStatement": "In this activity, you will create a basic grid layout with three columns and two rows.\n\n1.Set the container as a grid using 'display: grid'. \n2.Define three columns, each 100px wide, using 'grid-template-columns'. \n3.Define two rows, each 100px tall, using 'grid-template-rows' \n4.Add a 1px solid black border to each grid item for visibility.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"grid-container\">\n  <div class=\"grid-item\">Item 1</div>\n  <div class=\"grid-item\">Item 2</div>\n  <div class=\"grid-item\">Item 3</div>\n  <div class=\"grid-item\">Item 4</div>\n  <div class=\"grid-item\">Item 5</div>\n  <div class=\"grid-item\">Item 6</div>\n</div>\n</body>\n</html>",
                 "css": "/* Your CSS code goes here */",
@@ -2655,7 +2656,7 @@
               "description": "Practice using grid gap to space out grid items.",
               "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will add space between grid items using the gap property.\n\n1. Add the necessary CSS to create a gap of 20px between grid items.",
+              "problemStatement": "In this activity, you will add space between grid items using the gap property.\n\n1. \n2. \n3. \n4.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"grid-container\">\n  <div class=\"grid-item\">Item 1</div>\n  <div class=\"grid-item\">Item 2</div>\n  <div class=\"grid-item\">Item 3</div>\n  <div class=\"grid-item\">Item 4</div>\n</div>\n</body>\n</html>",
                 "css": "/* Your CSS code goes here */",
@@ -2691,7 +2692,7 @@
               "description": "Practice aligning grid items both vertically and horizontally.",
               "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will align grid items to the center of their cells.\n\n1. Add the necessary CSS to achieve this alignment.",
+              "problemStatement": "In this activity, you will align grid items to the center of their cells.\n\n1.Set the container as a grid using 'display: grid'. \n2.Define two columns, each 100px wide, using 'grid-template-columns'. \n3.Define two rows, each 100px tall, using 'grid-template-rows'. \n4.Align the grid items horizontally in the center using 'justify-items: center'. \n5.Add a 1px solid black border to each grid item for visibility.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"grid-container\">\n  <div class=\"grid-item\">Item 1</div>\n  <div class=\"grid-item\">Item 2</div>\n  <div class=\"grid-item\">Item 3</div>\n  <div class=\"grid-item\">Item 4</div>\n</div>\n</body>\n</html>",
                 "css": "/* Your CSS code goes here */",
@@ -2726,10 +2727,12 @@
             }
           ],
           "totalPoints": 0,
-          "locked": true
+          "locked": true,
+          "badges": "CSS Grid"
         }
       ],
-      "locked": true
+      "locked": true,
+      "badges": "CSS Designer"
     }
   ]
 }

@@ -62,10 +62,44 @@ export const questionService = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    voteQuestion: builder.mutation({
+      query: ({ questionId, userId, vote }) => ({
+        url: `${QNA_URL}/questions/${questionId}/vote`,
+        method: "POST",
+        body: { userId, vote }, // Send the vote payload
+      }),
+    }),
+    getQuestionVote: builder.query({
+      query: ({ questionId }) => ({
+        url: `${QNA_URL}/questions/${questionId}/allVote`,
+        method: "GET",
+      }),
+    }),
+    voteAnswer: builder.mutation({
+      query: ({ questionId, answerId,userId,vote }) => ({
+        url: `${QNA_URL}/questions/${questionId}/answers/${answerId}/vote`,
+        method: "POST",
+        body: { userId, vote }, // Send the vote payload
+      }),
+    }),
+    getAnswerVote: builder.query({
+      query: ({ questionId,answerId }) => ({
+        url: `${QNA_URL}/questions/${questionId}/answers/${answerId}/allVote`,
+        method: "GET",
+      }),
+    }),getUserVote: builder.query({
+      query: ({ userId }) => ({
+        url: `${QNA_URL}/questions/answer/${userId}/allVote`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
 export const {
+  useVoteAnswerMutation,useGetAnswerVoteQuery,
+  useGetQuestionVoteQuery,
+  useVoteQuestionMutation,
   useFetchQuestionsMutation,
   useFetchQuestionByIdMutation,
   useCreateQuestionMutation,

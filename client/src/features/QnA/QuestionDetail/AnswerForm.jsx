@@ -1,4 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
+import { Formik, Form, Field, FieldArray } from "formik";
+import * as Yup from "yup";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Button,
+  IconButton,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Typography,
+  Box,
+} from "@mui/material";
+import {
+  Add as AddIcon,
+  Delete as DeleteIcon,
+} from "@mui/icons-material";
+import { Editor } from "@monaco-editor/react";
+
+const validationSchema = Yup.object().shape({
+  answerContent: Yup.string().required("Answer is required"),
+  codeBlocks: Yup.array().of(
+    Yup.object().shape({
+      language: Yup.string().required("Language is required"),
+      content: Yup.string().required("Code content is required"),
+    })
+  ),
+});
 
 const AnswerForm = ({
   open,
@@ -8,6 +40,7 @@ const AnswerForm = ({
   setAnswerContent,
   codeBlocks,
   setCodeBlocks,
+  isLoadingAddAnswer,
 }) => {
   const handleAnswerChange = (e) => setAnswerContent(e.target.value);
 
@@ -18,7 +51,7 @@ const AnswerForm = ({
   };
 
   const handleAddCodeBlock = () => {
-    setCodeBlocks([...codeBlocks, { language: "", content: "" }]);
+    setCodeBlocks([...codeBlocks, { language: "html", content: "" }]);
   };
 
   const handleRemoveCodeBlock = (index) => {
@@ -26,74 +59,130 @@ const AnswerForm = ({
     setCodeBlocks(newCodeBlocks);
   };
 
+  const editorOptions = {
+    minimap: { enabled: false },
+    scrollBeyondLastLine: false,
+    fontSize: 14,
+    lineNumbers: "on",
+    roundedSelection: false,
+    readOnly: false,
+    theme: "vs-dark",
+  };
+
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-xl font-semibold mb-4">Add Answer</h2>
-        <textarea
-          placeholder="Your Answer"
-          className="w-full p-2 border border-gray-300 rounded mb-4"
-          rows={4}
-          value={answerContent}
-          onChange={handleAnswerChange}
-        />
-        {codeBlocks.map((codeBlock, index) => (
-          <div key={index} className="mb-4">
-            <select
-              value={codeBlock.language}
-              onChange={(e) =>
-                handleCodeBlockChange(index, "language", e.target.value)
-              }
-              className="w-full p-2 border border-gray-300 rounded mb-2"
-            >
-              <option value="">Select Language</option>
-              {["html", "css", "javascript", "php"].map((lang) => (
-                <option key={lang} value={lang}>
-                  {lang.toUpperCase()}
-                </option>
-              ))}
-            </select>
-            <textarea
-              placeholder="Code Content"
-              className="w-full p-2 border border-gray-300 rounded"
-              rows={4}
-              value={codeBlock.content}
-              onChange={(e) =>
-                handleCodeBlockChange(index, "content", e.target.value)
-              }
-            />
-            <button
-              onClick={() => handleRemoveCodeBlock(index)}
-              className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
-            >
-              Remove Code Block
-            </button>
-          </div>
-        ))}
-        <button
-          onClick={handleAddCodeBlock}
-          className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-        >
-          Add Code Block
-        </button>
-        <div className="flex justify-end">
-          <button
-            onClick={handleClose}
-            className="mr-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleSubmitAnswer}
-            className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
-          >
-            Submit
-          </button>
-        </div>
-      </div>
-    </div>
+    <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+      <DialogTitle>
+        <Typography variant="h6" component="div">
+          Add Answer
+        </Typography>
+      </DialogTitle>
+      <Formik
+        initialValues={{ answerContent, codeBlocks }}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmitAnswer}
+      >
+        {({ errors, touched, values, setFieldValue }) => (
+          <Form>
+            <DialogContent>
+              <Field
+                as={TextField}
+                name="answerContent"
+                label="Your Answer"
+                multiline
+                rows={4}
+                fullWidth
+                variant="outlined"
+                margin="normal"
+                error={touched.answerContent && errors.answerContent}
+                helperText={touched.answerContent && errors.answerContent}
+                value={answerContent}
+                onChange={(e) => {
+                  handleAnswerChange(e);
+                  setFieldValue("answerContent", e.target.value);
+                }}
+              />
+              <FieldArray name="codeBlocks">
+                {() => (
+                  <Box>
+                    {codeBlocks.map((codeBlock, index) => (
+                      <Box key={index} className="mb-6 bg-gray-100 p-4 rounded-lg">
+                        <Box className="flex justify-between items-center mb-2">
+                          <Typography variant="subtitle1" className="font-semibold text-gray-700">
+                            Code Block {index + 1}
+                          </Typography>
+                          <IconButton onClick={() => handleRemoveCodeBlock(index)} color="error" size="small">
+                            <DeleteIcon />
+                          </IconButton>
+                        </Box>
+                        <FormControl fullWidth variant="outlined" margin="normal">
+                          <InputLabel>Language</InputLabel>
+                          <Select
+                            value={codeBlock.language}
+                            onChange={(e) => {
+                              handleCodeBlockChange(index, "language", e.target.value);
+                              setFieldValue(`codeBlocks.${index}.language`, e.target.value);
+                            }}
+                            label="Language"
+                            error={touched.codeBlocks?.[index]?.language && errors.codeBlocks?.[index]?.language}
+                          >
+                            {["html", "css", "javascript", "php"].map((lang) => (
+                              <MenuItem key={lang} value={lang}>
+                                {lang.toUpperCase()}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                          {touched.codeBlocks?.[index]?.language && errors.codeBlocks?.[index]?.language && (
+                            <Typography color="error" variant="caption">
+                              {errors.codeBlocks[index].language}
+                            </Typography>
+                          )}
+                        </FormControl>
+                        <Box className="mt-2 border border-gray-300 rounded-md overflow-hidden">
+                          <Editor
+                            height="200px"
+                            language={codeBlock.language}
+                            value={codeBlock.content}
+                            options={editorOptions}
+                            onChange={(value) => {
+                              handleCodeBlockChange(index, "content", value);
+                              setFieldValue(`codeBlocks.${index}.content`, value);
+                            }}
+                          />
+                        </Box>
+                        {touched.codeBlocks?.[index]?.content && errors.codeBlocks?.[index]?.content && (
+                          <Typography color="error" variant="caption">
+                            {errors.codeBlocks[index].content}
+                          </Typography>
+                        )}
+                      </Box>
+                    ))}
+                    <Button
+                      startIcon={<AddIcon />}
+                      onClick={handleAddCodeBlock}
+                      variant="outlined"
+                      color="primary"
+                      className="mt-2"
+                    >
+                      Add Code Block
+                    </Button>
+                  </Box>
+                )}
+              </FieldArray>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="inherit">
+                Cancel
+              </Button>
+              <Button type="submit" variant="contained" color="primary" disabled={isLoadingAddAnswer}>
+                {isLoadingAddAnswer ? "Submitting..." : "Submit"}
+              </Button>
+            </DialogActions>
+          </Form>
+        )}
+      </Formik>
+    </Dialog>
   );
 };
 

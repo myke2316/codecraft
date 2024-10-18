@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { useFetchSubmissionByAssignmentAndStudentIdQuery, useTeacherGradeFeedBackMutation } from "../Class/submissionAssignmentService";
 import { useNavigate, useParams } from "react-router";
 import { BACKEND_URL, BASE_URLS } from "../../constants";
+import { toast } from "react-toastify";
 
 function TeacherAssignmentGrade() {
   const { assignmentId, studentId } = useParams();
@@ -40,7 +41,7 @@ function TeacherAssignmentGrade() {
           grade: values.grade,
           feedback: values.feedback,
         });
-
+        toast.success("Grade or Feedback successfully updated")
         console.log("Grade and feedback submitted successfully.");
       } catch (err) {
         console.error("Error submitting grade and feedback", err);
