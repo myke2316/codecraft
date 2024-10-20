@@ -175,8 +175,8 @@
             },
             {
               "question": "Which tag is used to define the main content of the HTML page?",
-              "options": ["<html>", "<head>", "<title>", "<body>"],
-              "correctAnswer": "<body>",
+              "options": ["<html>", "<head>", "<title>", "<main>"],
+              "correctAnswer": "<main>",
               "points": 2,
               "locked": true
             },

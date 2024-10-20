@@ -27,7 +27,7 @@ db.once("open", async () => {
   console.log("Connected to MongoDB");
 
   try {
-    // // Clear existing data
+    // Clear existing data
     // await CourseModel.deleteMany({});
     // console.log("Existing data cleared");
 

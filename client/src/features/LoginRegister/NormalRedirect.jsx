@@ -55,11 +55,18 @@ function NormalRedirect() {
         fetchUserActivitySubmission,
         userDetails._id
       );
-      
+        console.log(classData)
+      // if (userDetails.role === "teacher") {
+      //   navigate("/classes");
+      // }
+      //  else {
+      //   navigate(`/studentClass/${classData[0]._id}/classHome`);
+      // }
+
       if (userDetails.role === "teacher") {
         navigate("/classes");
-      } else {
-        navigate(`/studentClass/${classData[0]._id}/classHome`);
+      }else if(classData.length === 0){navigate('/')} else {
+        navigate(`/studentClass/${classData?.[0]?._id}/classHome`);
       }
     } catch (error) {
       console.error("Error fetching class:", error);

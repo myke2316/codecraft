@@ -68,6 +68,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+      <Route
+            path="reset-password/:resetToken"
+            element={<ResetPassword />}
+          />
         <Route element={<AppLayout />}>
           <Route index element={<Home />} />
           <Route path="aboutCourse" element={<Course />} />
@@ -76,10 +80,7 @@ function App() {
           <Route path="signup" element={<SignUp />} />
           <Route path="redirect" element={<GoogleRedirect />} />
           <Route path="normal-redirect" element={<NormalRedirect />} />
-          <Route
-            path="reset-password/:resetToken"
-            element={<ResetPassword />}
-          />
+       
           <Route path="" element={<PrivateRoutes />}></Route>
         </Route>
         {/* student */}

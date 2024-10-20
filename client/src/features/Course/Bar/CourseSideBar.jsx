@@ -66,7 +66,7 @@ function CourseSidebar() {
   const userProgress = useSelector(state => state.studentProgress.userProgress);
   const user = useSelector((state) => state.user.userDetails);
   const classInfo = useSelector(state => state.class.class);
-
+  
   const [activeCourseId, setActiveCourseId] = useState(null);
   const [activeLessonId, setActiveLessonId] = useState(null);
 
@@ -164,7 +164,7 @@ function CourseSidebar() {
           if (!courseProgress) return null;
 
           const progress = calculateProgress(courseProgress);
-            console.log(progress)
+            console.log(course)
           return (
             <React.Fragment key={course._id}>
               <StyledListItem
