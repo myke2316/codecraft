@@ -16,7 +16,8 @@ import { useCreateUserQuizSubmissionMutation } from "../Course/Quiz/quizSubmissi
 import { useCreateUserActivitySubmissionMutation } from "../Course/CodingActivity/activitySubmissionService";
 import { createActivitySubmission } from "../../utils/activitySubmissionUtil";
 import { useEffect } from "react";
-
+import { Box, Button, TextField } from "@mui/material";
+import { Send as SendIcon } from '@mui/icons-material';
 function JoinClassForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -91,21 +92,38 @@ function JoinClassForm() {
 
   return (
     <Formik initialValues={{ inviteCode: "" }} onSubmit={handleJoinClass}>
-      <Form className="text-black">
-        <div>
-          <label htmlFor="inviteCode">Invite Code:</label>
-          <Field type="text" name="inviteCode" className="text-black" />
-          <ErrorMessage
-            name="className"
-            component="div"
-            className="text-red-400"
-          />
-        </div>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-      </Form>
-    </Formik>
+    
+    <Form className="w-full p-8">
+      <Box className="space-y-4">
+        <Field name="inviteCode">
+          {({ field, meta }) => (
+            <TextField
+              {...field}
+              fullWidth
+              label="Invite Code"
+              variant="outlined"
+              error={meta.touched && meta.error}
+              helperText={<ErrorMessage name="inviteCode" />}
+              className="bg-white rounded-md"
+              placeholder="Enter your class invite code"
+            />
+          )}
+        </Field>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+      
+          className="w-full py-3 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold rounded-md shadow-md hover:shadow-lg transition-all duration-300"
+          startIcon={<SendIcon />}
+        >
+          Join Class
+        </Button>
+      </Box>
+    </Form>
+
+</Formik>
+
   );
 }
 export default JoinClassForm;

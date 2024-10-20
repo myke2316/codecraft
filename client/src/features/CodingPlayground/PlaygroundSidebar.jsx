@@ -83,7 +83,7 @@ const PlaygroundSidebar = ({
         defaultContent = "/* New CSS File */";
         break;
       case "js":
-        defaultContent = "// New JavaScript File";
+        defaultContent = "// New JavaScript File - Only for DOM Manipulation - No Consoles.";
         break;
       default:
         break;

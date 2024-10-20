@@ -13,10 +13,16 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Button,
+  Button,  Typography, 
+  Grid, 
+  Card, 
+  CardContent, 
+  CardActionArea, 
+  Box,
 } from "@mui/material";
 import { logout } from "../LoginRegister/userSlice";
-
+import { Add as AddIcon, School as SchoolIcon, People as PeopleIcon, VpnKey as VpnKeyIcon } from '@mui/icons-material';
+import { useTheme } from "@emotion/react";
 const ClassLists = () => {
   const userInfo = useSelector((state) => state.user.userDetails);
   const navigate = useNavigate();
@@ -25,7 +31,7 @@ const ClassLists = () => {
     useFetchClassMutation();
   const [updateRole] = useUpdateRoleMutation();
   const [openDialog, setOpenDialog] = useState(false);
-
+  const theme = useTheme();
   useEffect(() => {
     const fetchClasses = async () => {
       if (userInfo && userInfo.role === "teacher") {
@@ -113,50 +119,130 @@ const ClassLists = () => {
   }
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Your Classes</h1>
+    // <div className="p-6">
+    //   <h1 className="text-3xl font-bold mb-6 text-gray-800">Your Classes</h1>
+    //   {classes && classes.length > 0 ? (
+    //     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    //       {classes.map((classItem) => (
+    //         <Link to={`/${classItem._id}/class/classHome`} key={classItem._id}>
+    //           <div className="bg-white shadow-lg rounded-lg p-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+    //             <h2 className="text-xl font-semibold text-gray-700">
+    //               {classItem.className}
+    //             </h2>
+    //             <p className="text-sm text-gray-500">
+    //               Invite Code: {classItem.inviteCode}
+    //             </p>
+    //             <p className="text-sm text-gray-500">
+    //               Students: {classItem.students.length}
+    //             </p>
+    //           </div>
+    //         </Link>
+    //       ))}
+    //       <div
+    //         onClick={() => navigate("/create-class")}
+    //         className="flex items-center justify-center bg-white shadow-lg rounded-lg p-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+    //       >
+    //         <div className="text-center">
+    //           <p className="text-5xl text-gray-400 font-bold">+</p>
+    //           <p className="text-lg text-gray-600 mt-2">Add New Class</p>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   ) : (
+    //     <>
+    //       <p className="text-gray-600">You have not created any classes yet.</p>
+    //       <div
+    //         onClick={() => navigate("/create-class")}
+    //         className="flex items-center justify-center bg-white shadow-lg rounded-lg p-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+    //       >
+    //         <div className="text-center">
+    //           <p className="text-5xl text-gray-400 font-bold">+</p>
+    //           <p className="text-lg text-gray-600 mt-2">Add New Class</p>
+    //         </div>
+    //       </div>
+    //     </>
+    //   )}
+    // </div>
+    <Box className="p-6 bg-gray-100 min-h-screen">
+      <Typography variant="h4" component="h1" className="mb-6 text-gray-800 font-bold">
+        Your Classes
+      </Typography>
       {classes && classes.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Grid container spacing={3}>
           {classes.map((classItem) => (
-            <Link to={`/${classItem._id}/class/classHome`} key={classItem._id}>
-              <div className="bg-white shadow-lg rounded-lg p-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300">
-                <h2 className="text-xl font-semibold text-gray-700">
-                  {classItem.className}
-                </h2>
-                <p className="text-sm text-gray-500">
-                  Invite Code: {classItem.inviteCode}
-                </p>
-                <p className="text-sm text-gray-500">
-                  Students: {classItem.students.length}
-                </p>
-              </div>
-            </Link>
+            <Grid item xs={12} sm={6} md={4} key={classItem._id}>
+              <Card className="h-full hover:shadow-xl transition-shadow duration-300">
+                <CardActionArea 
+                  component={Link} 
+                  to={`/${classItem._id}/class/classHome`}
+                  className="h-full"
+                >
+                  <CardContent className="h-full flex flex-col justify-between">
+                    <Box>
+                      <Typography variant="h6" component="h2" className="mb-2 text-gray-700">
+                        {classItem.className}
+                      </Typography>
+                      <Box className="flex items-center mb-1">
+                        <VpnKeyIcon className="text-gray-500 mr-2" fontSize="small" />
+                        <Typography variant="body2" color="textSecondary">
+                          Invite Code: {classItem.inviteCode}
+                        </Typography>
+                      </Box>
+                      <Box className="flex items-center">
+                        <PeopleIcon className="text-gray-500 mr-2" fontSize="small" />
+                        <Typography variant="body2" color="textSecondary">
+                          Students: {classItem.students.length}
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box className="mt-4">
+                      <Button 
+                        variant="outlined" 
+                        color="primary" 
+                        startIcon={<SchoolIcon />}
+                        fullWidth
+                      >
+                        View Class
+                      </Button>
+                    </Box>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
           ))}
-          <div
-            onClick={() => navigate("/create-class")}
-            className="flex items-center justify-center bg-white shadow-lg rounded-lg p-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-          >
-            <div className="text-center">
-              <p className="text-5xl text-gray-400 font-bold">+</p>
-              <p className="text-lg text-gray-600 mt-2">Add New Class</p>
-            </div>
-          </div>
-        </div>
+          <Grid item xs={12} sm={6} md={4}>
+            <Card 
+              className="h-full hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+              onClick={() => navigate("/create-class")}
+            >
+              <CardActionArea className="h-full flex items-center justify-center">
+                <CardContent className="text-center">
+                  <AddIcon className="text-6xl text-gray-400 mb-2" />
+                  <Typography variant="h6" color="textSecondary">
+                    Add New Class
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+        </Grid>
       ) : (
-        <>
-          <p className="text-gray-600">You have not created any classes yet.</p>
-          <div
+        <Box className="text-center">
+          <Typography variant="body1" color="textSecondary" className="mb-4">
+            You have not created any classes yet.
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<AddIcon />}
             onClick={() => navigate("/create-class")}
-            className="flex items-center justify-center bg-white shadow-lg rounded-lg p-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+            size="large"
           >
-            <div className="text-center">
-              <p className="text-5xl text-gray-400 font-bold">+</p>
-              <p className="text-lg text-gray-600 mt-2">Add New Class</p>
-            </div>
-          </div>
-        </>
+            Create Your First Class
+          </Button>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };
 

@@ -215,6 +215,9 @@ function AssignmentDetails() {
               <Typography variant="h5" gutterBottom>
                 Submit Your Assignment
               </Typography>
+              <FormHelperText>
+                      Make assignment in the built-in playground or sandbox
+                    </FormHelperText>
 
               {isDueDatePassed ? (
                 <Box>

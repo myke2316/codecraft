@@ -83,7 +83,8 @@
                   "text": "Now that you have set everything up to run JavaScript programs on your computer, you'll be learning how the basic program works in JavaScript in the next tutorial."
                 }
               ],
-              "locked": true,"badges":"JS Introduction"
+              "locked": true,
+              "badges": "JS Introduction"
             },
             {
               "title": "JavaScript Variables and Constants",
@@ -486,7 +487,7 @@
                   "language": "javascript",
                   "code": "// Arithmetic\nlet x = 5;\nconsole.log(x + 3);  // 8\nconsole.log(x ** 2);  // 25"
                 },
-               
+
                 {
                   "type": "codeconsole",
                   "language": "javascript",
@@ -737,12 +738,7 @@
             },
             {
               "question": "Which tool is used to run JavaScript code on your local machine?",
-              "options": [
-                "Node.js",
-                "React",
-                "Angular",
-                "Django"
-              ],
+              "options": ["Node.js", "React", "Angular", "Django"],
               "correctAnswer": "Node.js",
               "points": 2,
               "locked": true
@@ -761,36 +757,21 @@
             },
             {
               "question": "How do you declare a variable in JavaScript using the modern ES6 syntax?",
-              "options": [
-                "var",
-                "const",
-                "let",
-                "dynamic"
-              ],
+              "options": ["var", "const", "let", "dynamic"],
               "correctAnswer": "let",
               "points": 2,
               "locked": true
             },
             {
               "question": "What will be the output of `console.log(num)` if `let num;` is declared and not initialized?",
-              "options": [
-                "null",
-                "0",
-                "undefined",
-                "Error"
-              ],
+              "options": ["null", "0", "undefined", "Error"],
               "correctAnswer": "undefined",
               "points": 2,
               "locked": true
             },
             {
               "question": "Which keyword is used to declare a constant in JavaScript?",
-              "options": [
-                "const",
-                "let",
-                "var",
-                "final"
-              ],
+              "options": ["const", "let", "var", "final"],
               "correctAnswer": "const",
               "points": 2,
               "locked": true
@@ -809,36 +790,21 @@
             },
             {
               "question": "Which data type represents textual data in JavaScript?",
-              "options": [
-                "Number",
-                "Boolean",
-                "String",
-                "Object"
-              ],
+              "options": ["Number", "Boolean", "String", "Object"],
               "correctAnswer": "String",
               "points": 2,
               "locked": true
             },
             {
               "question": "What symbol is used to represent a BigInt in JavaScript?",
-              "options": [
-                "b",
-                "n",
-                "N",
-                "x"
-              ],
+              "options": ["b", "n", "N", "x"],
               "correctAnswer": "n",
               "points": 2,
               "locked": true
             },
             {
               "question": "What is the result of `5 / 0` in JavaScript?",
-              "options": [
-                "0",
-                "Infinity",
-                "NaN",
-                "Error"
-              ],
+              "options": ["0", "Infinity", "NaN", "Error"],
               "correctAnswer": "Infinity",
               "points": 2,
               "locked": true
@@ -857,12 +823,7 @@
             },
             {
               "question": "Which operator is used for addition in JavaScript?",
-              "options": [
-                "+",
-                "-",
-                "*",
-                "/"
-              ],
+              "options": ["+", "-", "*", "/"],
               "correctAnswer": "+",
               "points": 2,
               "locked": true
@@ -881,25 +842,14 @@
             },
             {
               "question": "Which logical operator returns true if either of the conditions is true?",
-              "options": [
-                "&&",
-                "||",
-                "!",
-                "??"
-              ],
+              "options": ["&&", "||", "!", "??"],
               "correctAnswer": "||",
               "points": 2,
               "locked": true
             },
             {
               "question": "What is the result of `~5` in JavaScript?",
-              "options": [
-                "5",
-                "-6",
-                "0",
-                "-5",
-                "Error"
-              ],
+              "options": ["5", "-6", "0", "-5", "Error"],
               "correctAnswer": "-6",
               "points": 2,
               "locked": true
@@ -918,24 +868,14 @@
             },
             {
               "question": "What type of operator is `**` in JavaScript?",
-              "options": [
-                "Arithmetic",
-                "Comparison",
-                "Logical",
-                "Bitwise"
-              ],
+              "options": ["Arithmetic", "Comparison", "Logical", "Bitwise"],
               "correctAnswer": "Arithmetic",
               "points": 2,
               "locked": true
             },
             {
               "question": "Which operator is used to perform a bitwise AND operation?",
-              "options": [
-                "&",
-                "|",
-                "^",
-                "~"
-              ],
+              "options": ["&", "|", "^", "~"],
               "correctAnswer": "&",
               "points": 2,
               "locked": true
@@ -954,12 +894,7 @@
             },
             {
               "question": "Which data type in JavaScript can represent a unique and immutable value?",
-              "options": [
-                "Symbol",
-                "Number",
-                "String",
-                "Object"
-              ],
+              "options": ["Symbol", "Number", "String", "Object"],
               "correctAnswer": "Symbol",
               "points": 2,
               "locked": true
@@ -1446,24 +1381,14 @@
           "quiz": [
             {
               "question": "Which operator is used for strict equality comparison in JavaScript?",
-              "options": [
-                "==",
-                "===",
-                "!=",
-                "!=="
-              ],
+              "options": ["==", "===", "!=", "!=="],
               "correctAnswer": "===",
               "points": 2,
               "locked": true
             },
             {
               "question": "What will be the output of the following code: `console.log((3 < 5) && (2 > 1));`?",
-              "options": [
-                "true",
-                "false",
-                "undefined",
-                "null"
-              ],
+              "options": ["true", "false", "undefined", "null"],
               "correctAnswer": "true",
               "points": 2,
               "locked": true
@@ -1506,12 +1431,7 @@
             },
             {
               "question": "Which statement is used to skip the current iteration in a loop?",
-              "options": [
-                "break",
-                "continue",
-                "skip",
-                "return"
-              ],
+              "options": ["break", "continue", "skip", "return"],
               "correctAnswer": "continue",
               "points": 2,
               "locked": true
@@ -1542,12 +1462,7 @@
             },
             {
               "question": "What will the following code output: `console.log(3 !== '3');`?",
-              "options": [
-                "true",
-                "false",
-                "undefined",
-                "null"
-              ],
+              "options": ["true", "false", "undefined", "null"],
               "correctAnswer": "true",
               "points": 2,
               "locked": true
@@ -1737,7 +1652,7 @@
                 },
                 {
                   "type": "codeconsole",
-                  "language":"javascript",
+                  "language": "javascript",
                   "code": "// Function declaration\nfunction greet() {\n    console.log(\"Hello World!\");\n}\n\n// Function expression\nlet displayPI = function() {\n    console.log(\"PI = 3.14\");\n}\n\ngreet();\ndisplayPI();"
                 },
                 {
@@ -1754,7 +1669,8 @@
                   "text": "The <strong>return statement</strong> terminates the function and specifies the value to be returned."
                 },
                 {
-                  "type": "codeconsole", "language": "javascript",
+                  "type": "codeconsole",
+                  "language": "javascript",
                   "code": "function findSquare(num) {\n    return num * num;\n}\n\nlet square = findSquare(3);\nconsole.log(`Square: ${square}`);"
                 },
                 {
@@ -1771,7 +1687,8 @@
                   "text": "Function expressions allow storing functions in variables:"
                 },
                 {
-                  "type": "codeconsole", "language": "javascript",
+                  "type": "codeconsole",
+                  "language": "javascript",
                   "code": "let square = function(num) {\n    return num * num;\n};\n\nconsole.log(square(5));"
                 }
               ],
@@ -1947,12 +1864,7 @@
             },
             {
               "question": "What will be the output of the following code snippet? `console.log(test); var test = 5;`",
-              "options": [
-                "undefined",
-                "5",
-                "ReferenceError",
-                "SyntaxError"
-              ],
+              "options": ["undefined", "5", "ReferenceError", "SyntaxError"],
               "correctAnswer": "undefined",
               "points": 2,
               "locked": true
@@ -1983,12 +1895,7 @@
             },
             {
               "question": "What will be the output of the following recursive function? `function factorial(num) { if (num > 1) { return num * factorial(num - 1); } return 1; } console.log(factorial(3));`",
-              "options": [
-                "6",
-                "3",
-                "9",
-                "Factorial is undefined"
-              ],
+              "options": ["6", "3", "9", "Factorial is undefined"],
               "correctAnswer": "6",
               "points": 2,
               "locked": true
@@ -2007,12 +1914,7 @@
             },
             {
               "question": "Which keyword is used to declare a block-scoped variable in JavaScript?",
-              "options": [
-                "let",
-                "var",
-                "const",
-                "function"
-              ],
+              "options": ["let", "var", "const", "function"],
               "correctAnswer": "let",
               "points": 2,
               "locked": true
@@ -2043,24 +1945,14 @@
             },
             {
               "question": "What is the output of the following code? `let result = Math.pow(2, 3); console.log(result);`",
-              "options": [
-                "8",
-                "6",
-                "4",
-                "2"
-              ],
+              "options": ["8", "6", "4", "2"],
               "correctAnswer": "8",
               "points": 2,
               "locked": true
             },
             {
               "question": "What will be the output of this code snippet? `console.log('JavaScript'.toLowerCase());`",
-              "options": [
-                "JAVASCRIPT",
-                "Javascript",
-                "javascript",
-                "Error"
-              ],
+              "options": ["JAVASCRIPT", "Javascript", "javascript", "Error"],
               "correctAnswer": "javascript",
               "points": 2,
               "locked": true
@@ -2115,12 +2007,7 @@
             },
             {
               "question": "What will be the output of the following code snippet? `let x = 10; { let x = 20; console.log(x); } console.log(x);`",
-              "options": [
-                "20\n10",
-                "10\n20",
-                "ReferenceError",
-                "20\n20"
-              ],
+              "options": ["20\n10", "10\n20", "ReferenceError", "20\n20"],
               "correctAnswer": "20\n10",
               "points": 2,
               "locked": true
@@ -2387,7 +2274,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text":  "You can directly add elements to a specific position in a nested array using index notation. Arrays in JavaScript are <strong>zero-indexed, meaning the first element has an index of 0, the second element has an index of 1</strong>, and so on. To add an element to a nested array, you can specify the index of the outer array and the index of the inner array where you want to insert the element. For example,"
+                  "text": "You can directly add elements to a specific position in a nested array using index notation. Arrays in JavaScript are <strong>zero-indexed, meaning the first element has an index of 0, the second element has an index of 1</strong>, and so on. To add an element to a nested array, you can specify the index of the outer array and the index of the inner array where you want to insert the element. For example,"
                 },
                 {
                   "type": "codeconsole",
@@ -2728,7 +2615,7 @@
                 {
                   "type": "codeconsole",
                   "language": "javascript",
-                  "code": "// check if num1 is integer\nlet num1 = 12;\nconsole.log(Number.isInteger(num1)); // true\n\n// check if num2 is NaN\nlet num2 = NaN;\nconsole.log(Number.isNaN(num2)); // true\n\n// display up to two decimal points\nl2t num3 = 5.1234;\nconsole.log(num3.toFixed(2)); // 5.12"
+                  "code": "// check if num1 is integer\nlet num1 = 12;\nconsole.log(Number.isInteger(num1)); // true\n\n// check if num2 is NaN\nlet num2 = NaN;\nconsole.log(Number.isNaN(num2)); // true\n\n// display up to two decimal points\nlet num3 = 5.1234;\nconsole.log(num3.toFixed(2)); // 5.12"
                 }
               ],
               "locked": true
@@ -3054,36 +2941,21 @@
             },
             {
               "question": "What method adds an element to the end of an array?",
-              "options": [
-                "shift()",
-                "pop()",
-                "push()",
-                "unshift()"
-              ],
+              "options": ["shift()", "pop()", "push()", "unshift()"],
               "correctAnswer": "push()",
               "points": 2,
               "locked": true
             },
             {
               "question": "How do you access the second element of an array?",
-              "options": [
-                "array[1]",
-                "array[2]",
-                "array.get(1)",
-                "array[0]"
-              ],
+              "options": ["array[1]", "array[2]", "array.get(1)", "array[0]"],
               "correctAnswer": "array[1]",
               "points": 2,
               "locked": true
             },
             {
               "question": "Which method is used to remove elements from an array?",
-              "options": [
-                "splice()",
-                "slice()",
-                "concat()",
-                "join()"
-              ],
+              "options": ["splice()", "slice()", "concat()", "join()"],
               "correctAnswer": "splice()",
               "points": 2,
               "locked": true
@@ -3126,12 +2998,7 @@
             },
             {
               "question": "What method checks if a value is NaN?",
-              "options": [
-                "isFinite()",
-                "isInteger()",
-                "isNaN()",
-                "valueOf()"
-              ],
+              "options": ["isFinite()", "isInteger()", "isNaN()", "valueOf()"],
               "correctAnswer": "isNaN()",
               "points": 2,
               "locked": true
@@ -3174,24 +3041,14 @@
             },
             {
               "question": "How do you add an element at the beginning of an array?",
-              "options": [
-                "push()",
-                "pop()",
-                "unshift()",
-                "shift()"
-              ],
+              "options": ["push()", "pop()", "unshift()", "shift()"],
               "correctAnswer": "unshift()",
               "points": 2,
               "locked": true
             },
             {
               "question": "Which method converts a string into an array of substrings?",
-              "options": [
-                "split()",
-                "join()",
-                "concat()",
-                "toLowerCase()"
-              ],
+              "options": ["split()", "join()", "concat()", "toLowerCase()"],
               "correctAnswer": "split()",
               "points": 2,
               "locked": true
@@ -3222,24 +3079,14 @@
             },
             {
               "question": "How do you access the first item of a multidimensional array?",
-              "options": [
-                "array[0]",
-                "array[0][0]",
-                "array[1]",
-                "array[1][0]"
-              ],
+              "options": ["array[0]", "array[0][0]", "array[1]", "array[1][0]"],
               "correctAnswer": "array[0]",
               "points": 2,
               "locked": true
             },
             {
               "question": "What is the result of dividing a positive number by zero in JavaScript?",
-              "options": [
-                "NaN",
-                "Infinity",
-                "0",
-                "Undefined"
-              ],
+              "options": ["NaN", "Infinity", "0", "Undefined"],
               "correctAnswer": "Infinity",
               "points": 2,
               "locked": true
@@ -3403,7 +3250,8 @@
             }
           ],
           "totalPoints": 0,
-          "locked": true,"badges":"JS Consistent"
+          "locked": true,
+          "badges": "JS Consistent"
         },
         {
           "title": "Lesson 5: JS ES6",
@@ -3447,6 +3295,7 @@
                 },
                 {
                   "type": "codeconsole",
+                  "language": "javascript",
                   "code": "const firstName = \"Jack\";\nconst lastName = \"Sparrow\";\nconsole.log(`Hello ${firstName} ${lastName}`); // Hello Jack Sparrow"
                 },
                 {
@@ -3464,6 +3313,7 @@
                 },
                 {
                   "type": "codeconsole",
+                  "language": "javascript",
                   "code": "let product = (x, y) => x * y;\nconsole.log(product(5, 10)); // 50"
                 },
                 {
@@ -3472,6 +3322,7 @@
                 },
                 {
                   "type": "codeconsole",
+                  "language": "javascript",
                   "code": "class Person {\n  constructor(name) {\n    this.name = name;\n  }\n}\nlet p1 = new Person(\"John\");\nconsole.log(p1.name); // John"
                 },
                 {
@@ -3480,6 +3331,7 @@
                 },
                 {
                   "type": "codeconsole",
+                  "language": "javascript",
                   "code": "const hospital = { doctors: 23, patients: 44 };\nlet { doctors, patients } = hospital;\nconsole.log(doctors, patients); // 23, 44"
                 },
                 {
@@ -3487,7 +3339,8 @@
                   "text": "ES6 introduced <strong>import</strong> and <strong>export</strong> for module management."
                 },
                 {
-                  "type": "codeconsole",
+                  "type": "snippet",
+                  "language": "javascript",
                   "code": "// export\nexport default function greet(name) { console.log(`Hi ${name}!`); }\n// import\nimport greet from './action.js';\ngreet(\"Sara\"); // Hi Sara!"
                 },
                 {
@@ -3505,6 +3358,7 @@
                 },
                 {
                   "type": "codeconsole",
+                  "language": "javascript",
                   "code": "function show(a, b, ...args) {\n  console.log(a, b, args);\n}\nshow(1, 2, 3, 4, 5); // 1 2 [3, 4, 5]"
                 },
                 {
@@ -3513,6 +3367,7 @@
                 },
                 {
                   "type": "codeconsole",
+                  "language": "javascript",
                   "code": "let numArr = [1, 2, 3];\nconsole.log([...numArr, 4, 5]); // [1, 2, 3, 4, 5]"
                 }
               ],
@@ -3586,6 +3441,7 @@
                 },
                 {
                   "type": "codeconsole",
+                  "language": "javascript",
                   "code": "// constructor function\nfunction Person() {\n    this.age = 25;\n    this.sayName = function () {\n        console.log(this.age);\n        let innerFunc = () => {\n            console.log(this.age);\n        }\n        innerFunc();\n    }\n}\n\nconst x = new Person();\nx.sayName();\n\n// Output: 25, 25"
                 },
                 {
@@ -3712,7 +3568,7 @@
                   "text": "Objects or functions can be keys in a <strong>Map</strong>. <strong>Example:</strong>"
                 },
                 {
-                  "type": "codeconsole",
+                  "type": "snippet",
                   "language": "javascript",
                   "code": "let map2 = new Map();\nlet obj = {};\nmap2.set(obj, {name: 'Jack', age: '26'});\nconsole.log(map2);"
                 },
@@ -3749,6 +3605,7 @@
                 },
                 {
                   "type": "codeconsole",
+                  "language": "javascript",
                   "code": "let map1 = new Map();\nmap1.set('info', {name: 'Jack', age: '26'});\nconsole.log(map1.size);"
                 },
                 {
@@ -3757,6 +3614,7 @@
                 },
                 {
                   "type": "codeconsole",
+                  "language": "javascript",
                   "code": "let map1 = new Map();\nmap1.set('name', 'Jack');\nfor (let [key, value] of map1) {\n  console.log(key + '- ' + value);\n}"
                 },
                 {
@@ -3814,7 +3672,7 @@
                 {
                   "type": "codeconsole",
                   "language": "javascript",
-                  "code": "let { name, age, gender } = person;\nconsole.log(name, age, gender);"
+                  "code": "const person = { name: 'Sara', age: 25, gender: 'female' }\nlet { name, age, gender } = person;\nconsole.log(name, age, gender);"
                 },
                 {
                   "type": "sentence",
@@ -3823,7 +3681,7 @@
                 {
                   "type": "codeconsole",
                   "language": "javascript",
-                  "code": "let { age, gender, name } = person;\nconsole.log(name);"
+                  "code": "const person = { name: 'Sara', age: 25, gender: 'female' }\nlet { age, gender, name } = person;\nconsole.log(name);"
                 },
                 {
                   "type": "sentence",
@@ -3831,7 +3689,8 @@
                 },
                 {
                   "type": "codeconsole",
-                  "code": "let {name1, age, gender} = person;\nconsole.log(name1); // undefined"
+                  "language": "javascript",
+                  "code": "const person = { name: 'Sara', age: 25, gender: 'female' }\nlet {name1, age, gender} = person;\nconsole.log(name1); // undefined"
                 },
                 {
                   "type": "sentence",
@@ -3840,7 +3699,7 @@
                 {
                   "type": "codeconsole",
                   "language": "javascript",
-                  "code": "let { name: name1, age: age1, gender:gender1 } = person;\nconsole.log(name1, age1, gender1);"
+                  "code": "const person = { name: 'Sara', age: 25, gender: 'female' }\nlet { name: name1, age: age1, gender:gender1 } = person;\nconsole.log(name1, age1, gender1);"
                 },
                 {
                   "type": "sentence",
@@ -3913,7 +3772,7 @@
                 }
               ],
               "locked": true
-            }            
+            }
           ],
           "quiz": [
             {
@@ -3954,12 +3813,7 @@
             },
             {
               "question": "What is the output of the following code snippet using arrow functions?\n\n```javascript\nconst addNumbers = (a, b) => a + b;\nconsole.log(addNumbers(5, 3));\n```",
-              "options": [
-                "5",
-                "3",
-                "8",
-                "Error"
-              ],
+              "options": ["5", "3", "8", "Error"],
               "correctAnswer": "8",
               "points": 2,
               "locked": true
@@ -4002,12 +3856,7 @@
             },
             {
               "question": "What will be the output of `console.log(...numbers)` where `let numbers = [1, 2, 3]`?",
-              "options": [
-                "[1, 2, 3]",
-                "1 2 3",
-                "1,2,3",
-                "undefined"
-              ],
+              "options": ["[1, 2, 3]", "1 2 3", "1,2,3", "undefined"],
               "correctAnswer": "1 2 3",
               "points": 2,
               "locked": true
@@ -4026,12 +3875,7 @@
             },
             {
               "question": "Which method removes all elements from a Set?",
-              "options": [
-                "delete()",
-                "clear()",
-                "remove()",
-                "discard()"
-              ],
+              "options": ["delete()", "clear()", "remove()", "discard()"],
               "correctAnswer": "clear()",
               "points": 2,
               "locked": true
@@ -4085,16 +3929,16 @@
                   "input": "let colors = ['red', 'green', 'blue'];\nlet [color1, color2] = colors;\nconsole.log(color1);\nconsole.log(color2);\nlet person = {name: 'John', age: 25};\nlet {name, age} = person;\nconsole.log(name);\nconsole.log(age);",
                   "output": "red\ngreen\nJohn\n25",
                   "required": [
-                    "let colors = ['red', 'green', 'blue'];",
-                    "let [color1, color2] = colors;",
-                    "let person = {name: 'John', age: 25};",
-                    "let {name, age} = person;"
+                    "colors = ['red', 'green', 'blue'];",
+                    "[color1, color2] = colors;",
+                    "person = {name: 'John', age: 25};",
+                    "{name, age} = person;"
                   ],
                   "isHidden": false,
                   "testCaseSentences": [
                     "Declare an array `colors` with a value of ['red','green','blue']",
                     "Use destructuring to unpack the first two values of the colors array.",
-                    "Declare an object `person`",
+                    "Declare an object `person` with properties `name` and `age`.",
                     "Use destructuring to unpack `name` and `age`."
                   ],
                   "expectedImage": "/activities/jsacts/5.1.png"
@@ -4108,7 +3952,7 @@
               "description": "Learn to use template literals and default parameter values in functions.",
               "language": "JavaScriptConsole",
               "difficulty": "medium",
-              "problemStatement": "Create a function that takes two parameters. Use template literals to create a message string that includes these parameters. Also, set default values for the parameters and show how they are used if no argument is provided.",
+              "problemStatement": "Create a function that takes two parameters. Use template literals to create a message string that includes these parameters. Also, set default values for the parameters and show how they are used if no argument is provided.\n1.Call the `createGreeting` function with two parameters: `'Jack'` and `'Sparrow'`, and print the greeting.\n2.Call the function with only one parameter and print the greeting with the default last name.\n3.Call the function without any parameters and print the greeting with the default names.",
               "codeEditor": {
                 "html": "",
                 "css": "",
@@ -4216,8 +4060,8 @@
                 {
                   "type": "javascriptweb",
                   "language": "javascript",
-                  "code": "// Create a new paragraph element\nconst newParagraph = document.createElement('p');\n\n// Add text to the paragraph\nnewParagraph.textContent = 'This is a new paragraph.';\n\n// Add the new paragraph to the body\ndocument.body.appendChild(newParagraph);\n\n// Show the updated body content\nconst bodyContent = document.body.innerHTML;\ndocument.getElementById('output').textContent = bodyContent;",
-                  "supportingCode": "<body>\n  <h1>Original Content</h1>\n  <div id=\"output\"></div>\n</body>"
+                  "code": "// Create a new paragraph element\nconst newParagraph = document.createElement('p');\n\n// Add text to the paragraph\nnewParagraph.textContent = 'This is a new paragraph.';\n\n// Add the new paragraph to the body\ndocument.body.appendChild(newParagraph);\n",
+                  "supportingCode": "  <h1>Original Content</h1>"
                 },
                 {
                   "type": "sentence",
@@ -4226,8 +4070,8 @@
                 {
                   "type": "javascriptweb",
                   "language": "javascript",
-                  "code": "// Select the element to remove\nconst elementToRemove = document.getElementById('removeMe');\n\n// Remove the element\nelementToRemove.remove();\n\n// Show the updated body content\nconst bodyContent = document.body.innerHTML;\ndocument.getElementById('output').textContent = bodyContent;",
-                  "supportingCode": "<body>\n  <div id=\"removeMe\">Remove this element</div>\n  <div>Keep this element</div>\n  <div id=\"output\"></div>\n</body>"
+                  "code": "// Select the element to remove\nconst elementToRemove = document.getElementById('removeMe');\n\n// Remove the element\nelementToRemove.remove();\n",
+                  "supportingCode": "  <div id=\"removeMe\">Remove this element</div>\n  <div>Keep this element</div>\n "
                 },
                 {
                   "type": "sentence",
@@ -4437,7 +4281,7 @@
               "description": "Practice changing text content when a button is clicked.",
               "language": "JavaScriptWeb",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will change the text of a paragraph when a button is clicked.\n\n1. Select the button element with the ID 'changeTextBtn'.\n2. Select the paragraph element with the ID 'displayText'.\n3. Add a click event listener to the button.\n4. When the button is clicked, change the text of the paragraph to 'Text changed!'.\n\nEnsure that your code executes without any errors and changes the paragraph text when the button is clicked.",
+              "problemStatement": "In this activity, you will change the text of a paragraph when a button is clicked.\n\n1. Select the button element with the ID 'changeTextBtn' and assign it to a let variable called button.\n2. Select the paragraph element with the ID 'displayText' - assign it to a let variable called 'paragraph'.\n3. Add a click event listener to the button.\n4. When the button is clicked, change the text of the paragraph to 'Text changed!'.\n\nEnsure that your code executes without any errors and changes the paragraph text when the button is clicked.",
               "codeEditor": {
                 "html": "<button id=\"changeTextBtn\">Click me</button>\n<p id=\"displayText\">Original text</p>",
                 "css": "",
@@ -4448,8 +4292,8 @@
                   "input": "const button = document.getElementById('changeTextBtn');\nconst paragraph = document.getElementById('displayText');\n\nbutton.addEventListener('click', function() {\n  paragraph.textContent = 'Text changed!';\n});",
                   "output": "Paragraph text changes to 'Text changed!' when button is clicked",
                   "required": [
-                    "const button = document.getElementById('changeTextBtn')",
-                    "const paragraph = document.getElementById('displayText')",
+                    "let button = document.getElementById('changeTextBtn')",
+                    "let paragraph = document.getElementById('displayText')",
                     "button.addEventListener('click'",
                     "function () {",
                     "paragraph.textContent = 'Text changed!'"
@@ -4470,7 +4314,8 @@
             }
           ],
           "totalPoints": 0,
-          "locked": true,"badges":"JS Manipulator"
+          "locked": true,
+          "badges": "JS Manipulator"
         }
       ],
       "badges": "JS Master",

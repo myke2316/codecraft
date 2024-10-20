@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
@@ -6,11 +7,8 @@ import {
   useEditUsernameMutation,
 } from "../../features/LoginRegister/userService";
 import { logout, editUsername } from "../../features/LoginRegister/userSlice";
-import { useState } from "react";
 import {
   Container,
-  Card,
-  CardContent,
   Typography,
   Avatar,
   Button,
@@ -22,15 +20,60 @@ import {
   Grid,
   Box,
   useTheme,
+  Paper,
+  Divider,
+  IconButton,
+  Tooltip,
+  Fade,
 } from "@mui/material";
-
+import { styled } from "@mui/system";
 import EditIcon from "@mui/icons-material/Edit";
 import LogoutIcon from "@mui/icons-material/Logout";
+import EmailIcon from "@mui/icons-material/Email";
+import BadgeIcon from "@mui/icons-material/Badge";
+import SchoolIcon from "@mui/icons-material/School";
+import PlayerDashboard from "../../features/Student/StudentDashboard/PlayerDashboard";
+import CourseProgress from "../../features/Student/StudentDashboard/CourseProgress";
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(3),
+  background: theme.palette.mode === 'dark' 
+    ? 'linear-gradient(145deg, #2c2c2c, #1e1e1e)' 
+    : 'linear-gradient(145deg, #ffffff, #f0f0f0)',
+  borderRadius: '16px',
+  boxShadow: theme.palette.mode === 'dark'
+    ? '0 4px 20px 0 rgba(0, 0, 0, 0.5)'
+    : '0 4px 20px 0 rgba(0, 0, 0, 0.1)',
+  transition: 'all 0.3s ease-in-out',
+  '&:hover': {
+    transform: 'translateY(-5px)',
+    boxShadow: theme.palette.mode === 'dark'
+      ? '0 6px 25px 0 rgba(0, 0, 0, 0.7)'
+      : '0 6px 25px 0 rgba(0, 0, 0, 0.15)',
+  },
+}));
+
+const InfoItem = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  marginBottom: theme.spacing(2),
+  padding: theme.spacing(1.5),
+  borderRadius: '8px',
+  background: theme.palette.mode === 'dark'
+    ? 'rgba(255, 255, 255, 0.05)'
+    : 'rgba(0, 0, 0, 0.03)',
+  transition: 'all 0.2s ease-in-out',
+  '&:hover': {
+    background: theme.palette.mode === 'dark'
+      ? 'rgba(255, 255, 255, 0.1)'
+      : 'rgba(0, 0, 0, 0.05)',
+  },
+}));
 
 function StudentProfilePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const theme = useTheme();  // Get current theme
+  const theme = useTheme();
   const user = useSelector((state) => state.user.userDetails);
   const [logoutApi] = useLogoutMutation();
   const [editUsernameApi] = useEditUsernameMutation();
@@ -52,7 +95,7 @@ function StudentProfilePage() {
   async function handleEditUsername(e) {
     e.preventDefault();
     try {
-      const response = await editUsernameApi({
+      await editUsernameApi({
         userId: user._id,
         newUsername,
       }).unwrap();
@@ -65,115 +108,81 @@ function StudentProfilePage() {
   }
 
   return (
-    <Container maxWidth="md" sx={{ mt: 8 }}>
-      <Card
-        variant="outlined"
-        sx={{
-          p: 4,
-          background: theme.palette.mode === "dark"
-            ? "linear-gradient(145deg, #424242, #303030)"
-            : "linear-gradient(145deg, #f3f4f6, #ffffff)",
-          boxShadow: theme.palette.mode === "dark"
-            ? "0 8px 16px rgba(0, 0, 0, 0.4)"
-            : "0 8px 16px rgba(0, 0, 0, 0.1)",
-          borderRadius: "16px",
-        }}
-      >
-        <CardContent>
-          <Grid container spacing={4} alignItems="center">
-            {/* Profile Picture */}
-            <Grid item xs={12} sm={4} textAlign="center">
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Fade in={true} timeout={800}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={4}>
+            <StyledPaper elevation={3} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <Avatar
                 alt="Profile Picture"
                 src={user.picture}
-                sx={{ width: 120, height: 120, mx: "auto" }}
+                sx={{ width: 150, height: 150, mb: 2, border: `4px solid #6e61ab` }}
               />
-            </Grid>
-
-            {/* User Details */}
-            <Grid item xs={12} sm={8}>
-              <Typography
-                variant="h4"
-                component="h1"
-                fontWeight="bold"
-                gutterBottom
-                sx={{
-                  color: theme.palette.mode === "dark" ? "#fff" : "#000",
-                }}
-              >
+              <Typography variant="h5" gutterBottom fontWeight="bold">
                 {user.username || (user.userData && user.userData.length > 0 && user.userData[0].username)}
               </Typography>
-
-              <Typography
-                variant="h6"
-                color="textSecondary"
-                gutterBottom
-                sx={{
-                  color: theme.palette.mode === "dark" ? "#bdbdbd" : "#616161",
-                }}
-              >
-                <strong>ID:</strong> {user._id}
-              </Typography>
-
-              <Typography
-                variant="body1"
-                color="textSecondary"
-                sx={{
-                  color: theme.palette.mode === "dark" ? "#bdbdbd" : "#616161",
-                }}
-              >
-                <strong>Email:</strong> {user.email}
-              </Typography>
-
-              <Typography
-                variant="body1"
-                color="textSecondary"
-                sx={{
-                  color: theme.palette.mode === "dark" ? "#bdbdbd" : "#616161",
-                  mb: 2,
-                }}
-              >
-                <strong>Role:</strong> {user.role}
-              </Typography>
-
-              {/* Edit Username Button */}
-              <Button
-                variant="contained"
-                startIcon={<EditIcon />}
-                onClick={() => setOpenDialog(true)}
-                sx={{
-                  mr: 2,
-                  background: theme.palette.mode === "dark" ? "#928fce" : "#4b3987",
-                  "&:hover": {
-                    background: theme.palette.mode === "dark" ? "#aab1e5" : "#6e61ab",
-                  },
-                }}
-              >
-                Edit Username
-              </Button>
-
-              {/* Logout Button */}
-              <Button
-                variant="contained"
-                color="error"
-                startIcon={<LogoutIcon />}
-                onClick={handleLogout}
-                sx={{
-                  background: theme.palette.mode === "dark" ? "#d32f2f" : "#f44336",
-                  "&:hover": {
-                    background: theme.palette.mode === "dark" ? "#c62828" : "#d32f2f",
-                  },
-                }}
-              >
-                Logout
-              </Button>
-            </Grid>
+              <Tooltip title="Edit Username" arrow>
+                <IconButton
+                  color="#6e61ab"
+                  onClick={() => setOpenDialog(true)}
+                  sx={{ mt: 1 }}
+                >
+                  <EditIcon />
+                </IconButton>
+              </Tooltip>
+            </StyledPaper>
           </Grid>
-        </CardContent>
-      </Card>
+          <Grid item xs={12} md={8}>
+            <StyledPaper elevation={3}>
+              <Typography variant="h4" gutterBottom fontWeight="bold" color="#6e61ab">
+                Student Profile
+              </Typography>
+              <Divider sx={{ mb: 3 }} />
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <InfoItem>
+                    <BadgeIcon sx={{ mr: 2, color: "#6e61ab" }} />
+                    <Box>
+                      <Typography variant="subtitle2" color="textSecondary">Student ID</Typography>
+                      <Typography variant="body1">{user._id}</Typography>
+                    </Box>
+                  </InfoItem>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <InfoItem>
+                    <EmailIcon sx={{ mr: 2,color: "#6e61ab" }} />
+                    <Box>
+                      <Typography variant="subtitle2" color="textSecondary">Email</Typography>
+                      <Typography variant="body1">{user.email}</Typography>
+                    </Box>
+                  </InfoItem>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <InfoItem>
+                    <SchoolIcon sx={{ mr: 2, color: "#6e61ab" }} />
+                    <Box>
+                      <Typography variant="subtitle2" color="textSecondary">Role</Typography>
+                      <Typography variant="body1" sx={{ textTransform: 'capitalize' }}>{user.role}</Typography>
+                    </Box>
+                  </InfoItem>
+                </Grid>
+              </Grid>
+            
+            </StyledPaper>
+          </Grid>
+        </Grid>
+      </Fade>
 
-      {/* Dialog for editing username */}
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+      <Dialog 
+        open={openDialog} 
+        onClose={() => setOpenDialog(false)}
+        PaperProps={{
+          style: {
+            borderRadius: '16px',
+            padding: '16px',
+          },
+        }}
+      >
         <DialogTitle>Edit Username</DialogTitle>
         <DialogContent>
           <TextField
@@ -186,24 +195,24 @@ function StudentProfilePage() {
           />
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={() => setOpenDialog(false)}
-            sx={{ color: "#616161", fontWeight: "bold" }}
-          >
+          <Button onClick={() => setOpenDialog(false)} color="inherit">
             Cancel
           </Button>
-          <Button
-            onClick={handleEditUsername}
+          <Button 
+            onClick={handleEditUsername} 
+            variant="contained" 
+            color="primary"
             sx={{
-              background: "#928fce",
-              color: "#fff",
-              "&:hover": { background: "#4b3987" },
+              borderRadius: '8px',
+              textTransform: 'none',
+              fontWeight: 'bold',
             }}
           >
             Save
           </Button>
         </DialogActions>
       </Dialog>
+      <CourseProgress />
     </Container>
   );
 }

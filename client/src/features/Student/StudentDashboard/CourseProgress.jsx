@@ -61,9 +61,7 @@ const CourseProgress = () => {
 
   return (
     <Box sx={{ padding: 3 }}>
-      <Typography variant="h5" gutterBottom>
-        Course Progress Overview
-      </Typography>
+     
 
       <Grid container spacing={4} justifyContent="center">
         {userProgress.coursesProgress &&

@@ -227,9 +227,7 @@ function DocumentContent() {
     if (isProcessing) return;
 
     setIsProcessing(true);
-    setTimeout(() => {
-      setIsProcessing(false);
-    }, 0);
+    
 
     if (documentContent && currentIndex < documentContent.length - 1) {
       const newIndex = currentIndex + 1;
@@ -415,6 +413,7 @@ function DocumentContent() {
         }
       }
     }
+    setIsProcessing(false)
   }
   const handleBack = () => {
     if (isProcessing) return;

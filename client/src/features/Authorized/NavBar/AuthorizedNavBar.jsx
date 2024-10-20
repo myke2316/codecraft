@@ -292,7 +292,7 @@ export default function AuthorizedSidebar({
         </List>
         <Box sx={{ flexGrow: 1 }} />
         <Divider sx={{ bgcolor: mode === "light" ? "#e0e0e0" : "#000" }} />
-        <Box sx={{ p: 2 }}>
+        {/* <Box sx={{ p: 2 }}>
           <FormControlLabel
             control={
               <Switch
@@ -310,7 +310,7 @@ export default function AuthorizedSidebar({
               </Typography>
             }
           />
-        </Box>
+        </Box> */}
       </Drawer>
       <IconButton
         onClick={handleDrawerToggle}

@@ -14,13 +14,13 @@ import { useGetScoreByStudentIdQuery } from "../../Class/submissionAssignmentSer
 import { useGetUserVoteQuery } from "../../QnA/questionService";
 
 const Dashboard = () => {
-  
-  const studentId = useSelector((state) => state.user.userDetails._id); 
+  const studentId = useSelector((state) => state.user.userDetails._id);
   const [assignmentGrades, setAssignmentGrades] = useState(0);
   const userAnalytics = useSelector(
     (state) => state.userAnalytics.userAnalytics
   );
-  const { data: scoresData, isFetching } = useGetScoreByStudentIdQuery(studentId);
+  const { data: scoresData, isFetching } =
+    useGetScoreByStudentIdQuery(studentId);
   useEffect(() => {
     if (!isFetching && scoresData) {
       // Sum up the grades from the scores array
@@ -33,9 +33,9 @@ const Dashboard = () => {
     }
   }, [scoresData, userAnalytics, isFetching]);
   const { data: userVote, refetch: refetchVotes } = useGetUserVoteQuery({
-    userId:studentId
+    userId: studentId,
   });
-  const qnaPoints = userVote?.totalVotes * 5
+  const qnaPoints = userVote?.totalVotes * 5;
   // Calculate total points across all courses
   const totalPoints = userAnalytics.coursesAnalytics.reduce((acc, course) => {
     return acc + (course.totalPointsEarned || 0);
@@ -45,7 +45,9 @@ const Dashboard = () => {
     <Container maxWidth="100%" style={{ padding: "20px" }}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={12}>
-          <PlayerDashboard totalPoints={totalPoints+assignmentGrades + qnaPoints} />
+          <PlayerDashboard
+            totalPoints={totalPoints + assignmentGrades + qnaPoints}
+          />
         </Grid>
 
         <Grid item xs={12} md={6}>

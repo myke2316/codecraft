@@ -418,7 +418,7 @@ function ManageCertificate() {
                   <TableCell>{student.email}</TableCell>
                   <TableCell>{student.totalPoints} Points</TableCell>
                   <TableCell>
-                    <IconButton>
+                    <IconButton onClick={() =>console.log("AKSD")}>
                       <VisibilityIcon />
                     </IconButton>
                   </TableCell>
