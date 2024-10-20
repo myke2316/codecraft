@@ -153,7 +153,7 @@ const QuestionList = ({ userId }) => {
           </Grid>
           <Grid item xs={12} md={4}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel>Filter by Tags</InputLabel>
+              <InputLabel>Filter by Languages</InputLabel>
               <Select
                 multiple
                 value={selectedTags}

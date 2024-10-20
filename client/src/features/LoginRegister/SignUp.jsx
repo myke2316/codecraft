@@ -85,6 +85,7 @@ function SignUp() {
             .email("Invalid Email")
             .required("Email is Required"),
           username: Yup.string()
+            .matches(/^[a-zA-Z]+$/, "Only letters are allowed.")
             .min(5, "Username too short")
             .max(40, "Username too long")
             .required("Username is Required"),

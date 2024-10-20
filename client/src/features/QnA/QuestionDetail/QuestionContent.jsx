@@ -37,6 +37,7 @@ import {
   useVoteQuestionMutation,
   useGetQuestionVoteQuery,
   useGetAnswerVoteQuery,
+  useDeleteQuestionMutation,
 } from "../questionService";
 
 const QuestionContent = ({
@@ -50,7 +51,7 @@ const QuestionContent = ({
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); // Added delete dialog state
   const isOwner = question.author._id === currentUserId;
   const navigate = useNavigate();
-
+  const [deleteQuestion] = useDeleteQuestionMutation();
   const { data: voteData, refetch: refetchVotes } = useGetQuestionVoteQuery({
     questionId: question._id,
   });
@@ -99,13 +100,14 @@ const QuestionContent = ({
 
   const handleDelete = async () => {
     setDeleteDialogOpen(true); // Open delete dialog
+   
   };
 
   const confirmDelete = async () => {
     try {
       await deleteQuestion(question._id).unwrap();
       setDeleteDialogOpen(false);
-      navigate(-1); // Redirect back after deletion
+      navigate(`/qna/${currentUserId}`)
     } catch (error) {
       console.error("Failed to delete question:", error);
     }
