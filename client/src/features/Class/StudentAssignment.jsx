@@ -46,7 +46,7 @@ function StudentAssignment() {
   const handleViewAssignment = (assignmentId) => {
     navigate(`${assignmentId}/view`);
   };
-
+  console.log(assignments)
   if (isLoading) return <Typography variant="h6">Loading assignments...</Typography>;
 
   return (
