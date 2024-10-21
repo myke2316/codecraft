@@ -68,10 +68,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-      <Route
-            path="reset-password/:resetToken"
-            element={<ResetPassword />}
-          />
+        <Route path="reset-password/:resetToken" element={<ResetPassword />} />
         <Route element={<AppLayout />}>
           <Route index element={<Home />} />
           <Route path="aboutCourse" element={<Course />} />
@@ -80,7 +77,7 @@ function App() {
           <Route path="signup" element={<SignUp />} />
           <Route path="redirect" element={<GoogleRedirect />} />
           <Route path="normal-redirect" element={<NormalRedirect />} />
-       
+
           <Route path="" element={<PrivateRoutes />}></Route>
         </Route>
         {/* student */}
@@ -131,7 +128,7 @@ function App() {
               element={<ManageCertificate />}
               path="/certificate/teacher/manage"
             />
-
+            <Route path="/classes" element={<ClassLists />} />
             <Route element={<TeacherClassLayout />} path="/:classId/class/*">
               <Route
                 path="students/:studentId"
@@ -150,7 +147,6 @@ function App() {
                 element={<TeacherAssignmentGrade />}
               />
             </Route>
-            <Route path="/classes" element={<ClassLists />} />
           </Route>
         </Route>
 

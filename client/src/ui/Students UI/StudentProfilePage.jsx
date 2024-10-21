@@ -37,36 +37,41 @@ import CourseProgress from "../../features/Student/StudentDashboard/CourseProgre
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
-  background: theme.palette.mode === 'dark' 
-    ? 'linear-gradient(145deg, #2c2c2c, #1e1e1e)' 
-    : 'linear-gradient(145deg, #ffffff, #f0f0f0)',
-  borderRadius: '16px',
-  boxShadow: theme.palette.mode === 'dark'
-    ? '0 4px 20px 0 rgba(0, 0, 0, 0.5)'
-    : '0 4px 20px 0 rgba(0, 0, 0, 0.1)',
-  transition: 'all 0.3s ease-in-out',
-  '&:hover': {
-    transform: 'translateY(-5px)',
-    boxShadow: theme.palette.mode === 'dark'
-      ? '0 6px 25px 0 rgba(0, 0, 0, 0.7)'
-      : '0 6px 25px 0 rgba(0, 0, 0, 0.15)',
+  background:
+    theme.palette.mode === "dark"
+      ? "linear-gradient(145deg, #2c2c2c, #1e1e1e)"
+      : "linear-gradient(145deg, #ffffff, #f0f0f0)",
+  borderRadius: "16px",
+  boxShadow:
+    theme.palette.mode === "dark"
+      ? "0 4px 20px 0 rgba(0, 0, 0, 0.5)"
+      : "0 4px 20px 0 rgba(0, 0, 0, 0.1)",
+  transition: "all 0.3s ease-in-out",
+  "&:hover": {
+    transform: "translateY(-5px)",
+    boxShadow:
+      theme.palette.mode === "dark"
+        ? "0 6px 25px 0 rgba(0, 0, 0, 0.7)"
+        : "0 6px 25px 0 rgba(0, 0, 0, 0.15)",
   },
 }));
 
 const InfoItem = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
+  display: "flex",
+  alignItems: "center",
   marginBottom: theme.spacing(2),
   padding: theme.spacing(1.5),
-  borderRadius: '8px',
-  background: theme.palette.mode === 'dark'
-    ? 'rgba(255, 255, 255, 0.05)'
-    : 'rgba(0, 0, 0, 0.03)',
-  transition: 'all 0.2s ease-in-out',
-  '&:hover': {
-    background: theme.palette.mode === 'dark'
-      ? 'rgba(255, 255, 255, 0.1)'
-      : 'rgba(0, 0, 0, 0.05)',
+  borderRadius: "8px",
+  background:
+    theme.palette.mode === "dark"
+      ? "rgba(255, 255, 255, 0.05)"
+      : "rgba(0, 0, 0, 0.03)",
+  transition: "all 0.2s ease-in-out",
+  "&:hover": {
+    background:
+      theme.palette.mode === "dark"
+        ? "rgba(255, 255, 255, 0.1)"
+        : "rgba(0, 0, 0, 0.05)",
   },
 }));
 
@@ -108,18 +113,40 @@ function StudentProfilePage() {
   }
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+    <Container
+      maxWidth="lg"
+      sx={{
+        mt: 4,
+        mb: 4
+       
+      }}
+    >
       <Fade in={true} timeout={800}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={4}>
-            <StyledPaper elevation={3} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <StyledPaper
+              elevation={3}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               <Avatar
                 alt="Profile Picture"
                 src={user.picture}
-                sx={{ width: 150, height: 150, mb: 2, border: `4px solid #6e61ab` }}
+                sx={{
+                  width: 150,
+                  height: 150,
+                  mb: 2,
+                  border: `4px solid #6e61ab`,
+                }}
               />
               <Typography variant="h5" gutterBottom fontWeight="bold">
-                {user.username || (user.userData && user.userData.length > 0 && user.userData[0].username)}
+                {user.username ||
+                  (user.userData &&
+                    user.userData.length > 0 &&
+                    user.userData[0].username)}
               </Typography>
               <Tooltip title="Edit Username" arrow>
                 <IconButton
@@ -134,7 +161,12 @@ function StudentProfilePage() {
           </Grid>
           <Grid item xs={12} md={8}>
             <StyledPaper elevation={3}>
-              <Typography variant="h4" gutterBottom fontWeight="bold" color="#6e61ab">
+              <Typography
+                variant="h4"
+                gutterBottom
+                fontWeight="bold"
+                color="#6e61ab"
+              >
                 Student Profile
               </Typography>
               <Divider sx={{ mb: 3 }} />
@@ -143,16 +175,20 @@ function StudentProfilePage() {
                   <InfoItem>
                     <BadgeIcon sx={{ mr: 2, color: "#6e61ab" }} />
                     <Box>
-                      <Typography variant="subtitle2" color="textSecondary">Student ID</Typography>
+                      <Typography variant="subtitle2" color="textSecondary">
+                        Student ID
+                      </Typography>
                       <Typography variant="body1">{user._id}</Typography>
                     </Box>
                   </InfoItem>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <InfoItem>
-                    <EmailIcon sx={{ mr: 2,color: "#6e61ab" }} />
+                    <EmailIcon sx={{ mr: 2, color: "#6e61ab" }} />
                     <Box>
-                      <Typography variant="subtitle2" color="textSecondary">Email</Typography>
+                      <Typography variant="subtitle2" color="textSecondary">
+                        Email
+                      </Typography>
                       <Typography variant="body1">{user.email}</Typography>
                     </Box>
                   </InfoItem>
@@ -161,25 +197,31 @@ function StudentProfilePage() {
                   <InfoItem>
                     <SchoolIcon sx={{ mr: 2, color: "#6e61ab" }} />
                     <Box>
-                      <Typography variant="subtitle2" color="textSecondary">Role</Typography>
-                      <Typography variant="body1" sx={{ textTransform: 'capitalize' }}>{user.role}</Typography>
+                      <Typography variant="subtitle2" color="textSecondary">
+                        Role
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        sx={{ textTransform: "capitalize" }}
+                      >
+                        {user.role}
+                      </Typography>
                     </Box>
                   </InfoItem>
                 </Grid>
               </Grid>
-            
             </StyledPaper>
           </Grid>
         </Grid>
       </Fade>
 
-      <Dialog 
-        open={openDialog} 
+      <Dialog
+        open={openDialog}
         onClose={() => setOpenDialog(false)}
         PaperProps={{
           style: {
-            borderRadius: '16px',
-            padding: '16px',
+            borderRadius: "16px",
+            padding: "16px",
           },
         }}
       >
@@ -198,14 +240,14 @@ function StudentProfilePage() {
           <Button onClick={() => setOpenDialog(false)} color="inherit">
             Cancel
           </Button>
-          <Button 
-            onClick={handleEditUsername} 
-            variant="contained" 
+          <Button
+            onClick={handleEditUsername}
+            variant="contained"
             color="primary"
             sx={{
-              borderRadius: '8px',
-              textTransform: 'none',
-              fontWeight: 'bold',
+              borderRadius: "8px",
+              textTransform: "none",
+              fontWeight: "bold",
             }}
           >
             Save

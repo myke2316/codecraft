@@ -163,7 +163,7 @@ const ClassLists = () => {
     //     </>
     //   )}
     // </div>
-    <Box className="p-6 bg-gray-100 min-h-screen">
+    <Box className="p-6 min-h-screen">
       <Typography variant="h4" component="h1" className="mb-6 text-gray-800 font-bold">
         Your Classes
       </Typography>

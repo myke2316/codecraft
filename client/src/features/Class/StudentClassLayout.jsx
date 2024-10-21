@@ -93,6 +93,7 @@ export default function StudentClassLayout() {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
           }),
+          boxShadow: "5px 0 15px rgba(0, 0, 0, 0.1)"
         }}
       >
         <Box sx={{ p: 3 }}>
@@ -310,6 +311,11 @@ export default function StudentClassLayout() {
           p: 3,
           width: { sm: `calc(100% - ${280}px)` },
           ml: { sm: `${280}px` },
+         
+          backgroundImage: `url('/public/cool-background.svg')`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "top right",backgroundAttachment: 'fixed',
         }}
       >
         <Outlet />

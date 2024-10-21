@@ -1,277 +1,460 @@
-.allcontent{
+.parent{
     max-width: 1440px;
+   
     margin: 0 auto;
-    margin-top: 10px;
 }
-.level{
-    margin-top: 30px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 46px;
-    text-align: center;
-    font-weight: bold;
-    height: 120px;
-}
-
-.codeyourway {
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    text-align: center;
-    max-width: 100%;
-    margin-bottom: 10px;
-}
-
-.textcode {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    text-align: center;
-    min-width: 200px;
-    max-width: 55%;
-    font-weight: normal;
-    margin-bottom: 10px;
-    flex-basis: 100%; 
-}
-
-.buttonstartlearning {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 140px;
-}
-
-.button-homecontent {
-    border-radius: 45px;
-  
-    width: 250px;
-    height: 60px;
-    font-size: 18px;
-    border: 2px solid; 
-    border-image: linear-gradient(to right, #DF8F52, #4189E4, #FEEB33) 1; /* Linear gradient as border */
-    cursor: pointer;
-}
-
-.courses{
-    height: 500px;
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-.container{
-    border-radius: 20px;
-    max-width: 100%;
-
-    height: 100%;
-    background: linear-gradient(to right, #DF8F52, #4189E4, #FEEB33);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}   
-
-.coursestitle{
-    height: 10%;
-    text-align: center;
-    font-size: 27px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.coursescontainer{
-    height: 90%;
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-.coursesh1{
-    margin-top: 10px;
-    text-align: center;
-    font-size: 22px;
-    color: rgb(255, 255, 255);
-}
-.html,.css,.js{
-    width: 31%;
-    height: 92%;
-    background-color: rgb(240, 240, 240);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-} 
-
-.containertitlehtml {
-    display: flex;
-    justify-content: flex-start;
-    font-size: 24px;
-    max-width: 100%;
-    padding: 15px;
-    height: 22%; 
-    width: 100%; 
-    box-sizing: border-box; 
-}
-.lessonscontainer{
-    height: 10%;
+.elevate{
+    margin-top: 40px;
     max-width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
-.lessons1,.lessons2{
-    width: 30%;
-    border: 1px solid;
-    border-radius: 15px;
-    text-align: center;
-    background-color: rgb(192, 192, 192);
-}
-
-.thirdcontainer{
-    height: 50%;
-    width: 100%;
-    display: flex;
-}
-
-.htmlimage{
-    height: 100%;
-    width: 50%;
-    display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.htmlactimage{
-    width: 310px;
-}
-
-.texthtml{
     height: auto;
+}
+.elevateleft, .elevateright{
     width: 50%;
-    font-size: 14px;
-    text-align: start;
-    padding-left: 10px;
-}
-.coursebutton{
-    display: flex;
-    padding:20px;
-}
-.buttoncourse{
-    width: 240px;
-    height: 50px;
-}
-.jsactimage{
-    display: flex;
-    justify-content: center;
-    width: auto;
-    height: 160px;
-}
-
-.featurestitle{
-    font-size: 40px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.featurescontainer{
-    max-width: 100%;
-    height: 500px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-bottom: 20px;
-    display: flex;
-}
-.gamification,.IDE,.community{
-    width: 33%;
     height: 100%;
-    display:flex;
+    float: left;
+    display: flex;
     align-items: center;
-    flex-direction: column;
-    text-align: center;
-
     justify-content: center;
+    flex-direction: column;
 }
-.title{
-    font-size: 35px;
+.elevatetext{
+    font-size: 50px;
     font-weight: bold;
+    margin-bottom: 40px;
 }
-.gamificationimg{
-    width: 169px;
+button{
+    border: 1px solid;
 }
-.wanttoknow{
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 100%;
-    height: 600px;
-    margin-botton: 20px;
+.elevatealltext{
+    width: 100%;
+    float: left;
     display: flex;
-    justify-content: space-around;
-}
-.wanttext{
-    height: 100%;
-    width: 40%;
-}
-.wantimg{
-    width: auto;
-    height: 100%;
-}
-.wantmoreimg{
-    width: auto;
-}
-.wanttext{
-    display: flex;
-    align-content: center;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    padding-left: 30px;
+    flex-direction: column;
+ 
 }
-.wanttitle{
+.buttonselevate{
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+  
+    width: 100%;
+}
+
+.startLearning{
+   width: 230px;
+    padding: 20px;
+    background-color: rgb(75,57,135);
+    border: none;
+    color: white;
+    border-radius: 10px;
+    margin-right: 40px;
+}
+.learnmore{
+width:  230px;
+    padding: 20px;
+    border-radius: 10px;
+    border-color: rgb(75,57,135);
+}
+
+.elevaterightimg{
+    width: 600px;
+}
+
+.welcome{
+    margin-top: 90px;
+    height:auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.welcomeleft, .welcomeright{
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+.welcometitle{
     font-size: 50px;
     font-weight: bold;
 }
-.detail{
-    margin-bottom: 20px;
+/* Container for the custom checkbox */
+.radiotext {
+    margin-top: 20px;
+    font-size: 23px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: bold;
 }
 
+.radiotext input[type="checkbox"] {
+    display: none; /* Hide default checkbox */
+}
 
-@media (max-width: 1273px) {
+/* Create custom checkbox */
+.radiotext input[type="checkbox"] + span {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgb(110, 97, 171);
+    border-radius: 4px;
+    margin-right: 10px;
+    display: inline-block;
+    position: relative;
+}
+
+/* Checked state */
+.radiotext input[type="checkbox"]:checked + span {
+    background-color: rgb(110, 97, 171);
+    border-color: rgb(110, 97, 171);
+}
+
+/* Checkmark (if desired) */
+.radiotext input[type="checkbox"]:checked + span:before {
+    content: '✓';
+    position: absolute;
    
-   .container,.courses,.coursescontainer{
-        display: block;
+    color: white;
+    font-size: 16px;
+}
+.details1{
+    font-size: 20px;
+}
+.details{
+    margin-top: 40px;
+    font-size: 20px;
+}
+.features{
+    display: flex;
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+}
+.titlefeatures{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.featureTitle{
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 70px;
+}
+.featuresContent{
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+.gamification,.playground,.forum{
+    width: 33%;
+    height: auto;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    border-radius: 10px;
+}
+.featureimg{
+    max-width: 300px;
+}
+
+.featurestitle{
+    margin-top: 20px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.featuredetail{
+    margin-top: 30px;
+    font-size: 15px;
+    text-align: justify;
+    max-width: 320px;
+    margin-bottom: 40px;
+}
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .elevate{
+        margin-left: 40px;
+        margin-top: 10px;
         max-width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         height: auto;
-        margin: 10px auto;
     }
-    .coursescontainer{
+    .elevatetext{
+        font-size: 40px;
+    }
+    .details1{
+        font-size: 17px;
+    }
+    .welcome{
+        margin-top: 90px;
+        height:auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .details{
+        font-size: 17px;
+    }
+    .welcometitle{
+        font-size: 40px;
+    }
+    .featuresContent{
+        max-width: 100%;
         display: flex;
         flex-direction: column;
-        margin-bottom: 10px;
+        height: auto;
+        justify-content: center;
+        align-items: center;
     }
-    
-    .html,.css,.js{
-        width: 40%;
-        margin-bottom: 10px;
-
+    .featureimg{
+        max-width: 200px;
     }
-   
+    .features{
+    display: flex;
+    width: 100%;
+    height: auto;
+    flex-direction: column;
 }
-@media (max-width: 684px) {
-    .featurestitle{
-        font-size: 30px;
+.titlefeatures{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.featureTitle{
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 70px;
+}
+.featuresContent{
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+.gamification,.playground,.forum{
+    width: 33%;
+    height: auto;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    border-radius: 10px;
+}
+.featureimg{
+    max-width: 300px;
+}
+
+.featurestitle{
+    margin-top: 20px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.featuredetail{
+    margin-top: 30px;
+    font-size: 15px;
+    text-align: justify;
+    max-width: 320px;
+    margin-bottom: 40px;
+}
+.featuresContent{
+    display: flex;
+    flex-direction: row;
+}
+  
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+    .elevate{
+        max-width: 100%;
+        flex-direction: column;
+        height: auto;
         
     }
-    .gamificationimg{
-        width: 119px;
-    }
-    .title{
-        font-size: 25px;
-        font-weight: bold;
-    }
-    .wanttitle{
+    .elevatetext{
         font-size: 30px;
-        font-weight: bold;
+    }
+    .details1{
+        font-size: 14px;
     }
 
+    .startLearning,.learnmore{
+        max-width: 150px;
+        height: 40px;
+        font-size: 10px;
+        padding: 10px;
+    }
+    .welcome{
+        max-width: 100%;
+        flex-direction: column;
+        height: auto;
+    }
+    .welcometitle{
+        font-size: 30px;
+    }
+    .details{
+        font-size: 14px;
+    }
+    .radiotext{
+        font-size: 14px;
+    }
+    .radiotext input[type="checkbox"]:checked + span:before {
+        font-size: 10px;
+    }
+    .radiotext input[type="checkbox"] + span {
+        width: 15px;
+        height: 15px;
+    }
+    .featuresContent{
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+    }
+    .featureimg{
+        max-width: 150px;
+    }
+    .featurestitle{
+        font-size: 20px;
+    }
+    .featuredetail{
+        font-size: 12px;
+        padding: 20px;
+    }
+
+}
+@media (min-width: 425px) and (max-width: 767px) {
+    .elevate{
+        max-width: 100%;
+        flex-direction: column;
+        height: auto;
+    }
+    .elevatetext{
+        font-size: 20px;
+    }
+    .details1{
+        font-size: 10px;
+    }
+
+    .startLearning,.learnmore{
+        max-width: 100px;
+        height: 30px;
+        font-size: 7px;
+        padding: 5px;
+    }
+    .welcome{
+        max-width: 100%;
+        flex-direction: column;
+        height: auto;
+    }
+    .welcometitle{
+        font-size: 20px;
+    }
+    .details{
+        font-size: 10px;
+    }
+    .radiotext{
+        font-size: 10px;
+    }
+    .radiotext input[type="checkbox"]:checked + span:before {
+        font-size: 7px;
+    }
+    .radiotext input[type="checkbox"] + span {
+        width: 10px;
+        height: 10px;
+    }
+    .featuresContent{
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+    }
+    .featureTitle{
+        font-size: 25px;
+    }
+    .featureimg{
+        max-width: 120px;
+    }
+    .featurestitle{
+        font-size: 16px;
+    }
+    .featuredetail{
+        font-size: 10px;
+        padding: 10px;
+    }
+}
+@media (min-width: 320px) and (max-width: 424px) {
+
+    .elevate{
+        max-width: 100%;
+        flex-direction: column;
+        height: auto;
+    }
+    .elevatetext{
+        font-size: 20px;
+    }
+    .details1{
+        font-size: 10px;
+    }
+
+    .startLearning,.learnmore{
+        max-width: 100px;
+        height: 30px;
+        font-size: 7px;
+        padding: 5px;
+    }
+    .welcome{
+        max-width: 100%;
+        flex-direction: column;
+        height: auto;
+    }
+    .welcometitle{
+        font-size: 20px;
+    }
+    .details{
+        font-size: 10px;
+    }
+    .radiotext{
+        font-size: 10px;
+    }
+    .radiotext input[type="checkbox"]:checked + span:before {
+        font-size: 7px;
+    }
+    .radiotext input[type="checkbox"] + span {
+        width: 10px;
+        height: 10px;
+    }
+    .featuresContent{
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+    }
+    .featureTitle{
+        font-size: 25px;
+    }
+    .featureimg{
+        max-width: 120px;
+    }
+    .featurestitle{
+        font-size: 16px;
+    }
+    .featuredetail{
+        font-size: 10px;
+        padding: 10px;
+    }
 }

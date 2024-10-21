@@ -60,7 +60,11 @@ function AuthorizedLayout() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ display: "flex", minHeight: "100vh", overflow: "hidden" }}>
+      <Box sx={{ display: "flex", minHeight: "100vh", overflow: "hidden", backgroundImage: `url('/public/cool-background.svg')`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "top right",
+        backgroundAttachment: "fixed", }}>
         {user.role && (
           <AuthorizedSidebar 
             open={open} 

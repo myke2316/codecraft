@@ -1,188 +1,122 @@
 import "./HomeContent.css";
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import htmlicon from "./images/html.png";
-import cssicon from "./images/css.png";
-import jsicon from "./images/javascript.png";
-import gamification from "./images/gamification.png";
-import IDE from "./images/ide.png";
-import community from "./images/Communityf.png";
-import wantmoreimg from "./images/want.png";
+import React from "react";
+import elevateimg from "./images/elevateimg.png";
+import welcomeimg from "./images/welcomeimg.png";
+import forum from "./images/forum.png";
+import playground from "./images/playground.png";
+import game from "./images/game.png"
+
 function HomeContent() {
   return (
-    <div className="allcontent">
-      <div className="level">
-        <h1>
-          <span style={{ color: "rgb(255, 200, 55)" }}>{"<"}</span>
-          {"Level Up Your Coding Skills/"}
-          <span style={{ color: "rgb(255, 200, 55)" }}>{">"}</span>
-        </h1>
+    <div className="parent">
+      <div className="elevate">
+        <div className="elevateleft">
+          <div className="elevatealltext">
+            <h1 className="elevatetext">
+              Elevate Your Learning Potential With CodeCraft
+            </h1>
+            <p className="details1">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+              laborum sint, aspernatur molestiae autem vel non, exercitationem
+              id perspiciatis ullam vero delectus quia quasi similique ipsum a
+              laudantium architecto dolor?
+            </p>
+          </div>
+          <div className="buttonselevate">
+            <button className="startLearning">Start Learning Now</button>
+            <button className="learnmore">Learn More</button>
+          </div>
+        </div>
+        <div className="elevateright">
+          <img className="elevaterightimg" src={elevateimg} alt="Elevate" />
+        </div>
       </div>
 
-      <div className="codeyourway">
-        <div className="textcode">
-          <p>
-            Code your way to success with CodeCraft. Empower your journey with
-            innovative coding solutions, teacher guidance and a community of
-            passionate learners dedicated into Web Development
+      <div className="welcome">
+        <div className="welcomeleft">
+          <img src={welcomeimg} alt="Welcome" />
+        </div>
+        <div className="welcomeright">
+          <h1 className="welcometitle">
+            Welcome to the E-Learning Platform CodeCraft
+          </h1>
+          <p className="details">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis iste
+            commodi distinctio minima minus? Similique dolorem vitae, ut debitis
+            minus aliquam sed, blanditiis ratione repellendus officia soluta
+            distinctio, commodi asperiores.
           </p>
+
+          <form>
+            <label className="radiotext">
+              <input
+                type="checkbox"
+                name="option"
+                value="gamification"
+                defaultChecked
+              />
+              <span></span>
+              Gamification
+            </label>
+            <br />
+            <label className="radiotext">
+              <input
+                type="checkbox"
+                name="option"
+                value="community"
+                defaultChecked
+              />
+              <span></span>
+              Community
+            </label>
+            <br />
+            <label className="radiotext">
+              <input
+                type="checkbox"
+                name="option"
+                value="playground"
+                defaultChecked
+              />
+              <span></span>
+              Playground
+            </label>
+          </form>
         </div>
       </div>
 
-      <div className="buttonstartlearning">
-        <button className="button-homecontent">
-          <NavLink to="login">
-            Start Learning Now <span>&#8594;</span>
-          </NavLink>
-        </button>
-      </div>
-
-      <div className="courses">
-        <div className="container">
-          <div className="coursestitle">
-            <h1>{"<Courses/>"}</h1>
-          </div>
-          <div className="coursescontainer">
-            <div className="html">
-              <h1 className="containertitlehtml">
-                Hypertext Markup Language (HTML)
-              </h1>
-          
-              <div className="thirdcontainer">
-                <div className="texthtml">
-                  <p>
-                    The core language used to structure and display content on
-                    the web. It uses tags to define elements like headings,
-                    paragraphs, links, and images. Browsers interpret these tags
-                    to render content visually
-                  </p>
-                </div>
-                <div className="htmlimage">
-                  <img className="htmlactimage" src={htmlicon} alt="" />
-                </div>
-              </div>
-              <div className="coursebutton">
-                <button className="button-homecontent">
-                  <NavLink to="login">
-                    Check out <span>&#8594;</span>
-                  </NavLink>
-                </button>
-              </div>
-            </div>
-
-            <div className="css">
-              <h1 className="containertitlehtml">
-                Cascading Style Sheet (CSS)
-              </h1>
-
-           
-              <div className="thirdcontainer">
-                <div className="texthtml">
-                  <p>
-                    This controls the visual appearance of HTML elements, such
-                    as colors, fonts, spacing, and positioning. By separating
-                    content from design, CSS allows for more flexible and
-                    maintainable web development.
-                  </p>
-                </div>
-                <div className="htmlimage">
-                  <img className="htmlactimage" src={cssicon} alt="" />
-                </div>
-              </div>
-              <div className="coursebutton">
-                <button className="button-homecontent">
-                  <NavLink to="login">
-                    Check out <span>&#8594;</span>
-                  </NavLink>
-                </button>
-              </div>
-            </div>
-            <div className="js">
-              <h1 className="containertitlehtml">Javascript (JS)</h1>
-
-              <div className="thirdcontainer">
-                <div className="texthtml">
-                  <p>
-                    This controls the visual appearance of HTML elements, such
-                    as colors, fonts, spacing, and positioning. By separating
-                    content from design, CSS allows for more flexible and
-                    maintainable web development.
-                  </p>
-                </div>
-                <div className="htmlimage">
-                  <img className="jsactimage" src={jsicon} alt="" />
-                </div>
-              </div>
-              <div className="coursebutton">
-                <button className="button-homecontent">
-                  <NavLink to="login">
-                    Check out <span>&#8594;</span>
-                  </NavLink>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="featurestitle">
-        <h1>
-          <span style={{ color: "rgb(255, 200, 55)" }}>{"<"}</span>
-          {"Our Features/"}
-          <span style={{ color: "rgb(255, 200, 55)" }}>{">"}</span>
-        </h1>{" "}
-      </div>
       <div className="features">
-        <div className="featurescontainer">
-          <div className="gamification">
-            <img className="gamificationimg" src={gamification} alt="" />
-            <h1 className="title">Gamification</h1>
-            <p>
-              Students will earn EXP points by participating lessons, quizes and
-              activities promoting competition and skill development
-            </p>
-          </div>
-          <div className="IDE">
-            <img className="gamificationimg" src={IDE} alt="" />
-            <h1 className="title">Playground</h1>
-            <p>
-              Users can directly share their code creations from the playground
-              with the community, fostering collaboration and knowledge sharing.
-            </p>
-          </div>
-          <div className="community">
-            <img className="gamificationimg" src={community} alt="" />
-            <h1 className="title">Playground</h1>
-            <p>
-              Code Craft features community engagement through a dedicated page
-              for learners to ask and answer questions and participate in
-              discussions
-            </p>
-          </div>
+        <div className="titlefeatures">
+          <h1 className="featureTitle">CodeCraft Features</h1>
         </div>
-      </div>
-      <div className="wanttoknow">
-        <div className="wanttext">
-          <h1 className="wanttitle">Want to Know More? </h1>
-          <p className="detail">
-            Join Code Craft to take your web development skills to the next
-            level. Immerse yourself in hands-on practice, delve into the latest
-            techniques, and work alongside a dynamic community of students and
-            experienced teachers. Whether you're looking to master new
-            technologies, refine your coding abilities, or connect with
-            like-minded individuals.
-          </p>
-          <button className="button-homecontent">
-            <NavLink to="login">
-              Start Learning Now <span>&#8594;</span>
-            </NavLink>
-          </button>
+        <div className="featuresContent">
+          <div className="gamification">
+            <img className="featureimg" src={game} alt="" />
+            <h1 className="featurestitle">Gamification</h1>
+            <p className="featuredetail">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error, itaque quod! Minus perferendis similique nam beatae dolor, molestias inventore libero est doloremque, culpa laboriosam nihil, repellat eveniet labore assumenda praesentium.</p>
+          </div>
+
+          <div className="playground">
+            <img className="featureimg" src={playground} alt="" />
+            <h1 className="featurestitle">Playground IDE</h1>
+            <p className="featuredetail">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum tenetur omnis sequi laudantium quod quasi hic placeat a, dolorem quas, iure at aperiam in est corporis pariatur eveniet minus quidem.</p>
+          </div>
+
+
+          <div className="forum">
+            <img className="featureimg" src={forum} alt="" />
+            <h1 className="featurestitle">Community Forum</h1>
+            <p className="featuredetail">Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi corrupti laudantium quod maiores, doloremque accusantium deserunt soluta? Quas soluta tenetur rerum adipisci perferendis, dolor fugit odio, atque dolores voluptatem rem?</p>
+          </div>
         </div>
 
-        <div className="wantimg">
-          <img className="wantmoreimg" src={wantmoreimg} alt="" />
-        </div>
       </div>
+
+
+
+
+
     </div>
   );
 }
+
 export default HomeContent;
