@@ -6,7 +6,7 @@ export const formatTime = (totalSeconds) => {
     } else if (roundedSeconds < 3600) {
       const minutes = Math.floor(roundedSeconds / 60);
       const seconds = roundedSeconds % 60;
-      return `${minutes} min${minutes !== 1 ? 's' : ''}, ${seconds} s${seconds !== 1 ? 's' : ''}`;
+      return `${minutes} min${minutes !== 1 ? 's' : ''}, ${seconds} second${seconds !== 1 ? 's' : ''}`;
     } else {
       const hours = Math.floor(roundedSeconds / 3600);
       const minutes = Math.floor((roundedSeconds % 3600) / 60);

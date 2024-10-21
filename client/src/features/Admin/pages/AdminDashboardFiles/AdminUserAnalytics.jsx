@@ -6,10 +6,12 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { formatTime } from '../../../../utils/formatTime';
+import { useGetScoreByStudentIdQuery } from '../../../Class/submissionAssignmentService';
+import { useGetUserVoteQuery } from '../../../QnA/questionService';
 
 const AdminUserAnalytics = ({ userAnalytics, users }) => {
   const [sortDirection, setSortDirection] = useState('desc');
-  const [orderBy, setOrderBy] = useState('totalPointsEarned');
+  const [orderBy, setOrderBy] = useState('totalPointsEarned'); // Updated initial orderBy
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
@@ -34,12 +36,36 @@ const AdminUserAnalytics = ({ userAnalytics, users }) => {
     return acc;
   }, {});
 
+  const enhancedUserAnalytics = userAnalytics.map(user => {
+    const { data: scoresData } = useGetScoreByStudentIdQuery(user.userId);
+    const { data: userVote } = useGetUserVoteQuery({ userId: user.userId });
+
+    const qnaPoints = (userVote?.totalVotes || 0) * 5;
+    const submissionPoints = scoresData?.scores.reduce((acc, score) => acc + (score.grade || 0), 0) || 0;
+    const combinedScore = qnaPoints + submissionPoints;
+
+    return {
+      ...user,
+      qnaPoints,
+      submissionPoints,
+      combinedScore
+    };
+  });
+
+
   const filteredAndSortedData = useMemo(() => {
-    return [...userAnalytics]
+    return [...enhancedUserAnalytics]
       .filter(user => userMap[user.userId]?.toLowerCase().includes(searchTerm.toLowerCase()))
       .sort((a, b) => {
-        const aValue = a[orderBy];
-        const bValue = b[orderBy];
+        let aValue, bValue;
+        if (orderBy === 'totalPointsEarned' || orderBy === 'combinedScore') {
+          aValue = a.totalPointsEarned + a.combinedScore;
+          bValue = b.totalPointsEarned + b.combinedScore;
+        } else {
+          aValue = a[orderBy];
+          bValue = b[orderBy];
+        }
+
         if (aValue < bValue) {
           return sortDirection === 'asc' ? -1 : 1;
         }
@@ -48,7 +74,7 @@ const AdminUserAnalytics = ({ userAnalytics, users }) => {
         }
         return 0;
       });
-  }, [userAnalytics, userMap, searchTerm, orderBy, sortDirection]);
+  }, [enhancedUserAnalytics, userMap, searchTerm, orderBy, sortDirection]);
 
   const paginatedData = filteredAndSortedData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
@@ -68,7 +94,7 @@ const AdminUserAnalytics = ({ userAnalytics, users }) => {
                 onChange={(e) => setOrderBy(e.target.value)}
                 label="Sort By"
               >
-                <MenuItem value="totalPointsEarned">Total Points Earned</MenuItem>
+                <MenuItem value="totalPointsEarned">Total Points</MenuItem>
                 <MenuItem value="totalTimeSpent">Total Time Spent</MenuItem>
               </Select>
             </FormControl>
@@ -114,11 +140,11 @@ const AdminUserAnalytics = ({ userAnalytics, users }) => {
                 </TableCell>
                 <TableCell align="right">
                   <TableSortLabel
-                    active={orderBy === 'totalPointsEarned'}
-                    direction={orderBy === 'totalPointsEarned' ? sortDirection : 'asc'}
+                    active={orderBy === 'totalPointsEarned' || orderBy === 'combinedScore'}
+                    direction={orderBy === 'totalPointsEarned' || orderBy === 'combinedScore' ? sortDirection : 'asc'}
                     onClick={() => handleRequestSort('totalPointsEarned')}
                   >
-                    Total Points Earned
+                    Total Points
                   </TableSortLabel>
                 </TableCell>
                 <TableCell align="right">
@@ -137,7 +163,7 @@ const AdminUserAnalytics = ({ userAnalytics, users }) => {
                 <TableRow key={user.userId} hover>
                   <TableCell>{userMap[user.userId]}</TableCell>
                   <TableCell>{user.userId}</TableCell>
-                  <TableCell align="right">{user.totalPointsEarned}</TableCell>
+                  <TableCell align="right">{user.totalPointsEarned + user.combinedScore}</TableCell>
                   <TableCell align="right">{formatTime(user.totalTimeSpent)}</TableCell>
                 </TableRow>
               ))}

@@ -299,7 +299,7 @@
               "description": "Create a simple webpage using basic HTML tags and attributes.",
               "language": "HTML",
               "difficulty": "easy",
-              "problemStatement": "Create a basic HTML page with:\n1. A <h1> heading that says 'Welcome to CodeCraft'.\n2. A paragraph describing CodeCraft: 'CodeCraft is an online learning platform'.\n3. An image with the 'src' attribute pointing to '/cat.png' and an 'alt' attribute that says 'Cat Picture'.",
+              "problemStatement": "Create a basic HTML page with:\n1. A <h1> heading that says 'Welcome to CodeCraft'.\n2. A paragraph describing CodeCraft: 'CodeCraft is an online learning platform.' \n3. An image with the 'src' attribute pointing to '/cat.png' and an 'alt' attribute that says 'Cat Picture'.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n</head>\n<body>\n\n\n\n</body>\n</html>",
                 "css": "",
@@ -311,7 +311,7 @@
                   "output": "<!DOCTYPE html><html><head><title>Basic HTML Structure</title></head><body><h1>Welcome to CodeCraft</h1><p>CodeCraft is an online learning platfor.</p><img src=\"/cat.png\" alt=\"Cat Picture\"></body></html>",
                   "required": [
                     "<h1>Welcome to CodeCraft</h1>",
-                    "<p>CodeCraft is an online learning platform</p>",
+                    "<p>CodeCraft is an online learning platform.</p>",
                     "<img src=\"/cat.png\" alt=\"Cat Picture\""
                   ],
                   "isHidden": false,
@@ -1797,7 +1797,7 @@
               "description": "Utilize HTML links and images to create an interactive webpage. Incorporate various link types and image attributes to see their effects.",
               "language": "HTML",
               "difficulty": "hard",
-              "problemStatement": "Create an HTML page with the following elements:\n1. Add a link to an external website (opens up a new tab target='_blank') using the <a> tag with the text 'Visit CodeCraft' and a link of 'https://www.codecraft.com'.\n2. Add an image('/cat.png') link using the <a> tag to link to an external site('https://www.codecraft.com'). Inside this link, include an <img> tag with a source (src) and alt text.",
+              "problemStatement": "Create an HTML page with the following elements:\n1. Add a link to an external website (opens up a new tab target='_blank') using the <a> tag with the text 'Visit CodeCraft' and a link of 'https://www.codecraft.com'.\n2. Add an image('/cat.png') link using the <a> tag to link to an internal site('https://www.codecraft.com') that will open inside the editor. Inside this link, include an <img> tag with a source (src) and alt text.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n</head>\n<body>\n</body>\n</html>",
                 "css": "",
@@ -1813,7 +1813,7 @@
                   ],
                   "testCaseSentences": [
                     "Include a hyperlink that redirects a new user to the specified link and opens up a new page.",
-                    "Include an image link"
+                    "Include an image internal link that does NOT open up a new page"
                   ],
                   "expectedImage": "/activities/htmlacts/3.3.png",
                   "isHidden": false
@@ -1966,7 +1966,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Here, using the <script> tag, we can add JavaScript features from main.js in our HTML document."
+                  "text": "Here, using the <strong>script</strong> tag, we can add JavaScript features from main.js in our HTML document."
                 },
                 {
                   "type": "sentence",
@@ -2073,7 +2073,7 @@
             {
               "question": "Which attribute is used in the <link> tag to specify a stylesheet?",
               "options": ["rel", "href", "type", "media"],
-              "correctAnswer": "href",
+              "correctAnswer": "rel",
               "points": 2,
               "locked": true
             },
@@ -3193,14 +3193,14 @@
                   "input": "",
                   "output": "<form><label for='name'>Name: </label><input type='text' id='name' name='name' required><br><label for='email'>Email: </label><input type='email' id='email' name='email' required><br><input type='submit' value='Submit'></form>",
                   "required": [
-                    "<form>",
+                    "<form",
                     "<label for='name'>Name: </label>",
                     "<input type='text' id='name' name='name' required",
 
                     "<label for='email'>Email: </label>",
                     "<input type='email' id='email' name='email' required",
 
-                    "<input type='submit'>",
+                    "<input type='submit'",
                     "</form>"
                   ],
                   "testCaseSentences": [

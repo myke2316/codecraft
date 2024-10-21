@@ -317,7 +317,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>Explanation:</strong> This targets all `<h1>` elements, making them blue."
+                  "text": "• <strong>Explanation:</strong> This targets all `h1` elements, making them blue."
                 },
                 {
                   "type": "sentence",
@@ -481,7 +481,7 @@
               "description": "Style a heading and a paragraph using basic CSS selectors.",
               "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "Create a CSS file with the following styles:\n1. For the <h1> element, set the color to navy and apply the Arial font family with a fallback to sans-serif.\n2. For the <p> element, set the color to gray and apply the Times New Roman font family with a fallback to serif.",
+              "problemStatement": "Create a CSS file with the following styles:\n1. For the <h1> element, set the color to navy and apply the Arial font family with a fallback to sans-serif.\n2. For the <p> element, set the color to gray and apply the: \"Times New Roman\" font family with a fallback to serif.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Basic CSS Selectors</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <h1>Welcome to My Page</h1>\n    <p>This is a simple paragraph of text.</p>\n</body>\n</html>",
                 "css": "/* Add your CSS here */",
@@ -493,12 +493,12 @@
                   "output": "<!DOCTYPE html><html><head><title>Basic CSS Selectors</title><link rel=\"stylesheet\" href=\"styles.css\"></head><body><h1>Welcome to My Page</h1><p>This is a simple paragraph of text.</p></body></html>",
                   "required": [
                     "h1 { color: navy; font-family: Arial, sans-serif; }",
-                    "p { color: gray; font-family: 'Times New Roman', serif; }"
+                    "p { color: gray; font-family: \"Times New Roman\", serif; }"
                   ],
                   "isHidden": false,
                   "testCaseSentences": [
                     "Style the heading (h1) with a color of navy and a font family of Arial with a fallback to sans-serif.",
-                    "Style the paragraph (p) with a color of gray and a font family of Times New Roman with a fallback to serif."
+                    "Style the paragraph (p) with a color of gray and a font family of \"Times New Roman\" with a fallback to serif."
                   ],
                   "expectedImage": "/activities/cssact/2.1.png"
                 }

@@ -15,6 +15,7 @@ import { useParams } from "react-router";
 import { useGetUserMutation } from "../../LoginRegister/userService";
 import { useGetScoreByStudentIdQuery } from "../../Class/submissionAssignmentService";
 import { useGetUserVoteQuery } from "../../QnA/questionService";
+import { useFetchUserAnalyticsMutation } from "../../Student/userAnalyticsService";
 const theme = createTheme();
 // const userAnalytics = useSelector((state) => state.userAnalytics.userAnalytics);
 
@@ -27,7 +28,27 @@ const TeacherStudentDashboard = ({ userAnalytics, userProgress }) => {
   const [assignmentGrades, setAssignmentGrades] = useState(0);
   const { studentId } = useParams();
   const userId = studentId;
-  const { data: scoresData, isFetching } = useGetScoreByStudentIdQuery(studentId);
+  const [userBadges , setUserBadges] = useState([])
+  const { data: scoresData, isFetching } =
+    useGetScoreByStudentIdQuery(studentId);
+  const [fetchUserAnalytics] = useFetchUserAnalyticsMutation();
+  useEffect(() => {
+    const fetchPoints = async () => {
+      try {
+        const analyticsResponse = await fetchUserAnalytics({
+          userId: studentId,
+        }).unwrap();
+        setUserBadges(analyticsResponse?.badges)
+      } catch (error) {
+        console.error(
+          `Error fetching analytics for student ${studentId}:`,
+          error
+        );
+      }
+    };
+    fetchPoints();
+  }, [fetchUserAnalytics]);
+
   useEffect(() => {
     if (!isFetching && scoresData) {
       // Sum up the grades from the scores array
@@ -41,18 +62,17 @@ const TeacherStudentDashboard = ({ userAnalytics, userProgress }) => {
   }, [scoresData, userAnalytics, isFetching]);
   const [userInfo, setUserInfo] = useState();
   const { data: userVote, refetch: refetchVotes } = useGetUserVoteQuery({
-    userId:studentId
+    userId: studentId,
   });
-  const qnaPoints = userVote?.totalVotes * 5
+  const qnaPoints = userVote?.totalVotes * 5;
   const [getUser, { data, isLoading, isError }] = useGetUserMutation();
 
   useEffect(() => {
-
     const fetchUser = async () => {
       if (userId) {
         try {
           const userData = await getUser(userId).unwrap();
-       
+
           setUserInfo(userData[0]); // Update the state with user data
         } catch (error) {
           console.error("BOBO");
@@ -70,9 +90,10 @@ const TeacherStudentDashboard = ({ userAnalytics, userProgress }) => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
             <TeacherPlayerDashboard
-              totalPoints={totalPoints+assignmentGrades+qnaPoints}
+              totalPoints={totalPoints + assignmentGrades + qnaPoints}
               userProgress={userProgress}
               userInfo={userInfo}
+              badges={userBadges}
             />
           </Grid>
 

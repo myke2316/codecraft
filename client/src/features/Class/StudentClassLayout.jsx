@@ -31,6 +31,8 @@ import {
 } from "@mui/icons-material";
 import { useGetAnnouncementsByClassQuery } from "../Teacher/announcementService";
 import { useGetUserMutation } from "../LoginRegister/userService";
+import "react-quill/dist/quill.snow.css";
+
 export default function StudentClassLayout() {
   const navigate = useNavigate();
   const { classId } = useParams();
@@ -315,79 +317,92 @@ export default function StudentClassLayout() {
 
       {/* Dialog for announcement details */}
       <Dialog
-  open={openDialog}
-  onClose={handleCloseDialog}
-  maxWidth="md"
-  fullWidth
-  PaperProps={{
-    sx: {
-      bgcolor: "background.paper",
-      backgroundImage: "none",
-      boxShadow: 3, // Add shadow for depth
-      borderRadius: 2, // Rounded corners for a modern look
-    },
-  }}
->
-  <DialogTitle
-    sx={{
-      background: "linear-gradient(135deg, #3f51b5, 	#928fce)",
-      color: "primary.contrastText",
-      fontWeight: "bold",
-      textAlign: "center",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      "& svg": {
-        marginRight: 1, // Space between icon and text
-      },
-    }}
-  >
-  {/* Use an appropriate icon */}
-  
-    Announcement 
-  </DialogTitle>
-  <DialogContent dividers>
-    {selectedAnnouncement && (
-      <Box>
-        <Typography
-          variant="h5"
-          component="div"
-          sx={{ mb: 2, fontWeight: "bold", color: "text.primary" }}
-        >
-          {selectedAnnouncement.title}
-        </Typography>
-        <Box
-          component="div"
+        open={openDialog}
+        onClose={handleCloseDialog}
+        maxWidth="md"
+        fullWidth
+        PaperProps={{
+          sx: {
+            bgcolor: "background.paper",
+            backgroundImage: "none",
+            boxShadow: 3, // Add shadow for depth
+            borderRadius: 2, // Rounded corners for a modern look
+          },
+        }}
+      >
+        <DialogTitle
           sx={{
-            "& h1, & h2, & h3, & h4, & h5, & h6": {
-              fontWeight: "bold",
-              mb: 1,
-              color: "text.primary",
+            background: "linear-gradient(135deg, #3f51b5, 	#928fce)",
+            color: "primary.contrastText",
+            fontWeight: "bold",
+            textAlign: "center",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            "& svg": {
+              marginRight: 1, // Space between icon and text
             },
-            "& p": { mb: 2, color: "text.secondary" },
-            "& strong": { fontWeight: "bold" },
           }}
-          dangerouslySetInnerHTML={{
-            __html: selectedAnnouncement.content,
-          }}
-        />
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-          Published on:{" "}
-          {new Date(selectedAnnouncement.createdAt).toLocaleDateString()}
-        </Typography>
-      </Box>
-    )}
-  </DialogContent>
-  <DialogActions sx={{ p: 2 }}>
-    <Button
-      onClick={handleCloseDialog}
-      variant="contained"
-      color="primary"
-    >
-      Close
-    </Button>
-  </DialogActions>
-</Dialog>
+        >
+          {/* Use an appropriate icon */}
+          Announcement
+        </DialogTitle>
+        <DialogContent dividers>
+          {selectedAnnouncement && (
+            <Box>
+              <Typography
+                variant="h5"
+                component="div"
+                sx={{ mb: 2, fontWeight: "bold", color: "text.primary" }}
+              >
+                {selectedAnnouncement.title}
+              </Typography>
+              <Box
+                component="div"
+                sx={{
+                  "& h1, & h2, & h3, & h4, & h5, & h6": {
+                    fontWeight: "bold",
+                    mb: 1,
+                    color: "text.primary",
+                  },
+                  "& p": {
+                    mb: 2,
+                    color: "text.secondary",
+                  },
+                  "& strong": {
+                    fontWeight: "bold",
+                  },
+                  "& ul, & ol": {
+                    pl: 4,
+                    mb: 2,
+                  },
+                  "& a": {
+                    color: "primary.main",
+                    textDecoration: "underline",
+                  },
+                }}
+                dangerouslySetInnerHTML={{
+                  __html: selectedAnnouncement.content,
+                }}
+              />
+
+              <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+                Published on:{" "}
+                {new Date(selectedAnnouncement.createdAt).toLocaleDateString()}
+              </Typography>
+            </Box>
+          )}
+        </DialogContent>
+        <DialogActions sx={{ p: 2 }}>
+          <Button
+            onClick={handleCloseDialog}
+            variant="contained"
+            color="primary"
+          >
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       <ToastContainer />
     </Box>

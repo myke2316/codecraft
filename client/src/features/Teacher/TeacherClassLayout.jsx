@@ -299,20 +299,33 @@ export default function TeacherClassLayout() {
           {selectedAnnouncement.title}
         </Typography>
         <Box
-          component="div"
-          sx={{
-            "& h1, & h2, & h3, & h4, & h5, & h6": {
-              fontWeight: "bold",
-              mb: 1,
-              color: "text.primary",
-            },
-            "& p": { mb: 2, color: "text.secondary" },
-            "& strong": { fontWeight: "bold" },
-          }}
-          dangerouslySetInnerHTML={{
-            __html: selectedAnnouncement.content,
-          }}
-        />
+                component="div"
+                sx={{
+                  "& h1, & h2, & h3, & h4, & h5, & h6": {
+                    fontWeight: "bold",
+                    mb: 1,
+                    color: "text.primary",
+                  },
+                  "& p": {
+                    mb: 2,
+                    color: "text.secondary",
+                  },
+                  "& strong": {
+                    fontWeight: "bold",
+                  },
+                  "& ul, & ol": {
+                    pl: 4,
+                    mb: 2,
+                  },
+                  "& a": {
+                    color: "primary.main",
+                    textDecoration: "underline",
+                  },
+                }}
+                dangerouslySetInnerHTML={{
+                  __html: selectedAnnouncement.content,
+                }}
+              />
         <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
           Published on:{" "}
           {new Date(selectedAnnouncement.createdAt).toLocaleDateString()}

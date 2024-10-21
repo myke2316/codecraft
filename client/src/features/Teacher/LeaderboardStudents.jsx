@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -25,15 +25,41 @@ const LeaderboardStudents = ({ students, classId }) => {
     localStorage.setItem("theme", newMode);
   };
 
+
+  const scoresData = students.map((student) => ({
+    id: student._id,
+    ...useGetScoreByStudentIdQuery(student._id).data,
+  }));
+
+  const votesData = students.map((student) => ({
+    id: student._id,
+    ...useGetUserVoteQuery({ userId: student._id }).data,
+  }));
   // Sort students by total points earned or alphabetically
-  const sortedStudents = [...students].sort((a, b) => {
-    if (sortBy === "points") {
-      return b.totalPointsEarned - a.totalPointsEarned;
-    } else if (sortBy === "name") {
-      return a.username.localeCompare(b.username);
-    }
-    return 0;
-  });
+  const sortedStudents = useMemo(() => {
+    return [...students].sort((a, b) => {
+      if (sortBy === "points") {
+        const scoresDataA = scoresData.find((item) => item.id === a._id);
+        const userVoteA = votesData.find((item) => item.id === a._id);
+        const qnaPointsA = (userVoteA?.totalVotes || 0) * 5;
+        const submissionPointsA =
+          scoresDataA?.scores?.reduce((acc, score) => acc + (score.grade || 0), 0) || 0;
+        const totalPointsA = (a.totalPointsEarned || 0) + qnaPointsA + submissionPointsA;
+
+        const scoresDataB = scoresData.find((item) => item.id === b._id);
+        const userVoteB = votesData.find((item) => item.id === b._id);
+        const qnaPointsB = (userVoteB?.totalVotes || 0) * 5;
+        const submissionPointsB =
+          scoresDataB?.scores?.reduce((acc, score) => acc + (score.grade || 0), 0) || 0;
+        const totalPointsB = (b.totalPointsEarned || 0) + qnaPointsB + submissionPointsB;
+
+        return totalPointsB - totalPointsA;
+      } else if (sortBy === "name") {
+        return a.username.localeCompare(b.username);
+      }
+      return 0;
+    });
+  }, [students, sortBy, scoresData, votesData]);
 
   return (
     <div

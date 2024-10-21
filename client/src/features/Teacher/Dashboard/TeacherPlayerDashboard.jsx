@@ -100,7 +100,7 @@ const calculateCourseProgress = (lessons, lessonsProgress) => {
   return totalLessons === 0 ? 0 : averageLessonProgress;
 };
 
-const TeacherPlayerDashboard = ({ totalPoints, userProgress,userInfo }) => {
+const TeacherPlayerDashboard = ({ totalPoints, userProgress,userInfo,badges }) => {
  
   // const username = userInfo.username;
    const username = userInfo?.username;
@@ -153,24 +153,44 @@ const TeacherPlayerDashboard = ({ totalPoints, userProgress,userInfo }) => {
   }, [level]);
 
   const achievementBadges = [
-    { id: 1, name: "First Login", icon: "🏆" },
+    { id: 1, name: "First Step", icon: "🏆" },
     { id: 2, name: "Course Completed", icon: "🎓" },
-    { id: 3, name: "Perfect Quiz", icon: "💯" },
-    { id: 4, name: "Coding Master", icon: "💻" },
-    { id: 5, name: "Helpful Peer", icon: "🤝" },
-    { id: 6, name: "Fast Learner", icon: "🚀" },
-    { id: 7, name: "Discussion King", icon: "👑" },
-    { id: 8, name: "Bug Hunter", icon: "🐛" },
+    { id: 3, name: "Consistent", icon: "👷🏼‍♂️" },
+    { id: 4, name: "HTML Finisher", icon: "📑" },
+    { id: 5, name: "HTML Master", icon: "📄" },
+    { id: 6, name: "Beginner Stylist", icon: "👨🏼‍🎨" },
+    { id: 7, name: "CSS Flex", icon: "💪🏼" },
+    { id: 8, name: "CSS Grid", icon: "🍱" },
+    { id: 9, name: "CSS Designer", icon: "🎨" },
+    { id: 10, name: "JS Introduction", icon: "💻" },
+    { id: 11, name: "Getting There", icon: "📊" },
+    { id: 12, name: "JS Consistent", icon: "🤲🏼" },
+    { id: 13, name: "JS Manipulator", icon: "👨🏼‍💻" },
+    { id: 14, name: "JS Master", icon: "👾" },
   ];
+
+  // // Map badges with appropriate icons
+  const uniqueBadgesWithIcons = badges.reduce((acc, badge) => {
+    if (!acc.some((b) => b.name === badge.name)) {
+      // Find the matching badge in achievementBadges by name
+      const matchingBadge = achievementBadges.find(
+        (ach) => ach.name === badge.name
+      );
+      const badgeWithIcon = {
+        ...badge,
+        icon: matchingBadge ? matchingBadge.icon : "🏅", // Default icon if no match found
+      };
+      acc.push(badgeWithIcon);
+    }
+    return acc;
+  }, []);
 
   const sliderSettings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
     responsive: [
       {
         breakpoint: 1024,
@@ -357,7 +377,7 @@ const TeacherPlayerDashboard = ({ totalPoints, userProgress,userInfo }) => {
             Achievements
           </Typography>
           <Slider {...sliderSettings}>
-            {achievementBadges.map((badge) => (
+          {uniqueBadgesWithIcons.map((badge) => (
               <Box key={badge.id} sx={{ textAlign: "center", px: 1 }}>
                 <Paper
                   elevation={3}
