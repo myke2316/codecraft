@@ -2656,7 +2656,7 @@
               "description": "Practice using grid gap to space out grid items.",
               "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will add space between grid items using the gap property.\n\n1. \n2. \n3. \n4.",
+              "problemStatement": "In this activity, you will add space between grid items using the gap property.\n\n1.Set the container as a grid using 'display: grid'. \n2.Define two columns, each 100px wide, using 'grid-template-columns'. \n3.Define two rows, each 100px tall, using 'grid-template-rows'. \n4.Add a gap of 20px between the grid items using the 'gap' property. \n5.Add a 1px solid black border to each grid item for visibility.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"grid-container\">\n  <div class=\"grid-item\">Item 1</div>\n  <div class=\"grid-item\">Item 2</div>\n  <div class=\"grid-item\">Item 3</div>\n  <div class=\"grid-item\">Item 4</div>\n</div>\n</body>\n</html>",
                 "css": "/* Your CSS code goes here */",
@@ -2669,7 +2669,7 @@
                   "required": [
                     ".grid-container{display: grid;",
                     "grid-template-columns: 100px 100px;",
-                    "grid-template-rows: 100px 100px;/",
+                    "grid-template-rows: 100px 100px;",
                     "gap: 20px;",
                     ".grid-item{border: 1px solid black;"
                   ],

@@ -133,7 +133,7 @@ function TeacherProfilePage() {
           <Grid item xs={12} md={8}>
             <StyledPaper elevation={3}>
               <Typography variant="h4" gutterBottom fontWeight="bold" color="#6e61ab">
-                Student Profile
+                Teacher Profile
               </Typography>
               <Divider sx={{ mb: 3 }} />
               <Grid container spacing={2}>

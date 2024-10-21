@@ -171,19 +171,18 @@ app.post("/submit/html", (req, res) => {
           sentence: testCaseSentence,
           status: "correct",
         });
-        console.log(codeUser);
+        // console.log(codeUser);
 
-        console.log(feedback);
-        console.log(normalizedRequirement);
+        // console.log(feedback);
+        // console.log(normalizedRequirement);
       } else {
         feedback.push({
           index: i,
           sentence: testCaseSentence,
           status: "incorrect",
         });
-        console.log(feedback);
-        console.log(normalizedRequirement);
-        console.log(codeUser);
+        // console.log(feedback);
+        
       }
     }
 
@@ -225,7 +224,7 @@ const cssNormalizeCode = (code) => {
 };
 app.post("/submit/css", (req, res) => {
   const { htmlCode, cssCode, jsCode, activity } = req.body;
-  console.log("LALALALLA "+cssCode)
+  // console.log("LALALALLA "+cssCode)
   if (!activity) {
     return res.status(404).json({ error: "Activity not found" });
   }
@@ -291,23 +290,23 @@ app.post("/submit/css", (req, res) => {
           sentence: testCaseSentence,
           status: "correct",
         });
-        console.log(
-          normalizedRequirement +
-            " : TAMA ITO : correct count : " +
-            correctCount
-        );
+        // console.log(
+        //   normalizedRequirement +
+        //     " : TAMA ITO : correct count : " +
+        //     correctCount
+        // );
       } else {
         feedback.push({
           index: i,
           sentence: testCaseSentence,
           status: "incorrect",
         });
-        console.log(
+        // console.log(
        
-          normalizedRequirement +
-            " : mali ito : correct count : " +
-            correctCount
-        );
+        //   normalizedRequirement +
+        //     " : mali ito : correct count : " +
+        //     correctCount
+        // );
       }
     }
 
@@ -572,7 +571,7 @@ app.post("/submit/javascriptconsole", (req, res) => {
     for (let i = 0; i < testCase.required.length; i++) {
       const requirement = testCase.required[i];
       const testCaseSentence = testCase.testCaseSentences[i]; // Get the corresponding sentence for this test case
-      console.log(testCaseSentence)
+      // console.log(testCaseSentence)
       const normalizedRequirement = jsNormalizeCode(requirement, false);
       const cleanRequirement = normalizedRequirement.replace(/;/g, '');
       const cleanUserCode = normalizedJsCode.replace(/;/g, '');
@@ -584,14 +583,14 @@ app.post("/submit/javascriptconsole", (req, res) => {
           sentence: testCaseSentence,
           status: "correct",
         });
-        console.log(`${requirement}: CORRECT`);
+        // console.log(`${requirement}: CORRECT`);
       } else {
         feedback.push({
           index: i,
           sentence: testCaseSentence,
           status: "incorrect",
         });
-        console.log(`${requirement}: INCORRECT or MISSING`);
+        // console.log(`${requirement}: INCORRECT or MISSING`);
       }
     }
 
@@ -610,14 +609,14 @@ app.post("/submit/javascriptconsole", (req, res) => {
       //   sentence: `Expected output: ${requiredOutput.output}, Got: ${consoleOutput}`,
       //   status: "incorrect",
       // });
-      console.log(`Output mismatch. Expected: ${requiredOutput.output}, Got: ${consoleOutput}`);
+      // console.log(`Output mismatch. Expected: ${requiredOutput.output}, Got: ${consoleOutput}`);
     } else {
       // feedback.push({
       //   index: testCase.required.length,
       //   sentence: `Output matches expected result.`,
       //   status: "correct",
       // });
-      console.log("Output matches expected result.");
+      // console.log("Output matches expected result.");
     }
 
     lastTestCase = testCase;

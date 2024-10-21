@@ -11,37 +11,36 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "HTML (HyperText Markup Language) is used to structure and format the content of websites on the World Wide Web. Web Developers use it to create a skeleton of modern websites and web apps."
+                  "text": "<strong>HTML (HyperText Markup Language)</strong> is used to structure and format the content of websites on the World Wide Web. Web Developers use it to create a skeleton of modern websites and web apps."
                 },
                 {
                   "type": "sentence",
-                  "text": "Let's see what HyperText Markup Language means."
+                  "text": "Let's see what <strong>HyperText Markup Language</strong> means."
                 },
                 {
                   "type": "sentence",
-                  "text": "• HyperText"
+                  "text": "<strong>HyperText</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "HyperText is a way of organizing text that allows the reader to easily navigate and access related information. It takes the reader to a different part of the same web page, or to a different web page altogether."
+                  "text": "<strong>HyperText</strong> is a way of organizing text that allows the reader to easily navigate and access related information. It takes the reader to a different part of the same web page, or to a different web page altogether."
                 },
                 {
                   "type": "sentence",
-                  "text": "• Markup language"
+                  "text": "<strong>Markup language</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "A markup language is a computer language that is used to add structure and formatting to a text document. Markup languages use a system of tags to define the structure and content of a document. These tags are interpreted by a program or application to display the document in a specific way."
+                  "text": "<strong>A markup language</strong> is a computer language that is used to add structure and formatting to a text document. Markup languages use a system of tags to define the structure and content of a document. These tags are interpreted by a program or application to display the document in a specific way."
                 },
                 {
                   "type": "sentence",
-                  "text": "Example of HTML"
+                  "text": "<strong>Example of HTML</strong>"
                 },
                 {
                   "type": "sentence",
                   "text": "Let's see a simple example of HTML."
                 },
-
                 {
                   "type": "snippet",
                   "code": "<!DOCTYPE html>\n<html>\n<head>\n<title>CodeCraft</title>\n</head>\n<body>\n<h1>HTML Tutorial</h1>\n<p>You'll learn about HTML.</p>\n</body>\n</html>"
@@ -52,58 +51,58 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "•<pre>!DOCTYPE html</pre>  - defines that this document is an HTML document"
+                  "text": "<strong>• !DOCTYPE html</strong> - defines that this document is an HTML document"
                 },
                 {
                   "type": "sentence",
-                  "text": "<pre>html</pre> - root element of an HTML page which encloses all other elements in the HTML page"
+                  "text": "<strong>• html</strong> - root element of an HTML page which encloses all other elements in the HTML page"
                 },
                 {
                   "type": "sentence",
-                  "text": "<pre>head</pre> - contains information about the page, such as the title and metadata"
+                  "text": "<strong>• head</strong> - contains information about the page, such as the title and metadata"
                 },
                 {
                   "type": "sentence",
-                  "text": "<pre>title</pre> - specifies a title for the HTML page which is shown in the browser's title bar"
+                  "text": "<strong>• title</strong> - specifies a title for the HTML page which is shown in the browser's title bar"
                 },
                 {
                   "type": "sentence",
-                  "text": "<pre>body</pre> - defines the main content of the page and is a container for all the visible contents, such as headings, paragraphs, lists, etc"
+                  "text": "<strong>• body</strong> - defines the main content of the page and is a container for all the visible contents, such as headings, paragraphs, lists, etc."
                 },
                 {
                   "type": "sentence",
-                  "text": "<pre>h1</pre> - defines a heading"
+                  "text": "<strong>• h1</strong> - defines a heading"
                 },
                 {
                   "type": "sentence",
-                  "text": "<pre>p</pre> - defines a paragraph of HTML document"
+                  "text": "<strong>• p</strong> - defines a paragraph of HTML document"
                 }
               ],
               "locked": false,
-              "badges":"First Step"
+              "badges": "First Step"
             },
             {
               "title": "HTML Structure",
               "content": [
                 {
                   "type": "sentence",
-                  "text": "HTML documents have a structure that includes elements such as doctype, html, head, and body tags."
+                  "text": "HTML documents have a structure that includes elements such as <strong>doctype</strong>, <strong>html</strong>, <strong>head</strong>, and <strong>body</strong> tags."
                 },
                 {
                   "type": "sentence",
-                  "text": "The doctype declaration defines the document type."
+                  "text": "• The <strong>doctype declaration</strong> defines the document type."
                 },
                 {
                   "type": "sentence",
-                  "text": "The html element is the root element of an HTML page."
+                  "text": "• The <strong>html element</strong> is the root element of an HTML page."
                 },
                 {
                   "type": "sentence",
-                  "text": "The head element contains meta-information about the HTML document."
+                  "text": "• The <strong>head element</strong> contains meta-information about the HTML document."
                 },
                 {
                   "type": "sentence",
-                  "text": "The body element contains the visible page content."
+                  "text": "• The <strong>body element</strong> contains the visible page content."
                 },
                 {
                   "type": "code",
@@ -118,24 +117,24 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "Learn about basic HTML tags like <pre>p</pre> <pre>a</pre> <pre>div</pre> and more."
+                  "text": "Learn about basic HTML tags like <strong>p</strong>, <strong>a</strong>, <strong>div</strong> and more."
                 },
                 {
                   "type": "sentence",
-                  "text": "The p tag defines a paragraph."
+                  "text": "The <strong>p</strong> tag defines a paragraph."
                 },
                 {
                   "type": "sentence",
-                  "text": "The a tag defines a hyperlink."
+                  "text": "The <strong>a</strong> tag defines a hyperlink."
                 },
                 {
                   "type": "sentence",
-                  "text": "The <pre>div</pre> tag defines a division or a section in an HTML document."
+                  "text": "The <strong>div</strong> tag defines a division or a section in an HTML document."
                 },
                 {
                   "type": "code",
                   "language": "html",
-                  "code": "<div>\n<p>This is a paragraph.</p>\n<a href=\"https://www.example.com\">This is a link</a>\n</div>"
+                  "code": "<div>\n<p>This is a paragraph.</p>\n<a href=\"https://www.codecrafts.online/\">This is a link</a>\n</div>"
                 }
               ],
               "locked": true
@@ -328,7 +327,8 @@
             }
           ],
           "totalPoints": 0,
-          "locked": false
+          "locked": false,
+          "badges": "First Lesson!"
         },
         {
           "title": "Lesson 2: HTML Basics",
@@ -1061,7 +1061,6 @@
               "points": 2,
               "locked": true
             },
-        
 
             {
               "question": "Which HTML tag is used to create an unordered list?",
@@ -2161,7 +2160,7 @@
           ],
           "totalPoints": 0,
           "locked": true,
-          "badges":"Consistent"
+          "badges": "Consistent"
         },
         {
           "title": "Lesson 5: HTML Form",
@@ -3314,11 +3313,11 @@
           ],
           "totalPoints": 0,
           "locked": true,
-          "badges":"HTML Finisher"
+          "badges": "HTML Finisher"
         }
       ],
       "locked": false,
-      "badges":"HTML Master"
+      "badges": "HTML Master"
     }
   ]
 }

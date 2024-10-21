@@ -430,6 +430,53 @@ function DocumentContent() {
       );
     }
   };
+
+  //before nung hindi pa nagana ang mga .map sa JS ES6, 10/21/24
+  // const handleRunJavaScriptConsole = (index, code, supportingCode) => {
+  //   const iframeContent = `
+  //     <!DOCTYPE html>
+  //     <html lang="en">
+  //     <head>
+  //       <meta charset="UTF-8">
+  //       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  //       <title>Output</title>
+  //     </head>
+  //     <body>
+  //       <script>
+  //         (function() {
+  //           const originalConsoleLog = console.log;
+  //           let consoleOutput = "";
+            
+  //           console.log = function(...args) {
+  //             const formattedArgs = args.map(arg => {
+  //               if (typeof arg === 'object') {
+  //                 try {
+  //                   return JSON.stringify(arg, null, 2);
+  //                 } catch (e) {
+  //                   return String(arg);
+  //                 }
+  //               }
+  //               return String(arg);
+  //             });
+  //             consoleOutput += formattedArgs.join(' ') + '\\n';
+  //             originalConsoleLog.apply(console, arguments);
+  //             document.body.innerHTML = "<pre>" + consoleOutput + "</pre>";
+  //           };
+  
+  //           ${supportingCode ? supportingCode : ""}
+  //           ${code}
+  //         })();
+  //       </script>
+  //     </body>
+  //     </html>
+  //   `;
+  //   setIframeContents((prevContents) => ({
+  //     ...prevContents,
+  //     [index]: iframeContent,
+  //   }));
+  // };
+  
+  //dito gumagana na pero not sure kung gagana sa iba, 10/21/24
   const handleRunJavaScriptConsole = (index, code, supportingCode) => {
     const iframeContent = `
       <!DOCTYPE html>
@@ -447,7 +494,9 @@ function DocumentContent() {
             
             console.log = function(...args) {
               const formattedArgs = args.map(arg => {
-                if (typeof arg === 'object') {
+                if (arg instanceof Map) {
+                  return JSON.stringify(Array.from(arg.entries()), null, 2); // Convert Map to array of entries and stringify
+                } else if (typeof arg === 'object') {
                   try {
                     return JSON.stringify(arg, null, 2);
                   } catch (e) {
@@ -457,7 +506,7 @@ function DocumentContent() {
                 return String(arg);
               });
               consoleOutput += formattedArgs.join(' ') + '\\n';
-              originalConsoleLog.apply(console, arguments);
+              originalConsoleLog.apply(console, args);
               document.body.innerHTML = "<pre>" + consoleOutput + "</pre>";
             };
   
@@ -473,6 +522,10 @@ function DocumentContent() {
       [index]: iframeContent,
     }));
   };
+  
+  
+  
+  
   const handleRunCode = (index, code, supportingCode, language, type) => {
     if (type === "codeconsole") {
       handleRunJavaScriptConsole(index, code, supportingCode);

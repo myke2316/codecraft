@@ -100,10 +100,14 @@ const calculateCourseProgress = (lessons, lessonsProgress) => {
   return totalLessons === 0 ? 0 : averageLessonProgress;
 };
 
-const TeacherPlayerDashboard = ({ totalPoints, userProgress,userInfo,badges }) => {
- 
+const TeacherPlayerDashboard = ({
+  totalPoints,
+  userProgress,
+  userInfo,
+  badges,
+}) => {
   // const username = userInfo.username;
-   const username = userInfo?.username;
+  const username = userInfo?.username;
   const [animatedPoints, setAnimatedPoints] = useState(0);
   const [previousLevel, setPreviousLevel] = useState(1);
   const [progress, setProgress] = useState(0);
@@ -167,6 +171,7 @@ const TeacherPlayerDashboard = ({ totalPoints, userProgress,userInfo,badges }) =
     { id: 12, name: "JS Consistent", icon: "🤲🏼" },
     { id: 13, name: "JS Manipulator", icon: "👨🏼‍💻" },
     { id: 14, name: "JS Master", icon: "👾" },
+    { id: 15, name: "First Lesson!", icon: "1️⃣" },
   ];
 
   // // Map badges with appropriate icons
@@ -377,7 +382,7 @@ const TeacherPlayerDashboard = ({ totalPoints, userProgress,userInfo,badges }) =
             Achievements
           </Typography>
           <Slider {...sliderSettings}>
-          {uniqueBadgesWithIcons.map((badge) => (
+            {uniqueBadgesWithIcons.map((badge) => (
               <Box key={badge.id} sx={{ textAlign: "center", px: 1 }}>
                 <Paper
                   elevation={3}

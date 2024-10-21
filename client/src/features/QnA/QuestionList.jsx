@@ -11,11 +11,9 @@ import {
   Select,
   MenuItem,
   List,
-  ListItem,
   Chip,
   Avatar,
   IconButton,
-  Divider,
   TextField,
   FormControl,
   InputLabel,
@@ -23,7 +21,6 @@ import {
   Grid,
   Card,
   CardContent,
-  CardActions,
   Tooltip,
 } from "@mui/material";
 import {
@@ -40,13 +37,13 @@ const QuestionList = ({ userId }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [sortBy, setSortBy] = useState("date");
+  const [statusFilter, setStatusFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   const [fetchQuestions, { isLoading: isLoadingFetchQuestions }] =
     useFetchQuestionsMutation();
    
-
   const [deleteQuestion] = useDeleteQuestionMutation();
 
   const loadQuestions = async () => {
@@ -90,7 +87,9 @@ const QuestionList = ({ userId }) => {
   };
 
   const filteredAndSortedQuestions = useMemo(() => {
-    let filtered = questions;
+    let filtered = questions.filter(question => 
+      question.status === "accepted" || question.author._id === userId
+    );
 
     if (selectedTags.length > 0) {
       filtered = filtered.filter((question) =>
@@ -108,15 +107,21 @@ const QuestionList = ({ userId }) => {
       );
     }
 
+    if (statusFilter !== "all") {
+      filtered = filtered.filter((question) => 
+        question.status === statusFilter && (question.status === "accepted" || question.author._id === userId)
+      );
+    }
+
     return filtered.sort((a, b) => {
       if (sortBy === "date") {
         return new Date(b.createdAt) - new Date(a.createdAt);
       } else if (sortBy === "upvotes") {
-        return (b.upvotes || 0) - (a.upvotes || 0);
+        return (b.voteCount || 0) - (a.voteCount || 0);
       }
       return 0;
     });
-  }, [questions, selectedTags, sortBy, searchQuery]);
+  }, [questions, selectedTags, sortBy, searchQuery, statusFilter, userId]);
 
   if (isLoading) return <Typography>Loading...</Typography>;
   if (error) return <Typography color="error">Error loading questions: {error.message}</Typography>;
@@ -138,7 +143,7 @@ const QuestionList = ({ userId }) => {
           </Button>
         </Box>
         <Grid container spacing={3} className="mb-6">
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={3}>
             <FormControl fullWidth variant="outlined">
               <InputLabel>Sort By</InputLabel>
               <Select
@@ -151,7 +156,22 @@ const QuestionList = ({ userId }) => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={3}>
+            <FormControl fullWidth variant="outlined">
+              <InputLabel>Status</InputLabel>
+              <Select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                label="Status"
+              >
+                <MenuItem value="all">All</MenuItem>
+                <MenuItem value="pending">Pending</MenuItem>
+                <MenuItem value="accepted">Accepted</MenuItem>
+                <MenuItem value="denied">Denied</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={3}>
             <FormControl fullWidth variant="outlined">
               <InputLabel>Filter by Languages</InputLabel>
               <Select
@@ -175,7 +195,7 @@ const QuestionList = ({ userId }) => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={3}>
             <TextField
               fullWidth
               label="Search questions or tags"
@@ -195,16 +215,12 @@ const QuestionList = ({ userId }) => {
             const isPending = question.status === "pending";
             const isDenied = question.status === "denied";
 
-            if (!isAccepted && !isOwner) {
-              return null;
-            }
-
             return (
               <Card 
                 key={question._id} 
                 className={`mb-4 cursor-pointer transition-all duration-300 transform hover:scale-102 hover:shadow-lg ${
-                  (isOwner && isPending) ? "opacity-70" : ""
-                } ${(isOwner && isDenied) ? "opacity-70 bg-red-50" : ""}`}
+                  isPending ? "opacity-70" : ""
+                } ${isDenied ? "opacity-70 bg-red-50" : ""}`}
                 onClick={() => handleQuestionClick(question._id)}
               >
                 <CardContent>

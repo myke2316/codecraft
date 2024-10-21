@@ -1,7 +1,7 @@
 {
   "courses": [
     {
-      "title": "Learn PHP",
+      "title": "PHP",
       "locked": true,
       "lessons": [
         {

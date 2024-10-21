@@ -147,7 +147,7 @@ const PlayerDashboard = ({ totalPoints }) => {
   const badges = useSelector(
     (state) => state.userAnalytics.userAnalytics.badges
   );
-
+console.log(badges)
   const achievementBadges = [
     { id: 1, name: "First Step", icon: "🏆" },
     { id: 2, name: "Course Completed", icon: "🎓" },
@@ -162,7 +162,7 @@ const PlayerDashboard = ({ totalPoints }) => {
     { id: 11, name: "Getting There", icon: "📊" },
     { id: 12, name: "JS Consistent", icon: "🤲🏼" },
     { id: 13, name: "JS Manipulator", icon: "👨🏼‍💻" },
-    { id: 14, name: "JS Master", icon: "👾" },
+    { id: 14, name: "JS Master", icon: "👾" },{ id: 15, name: "First Lesson!", icon: "1️⃣" },
   ];
 
   // Map badges with appropriate icons
@@ -184,7 +184,7 @@ const PlayerDashboard = ({ totalPoints }) => {
 
   const sliderSettings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,

@@ -375,7 +375,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>2. Number:</strong> Integers or floating-point. Example: 3, 3.14"
+                  "text": "<strong>2. Number:</strong> Integers or floating-point."
                 },
                 {
                   "type": "sentence",
@@ -974,7 +974,7 @@
               "description": "Learn about basic data types and arithmetic operators in JavaScript by declaring variables and performing operations.",
               "language": "JavaScriptConsole",
               "difficulty": "easy",
-              "problemStatement": "You are tasked with writing JavaScript code that demonstrates the usage of basic data types (`String`, `Number`, `Boolean`) and arithmetic operators (`+`, `-`, `*`, `/`). The code should declare variables for each data type, perform arithmetic operations, and print the results to the console.\n\n1. String Data Type:\n   - Create a variable named `greeting` and assign it the value `'Hello, World!'`.\n   - Print the value of `greeting` to the console.\n\n2. Number Data Type:\n   - Create a variable named `year` and assign it the value `2024`.\n   - Print the value of `year` to the console.\n\n3. Boolean Data Type:\n   - Create a variable named `isStudent` and assign it the value `true`.\n   - Print the value of `isStudent` to the console.\n\n4. Using Arithmetic Operators:\n   - Create a variable named `sum` that stores the result of adding `10 + 20`.\n   - Print the value of `sum` to the console.\n   - Create a variable named `difference` that stores the result of subtracting `30 - 10`.\n   - Print the value of `difference` to the console.\n   - Create a variable named `product` that stores the result of multiplying `5 * 4`.\n   - Print the value of `product` to the console.\n   - Create a variable named `quotient` that stores the result of dividing `40 / 5`.\n   - Print the value of `quotient` to the console.\n\nEnsure that the code executes without any errors and that the variables hold the correct values throughout.",
+              "problemStatement": "You are tasked with writing JavaScript code that demonstrates the usage of basic data types (`String`, `Number`, `Boolean`) and arithmetic operators (`+`, `-`, `*`, `/`). The code should declare variables for each data type, perform arithmetic operations,and print the results to the console.\n\n1. String Data Type:\n   - Create a variable named `greeting` and assign it the value `'Hello, World!'`.\n   \n2. Number Data Type:\n   - Create a variable named `year` and assign it the value `2024`.\n   \n3. Boolean Data Type:\n   - Create a variable named `isStudent` and assign it the value `true`.\n   \n4. Using Arithmetic Operators:\n   - Create a variable named `sum` that stores the result of adding `10 + 20`.\n      - Create a variable named `difference` that stores the result of subtracting `30 - 10`.\n      - Create a variable named `product` that stores the result of multiplying `5 * 4`.\n     - Create a variable named `quotient` that stores the result of dividing `40 / 5`.\n   \nEnsure that the code executes without any errors and that the variables hold the correct values throughout.\n5. Print all the values:\n - Print the value of `greeting` to the console.\n- Print the value of `year` to the console.\n- Print the value of `isStudent` to the console.\n- Print the value of `sum` to the console.\n- Print the value of `difference` to the console.\n- Print the value of `product` to the console.\n - Print the value of `quotient` to the console.\n\nEnsure that the code executes without any errors and that the variables hold the correct values throughout.",
               "codeEditor": {
                 "html": "",
                 "css": "",
@@ -1005,10 +1005,10 @@
                     "Declare a variable named 'greeting' using let and assign it the value 'Hello, World!'.",
                     "Declare a variable named 'year' using let and assign it the value 2024.",
                     "Declare a variable named 'isStudent' using let and assign it the value true.",
-                    "Declare a variable named 'sum' and assign it the result of 10 + 20.",
-                    "Declare a variable named 'difference' and assign it the result of 30 - 10.",
-                    "Declare a variable named 'product' and assign it the result of 5 * 4.",
-                    "Declare a variable named 'quotient' and assign it the result of 40 / 5.",
+                    "Declare a variable named 'sum' using let and assign it the result of 10 + 20.",
+                    "Declare a variable named 'difference' using let and assign it the result of 30 - 10.",
+                    "Declare a variable named 'product' using let and assign it the result of 5 * 4.",
+                    "Declare a variable named 'quotient' using let and assign it the result of 40 / 5.",
                     "Print the value of 'greeting' to the console. Output: Greeting: Hello, World!",
                     "Print the value of 'year' to the console. Output: Year: 2024",
                     "Print the value of 'isStudent' to the console. Output: Is Student: true",
@@ -1526,7 +1526,7 @@
               "description": "Practice using `continue` and `break` statements in a loop to control the flow of execution.",
               "language": "JavaScriptConsole",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will write JavaScript code using a `for` loop that demonstrates the use of `continue` and `break` statements to control the execution flow.\n\n1. Looping:\n   - Use a `for` loop to iterate through numbers from `1` to `10`. Use let variable for the initiation of the i, and put it inside the for loop.\n\n2. Using `continue`:\n   - Inside the loop, use a `continue` statement to skip printing the number `5`.\n\n3. Using `break`:\n   - Use a `break` statement to stop the loop when the number `8` is reached.\n\n4. Output:\n   - Print each number except `5`, and stop the loop when reaching `8`.",
+              "problemStatement": "In this activity, you will write JavaScript code using a `for` loop that demonstrates the use of `continue` and `break` statements to control the execution flow.\n\n1. Looping:\n   - Use a `for` loop to iterate through numbers from `1` to `10`. Use let variable for the initiation of the i(put the initiation inside the for loop), and put it inside the for loop.\n\n2. Using `continue`:\n   - Inside the loop, use a `continue` statement to skip printing the number `5`.\n\n3. Using `break`:\n   - Use a `break` statement to stop the loop when the number `8` is reached.\n\n4. Output:\n   - Print each number except `5`, and stop the loop when reaching `8`.",
               "codeEditor": {
                 "html": "",
                 "css": "",
@@ -3144,7 +3144,8 @@
                 }
               ],
               "locked": true,
-              "completed": false
+              "completed": false,
+              "expectedImage": "/activities/jsacts/4.1.png"
             },
             {
               "title": "Array Methods",
@@ -3172,7 +3173,7 @@
                     "Use the `push()` method to add the fruit 'Mango' to the array.",
                     "Check if 'Mango' is present in the array using the `includes()` method and print the result."
                   ],
-                  "expectedImage": "/activities/jsacts/4.1.png"
+                  "expectedImage": "/activities/jsacts/4.2.png"
                 }
               ],
               "locked": true,
@@ -3208,7 +3209,7 @@
                     "Use the `shift()` method to remove the first student array from `studentsData`.",
                     "Print the modified array to the console."
                   ],
-                  "expectedImage": "/activities/jsacts/4.2.png"
+                  "expectedImage": "/activities/jsacts/4.3.png"
                 }
               ],
               "locked": true,
@@ -3242,7 +3243,7 @@
                     "Add the converted number to 5 and store the result in `sum`.",
                     "Print the value of `sum` using `console.log`."
                   ],
-                  "expectedImage": "/activities/jsacts/4.3.png"
+                  "expectedImage": "/activities/jsacts/4.4.png"
                 }
               ],
               "locked": true,
@@ -3628,19 +3629,6 @@
                 {
                   "type": "sentence",
                   "text": "<strong>Object:</strong> Only strings and symbols as keys, not directly iterable, size is manual."
-                },
-                {
-                  "type": "sentence",
-                  "text": "<strong>JavaScript WeakMap:</strong> Similar to <strong>Map</strong> but only objects as keys."
-                },
-                {
-                  "type": "codeconsole",
-                  "language": "javascript",
-                  "code": "const weakMap = new WeakMap();\nlet obj = {};\nweakMap.set(obj, 'hello');\nconsole.log(weakMap);"
-                },
-                {
-                  "type": "sentence",
-                  "text": "<strong>WeakMaps</strong> are not iterable."
                 }
               ],
               "locked": true
@@ -3911,14 +3899,15 @@
                 }
               ],
               "locked": true,
-              "completed": false
+              "completed": false,
+              "expectedImage": "/activities/jsacts/5.1.png"
             },
             {
               "title": "Destructuring Arrays and Objects",
               "description": "Practice using ES6 destructuring syntax to unpack values from arrays and objects.",
               "language": "JavaScriptConsole",
               "difficulty": "medium",
-              "problemStatement": "In this activity, you will practice destructuring arrays and objects. You will unpack values from an array and object and print them.\n\n1. Declare an array `colors` with the values `['red', 'green', 'blue']` and use destructuring to assign the first two values to variables `color1` and `color2`. Print both.\n\n2. Declare an object `person` with properties `name` and `age`. Use destructuring to assign the values to variables `name` and `age` and print them.",
+              "problemStatement": "In this activity, you will practice destructuring arrays and objects. You will unpack values from an array and object and print them.\n\n1. Declare an array `colors` with the values `['red', 'green', 'blue']` and use destructuring to assign the first two values to variables `color1` and `color2`. Print both.\n\n2. Declare an object `person` with properties `name` and `age`. Use destructuring to assign the values to variables `name` and `age` and print them.\n\nNote: Before logging anything into the console, make sure to declare every required variables frist. The logs should be at the very end of the code.",
               "codeEditor": {
                 "html": "",
                 "css": "",
@@ -3941,7 +3930,7 @@
                     "Declare an object `person` with properties `name` and `age`.",
                     "Use destructuring to unpack `name` and `age`."
                   ],
-                  "expectedImage": "/activities/jsacts/5.1.png"
+                  "expectedImage": "/activities/jsacts/5.2.png"
                 }
               ],
               "locked": true,
@@ -3952,7 +3941,7 @@
               "description": "Learn to use template literals and default parameter values in functions.",
               "language": "JavaScriptConsole",
               "difficulty": "medium",
-              "problemStatement": "Create a function that takes two parameters. Use template literals to create a message string that includes these parameters. Also, set default values for the parameters and show how they are used if no argument is provided.\n1.Call the `createGreeting` function with two parameters: `'Jack'` and `'Sparrow'`, and print the greeting.\n2.Call the function with only one parameter and print the greeting with the default last name.\n3.Call the function without any parameters and print the greeting with the default names.",
+              "problemStatement": "Create a function that takes two parameters. Use template literals to create a message string that includes these parameters. Also, set default values for the parameters and show how they are used if no argument is provided.\n1.Call the `createGreeting` function with two parameters: `'Jack'` and `'Sparrow'`.\n2.Call the function with only one parameter and print the greeting with the default last name.\n3.Call the function without any parameters and print the greeting with the default names.",
               "codeEditor": {
                 "html": "",
                 "css": "",
@@ -3973,7 +3962,7 @@
                     "Call the function with only one parameter and print the greeting with the default last name.",
                     "Call the function without any parameters and print the greeting with the default names."
                   ],
-                  "expectedImage": "/activities/jsacts/5.2.png"
+                  "expectedImage": "/activities/jsacts/5.3.png"
                 }
               ],
               "locked": true,
