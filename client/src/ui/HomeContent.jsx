@@ -5,8 +5,10 @@ import welcomeimg from "./images/welcomeimg.png";
 import forum from "./images/forum.png";
 import playground from "./images/playground.png";
 import game from "./images/game.png"
+import { useNavigate } from "react-router";
 
 function HomeContent() {
+  const navigate = useNavigate()
   return (
     <div className="parent">
       <div className="elevate">
@@ -23,8 +25,8 @@ function HomeContent() {
             </p>
           </div>
           <div className="buttonselevate">
-            <button className="startLearning">Start Learning Now</button>
-            <button className="learnmore">Learn More</button>
+            <button className="startLearning" onClick={()=>navigate('/login')}>Start Learning Now</button>
+            <button className="learnmore" onClick={()=>navigate('/about')}>Learn More</button>
           </div>
         </div>
         <div className="elevateright">
