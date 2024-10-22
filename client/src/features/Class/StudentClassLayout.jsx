@@ -312,10 +312,10 @@ export default function StudentClassLayout() {
           width: { sm: `calc(100% - ${280}px)` },
           ml: { sm: `${280}px` },
          
-          backgroundImage: `url('/public/cool-background.svg')`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "top right",backgroundAttachment: 'fixed',
+          // backgroundImage: `url('/public/cool-background.svg')`,
+          // backgroundRepeat: "no-repeat",
+          // backgroundSize: "cover",
+          // backgroundPosition: "top right",backgroundAttachment: 'fixed',
         }}
       >
         <Outlet />

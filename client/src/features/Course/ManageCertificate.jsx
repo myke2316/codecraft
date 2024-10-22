@@ -361,7 +361,7 @@ console.log(filteredStudents)
 
       {/* Filter and Search Section */}
       <div className="flex items-center mb-4 space-x-4">
-        <FormControl variant="outlined">
+        {/* <FormControl variant="outlined">
           <InputLabel>Filter by Class</InputLabel>
           <Select
             value={filterClass}
@@ -375,7 +375,7 @@ console.log(filteredStudents)
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </FormControl> */}
 
         <TextField
           label="Search by Name or Email"
@@ -419,7 +419,7 @@ console.log(filteredStudents)
                   <TableCell>{student.email}</TableCell>
                   <TableCell>{student.totalPoints} Points</TableCell>
                   <TableCell>
-                    {student?.courseDateFinished ? formatDate(student?.courseDateFinished) : "No date"}
+                    {student?.courseDateFinished ? formatDate(student?.courseDateFinished) :formatDate(student?.updatedAt)}
                   </TableCell>
                 </TableRow>
               ))}
