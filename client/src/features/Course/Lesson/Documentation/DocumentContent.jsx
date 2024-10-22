@@ -142,7 +142,9 @@ function DocumentContent() {
   const [startTime, setStartTime] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const contentRef = useRef(null);
-
+  const userProgress = useSelector(
+    (state) => state.studentProgress.userProgress
+  );
   const userAnalytics = useSelector(
     (state) => state.userAnalytics.userAnalytics
   );
@@ -221,13 +223,13 @@ function DocumentContent() {
   const document = lesson.documents.find((doc) => doc._id === documentId);
   const quiz = lesson.quiz;
 
-  const [completeCourse, {isLoading:isLoadingCompleteCourse}] = useCompleteCourseMutation()
-  
+  const [completeCourse, { isLoading: isLoadingCompleteCourse }] =
+    useCompleteCourseMutation();
+
   async function handleNext() {
     if (isProcessing) return;
 
     setIsProcessing(true);
-    
 
     if (documentContent && currentIndex < documentContent.length - 1) {
       const newIndex = currentIndex + 1;
@@ -367,53 +369,56 @@ function DocumentContent() {
             `/course/${nextCourse._id}/lesson/${nextCourse.lessons[0]._id}`
           );
         } else {
+      
           // Update progress and analytics for the last document before redirecting to certification
-          try {
-            const updateProgressData = await updateUserProgress({
-              userId,
-              courseId,
-              lessonId,
-              documentId,
-            }).unwrap();
-            dispatch(updateCourseProgress(updateProgressData));
-
         
+          if (!showCompletion) {
+            try {
+              const updateProgressData = await updateUserProgress({
+                userId,
+                courseId,
+                lessonId,
+                documentId,
+              }).unwrap();
+              dispatch(updateCourseProgress(updateProgressData));
+              const updateAnalyticsData = await updateUserAnalyticsMutation({
+                userId,
+                analyticsData: {
+                  coursesAnalytics: [
+                    {
+                      courseId,
+                      badges: courseBadge,
+                      lessonsAnalytics: [
+                        {
+                          lessonId,
+                          badges: lessonBadge,
+                          documentsAnalytics: [
+                            {
+                              documentId,
+                              timeSpent: timer,
+                              pointsEarned: 15,
+                              badges: documentBadge,
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              }).unwrap();
+              dispatch(updateUserAnalytics(updateAnalyticsData));
 
-            const updateAnalyticsData = await updateUserAnalyticsMutation({
-              userId,
-              analyticsData: {
-                coursesAnalytics: [
-                  {
-                    courseId,
-                    badges: courseBadge,
-                    lessonsAnalytics: [
-                      {
-                        lessonId,
-                        badges: lessonBadge,
-                        documentsAnalytics: [
-                          {
-                            documentId,
-                            timeSpent: timer,
-                            pointsEarned: 15,
-                            badges: documentBadge,
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                ],
-              },
-            }).unwrap();
-            dispatch(updateUserAnalytics(updateAnalyticsData));
-            
+              navigate(`/course/${userId}/certification`);
+            } catch (error) {
+              console.log(error);
+            }
+          } else {
             navigate(`/course/${userId}/certification`);
-          } catch (error) {
-            console.log(error);
           }
         }
       }
     }
-    setIsProcessing(false)
+    setIsProcessing(false);
   }
   const handleBack = () => {
     if (isProcessing) return;
@@ -446,7 +451,7 @@ function DocumentContent() {
   //         (function() {
   //           const originalConsoleLog = console.log;
   //           let consoleOutput = "";
-            
+
   //           console.log = function(...args) {
   //             const formattedArgs = args.map(arg => {
   //               if (typeof arg === 'object') {
@@ -462,7 +467,7 @@ function DocumentContent() {
   //             originalConsoleLog.apply(console, arguments);
   //             document.body.innerHTML = "<pre>" + consoleOutput + "</pre>";
   //           };
-  
+
   //           ${supportingCode ? supportingCode : ""}
   //           ${code}
   //         })();
@@ -475,7 +480,7 @@ function DocumentContent() {
   //     [index]: iframeContent,
   //   }));
   // };
-  
+
   //dito gumagana na pero not sure kung gagana sa iba, 10/21/24
   const handleRunJavaScriptConsole = (index, code, supportingCode) => {
     const iframeContent = `
@@ -522,10 +527,7 @@ function DocumentContent() {
       [index]: iframeContent,
     }));
   };
-  
-  
-  
-  
+
   const handleRunCode = (index, code, supportingCode, language, type) => {
     if (type === "codeconsole") {
       handleRunJavaScriptConsole(index, code, supportingCode);
@@ -726,9 +728,9 @@ function DocumentContent() {
       {document && (
         <Box
           sx={{
-            mb:4,
-            mx:3,
-          
+            mb: 4,
+            mx: 3,
+
             py: 3, // Increased padding for a more spacious look
             px: 2,
             backgroundColor: "#ffffff",

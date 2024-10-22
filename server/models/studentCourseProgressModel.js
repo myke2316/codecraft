@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import UserModel from "./userModel.js";
 
 const Schema = mongoose.Schema;
 
@@ -43,6 +44,12 @@ const CourseProgressSchema = new Schema({
 const UserProgressSchema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   coursesProgress: [CourseProgressSchema],
+});
+
+
+UserProgressSchema.post("save", async function () {
+  const userId = this.userId;
+  await UserModel.setCourseDateFinished(userId);
 });
 
 const UserProgressModel = mongoose.model("UserProgress", UserProgressSchema);

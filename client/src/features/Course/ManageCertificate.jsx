@@ -40,6 +40,7 @@ import { BACKEND_URL } from "../../constants";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import { useLocation } from "react-router";
+import { formatDate } from "../../utils/formatDate";
 
 function ManageCertificate() {
   const { data, error, isLoading } = useUserCompletedCourseQuery();
@@ -164,7 +165,7 @@ function ManageCertificate() {
         student.email.toLowerCase().includes(searchQuery.toLowerCase())
       );
     });
-
+console.log(filteredStudents)
   if (isLoading || isSignatureLoading) {
     return (
       <div className="flex justify-center items-center h-64">
@@ -403,7 +404,7 @@ function ManageCertificate() {
                   Total Points
                 </TableCell>
                 <TableCell className="bg-gray-100 font-bold">
-                  Certificate
+                  Date Finished
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -418,9 +419,7 @@ function ManageCertificate() {
                   <TableCell>{student.email}</TableCell>
                   <TableCell>{student.totalPoints} Points</TableCell>
                   <TableCell>
-                    <IconButton onClick={() =>console.log("AKSD")}>
-                      <VisibilityIcon />
-                    </IconButton>
+                    {student?.courseDateFinished ? formatDate(student?.courseDateFinished) : "No date"}
                   </TableCell>
                 </TableRow>
               ))}
