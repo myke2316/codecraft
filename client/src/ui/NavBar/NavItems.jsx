@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './nav.css'; 
+import footerimg from "./new.png"
 
 function NavItems() {
   const [isBurgerActive, setIsBurgerActive] = useState(false);
@@ -12,9 +13,17 @@ function NavItems() {
   return (
     <div className="NavItems">
       <div className="codecraft">
-        <NavLink to="">
-          <p><span style={{color: 'rgb(255, 200, 55)'}}>{"<"}</span><span>{"/"}</span><span style={{color: 'rgb(255, 200, 55)'}}>{">"}</span> CodeCraft</p>
-        </NavLink>
+      <NavLink to="" style={{ display: 'flex', alignItems: 'center' }}>
+        <img
+          style={{ width: '60px', height: '50px', marginRight: '10px' }} 
+          src={footerimg} 
+          alt="CodeCraft logo" 
+        />
+        <p style={{ margin: 0, fontSize: '24px', color: 'rgb(75, 57, 135)', fontWeight: 'bold' }}>
+          CodeCraft
+        </p>
+      </NavLink>
+
       </div>
       <div className="burger" onClick={handleBurgerClick}>
         &#9776; 
@@ -33,15 +42,13 @@ function NavItems() {
      
 
       <div className={`side-menu ${isBurgerActive ? 'active' : ''}`}>
-        <div className="close" onClick={handleBurgerClick}>
-          &times; {/* Close icon */}
-        </div>
+       
         <div className="codecraft">
           <NavLink to="">
-            <p>{"<"}</p>
-            <span className="slash">/</span>
-            <p>{">"}</p>
-            <p style={{ marginLeft: '10px' }}></p>
+            <img 
+            style={{ width: '50px', height: '40px', marginRight: '10px' }}
+            src={footerimg} alt="" />
+          
           </NavLink>
         </div>
         <ul className="navselection-side">

@@ -1,29 +1,43 @@
 import { Box, Container, Typography } from '@mui/material';
+import footerimg from "./images/new.png"
 
 function FooterLayout() {
   return (
-    <footer className=" text-white py-3">
-      <Container maxWidth="lg">
+    <footer className="mt-8 py-3">
+      <Container
+        maxWidth={false} // Disable the default maxWidth
+        sx={{ maxWidth: '1440px' }} // Custom max width of 1440px
+      >
         <Box
           display="flex"
           flexDirection={{ xs: 'column', sm: 'row' }}
           justifyContent="space-between"
           alignItems="center"
-          className="border-t border-gray-700 pt-4"
+          className="border-t pt-4"
+          sx={{ borderColor: 'rgba(63, 0, 129, 0.3)' }} // Border color with transparency
         >
-          {/* Footer Title */}
-          <Typography
-            variant="h6"
-            className="text-2xl font-bold tracking-wide"
-            style={{ color: 'rgb(160, 80, 0)', fontFamily: 'monospace' }}
-          >
-            {"<"}CODECRAFT/{" >"}™
-          </Typography>
+          {/* Footer Logo and Title */}
+          <Box display="flex" alignItems="center">
+            <img
+              
+              src={footerimg} // Replace with your image path
+              alt="CodeCraft Logo"
+              style={{ width: '50px', height: '40px', marginRight: '10px' }} // Adjust size and spacing
+            />
+            <Typography
+              variant="h6"
+              className="text-2xl font-bold tracking-wide"
+              style={{ color: 'rgb(63, 0, 129)', fontFamily: 'monospace' }}
+            >
+              {"<"}CODECRAFT/{" >"}™
+            </Typography>
+          </Box>
 
           {/* All Rights Reserved Text */}
           <Typography
             variant="body2"
-            className="text-sm text-gray-400 mt-4 sm:mt-0"
+            className="text-sm mt-4 sm:mt-0"
+            style={{ color: 'rgba(63, 0, 129, 0.7)' }} // Light purple for "All Rights Reserved"
           >
             CodeCraft© 2024. All Rights Reserved.
           </Typography>

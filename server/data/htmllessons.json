@@ -2133,7 +2133,7 @@
               "description": "Learn about essential HTML <head> elements by creating a basic HTML document with a title and simple metadata.",
               "language": "HTML",
               "difficulty": "easy",
-              "problemStatement": "Create an HTML page that includes the following in the <head> section:\n1. Add a <title> tag with the text 'Basic HTML Head'.\n2. Include a <meta> tag with charset set to 'UTF-8'.\n3. Include a <style> tag with basic CSS to set the font color to blue( h1{color:blue;} )for all <h1> elements.\n4. Make sure to close all tags properly and include minimal content in the <body> to demonstrate the <head> content.",
+              "problemStatement": "Create an HTML page that includes the following in the <head> section:\n1. Add a <title> tag with the text 'Basic HTML Head'.\n2. Include a <meta> tag with charset set to 'UTF-8'.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n</head>\n<body>\n</body>\n</html>",
                 "css": "",

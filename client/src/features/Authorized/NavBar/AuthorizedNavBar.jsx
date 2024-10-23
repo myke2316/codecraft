@@ -83,7 +83,6 @@ export default function AuthorizedSidebar({
 
   const classData = useSelector((state) => state.class.class);
 
-
   const getMenuItems = () => {
     let items = [];
 
@@ -110,11 +109,16 @@ export default function AuthorizedSidebar({
       items = [{ text: "Home", icon: <HomeIcon />, link: "/" }];
     } else if (
       userInfo.role === "teacher" &&
-      (userInfo.approved === "true"|| userInfo?.userData?.[0]?.approved=== "true")
+      (userInfo.approved === "true" ||
+        userInfo?.userData?.[0]?.approved === "true")
     ) {
       items = [
         { text: "Classes", icon: <ClassIcon />, link: "/classes" },
-        { text: "Manage Certificate", icon: <Article />, link: "/certificate/teacher/manage" },
+        {
+          text: "Manage Certificate",
+          icon: <Article />,
+          link: "/certificate/teacher/manage",
+        },
         {
           text: "Forum",
           icon: <QnAIcon />,
@@ -175,6 +179,9 @@ export default function AuthorizedSidebar({
           <Typography
             variant="h5"
             sx={{
+              display: "flex",
+              flexDirection: "column", // Stack the image and the text
+              alignItems: "center", // Center-align image and text
               color: mode === "light" ? "#333333" : "#ecf0f1",
               fontWeight: "light",
               fontFamily: "Poppins, sans-serif",
@@ -182,18 +189,32 @@ export default function AuthorizedSidebar({
               transition: "font-size 0.3s ease",
             }}
           >
-            <span
-              className="font-medium"
-              style={{ color: mode === "light" ? "#3f0081" : "#928fce" }}
-            >
-              &lt;
-            </span>
-            {open ? "CodeCraft" : ""}
-            <span
-              className="font-medium"
-              style={{ color: mode === "light" ? "#3f0081" : "#928fce" }}
-            >
-              /&gt;
+            {/* Image placed above the text */}
+         {open &&    <img
+              src="/new.png"
+              alt="Logo"
+              style={{
+                width: "80px", // Adjust size as necessary
+                height: "70px",
+                marginBottom: "8px", // Space between the image and text
+              }}
+            />}
+
+            {/* Inline text "<CodeCraft />" */}
+            <span style={{ display: "inline-flex", alignItems: "center" }}>
+              <span
+                className="font-medium"
+                style={{ color: mode === "light" ? "#3f0081" : "#928fce" }}
+              >
+                &lt;
+              </span>
+              {open ? "CodeCraft" : ""}
+              <span
+                className="font-medium"
+                style={{ color: mode === "light" ? "#3f0081" : "#928fce" }}
+              >
+                /&gt;
+              </span>
             </span>
           </Typography>
         </Box>
@@ -316,10 +337,13 @@ export default function AuthorizedSidebar({
         </Box> */}
         {userInfo.isDeleted && (
           <Alert severity="warning">
-          <AlertTitle>Account Deletion Notice</AlertTitle>
-          Your account has been marked for deletion and will be permanently deleted in <strong>{formatDate(userInfo.deleteExpiresAt)}</strong> (15 days). 
-          Please contact support if you think this is an error.
-        </Alert>
+            <AlertTitle>Account Deletion Notice</AlertTitle>
+            Your account has been marked for deletion and will be permanently
+            deleted in <strong>
+              {formatDate(userInfo.deleteExpiresAt)}
+            </strong>{" "}
+            (15 days). Please contact support if you think this is an error.
+          </Alert>
         )}
       </Drawer>
       <IconButton

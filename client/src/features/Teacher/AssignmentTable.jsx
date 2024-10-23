@@ -46,7 +46,7 @@ import {
 import { useNavigate, useParams } from "react-router";
 import { BACKEND_URL } from "../../constants";
 import { useFetchAllSubmissionByClassIdQuery } from "../Class/submissionAssignmentService";
-
+import RefreshIcon from "@mui/icons-material/Refresh";
 // Validation Schema for Editing (unchanged)
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -103,13 +103,15 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { data: submissionsData } = useFetchAllSubmissionByClassIdQuery(classId);
+  const { data: submissionsData,refetch } = useFetchAllSubmissionByClassIdQuery(classId);
 
   const handleOpenEditDialog = (assignment) => {
     setSelectedAssignment(assignment);
     setOpenEditDialog(true);
   };
-
+  const handleRefresh = async () => {
+   refetch()
+  };
   const handleCloseEditDialog = () => {
     setSelectedAssignment(null);
     setOpenEditDialog(false);
@@ -183,7 +185,7 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
 
   return (
     <Box sx={{  bgcolor: 'background.default' }}>
-      <Box sx={{ mb: 4 }}>
+        <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
      
         <Button
           variant="contained"
@@ -200,7 +202,17 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
         >
           Create Assignment
         </Button>
+        <IconButton
+          onClick={handleRefresh}
         
+          color="primary"
+          aria-label="refresh assignments"
+          sx={{
+            '&:hover': { transform: 'scale(1.1)' },
+          }}
+        >
+          <RefreshIcon />
+        </IconButton>
       </Box>
 
       {assignments.length === 0 ? (

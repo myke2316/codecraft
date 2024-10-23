@@ -437,7 +437,7 @@ export default function TeacherClassLayout() {
         </DialogActions>
       </Dialog>
 
-      <ToastContainer />
+      
     </Box>
   );
 }

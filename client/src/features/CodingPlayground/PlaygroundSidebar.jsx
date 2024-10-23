@@ -239,16 +239,29 @@ const PlaygroundSidebar = ({
             </Button>
           </Box>
           <Typography
-            variant="h5"
-            sx={{
-              color: mode === "light" ? "#333333" : "#ecf0f1",
-              fontWeight: "light",
-            }}
-          >
-            <span style={{ color: "	#928fce" }}>&lt;</span>
-            CodeCraft
-            <span style={{ color: "	#928fce" }}>/&gt;</span>
-          </Typography>
+  variant="h5"
+  sx={{
+    display: 'flex',
+    alignItems: 'center', // Vertically aligns the image and text
+    color: mode === 'light' ? '#333333' : '#ecf0f1',
+    fontWeight: 'light',
+  }}
+>
+  {/* Adjusted img styling */}
+  <img
+    src="/new.png"
+    alt="Logo"
+    style={{
+      width: '25px', // Set fixed width for consistency
+      height: '25px', // Set fixed height for consistency
+      marginRight: '10px', // Add some space between image and text
+    }}
+  />
+  {/* Styled text with color */}
+  <span style={{ color: '#928fce' }}>&lt;</span>
+  CodeCraft
+  <span style={{ color: '#928fce' }}>/&gt;</span>
+</Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "space-around", mb: 2 }}>
           <Tooltip title="Create New File">

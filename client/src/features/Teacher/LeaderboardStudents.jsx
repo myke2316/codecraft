@@ -108,10 +108,11 @@ const LeaderboardStudents = ({ students, classId }) => {
           
             const qnaPoints = userVote?.totalVotes * 5
             console.log(userVote?.totalVotes,qnaPoints)
-            const submissionPoints = scoresData?.scores.reduce((acc, score) => {
+       
+            const submissionPoints = !scoresData ? 0 : scoresData?.scores.reduce((acc, score) => {
               return acc + (score.grade || 0);
             }, 0);
-              
+            
             return (
               <Link
                 key={student._id}
