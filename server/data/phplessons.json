@@ -1,7 +1,7 @@
 {
   "courses": [
     {
-      "title": "PHP",
+      "title": "Learn PHP",
       "locked": true,
       "lessons": [
         {
@@ -12,7 +12,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "<strong>PHP (Hypertext Preprocessor)</strong>is a popular server-side scripting language widely used for web development. It is known for its simplicity, flexibility, and compatibility with HTML, CSS, and JavaScript."
+                  "text": "<strong>PHP (Hypertext Preprocessor)</strong> is a popular server-side scripting language widely used for web development. It is known for its simplicity, flexibility, and compatibility with HTML, CSS, and JavaScript."
                 },
                 {
                   "type": "sentence",
@@ -24,15 +24,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "A <strong>PHP file </strong>is a text file that contains a mix of PHP code and other web technologies like HTML, CSS, and JavaScript."
+                  "text": "A <strong>PHP file</strong> is a text file that contains a mix of PHP code and other web technologies like HTML, CSS, and JavaScript."
                 },
                 {
                   "type": "sentence",
-                  "text": "These files typically have a <strong> '.php' </strong> extension and must be processed by a web server with PHP installed."
+                  "text": "These files typically have a <strong>'.php'</strong> extension and must be processed by a web server with PHP installed."
                 },
                 {
                   "type": "sentence",
-                  "text": "When you open a PHP file through a web server (e.g., via http://localhost/index.php), the server executes the PHP code and sends the output (usually HTML) to the client's browser."
+                  "text": "When you open a PHP file through a web server <strong>(e.g., via http://localhost/index.php)</strong>, the server executes the PHP code and sends the output (usually HTML) to the client's browser."
                 },
                 {
                   "type": "sentence",
@@ -52,8 +52,10 @@
                 },
                 {
                   "type": "snippet",
-                  
-                  "code": "<?php\n   // PHP code goes here\n?>",
+                  "code": "<?php\n   // PHP code goes here\n?>"
+                },
+                {
+                  "type": "sentence",
                   "text": "• These tags are universally recognized and should be used in all PHP files to ensure compatibility."
                 },
                 {
@@ -62,8 +64,10 @@
                 },
                 {
                   "type": "snippet",
-                  
-                  "code": "<? \n   // PHP code goes here\n?>",
+                  "code": "<? \n   // PHP code goes here\n?>"
+                },
+                {
+                  "type": "sentence",
                   "text": "• These tags are shorter but require specific configuration in the php.ini file (short_open_tag=on). They are generally discouraged because they can conflict with XML syntax."
                 },
                 {
@@ -76,8 +80,10 @@
                 },
                 {
                   "type": "snippet",
-                  
-                  "code": "<!DOCTYPE html>\n<html>\n<body>\n\n<h1>Welcome to My Website</h1>\n\n<?php\necho \"Hello, World! This is a PHP statement.\";\n?>\n\n<p>This is an HTML paragraph.</p>\n\n</body>\n</html>",
+                  "code": "<!DOCTYPE html>\n<html>\n<body>\n\n<h1>Welcome to My Website</h1>\n\n<?php\necho \"Hello, World! This is a PHP statement.\";\n?>\n\n<p>This is an HTML paragraph.</p>\n\n</body>\n</html>"
+                },
+                {
+                  "type": "sentence",
                   "text": "• This example shows how PHP and HTML can be combined in a single file."
                 },
                 {
@@ -90,8 +96,10 @@
                 },
                 {
                   "type": "snippet",
-                  
-                  "code": "<?php\n$greeting = \"Welcome to PHP!\";\necho $greeting;\n?>",
+                  "code": "<?php\n$greeting = \"Welcome to PHP!\";\necho $greeting;\n?>"
+                },
+                {
+                  "type": "sentence",
                   "text": "• This example demonstrates a simple PHP statement."
                 },
                 {
@@ -100,12 +108,14 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Variables in PHP are used to store data that can be used later in the script. Variables start with the <strong> $ </strong>symbol."
+                  "text": "Variables in PHP are used to store data that can be used later in the script. Variables start with the <strong>$</strong> symbol."
                 },
                 {
                   "type": "snippet",
-                  
-                  "code": "<?php\n$color = \"blue\";\necho \"The color is \" . $color;\n?>",
+                  "code": "<?php\n$color = \"blue\";\necho \"The color is \" . $color;\n?>"
+                },
+                {
+                  "type": "sentence",
                   "text": "• This example demonstrates the usage of variables in PHP."
                 },
                 {
@@ -118,8 +128,10 @@
                 },
                 {
                   "type": "snippet",
-                  
-                  "code": "<?php\n$color = \"red\";\necho $color;  // Outputs: red\necho $Color;  // Error: Undefined variable\n?>",
+                  "code": "<?php\n$color = \"red\";\necho $color;  // Outputs: red\necho $Color;  // Error: Undefined variable\n?>"
+                },
+                {
+                  "type": "sentence",
                   "text": "• This example shows the case sensitivity of variables in PHP."
                 },
                 {
@@ -128,7 +140,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>1.</strong> PHP scripts start with <strong>&lt;?php</strong> and end with <strong>?&gt;</strong>."
+                  "text": "<strong>1.</strong> PHP scripts start with <strong><?php</strong> and end with <strong>?></strong>."
                 },
                 {
                   "type": "sentence",
@@ -144,7 +156,7 @@
                 }
               ],
               "locked": true
-            },
+            },            
             {
               "title": "Introduction to PHP Comments",
               "content": [
@@ -194,7 +206,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\n// This is a single-line comment explaining the next line of code\necho \"This text will be displayed on the webpage.\";\n?>"
                 },
                 {
@@ -203,7 +214,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\n# This is another single-line comment\necho \"This will also be displayed.\";\n?>"
                 },
                 {
@@ -212,8 +222,10 @@
                 },
                 {
                   "type": "snippet",
-                  
-                  "code": "<?php\n// Define a variable to hold a greeting message\n$greeting = \"Hello, World!\";\n\n// Output the greeting message\necho $greeting;\n?>",
+                  "code": "<?php\n// Define a variable to hold a greeting message\n$greeting = \"Hello, World!\";\n\n// Output the greeting message\necho $greeting;\n?>"
+                },
+                {
+                  "type": "sentence",
                   "text": "• In this example, the comments explain what the code is doing at each step. The PHP interpreter ignores the comments, and only the $greeting variable is defined and displayed."
                 },
                 {
@@ -226,7 +238,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\n/*\nThis is a multi-line comment.\nIt spans several lines and is useful for\nproviding detailed explanations or for\ntemporarily disabling blocks of code.\n*/\necho \"Only this line will be executed.\";\n?>"
                 },
                 {
@@ -235,8 +246,10 @@
                 },
                 {
                   "type": "snippet",
-                  
-                  "code": "<?php\n/*\nThis block of code calculates the sum of two numbers\nand prints the result to the screen. It uses the $num1\nand $num2 variables to store the numbers and the $sum\nvariable to store their sum.\n*/\n\n$num1 = 10;\n$num2 = 20;\n\n// Calculate the sum of $num1 and $num2\n$sum = $num1 + $num2;\n\necho \"The sum of $num1 and $num2 is: $sum\";\n?>",
+                  "code": "<?php\n/*\nThis block of code calculates the sum of two numbers\nand prints the result to the screen. It uses the $num1\nand $num2 variables to store the numbers and the $sum\nvariable to store their sum.\n*/\n\n$num1 = 10;\n$num2 = 20;\n\n// Calculate the sum of $num1 and $num2\n$sum = $num1 + $num2;\n\necho \"The sum of $num1 and $num2 is: $sum\";\n?>"
+                },
+                {
+                  "type": "sentence",
                   "text": "In this example, the multi-line comment provides a detailed explanation of the code block's purpose. This can be particularly useful for future reference or when working in a team."
                 },
                 {
@@ -245,11 +258,10 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Use comments to explain why a particular piece of code exists or to clarify complex logic.</strong>"
+                  "text": "Use comments to explain why a particular piece of code exists or to clarify complex logic."
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\n// Calculate the total price after applying a discount\n$originalPrice = 100;\n$discount = 0.2; // 20% discount\n$finalPrice = $originalPrice - ($originalPrice * $discount);\necho \"The final price is: $finalPrice\";\n?>"
                 },
                 {
@@ -262,7 +274,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\n$number = 10;\n// echo $number; // Disabling this line for now\n$number += 5;\necho $number; // This will print 15\n?>"
                 },
                 {
@@ -271,11 +282,10 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>If your code includes non-obvious logic or calculations, use comments to explain the reasoning.</strong> This makes future updates easier."
+                  "text": "If your code includes non-obvious logic or calculations, use comments to explain the reasoning. This makes future updates easier."
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\n// Convert temperature from Celsius to Fahrenheit\n$celsius = 30;\n$fahrenheit = ($celsius * 9/5) + 32; // F = C * 9/5 + 32\necho \"The temperature in Fahrenheit is: $fahrenheit\";\n?>"
                 },
                 {
@@ -318,7 +328,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\n$age = 30; // Integer\n$name = \"Alice\"; // String\n$price = 99.99; // Float\n$isAvailable = true; // Boolean\n?>"
                 },
                 {
@@ -351,7 +360,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\n$age = 25;\n$total_price = 99.99;\n$_userName = \"JohnDoe\";\n?>"
                 },
                 {
@@ -372,7 +380,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\n$x = 10; // Assigning an integer\n$name = \"Alice\"; // Assigning a string\n?>"
                 },
                 {
@@ -381,7 +388,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>PHP's dynamic nature means variables can change types based on the assigned value.</strong>"
+                  "text": "PHP's dynamic nature means variables can change types based on the assigned value."
                 },
                 {
                   "type": "sentence",
@@ -417,11 +424,10 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>v Resource:</strong> Special variables holding references to resources"
+                  "text": "<strong>• Resource:</strong> Special variables holding references to resources"
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\n$integerValue = 10; // Integer\n$stringValue = \"Hello, World!\"; // String\n$floatValue = 3.14; // Float\n$booleanValue = true; // Boolean\n$arrayValue = array(1, 2, 3); // Array\n$nullValue = NULL; // NULL\n?>"
                 },
                 {
@@ -434,7 +440,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\nvar_dump(5); // Outputs: int(5)\nvar_dump(\"John\"); // Outputs: string(4) \"John\"\nvar_dump(3.14); // Outputs: float(3.14)\nvar_dump(true); // Outputs: bool(true)\nvar_dump(array(2, 3, 56)); // Outputs: array(3) { [0]=> int(2) [1]=> int(3) [2]=> int(56) }\nvar_dump(NULL); // Outputs: NULL\n?>"
                 },
                 {
@@ -455,7 +460,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\n$x = 5; // Global variable\n\nfunction myTest() {\n  // Accessing global variable directly here will generate an error\n  echo \"<p>Variable x inside function is: $x</p>\";\n}\n\nmyTest();\necho \"<p>Variable x outside function is: $x</p>\"; // This works\n?>"
                 },
                 {
@@ -468,12 +472,11 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\nfunction myTest() {\n  $x = 5; // Local variable\n  echo \"<p>Variable x inside function is: $x</p>\";\n}\n\nmyTest();\necho \"<p>Variable x outside function is: $x</p>\"; // This will generate an error\n?>"
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Local variables can have the same name in different functions, as they are only recognized within their specific function.</strong>"
+                  "text": "Local variables can have the same name in different functions, as they are only recognized within their specific function."
                 },
                 {
                   "type": "sentence",
@@ -485,7 +488,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\nfunction myTest() {\n  static $x = 0; // Static variable\n  echo $x . \"<br>\";\n  $x++;\n}\n\nmyTest(); // Outputs: 0\nmyTest(); // Outputs: 1\nmyTest(); // Outputs: 2\n?>"
                 },
                 {
@@ -497,8 +499,7 @@
                   "text": "To access global variables within a function, use the <strong>global </strong> keyword."
                 },
                 {
-                  "type": "snippet",
-                  
+                  "type": "snippet",  
                   "code": "<?php\n$x = 5;\n$y = 10;\n\nfunction myTest() {\n  global $x, $y;\n  $y = $x + $y;\n}\n\nmyTest();\necho $y; // Outputs: 15\n?>"
                 },
                 {
@@ -507,7 +508,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\n$x = 5;\n$y = 10;\n\nfunction myTest() {\n  $GLOBALS['y'] = $GLOBALS['x'] + $GLOBALS['y'];\n}\n\nmyTest();\necho $y; // Outputs: 15\n?>"
                 },
                 {
@@ -538,7 +538,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "echo(string ...$expressions): void"
                 },
                 {
@@ -558,8 +557,7 @@
                   "text": "<strong>Example:</strong>"
                 },
                 {
-                  "type": "snippet",
-                  
+                  "type": "snippet",  
                   "code": "<?php\n$name = \"Rajesh\";\necho \"Hello \" . $name . \" How are you?\"; // Outputs: Hello Rajesh How are you?\n?>"
                 },
                 {
@@ -567,8 +565,7 @@
                   "text": "<strong>Example with Double Quotes:</strong>"
                 },
                 {
-                  "type": "snippet",
-                  
+                  "type": "snippet",  
                   "code": "<?php\n$name = \"Rajesh\";\necho \"Hello $name How are you?\"; // Outputs: Hello Rajesh How are you?\n?>"
                 },
                 {
@@ -576,8 +573,7 @@
                   "text": "<strong>Example with Single Quotes:</strong>"
                 },
                 {
-                  "type": "snippet",
-                  
+                  "type": "snippet",  
                   "code": "<?php\n$name = \"Rajesh\";\necho 'Hello $name How are you?'; // Outputs: Hello $name How are you?\n?>"
                 },
                 {
@@ -586,7 +582,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\necho 'Hello ', 'how ', 'are ', 'you?', \"\\n\";\necho 'Hello ' . 'how ' . 'are ' . 'you?' . \"\\n\";\n?>"
                 },
                 {
@@ -595,7 +590,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\necho \"hello\";\necho \"world\"; // Outputs: helloworld\n?>"
                 },
                 {
@@ -612,7 +606,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "print(string $expression): int"
                 },
                 {
@@ -633,7 +626,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\n$name = \"Rajesh\";\nprint \"Hello \" . $name . \" How are you?\\n\"; // Outputs: Hello Rajesh How are you?\nprint \"Hello $name How are you?\"; // Outputs: Hello Rajesh How are you?\n?>"
                 },
                 {
@@ -650,7 +642,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\nprint \"\nMulti-line\nstring can be output  \nby echo as well as \nprint statement in PHP\n\";\n?>"
                 },
                 {
@@ -659,7 +650,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\necho \"\nMulti-line\nstring can be output  \nby echo as well as \nprint statement in PHP\n\";\n?>"
                 },
                 {
@@ -687,8 +677,7 @@
                   "text": "<strong>Displaying Text:</strong>"
                 },
                 {
-                  "type": "snippet",
-                  
+                  "type": "snippet", 
                   "code": "<?php\necho \"<h2>PHP is Fun!</h2>\";\necho \"Hello world!<br>\";\necho \"I'm about to learn PHP!<br>\";\necho \"This \", \"string \", \"was \", \"made \", \"with multiple parameters.\";\n?>"
                 },
                 {
@@ -697,7 +686,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\nprint \"<h2>PHP is Fun!</h2>\";\nprint \"Hello world!<br>\";\nprint \"I'm about to learn PHP!\";\n?>"
                 },
                 {
@@ -705,8 +693,7 @@
                   "text": "<strong>Displaying Variables with echo:</strong>"
                 },
                 {
-                  "type": "snippet",
-                  
+                  "type": "snippet", 
                   "code": "<?php\n$txt1 = \"Learn PHP\";\n$txt2 = \"W3Schools.com\";\necho \"<h2>$txt1</h2>\";\necho \"<p>Study PHP at $txt2</p>\";\n?>"
                 },
                 {
@@ -715,7 +702,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\n$txt1 = \"Learn PHP\";\n$txt2 = \"W3Schools.com\";\necho '<h2>' . $txt1 . '</h2>';\necho '<p>Study PHP at ' . $txt2 . '</p>';\n?>"
                 },
                 {
@@ -724,7 +710,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\n$txt1 = \"Learn PHP\";\n$txt2 = \"W3Schools.com\";\nprint \"<h2>\" . $txt1 . \"</h2>\";\nprint \"<p>Study PHP at \" . $txt2 . \"</p>\";\n?>"
                 },
                 {
@@ -733,7 +718,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\n$txt1 = \"Learn PHP\";\n$txt2 = \"W3Schools.com\";\nprint '<h2>' . $txt1 . '</h2>';\nprint '<p>Study PHP at ' . $txt2 . '</p>';\n?>"
                 },
                 {
@@ -760,7 +744,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "In PHP, <strong>data types</strong> determine the kind of values that variables can hold and how they can be manipulated. PHP has a diverse range of data types, categorized into simple and compound types. "
+                  "text": "In PHP, data types determine the kind of values that variables can hold and how they can be manipulated. PHP has a diverse range of data types, categorized into simple and compound types. "
                 },
                 {
                   "type": "sentence",
@@ -776,7 +760,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>• Octal</strong>: Base-8 numbers, prefixed with 0o or 0O."
+                  "text": "<strong>• Octal<strong>: Base-8 numbers, prefixed with 0o or 0O."
                 },
                 {
                   "type": "sentence",
@@ -787,8 +771,7 @@
                   "text": "<strong>• Binary:</strong> Base-2 numbers, prefixed with 0b."
                 },
                 {
-                  "type": "snippet",
-                  
+                  "type": "snippet", 
                   "code": "<?php\n$decimal = 123;         // Decimal\n$octal = 0o17;          // Octal\n$hexadecimal = 0x1A;    // Hexadecimal\n$binary = 0b1010;       // Binary\n\necho $decimal;          // Outputs: 123\necho $octal;            // Outputs: 15\necho $hexadecimal;      // Outputs: 26\necho $binary;           // Outputs: 10\n?>"
                 },
                 {
@@ -801,7 +784,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• Use E or e to denote the exponent."
+                  "text": "• Use <strong>E</strong> or <strong>e</strong> to denote the exponent."
                 },
                 {
                   "type": "snippet",
@@ -814,7 +797,6 @@
                 },
                 {
                   "type": "snippet",
-                  
                   "code": "<?php\n$is_active = true;\n$is_deleted = false;\n\nif ($is_active) {\n    echo \"Active\";\n} else {\n    echo \"Inactive\";\n}\n?>"
                 },
                 {
@@ -978,8 +960,8 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "Special Escape Sequences in Double Quotes:\n\n\\n: Linefeed (LF)\n\n\\r: Carriage return (CR)\n\n\\t: Horizontal tab (HT)\n\n\\v: Vertical tab (VT)\n\n\\e: Escape (ESC)\n\n\\f: Form feed (FF)\n\n\\\\: Backslash\n\n\\$: Dollar sign\n\n\\\": Double-quote"
-                },
+                  "text": "<strong>Special Escape Sequences in Double Quotes:</strong> \\n: Linefeed (LF), \\r: Carriage return (CR), \\t: Horizontal tab (HT), \\v: Vertical tab (VT), \\e: Escape (ESC), \\f: Form feed (FF), \\\\: Backslash, \\$: Dollar sign, \\\": Double-quote"
+                },                
                 {
                   "type": "snippet",
                   
@@ -1069,7 +1051,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Single-Quoted Strings:</strong> Literal representation; escape sequences and variables are not processed.\n<strong>Double-Quoted Strings:</strong> Process escape sequences and variables.\n<strong>Heredoc:</strong> Multi-line string with variable interpolation.\n<strong>Nowdoc:</strong> Multi-line string without variable interpolation.\n<strong>String Functions:</strong> <strong>strlen()</strong> for length, <strong>strpos() </strong> for finding substrings."
+                  "text": "<strong>Single-Quoted Strings:</strong> Literal representation; escape sequences and variables are not processed.\n<strong>Double-Quoted Strings:</strong> Process escape sequences and variables.\n<strong>Heredoc:<s/trong> Multi-line string with variable interpolation.\n<strong>Nowdoc:</strong> Multi-line string without variable interpolation.\n<strong>String Functions:</strong> <strong>strlen()</strong> for length, <strong>strpos() </strong> for finding substrings."
                 }
               ],
               "locked": true
@@ -1127,11 +1109,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "   1. 32-bit: -2147483648 to 2147483647"
+                  "text": "   <strong>1. 32-bit:</strong> -2147483648 to 2147483647"
                 },
                 {
                   "type": "sentence",
-                  "text": "   2. 64-bit: -9223372036854775808 to 9223372036854775807"
+                  "text": "   <strong>2. 64-bit</strong>: -9223372036854775808 to 9223372036854775807"
                 },
                 {
                   "type": "sentence",
@@ -1164,7 +1146,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "A <strong>float</strong> is a number that includes a decimal point or is expressed in exponential form."
+                  "text": "A float is a number that includes a decimal point or is expressed in exponential form."
                 },
                 {
                   "type": "sentence",
@@ -1473,19 +1455,19 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "<strong>XAMPP</strong> is a popular, free, and open-source cross-platform web server solution stack package. <strong>It primarily consists of the Apache HTTP Server, MariaDB database, and interpreters for scripts written in the PHP and Perl programming languages.</strong>"
+                  "text": "<strong>XAMPP</strong> is a popular, free, and open-source cross-platform web server solution stack package. It primarily consists of the <strong>Apache HTTP Server</strong>, <strong>MariaDB</strong> database, and interpreters for scripts written in the <strong>PHP</strong> and <strong>Perl</strong> programming languages."
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>To install XAMPP, follow these steps:</strong>"
+                  "text": "To install <strong>XAMPP</strong>, follow these steps:"
                 },
                 {
                   "type": "sentence",
-                  "text": "1. Visit the official XAMPP website <strong>(https://www.apachefriends.org/index.html)</strong> and download the latest version for your operating system."
+                  "text": "1. Visit the official <strong>XAMPP</strong> website <strong>(https://www.apachefriends.org/index.html)</strong> and download the latest version for your operating system."
                 },
                 {
                   "type": "sentence",
-                  "text": "2. Once the download is complete, <strong>run the installer.</strong>"
+                  "text": "2. Once the download is complete, run the installer."
                 },
                 {
                   "type": "sentence",
@@ -1493,11 +1475,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "4. In the component selection screen, ensure that at least <strong>Apache, MySQL, PHP, and phpMyAdmin</strong> are selected."
+                  "text": "4. In the component selection screen, ensure that at least <strong>Apache</strong>, <strong>MySQL</strong>, <strong>PHP</strong>, and <strong>phpMyAdmin</strong> are selected."
                 },
                 {
                   "type": "sentence",
-                  "text": "5. Choose the installation directory. By default, it's <strong>C:\\xampp on Windows.</strong>"
+                  "text": "5. Choose the installation directory. By default, it's <strong>C:\\xampp</strong> on Windows.</strong>"
                 },
                 {
                   "type": "sentence",
@@ -1511,23 +1493,23 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "<strong>After installation, you need to start XAMPP and access its control panel:</strong>"
+                  "text": "After installation, you need to start <strong>XAMPP</strong> and access its control panel:"
                 },
                 {
                   "type": "sentence",
-                  "text": "1. Launch the XAMPP Control Panel. On Windows, you can find it in the Start menu or on your desktop if you created a shortcut."
+                  "text": "1. Launch the <strong>XAMPP Control Panel</strong>. On Windows, you can find it in the Start menu or on your desktop if you created a shortcut."
                 },
                 {
                   "type": "sentence",
-                  "text": "2. In the XAMPP Control Panel, you'll see a list of modules including Apache and MySQL."
+                  "text": "2. In the <strong>XAMPP Control Panel</strong>, you'll see a list of modules including <strong>Apache</strong> and <strong>MySQL</strong>."
                 },
                 {
                   "type": "sentence",
-                  "text": "3. Click the 'Start' button next to Apache and MySQL. When they're running, their names will be highlighted in green."
+                  "text": "3. Click the 'Start' button next to <strong>Apache</strong> and <strong>MySQL</strong>. When they're running, their names will be highlighted in green."
                 },
                 {
                   "type": "sentence",
-                  "text": "4. If you encounter any errors, ensure that no other software is using ports 80 or 443 (for Apache) or 3306 (for MySQL)."
+                  "text": "4. If you encounter any errors, ensure that no other software is using ports <strong>80</strong> or <strong>443</strong> (for <strong>Apache</strong>) or <strong>3306</strong> (for <strong>MySQL</strong>)."
                 }
               ],
               "locked": true
@@ -1537,23 +1519,23 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "<strong>phpMyAdmin</strong> is a free software tool written in PHP, intended to handle the administration of MySQL over the Web. Here's how to access it:"
+                  "text": "<strong>phpMyAdmin</strong> is a free software tool written in PHP, intended to handle the administration of <strong>MySQL</strong> over the Web. Here's how to access it:"
                 },
                 {
                   "type": "sentence",
-                  "text": "1. Open your web browser and navigate to <strong>http://localhost/phpmyadmin</strong>"
+                  "text": "1. Open your web browser and navigate to <strong>http://localhost/phpmyadmin</strong>."
                 },
                 {
                   "type": "sentence",
-                  "text": "2. You should see the phpMyAdmin login page. By default, the username is <strong>'root'</strong>and there is no password."
+                  "text": "2. You should see the <strong>phpMyAdmin</strong> login page. By default, the username is <strong>'root'</strong> and there is no password."
                 },
                 {
                   "type": "sentence",
-                  "text": "3. Click 'Go' to log in without a password, or enter the password if you've set one during XAMPP installation."
+                  "text": "3. Click 'Go' to log in without a password, or enter the password if you've set one during <strong>XAMPP</strong> installation."
                 },
                 {
                   "type": "sentence",
-                  "text": "4. You're now in the phpMyAdmin interface, where you can manage your MySQL databases."
+                  "text": "4. You're now in the <strong>phpMyAdmin</strong> interface, where you can manage your <strong>MySQL</strong> databases."
                 }
               ],
               "locked": true
@@ -1563,23 +1545,23 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "The <strong>'htdocs'</strong> directory is where you'll place your PHP files to be served by Apache. Here's how to find it:"
+                  "text": "The <strong>'htdocs'</strong> directory is where you'll place your PHP files to be served by <strong>Apache</strong>. Here's how to find it:"
                 },
                 {
                   "type": "sentence",
-                  "text": "1. Navigate to your XAMPP installation directory. By default, it's <strong>C:\\xampp on Windows or /opt/lampp </strong>on Linux."
+                  "text": "1. Navigate to your <strong>XAMPP</strong> installation directory. By default, it's <strong>C:\\xampp</strong> on Windows or <strong>/opt/lampp</strong> on Linux."
                 },
                 {
                   "type": "sentence",
-                  "text": "2. Inside the XAMPP directory, you'll find a folder named <strong>'htdocs'</strong>."
+                  "text": "2. Inside the <strong>XAMPP</strong> directory, you'll find a folder named <strong>'htdocs'</strong>."
                 },
                 {
                   "type": "sentence",
-                  "text": "3. This <strong>'htdocs'</strong> folder is your web root. Any PHP files placed here can be accessed via <strong>http://localhost/your_file.php </strong>in your web browser."
+                  "text": "3. This <strong>'htdocs'</strong> folder is your web root. Any PHP files placed here can be accessed via <strong>http://localhost/your_file.php</strong> in your web browser."
                 },
                 {
                   "type": "sentence",
-                  "text": "4. It's a good practice to create a new folder inside 'htdocs' for each of your projects."
+                  "text": "4. It's a good practice to create a new folder inside <strong>'htdocs'</strong> for each of your projects."
                 }
               ],
               "locked": true
@@ -1589,15 +1571,15 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "Now that we have XAMPP set up and we know where to place our files, let's create a <strong>PHP script to connect to MySQL:</strong>"
+                  "text": "Now that we have <strong>XAMPP</strong> set up and we know where to place our files, let's create a <strong>PHP</strong> script to connect to <strong>MySQL</strong>:"
                 },
                 {
                   "type": "sentence",
-                  "text": "1. Open your favorite text editor or IDE."
+                  "text": "1. Open your favorite text editor or <strong>IDE</strong>."
                 },
                 {
                   "type": "sentence",
-                  "text": "2. Create a new file and save it as <strong>'db_connect.php' in the 'htdocs' directory.</strong>"
+                  "text": "2. Create a new file and save it as <strong>'db_connect.php'</strong> in the <strong>'htdocs'</strong> directory."
                 },
                 {
                   "type": "sentence",
@@ -1614,7 +1596,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "5. If you see 'Connected successfully', your PHP script has successfully connected to the MySQL server."
+                  "text": "5. If you see <strong>'Connected successfully'</strong>, your <strong>PHP</strong> script has successfully connected to the <strong>MySQL</strong> server."
                 }
               ],
               "locked": true
@@ -1624,27 +1606,27 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "Let's create a <strong>database and a table using phpMyAdmin:</strong>"
+                  "text": "Let's create a database and a table using <strong>phpMyAdmin</strong>:"
                 },
                 {
                   "type": "sentence",
-                  "text": "1. Open phpMyAdmin <strong>(http://localhost/phpmyadmin)</strong>."
+                  "text": "1. Open <strong>phpMyAdmin</strong> (<strong>http://localhost/phpmyadmin</strong>)."
                 },
                 {
                   "type": "sentence",
-                  "text": "2. Click on 'New' in the left sidebar to create a new database."
+                  "text": "2. Click on <strong>'New'</strong> in the left sidebar to create a new database."
                 },
                 {
                   "type": "sentence",
-                  "text": "3. Enter 'test_db' as the database name and click 'Create'."
+                  "text": "3. Enter <strong>'test_db'</strong> as the database name and click <strong>'Create'</strong>."
                 },
                 {
                   "type": "sentence",
-                  "text": "4. With 'test_db' selected, click on the 'SQL' tab at the top."
+                  "text": "4. With <strong>'test_db'</strong> selected, click on the <strong>'SQL'</strong> tab at the top."
                 },
                 {
                   "type": "sentence",
-                  "text": "5. Enter the following SQL command to create a 'users' table:"
+                  "text": "5. Enter the following SQL command to create a <strong>'users'</strong> table:"
                 },
                 {
                   "type": "snippet",
@@ -1653,7 +1635,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "6. Click 'Go' to execute the SQL command and create the table."
+                  "text": "6. Click <strong>'Go'</strong> to execute the SQL command and create the table."
                 }
               ],
               "locked": true
@@ -1663,11 +1645,11 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "Finally, let's create a <strong>PHP script to insert data into our new table:</strong>"
+                  "text": "Finally, let's create a PHP script to insert data into our new table:"
                 },
                 {
                   "type": "sentence",
-                  "text": "1. Create a new file named 'insert_user.php' in the 'htdocs' directory."
+                  "text": "1. Create a new file named <strong>'insert_user.php'</strong> in the <strong>'htdocs'</strong> directory."
                 },
                 {
                   "type": "sentence",
@@ -1684,15 +1666,15 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "4. If you see 'New record created successfully', your PHP script has inserted a new record into the 'users' table."
+                  "text": "4. If you see <strong>'New record created successfully'</strong>, your PHP script has inserted a new record into the <strong>'users'</strong> table."
                 },
                 {
                   "type": "sentence",
-                  "text": "5. You can verify this by going back to phpMyAdmin, selecting the 'test_db' database, clicking on the 'users' table, and then clicking on the 'Browse' tab."
+                  "text": "5. You can verify this by going back to <strong>phpMyAdmin</strong>, selecting the <strong>'test_db'</strong> database, clicking on the <strong>'users'</strong> table, and then clicking on the <strong>'Browse'</strong> tab."
                 }
               ],
               "locked": true
-            }
+            }            
           ],
           "totalPoints": 0,
           "locked": true

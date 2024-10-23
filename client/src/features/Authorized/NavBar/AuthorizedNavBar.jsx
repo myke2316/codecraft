@@ -19,6 +19,8 @@ import {
   Switch,
   FormControlLabel,
   Avatar,
+  Alert,
+  AlertTitle,
 } from "@mui/material";
 import {
   Home as HomeIcon,
@@ -34,6 +36,7 @@ import {
   Article,
 } from "@mui/icons-material";
 import { motion, AnimatePresence } from "framer-motion";
+import { formatDate } from "../../../utils/formatDate";
 
 const drawerVariants = {
   open: { width: 240, transition: { duration: 0.3 } },
@@ -311,6 +314,13 @@ export default function AuthorizedSidebar({
             }
           />
         </Box> */}
+        {userInfo.isDeleted && (
+          <Alert severity="warning">
+          <AlertTitle>Account Deletion Notice</AlertTitle>
+          Your account has been marked for deletion and will be permanently deleted in <strong>{formatDate(userInfo.deleteExpiresAt)}</strong> (15 days). 
+          Please contact support if you think this is an error.
+        </Alert>
+        )}
       </Drawer>
       <IconButton
         onClick={handleDrawerToggle}

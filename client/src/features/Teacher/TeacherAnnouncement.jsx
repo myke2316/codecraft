@@ -155,8 +155,7 @@ function TeacherAnnouncement() {
         Announcements
       </Typography>
       <Typography variant="body1" gutterBottom>
-        Post updates and important information to keep your team in the loop.
-        Your announcement will appear on the Activities Dashboard.
+        Post updates and important information to keep your students in the loop.
       </Typography>
 
       {/* Add and Refresh Announcement Buttons */}

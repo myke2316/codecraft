@@ -9,7 +9,13 @@ export const courseService = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getCourseDataQ: builder.query({
+      query: () => ({
+        url: `${COURSE_URL}/fetch`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetCourseDataMutation } = courseService;
+export const { useGetCourseDataMutation,useGetCourseDataQQuery } = courseService;

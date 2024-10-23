@@ -16,6 +16,7 @@ import AssignmentTable from "./AssignmentTable"; // Ensure the path is correct
 import TeacherAssignment from "./TeacherAssignment"; // Ensure the path is correct
 import { useFetchAssignmentByClassIdMutation } from "./assignmentService";
 import { useParams } from "react-router";
+import { ToastContainer } from "react-toastify";
 
 function TeacherAssignmentsPage() {
   const [loading, setLoading] = useState(false);
@@ -67,42 +68,24 @@ function TeacherAssignmentsPage() {
   }, [classId, fetchAssignments]);
 
   return (
-    <Container>
+    <Container maxWidth="100">
+
       <Grid
         container
         alignItems="center"
-        justifyContent="space-between"
+        gap={2}
         marginBottom={2}
       >
         <Typography variant="h4" gutterBottom>
           Assignments
         </Typography>
-        <IconButton onClick={refreshAssignments} color="primary">
+        {/* <IconButton onClick={refreshAssignments} color="primary">
           <RefreshIcon />
-        </IconButton>
+        </IconButton> */}
       </Grid>
 
-      {/* Display Images Above Assignment Table */}
-      {/* <Grid container spacing={2} marginBottom={2}>
-        {assignments.map((assignment) =>
-          assignment.expectedOutputImage ? (
-            <Grid item key={assignment._id} xs={12} sm={6} md={4}>
-              <Paper elevation={3} style={{ padding: 16 }}>
-                <Typography variant="h6" gutterBottom>
-                  {assignment.title}
-                </Typography>
-                <img
-                  src={`http://localhost:8000/api/assignment/images/${assignment.expectedOutputImage}`}
-                  alt={assignment.title}
-                  style={{ width: '100%', height: 'auto' }}
-                />
-              </Paper>
-            </Grid>
-          ) : null
-        )}
-      </Grid> */}
-
       {/* Assignment Table */}
+    
       <AssignmentTable
         setDialogOpen={setDialogOpen}
         onCreate={handleCreateClick}
@@ -113,6 +96,7 @@ function TeacherAssignmentsPage() {
       <Dialog open={dialogOpen} onClose={handleClose} maxWidth="md" fullWidth>
         <DialogTitle>Create Assignment</DialogTitle>
         <DialogContent>
+          
           <TeacherAssignment
             setDialogOpen={setDialogOpen}
             refreshAssignments={refreshAssignments}

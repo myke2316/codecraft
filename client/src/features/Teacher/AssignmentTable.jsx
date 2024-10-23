@@ -18,26 +18,36 @@ import {
   FormControl,
   Select,
   MenuItem,
-  FormControlLabel,
-  Checkbox,
   InputLabel,
   Grid,
+  useTheme,
+  useMediaQuery,
+  Card,
+  CardContent,
+  CardActions,
+  Box,
+  Chip,
+  Avatar,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import {
+  Edit as EditIcon,
+  Delete as DeleteIcon,
+  Visibility as VisibilityIcon,
+  Assignment as AssignmentIcon,
+  Add as AddIcon,
+} from "@mui/icons-material";
 import { toast } from "react-toastify";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import {
   useDeleteAssignmentMutation,
   useEditAssignmentMutation,
 } from "./assignmentService";
 import { useNavigate, useParams } from "react-router";
-import { BACKEND_URL, BASE_URLS } from "../../constants";
+import { BACKEND_URL } from "../../constants";
 import { useFetchAllSubmissionByClassIdQuery } from "../Class/submissionAssignmentService";
 
-// Validation Schema for Editing
+// Validation Schema for Editing (unchanged)
 const validationSchema = Yup.object({
   title: Yup.string()
     .required("Title is required")
@@ -70,18 +80,8 @@ const validationSchema = Yup.object({
 function formatDateToReadable(dateString) {
   const date = new Date(dateString);
   const months = [
-    "Jan.",
-    "Feb.",
-    "Mar.",
-    "Apr.",
-    "May",
-    "Jun.",
-    "Jul.",
-    "Aug.",
-    "Sept.",
-    "Oct.",
-    "Nov.",
-    "Dec.",
+    "Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.",
+    "Jul.", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."
   ];
 
   const day = date.getDate();
@@ -98,29 +98,26 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
   const [selectedAssignment, setSelectedAssignment] = useState(null);
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-  const [selectedAssignmentId, setSelectedAssignmentId] = useState(null);
-  const { data: submissionsData } =
-    useFetchAllSubmissionByClassIdQuery(classId);
-
-  // State to store the preview URL and file name
   const [imagePreview, setImagePreview] = useState(null);
   const [imageName, setImageName] = useState("");
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { data: submissionsData } = useFetchAllSubmissionByClassIdQuery(classId);
+
   const handleOpenEditDialog = (assignment) => {
     setSelectedAssignment(assignment);
-    setSelectedAssignmentId(assignment._id);
     setOpenEditDialog(true);
   };
 
   const handleCloseEditDialog = () => {
     setSelectedAssignment(null);
     setOpenEditDialog(false);
-    setImagePreview(null); // Clear the image preview
-    setImageName(""); // Clear the image name
+    setImagePreview(null);
+    setImageName("");
   };
 
   const handleEditAssignment = async (values) => {
-    console.log(selectedAssignment._id);
     try {
       const formData = new FormData();
       formData.append("assignmentId", selectedAssignment._id);
@@ -135,9 +132,8 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
       if (values.image) {
         formData.append("image", values.image);
       }
-      console.log(selectedAssignment);
+
       const res = await editAssignmentTeacher(formData).unwrap();
-      console.log(res);
       toast.success("Assignment edited successfully!");
       setImagePreview(null);
       setImageName("");
@@ -177,68 +173,75 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
     if (!submissionsData) return { total: 0, graded: 0 };
 
     const assignmentSubmissions = submissionsData.submissions.filter(
-      (sub) => sub.assignmentId._id === assignmentId
+      (sub) => sub.assignmentId?._id === assignmentId
     );
     const total = assignmentSubmissions.length;
     const graded = assignmentSubmissions.filter((sub) => sub.graded === true).length;
 
     return { total, graded };
   };
-  return (
-    <TableContainer component={Paper}>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={onCreate}
-        style={{ margin: 20 }}
-      >
-        Create Assignment
-      </Button>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Title</TableCell>
-            <TableCell>Submissions</TableCell>
-            <TableCell>Graded</TableCell>
-            <TableCell>Target</TableCell>
-            <TableCell>Date Created</TableCell>
-            <TableCell>Due Date</TableCell>
-            <TableCell>Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {assignments.length === 0 ? (
-            <TableRow>
-              <TableCell colSpan={7}>
-                <Typography align="center" color="textSecondary">
-                  No assignments available.
-                </Typography>
-              </TableCell>
-            </TableRow>
-          ) : (
-            assignments.map((assignment) => {
-              const { total, graded } = getSubmissionStats(assignment._id);
-              console.log("total:", total, "graded:",graded);
 
-              return (
-                <TableRow key={assignment._id}>
-                  <TableCell>{assignment.title}</TableCell>
-                  <TableCell>{total}</TableCell>
-                  <TableCell>{graded}</TableCell>
-                  <TableCell>
-                    {assignment.target === "all" ? "All Class" : "This Class"}
-                  </TableCell>
-                  <TableCell>
-                    {formatDateToReadable(assignment.createdAt) || "X"}
-                  </TableCell>
-                  <TableCell>
-                    {formatDateToReadable(assignment.dueDate) || "X"}
-                  </TableCell>
-                  <TableCell>
+  return (
+    <Box sx={{  bgcolor: 'background.default' }}>
+      <Box sx={{ mb: 4 }}>
+     
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={onCreate}
+          startIcon={<AddIcon />}
+          sx={{
+            borderRadius: '20px',
+            textTransform: 'none',
+            px: 3,
+            py: 1,
+            boxShadow: 2,
+          }}
+        >
+          Create Assignment
+        </Button>
+        
+      </Box>
+
+      {assignments.length === 0 ? (
+        <Paper elevation={3} sx={{ p: 4, textAlign: 'center', borderRadius: '15px' }}>
+          <Typography variant="h6" color="text.secondary">
+            No assignments available.
+          </Typography>
+        </Paper>
+      ) : (
+        <Grid container spacing={3}>
+          {assignments.map((assignment) => {
+            const { total, graded } = getSubmissionStats(assignment._id);
+            return (
+              <Grid item xs={12} sm={6} md={4} key={assignment._id}>
+                <Card elevation={3} sx={{ borderRadius: '15px', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                      <Avatar sx={{ bgcolor: 'primary.main', mr: 2 }}>
+                        <AssignmentIcon />
+                      </Avatar>
+                      <Typography variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
+                        {assignment.title}
+                      </Typography>
+                    </Box>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      Due: {formatDateToReadable(assignment.dueDate)}
+                    </Typography>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+                      <Chip label={`Submissions: ${total}`} color="primary" variant="outlined" size="small" />
+                      <Chip label={`Graded: ${graded}`} color="secondary" variant="outlined" size="small" />
+                    </Box>
+                    <Typography variant="body2" color="text.secondary">
+                      Target: {assignment.target === "all" ? "All Classes" : "This Class"}
+                    </Typography>
+                  </CardContent>
+                  <CardActions sx={{ justifyContent: 'flex-end', p: 2 }}>
                     <IconButton
                       color="primary"
                       aria-label="view assignment"
                       onClick={() => handleViewClick(assignment._id)}
+                      sx={{ '&:hover': { transform: 'scale(1.1)' } }}
                     >
                       <VisibilityIcon />
                     </IconButton>
@@ -246,28 +249,42 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
                       color="primary"
                       aria-label="edit assignment"
                       onClick={() => handleOpenEditDialog(assignment)}
+                      sx={{ '&:hover': { transform: 'scale(1.1)' } }}
                     >
                       <EditIcon />
                     </IconButton>
                     <IconButton
-                      color="secondary"
+                      color="error"
                       aria-label="delete assignment"
                       onClick={() => handleOpenDeleteDialog(assignment)}
+                      sx={{ '&:hover': { transform: 'scale(1.1)' } }}
                     >
                       <DeleteIcon />
                     </IconButton>
-                  </TableCell>
-                </TableRow>
-              );
-            })
-          )}
-        </TableBody>
-      </Table>
+                  </CardActions>
+                </Card>
+              </Grid>
+            );
+          })}
+        </Grid>
+      )}
 
       {/* Edit Assignment Dialog */}
-      <Dialog open={openEditDialog} onClose={handleCloseEditDialog}>
-        <DialogTitle>Edit Assignment</DialogTitle>
-        <DialogContent>
+      <Dialog 
+        open={openEditDialog} 
+        onClose={handleCloseEditDialog} 
+        fullScreen={isMobile}
+        PaperProps={{
+          sx: {
+            borderRadius: isMobile ? 0 : '15px',
+            maxWidth: isMobile ? '100%' : '600px',
+          }
+        }}
+      >
+        <DialogTitle sx={{ bgcolor: '	#928fce', color: 'primary.contrastText' }}>
+          Edit Assignment
+        </DialogTitle>
+        <DialogContent sx={{ p: 3 }}>
           <Formik
             initialValues={{
               title: selectedAssignment?.title || "",
@@ -302,6 +319,7 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
                   required
                   helperText={<ErrorMessage name="title" />}
                   error={Boolean(errors.title && touched.title)}
+                  sx={{ mb: 2 }}
                 />
                 <TextField
                   margin="dense"
@@ -317,6 +335,7 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
                   required
                   helperText={<ErrorMessage name="description" />}
                   error={Boolean(errors.description && touched.description)}
+                  sx={{ mb: 2 }}
                 />
                 <TextField
                   margin="dense"
@@ -331,6 +350,7 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
                   required
                   helperText={<ErrorMessage name="dueDate" />}
                   error={Boolean(errors.dueDate && touched.dueDate)}
+                  sx={{ mb: 2 }}
                 />
                 <TextField
                   margin="dense"
@@ -346,8 +366,9 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
                   required
                   helperText={<ErrorMessage name="instructions" />}
                   error={Boolean(errors.instructions && touched.instructions)}
+                  sx={{ mb: 2 }}
                 />
-                <FormControl fullWidth margin="dense" required>
+                <FormControl fullWidth margin="dense" required sx={{ mb: 2 }}>
                   <InputLabel>Target</InputLabel>
                   <Select
                     name="target"
@@ -366,13 +387,10 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
                   <ErrorMessage name="target" component="div" />
                 </FormControl>
                 {values.target === "specific" && (
-                  <Grid item xs={12}>
-                    <Typography>Class ID: {classId}</Typography>
-                  </Grid>
+                  <Typography sx={{ mb: 2 }}>Class ID: {classId}</Typography>
                 )}
 
-                {/* Image */}
-                <FormControl fullWidth>
+                <FormControl fullWidth sx={{ mb: 2 }}>
                   <input
                     type="file"
                     name="image"
@@ -392,45 +410,34 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
                     style={{ marginTop: 8 }}
                   />
                   <ErrorMessage name="image">
-                    {(msg) => <Typography color="error">{msg}</Typography>}
+                    {(msg) => 
+                      <Typography color="error">{msg}</Typography>
+                    }
                   </ErrorMessage>
                 </FormControl>
 
                 {!imagePreview && selectedAssignment?.expectedOutputImage ? (
-                  <Grid item xs={12}>
-                    <Typography>Image Preview :</Typography>
+                  <Box sx={{ mb:  2 }}>
+                    <Typography sx={{ mb: 1 }}>Current Image:</Typography>
                     <img
                       src={`${BACKEND_URL}/api/assignment/images/${selectedAssignment.expectedOutputImage}`}
-                      alt="Uploaded preview"
-                      style={{ maxWidth: "100%", marginTop: 8 }}
+                      alt="Current assignment"
+                      style={{ maxWidth: "100%", borderRadius: '8px' }}
                     />
-                    <Typography></Typography>
-                  </Grid>
-                ) : (
-                  <Grid item xs={12}>
-                    <Typography>Image Preview:</Typography>
+                  </Box>
+                ) : imagePreview && (
+                  <Box sx={{ mb: 2 }}>
+                    <Typography sx={{ mb: 1 }}>New Image Preview:</Typography>
                     <img
                       src={imagePreview}
-                      alt="Uploaded preview"
-                      style={{ maxWidth: "100%", marginTop: 8 }}
+                      alt="New assignment preview"
+                      style={{ maxWidth: "100%", borderRadius: '8px' }}
                     />
-                    <Typography>{imageName}</Typography>
-                  </Grid>
+                    <Typography variant="caption">{imageName}</Typography>
+                  </Box>
                 )}
 
-                {/* <FormControl fullWidth margin="dense">
-                  <input
-                    type="file"
-                    name="image"
-                    accept="image/jpeg, image/png, image/gif"
-                    onChange={(e) => {
-                      setFieldValue("image", e.currentTarget.files[0]);
-                    }}
-                  />
-                  <ErrorMessage name="image" component="div" />
-                </FormControl> */}
-
-                <DialogActions>
+                <DialogActions sx={{ p: 0, mt: 2 }}>
                   <Button onClick={handleCloseEditDialog} color="primary">
                     Cancel
                   </Button>
@@ -445,8 +452,17 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
       </Dialog>
 
       {/* Delete Assignment Dialog */}
-      <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
-        <DialogTitle>Delete Assignment</DialogTitle>
+      <Dialog 
+        open={openDeleteDialog} 
+        onClose={handleCloseDeleteDialog}
+        PaperProps={{
+          sx: {
+            borderRadius: '15px',
+            p: 2,
+          }
+        }}
+      >
+        <DialogTitle sx={{ color: 'error.main' }}>Delete Assignment</DialogTitle>
         <DialogContent>
           <Typography>
             Are you sure you want to delete the assignment titled "
@@ -459,14 +475,14 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
           </Button>
           <Button
             onClick={handleDeleteAssignment}
-            color="secondary"
+            color="error"
             variant="contained"
           >
             Delete
           </Button>
         </DialogActions>
       </Dialog>
-    </TableContainer>
+    </Box>
   );
 }
 

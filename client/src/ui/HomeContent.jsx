@@ -4,11 +4,11 @@ import elevateimg from "./images/elevateimg.png";
 import welcomeimg from "./images/welcomeimg.png";
 import forum from "./images/forum.png";
 import playground from "./images/playground.png";
-import game from "./images/game.png"
+import game from "./images/game.png";
 import { useNavigate } from "react-router";
 
 function HomeContent() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <div className="parent">
       <div className="elevate">
@@ -18,15 +18,21 @@ function HomeContent() {
               Elevate Your Learning Potential With CodeCraft
             </h1>
             <p className="details1">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
-              laborum sint, aspernatur molestiae autem vel non, exercitationem
-              id perspiciatis ullam vero delectus quia quasi similique ipsum a
-              laudantium architecto dolor?
+              Code your way to success with CodeCraft. Empower your journey with
+              innovative coding solutions, teacher guidance and a community of
+              passionate learners dedicated into Web Development
             </p>
           </div>
           <div className="buttonselevate">
-            <button className="startLearning" onClick={()=>navigate('/login')}>Start Learning Now</button>
-            <button className="learnmore" onClick={()=>navigate('/about')}>Learn More</button>
+            <button
+              className="startLearning"
+              onClick={() => navigate("/login")}
+            >
+              Start Learning Now
+            </button>
+            <button className="learnmore" onClick={() => navigate("/about")}>
+              Learn More
+            </button>
           </div>
         </div>
         <div className="elevateright">
@@ -43,10 +49,12 @@ function HomeContent() {
             Welcome to the E-Learning Platform CodeCraft
           </h1>
           <p className="details">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis iste
-            commodi distinctio minima minus? Similique dolorem vitae, ut debitis
-            minus aliquam sed, blanditiis ratione repellendus officia soluta
-            distinctio, commodi asperiores.
+            Join Code Craft to take your web development skills to the next
+            level. Immerse yourself in hands-on practice, delve into the latest
+            techniques, and work alongside a dynamic community of students and
+            experienced teachers. Whether you're looking to master new
+            technologies, refine your coding abilities, or connect with
+            like-minded individuals.
           </p>
 
           <form>
@@ -94,29 +102,39 @@ function HomeContent() {
           <div className="gamification">
             <img className="featureimg" src={game} alt="" />
             <h1 className="featurestitle">Gamification</h1>
-            <p className="featuredetail">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error, itaque quod! Minus perferendis similique nam beatae dolor, molestias inventore libero est doloremque, culpa laboriosam nihil, repellat eveniet labore assumenda praesentium.</p>
+            <p className="featuredetail">
+              Students will earn EXP points by actively participating in
+              lessons, completing quizzes, and engaging in various educational
+              activities. These points will not only foster a sense of
+              competition among students but also serve as a motivator for
+              continuous learning and improvement.
+            </p>
           </div>
 
           <div className="playground">
             <img className="featureimg" src={playground} alt="" />
             <h1 className="featurestitle">Playground IDE</h1>
-            <p className="featuredetail">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum tenetur omnis sequi laudantium quod quasi hic placeat a, dolorem quas, iure at aperiam in est corporis pariatur eveniet minus quidem.</p>
+            <p className="featuredetail">
+              Users can directly share their code creations from the playground
+              with the community, fostering an atmosphere of collaboration and
+              knowledge sharing. This feature allows learners to showcase their
+              projects, receive feedback, and inspire others with their
+              innovative solutions.
+            </p>
           </div>
-
 
           <div className="forum">
             <img className="featureimg" src={forum} alt="" />
             <h1 className="featurestitle">Community Forum</h1>
-            <p className="featuredetail">Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi corrupti laudantium quod maiores, doloremque accusantium deserunt soluta? Quas soluta tenetur rerum adipisci perferendis, dolor fugit odio, atque dolores voluptatem rem?</p>
+            <p className="featuredetail">
+              Code Craft features robust community engagement through a
+              dedicated page designed specifically for learners. On this page,
+              students can ask and answer questions, share knowledge, and
+              participate in meaningful discussions with peers and mentors.{" "}
+            </p>
           </div>
         </div>
-
       </div>
-
-
-
-
-
     </div>
   );
 }

@@ -15,7 +15,7 @@ import * as Yup from "yup";
 import { useParams } from "react-router";
 import { useCreateActivityAssignmentMutation } from "./assignmentService";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 // Validation Schema
 const validationSchema = Yup.object({
@@ -88,6 +88,7 @@ function TeacherAssignment({ setDialogOpen, refreshAssignments }) {
 
   return (
     <Container maxWidth="sm">
+   
       <Paper style={{ padding: 20, marginTop: 20 }}>
         <Typography variant="h4" gutterBottom>
           Create Assignment

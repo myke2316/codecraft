@@ -3,7 +3,6 @@
     {
       "title": "PHP",
       "locked": true,
-      "badges": "PHP Badge",
       "lessons": [
         {
           "title": "Introduction to PHP Syntax",
@@ -129,7 +128,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>1.</strong> PHP scripts start with <strong><?php</strong> and end with <strong>?></strong>."
+                  "text": "<strong>1.</strong> PHP scripts start with <strong>&lt;?php</strong> and end with <strong>?&gt;</strong>."
                 },
                 {
                   "type": "sentence",
@@ -761,7 +760,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "In PHP, data types determine the kind of values that variables can hold and how they can be manipulated. PHP has a diverse range of data types, categorized into simple and compound types. "
+                  "text": "In PHP, <strong>data types</strong> determine the kind of values that variables can hold and how they can be manipulated. PHP has a diverse range of data types, categorized into simple and compound types. "
                 },
                 {
                   "type": "sentence",
@@ -777,7 +776,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>• Octal<strong>: Base-8 numbers, prefixed with 0o or 0O."
+                  "text": "<strong>• Octal</strong>: Base-8 numbers, prefixed with 0o or 0O."
                 },
                 {
                   "type": "sentence",
@@ -1070,7 +1069,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "<strong>Single-Quoted Strings:</strong> Literal representation; escape sequences and variables are not processed.\n<strong>Double-Quoted Strings:</strong> Process escape sequences and variables.\n<strong>Heredoc:<s/trong> Multi-line string with variable interpolation.\n<strong>Nowdoc:</strong> Multi-line string without variable interpolation.\n<strong>String Functions:</strong> <strong>strlen()</strong> for length, <strong>strpos() </strong> for finding substrings."
+                  "text": "<strong>Single-Quoted Strings:</strong> Literal representation; escape sequences and variables are not processed.\n<strong>Double-Quoted Strings:</strong> Process escape sequences and variables.\n<strong>Heredoc:</strong> Multi-line string with variable interpolation.\n<strong>Nowdoc:</strong> Multi-line string without variable interpolation.\n<strong>String Functions:</strong> <strong>strlen()</strong> for length, <strong>strpos() </strong> for finding substrings."
                 }
               ],
               "locked": true
@@ -1165,7 +1164,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "A float is a number that includes a decimal point or is expressed in exponential form."
+                  "text": "A <strong>float</strong> is a number that includes a decimal point or is expressed in exponential form."
                 },
                 {
                   "type": "sentence",
@@ -1474,19 +1473,19 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "XAMPP is a popular, free, and open-source cross-platform web server solution stack package. It primarily consists of the Apache HTTP Server, MariaDB database, and interpreters for scripts written in the PHP and Perl programming languages."
+                  "text": "<strong>XAMPP</strong> is a popular, free, and open-source cross-platform web server solution stack package. <strong>It primarily consists of the Apache HTTP Server, MariaDB database, and interpreters for scripts written in the PHP and Perl programming languages.</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "To install XAMPP, follow these steps:"
+                  "text": "<strong>To install XAMPP, follow these steps:</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "1. Visit the official XAMPP website (https://www.apachefriends.org/index.html) and download the latest version for your operating system."
+                  "text": "1. Visit the official XAMPP website <strong>(https://www.apachefriends.org/index.html)</strong> and download the latest version for your operating system."
                 },
                 {
                   "type": "sentence",
-                  "text": "2. Once the download is complete, run the installer."
+                  "text": "2. Once the download is complete, <strong>run the installer.</strong>"
                 },
                 {
                   "type": "sentence",
@@ -1494,11 +1493,11 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "4. In the component selection screen, ensure that at least Apache, MySQL, PHP, and phpMyAdmin are selected."
+                  "text": "4. In the component selection screen, ensure that at least <strong>Apache, MySQL, PHP, and phpMyAdmin</strong> are selected."
                 },
                 {
                   "type": "sentence",
-                  "text": "5. Choose the installation directory. By default, it's C:\\xampp on Windows."
+                  "text": "5. Choose the installation directory. By default, it's <strong>C:\\xampp on Windows.</strong>"
                 },
                 {
                   "type": "sentence",
@@ -1512,7 +1511,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "After installation, you need to start XAMPP and access its control panel:"
+                  "text": "<strong>After installation, you need to start XAMPP and access its control panel:</strong>"
                 },
                 {
                   "type": "sentence",
@@ -1538,15 +1537,15 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "phpMyAdmin is a free software tool written in PHP, intended to handle the administration of MySQL over the Web. Here's how to access it:"
+                  "text": "<strong>phpMyAdmin</strong> is a free software tool written in PHP, intended to handle the administration of MySQL over the Web. Here's how to access it:"
                 },
                 {
                   "type": "sentence",
-                  "text": "1. Open your web browser and navigate to http://localhost/phpmyadmin"
+                  "text": "1. Open your web browser and navigate to <strong>http://localhost/phpmyadmin</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "2. You should see the phpMyAdmin login page. By default, the username is 'root' and there is no password."
+                  "text": "2. You should see the phpMyAdmin login page. By default, the username is <strong>'root'</strong>and there is no password."
                 },
                 {
                   "type": "sentence",
@@ -1564,19 +1563,19 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "The 'htdocs' directory is where you'll place your PHP files to be served by Apache. Here's how to find it:"
+                  "text": "The <strong>'htdocs'</strong> directory is where you'll place your PHP files to be served by Apache. Here's how to find it:"
                 },
                 {
                   "type": "sentence",
-                  "text": "1. Navigate to your XAMPP installation directory. By default, it's C:\\xampp on Windows or /opt/lampp on Linux."
+                  "text": "1. Navigate to your XAMPP installation directory. By default, it's <strong>C:\\xampp on Windows or /opt/lampp </strong>on Linux."
                 },
                 {
                   "type": "sentence",
-                  "text": "2. Inside the XAMPP directory, you'll find a folder named 'htdocs'."
+                  "text": "2. Inside the XAMPP directory, you'll find a folder named <strong>'htdocs'</strong>."
                 },
                 {
                   "type": "sentence",
-                  "text": "3. This 'htdocs' folder is your web root. Any PHP files placed here can be accessed via http://localhost/your_file.php in your web browser."
+                  "text": "3. This <strong>'htdocs'</strong> folder is your web root. Any PHP files placed here can be accessed via <strong>http://localhost/your_file.php </strong>in your web browser."
                 },
                 {
                   "type": "sentence",
@@ -1590,7 +1589,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "Now that we have XAMPP set up and we know where to place our files, let's create a PHP script to connect to MySQL:"
+                  "text": "Now that we have XAMPP set up and we know where to place our files, let's create a <strong>PHP script to connect to MySQL:</strong>"
                 },
                 {
                   "type": "sentence",
@@ -1598,7 +1597,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "2. Create a new file and save it as 'db_connect.php' in the 'htdocs' directory."
+                  "text": "2. Create a new file and save it as <strong>'db_connect.php' in the 'htdocs' directory.</strong>"
                 },
                 {
                   "type": "sentence",
@@ -1611,7 +1610,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "4. Save the file and navigate to http://localhost/db_connect.php in your web browser."
+                  "text": "4. Save the file and navigate to <strong>http://localhost/db_connect.php</strong> in your web browser."
                 },
                 {
                   "type": "sentence",
@@ -1625,11 +1624,11 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "Let's create a database and a table using phpMyAdmin:"
+                  "text": "Let's create a <strong>database and a table using phpMyAdmin:</strong>"
                 },
                 {
                   "type": "sentence",
-                  "text": "1. Open phpMyAdmin (http://localhost/phpmyadmin)."
+                  "text": "1. Open phpMyAdmin <strong>(http://localhost/phpmyadmin)</strong>."
                 },
                 {
                   "type": "sentence",
@@ -1664,7 +1663,7 @@
               "content": [
                 {
                   "type": "sentence",
-                  "text": "Finally, let's create a PHP script to insert data into our new table:"
+                  "text": "Finally, let's create a <strong>PHP script to insert data into our new table:</strong>"
                 },
                 {
                   "type": "sentence",
@@ -1681,7 +1680,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "3. Save the file and navigate to http://localhost/insert_user.php in your web browser."
+                  "text": "3. Save the file and navigate to <strong>http://localhost/insert_user.php</strong> in your web browser."
                 },
                 {
                   "type": "sentence",
@@ -1696,8 +1695,7 @@
             }
           ],
           "totalPoints": 0,
-          "locked": true,
-          "badges": "Course Completed"
+          "locked": true
         }
       ]
     }

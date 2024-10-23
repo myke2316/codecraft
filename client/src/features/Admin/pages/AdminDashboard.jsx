@@ -159,7 +159,7 @@ const AdminDashboard = () => {
               <CircularProgress />
             </Box>
           ) : (
-            <Container maxWidth="lg">
+            <Container maxWidth="xl">
               <Grid container spacing={3}>
                 <Grid item xs={12}>
                   <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
@@ -167,15 +167,16 @@ const AdminDashboard = () => {
                   </Paper>
                 </Grid>
                 <Grid item xs={12}>
+                  <Paper elevation={3} sx={{ p: 3 }}>
+                    <AdminAnalyticsChart userAnalytics={userAnalytics} classesData={classesData} userProgress={userProgress} users = {users} />
+                  </Paper>
+                </Grid>
+                <Grid item xs={12}>
                   <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
                     <AdminUserAnalytics userAnalytics={userAnalytics} users={users} />
                   </Paper>
                 </Grid>
-                <Grid item xs={12}>
-                  <Paper elevation={3} sx={{ p: 3 }}>
-                    <AdminAnalyticsChart userAnalytics={userAnalytics} />
-                  </Paper>
-                </Grid>
+             
               </Grid>
             </Container>
           )}

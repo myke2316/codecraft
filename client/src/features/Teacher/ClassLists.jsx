@@ -13,16 +13,26 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Button,  Typography, 
-  Grid, 
-  Card, 
-  CardContent, 
-  CardActionArea, 
+  Button,
+  Typography,
+  Grid,
+  Card,
+  CardContent,
+  CardActionArea,
   Box,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
 import { logout } from "../LoginRegister/userSlice";
-import { Add as AddIcon, School as SchoolIcon, People as PeopleIcon, VpnKey as VpnKeyIcon } from '@mui/icons-material';
+import {
+  Add as AddIcon,
+  School as SchoolIcon,
+  People as PeopleIcon,
+  VpnKey as VpnKeyIcon,
+  ContentCopy as ContentCopyIcon,
+} from "@mui/icons-material";
 import { useTheme } from "@emotion/react";
+
 const ClassLists = () => {
   const userInfo = useSelector((state) => state.user.userDetails);
   const navigate = useNavigate();
@@ -31,13 +41,14 @@ const ClassLists = () => {
     useFetchClassMutation();
   const [updateRole] = useUpdateRoleMutation();
   const [openDialog, setOpenDialog] = useState(false);
+  const [copied, setCopied] = useState(false); // State for copying feedback
   const theme = useTheme();
+
   useEffect(() => {
     const fetchClasses = async () => {
       if (userInfo && userInfo.role === "teacher") {
         try {
           const data = await fetchClassById(userInfo._id);
-
           dispatch(setClass(data.data));
         } catch (error) {
           console.error("Error fetching classes:", error);
@@ -64,6 +75,12 @@ const ClassLists = () => {
   const handleOpenDialog = () => setOpenDialog(true);
   const handleCloseDialog = () => setOpenDialog(false);
 
+  const handleCopyInviteCode = (inviteCode) => {
+    navigator.clipboard.writeText(inviteCode);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000); // Reset copied state after 2 seconds
+  };
+
   if (!userInfo || userInfo.role !== "teacher") {
     return (
       <div className="text-center text-red-600 mt-10">
@@ -71,12 +88,22 @@ const ClassLists = () => {
       </div>
     );
   }
-  console.log(userInfo?.userData?.[0]?.approved);
-  if ((userInfo?.approved === "false" || userInfo?.userData?.[0]?.approved === "false") ||(userInfo?.approved === "declined" || userInfo?.userData?.[0]?.approved === "declined") ) {
+
+  if (
+    userInfo?.approved === "false" ||
+    userInfo?.userData?.[0]?.approved === "false" ||
+    userInfo?.approved === "declined" ||
+    userInfo?.userData?.[0]?.approved === "declined"
+  ) {
     return (
       <div className="text-center text-gray-600 mt-10">
-        <p>{userInfo.approved === "false" || userInfo?.userData?.[0]?.approved === "false" ? "Waiting for approval" : "Request Declined, Please change role to student if you want to keep the account."}</p>
-       
+        <p>
+          {userInfo.approved === "false" ||
+          userInfo?.userData?.[0]?.approved === "false"
+            ? "Waiting for approval"
+            : "Request Declined, Please change role to student if you want to keep the account."}
+        </p>
+
         <button
           onClick={handleOpenDialog}
           className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
@@ -112,59 +139,17 @@ const ClassLists = () => {
   if (error) {
     console.log(error);
     return (
-      <div className="text-center text-red-600 mt-10">
-        Error loading classes.
-      </div>
+      <div className="text-center text-red-600 mt-10">Error loading classes.</div>
     );
   }
 
   return (
-    // <div className="p-6">
-    //   <h1 className="text-3xl font-bold mb-6 text-gray-800">Your Classes</h1>
-    //   {classes && classes.length > 0 ? (
-    //     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    //       {classes.map((classItem) => (
-    //         <Link to={`/${classItem._id}/class/classHome`} key={classItem._id}>
-    //           <div className="bg-white shadow-lg rounded-lg p-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300">
-    //             <h2 className="text-xl font-semibold text-gray-700">
-    //               {classItem.className}
-    //             </h2>
-    //             <p className="text-sm text-gray-500">
-    //               Invite Code: {classItem.inviteCode}
-    //             </p>
-    //             <p className="text-sm text-gray-500">
-    //               Students: {classItem.students.length}
-    //             </p>
-    //           </div>
-    //         </Link>
-    //       ))}
-    //       <div
-    //         onClick={() => navigate("/create-class")}
-    //         className="flex items-center justify-center bg-white shadow-lg rounded-lg p-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-    //       >
-    //         <div className="text-center">
-    //           <p className="text-5xl text-gray-400 font-bold">+</p>
-    //           <p className="text-lg text-gray-600 mt-2">Add New Class</p>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   ) : (
-    //     <>
-    //       <p className="text-gray-600">You have not created any classes yet.</p>
-    //       <div
-    //         onClick={() => navigate("/create-class")}
-    //         className="flex items-center justify-center bg-white shadow-lg rounded-lg p-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-    //       >
-    //         <div className="text-center">
-    //           <p className="text-5xl text-gray-400 font-bold">+</p>
-    //           <p className="text-lg text-gray-600 mt-2">Add New Class</p>
-    //         </div>
-    //       </div>
-    //     </>
-    //   )}
-    // </div>
     <Box className="p-6 min-h-screen">
-      <Typography variant="h4" component="h1" className="mb-6 text-gray-800 font-bold">
+      <Typography
+        variant="h4"
+        component="h1"
+        className="mb-6 text-gray-800 font-bold"
+      >
         Your Classes
       </Typography>
       {classes && classes.length > 0 ? (
@@ -172,14 +157,18 @@ const ClassLists = () => {
           {classes.map((classItem) => (
             <Grid item xs={12} sm={6} md={4} key={classItem._id}>
               <Card className="h-full hover:shadow-xl transition-shadow duration-300">
-                <CardActionArea 
-                  component={Link} 
+                <CardActionArea
+                  component={Link}
                   to={`/${classItem._id}/class/classHome`}
                   className="h-full"
                 >
                   <CardContent className="h-full flex flex-col justify-between">
                     <Box>
-                      <Typography variant="h6" component="h2" className="mb-2 text-gray-700">
+                      <Typography
+                        variant="h6"
+                        component="h2"
+                        className="mb-2 text-gray-700"
+                      >
                         {classItem.className}
                       </Typography>
                       <Box className="flex items-center mb-1">
@@ -187,6 +176,15 @@ const ClassLists = () => {
                         <Typography variant="body2" color="textSecondary">
                           Invite Code: {classItem.inviteCode}
                         </Typography>
+                        <Tooltip title={copied ? "Copied!" : "Copy Invite Code"}>
+                          <IconButton
+                            onClick={() => handleCopyInviteCode(classItem.inviteCode)}
+                            size="small"
+                            sx={{ ml: 1, color: "inherit" }} // Small margin
+                          >
+                            <ContentCopyIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
                       </Box>
                       <Box className="flex items-center">
                         <PeopleIcon className="text-gray-500 mr-2" fontSize="small" />
@@ -196,9 +194,9 @@ const ClassLists = () => {
                       </Box>
                     </Box>
                     <Box className="mt-4">
-                      <Button 
-                        variant="outlined" 
-                        color="primary" 
+                      <Button
+                        variant="outlined"
+                        color="primary"
                         startIcon={<SchoolIcon />}
                         fullWidth
                       >
@@ -211,7 +209,7 @@ const ClassLists = () => {
             </Grid>
           ))}
           <Grid item xs={12} sm={6} md={4}>
-            <Card 
+            <Card
               className="h-full hover:shadow-xl transition-shadow duration-300 cursor-pointer"
               onClick={() => navigate("/create-class")}
             >

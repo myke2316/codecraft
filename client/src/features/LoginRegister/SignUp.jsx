@@ -114,7 +114,7 @@
 // }
 
 // export default SignUp;
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import { Formik } from "formik";
 import SignUpForm from "./SignUpForm";
 import * as Yup from "yup";
@@ -126,13 +126,13 @@ import { setCredentials } from "./userSlice";
 import { useGetCourseDataMutation } from "../Class/courseService";
 import { setCourse } from "../Class/courseSlice";
 import { Box, Typography, Paper, useTheme, useMediaQuery } from "@mui/material";
-import SchoolIcon from '@mui/icons-material/School';
+import SchoolIcon from "@mui/icons-material/School";
 
 function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [register] = useRegisterMutation();
   const userDetails = useSelector((state) => state.user.userDetails);
@@ -185,7 +185,7 @@ function SignUp() {
         alignItems: "center",
         justifyContent: "center",
         minHeight: "100vh",
-   
+
         padding: theme.spacing(3),
       }}
     >
@@ -193,29 +193,29 @@ function SignUp() {
         elevation={3}
         sx={{
           padding: theme.spacing(4, 3),
-          width: '100%',
-          maxWidth: '500px',
-          borderRadius: '12px',
-          backgroundColor: 'white',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+          width: "100%",
+          maxWidth: "500px",
+          borderRadius: "12px",
+          backgroundColor: "white",
+          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
         }}
       >
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
             mb: 4,
           }}
         >
-          <SchoolIcon sx={{ fontSize: 48, color: '#3f51b5', mb: 2 }} />
-          <Typography 
-            variant="h4" 
+          <SchoolIcon sx={{ fontSize: 48, color: "#3f51b5", mb: 2 }} />
+          <Typography
+            variant="h4"
             component="h1"
             sx={{
-              color: '#1a237e',
+              color: "#1a237e",
               fontWeight: 700,
-              textAlign: 'center',
+              textAlign: "center",
               mb: 1,
             }}
           >
@@ -224,8 +224,8 @@ function SignUp() {
           <Typography
             variant="subtitle1"
             sx={{
-              color: '#757575',
-              textAlign: 'center',
+              color: "#757575",
+              textAlign: "center",
               mb: 3,
             }}
           >
@@ -246,10 +246,13 @@ function SignUp() {
               .email("Invalid Email")
               .required("Email is Required"),
             username: Yup.string()
-            .matches(/^[a-zA-Z]+( [a-zA-Z]+)*$/, "Only letters and single spaces between words are allowed.")
-              .min(5, "Full name too short")
-              .max(70, "Full name too long")
-              .required("Username is Required"),
+              .matches(
+                /^(?=.{5,100}$)([A-Za-z]+(?:[-'\s][A-Za-z]+)*)(?:\s+[A-Za-z]\.)?(?:\s+[A-Za-z]+)*(?:\s+(?:Jr\.|Sr\.|II|III|IV|V))?$/,
+                "Please enter a valid full name (e.g., 'John A. Doe Jr.', 'Mary-Jane Smith', John D. Doe)"
+              )
+              .min(5, "Full name must be at least 8 characters long")
+              .max(50, "Full name must be at most 50 characters long")
+              .required("Full Name is Required"),
             password: Yup.string()
               .min(8, "Password too short")
               .max(20, "Password too long")

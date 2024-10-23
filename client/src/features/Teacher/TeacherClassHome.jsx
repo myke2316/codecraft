@@ -114,7 +114,7 @@ function TeacherClassHome() {
   return (
     <>
       {/* Main Content */}
-      <div className="w-auto] pt-6 pb-6 pl-6">
+      <div className="p-2 max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold mb-4 text-gray-900">
           {selectedClass.className}
         </h1>

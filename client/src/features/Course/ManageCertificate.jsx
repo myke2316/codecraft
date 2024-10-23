@@ -361,7 +361,7 @@ console.log(filteredStudents)
 
       {/* Filter and Search Section */}
       <div className="flex items-center mb-4 space-x-4">
-        {/* <FormControl variant="outlined">
+        {userDetails.role === 'teacher' ? (<FormControl variant="outlined">
           <InputLabel>Filter by Class</InputLabel>
           <Select
             value={filterClass}
@@ -375,7 +375,7 @@ console.log(filteredStudents)
               </MenuItem>
             ))}
           </Select>
-        </FormControl> */}
+        </FormControl>): null}
 
         <TextField
           label="Search by Name or Email"

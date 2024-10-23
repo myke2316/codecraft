@@ -4,7 +4,7 @@ import innovativeicon from "./images/innovative.png"
 import comprehensive from "./images/comprehensive.png"
 import handsonicon from "./images/handson.png"
 import supporticon from "./images/support.png"
-import morerightimg from "./images/right.png"
+import morerightimg from "./images/right.jpg"
 
 function About() {
   return (
@@ -13,9 +13,7 @@ function About() {
         <h1>About Codecraft</h1>
       </div>
       <div className="aboutdescription">
-        <p className="titledesc">Created by passionate developers, <span style={{ color: "rgb(255, 200, 55)" }}>{"<"}</span>
-          {"Codecraft"}
-          <span style={{ color: "rgb(255, 200, 55)" }}>{">"}</span> is an interactive learning platform designed to empower students at Batangas State University TNEU JPLPC Malvar</p>
+        <p className="titledesc">Created by passionate developers, Codecraft is an interactive learning platform designed to empower students at Batangas State University TNEU JPLPC Malvar</p>
       </div>
       
       <div className="firstimganddesc">
@@ -68,21 +66,17 @@ function About() {
         <h1 className="moreabout">More About Codecraft</h1>
         </div>
       <div className="process">
-        <div className="right">
-          <div className="moreaboutitle">
-          
-          </div>
+        <div className="rightside">
+         
           <p className="our">Our platform emphasizes collaboration and knowledge sharing, providing a vibrant space where learners can connect and support one another. We continuously strive for improvement, refining our systems based on user feedback and industry standards to ensure an optimal learning experience. Through these efforts, CodeCraft aims to cultivate a dynamic community that thrives on innovation and collaboration.</p>
-          <button>Check it Out</button>
+     
           <img className="moreimgicon" src={morerightimg} alt="" />
         </div>
         
         </div>
 <hr />
       <div className="thatsall">
-        <h1>Feel free to try <span style={{ color: "rgb(255, 200, 55)" }}>{"<"}</span>
-          {"Codecraft"}
-          <span style={{ color: "rgb(255, 200, 55)" }}>{">"}</span> Now</h1>
+        <h1>Feel free to try CodeCraft Now</h1>
           
       </div>
     
@@ -91,7 +85,7 @@ function About() {
       <p className="exciteddesc"><span style={{ color: "rgb(255, 200, 55)" }}>{"<"}</span>
           {"Codecraft"}
           <span style={{ color: "rgb(255, 200, 55)" }}>{">"}</span> is excited about the opportunity for the students to learn alot about web development</p>
-          <button>START LEARNING</button>
+          <button className="checkit">START LEARNING</button>
       </div>
     </div>
   );
