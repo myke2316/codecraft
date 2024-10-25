@@ -126,7 +126,7 @@ function Login() {
             mb: 4,
           }}
         >
-          <SchoolIcon sx={{ fontSize: 48, color: '#3f51b5', mb: 2 }} />
+          <SchoolIcon sx={{ fontSize: 48, color: '#6e61ab', mb: 2 }} />
           <Typography 
             variant="h4" 
             component="h1"

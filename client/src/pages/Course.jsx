@@ -104,7 +104,7 @@ function Course() {
               <img className="featurerightimg" src={game} alt="" />
             </div>
             <div className="rightsidetext">
-              <h1 className="rightsidetitle">Gamification</h1>
+              <h1 className="rightsidetitle">Community Forums</h1>
               <p className="rightsidedesc">
                 Users can share their code creations from the playground
                 directly with the community, promoting a collaborative

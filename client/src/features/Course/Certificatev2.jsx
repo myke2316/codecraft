@@ -23,7 +23,7 @@ const Certificatev2 = ({name,dateFinished,course,signature,signatureDetails}) =>
             OF ACHIEVEMENT
           </Typography>
           <Typography className="text-gray-600 mt-2" style={{ fontSize: '1rem' }}>
-            PRESENTED BY CODECRAFT ACADEMY
+            PRESENTED BY CODECRAFT
           </Typography>
         </Box>
 

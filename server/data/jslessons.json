@@ -974,7 +974,7 @@
               "description": "Learn about basic data types and arithmetic operators in JavaScript by declaring variables and performing operations.",
               "language": "JavaScriptConsole",
               "difficulty": "easy",
-              "problemStatement": "You are tasked with writing JavaScript code that demonstrates the usage of basic data types (`String`, `Number`, `Boolean`) and arithmetic operators (`+`, `-`, `*`, `/`). The code should declare variables for each data type, perform arithmetic operations,and print the results to the console.\n\n1. String Data Type:\n   - Create a variable named `greeting` and assign it the value `'Hello, World!'`.\n   \n2. Number Data Type:\n   - Create a variable named `year` and assign it the value `2024`.\n   \n3. Boolean Data Type:\n   - Create a variable named `isStudent` and assign it the value `true`.\n   \n4. Using Arithmetic Operators:\n   - Create a variable named `sum` that stores the result of adding `10 + 20`.\n      - Create a variable named `difference` that stores the result of subtracting `30 - 10`.\n      - Create a variable named `product` that stores the result of multiplying `5 * 4`.\n     - Create a variable named `quotient` that stores the result of dividing `40 / 5`.\n   \nEnsure that the code executes without any errors and that the variables hold the correct values throughout.\n5. Print all the values:\n - Print the value of `greeting` to the console.\n- Print the value of `year` to the console.\n- Print the value of `isStudent` to the console.\n- Print the value of `sum` to the console.\n- Print the value of `difference` to the console.\n- Print the value of `product` to the console.\n - Print the value of `quotient` to the console.\n\nEnsure that the code executes without any errors and that the variables hold the correct values throughout.",
+              "problemStatement": "You are tasked with writing JavaScript code that demonstrates the usage of basic data types (`String`, `Number`, `Boolean`) and arithmetic operators (`+`, `-`, `*`, `/`). The code should declare variables for each data type, perform arithmetic operations,and print the results to the console.\n\n1. String Data Type:\n   - Create a variable named `greeting` and assign it the value `'Hello, World!'`.\n   \n2. Number Data Type:\n   - Create a variable named `year` and assign it the value `2024`.\n   \n3. Boolean Data Type:\n   - Create a variable named `isStudent` and assign it the value `true`.\n   \n4. Using Arithmetic Operators:\n   - Create a variable named `sum` that stores the result of adding `10 + 20`.\n      - Create a variable named `difference` that stores the result of subtracting `30 - 10`.\n      - Create a variable named `product` that stores the result of multiplying `5 * 4`.\n     - Create a variable named `quotient` that stores the result of dividing `40 / 5`.\n5. Print all the values:\n - Print the value of `greeting` to the console.\n- Print the value of `year` to the console.\n- Print the value of `isStudent` to the console.\n- Print the value of `sum` to the console.\n- Print the value of `difference` to the console.\n- Print the value of `product` to the console.\n - Print the value of `quotient` to the console.\n\nEnsure that the code executes without any errors and that the variables hold the correct values throughout.",
               "codeEditor": {
                 "html": "",
                 "css": "",
@@ -1486,7 +1486,7 @@
               "description": "Practice using conditional statements in JavaScript to evaluate and respond to different conditions based on variable values.",
               "language": "JavaScriptConsole",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will write JavaScript code to evaluate a number and print whether it is positive, negative, or zero.\n\n1. Variable Declaration:\n   - Declare a 'let' variable `number` and initialize it with a value (e.g., `7`).\n\n2. Conditional Statements:\n   - Use an `if` statement to check if the number is greater than 0. If true, print 'The number is positive.'\n   - Use an `else if` statement to check if the number is less than 0. If true, print 'The number is negative.'\n   - Use an `else` statement to cover the case where the number is equal to 0 and print 'The number is zero.'",
+              "problemStatement": "In this activity, you will write JavaScript code to evaluate a number and print whether it is positive, negative, or zero.\n\n1. Variable Declaration:\n   - Declare a 'let' variable `number` and initialize it with a value 7.\n\n2. Conditional Statements:\n   - Use an `if` statement to check if the number is greater than 0. If true, print 'The number is positive.'\n   - Use an `else if` statement to check if the number is less than 0. If true, print 'The number is negative.'\n   - Use an `else` statement to cover the case where the number is equal to 0 and print 'The number is zero.'",
               "codeEditor": {
                 "html": "",
                 "css": "",
@@ -1562,7 +1562,7 @@
               "description": "Practice using a `while` loop to iterate through numbers and determine if they are even or odd.",
               "language": "JavaScriptConsole",
               "difficulty": "medium",
-              "problemStatement": "In this activity, you will write JavaScript code using a `while` loop to check and print whether numbers from `10` down to `0` are even or odd.\n\n1. Looping:\n   - Use a `while` loop to iterate from `10` to `0`.\n\n2. Checking Even/Odd:\n   - Inside the loop, use the modulus operator (`%`) to determine if the current number is even or odd.\n   - Print the result indicating whether the number is even or odd. (using template literals followed by ${} to embed expressions)\n\n3. Decrementing:\n   - Decrement the counter variable in each iteration of the loop.",
+              "problemStatement": "In this activity, you will write JavaScript code using a `while` loop to check and print whether numbers from `10` down to `0` are even or odd.\n\n1. Looping:\n   - Use a `while` loop to iterate from `10` to `0`.\n\n2. Checking Even/Odd:\n   - Inside the loop, use the modulus operator (`%`) to determine if the current number is even or odd.\n   - Print the result indicating whether the number is even or odd.\n\n3. Decrementing:\n   - Decrement the counter variable in each iteration of the loop.",
               "codeEditor": {
                 "html": "",
                 "css": "",
@@ -1576,18 +1576,18 @@
                     "let number = 10;",
                     "while (number >= 0) {",
                     "    if (number % 2 === 0) {",
-                    "        console.log(`${number} is even.`);",
+                    "        console.log(number, 'is even');",
                     "    } else {",
-                    "        console.log(`${number} is odd.`);",
+                    "        console.log(number, 'is odd');",
                     "    number--;"
                   ],
                   "testCaseSentences": [
                     "Initialize a let variable 'number' to 10.",
                     "Use a while loop to check whether the current number is greater than or equal to 0.",
                     "Check if the number is even using the modulus operator.",
-                    "Print that the number is even if the condition is true. (using template literals followed by ${} to embed expressions)",
+                    "Print that the number is even if the condition is true.)",
                     "Otherwise,using else statement, print that the number is odd.",
-                    "Print that the number is odd. (using template literals followed by ${} to embed expressions)",
+                    "Print that the number is odd.",
                     "Decrement the number in each iteration."
                   ],
                   "expectedImage": "/activities/jsacts/2.3.png",
@@ -2088,7 +2088,7 @@
               "description": "Practice writing a simple JavaScript function that squares a number and returns the result.",
               "language": "JavaScriptConsole",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will write a JavaScript function that takes one number as an argument and returns its square.\n\n1. Function Declaration:\n   - Define a function `squareNumber` that takes one parameter `num`.\n   - Inside the function, return the square of `num` (i.e., `num * num`).\n\n2. Function Call and Output:\n   - Call the `squareNumber` function with the number `4` as the argument.\n   - Use `let` to declare a variable `result` that stores the return value from `squareNumber`.\n   - Print the output using `console.log` to display the square.",
+              "problemStatement": "In this activity, you will write a JavaScript function that takes one number as an argument and returns its square.\n\n1. Function Declaration:\n   - Define a function `squareNumber` that takes one parameter `num`.\n   - Inside the function, return the square of `num` (i.e., `num * num`).\n\n2. Function Call and Output:\n   - Call the `squareNumber` function with the number `4` as the argument.\n   - Use `let` to declare a variable `result` that stores the return value from `squareNumber`.\n   - Print the output using `console.log` to display the square. (The square is: 16)",
               "codeEditor": {
                 "html": "",
                 "css": "",
@@ -3133,7 +3133,7 @@
                   "input": "let numbers = [5, 10, 15, 20, 25];\nconsole.log(numbers[1]);",
                   "output": "10",
                   "required": [
-                    "let numbers = [5, 10, 15, 20, 25];",
+                    "numbers = [5, 10, 15, 20, 25];",
                     "console.log(numbers[1]);"
                   ],
                   "isHidden": false,
@@ -3152,7 +3152,7 @@
               "description": "Use array methods to modify and check contents.",
               "language": "JavaScriptConsole",
               "difficulty": "medium",
-              "problemStatement": "You are given an array of fruits. Write JavaScript code to modify the array using array methods.\n\n1. Declare an array named `fruits` with the following values: `['Apple', 'Banana', 'Orange']`.\n\n2. Add a new fruit `'Mango'` to the array using the `push()` method.\n\n3. Check if `'Mango'` exists in the array using the `includes()` method and print the result.\n\nEnsure that the code executes without any errors and that the correct result is printed.",
+              "problemStatement": "You are given an array of fruits. Write JavaScript code to modify the array using array methods.\n\n1. Declare an array named `fruits` with the following values: `['Apple', 'Banana', 'Orange']`.\n\n2. Add a new fruit `'Mango'` to the array using the `push()` method.\n\n3. Check if `'Mango'` exists in the array using the `includes()` method and print it(no declarations).\n\nEnsure that the code executes without any errors and that the correct result is printed.",
               "codeEditor": {
                 "html": "",
                 "css": "",
@@ -3163,7 +3163,7 @@
                   "input": "let fruits = ['Apple', 'Banana', 'Orange'];\nfruits.push('Mango');\nconsole.log(fruits.includes('Mango'));",
                   "output": "true",
                   "required": [
-                    "let fruits = ['Apple', 'Banana', 'Orange'];",
+                    "fruits = ['Apple', 'Banana', 'Orange'];",
                     "fruits.push('Mango');",
                     "console.log(fruits.includes('Mango'));"
                   ],
@@ -3196,8 +3196,8 @@
                   "output": "Sara\n[ [ 'Sara', 23 ], [ 'Peter', 24 ], [ 'Anna', 22 ] ]",
                   "required": [
                     "let studentsData = [['Jack', 24], ['Sara', 23], ['Peter', 24]];",
-                    "console.log(studentsData[1][0]);",
                     "studentsData.push(['Anna', 22]);",
+                    "console.log(studentsData[1][0]);",
                     "studentsData.shift();",
                     "console.log(studentsData);"
                   ],
@@ -3875,7 +3875,7 @@
               "description": "Practice using `let`, `const`, and template literals introduced in ES6.",
               "language": "JavaScriptConsole",
               "difficulty": "medium",
-              "problemStatement": "In this activity, you will write JavaScript code using ES6 features such as `let`, `const`, and template literals.\n\n1. Declare a constant `name` and assign it the value `'John'`.\n\n2. Declare a `let` variable `age` and assign it the value `30`.\n\n3. Use a template literal to print the message 'My name is John and I am 30 years old.' by replacing 'John' and '30' with the values of `name` and `age`.\n\nEnsure that the code executes without any errors and prints the correct message.",
+              "problemStatement": "In this activity, you will write JavaScript code using ES6 features such as `let`, `const`, and template literals.\n\n1. Declare a constant `name` and assign it the value `'John'`.\n\n2. Declare a `let` variable `age` and assign it the value `30`.\n\n3. Use a template literal to print the message 'My name is John and I am 30 years old.' by replacing 'John' and '30' with the values of `name` and `age`(dont store in a variable).\n\nEnsure that the code executes without any errors and prints the correct message.",
               "codeEditor": {
                 "html": "",
                 "css": "",
@@ -3907,7 +3907,7 @@
               "description": "Practice using ES6 destructuring syntax to unpack values from arrays and objects.",
               "language": "JavaScriptConsole",
               "difficulty": "medium",
-              "problemStatement": "In this activity, you will practice destructuring arrays and objects. You will unpack values from an array and object and print them.\n\n1. Declare an array `colors` with the values `['red', 'green', 'blue']` and use destructuring to assign the first two values to variables `color1` and `color2`. Print both.\n\n2. Declare an object `person` with properties `name` and `age`. Use destructuring to assign the values to variables `name` and `age` and print them.\n\nNote: Before logging anything into the console, make sure to declare every required variables frist. The logs should be at the very end of the code.",
+              "problemStatement": "In this activity, you will practice destructuring arrays and objects. You will unpack values from an array and object and print them.\n\n1. Declare an array `colors` with the values `['red', 'green', 'blue']` and use destructuring to assign the first two values to variables `color1` and `color2`. Print both.\n\n2. Declare an object `person` with properties `name` : John and `age` : 25. Use destructuring to assign the values to variables `name` and `age` and print them.\n\nNote: Before logging anything into the console, make sure to declare every required variables frist. The logs should be at the very end of the code.",
               "codeEditor": {
                 "html": "",
                 "css": "",
@@ -3953,7 +3953,7 @@
                   "output": "Hello, Jack Sparrow!\nHello, Alice User!\nHello, Guest User!",
                   "required": [
                     "createGreeting('Jack', 'Sparrow');",
-                    "createGreeting('Alice');",
+                    "createGreeting('",
                     "createGreeting();"
                   ],
                   "isHidden": false,

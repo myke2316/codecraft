@@ -363,7 +363,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>Explanation:</strong>This selects all <strong>`<input>`<strong> elements of type <strong>'text'<strong>, giving them a gray border."
+                  "text": "• <strong>Explanation:</strong>This selects all <strong>`input`<strong> elements of type <strong>'text'<strong>, giving them a gray border."
                 },
                 {
                   "type": "sentence",
@@ -375,12 +375,7 @@
                 },
                 {
                   "type": "sentence",
-                  "text": "• <strong>Explanation:</strong>This targets <strong>`<a>`</strong> elements when hovered over by the user, underlining them."
-                },
-                {
-                  "type": "code",
-                  "language": "html",
-                  "supportingCode": "<h1>Header</h1><p>First paragraph.</p><p>Second paragraph.</p>"
+                  "text": "• <strong>Explanation:</strong>This targets <strong>`a`</strong> elements when hovered over by the user, underlining them."
                 }
               ],
               "locked": true
@@ -481,7 +476,7 @@
               "description": "Style a heading and a paragraph using basic CSS selectors.",
               "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "Create a CSS file with the following styles:\n1. For the <h1> element, set the color to navy and apply the Arial font family with a fallback to sans-serif.\n2. For the <p> element, set the color to gray and apply the: \"Times New Roman\" font family with a fallback to serif.",
+              "problemStatement": "Create a CSS file with the following styles:\n1. For the <h1> element, set the color to navy and apply the Arial font family with a fallback to sans-serif.\n2. For the <p> element, set the color to gray and apply the: \"Times New Roman\" font family with a fallback to serif.\n\nWrite your CSS in the CSS tab. The HTML is already provided for you.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Basic CSS Selectors</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <h1>Welcome to My Page</h1>\n    <p>This is a simple paragraph of text.</p>\n</body>\n</html>",
                 "css": "/* Add your CSS here */",
@@ -541,7 +536,7 @@
               "description": "Learn about CSS syntax and different types of selectors.",
               "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "Create a CSS file that demonstrates the use of different selectors.\n1. Use a class selector to style elements with the class 'highlight'.\n2. Use an ID selector to style an element with the ID 'main-title'.\n3. Use a descendant selector to style <p> elements within a <div>.",
+              "problemStatement": "Style the CSS file that demonstrates the use of different selectors.\n1. Use an ID selector to style an element with the ID 'main-title' to color blue and with a font-size of 24 pixels.\n2. Use a class selector to style elements with the class 'highlight' to make the background-color to yellow.\n3. Use a descendant selector to style <p> elements within a <div> to make the color of p elements gray.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>CSS Syntax and Selectors Overview</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n    <h1 id=\"main-title\">CSS Selectors</h1>\n    <div>\n        <p class=\"highlight\">This paragraph should be highlighted.</p>\n        <p>This is another paragraph.</p>\n    </div>\n</body>\n</html>",
                 "css": "/* Add your CSS here */",
@@ -1430,7 +1425,7 @@
               "description": "Apply text decoration properties to text elements using CSS.",
               "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "Style the following text elements using CSS:\n1. An <h1> element with the text 'Underlined Heading' should have an underline text decoration.\n2. A <p> element with the text 'This paragraph has a line-through.' should have a line-through text decoration.\n\nAll CSS styles should be written in an external CSS file.",
+              "problemStatement": "Style the following text elements using CSS:\n1. An <h1> element with the text 'Underlined Heading' should have an underline text decoration.\n2. A <p> element with the text 'This paragraph has a line-through.' should have a line-through text decoration.\n\nAnswer should be written in the CSS tab",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<title>Text Decoration Properties</title>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<h1>Underlined Heading</h1>\n<p>This paragraph has a line-through.</p>\n</body>\n</html>",
                 "css": "",
@@ -2054,9 +2049,9 @@
               "description": "Practice creating a flex container and observing how flex items behave.",
               "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will create a flex container with three flex items.\n\n1. Set the container as a flex container.\n2. Set the height of the container to 200px.\n3.Give each item a different background color",
+              "problemStatement": "In this activity, you will create a flex container with three flex items.\n\n1. Set the container as a flex container.\n2. Set the height of the container to 200px.\n3.Give item 1 a background color of red, item 2 = yellow , item 3 = greenr",
               "codeEditor": {
-                "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"container\">\n  <div class=\"item\">Item 1</div>\n  <div class=\"item\">Item 2</div>\n  <div class=\"item\">Item 3</div>\n</div>\n</body>\n</html>",
+                "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"container\">\n  <div class=\"item1\">Item 1</div>\n  <div class=\"item2\">Item 2</div>\n  <div class=\"item3\">Item 3</div>\n</div>\n</body>\n</html>",
                 "css": "/* Your CSS code goes here */",
                 "js": ""
               },
@@ -2067,13 +2062,17 @@
                   "required": [
                     ".container{display: flex;",
                     "height: 200px;",
-                    "background-color:"
+                    ".item1{ background-color: red; }",
+                    ".item2{ background-color: yellow; }",
+                    ".item3{ background-color: green; }"
                   ],
                   "isHidden": false,
                   "testCaseSentences": [
                     "Set the container as a flex container",
                     "Set the height of the container to 200px",
-                    "Give each item a different background color"
+                    "Give item 1 a background color of red",
+                    "Give item 2 a background color of yellow",
+                    "Give item 3 a background color of green"
                   ],
                   "expectedImage": "/activities/cssact/4.1.png"
                 }
@@ -2086,7 +2085,7 @@
               "description": "Practice adding space between flex items using gap.",
               "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will add space between the flex items in a container.\n\n1. Make the container a flex container.\n2. Add a gap of 20px between the flex items.",
+              "problemStatement": "In this activity, you will add space between the flex items in a container.\n\n1. Make the container a flex container.\n2. Add a gap of 20px between the flex items.\n\nWrite your CSS Code in the CSS Tab.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"container\">\n  <div class=\"item\">Item 1</div>\n  <div class=\"item\">Item 2</div>\n  <div class=\"item\">Item 3</div>\n</div>\n</body>\n</html>",
                 "css": "/* Your CSS code goes here */",
@@ -2113,7 +2112,7 @@
               "description": "Practice aligning flex items using justify-content and align-items.",
               "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will align flex items within a flex container.\n\n1.Set the container's display to 'flex' .\n2.Center the items horizontally. \n3.Center the items vertically. \n4.Set the height of the container to 200px",
+              "problemStatement": "In this activity, you will align flex items within a flex container.\n\n1.Set the container's display to 'flex' .\n2.Center the items horizontally. \n3.Center the items vertically. \n4.Set the height of the container to 200px.\n\nWrite your CSS Code in the CSS Tab.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"container\">\n  <div class=\"item\">Item 1</div>\n  <div class=\"item\">Item 2</div>\n  <div class=\"item\">Item 3</div>\n</div>\n</body>\n</html>",
                 "css": "/* Your CSS code goes here */",
@@ -2147,7 +2146,7 @@
               "description": "Practice using justify-content to align flex items along the main axis.",
               "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will use justify-content to align the flex items within a flex container.\n\n1.Make the container a flex container \n2.Space the items evenly along the main axis \n3.Set the height of the container to 200px",
+              "problemStatement": "In this activity, you will use justify-content to align the flex items within a flex container.\n\n1.Make the container a flex container \n2.Space the items evenly along the main axis \n3.Set the height of the container to 200px.\n\nWrite your CSS Code in the CSS Tab.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"container\">\n  <div class=\"item\">Item 1</div>\n  <div class=\"item\">Item 2</div>\n  <div class=\"item\">Item 3</div>\n</div>\n</body>\n</html>",
                 "css": "/* Your CSS code goes here */",
@@ -2622,7 +2621,7 @@
               "description": "Practice creating a simple CSS grid layout.",
               "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will create a basic grid layout with three columns and two rows.\n\n1.Set the container as a grid using 'display: grid'. \n2.Define three columns, each 100px wide, using 'grid-template-columns'. \n3.Define two rows, each 100px tall, using 'grid-template-rows' \n4.Add a 1px solid black border to each grid item for visibility.",
+              "problemStatement": "In this activity, you will create a basic grid layout with three columns and two rows.\n\n1.Set the container as a grid using 'display: grid'. \n2.Define three columns, each 100px wide, using 'grid-template-columns'. \n3.Define two rows, each 100px tall, using 'grid-template-rows' \n4.Add a 1px solid black border to each grid item for visibility..\n\nWrite your CSS Code in the CSS Tab.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"grid-container\">\n  <div class=\"grid-item\">Item 1</div>\n  <div class=\"grid-item\">Item 2</div>\n  <div class=\"grid-item\">Item 3</div>\n  <div class=\"grid-item\">Item 4</div>\n  <div class=\"grid-item\">Item 5</div>\n  <div class=\"grid-item\">Item 6</div>\n</div>\n</body>\n</html>",
                 "css": "/* Your CSS code goes here */",
@@ -2656,7 +2655,7 @@
               "description": "Practice using grid gap to space out grid items.",
               "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will add space between grid items using the gap property.\n\n1.Set the container as a grid using 'display: grid'. \n2.Define two columns, each 100px wide, using 'grid-template-columns'. \n3.Define two rows, each 100px tall, using 'grid-template-rows'. \n4.Add a gap of 20px between the grid items using the 'gap' property. \n5.Add a 1px solid black border to each grid item for visibility.",
+              "problemStatement": "In this activity, you will add space between grid items using the gap property.\n\n1.Set the container as a grid using 'display: grid'. \n2.Define two columns, each 100px wide, using 'grid-template-columns'. \n3.Define two rows, each 100px tall, using 'grid-template-rows'. \n4.Add a gap of 20px between the grid items using the 'gap' property. \n5.Add a 1px solid black border to each grid item for visibility.\n\nWrite your CSS Code in the CSS Tab.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"grid-container\">\n  <div class=\"grid-item\">Item 1</div>\n  <div class=\"grid-item\">Item 2</div>\n  <div class=\"grid-item\">Item 3</div>\n  <div class=\"grid-item\">Item 4</div>\n</div>\n</body>\n</html>",
                 "css": "/* Your CSS code goes here */",
@@ -2692,7 +2691,7 @@
               "description": "Practice aligning grid items both vertically and horizontally.",
               "language": "CSS",
               "difficulty": "easy",
-              "problemStatement": "In this activity, you will align grid items to the center of their cells.\n\n1.Set the container as a grid using 'display: grid'. \n2.Define two columns, each 100px wide, using 'grid-template-columns'. \n3.Define two rows, each 100px tall, using 'grid-template-rows'. \n4.Align the grid items horizontally in the center using 'justify-items: center'. \n5.Add a 1px solid black border to each grid item for visibility.",
+              "problemStatement": "In this activity, you will align grid items to the center of their cells.\n\n1.Set the container as a grid using 'display: grid'. \n2.Define two columns, each 100px wide, using 'grid-template-columns'. \n3.Define two rows, each 100px tall, using 'grid-template-rows'. \n4.Align the grid items horizontally and vertically in the center using 'align-items: center;' and 'justify-items: center'. \n5.Add a 1px solid black border to each grid item for visibility.\n\nWrite your CSS Code in the CSS Tab.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n</head>\n<body>\n<div class=\"grid-container\">\n  <div class=\"grid-item\">Item 1</div>\n  <div class=\"grid-item\">Item 2</div>\n  <div class=\"grid-item\">Item 3</div>\n  <div class=\"grid-item\">Item 4</div>\n</div>\n</body>\n</html>",
                 "css": "/* Your CSS code goes here */",

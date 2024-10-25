@@ -20,10 +20,12 @@ function StudentClass() {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-white p-8 rounded-2xl shadow-lg max-w-lg w-full">
-        {!classes ? (
+         {!classes ? (
+          <div className=" max-w-lg w-full">
           <StudentClassContainer />
-        ) : (
+          </div>
+        ) :<div className="bg-white p-8 rounded-2xl shadow-lg max-w-lg w-full">
+      (
           <div className="text-center space-y-6">
             <h2 className="text-2xl font-bold text-gray-800">
               No Classes Available
@@ -58,8 +60,9 @@ function StudentClass() {
               </div>
             )}
           </div>
-        )}
+        )
       </div>
+}
     </div>
   );
 }

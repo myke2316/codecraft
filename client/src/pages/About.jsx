@@ -5,8 +5,10 @@ import comprehensive from "./images/comprehensive.png"
 import handsonicon from "./images/handson.png"
 import supporticon from "./images/support.png"
 import morerightimg from "./images/right.jpg"
+import { useNavigate } from "react-router";
 
 function About() {
+  const navigate = useNavigate()
   return (
     <div className="aboutpage">
       <div className="abouttitle">
@@ -85,7 +87,7 @@ function About() {
       <p className="exciteddesc"><span style={{ color: "rgb(255, 200, 55)" }}>{"<"}</span>
           {"Codecraft"}
           <span style={{ color: "rgb(255, 200, 55)" }}>{">"}</span> is excited about the opportunity for the students to learn alot about web development</p>
-          <button className="checkit">START LEARNING</button>
+          <button className="checkit" onClick={()=>navigate('/login')}>START LEARNING</button>
       </div>
     </div>
   );

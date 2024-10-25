@@ -82,7 +82,7 @@ const TeacherQuizPerformance = ({userAnalytics}) => {
         <ResponsiveContainer width="100%" height={400}>
           <BarChart data={courseTotals}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="courseTitle" label={{ value: 'Courses', position: 'insideBottomRight', offset: 0 }} />
+            <XAxis dataKey="courseTitle" label={{position: 'insideBottomRight', offset: 0 }} />
             <YAxis label={{ value: 'Total Points', angle: -90, position: 'insideLeft' }} />
             <Tooltip />
             <Bar dataKey="totalPoints" fill="#8884d8" name="Total Points Earned">

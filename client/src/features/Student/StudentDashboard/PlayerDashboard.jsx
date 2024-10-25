@@ -7,7 +7,6 @@ import {
   Paper,
   Tooltip,
   Grid,
-  IconButton,
 } from "@mui/material";
 import { keyframes } from "@mui/system";
 import { useSelector } from "react-redux";
@@ -15,16 +14,12 @@ import {
   Person,
   EmojiEvents,
   TrendingUp,
-  School,
-  ChevronLeft,
-  ChevronRight,
-  Javascript,
 } from "@mui/icons-material";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { SiJavascript, SiHtml5, SiCss3, SiPhp } from "react-icons/si";
-import { useGetUserVoteQuery } from "../../QnA/questionService";
+
 const fadeIn = keyframes`
   from { opacity: 0; }
   to { opacity: 1; }
@@ -66,8 +61,7 @@ const calculateLessonProgress = (lesson, lessonProgress) => {
   ).length;
 
   const totalItems = totalDocuments + totalQuizzes + totalActivities;
-  const completedItems =
-    completedDocuments + completedQuizzes + completedActivities;
+  const completedItems = completedDocuments + completedQuizzes + completedActivities;
 
   return totalItems === 0 ? 0 : (completedItems / totalItems) * 100;
 };
@@ -96,12 +90,10 @@ const PlayerDashboard = ({ totalPoints }) => {
   const [animatedPoints, setAnimatedPoints] = useState(0);
   const [previousLevel, setPreviousLevel] = useState(1);
   const [progress, setProgress] = useState(0);
-  const userProgress = useSelector(
-    (state) => state.studentProgress.userProgress
-  );
+  const userProgress = useSelector((state) => state.studentProgress.userProgress);
   const courses = useSelector((state) => state.course.courseData);
+  const badges = useSelector((state) => state.userAnalytics.userAnalytics.badges);
 
-  
   const calculateLevel = (points) => {
     let level = 1;
     let pointsRequired = 2;
@@ -117,8 +109,7 @@ const PlayerDashboard = ({ totalPoints }) => {
     };
   };
 
-  const { level, pointsToNextLevel, pointsRequired } =
-    calculateLevel(totalPoints);
+  const { level, pointsToNextLevel, pointsRequired } = calculateLevel(totalPoints);
   const animationDuration = totalPoints * 30;
 
   useEffect(() => {
@@ -135,8 +126,7 @@ const PlayerDashboard = ({ totalPoints }) => {
   }, [totalPoints, animationDuration]);
 
   useEffect(() => {
-    const targetProgress =
-      ((pointsRequired - pointsToNextLevel) / pointsRequired) * 100;
+    const targetProgress = ((pointsRequired - pointsToNextLevel) / pointsRequired) * 100;
     setProgress(targetProgress);
   }, [pointsToNextLevel, pointsRequired]);
 
@@ -144,10 +134,6 @@ const PlayerDashboard = ({ totalPoints }) => {
     setPreviousLevel(level);
   }, [level]);
 
-  const badges = useSelector(
-    (state) => state.userAnalytics.userAnalytics.badges
-  );
-console.log(badges)
   const achievementBadges = [
     { id: 1, name: "First Step", icon: "🏆" },
     { id: 2, name: "Course Completed", icon: "🎓" },
@@ -162,44 +148,39 @@ console.log(badges)
     { id: 11, name: "Getting There", icon: "📊" },
     { id: 12, name: "JS Consistent", icon: "🤲🏼" },
     { id: 13, name: "JS Manipulator", icon: "👨🏼‍💻" },
-    { id: 14, name: "JS Master", icon: "👾" },{ id: 15, name: "First Lesson!", icon: "1️⃣" },
+    { id: 14, name: "JS Master", icon: "👾" },
+    { id: 15, name: "First Lesson!", icon: "1️⃣" },
   ];
 
-  // Map badges with appropriate icons
   const uniqueBadgesWithIcons = badges.reduce((acc, badge) => {
     if (!acc.some((b) => b.name === badge.name)) {
-      // Find the matching badge in achievementBadges by name
-      const matchingBadge = achievementBadges.find(
-        (ach) => ach.name === badge.name
-      );
+      const matchingBadge = achievementBadges.find((ach) => ach.name === badge.name);
       const badgeWithIcon = {
         ...badge,
-        icon: matchingBadge ? matchingBadge.icon : "🏅", // Default icon if no match found
+        icon: matchingBadge ? matchingBadge.icon : "🏅",
       };
       acc.push(badgeWithIcon);
     }
     return acc;
   }, []);
 
-
   const sliderSettings = {
     dots: false,
-    infinite: true,
+    infinite: uniqueBadgesWithIcons.length > 1,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: Math.min(4, uniqueBadgesWithIcons.length),
     slidesToScroll: 1,
- 
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: Math.min(3, uniqueBadgesWithIcons.length),
         },
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: Math.min(2, uniqueBadgesWithIcons.length),
         },
       },
       {
@@ -214,29 +195,26 @@ console.log(badges)
   return (
     <Paper
       elevation={3}
-      className="overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-500  to-indigo-700 p-2"
+      className="overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-500 to-indigo-700 p-2"
     >
       <Box
         className="p-6 text-white"
         sx={{ animation: `${fadeIn} 1s ease-in-out` }}
       >
-        <Box className="flex items-center mb-6">
+        <Box className="flex flex-col sm:flex-row items-center mb-6">
           <Avatar
             src={userInfo.picture}
-            sx={{ width: 80, height: 80 }}
+            sx={{ width: 80, height: 80, mb: { xs: 2, sm: 0 }, mr: { sm: 4 } }}
             className="border-4 border-white shadow-lg"
           >
             {!userInfo.picture && <Person fontSize="large" />}
           </Avatar>
-          <Box className="ml-4 flex-grow">
+          <Box className="flex-grow text-center sm:text-left">
             <Typography
               variant="h4"
               className="font-bold"
               sx={{
-                animation:
-                  previousLevel !== level
-                    ? `${scaleUp} 0.6s ease-in-out`
-                    : "none",
+                animation: previousLevel !== level ? `${scaleUp} 0.6s ease-in-out` : "none",
               }}
             >
               {username}
@@ -246,7 +224,7 @@ console.log(badges)
             </Typography>
           </Box>
           <Tooltip title="Total Points" arrow placement="top">
-            <Box className="text-center">
+            <Box className="text-center mt-2 sm:mt-0">
               <EmojiEvents fontSize="large" className="text-yellow-300 mb-1" />
               <Typography variant="h5" className="font-bold">
                 {animatedPoints}
@@ -288,126 +266,150 @@ console.log(badges)
           </Tooltip>
         </Box>
 
-        <Box className="mt-2">
+        <Box className="mt-4">
           <Grid container spacing={2}>
             {userProgress.coursesProgress &&
-              userProgress.coursesProgress
-                .slice(0, 4)
-                .map((courseProgress, index) => {
-                  const courseTitle = getCourseTitle(
-                    courseProgress.courseId,
-                    courses
-                  );
-                  const course = courses.find(
-                    (c) => c._id === courseProgress.courseId
-                  );
+              userProgress.coursesProgress.slice(0, 4).map((courseProgress, index) => {
+                const courseTitle = getCourseTitle(courseProgress.courseId, courses);
+                const course = courses.find((c) => c._id === courseProgress.courseId);
 
-                  if (!course) {
-                    return null;
-                  }
+                if (!course) {
+                  return null;
+                }
 
-                  const progressPercentage = calculateCourseProgress(
-                    course.lessons,
-                    courseProgress.lessonsProgress
-                  );
+                const progressPercentage = calculateCourseProgress(
+                  course.lessons,
+                  courseProgress.lessonsProgress
+                );
 
-                  return (
-                    <Grid item xs={12} sm={6} md={3} key={index}>
-                      <Box
-                        sx={{
-                          backgroundColor: "rgba(255, 255, 255, 0.1)",
-                          borderRadius: 2,
-                          padding: 2,
-                          transition: "transform 0.3s ease-in-out",
-                          "&:hover": {
-                            transform: "scale(1.05)",
-                          },
-                        }}
-                      >
-                        <Box
-                          sx={{ display: "flex", alignItems: "center", mb: 1 }}
-                        >
-                          {course.title === "HTML" ? (
-                            <SiHtml5 sx={{ mr: 1, color: "white" }} />
-                          ) : course.title === "CSS" ? (
-                            <SiCss3 sx={{ mr: 1, color: "white" }} />
-                          ) : course.title === "JavaScript" ? (
-                            <SiJavascript sx={{ mr: 1, color: "white" }} />
-                          ) : (
-                            <SiPhp sx={{ mr: 1, color: "white" }} />
-                          )}
-                          <Typography
-                            variant="subtitle2"
-                            fontWeight="bold"
-                            noWrap
-                          >
-                            {courseTitle}
-                          </Typography>
-                        </Box>
-                        <LinearProgress
-                          variant="determinate"
-                          value={progressPercentage}
-                          sx={{
-                            height: 6,
-                            borderRadius: 3,
-                            backgroundColor: "rgba(255, 255, 255, 0.3)",
-                            "& .MuiLinearProgress-bar": {
-                              borderRadius: 3,
-                              backgroundColor: "white",
-                            },
-                          }}
-                        />
-                        <Typography
-                          variant="caption"
-                          sx={{ mt: 0.5, display: "block", textAlign: "right" }}
-                        >
-                          {Math.round(progressPercentage)}%
+                return (
+                  <Grid item xs={12} sm={6} md={3} key={index}>
+                    <Box
+                      sx={{
+                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                        borderRadius: 2,
+                        padding: 2,
+                        transition: "transform 0.3s ease-in-out",
+                        "&:hover": {
+                          transform: "scale(1.05)",
+                        },
+                      }}
+                    >
+                      <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+                        {course.title === "HTML" ? (
+                          <SiHtml5 style={{ marginRight: 8, color: "white" }} />
+                        ) : course.title === "CSS" ? (
+                          <SiCss3 style={{ marginRight: 8, color: "white" }} />
+                        ) : course.title === "JavaScript" ? (
+                          <SiJavascript style={{ marginRight: 8, color: "white" }} />
+                        ) : (
+                          <SiPhp style={{ marginRight: 8, color: "white" }} />
+                        )}
+                        <Typography variant="subtitle2" fontWeight="bold" noWrap>
+                          {courseTitle}
                         </Typography>
                       </Box>
-                    </Grid>
-                  );
-                })}
+                      <LinearProgress
+                        variant="determinate"
+                        value={progressPercentage}
+                        sx={{
+                          height: 6,
+                          borderRadius: 3,
+                          backgroundColor: "rgba(255, 255, 255, 0.3)",
+                          "& .MuiLinearProgress-bar": {
+                            borderRadius: 3,
+                            backgroundColor: "white",
+                          },
+                        }}
+                      />
+                      <Typography
+                        variant="caption"
+                        sx={{ mt: 0.5, display: "block", textAlign: "right" }}
+                      >
+                        {Math.round(progressPercentage)}%
+                      </Typography>
+                    </Box>
+                  </Grid>
+                );
+              })}
           </Grid>
         </Box>
 
-        <Box className="mt-2">
-          <Typography variant="h6" className="mb-5 font-semibold">
-            Achievements
-          </Typography>
-          <Slider {...sliderSettings}>
-            {uniqueBadgesWithIcons.map((badge) => (
-              <Box key={badge.id} sx={{ textAlign: "center", px: 1 }}>
-                <Paper
-                  elevation={3}
-                  sx={{
-                    display: "inline-flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: 80,
-                    height: 80,
-                    borderRadius: "50%",
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    transition: "transform 0.3s ease-in-out",
-                    "&:hover": {
-                      transform: "scale(1.1)",
-                    },
-                  }}
-                >
-                  <Typography variant="h4" component="span">
-                    {badge.icon}
+        {uniqueBadgesWithIcons.length > 0 && (
+          <Box className="mt-6">
+            <Typography variant="h6" className="mb-4 font-semibold">
+              Achievements
+            </Typography>
+            {uniqueBadgesWithIcons.length === 1 ? (
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Box sx={{ textAlign: "center", px: 1 }}>
+                  <Paper
+                    elevation={3}
+                    sx={{
+                      display: "inline-flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: 80,
+                      height: 80,
+                      borderRadius: "50%",
+                      backgroundColor: "rgba(255, 255, 255, 0.1)",
+                      transition: "transform 0.3s ease-in-out",
+                      "&:hover": {
+                        transform: "scale(1.1)",
+                      },
+                    }}
+                  >
+                    <Typography variant="h4" component="span">
+                      {uniqueBadgesWithIcons[0].icon}
+                    </Typography>
+                  </Paper>
+                  <Typography
+                    variant="caption"
+                    sx={{ mt: 1, display: "block", color: "white" }}
+                  >
+                    {uniqueBadgesWithIcons[0].name}
                   </Typography>
-                </Paper>
-                <Typography
-                  variant="caption"
-                  sx={{ mt: 1, display: "block", color: "white" }}
-                >
-                  {badge.name}
-                </Typography>
+                </Box>
               </Box>
-            ))}
-          </Slider>
-        </Box>
+            ) : (
+              <Slider {...sliderSettings}>
+                {uniqueBadgesWithIcons.map((badge) => (
+                  <Box key={badge.id} sx={{ textAlign: "center", px: 1 }}>
+                    <Paper
+                      elevation={3}
+                      sx={{
+                        display: "inline-flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: 80,
+                        height: 80,
+                        
+                        borderRadius: "50%",
+                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                        transition: "transform 0.3s ease-in-out",
+                        "&:hover": {
+                          transform: "scale(1.1)",
+                        },
+                      }}
+                    >
+                      <Typography variant="h4" component="span">
+                        {badge.icon}
+                      </Typography>
+                    </Paper>
+                    <Typography
+                      variant="caption"
+                      sx={{ mt: 1, display: "block", color: "white" }}
+                    >
+                      {badge.name}
+                    </Typography>
+                  </Box>
+                ))}
+              </Slider>
+            )}
+          </Box>
+        )}
       </Box>
     </Paper>
   );

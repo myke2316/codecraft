@@ -848,7 +848,7 @@
 
                 {
                   "type": "sentence",
-                  "text": "<code>liul</code> - Defines a list item in ordered or unordered lists."
+                  "text": "<code>li and ul</code> - Defines a list item in ordered or unordered lists."
                 }
               ],
               "locked": true
@@ -3234,7 +3234,7 @@
                   "input": "",
                   "output": "<form><label for='name'>Name: </label><input type='text' id='name' name='name' required><br><label for='email'>Email: </label><input type='email' id='email' name='email' required><br><input type='submit' value='Subscribe'></form>",
                   "required": [
-                    "<form>",
+                    "<form",
                     "<label for='name'>Name: </label>",
                     "<input type='text' id='name' name='name' required>",
                     "<label for='email'>Email: </label>",
@@ -3264,7 +3264,7 @@
               "description": "Create a basic registration form that includes fields for name, email, and gender selection using radio buttons.",
               "language": "HTML",
               "difficulty": "hard",
-              "problemStatement": "Build a simple registration form with the following specifications:\n1. Include a field for the user's name.\n2. Include a field for the user's email.\n3. Include radio buttons for gender selection with options 'Male' and 'Female'.\n4. Ensure all fields are required for form submission.\n5. Add a submit button labeled 'Register'.",
+              "problemStatement": "Build a simple registration form with the following specifications:\n1. The form should include a <form> element to enclose all input fields.\n2. The form should include a label with the text 'Name:' and a corresponding input field for the user's name.\n3. The form should include an input field for the user's name, with the (type, id, name, and required) attribute.\n4. The form should include a label with the text 'Email:' and a corresponding input field for the user's email.\n5. The form should include an input field for the user's email with the (type, id, name, and required) attribute.\n6. The form should include a label for gender selection with radio buttons.\n7. The form should include a radio button input field for selecting the male gender, with (type, id, name, value, and required) attribute.\n8. The form should include a label for the male gender selection option.\n9. The form should include a radio button input field for selecting the female gender, with (type, id, name, value, and required) attribute.\n10. The form should include a label for the female gender selection option.\n11. The form should include a input(submit) button with attributes of type, and value.\n12. The form element should close properly.",
               "codeEditor": {
                 "html": "<!DOCTYPE html>\n<html>\n<head>\n<title></title>\n</head>\n<body>\n</body>\n</html>",
                 "css": "",
@@ -3275,17 +3275,17 @@
                   "input": "",
                   "output": "<form><label for='name'>Name: </label><input type='text' id='name' name='name' required><br><label for='email'>Email: </label><input type='email' id='email' name='email' required><br><label>Gender:</label><input type='radio' id='male' name='gender' value='male' required><label for='male'>Male</label><input type='radio' id='female' name='gender' value='female' required><label for='female'>Female</label><br><input type='submit' value='Register'></form>",
                   "required": [
-                    "<form>",
+                    "<form",
                     "<label for='name'>Name: </label>",
-                    "<input type='text' id='name' name='name' required>",
+                    "<input type='text' id='name' name='name' required",
                     "<label for='email'>Email: </label>",
-                    "<input type='email' id='email' name='email' required>",
+                    "<input type='email' id='email' name='email' required",
                     "<label>Gender:</label>",
-                    "<input type='radio' id='male' name='gender' value='male' required>",
+                    "<input type='radio' id='male' name='gender' value='male' required",
                     "<label for='male'>Male</label>",
-                    "<input type='radio' id='female' name='gender' value='female' required>",
+                    "<input type='radio' id='female' name='gender' value='female' required",
                     "<label for='female'>Female</label>",
-                    "<input type='submit' value='Register'>",
+                    "<input type='submit' value='Register'",
                     "</form>"
                   ],
                   "isHidden": false,
