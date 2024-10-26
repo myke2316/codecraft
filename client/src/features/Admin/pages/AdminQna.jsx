@@ -186,7 +186,7 @@ function AdminQna() {
   return (
     <Box className="p-6 min-h-screen">
       <Typography variant="h4" className="mb-7 p-5 font-bold">
-        Manage Q&A
+        Manage Questions
       </Typography>
       <Grid container spacing={3} className="mb-6">
         <Grid item xs={12} md={4}>

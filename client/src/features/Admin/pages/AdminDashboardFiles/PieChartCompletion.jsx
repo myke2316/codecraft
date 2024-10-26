@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import { Typography, Box } from '@mui/material';
 
 // Define a color palette
-const COLORS = ['#6e61ab', '#4b3987'];
+const COLORS = ['#056275', '#4b3987'];
 
 function PieChartCompletion({ data }) {
   const theme = useTheme();

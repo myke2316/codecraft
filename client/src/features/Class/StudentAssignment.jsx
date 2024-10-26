@@ -20,10 +20,10 @@ import {
 } from "@mui/material";
 import { CalendarToday, Description, Assignment } from "@mui/icons-material";
 import dayjs from "dayjs";
+
 function StudentAssignment() {
   const classId = useSelector((state) => state.class.class._id);
-  const [fetchAssignmentByClassId, { isLoading }] =
-    useFetchAssignmentByClassIdMutation();
+  const [fetchAssignmentByClassId, { isLoading }] = useFetchAssignmentByClassIdMutation();
   const [assignments, setAssignments] = useState([]);
   const navigate = useNavigate();
 
@@ -47,40 +47,45 @@ function StudentAssignment() {
   const handleViewAssignment = (assignmentId) => {
     navigate(`${assignmentId}/view`);
   };
-  console.log(assignments);
+
   if (isLoading)
     return <Typography variant="h6">Loading assignments...</Typography>;
 
   return (
-    <Box sx={{ padding: { xs: 1, sm: 2, md: 3 } }}>
-      <Typography
-        variant="h4"
-        gutterBottom
-        align={isMobile ? "center" : "left"}
-        sx={{ mb: 3 }}
-      >
-        Student Assignments
-      </Typography>
+    <Box sx={{ padding: { xs: 2, sm: 3, md: 4 }, bgcolor: 'background.default', minHeight: '100vh' }}>
+       <Typography
+      variant={isMobile ? "h5" : isTablet ? "h4" : "h3"} // Adjust variant based on screen size
+      align={isMobile ? "center" : "left"}
+      gutterBottom
+      sx={{
+        mb: isMobile ? 2 : isTablet ? 3 : 4, // Margin adjustments for different screen sizes
+        color: "text.primary",
+        fontWeight: 600,
+        fontSize: isMobile ? "1.2rem" : isTablet ? "1.5rem" : "2rem", // Font size control
+      }}
+    >
+      Assignments
+    </Typography>
 
       {assignments.length === 0 ? (
         <Paper
+          elevation={3}
           sx={{
-            padding: { xs: 2, sm: 3 },
+            padding: { xs: 3, sm: 4 },
             textAlign: "center",
-            backgroundColor: "#f5f5f5",
+            bgcolor: "#f5f5f5",
+            borderRadius: 2,
           }}
         >
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h6" color="text.secondary" gutterBottom>
             No assignments available for this class.
           </Typography>
-          <Typography variant="body1" color="text.secondary">
-            It looks like there are no assignments currently assigned to this
-            class. Please check back later or contact your instructor for more
-            information.
+          <Typography variant="body2" color="text.secondary">
+            Check back later or contact your instructor for more information.
           </Typography>
         </Paper>
       ) : (
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           {assignments.map((assignment) => (
             <Grid
               item
@@ -98,15 +103,13 @@ function StudentAssignment() {
                   height: "100%",
                   transition: "transform 0.3s",
                   "&:hover": { transform: "scale(1.02)" },
+                  boxShadow: 2,
+                  borderRadius: 2,
                 }}
               >
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Box display="flex" alignItems="center" mb={1}>
-                    <Assignment
-                      fontSize="small"
-                      color="primary"
-                      sx={{ mr: 1 }}
-                    />
+                    <Assignment fontSize="small" color="primary" sx={{ mr: 1 }} />
                     <Typography variant="h6" component="div" noWrap>
                       {assignment.title}
                     </Typography>
@@ -115,32 +118,23 @@ function StudentAssignment() {
                   <Divider sx={{ my: 1 }} />
 
                   <Box display="flex" alignItems="center" mb={1}>
-                    <CalendarToday fontSize="small" sx={{ mr: 1 }} />
+                    <CalendarToday fontSize="small" sx={{ mr: 1, color: "text.secondary" }} />
                     <Typography variant="body2" color="text.secondary" noWrap>
-                      Due: {new Date(assignment.dueDate).toLocaleDateString()}
+                      Due: {dayjs(assignment.dueDate).format("MMM DD, YYYY")}
                     </Typography>
                   </Box>
 
                   <Box display="flex" alignItems="center">
-                    <Description fontSize="small" sx={{ mr: 1 }} />
+                    <Description fontSize="small" sx={{ mr: 1, color: "text.secondary" }} />
                     <Typography variant="body2" color="text.secondary" noWrap>
-                      Created:{" "}
-                      {new Date(assignment.createdAt).toLocaleDateString()}
+                      Created: {dayjs(assignment.createdAt).format("MMM DD, YYYY")}
                     </Typography>
                   </Box>
 
                   <Box mt={2}>
                     <Chip
-                      label={
-                        dayjs().isAfter(dayjs(assignment.dueDate))
-                          ? "Due"
-                          : "Not Due"
-                      }
-                      color={
-                        dayjs().isAfter(dayjs(assignment.dueDate))
-                          ? "error"
-                          : "success"
-                      }
+                      label={dayjs().isAfter(dayjs(assignment.dueDate)) ? "Due" : "Not Due"}
+                      color={dayjs().isAfter(dayjs(assignment.dueDate)) ? "error" : "success"}
                       variant="outlined"
                       size="small"
                       sx={{ fontWeight: "bold" }}
@@ -165,12 +159,13 @@ function StudentAssignment() {
                   </Box>
                 )}
 
-                <CardActions sx={{ justifyContent: "flex-end", p: 1 }}>
+                <CardActions sx={{ justifyContent: "flex-end", p: 2 }}>
                   <Button
                     size="small"
                     variant="contained"
                     color="primary"
                     onClick={() => handleViewAssignment(assignment._id)}
+                    sx={{ textTransform: "none", fontWeight: 500 }}
                   >
                     View Details
                   </Button>

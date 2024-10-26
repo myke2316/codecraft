@@ -69,9 +69,9 @@ const QuestionForm = ({ userId, onSubmitSuccess }) => {
         authorId: userId,
       }).unwrap();
 
-      setSnackbarMessage("Question posted successfully!");
+      setSnackbarMessage("Question posted for review successfully!");
       setOpenSnackbar(true);
-      toast.success("Question posted!")
+      toast.success("Question posted for admin approval!")
       setTitle("");
       setContent("");
       setTags([]);

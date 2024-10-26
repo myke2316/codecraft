@@ -240,10 +240,30 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                       Due: {formatDateToReadable(assignment.dueDate)}
                     </Typography>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-                      <Chip label={`Submissions: ${total}`} color="primary" variant="outlined" size="small" />
-                      <Chip label={`Graded: ${graded}`} color="secondary" variant="outlined" size="small" />
-                    </Box>
+                    <Box
+  sx={{
+    display: 'flex',
+    justifyContent: { xs: 'center', sm: 'space-between' }, // Center on small screens, spaced on larger screens
+    flexDirection: { xs: 'column', sm: 'row' }, // Column layout on small screens, row on larger
+    gap: 2, // Adds spacing between Chips
+    mb: 2
+  }}
+>
+  <Chip
+    label={`Submissions: ${total}`}
+    color="primary"
+    variant="outlined"
+    size="small"
+    sx={{ width: { xs: '100%', sm: 'auto' }, textAlign: 'center' }} // Full width on small screens, auto on larger
+  />
+  <Chip
+    label={`Graded: ${graded}`}
+    color="secondary"
+    variant="outlined"
+    size="small"
+    sx={{ width: { xs: '100%', sm: 'auto' }, textAlign: 'center' }} // Full width on small screens, auto on larger
+  />
+</Box>
                     <Typography variant="body2" color="text.secondary">
                       Target: {assignment.target === "all" ? "All Classes" : "This Class"}
                     </Typography>

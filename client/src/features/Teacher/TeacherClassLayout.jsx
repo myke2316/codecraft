@@ -41,7 +41,7 @@ export default function TeacherClassLayout() {
   const navigate = useNavigate();
   const { classId } = useParams();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   // Get class information from Redux state
   const classInfo = useSelector((state) => state.class.class);
@@ -89,7 +89,12 @@ export default function TeacherClassLayout() {
   if (!selectedClass) {
     return (
       <Box
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
       >
         <CircularProgress />
       </Box>
@@ -149,8 +154,16 @@ export default function TeacherClassLayout() {
       <List>
         {[
           { text: "Class Details", icon: <Class />, route: "classHome" },
-          { text: "Manage Announcements", icon: <Announcement />, route: "announcement" },
-          { text: "Manage Assignments", icon: <Assignment />, route: "assignment" },
+          {
+            text: "Manage Announcements",
+            icon: <Announcement />,
+            route: "announcement",
+          },
+          {
+            text: "Manage Assignments",
+            icon: <Assignment />,
+            route: "assignment",
+          },
         ].map((item, index) => (
           <ListItem key={index} disablePadding>
             <ListItemButton
@@ -163,7 +176,10 @@ export default function TeacherClassLayout() {
                 },
               }}
             >
-              <Box component="span" sx={{ mr: 2, display: "flex", alignItems: "center" }}>
+              <Box
+                component="span"
+                sx={{ mr: 2, display: "flex", alignItems: "center" }}
+              >
                 {item.icon}
               </Box>
               <Typography variant="body2" sx={{ fontWeight: 500 }}>
@@ -188,7 +204,11 @@ export default function TeacherClassLayout() {
             mb: 2,
           }}
         >
-          <Typography variant="h6" component="h2" sx={{ fontWeight: "semi-bold", color: "white" }}>
+          <Typography
+            variant="h6"
+            component="h2"
+            sx={{ fontWeight: "semi-bold", color: "white" }}
+          >
             Announcements
           </Typography>
           <IconButton
@@ -207,7 +227,10 @@ export default function TeacherClassLayout() {
         <Divider sx={{ mb: 2 }} />
 
         {isLoading ? (
-          <CircularProgress size={24} sx={{ display: "block", margin: "0 auto" }} />
+          <CircularProgress
+            size={24}
+            sx={{ display: "block", margin: "0 auto" }}
+          />
         ) : announcements && announcements.length > 0 ? (
           <List disablePadding>
             {announcements.map((announcement) => (
@@ -225,7 +248,9 @@ export default function TeacherClassLayout() {
                   },
                 }}
               >
-                <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
+                <Box
+                  sx={{ display: "flex", alignItems: "center", width: "100%" }}
+                >
                   <Notifications
                     sx={{
                       mr: 2,
@@ -251,7 +276,11 @@ export default function TeacherClassLayout() {
             ))}
           </List>
         ) : (
-          <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center", mt: 2 }}>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ textAlign: "center", mt: 2 }}
+          >
             No announcements available
           </Typography>
         )}
@@ -271,7 +300,7 @@ export default function TeacherClassLayout() {
             keepMounted: true,
           }}
           sx={{
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 280 },
+            "& .MuiDrawer-paper": { boxSizing: "border-box", width: 280 },
           }}
         >
           {sidebarContent}
@@ -312,7 +341,7 @@ export default function TeacherClassLayout() {
             zIndex: theme.zIndex.drawer + 1,
             backgroundColor: "#928fce",
             color: "white",
-            '&:hover': {
+            "&:hover": {
               backgroundColor: "#6e61ab",
             },
           }}
@@ -326,28 +355,39 @@ export default function TeacherClassLayout() {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
-          width: { md: `calc(100% - ${sidebarOpen ? 280 : 0}px)` },
-          ml: { md: isMobile ? 0 :`${sidebarOpen ? 280 : 0}px` },
-          transition: theme.transitions.create(["width", "margin"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-          }),
+          p: { xs: 2, sm: 3 },
+          width: {
+            xs: "100%",
+            md: `calc(100% - ${sidebarOpen ? 280 : 0}px)`,
+          },
+          ml: {
+            xs: 0,
+            md: sidebarOpen ? "280px" : 0,
+          },
+          transition: "margin 0.3s, width 0.3s",
         }}
       >
-        {isMobile && (
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleSidebarToggle}
-            sx={{ mr: 2, display: { md: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-        )}
-        <ToastContainer />
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            mb: 2,
+          }}
+        >
+          {isMobile && (
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleSidebarToggle}
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
+        </Box>
         <Outlet />
+        <ToastContainer />
       </Box>
 
       {/* Dialog for announcement details */}
@@ -436,8 +476,6 @@ export default function TeacherClassLayout() {
           </Button>
         </DialogActions>
       </Dialog>
-
-      
     </Box>
   );
 }

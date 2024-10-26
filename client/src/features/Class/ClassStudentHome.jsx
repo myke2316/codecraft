@@ -243,7 +243,7 @@ function ClassStudentHome() {
     return <div className="text-center text-red-600 mt-10">{error}</div>;
 
   return (
-    <div className="p-2 max-w-7xl mx-auto">
+    <div className="p-0 max-w-7xl mx-auto">
       <ClassOverview
         averagePoints={averagePoints}
         averageTimeSpent={averageTimeSpent}

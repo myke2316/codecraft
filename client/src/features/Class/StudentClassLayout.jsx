@@ -368,27 +368,39 @@ export default function StudentClassLayout() {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
-          width: { md: `calc(100% - ${sidebarOpen ? 280 : 0}px)` },
-          ml: { md: isMobile ? 0 : `${sidebarOpen ? 280 : 0}px` },
-          transition: theme.transitions.create(["width", "margin"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-          }),
+          p: { xs: 2, sm: 3 },
+          width: {
+            xs: '100%',
+            md: `calc(100% - ${sidebarOpen ? 280 : 0}px)`,
+          },
+          ml: {
+            xs: 0,
+            md: sidebarOpen ? '280px' : 0,
+          },
+          transition: 'margin 0.3s, width 0.3s',
         }}
       >
-        {isMobile && (
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleSidebarToggle}
-            sx={{ mr: 2, display: { md: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-        )}
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            mb: 2,
+          }}
+        >
+          {isMobile && (
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleSidebarToggle}
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
+        </Box>
         <Outlet />
+        <ToastContainer />
       </Box>
 
       {/* Dialog for announcement details */}

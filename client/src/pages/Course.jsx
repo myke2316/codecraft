@@ -26,8 +26,15 @@ function Course() {
           </p>
         </div>
         <div className="coursebutton">
-          <button className="join" onClick={() => navigate('/signup')}>Join Us</button>
-          <button className="learnmorecourse" onClick={() => navigate('/about')}>Learn More</button>
+          <button className="join" onClick={() => navigate("/signup")}>
+            Join Us
+          </button>
+          <button
+            className="learnmorecourse"
+            onClick={() => navigate("/about")}
+          >
+            Learn More
+          </button>
         </div>
       </div>
       <div className="secondcontainer">
@@ -91,11 +98,10 @@ function Course() {
             <div className="rightsidetext">
               <h1 className="rightsidetitle">Forum</h1>
               <p className="rightsidedesc">
-                Users can share their code creations from the playground
-                directly with the community, promoting a collaborative
-                environment for knowledge sharing. This feature enables learners
-                to showcase their projects, receive feedback, and inspire others
-                with their innovative solutions.
+                Users can interact with other users, by helping answer
+                questions, providing feedback, and sharing their knowledge. This
+                feature also has an upvote and downvote system where in every
+                upvotes counts as points.
               </p>
             </div>
           </div>
@@ -104,13 +110,13 @@ function Course() {
               <img className="featurerightimg" src={game} alt="" />
             </div>
             <div className="rightsidetext">
-              <h1 className="rightsidetitle">Community Forums</h1>
+              <h1 className="rightsidetitle">Playground</h1>
               <p className="rightsidedesc">
-                Users can share their code creations from the playground
-                directly with the community, promoting a collaborative
-                environment for knowledge sharing. This feature enables learners
-                to showcase their projects, receive feedback, and inspire others
-                with their innovative solutions.
+                Users can experiment with the language of HTML CSS and
+                JavaScript with out built-in coding playground or coding sandbox
+                This feature allows learners to use it to make their assignments
+                that is constructed by their teachers, and do anything related
+                to website building with the use of HTML CSS and JAVASCRIPT
               </p>
             </div>
           </div>

@@ -10,7 +10,8 @@ import ClassOverview from "./ClassOverview";
 import { useFetchClassByIdMutation } from "./classService";
 import { updateClass } from "./classSlice";
 import LeaderboardStudents from "./LeaderboardStudents";
-
+import { Box, Typography, Button, IconButton, Paper } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit"
 function TeacherClassHome() {
   const dispatch = useDispatch();
   const { classId } = useParams();
@@ -118,12 +119,12 @@ function TeacherClassHome() {
         <h1 className="text-4xl font-bold mb-4 text-gray-900">
           {selectedClass.className}
         </h1>
-        <button
+        <Button
           onClick={() => navigate(`/${classId}/class/class-edit`)}
           className="text-blue-600 hover:text-blue-800 font-semibold mb-4"
         >
           Edit Class
-        </button>
+        </Button>
         <p className="text-lg text-gray-700 mb-6">
           Invite Code:{" "}
           <span className="font-semibold text-gray-900">
@@ -140,9 +141,7 @@ function TeacherClassHome() {
 
         {/* Leaderboard Section */}
         <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200 mt-6">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-800">
-            Students
-          </h2>
+        
           <LeaderboardStudents students={students} classId={classId} />
         </div>
       </div>

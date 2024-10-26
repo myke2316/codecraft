@@ -3,6 +3,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   Box,
   Typography,
+  Divider,
+  Button,
+  Grid,
+  Card,
+  CardContent,
+  CardMedia,
+  Container,
+  CircularProgress,
+  Alert,
+  AccordionDetails,
+  AccordionSummary,
+  Accordion,
+  useMediaQuery,
   Table,
   TableBody,
   TableCell,
@@ -12,40 +25,36 @@ import {
   Paper,
   IconButton,
   Tooltip,
-  Card,
-  CardContent,
-  Divider,
-  Grid,
-  Container,
-  CardMedia,
-  MenuItem,
   FormControl,
   InputLabel,
   Select,
+  MenuItem,
   Pagination,
-  ButtonGroup,
-  Button,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit"; // Import EditIcon
-import { useFetchAssignmentByIdMutation } from "./assignmentService";
-import { useGetAssignmentByAssignmentIdQuery } from "../Class/submissionAssignmentService";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import {
+  ArrowBack,
+  Edit as EditIcon,
+  Visibility as VisibilityIcon,
+  ExpandMore,
+} from "@mui/icons-material";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import { BACKEND_URL, BASE_URLS } from "../../constants";
+import { useFetchAssignmentByIdMutation } from "./assignmentService";
+import { useGetAssignmentByAssignmentIdQuery } from "../Class/submissionAssignmentService";
+import { useTheme } from "@emotion/react";
 
 function TeacherViewAssignment() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const { assignmentId, classId } = useParams();
   const [submissions, setSubmissions] = useState([]);
   const [selectedAssignment, setSelectedAssignment] = useState(null);
-  const [sortDirection, setSortDirection] = useState("desc"); // Default sorting by descending date
+  const [sortDirection, setSortDirection] = useState("desc");
   const [filterStatus, setFilterStatus] = useState("");
   const [page, setPage] = useState(1);
   const submissionsPerPage = 7;
   const navigate = useNavigate();
-  function handleViewSubmission(submissionId, studentId) {
-    navigate(`submission/${submissionId}/student/${studentId}`);
-  }
 
   const [
     fetchAssignmentById,
@@ -55,20 +64,17 @@ function TeacherViewAssignment() {
       error: assignmentFetchError,
     },
   ] = useFetchAssignmentByIdMutation();
-
   const {
     data: submissionsData,
     isLoading: submissionsLoading,
     isError: submissionsError,
   } = useGetAssignmentByAssignmentIdQuery(assignmentId);
-  // console.log(submissionsData);
+
   useEffect(() => {
     if (assignmentId) {
       fetchAssignmentById(assignmentId)
         .unwrap()
-        .then((data) => {
-          setSelectedAssignment(data);
-        })
+        .then((data) => setSelectedAssignment(data))
         .catch((err) => console.error("Error fetching submissions:", err));
     }
   }, [assignmentId, fetchAssignmentById]);
@@ -79,10 +85,13 @@ function TeacherViewAssignment() {
     }
   }, [submissionsData]);
 
+  const handleViewSubmission = (submissionId, studentId) => {
+    navigate(`submission/${submissionId}/student/${studentId}`);
+  };
+
   const handleSortChange = (event) => {
     const direction = event.target.value;
     setSortDirection(direction);
-
     const sortedSubmissions = [...submissions].sort((a, b) => {
       const dateA = new Date(a.submittedAt);
       const dateB = new Date(b.submittedAt);
@@ -94,9 +103,7 @@ function TeacherViewAssignment() {
   const handleFilterChange = (event) => {
     const status = event.target.value;
     setFilterStatus(status);
-
     let filteredSubmissions = submissionsData?.submissions || [];
-
     if (status) {
       filteredSubmissions = filteredSubmissions.filter(
         (submission) =>
@@ -104,9 +111,8 @@ function TeacherViewAssignment() {
           (status === "pending" && !submission.graded)
       );
     }
-
     setSubmissions(filteredSubmissions);
-    setPage(1); // Reset to the first page when applying filters
+    setPage(1);
   };
 
   const handlePageChange = (event, value) => {
@@ -115,136 +121,202 @@ function TeacherViewAssignment() {
 
   if (assignmentLoading || submissionsLoading) {
     return (
-      <Typography variant="h6">
-        Loading assignment details and submissions...
-      </Typography>
+      <Box className="flex items-center justify-center h-screen">
+        <CircularProgress />
+      </Box>
     );
   }
 
   if (assignmentError || submissionsError) {
     return (
-      <Typography variant="h6" color="error">
+      <Alert severity="error" className="m-4">
         Error fetching assignment details:{" "}
         {assignmentFetchError?.data?.message || "Unknown error"}
-      </Typography>
+      </Alert>
     );
   }
 
-  // Pagination logic
   const paginatedSubmissions = submissions.slice(
     (page - 1) * submissionsPerPage,
     page * submissionsPerPage
   );
 
-  return (
-    <Container maxWidth="lg" sx={{ mt: 2, mb: 2 }}>
+  return selectedAssignment ? (
+    <Container maxWidth="xxl" className="mt-8 mb-8">
+      <Button
+        startIcon={<ArrowBack />}
+        onClick={() => navigate(-1)}
+        sx={{
+          color: "gray", // Lighter color for a subtle look
+          textTransform: "none", // Remove uppercase to make it less prominent
+          fontSize: "0.875rem", // Smaller font size
+          padding: "4px 8px", // Compact padding
+          minWidth: "unset", // Remove minimum width to keep it small
+          "&:hover": {
+            backgroundColor: "rgba(0, 0, 0, 0.04)", // Light hover effect
+          },
+        }}
+      >
+        Back to Assignments
+      </Button>
       <Grid container spacing={4}>
-        {/* Left Side: Assignment Details */}
-      
-        <Grid item xs={12} md={6}>
-       
-          {selectedAssignment && (
-            <Card variant="outlined" sx={{ p: 3 }}> <Button onClick={() => navigate(-1)}>Back</Button>
-              <CardContent>
-                <Typography variant="h4" gutterBottom>
-                  {selectedAssignment.title}
-                </Typography>
-                <Divider sx={{ my: 2 }} />
-                <Typography variant="subtitle1" gutterBottom>
-                  <strong>Description:</strong>
-                </Typography>
-                <Typography variant="body1" paragraph>
-                  {selectedAssignment.description}
-                </Typography>
-                <Divider sx={{ my: 2 }} />
-                <Typography variant="subtitle1" gutterBottom>
-                  <strong>Instructions:</strong>
-                </Typography>
-                <Typography variant="body1" paragraph>
-                  {selectedAssignment.instructions}
-                </Typography>
-                <Divider sx={{ my: 2 }} />
-                <Typography variant="subtitle1" gutterBottom>
-                  <strong>Due Date:</strong>{" "}
-                  {new Date(selectedAssignment.dueDate).toLocaleDateString()}
-                </Typography>
-                <Typography variant="subtitle1">
-                  <strong>Created At:</strong>{" "}
-                  {new Date(selectedAssignment.createdAt).toLocaleDateString()}
-                </Typography>
-              </CardContent>
+      <Grid item xs={12} md={6}>
+  <Card variant="outlined" className="p-6">
+    <Typography
+      variant="h4"
+      gutterBottom
+      className="font-bold text-primary"
+      sx={{ fontSize: { xs: '1.5rem', md: '2.125rem' } }} // Font size adjusts for smaller screens
+    >
+      {selectedAssignment.title}
+    </Typography>
+    <Divider className="my-4" />
+    <Accordion>
+      <AccordionSummary expandIcon={<ExpandMore />}>
+        <Typography
+          variant="h6"
+          className="font-semibold"
+          sx={{ fontSize: { xs: '1rem', md: '1.25rem' } }} // Adjust for smaller screens
+        >
+          Description
+        </Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Typography
+          variant="body1"
+          className="text-gray-700"
+          sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}
+        >
+          {selectedAssignment.description}
+        </Typography>
+      </AccordionDetails>
+    </Accordion>
+    <Accordion>
+      <AccordionSummary expandIcon={<ExpandMore />}>
+        <Typography
+          variant="h6"
+          className="font-semibold"
+          sx={{ fontSize: { xs: '1rem', md: '1.25rem' } }}
+        >
+          Instructions
+        </Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Typography
+          variant="body1"
+          className="text-gray-700"
+          sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}
+        >
+          {selectedAssignment.instructions}
+        </Typography>
+      </AccordionDetails>
+    </Accordion>
+    <Box
+      className="flex justify-between items-center bg-gray-100 p-4 rounded-lg mt-4"
+      sx={{
+        flexDirection: { xs: 'column', sm: 'row' }, // Stack on smaller screens
+        textAlign: { xs: 'center', sm: 'left' },
+        gap: { xs: '8px', sm: '0' }
+      }}
+    >
+      <Typography
+        variant="subtitle1"
+        className="font-semibold"
+        sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}
+      >
+        Due Date: {new Date(selectedAssignment.dueDate).toLocaleDateString()}
+      </Typography>
+      <Typography
+        variant="subtitle1"
+        className="font-semibold"
+        sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}
+      >
+        Created: {new Date(selectedAssignment.createdAt).toLocaleDateString()}
+      </Typography>
+    </Box>
+  </Card>
+  {selectedAssignment.expectedOutputImage && (
+    <Card variant="outlined" className="mt-8 p-6">
+      <Typography
+        variant="h6"
+        gutterBottom
+        className="font-semibold"
+        sx={{ fontSize: { xs: '1rem', md: '1.25rem' } }}
+      >
+        Expected Output Image
+      </Typography>
+      <Zoom>
+        <CardMedia
+          component="img"
+          image={`${BACKEND_URL}/api/assignment/images/${selectedAssignment.expectedOutputImage}`}
+          alt="Expected Output"
+          className="rounded-lg max-w-full h-auto shadow-lg mt-4"
+        />
+      </Zoom>
+    </Card>
+  )}
+</Grid>
 
-              {selectedAssignment.expectedOutputImage && (
-                <CardContent>
-                  <Typography variant="subtitle1" gutterBottom>
-                    <strong>Expected Output Image:</strong>
-                  </Typography>
-                  <Zoom>
-                    <CardMedia
-                      component="img"
-                      image={`${BACKEND_URL}/api/assignment/images/${selectedAssignment.expectedOutputImage}`}
-                      alt="Expected Output"
-                      sx={{
-                        borderRadius: 2,
-                        maxWidth: "100%",
-                        maxHeight: 400,
-                        boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-                        mt: 2,
-                      }}
-                    />
-                  </Zoom>
-                </CardContent>
-              )}
-            </Card>
-          )}
-        </Grid>
-
-        {/* Right Side: Submissions Section */}
         <Grid item xs={12} md={6}>
-          <Box>
-            <Typography variant="h4" gutterBottom>
+          <Card variant="outlined" className="p-6">
+            <Typography variant="h5" gutterBottom className="font-semibold">
               Student Submissions
             </Typography>
-
-            {/* Sort and Filter Section */}
             <Box
-              sx={{ mb: 3, display: "flex", justifyContent: "space-between" }}
-            >
-              <Box>
-                <FormControl sx={{ minWidth: 160 }}>
-                  <InputLabel id="sort-label">Sort by Date</InputLabel>
-                  <Select
-                    labelId="sort-label"
-                    value={sortDirection}
-                    onChange={handleSortChange}
-                    label="Sort by Date"
-                  >
-                    <MenuItem value="asc">Oldest First</MenuItem>
-                    <MenuItem value="desc">Newest First</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-              <Box>
-                <FormControl sx={{ minWidth: 120 }}>
-                  <InputLabel>Status</InputLabel>
-                  <Select
-                    value={filterStatus}
-                    onChange={handleFilterChange}
-                    label="Status"
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value="graded">Graded</MenuItem>
-                    <MenuItem value="pending">Pending</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            </Box>
+  className="flex flex-col sm:flex-row justify-between items-center mb-4"
+  sx={{
+    gap: { xs: '12px', sm: '16px' }, // Add gap between items
+    alignItems: 'center', // Aligns the items vertically in smaller screens
+  }}
+>
+  <FormControl
+    className="w-full sm:w-auto"
+    sx={{
+      mb: { xs: '8px', sm: 0 }, // Adds margin at the bottom on small screens
+      width: { xs: '100%', sm: 'auto' }, // Full width on mobile, auto on larger
+    }}
+  >
+    <InputLabel id="sort-label">Sort by Date</InputLabel>
+    <Select
+      labelId="sort-label"
+      value={sortDirection}
+      onChange={handleSortChange}
+      label="Sort by Date"
+      sx={{
+        minWidth: { xs: '100%', sm: '200px' }, // Ensure Select has minimum width
+      }}
+    >
+      <MenuItem value="asc">Oldest First</MenuItem>
+      <MenuItem value="desc">Newest First</MenuItem>
+    </Select>
+  </FormControl>
 
+  <FormControl
+    className="w-full sm:w-auto"
+    sx={{
+      width: { xs: '100%', sm: 'auto' }, // Full width on mobile, auto on larger
+    }}
+  >
+    <InputLabel>Status</InputLabel>
+    <Select
+      value={filterStatus}
+      onChange={handleFilterChange}
+      label="Status"
+      sx={{
+        minWidth: { xs: '100%', sm: '200px' }, // Ensure Select has minimum width
+      }}
+    >
+      <MenuItem value="">
+        <em>None</em>
+      </MenuItem>
+      <MenuItem value="graded">Graded</MenuItem>
+      <MenuItem value="pending">Pending</MenuItem>
+    </Select>
+  </FormControl>
+</Box>
             {paginatedSubmissions.length > 0 ? (
               <>
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} className="mb-4">
                   <Table>
                     <TableHead>
                       <TableRow>
@@ -255,13 +327,7 @@ function TeacherViewAssignment() {
                           <strong>Submission Date</strong>
                         </TableCell>
                         <TableCell>
-                          <strong>Grade</strong>
-                        </TableCell>
-                        <TableCell>
                           <strong>Status</strong>
-                        </TableCell>
-                        <TableCell>
-                          <strong>Feedback</strong>
                         </TableCell>
                         <TableCell>
                           <strong>Actions</strong>
@@ -277,26 +343,31 @@ function TeacherViewAssignment() {
                               submission.submittedAt
                             ).toLocaleDateString()}
                           </TableCell>
-                          <TableCell>{submission.grade || "N/A"}</TableCell>
                           <TableCell>{submission.status}</TableCell>
                           <TableCell>
-                            {submission.feedback || "No feedback"}
+                            <Tooltip
+                              title={
+                                submission.graded
+                                  ? "Edit Submission"
+                                  : "View Submission"
+                              }
+                            >
+                              <IconButton
+                                onClick={() =>
+                                  handleViewSubmission(
+                                    submission._id,
+                                    submission.studentId._id
+                                  )
+                                }
+                              >
+                                {submission.graded ? (
+                                  <EditIcon />
+                                ) : (
+                                  <VisibilityIcon />
+                                )}
+                              </IconButton>
+                            </Tooltip>
                           </TableCell>
-                          <TableCell>
-  <Tooltip title={submission.graded ? "Edit Submission" : "View Submission"}>
-    <IconButton
-      component="a"
-      onClick={() =>
-        handleViewSubmission(submission._id, submission.studentId._id)
-      }
-      target="_blank"
-      rel="noopener noreferrer"
-      download
-    >
-      {submission.graded ? <EditIcon /> : <VisibilityIcon />}
-    </IconButton>
-  </Tooltip>
-</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
@@ -306,18 +377,22 @@ function TeacherViewAssignment() {
                   count={Math.ceil(submissions.length / submissionsPerPage)}
                   page={page}
                   onChange={handlePageChange}
-                  sx={{ mt: 3, display: "flex", justifyContent: "center" }}
+                  className="flex justify-center"
                 />
               </>
             ) : (
-              <Typography variant="h6" align="center" sx={{ mt: 3 }}>
+              <Typography variant="h6" align="center" className="mt-4">
                 No submissions available.
               </Typography>
             )}
-          </Box>
+          </Card>
         </Grid>
       </Grid>
     </Container>
+  ) : (
+    <Alert severity="warning" className="m-4">
+      Assignment not found
+    </Alert>
   );
 }
 

@@ -17,7 +17,7 @@ import {
   Tooltip,
   CircularProgress,
 } from "@mui/material";
-import { Refresh as RefreshIcon, School as SchoolIcon } from "@mui/icons-material";
+import { Refresh as RefreshIcon, School as SchoolIcon, ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 
 const generateInviteCode = () => {
   return Math.random().toString(36).substring(2, 10).toUpperCase();
@@ -55,7 +55,11 @@ const CreateClassForm = () => {
   return (
     <Box className="flex items-center justify-center min-h-screen bg-gray-100">
       <Paper elevation={3} className="p-8 w-full max-w-md mx-auto">
+    
         <Box className="flex items-center justify-center mb-6">
+        <IconButton onClick={() => navigate(-1)} aria-label="Go back">
+            <ArrowBackIcon />
+          </IconButton>
           <SchoolIcon className="text-primary mr-2" fontSize="large" />
           <Typography variant="h4" component="h1" className="text-primary font-bold">
             Create New Class
