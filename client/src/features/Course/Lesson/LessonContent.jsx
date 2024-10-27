@@ -41,10 +41,20 @@ const theme = createTheme({
 
 function LessonContent() {
   const { courseId, lessonId } = useParams();
+  const quizSubmissions = useSelector(
+    (state) => state.userQuizSubmission.quizSubmissions
+  );
+  const quizSubmission = quizSubmissions.courses.find(
+    (course) => course.courseId === courseId
+  );
+  const lessonSubmission = quizSubmission?.lessons.find((lesson) => lesson.lessonId === lessonId);
+ 
+  console.log(lessonSubmission)
   const courses = useSelector((state) => state.course.courseData);
   const userProgress = useSelector(
     (state) => state.studentProgress.userProgress
   );
+
   const navigate = useNavigate();
   const [expandedSections, setExpandedSections] = useState({
     documents: true,
@@ -83,7 +93,7 @@ function LessonContent() {
         <Typography variant="h6">Lesson progress not found</Typography>
       </Box>
     );
-  console.log(lessonProgress);
+
   const completedDocuments = lessonProgress.documentsProgress.filter(
     // (dp) => !dp.locked
     (dp) => dp.dateFinished !== null
@@ -107,6 +117,10 @@ function LessonContent() {
   const quizScore = quizProgress?.locked
     ? "Locked"
     : `${quizProgress?.pointsEarned} Points Earned`;
+
+
+  const quizAnswerCheck = lessonSubmission.quizzes.every(q => q.selectedOption !== null)
+  console.log(quizAnswerCheck)
 
   const handleClick = (id) => navigate(`document/${id}`);
   
@@ -354,7 +368,7 @@ function LessonContent() {
                     title={
                       quizProgress?.locked
                         ? "Locked"
-                        : quizProgress?.dateFinished !== null
+                        : quizAnswerCheck
                         ? "Finished"
                         : "In Progress"
                     } // Show full status on hover
@@ -362,7 +376,7 @@ function LessonContent() {
                     Status:{" "}
                     {quizProgress?.locked
                       ? "Locked"
-                      : quizProgress?.dateFinished !== null
+                      : quizAnswerCheck
                       ? "Finished"
                       : "In Progress"}
                   </Typography>
@@ -380,7 +394,7 @@ function LessonContent() {
                 >
                   {quizProgress?.locked
                     ? "Locked"
-                    : quizProgress?.dateFinished !== null
+                    : quizAnswerCheck
                     ? "Review Quiz"
                     : "Take Quiz"}
                 </Button>

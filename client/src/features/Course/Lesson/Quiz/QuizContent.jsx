@@ -52,7 +52,7 @@ const QuizContent = ({ quiz }) => {
   );
   const lesson = course?.lessons.find((lesson) => lesson.lessonId === lessonId);
   const quizzes = lesson?.quizzes || [];
-
+  
   useEffect(() => {
     const index = quiz.findIndex((q) => q._id === quizId);
     if (index !== -1) {
@@ -62,7 +62,7 @@ const QuizContent = ({ quiz }) => {
     }
   }, [quizId, quiz, answers]);
 
-  console.log(quizzes);
+
   // Check if all quizzes are answered
   useEffect(() => {
     if (quizzes.length > 0 && quizzes.every((q) => q.selectedOption)) {
@@ -98,15 +98,72 @@ const QuizContent = ({ quiz }) => {
 
   const [score, setScore] = useState(0); // New state for score
   
+  async function handleSubmit(finalAnswers) {
+    try {
+      // Update user progress only at the end of the quiz
+      const updateData = await updateUserProgress({
+        userId,
+        courseId,
+        lessonId,
+        quizId: quiz[currentQuestionIndex]._id,
+      }).unwrap();
+      dispatch(updateCourseProgress(updateData));
+
+      // Update analytics and quiz submissions for all questions
+      const analyticsData = {
+        coursesAnalytics: [{
+          courseId,
+          lessonsAnalytics: [{
+            lessonId,
+            quizzesAnalytics: finalAnswers.map((answer, index) => ({
+              quizId: quiz[index]._id,
+              timeSpent: timer, // This will be the total time for the entire quiz
+              pointsEarned: answer.selectedOption === answer.correctAnswer ? quiz[index].points : 0,
+            })),
+          }],
+        }],
+      };
+
+      const updateAnalyticsData = await updateUserAnalyticsMutation({
+        userId,
+        analyticsData,
+      }).unwrap();
+      dispatch(updateUserAnalytics(updateAnalyticsData));
+
+      // Update quiz submissions for all questions
+      finalAnswers.forEach((answer, index) => {
+        const correct = answer.selectedOption === answer.correctAnswer;
+        const thisScore = correct ? quiz[index].points : 0;
+        updateQuizSubmissionUtil(
+          dispatch,
+          updateUserQuizSubmission,
+          userId,
+          quiz[index]._id,
+          answer.selectedOption,
+          correct,
+          thisScore,
+          answer.correctAnswer
+        );
+      });
+
+      setStartTime(null);
+      setTimer(0);
+      setShowResults(true);
+      navigate(`/course/${courseId}/lesson/${lessonId}/quiz/results`);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
+
   async function handleNext() {
     const newAnswers = [...answers];
-
     newAnswers[currentQuestionIndex] = {
       question: currentQuestion.question,
       selectedOption,
       correctAnswer: currentQuestion.correctAnswer,
     };
-    
     setAnswers(newAnswers);
 
     if (selectedOption === currentQuestion.correctAnswer) {
@@ -114,140 +171,13 @@ const QuizContent = ({ quiz }) => {
     }
 
     if (currentQuestionIndex < quiz.length - 1) {
-      try {
-        // update progress
-        const updateData = await updateUserProgress({
-          userId,
-          courseId,
-          lessonId,
-          quizId: quiz[currentQuestionIndex + 1]._id,
-        }).unwrap();
-        dispatch(updateCourseProgress(updateData));
-
-        // update analytics
-        const updateAnalyticsData = await updateUserAnalyticsMutation({
-          userId,
-          analyticsData: {
-            coursesAnalytics: [
-              {
-                courseId,
-                lessonsAnalytics: [
-                  {
-                    lessonId,
-                    quizzesAnalytics: [
-                      {
-                        quizId: quiz[currentQuestionIndex]._id,
-                        timeSpent: timer,
-                        pointsEarned:
-                          selectedOption === currentQuestion.correctAnswer
-                            ? currentQuestion.points
-                            : 0,
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        }).unwrap();
-        dispatch(updateUserAnalytics(updateAnalyticsData));
-
-        // update quiz submissions
-        const correct =
-          selectedOption === currentQuestion.correctAnswer ? true : false;
-        const thisScore =
-          selectedOption === currentQuestion.correctAnswer
-            ? currentQuestion.points
-            : 0;
-
-        updateQuizSubmissionUtil(
-          dispatch,
-          updateUserQuizSubmission,
-          userId,
-          quizId,
-          selectedOption,
-          correct,
-          thisScore,
-          currentQuestion.correctAnswer
-        );
-
-        setStartTime(null);
-        setTimer(0);
-        navigate(
-          `/course/${courseId}/lesson/${lessonId}/quiz/${
-            quiz[currentQuestionIndex + 1]._id
-          }`
-        );
-
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-        setSelectedOption(
-          newAnswers[currentQuestionIndex + 1]?.selectedOption || null
-        );
-      } catch (error) {
-        console.error(error);
-      }
+      setStartTime(null);
+      setTimer(0);
+      navigate(`/course/${courseId}/lesson/${lessonId}/quiz/${quiz[currentQuestionIndex + 1]._id}`);
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setSelectedOption(newAnswers[currentQuestionIndex + 1]?.selectedOption || null);
     } else {
-      try {
-        const score = calculateScore();
-        const updateData = await updateUserProgress({
-          userId,
-          courseId,
-          lessonId,
-          quizId: quiz[currentQuestionIndex]._id,
-        }).unwrap();
-        dispatch(updateCourseProgress(updateData));
-
-        const correct =
-          selectedOption === currentQuestion.correctAnswer ? true : false;
-        const thisScore =
-          selectedOption === currentQuestion.correctAnswer
-            ? currentQuestion.points
-            : 0;
-        updateQuizSubmissionUtil(
-          dispatch,
-          updateUserQuizSubmission,
-          userId,
-          quizId,
-          selectedOption,
-          correct,
-          thisScore,
-          currentQuestion.correctAnswer
-        );
-
-        // update analytics
-        const updateAnalyticsData = await updateUserAnalyticsMutation({
-          userId,
-          analyticsData: {
-            coursesAnalytics: [
-              {
-                courseId,
-                lessonsAnalytics: [
-                  {
-                    lessonId,
-                    quizzesAnalytics: [
-                      {
-                        quizId: quiz[currentQuestionIndex]._id,
-                        timeSpent: timer,
-                        pointsEarned:
-                          selectedOption === currentQuestion.correctAnswer
-                            ? currentQuestion.points
-                            : 0,
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        }).unwrap();
-        dispatch(updateUserAnalytics(updateAnalyticsData));
-        setStartTime(null);
-        setTimer(0);
-        setShowResults(true);
-        navigate(`/course/${courseId}/lesson/${lessonId}/quiz/results`);
-      } catch (error) {
-        console.error(error);
-      }
+      await handleSubmit(newAnswers);
     }
   }
 

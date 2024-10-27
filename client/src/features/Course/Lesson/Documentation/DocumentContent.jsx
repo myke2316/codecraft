@@ -222,7 +222,7 @@ function DocumentContent() {
 
   const document = lesson.documents.find((doc) => doc._id === documentId);
   const quiz = lesson.quiz;
-
+  console.log(quiz)
   const [completeCourse, { isLoading: isLoadingCompleteCourse }] =
     useCompleteCourseMutation();
 
@@ -369,8 +369,9 @@ function DocumentContent() {
             `/course/${nextCourse._id}/lesson/${nextCourse.lessons[0]._id}`
           );
         } else {
+      
           // Update progress and analytics for the last document before redirecting to certification
-
+        
           if (!showCompletion) {
             try {
               const updateProgressData = await updateUserProgress({
@@ -569,16 +570,17 @@ function DocumentContent() {
   return (
     <StyledBox>
       {/* Title Section */}
-      <div className="bg-gradient-to-r from-indigo-400 to-purple-600 shadow-2xl rounded-lg p-8 mb-6 text-center m-4">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-white mb-4 tracking-wide">
-            {lesson.title}
-          </h1>
-          <h2 className="text-2xl font-medium text-gray-200">
-            {document ? document.title : "Quiz"}
-          </h2>
-        </div>
-      </div>
+      <div className="bg-gradient-to-r from-indigo-400 to-purple-600 shadow-2xl rounded-lg p-6 mb-4 text-center m-4">
+  <div className="max-w-3xl mx-auto">
+    <h1 className="text-2xl md:text-4xl font-bold text-white mb-3 tracking-wide">
+      {lesson.title}
+    </h1>
+    <h2 className="text-.5xl md:text-2xl font-medium text-gray-200">
+      {document ? document.title : "Quiz"}
+    </h2>
+  </div>
+</div>
+
 
       {/* Main Content Section */}
       <ScrollableBox>

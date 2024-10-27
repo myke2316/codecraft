@@ -28,13 +28,14 @@ function DocumentComplete() {
   const quiz = lesson.quiz;
   const nextQuizIndex = lesson.quiz.indexOf(quiz) + 1;
   const nextQuiz = lesson.quiz[nextQuizIndex];
-
+    
   const handleNext = () => {
     if (nextDocument) {
       navigate(
         `/course/${courseId}/lesson/${lessonId}/document/${nextDocument._id}`
       );
     } else if (nextQuizIndex < lesson.quiz.length) {
+      
       navigate(`/course/${courseId}/lesson/${lessonId}/quiz/${nextQuiz._id}`);
     }
   };
