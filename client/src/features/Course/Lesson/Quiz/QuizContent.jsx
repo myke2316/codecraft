@@ -62,12 +62,13 @@ const QuizContent = ({ quiz }) => {
     }
   }, [quizId, quiz, answers]);
 
-  console.log(quizzes)
+  console.log(quizzes);
   // Check if all quizzes are answered
   useEffect(() => {
     if (quizzes.length > 0 && quizzes.every((q) => q.selectedOption)) {
       navigate(`/course/${courseId}/lesson/${lessonId}/quiz/results`);
     }
+    console.log(quizzes)
   }, [quizzes, navigate, courseId, lessonId]);
 
   // Timer logic
@@ -96,14 +97,16 @@ const QuizContent = ({ quiz }) => {
   );
 
   const [score, setScore] = useState(0); // New state for score
-
+  
   async function handleNext() {
     const newAnswers = [...answers];
+
     newAnswers[currentQuestionIndex] = {
       question: currentQuestion.question,
       selectedOption,
       correctAnswer: currentQuestion.correctAnswer,
     };
+    
     setAnswers(newAnswers);
 
     if (selectedOption === currentQuestion.correctAnswer) {
@@ -286,7 +289,7 @@ const QuizContent = ({ quiz }) => {
       }}
     >
       {/* Progress Bar */}
-   
+      
       <div className="progress-bar">
         <div style={{ width: progressBarWidth }} />
       </div>
@@ -336,8 +339,6 @@ const QuizContent = ({ quiz }) => {
         </Button>
       </Box>
     </Box>
-
-   
   );
 };
 

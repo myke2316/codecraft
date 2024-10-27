@@ -10,11 +10,7 @@ import {
 } from "@mui/material";
 import { keyframes } from "@mui/system";
 import { useSelector } from "react-redux";
-import {
-  Person,
-  EmojiEvents,
-  TrendingUp,
-} from "@mui/icons-material";
+import { Person, EmojiEvents, TrendingUp } from "@mui/icons-material";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -61,7 +57,8 @@ const calculateLessonProgress = (lesson, lessonProgress) => {
   ).length;
 
   const totalItems = totalDocuments + totalQuizzes + totalActivities;
-  const completedItems = completedDocuments + completedQuizzes + completedActivities;
+  const completedItems =
+    completedDocuments + completedQuizzes + completedActivities;
 
   return totalItems === 0 ? 0 : (completedItems / totalItems) * 100;
 };
@@ -90,9 +87,13 @@ const PlayerDashboard = ({ totalPoints }) => {
   const [animatedPoints, setAnimatedPoints] = useState(0);
   const [previousLevel, setPreviousLevel] = useState(1);
   const [progress, setProgress] = useState(0);
-  const userProgress = useSelector((state) => state.studentProgress.userProgress);
+  const userProgress = useSelector(
+    (state) => state.studentProgress.userProgress
+  );
   const courses = useSelector((state) => state.course.courseData);
-  const badges = useSelector((state) => state.userAnalytics.userAnalytics.badges);
+  const badges = useSelector(
+    (state) => state.userAnalytics.userAnalytics.badges
+  );
 
   const calculateLevel = (points) => {
     let level = 1;
@@ -109,7 +110,8 @@ const PlayerDashboard = ({ totalPoints }) => {
     };
   };
 
-  const { level, pointsToNextLevel, pointsRequired } = calculateLevel(totalPoints);
+  const { level, pointsToNextLevel, pointsRequired } =
+    calculateLevel(totalPoints);
   const animationDuration = totalPoints * 30;
 
   useEffect(() => {
@@ -126,7 +128,8 @@ const PlayerDashboard = ({ totalPoints }) => {
   }, [totalPoints, animationDuration]);
 
   useEffect(() => {
-    const targetProgress = ((pointsRequired - pointsToNextLevel) / pointsRequired) * 100;
+    const targetProgress =
+      ((pointsRequired - pointsToNextLevel) / pointsRequired) * 100;
     setProgress(targetProgress);
   }, [pointsToNextLevel, pointsRequired]);
 
@@ -154,7 +157,9 @@ const PlayerDashboard = ({ totalPoints }) => {
 
   const uniqueBadgesWithIcons = badges.reduce((acc, badge) => {
     if (!acc.some((b) => b.name === badge.name)) {
-      const matchingBadge = achievementBadges.find((ach) => ach.name === badge.name);
+      const matchingBadge = achievementBadges.find(
+        (ach) => ach.name === badge.name
+      );
       const badgeWithIcon = {
         ...badge,
         icon: matchingBadge ? matchingBadge.icon : "🏅",
@@ -214,7 +219,15 @@ const PlayerDashboard = ({ totalPoints }) => {
               variant="h4"
               className="font-bold"
               sx={{
-                animation: previousLevel !== level ? `${scaleUp} 0.6s ease-in-out` : "none",
+                animation:
+                  previousLevel !== level
+                    ? `${scaleUp} 0.6s ease-in-out`
+                    : "none",
+                fontSize: {
+                  xs: ".75rem", // For extra small screens
+                  sm: "1.75rem", // For small screens
+                  md: "2rem", // For medium screens
+                },
               }}
             >
               {username}
@@ -269,69 +282,88 @@ const PlayerDashboard = ({ totalPoints }) => {
         <Box className="mt-4">
           <Grid container spacing={2}>
             {userProgress.coursesProgress &&
-              userProgress.coursesProgress.slice(0, 4).map((courseProgress, index) => {
-                const courseTitle = getCourseTitle(courseProgress.courseId, courses);
-                const course = courses.find((c) => c._id === courseProgress.courseId);
+              userProgress.coursesProgress
+                .slice(0, 4)
+                .map((courseProgress, index) => {
+                  const courseTitle = getCourseTitle(
+                    courseProgress.courseId,
+                    courses
+                  );
+                  const course = courses.find(
+                    (c) => c._id === courseProgress.courseId
+                  );
 
-                if (!course) {
-                  return null;
-                }
+                  if (!course) {
+                    return null;
+                  }
 
-                const progressPercentage = calculateCourseProgress(
-                  course.lessons,
-                  courseProgress.lessonsProgress
-                );
+                  const progressPercentage = calculateCourseProgress(
+                    course.lessons,
+                    courseProgress.lessonsProgress
+                  );
 
-                return (
-                  <Grid item xs={12} sm={6} md={3} key={index}>
-                    <Box
-                      sx={{
-                        backgroundColor: "rgba(255, 255, 255, 0.1)",
-                        borderRadius: 2,
-                        padding: 2,
-                        transition: "transform 0.3s ease-in-out",
-                        "&:hover": {
-                          transform: "scale(1.05)",
-                        },
-                      }}
-                    >
-                      <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-                        {course.title === "HTML" ? (
-                          <SiHtml5 style={{ marginRight: 8, color: "white" }} />
-                        ) : course.title === "CSS" ? (
-                          <SiCss3 style={{ marginRight: 8, color: "white" }} />
-                        ) : course.title === "JavaScript" ? (
-                          <SiJavascript style={{ marginRight: 8, color: "white" }} />
-                        ) : (
-                          <SiPhp style={{ marginRight: 8, color: "white" }} />
-                        )}
-                        <Typography variant="subtitle2" fontWeight="bold" noWrap>
-                          {courseTitle}
-                        </Typography>
-                      </Box>
-                      <LinearProgress
-                        variant="determinate"
-                        value={progressPercentage}
+                  return (
+                    <Grid item xs={12} sm={6} md={3} key={index}>
+                      <Box
                         sx={{
-                          height: 6,
-                          borderRadius: 3,
-                          backgroundColor: "rgba(255, 255, 255, 0.3)",
-                          "& .MuiLinearProgress-bar": {
-                            borderRadius: 3,
-                            backgroundColor: "white",
+                          backgroundColor: "rgba(255, 255, 255, 0.1)",
+                          borderRadius: 2,
+                          padding: 2,
+                          transition: "transform 0.3s ease-in-out",
+                          "&:hover": {
+                            transform: "scale(1.05)",
                           },
                         }}
-                      />
-                      <Typography
-                        variant="caption"
-                        sx={{ mt: 0.5, display: "block", textAlign: "right" }}
                       >
-                        {Math.round(progressPercentage)}%
-                      </Typography>
-                    </Box>
-                  </Grid>
-                );
-              })}
+                        <Box
+                          sx={{ display: "flex", alignItems: "center", mb: 1 }}
+                        >
+                          {course.title === "HTML" ? (
+                            <SiHtml5
+                              style={{ marginRight: 8, color: "white" }}
+                            />
+                          ) : course.title === "CSS" ? (
+                            <SiCss3
+                              style={{ marginRight: 8, color: "white" }}
+                            />
+                          ) : course.title === "JavaScript" ? (
+                            <SiJavascript
+                              style={{ marginRight: 8, color: "white" }}
+                            />
+                          ) : (
+                            <SiPhp style={{ marginRight: 8, color: "white" }} />
+                          )}
+                          <Typography
+                            variant="subtitle2"
+                            fontWeight="bold"
+                            noWrap
+                          >
+                            {courseTitle}
+                          </Typography>
+                        </Box>
+                        <LinearProgress
+                          variant="determinate"
+                          value={progressPercentage}
+                          sx={{
+                            height: 6,
+                            borderRadius: 3,
+                            backgroundColor: "rgba(255, 255, 255, 0.3)",
+                            "& .MuiLinearProgress-bar": {
+                              borderRadius: 3,
+                              backgroundColor: "white",
+                            },
+                          }}
+                        />
+                        <Typography
+                          variant="caption"
+                          sx={{ mt: 0.5, display: "block", textAlign: "right" }}
+                        >
+                          {Math.round(progressPercentage)}%
+                        </Typography>
+                      </Box>
+                    </Grid>
+                  );
+                })}
           </Grid>
         </Box>
 
@@ -341,7 +373,7 @@ const PlayerDashboard = ({ totalPoints }) => {
               Achievements
             </Typography>
             {uniqueBadgesWithIcons.length === 1 ? (
-              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
                 <Box sx={{ textAlign: "center", px: 1 }}>
                   <Paper
                     elevation={3}
@@ -385,7 +417,7 @@ const PlayerDashboard = ({ totalPoints }) => {
                         justifyContent: "center",
                         width: 80,
                         height: 80,
-                        
+
                         borderRadius: "50%",
                         backgroundColor: "rgba(255, 255, 255, 0.1)",
                         transition: "transform 0.3s ease-in-out",

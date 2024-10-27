@@ -369,9 +369,8 @@ function DocumentContent() {
             `/course/${nextCourse._id}/lesson/${nextCourse.lessons[0]._id}`
           );
         } else {
-      
           // Update progress and analytics for the last document before redirecting to certification
-        
+
           if (!showCompletion) {
             try {
               const updateProgressData = await updateUserProgress({

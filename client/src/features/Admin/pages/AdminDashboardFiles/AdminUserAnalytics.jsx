@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { 
   Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, 
   TableSortLabel, TablePagination, Paper, MenuItem, Select, InputLabel, FormControl,
@@ -8,7 +8,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import { formatTime } from '../../../../utils/formatTime';
 import { useGetScoreByStudentIdQuery } from '../../../Class/submissionAssignmentService';
 import { useGetUserVoteQuery } from '../../../QnA/questionService';
-
 const AdminUserAnalytics = ({ userAnalytics, users }) => {
   const [sortDirection, setSortDirection] = useState('desc');
   const [orderBy, setOrderBy] = useState('totalPointsEarned'); 
@@ -36,48 +35,41 @@ const AdminUserAnalytics = ({ userAnalytics, users }) => {
     return acc;
   }, {});
 
-  const enhancedUserAnalytics = userAnalytics.map(user => {
-    const { data: scoresData } = useGetScoreByStudentIdQuery(user.userId);
-    const { data: userVote } = useGetUserVoteQuery({ userId: user.userId });
+  const getUserAnalyticsData = () => {
+    const uniqueUsers = new Map();
 
-    // Ensure scoresData and userVote are defined before accessing their properties
-    const qnaPoints = (userVote?.totalVotes || 0) * 5; // Default to 0 if undefined
-    const submissionPoints = (scoresData?.scores?.reduce((acc, score) => acc + (score.grade || 0), 0) || 0); // Safe access with default
+    userAnalytics.forEach(user => {
+      const { data: scoresData } = useGetScoreByStudentIdQuery(user.userId);
+      const { data: userVote } = useGetUserVoteQuery({ userId: user.userId });
 
-    const combinedScore = qnaPoints + submissionPoints;
+      const qnaPoints = (userVote?.totalVotes || 0) * 5;
+      const submissionPoints = (scoresData?.scores?.reduce((acc, score) => acc + (score.grade || 0), 0) || 0);
+      const combinedScore = qnaPoints + submissionPoints;
 
-    return {
-      ...user,
-      qnaPoints,
-      submissionPoints,
-      combinedScore
-    };
-  });
+      if (!uniqueUsers.has(user.userId)) {
+        uniqueUsers.set(user.userId, {
+          ...user,
+          username: userMap[user.userId],
+          qnaPoints,
+          submissionPoints,
+          combinedScore
+        });
+      }
+    });
 
-  const filteredAndSortedData = useMemo(() => {
-    return [...enhancedUserAnalytics]
-      .filter(user => userMap[user.userId]?.toLowerCase().includes(searchTerm.toLowerCase()))
+    return Array.from(uniqueUsers.values())
+      .filter(user => user.username?.toLowerCase().includes(searchTerm.toLowerCase()))
       .sort((a, b) => {
-        let aValue, bValue;
-
-        // Safely access totalPointsEarned and combinedScore
         const aTotal = (a.totalPointsEarned || 0) + (a.combinedScore || 0);
         const bTotal = (b.totalPointsEarned || 0) + (b.combinedScore || 0);
 
-        aValue = (orderBy === 'totalPointsEarned' || orderBy === 'combinedScore') ? aTotal : a[orderBy];
-        bValue = (orderBy === 'totalPointsEarned' || orderBy === 'combinedScore') ? bTotal : b[orderBy];
-
-        if (aValue < bValue) {
-          return sortDirection === 'asc' ? -1 : 1;
-        }
-        if (aValue > bValue) {
-          return sortDirection === 'asc' ? 1 : -1;
-        }
+        if (aTotal < bTotal) return sortDirection === 'asc' ? -1 : 1;
+        if (aTotal > bTotal) return sortDirection === 'asc' ? 1 : -1;
         return 0;
       });
-  }, [enhancedUserAnalytics, userMap, searchTerm, orderBy, sortDirection]);
+  };
 
-  const paginatedData = filteredAndSortedData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  const paginatedData = getUserAnalyticsData().slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
     <Card elevation={3} className="overflow-hidden">
@@ -161,8 +153,8 @@ const AdminUserAnalytics = ({ userAnalytics, users }) => {
             </TableHead>
             <TableBody>
               {paginatedData.map((user) => (
-                <TableRow key={user.userId} hover>
-                  <TableCell>{userMap[user.userId]}</TableCell>
+                <TableRow key={user.userId || `${user.userId}-${Math.random()}`} hover>
+                  <TableCell>{user.username}</TableCell>
                   <TableCell>{user.userId}</TableCell>
                   <TableCell align="right">{(user.totalPointsEarned || 0) + (user.combinedScore || 0)}</TableCell>
                   <TableCell align="right">{formatTime(user.totalTimeSpent || 0)}</TableCell>
@@ -173,9 +165,9 @@ const AdminUserAnalytics = ({ userAnalytics, users }) => {
         </TableContainer>
         <Box className="mt-4">
           <TablePagination
-            rowsPerPageOptions={[5, 25]}
+            rowsPerPageOptions={[5, 10,25]}
             component="div"
-            count={filteredAndSortedData.length}
+            count={getUserAnalyticsData().length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

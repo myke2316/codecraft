@@ -55,11 +55,24 @@ const calculateCourseProgress = (lessons, lessonsProgress) => {
 const calculateLessonProgress = (lesson, lessonProgress) => {
   if (!lesson || !lessonProgress) return 0;
 
-  const totalItems = lesson.documents.length + lesson.quiz.length + lesson.activities.length;
-  const completedItems = 
-    lesson.documents.filter(doc => lessonProgress.documentsProgress.some(dp => dp.documentId === doc._id && !dp.locked)).length +
-    lesson.quiz.filter(quiz => lessonProgress.quizzesProgress.some(qp => qp.quizId.includes(quiz._id) && !qp.locked)).length +
-    lesson.activities.filter(activity => lessonProgress.activitiesProgress.some(ap => ap.activityId === activity._id && !ap.locked)).length;
+  const totalItems =
+    lesson.documents.length + lesson.quiz.length + lesson.activities.length;
+  const completedItems =
+    lesson.documents.filter((doc) =>
+      lessonProgress.documentsProgress.some(
+        (dp) => dp.documentId === doc._id && !dp.locked
+      )
+    ).length +
+    lesson.quiz.filter((quiz) =>
+      lessonProgress.quizzesProgress.some(
+        (qp) => qp.quizId.includes(quiz._id) && !qp.locked
+      )
+    ).length +
+    lesson.activities.filter((activity) =>
+      lessonProgress.activitiesProgress.some(
+        (ap) => ap.activityId === activity._id && !ap.locked
+      )
+    ).length;
 
   return totalItems === 0 ? 0 : (completedItems / totalItems) * 100;
 };
@@ -71,8 +84,8 @@ const TeacherPlayerDashboard = ({
   badges,
 }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
 
   const username = userInfo?.username || "Student";
   const [animatedPoints, setAnimatedPoints] = useState(0);
@@ -159,7 +172,11 @@ const TeacherPlayerDashboard = ({
     dots: false,
     infinite: uniqueBadgesWithIcons.length > 1,
     speed: 500,
-    slidesToShow: isMobile ? 1 : isTablet ? 2 : Math.min(4, uniqueBadgesWithIcons.length),
+    slidesToShow: isMobile
+      ? 1
+      : isTablet
+      ? 2
+      : Math.min(4, uniqueBadgesWithIcons.length),
     slidesToScroll: 1,
     arrows: uniqueBadgesWithIcons.length > 1,
   };
@@ -184,17 +201,25 @@ const TeacherPlayerDashboard = ({
           <Box className="md:ml-4 flex-grow text-center md:text-left">
             <Typography
               variant="h4"
-              className="font-bold text-2xl md:text-4xl"
+              className="font-bold"
               sx={{
                 animation:
                   previousLevel !== level
                     ? `${scaleUp} 0.6s ease-in-out`
                     : "none",
+                fontSize: {
+                  xs: ".75rem", // For extra small screens
+                  sm: "1.75rem", // For small screens
+                  md: "2rem", // For medium screens
+                },
               }}
             >
               {username}
             </Typography>
-            <Typography variant="h6" className="text-blue-200 text-lg md:text-xl">
+            <Typography
+              variant="h6"
+              className="text-blue-200 text-lg md:text-xl"
+            >
               Level {level}
             </Typography>
           </Box>

@@ -31,99 +31,118 @@ const ActivityList = () => {
         backgroundColor: '#f4f6f9', // Light background for the whole section
       }}
     >
-      <Paper
-        elevation={8}
-        sx={{
-          padding: '30px',
-          width: '100%',
-          maxWidth: '800px',
-          borderRadius: 3,
-          textAlign: 'center', // Center the text within the card
-        }}
-      >
-        {/* Lesson Title */}
-        <Typography variant="h5" sx={{ marginBottom: '30px', fontWeight: 'bold', color: '#1a237e' }}>
-          Activities for {selectedLesson?.title}
-        </Typography>
-        <Divider sx={{ marginBottom: '20px' }} />
+    <Paper
+  elevation={8}
+  sx={{
+    padding: { xs: '20px', sm: '30px' },
+    width: '100%',
+    maxWidth: '800px',
+    borderRadius: 3,
+    textAlign: 'center',
+  }}
+>
+  {/* Lesson Title */}
+  <Typography
+    variant="h5"
+    sx={{
+      marginBottom: { xs: '20px', sm: '30px' },
+      fontWeight: 'bold',
+      color: '#1a237e',
+      fontSize: { xs: '1.5rem', sm: '1.75rem' },
+    }}
+  >
+    Activities for {selectedLesson?.title}
+  </Typography>
+  <Divider sx={{ marginBottom: '20px' }} />
 
-        {/* Activities List */}
-        <List sx={{ padding: 0 }}>
-          {selectedLesson?.activities.map(activity => {
-            const activityProgress = lessonProgress?.activitiesProgress.find(ap => ap.activityId === activity._id);
-            const isLocked = activityProgress?.locked;
-            const dateFinished = activityProgress?.dateFinished;
+  {/* Activities List */}
+  <List sx={{ padding: 0 }}>
+    {selectedLesson?.activities.map((activity) => {
+      const activityProgress = lessonProgress?.activitiesProgress.find(
+        (ap) => ap.activityId === activity._id
+      );
+      const isLocked = activityProgress?.locked;
+      const dateFinished = activityProgress?.dateFinished;
 
-            const activityStatusIcon = () => {
-              if (isLocked) {
-                return (
-                  <Chip
-                    icon={<LockIcon />}
-                    label="Locked"
-                    sx={{ color: '#721c24', bgcolor: '#f8d7da', fontSize: '0.875rem' }}
-                  />
-                );
-              } else if (dateFinished) {
-                return (
-                  <Chip
-                    icon={<CheckCircleIcon sx={{ color: 'green' }} />}
-                    label="Completed"
-                    sx={{ fontSize: '0.875rem', color: 'green' }}
-                  />
-                );
-              } else {
-                return (
-                  <Chip
-                    icon={<HourglassEmptyIcon sx={{ color: '#ff9800' }} />}
-                    label="In Progress"
-                    sx={{ fontSize: '0.875rem', color: '#ff9800' }}
-                  />
-                );
-              }
-            };
+      const activityStatusIcon = () => {
+        if (isLocked) {
+          return (
+            <Chip
+              icon={<LockIcon />}
+              label="Locked"
+              sx={{ color: '#721c24', bgcolor: '#f8d7da', fontSize: '0.875rem' }}
+            />
+          );
+        } else if (dateFinished) {
+          return (
+            <Chip
+              icon={<CheckCircleIcon sx={{ color: 'green' }} />}
+              label="Completed"
+              sx={{ fontSize: '0.875rem', color: 'green' }}
+            />
+          );
+        } else {
+          return (
+            <Chip
+              icon={<HourglassEmptyIcon sx={{ color: '#ff9800' }} />}
+              label="In Progress"
+              sx={{ fontSize: '0.875rem', color: '#ff9800' }}
+            />
+          );
+        }
+      };
 
-            return (
-              <Link
-                to={isLocked ? '#' : `/course/${courseId}/lesson/${lessonId}/activity/${activity._id}`}
-                key={activity._id}
-                style={{ textDecoration: 'none', color: 'inherit' }}
-              >
-                {/* Activity Item */}
-                <ListItem
-                  button
-                  disabled={isLocked}
-                  sx={{
-                    marginBottom: '15px',
-                    padding: '20px',
-                    borderRadius: '15px',
-                    backgroundColor: isLocked ? '#f8d7da' : '#e3f2fd',
-                    '&:hover': { backgroundColor: isLocked ? '#f8d7da' : '#bbdefb' },
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    boxShadow: isLocked ? 'none' : '0 4px 12px rgba(0,0,0,0.1)',
-                    transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
-                  }}
-                >
-                  {/* Activity Title */}
-                  <ListItemText
-                    primary={activity.title}
-                    sx={{
-                      color: isLocked ? '#a1a1a1' : '#0d47a1',
-                      fontWeight: isLocked ? 'normal' : 'bold',
-                      fontSize: '1.1rem',
-                    }}
-                  />
-                  {/* Activity Status Icon */}
-                  {activityStatusIcon()}
-                </ListItem>
-              </Link>
-            );
-          })}
-        </List>
+      return (
+        <Link
+          to={isLocked ? '#' : `/course/${courseId}/lesson/${lessonId}/activity/${activity._id}`}
+          key={activity._id}
+          style={{ textDecoration: 'none', color: 'inherit' }}
+        >
+          {/* Activity Item */}
+          <ListItem
+            button
+            disabled={isLocked}
+            sx={{
+              marginBottom: '15px',
+              padding: { xs: '15px', sm: '20px' },
+              borderRadius: '15px',
+              backgroundColor: isLocked
+                ? '#f8d7da'
+                : dateFinished
+                ? '#e0f7fa'
+                : '#e3f2fd',
+              '&:hover': { backgroundColor: isLocked ? '#f8d7da' : '#bbdefb' },
+              display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
+              justifyContent: 'space-between',
+              alignItems: { xs: 'flex-start', sm: 'center' },
+              boxShadow: isLocked ? 'none' : '0 4px 12px rgba(0,0,0,0.1)',
+              transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
+            }}
+          >
+            {/* Activity Title */}
+            <ListItemText
+              primary={activity.title}
+              sx={{
+                color: isLocked ? '#a1a1a1' : '#0d47a1',
+                fontWeight: isLocked ? 'normal' : 'bold',
+                fontSize: { xs: '1rem', sm: '1.1rem' },
+                mb: { xs: '8px', sm: 0 },
+              }}
+            />
+            {/* Activity Status Icon */}
+            <Box sx={{ alignSelf: { xs: 'flex-start', sm: 'center' } }}>
+              {activityStatusIcon()}
+            </Box>
+          </ListItem>
+        </Link>
+      );
+    })}
+  </List>
 
-        <Divider sx={{ marginTop: '20px' }} />
-      </Paper>
+  <Divider sx={{ marginTop: '20px' }} />
+</Paper>
+
     </Box>
   );
 };

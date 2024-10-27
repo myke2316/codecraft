@@ -209,24 +209,25 @@ const QuestionForm = ({ userId, onSubmitSuccess }) => {
           </div>
         </div>
       ))}
-      <div className="flex justify-between items-center mb-6">
-        <Button
-          variant="outlined"
-          color="primary"
-          startIcon={<AddCircleIcon />}
-          onClick={handleAddCodeBlock}
-        >
-          Add Code Block
-        </Button>
-        <Button 
-          variant="contained" 
-          color="primary" 
-          onClick={handleSubmit}
-          disabled={isLoadingCreateQuestion}
-        >
-          {isLoadingCreateQuestion ? "Submitting..." : "Submit Question"}
-        </Button>
-      </div>
+    <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
+      <Button
+        variant="outlined"
+        color="primary"
+        startIcon={<AddCircleIcon />}
+        onClick={handleAddCodeBlock}
+        className="mb-2 sm:mb-0"
+      >
+        Add Code Block
+      </Button>
+      <Button 
+        variant="contained" 
+        color="primary" 
+        onClick={handleSubmit}
+        disabled={isLoadingCreateQuestion}
+      >
+        {isLoadingCreateQuestion ? "Submitting..." : "Submit Question"}
+      </Button>
+    </div>
 
       <Snackbar
         open={openSnackbar}
