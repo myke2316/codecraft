@@ -11,9 +11,9 @@ import AnswerForm from "./AnswerForm";
 import { Button, CircularProgress, Typography, Box } from "@mui/material";
 import { Add as AddIcon, Refresh as RefreshIcon } from "@mui/icons-material";
 import { useDeleteQuestionMutation } from "../questionService";
-import {toast} from 'react-toastify'
+import { toast } from "react-toastify";
 const QuestionDetail = () => {
-  const { questionId,userId } = useParams();
+  const { questionId, userId } = useParams();
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
@@ -46,30 +46,39 @@ const QuestionDetail = () => {
   }, [fetchQuestionData]);
 
   const handleClickOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    // Reset form state when closing the form
+    setAnswerContent("");
+    setCodeBlocks([{ language: "html", content: "" }]);
+  };
 
-  const handleSubmitAnswer = async () => {
+  const handleSubmitAnswer = async (values, { resetForm }) => {
     try {
       await addAnswer({
         questionId,
-        content: answerContent,
-        codeBlocks,
+        content: values.answerContent,
+        codeBlocks: values.codeBlocks,
         authorId: userId,
       }).unwrap();
       handleClose();
-      fetchQuestionData(); // Refresh the question data after adding an answer
-      setAnswerContent("");
-      setCodeBlocks([{ language: "javascript", content: "" }]);
-      toast.success("Successfully added answer..")
+      fetchQuestionData();
+      resetForm();
+      toast.success("Successfully added answer.");
     } catch (error) {
       console.error("Failed to add answer:", error);
-      toast.error("Failed to add an answer..")
+      toast.error("Failed to add an answer.");
     }
   };
 
   if (isLoading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+      >
         <CircularProgress />
       </Box>
     );
@@ -77,27 +86,44 @@ const QuestionDetail = () => {
 
   if (error) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-        <Typography variant="h5" color="error">Error: {error}</Typography>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+      >
+        <Typography variant="h5" color="error">
+          Error: {error}
+        </Typography>
       </Box>
     );
   }
 
   if (!question) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+      >
         <Typography variant="h5">Question not found</Typography>
       </Box>
     );
   }
-  
+
   return (
     <Box className=" px-7 max-w-8xl mx-auto my-8">
       {/* <QuestionHeader question={question} currentUserId={userId}/> */}
-      <QuestionContent question={question} handleClickOpen={handleClickOpen} fetchQuestionData={fetchQuestionData} currentUserId={userId}/>
-      
+      <QuestionContent
+        question={question}
+        handleClickOpen={handleClickOpen}
+        fetchQuestionData={fetchQuestionData}
+        currentUserId={userId}
+      />
+
       <AnswerList
-      fetchQuestionData={fetchQuestionData}
+        fetchQuestionData={fetchQuestionData}
         answers={question.answers}
         currentUserId={userId}
         questionAuthorId={question.author._id}

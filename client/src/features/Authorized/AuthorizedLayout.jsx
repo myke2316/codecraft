@@ -88,8 +88,8 @@ function AuthorizedLayout() {
         >
           <Box>
             <Outlet />
-          </Box>
           <ToastContainer />
+          </Box>
         </Box>
       </Box>
     </ThemeProvider>

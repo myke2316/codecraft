@@ -179,11 +179,11 @@ function TeacherAnnouncement() {
       {/* Announcements Table */}
       <TableContainer component={Paper}>
         {announcements.length === 0 ? (
-          <Box sx={{ padding: 3, textAlign: "center" }}>
-            <Typography variant="h6" color="textSecondary">
+           <Paper elevation={3} sx={{ p: 4, textAlign: 'center', borderRadius: '15px' }}>
+           <Typography variant="h6" color="text.secondary">
               No announcements available.
             </Typography>
-          </Box>
+          </Paper>
         ) : (
           <Table>
             <TableHead>

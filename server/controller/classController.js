@@ -5,6 +5,8 @@ import UserProgressModel from "../models/studentCourseProgressModel.js";
 import ActivitySubmissionModel from "../models/activityModels/activitySubmissionModel.js";
 import QuizSubmissionModel from "../models/quizSubmissionModel.js";
 import UserAnalyticsModel from "../models/userAnalyticsModel.js";
+import Submission from "../models/teacherFunction/submissionModel.js";
+import CertificateModel from "../models/certificationModel.js";
 
 const fetchAllClass = asyncHandler(async (req, res) => {
   try {
@@ -48,7 +50,12 @@ const removeStudentFromClass = asyncHandler(async (req, res) => {
     await UserAnalyticsModel.deleteMany({
       userId: studentId,
     });
-
+    await Submission.deleteMany({
+      studentId: studentId,
+    });
+    await CertificateModel.deleteMany({
+      studentId: studentId,
+    });
     res
       .status(200)
       .json({ message: "Student removed from class", data: classData });
@@ -246,7 +253,6 @@ const fetchCompletedStudents = asyncHandler(async (req, res) => {
     throw new Error("Failed to fetch completed students");
   }
 });
-
 
 export {
   fetchCompletedStudents,

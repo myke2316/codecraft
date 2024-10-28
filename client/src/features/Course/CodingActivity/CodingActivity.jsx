@@ -169,7 +169,13 @@ const ActivityHeader = React.memo(
   }
 );
 
-const CodingActivity = ({ activity, onRunCode, onSubmit, output,setOutput }) => {
+const CodingActivity = ({
+  activity,
+  onRunCode,
+  onSubmit,
+  output,
+  setOutput,
+}) => {
   const [htmlCode, setHtmlCode] = useState("");
   const [cssCode, setCssCode] = useState("");
   const [jsCode, setJsCode] = useState("");
@@ -266,7 +272,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit, output,setOutput }) => 
   const [updateActivitySubmission] = useUpdateUserActivitySubmissionMutation();
   const [decrementTries] = useDecrementActivitySubmissionMutation();
   const [updateUserAnalyticsMutation] = useUpdateUserAnalyticsMutation();
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   useEffect(() => {
     if (activity && activity.codeEditor) {
       setHtmlCode(activity.codeEditor.html || "");
@@ -342,6 +348,8 @@ const CodingActivity = ({ activity, onRunCode, onSubmit, output,setOutput }) => 
   }, [handleResize]);
 
   const handleSubmitCode = useCallback(async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     setSubmissionResultDialogOpen(false);
     if (
       activitySubmission.timeTaken &&
@@ -433,10 +441,13 @@ const CodingActivity = ({ activity, onRunCode, onSubmit, output,setOutput }) => 
       setHtmlCode("");
       setCssCode("");
       setJsCode("");
-      setOutput("")
+      setOutput("");
+      setIsSubmitting(false)
       resetTimer();
     } catch (error) {
       console.error("Error submitting code:", error);
+    }finally{
+      setIsSubmitting(false)
     }
   }, [
     activity,
@@ -458,6 +469,8 @@ const CodingActivity = ({ activity, onRunCode, onSubmit, output,setOutput }) => 
   ]);
 
   const handleCheckCode = useCallback(async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     try {
       let endpoint;
       if (activity.language === "HTML") {
@@ -506,8 +519,12 @@ const CodingActivity = ({ activity, onRunCode, onSubmit, output,setOutput }) => 
         feedback,
         language,
       });
+
+      setIsSubmitting(false)
     } catch (error) {
       console.error("Error checking code:", error);
+    }finally{
+      setIsSubmitting(false)
     }
   }, [
     activity,
@@ -797,7 +814,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit, output,setOutput }) => 
             disabled={
               activitySubmission?.tries === 0 ||
               (activitySubmission?.timeTaken &&
-                (userAnalytics || userAnalytics?.timeSpent))
+                (userAnalytics || userAnalytics?.timeSpent)) || isSubmitting
             }
             sx={{
               backgroundColor:
@@ -824,7 +841,7 @@ const CodingActivity = ({ activity, onRunCode, onSubmit, output,setOutput }) => 
           }
           disabled={
             activitySubmission?.timeTaken &&
-            (userAnalytics || userAnalytics?.timeSpent)
+            (userAnalytics || userAnalytics?.timeSpent) || isSubmitting
           }
           sx={{
             backgroundColor: "#8b5cf6",

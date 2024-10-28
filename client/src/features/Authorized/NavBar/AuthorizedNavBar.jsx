@@ -63,7 +63,7 @@ export default function AuthorizedSidebar({
   const handleDrawerToggle = () => {
     setOpen(!open);
   };
-
+console.log(userInfo)
   useEffect(() => {
     if (isSmalls) {
       setOpen(false); // Close the drawer if the screen is small
@@ -335,12 +335,12 @@ export default function AuthorizedSidebar({
             }
           />
         </Box> */}
-        {userInfo.isDeleted && (
+        {(userInfo.isDeleted || userInfo?.[0]?.isDeleted || userInfo?.userData?.[0]?.isDeleted)&& (
           <Alert severity="warning">
             <AlertTitle>Account Deletion Notice</AlertTitle>
             Your account has been marked for deletion and will be permanently
             deleted in <strong>
-              {formatDate(userInfo.deleteExpiresAt)}
+              {formatDate(userInfo.deleteExpiresAt || userInfo[0]?.deleteExpiresAt || userInfo.userData[0].deleteExpiresAt)}
             </strong>{" "}
             (15 days). Please contact support if you think this is an error.
           </Alert>

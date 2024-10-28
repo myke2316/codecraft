@@ -42,6 +42,10 @@ const AnswerForm = ({
   setCodeBlocks,
   isLoadingAddAnswer,
 }) => {
+  const initialValues = {
+    answerContent: answerContent,
+    codeBlocks: codeBlocks,
+  };
   const handleAnswerChange = (e) => setAnswerContent(e.target.value);
 
   const handleCodeBlockChange = (index, field, value) => {
@@ -79,11 +83,12 @@ const AnswerForm = ({
         </Typography>
       </DialogTitle>
       <Formik
-        initialValues={{ answerContent, codeBlocks }}
+        initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmitAnswer}
+        enableReinitialize
       >
-        {({ errors, touched, values, setFieldValue }) => (
+        {({ errors, touched, values, setFieldValue,isSubmitting  }) => (
           <Form>
             <DialogContent>
               <Field
@@ -103,27 +108,24 @@ const AnswerForm = ({
                   setFieldValue("answerContent", e.target.value);
                 }}
               />
-              <FieldArray name="codeBlocks">
-                {() => (
+            <FieldArray name="codeBlocks">
+                {({ push, remove }) => (
                   <Box>
-                    {codeBlocks.map((codeBlock, index) => (
+                    {values.codeBlocks.map((codeBlock, index) => (
                       <Box key={index} className="mb-6 bg-gray-100 p-4 rounded-lg">
                         <Box className="flex justify-between items-center mb-2">
                           <Typography variant="subtitle1" className="font-semibold text-gray-700">
                             Code Block {index + 1}
                           </Typography>
-                          <IconButton onClick={() => handleRemoveCodeBlock(index)} color="error" size="small">
+                          <IconButton onClick={() => remove(index)} color="error" size="small">
                             <DeleteIcon />
                           </IconButton>
                         </Box>
                         <FormControl fullWidth variant="outlined" margin="normal">
                           <InputLabel>Language</InputLabel>
-                          <Select
-                            value={codeBlock.language}
-                            onChange={(e) => {
-                              handleCodeBlockChange(index, "language", e.target.value);
-                              setFieldValue(`codeBlocks.${index}.language`, e.target.value);
-                            }}
+                          <Field
+                            as={Select}
+                            name={`codeBlocks.${index}.language`}
                             label="Language"
                             error={touched.codeBlocks?.[index]?.language && errors.codeBlocks?.[index]?.language}
                           >
@@ -132,7 +134,7 @@ const AnswerForm = ({
                                 {lang.toUpperCase()}
                               </MenuItem>
                             ))}
-                          </Select>
+                          </Field>
                           {touched.codeBlocks?.[index]?.language && errors.codeBlocks?.[index]?.language && (
                             <Typography color="error" variant="caption">
                               {errors.codeBlocks[index].language}
@@ -145,10 +147,7 @@ const AnswerForm = ({
                             language={codeBlock.language}
                             value={codeBlock.content}
                             options={editorOptions}
-                            onChange={(value) => {
-                              handleCodeBlockChange(index, "content", value);
-                              setFieldValue(`codeBlocks.${index}.content`, value);
-                            }}
+                            onChange={(value) => setFieldValue(`codeBlocks.${index}.content`, value)}
                           />
                         </Box>
                         {touched.codeBlocks?.[index]?.content && errors.codeBlocks?.[index]?.content && (
@@ -160,7 +159,7 @@ const AnswerForm = ({
                     ))}
                     <Button
                       startIcon={<AddIcon />}
-                      onClick={handleAddCodeBlock}
+                      onClick={() => push({ language: "javascript", content: "" })}
                       variant="outlined"
                       color="primary"
                       className="mt-2"
@@ -176,7 +175,7 @@ const AnswerForm = ({
                 Cancel
               </Button>
               <Button type="submit" variant="contained" color="primary" disabled={isLoadingAddAnswer}>
-                {isLoadingAddAnswer ? "Submitting..." : "Submit"}
+                {isLoadingAddAnswer || isSubmitting ? "Submitting..." : "Submit"}
               </Button>
             </DialogActions>
           </Form>
