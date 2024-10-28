@@ -40,6 +40,7 @@ const Dashboard = () => {
   const totalPoints = userAnalytics.coursesAnalytics.reduce((acc, course) => {
     return acc + (course.totalPointsEarned || 0);
   }, 0);
+ 
 
   return (
     <Container maxWidth="100%" style={{ padding: "20px" }}>

@@ -18,6 +18,8 @@ import {
   FormControlLabel,
   Button,
   LinearProgress,
+  Alert,
+  CircularProgress,
 } from "@mui/material";
 
 const QuizContent = ({ quiz }) => {
@@ -26,7 +28,7 @@ const QuizContent = ({ quiz }) => {
   const [answers, setAnswers] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const { courseId, lessonId, quizId } = useParams();
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -46,13 +48,13 @@ const QuizContent = ({ quiz }) => {
   const quizSubmissionData = useSelector(
     (state) => state.userQuizSubmission.quizSubmissions
   );
-
+  const isLoading = isLoadingUpdateUserProgress || isLoadingUpdateUserAnalytics || isLoadingUpdateQuizSubmission || isSubmitting;
   const course = quizSubmissionData.courses.find(
     (course) => course.courseId === courseId
   );
   const lesson = course?.lessons.find((lesson) => lesson.lessonId === lessonId);
   const quizzes = lesson?.quizzes || [];
-  
+
   useEffect(() => {
     const index = quiz.findIndex((q) => q._id === quizId);
     if (index !== -1) {
@@ -68,7 +70,6 @@ const QuizContent = ({ quiz }) => {
     if (quizzes.length > 0 && quizzes.every((q) => q.selectedOption)) {
       navigate(`/course/${courseId}/lesson/${lessonId}/quiz/results`);
     }
-    console.log(quizzes)
   }, [quizzes, navigate, courseId, lessonId]);
 
   // Timer logic
@@ -98,72 +99,45 @@ const QuizContent = ({ quiz }) => {
 
   const [score, setScore] = useState(0); // New state for score
   
-  async function handleSubmit(finalAnswers) {
-    try {
-      // Update user progress only at the end of the quiz
-      const updateData = await updateUserProgress({
-        userId,
-        courseId,
-        lessonId,
-        quizId: quiz[currentQuestionIndex]._id,
-      }).unwrap();
-      dispatch(updateCourseProgress(updateData));
+  const quizSubmissions = useSelector(
+    (state) => state.userQuizSubmission.quizSubmissions
+  );
+  const quizSubmission = quizSubmissions.courses.find(
+    (course) => course.courseId === courseId
+  );
+  const lessonSubmission = quizSubmission?.lessons.find((lesson) => lesson.lessonId === lessonId);
 
-      // Update analytics and quiz submissions for all questions
-      const analyticsData = {
-        coursesAnalytics: [{
-          courseId,
-          lessonsAnalytics: [{
-            lessonId,
-            quizzesAnalytics: finalAnswers.map((answer, index) => ({
-              quizId: quiz[index]._id,
-              timeSpent: timer, // This will be the total time for the entire quiz
-              pointsEarned: answer.selectedOption === answer.correctAnswer ? quiz[index].points : 0,
-            })),
-          }],
-        }],
-      };
-
-      const updateAnalyticsData = await updateUserAnalyticsMutation({
-        userId,
-        analyticsData,
-      }).unwrap();
-      dispatch(updateUserAnalytics(updateAnalyticsData));
-
-      // Update quiz submissions for all questions
-      finalAnswers.forEach((answer, index) => {
-        const correct = answer.selectedOption === answer.correctAnswer;
-        const thisScore = correct ? quiz[index].points : 0;
-        updateQuizSubmissionUtil(
-          dispatch,
-          updateUserQuizSubmission,
-          userId,
-          quiz[index]._id,
-          answer.selectedOption,
-          correct,
-          thisScore,
-          answer.correctAnswer
-        );
-      });
-
-      setStartTime(null);
-      setTimer(0);
-      setShowResults(true);
-      navigate(`/course/${courseId}/lesson/${lessonId}/quiz/results`);
-    } catch (error) {
-      console.error(error);
-    }
+  const currentQuizQuestion = lessonSubmission?.quizzes.find(q => q.quizId ===quizId)
+  const isQuestionAnswered = currentQuizQuestion.selectedOption !== null
+  console.log(currentQuizQuestion)
+async function handleNext(){
+  if (currentQuestionIndex < quiz.length - 1) {
+    setStartTime(null);
+    setTimer(0);
+    navigate(
+      `/course/${courseId}/lesson/${lessonId}/quiz/${
+        quiz[currentQuestionIndex + 1]._id
+      }`
+    );
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
+    setSelectedOption(null);
+  } else {
+    setShowResults(true);
+    navigate(`/course/${courseId}/lesson/${lessonId}/quiz/results`);
   }
+}
 
-
-
-  async function handleNext() {
+  async function handleSubmitAnswer() {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     const newAnswers = [...answers];
+
     newAnswers[currentQuestionIndex] = {
       question: currentQuestion.question,
       selectedOption,
       correctAnswer: currentQuestion.correctAnswer,
     };
+    
     setAnswers(newAnswers);
 
     if (selectedOption === currentQuestion.correctAnswer) {
@@ -171,13 +145,145 @@ const QuizContent = ({ quiz }) => {
     }
 
     if (currentQuestionIndex < quiz.length - 1) {
-      setStartTime(null);
-      setTimer(0);
-      navigate(`/course/${courseId}/lesson/${lessonId}/quiz/${quiz[currentQuestionIndex + 1]._id}`);
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setSelectedOption(newAnswers[currentQuestionIndex + 1]?.selectedOption || null);
+      try {
+        // update progress
+        const updateData = await updateUserProgress({
+          userId,
+          courseId,
+          lessonId,
+          quizId: quiz[currentQuestionIndex + 1]._id,
+        }).unwrap();
+        dispatch(updateCourseProgress(updateData));
+
+        // update analytics
+        const updateAnalyticsData = await updateUserAnalyticsMutation({
+          userId,
+          analyticsData: {
+            coursesAnalytics: [
+              {
+                courseId,
+                lessonsAnalytics: [
+                  {
+                    lessonId,
+                    quizzesAnalytics: [
+                      {
+                        quizId: quiz[currentQuestionIndex]._id,
+                        timeSpent: timer,
+                        pointsEarned:
+                          selectedOption === currentQuestion.correctAnswer
+                            ? currentQuestion.points
+                            : 0,
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        }).unwrap();
+        dispatch(updateUserAnalytics(updateAnalyticsData));
+
+        // update quiz submissions
+        const correct =
+          selectedOption === currentQuestion.correctAnswer ? true : false;
+        const thisScore =
+          selectedOption === currentQuestion.correctAnswer
+            ? currentQuestion.points
+            : 0;
+
+        updateQuizSubmissionUtil(
+          dispatch,
+          updateUserQuizSubmission,
+          userId,
+          quizId,
+          selectedOption,
+          correct,
+          thisScore,
+          currentQuestion.correctAnswer
+        );
+
+        setStartTime(null);
+        setTimer(0);
+        navigate(
+          `/course/${courseId}/lesson/${lessonId}/quiz/${
+            quiz[currentQuestionIndex + 1]._id
+          }`
+        );
+
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+        setSelectedOption(
+          newAnswers[currentQuestionIndex + 1]?.selectedOption || null
+        );
+      } catch (error) {
+        console.error(error);
+      }finally{
+        setIsSubmitting(false)
+      }
     } else {
-      await handleSubmit(newAnswers);
+      try {
+        const score = calculateScore();
+        const updateData = await updateUserProgress({
+          userId,
+          courseId,
+          lessonId,
+          quizId: quiz[currentQuestionIndex]._id,
+        }).unwrap();
+        dispatch(updateCourseProgress(updateData));
+
+        const correct =
+          selectedOption === currentQuestion.correctAnswer ? true : false;
+        const thisScore =
+          selectedOption === currentQuestion.correctAnswer
+            ? currentQuestion.points
+            : 0;
+        updateQuizSubmissionUtil(
+          dispatch,
+          updateUserQuizSubmission,
+          userId,
+          quizId,
+          selectedOption,
+          correct,
+          thisScore,
+          currentQuestion.correctAnswer
+        );
+
+        // update analytics
+        const updateAnalyticsData = await updateUserAnalyticsMutation({
+          userId,
+          analyticsData: {
+            coursesAnalytics: [
+              {
+                courseId,
+                lessonsAnalytics: [
+                  {
+                    lessonId,
+                    quizzesAnalytics: [
+                      {
+                        quizId: quiz[currentQuestionIndex]._id,
+                        timeSpent: timer,
+                        pointsEarned:
+                          selectedOption === currentQuestion.correctAnswer
+                            ? currentQuestion.points
+                            : 0,
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        }).unwrap();
+        dispatch(updateUserAnalytics(updateAnalyticsData));
+        setStartTime(null);
+        setTimer(0);
+        setShowResults(true);
+        navigate(`/course/${courseId}/lesson/${lessonId}/quiz/results`);
+   
+      } catch (error) {
+        console.error(error);
+      }finally{
+        setIsSubmitting(false)
+      }
     }
   }
 
@@ -195,7 +301,7 @@ const QuizContent = ({ quiz }) => {
 
   function calculateScore() {
     return answers.filter(
-      (answer) => answer.selectedOption === answer.correctAnswer
+      (answer) => answer?.selectedOption === answer?.correctAnswer
     ).length;
   }
 
@@ -227,10 +333,14 @@ const QuizContent = ({ quiz }) => {
       <Typography variant="h5" fontWeight="bold" mb={3}>
         {currentQuestion?.question}
       </Typography>
-
+      {isQuestionAnswered && (
+        <Alert severity="info" sx={{ mb: 2 }}>
+          You have already answered this question. Your selected answer was: {currentQuizQuestion.selectedOption}
+        </Alert>
+      )}
       {/* Options */}
       <RadioGroup
-        value={selectedOption}
+        value={isQuestionAnswered ? currentQuizQuestion.selectedOption : selectedOption}
         onChange={(e) => setSelectedOption(e.target.value)}
       >
         {currentQuestion?.options.map((option, index) => (
@@ -245,6 +355,7 @@ const QuizContent = ({ quiz }) => {
               p: 2,
               "&:hover": { bgcolor: "#f0f0f0" },
             }}
+            disabled={isQuestionAnswered || isLoading}
           />
         ))}
       </RadioGroup>
@@ -255,18 +366,34 @@ const QuizContent = ({ quiz }) => {
           variant="contained"
           color="secondary"
           onClick={handleBack}
-          disabled={currentQuestionIndex === 0}
+          disabled={currentQuestionIndex === 0 || isLoading}
         >
           Back
         </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleNext}
-          disabled={selectedOption === null}
-        >
-          {currentQuestionIndex < quiz.length - 1 ? "Next" : "Submit"}
-        </Button>
+        {!isQuestionAnswered && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSubmitAnswer}
+            disabled={selectedOption === null || isLoading}
+          >
+            {isLoading ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "Submit Answer"
+            )}
+          </Button>
+        )}
+       {isQuestionAnswered && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleNext}
+            disabled={isLoading}
+          >
+            {currentQuestionIndex < quiz.length - 1 ? "Next" : "Finish Quiz"}
+          </Button>
+        )}
       </Box>
     </Box>
   );
