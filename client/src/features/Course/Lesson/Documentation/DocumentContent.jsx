@@ -222,7 +222,7 @@ function DocumentContent() {
 
   const document = lesson.documents.find((doc) => doc._id === documentId);
   const quiz = lesson.quiz;
-  console.log(quiz)
+ 
   const [completeCourse, { isLoading: isLoadingCompleteCourse }] =
     useCompleteCourseMutation();
 

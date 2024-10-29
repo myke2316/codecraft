@@ -191,7 +191,7 @@ function AdminQna() {
     borderRadius: 2 // Optional: adds rounded corners
   }}>
       <Typography variant="h4" className="mb-7 p-5 font-bold">
-        Manage Q&A
+        Manage Questions
       </Typography>
       <Grid container spacing={3} className="mb-6">
         <Grid item xs={12} md={4}>

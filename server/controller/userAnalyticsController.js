@@ -64,6 +64,9 @@ const getUserAnalytics = async (req, res) => {
   }
 };
 
+// Map to store the last update time for each user
+const lastUpdateMap = new Map();
+
 const updateUserAnalytics = async (req, res) => {
   try {
     const { userId, analyticsData } = req.body;
@@ -75,6 +78,16 @@ const updateUserAnalytics = async (req, res) => {
     if (!analyticsData) {
       return res.status(400).json({ message: "Analytics data is required" });
     }
+
+    // Check if the last update was less than 5 seconds ago
+    const now = Date.now();
+    const lastUpdate = lastUpdateMap.get(userId) || 0;
+    if (now - lastUpdate < 5000) {
+      return res.status(429).json({ message: "Please wait before updating again" });
+    }
+
+    // Update the last update time for this user
+    lastUpdateMap.set(userId, now);
 
     const updateObject = {};
     const badgesToAward = [];
@@ -144,7 +157,7 @@ const updateUserAnalytics = async (req, res) => {
                       );
 
                     // Only update if not already finished
-                    if (!documentProgress || !documentProgress.dateFinished) {
+                    if (!documentProgress || documentProgress.dateFinished !== null) {
                       totalLessonTime += document.timeSpent;
                       totalLessonPoints += document.pointsEarned;
 
@@ -189,7 +202,7 @@ const updateUserAnalytics = async (req, res) => {
                     );
 
                     // Only update if not already finished
-                    if (!quizProgress || !quizProgress.dateFinished) {
+                    if (!quizProgress || quizProgress.dateFinished !== null) {
                       totalLessonTime += quiz.timeSpent;
                       totalLessonPoints += quiz.pointsEarned;
 
@@ -231,9 +244,8 @@ const updateUserAnalytics = async (req, res) => {
                       lessonProgress?.activitiesProgress.find(
                         (ap) => ap.activityId.toString() === activity.activityId
                       );
-                      
                     // Only update if not already finished
-                    if (!activityProgress || !activityProgress.dateFinished) {
+                    if (!activityProgress || activityProgress.dateFinished !== null) {
                       totalLessonTime += activity.timeSpent;
                       totalLessonPoints += activity.pointsEarned;
 
@@ -351,6 +363,510 @@ const updateUserAnalytics = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// const updateUserAnalytics = async (req, res) => {
+//   try {
+//     const { userId, analyticsData } = req.body;
+
+//     if (!mongoose.Types.ObjectId.isValid(userId)) {
+//       return res.status(400).json({ message: "Invalid user ID" });
+//     }
+
+//     if (!analyticsData) {
+//       return res.status(400).json({ message: "Analytics data is required" });
+//     }
+
+//     const updateObject = {};
+//     const badgesToAward = [];
+
+//     let totalCourseTimeSpent = 0;
+//     let totalCoursePointsEarned = 0;
+
+//     // Fetch current user analytics to check existing badges
+//     const currentUserAnalytics = await UserAnalyticsModel.findOne({ userId });
+//     const existingBadges = currentUserAnalytics
+//       ? currentUserAnalytics.badges.map((badge) => badge.name)
+//       : [];
+
+//     // Fetch user progress
+//     const userProgress = await UserProgressModel.findOne({ userId });
+
+//     const usedArrayFilters = new Set();
+
+//     if (analyticsData.coursesAnalytics && Array.isArray(analyticsData.coursesAnalytics)) {
+//       for (const course of analyticsData.coursesAnalytics) {
+//         let totalCourseTime = 0;
+//         let totalCoursePoints = 0;
+
+//         if (course.courseId && course.lessonsAnalytics && Array.isArray(course.lessonsAnalytics)) {
+//           usedArrayFilters.add('course');
+
+//           const courseData = await CourseModel.findById(course.courseId);
+//           const courseProgress = userProgress.coursesProgress.find(
+//             (cp) => cp.courseId.toString() === course.courseId
+//           );
+
+//           for (const lesson of course.lessonsAnalytics) {
+//             let totalLessonTime = 0;
+//             let totalLessonPoints = 0;
+
+//             if (lesson.lessonId) {
+//               usedArrayFilters.add('lesson');
+
+//               const lessonData = courseData.lessons.id(lesson.lessonId);
+//               const lessonProgress = courseProgress?.lessonsProgress.find(
+//                 (lp) => lp.lessonId.toString() === lesson.lessonId
+//               );
+
+//               // Handle Document Analytics
+//               if (lesson.documentsAnalytics && Array.isArray(lesson.documentsAnalytics)) {
+//                 for (const document of lesson.documentsAnalytics) {
+//                   if (document.documentId) {
+//                     usedArrayFilters.add('document');
+
+//                     const documentProgress = lessonProgress?.documentsProgress.find(
+//                       (dp) => dp.documentId.toString() === document.documentId
+//                     );
+
+//                     // Only update if not already finished
+//                     if (!documentProgress || documentProgress.dateFinished !== null) {
+//                       totalLessonTime += document.timeSpent;
+//                       totalLessonPoints += document.pointsEarned;
+
+//                       updateObject[`coursesAnalytics.$[course].lessonsAnalytics.$[lesson].documentsAnalytics.$[document].timeSpent`] = document.timeSpent;
+//                       updateObject[`coursesAnalytics.$[course].lessonsAnalytics.$[lesson].documentsAnalytics.$[document].pointsEarned`] = document.pointsEarned;
+//                     }
+
+//                     const documentData = lessonData.documents.id(document.documentId);
+//                     if (documentData && documentData.badges && !existingBadges.includes(documentData.badges) &&
+//                         documentProgress && documentProgress.dateFinished) {
+//                       badgesToAward.push({
+//                         name: documentData.badges,
+//                         description: `Completed document ${documentData.title}`,
+//                       });
+//                     }
+//                   }
+//                 }
+//               }
+
+//               // Handle Quiz Analytics
+//               if (lesson.quizzesAnalytics && Array.isArray(lesson.quizzesAnalytics)) {
+//                 for (const quiz of lesson.quizzesAnalytics) {
+//                   if (quiz.quizId) {
+//                     usedArrayFilters.add('quiz');
+
+//                     const quizProgress = lessonProgress?.quizzesProgress.find(
+//                       (qp) => qp.quizId.includes(quiz.quizId)
+//                     );
+
+//                     // Only update if not already finished
+//                     if (!quizProgress || !quizProgress.dateFinished) {
+//                       totalLessonTime += quiz.timeSpent;
+//                       totalLessonPoints += quiz.pointsEarned;
+
+//                       updateObject[`coursesAnalytics.$[course].lessonsAnalytics.$[lesson].quizzesAnalytics.$[quiz].timeSpent`] = quiz.timeSpent;
+//                       updateObject[`coursesAnalytics.$[course].lessonsAnalytics.$[lesson].quizzesAnalytics.$[quiz].pointsEarned`] = quiz.pointsEarned;
+//                     }
+
+//                     const quizData = lessonData.quiz.id(quiz.quizId);
+//                     if (quizData && quizData.badges && !existingBadges.includes(quizData.badges) &&
+//                         quizProgress && quizProgress.dateFinished) {
+//                       badgesToAward.push({
+//                         name: quizData.badges,
+//                         description: `Completed quiz in ${lessonData.title}`,
+//                       });
+//                     }
+//                   }
+//                 }
+//               }
+
+//               // Handle Activity Analytics
+//               if (lesson.activitiesAnalytics && Array.isArray(lesson.activitiesAnalytics)) {
+//                 for (const activity of lesson.activitiesAnalytics) {
+//                   if (activity.activityId) {
+//                     usedArrayFilters.add('activity');
+
+//                     const activityProgress = lessonProgress?.activitiesProgress.find(
+//                       (ap) => ap.activityId.toString() === activity.activityId
+//                     );
+//                     // Only update if not already finished
+//                     if (!activityProgress || !activityProgress.dateFinished) {
+//                       totalLessonTime += activity.timeSpent;
+//                       totalLessonPoints += activity.pointsEarned;
+
+//                       updateObject[`coursesAnalytics.$[course].lessonsAnalytics.$[lesson].activitiesAnalytics.$[activity].timeSpent`] = activity.timeSpent;
+//                       updateObject[`coursesAnalytics.$[course].lessonsAnalytics.$[lesson].activitiesAnalytics.$[activity].pointsEarned`] = activity.pointsEarned;
+//                     }
+
+//                     const activityData = lessonData.activities.id(activity.activityId);
+//                     if (activityData && activityData.badges && !existingBadges.includes(activityData.badges) &&
+//                         activityProgress && activityProgress.dateFinished) {
+//                       badgesToAward.push({
+//                         name: activityData.badges,
+//                         description: `Completed activity in ${lessonData.title}`,
+//                       });
+//                     }
+//                   }
+//                 }
+//               }
+
+//               // Update Lesson Analytics
+//               updateObject[`coursesAnalytics.$[course].lessonsAnalytics.$[lesson].totalTimeSpent`] = totalLessonTime;
+//               updateObject[`coursesAnalytics.$[course].lessonsAnalytics.$[lesson].totalPointsEarned`] = totalLessonPoints;
+
+//               // Award lesson badge if lesson is finished
+//               if (lessonData && lessonData.badges && !existingBadges.includes(lessonData.badges) &&
+//                   lessonProgress && lessonProgress.dateFinished) {
+//                 badgesToAward.push({
+//                   name: lessonData.badges,
+//                   description: `Completed lesson ${lessonData.title}`,
+//                 });
+//               }
+
+//               // Accumulate to course totals
+//               totalCourseTime += totalLessonTime;
+//               totalCoursePoints += totalLessonPoints;
+//             }
+//           }
+
+//           // Award course badge if course is finished
+//           if (courseData && courseData.badges && !existingBadges.includes(courseData.badges) &&
+//               courseProgress && courseProgress.dateFinished) {
+//             badgesToAward.push({
+//               name: courseData.badges,
+//               description: `Completed course ${courseData.title}`,
+//             });
+//           }
+//         }
+
+//         // Update Course Analytics
+//         totalCourseTimeSpent += totalCourseTime;
+//         totalCoursePointsEarned += totalCoursePoints;
+//         updateObject[`coursesAnalytics.$[course].totalTimeSpent`] = totalCourseTime;
+//         updateObject[`coursesAnalytics.$[course].totalPointsEarned`] = totalCoursePoints;
+//       }
+//     }
+
+//     // Update overall user analytics
+//     updateObject.totalTimeSpent = totalCourseTimeSpent;
+//     updateObject.totalPointsEarned = totalCoursePointsEarned;
+
+//     const arrayFilters = [
+//       { "course.courseId": { $in: analyticsData.coursesAnalytics.map(c => c.courseId) } },
+//       { "lesson.lessonId": { $in: analyticsData.coursesAnalytics.flatMap(c => c.lessonsAnalytics.map(l => l.lessonId)) } },
+//       { "document.documentId": { $in: analyticsData.coursesAnalytics.flatMap(c => c.lessonsAnalytics.flatMap(l => l.documentsAnalytics?.map(d => d.documentId) || [])) } },
+//       { "quiz.quizId": { $in: analyticsData.coursesAnalytics.flatMap(c => c.lessonsAnalytics.flatMap(l => l.quizzesAnalytics?.map(q => q.quizId) || [])) } },
+//       { "activity.activityId": { $in: analyticsData.coursesAnalytics.flatMap(c => c.lessonsAnalytics.flatMap(l => l.activitiesAnalytics?.map(a => a.activityId) || [])) } },
+//     ].filter((_, index) => usedArrayFilters.has(['course', 'lesson', 'document', 'quiz', 'activity'][index]));
+
+//     const updatedAnalytics = await UserAnalyticsModel.findOneAndUpdate(
+//       { userId },
+//       {
+//         $inc: updateObject,
+//         $addToSet: { badges: { $each: badgesToAward } },
+//       },
+//       {
+//         new: true,
+//         upsert: true,
+//         arrayFilters,
+//       }
+//     );
+
+//     res.status(200).json(updatedAnalytics);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
+
+
+// const updateUserAnalytics = async (req, res) => {
+//   try {
+//     const { userId, analyticsData } = req.body;
+
+//     if (!mongoose.Types.ObjectId.isValid(userId)) {
+//       return res.status(400).json({ message: "Invalid user ID" });
+//     }
+
+//     if (!analyticsData) {
+//       return res.status(400).json({ message: "Analytics data is required" });
+//     }
+
+//     const updateObject = {};
+//     const badgesToAward = [];
+
+//     let totalCourseTimeSpent = 0;
+//     let totalCoursePointsEarned = 0;
+
+//     const courseIds = [];
+//     const lessonIds = [];
+//     const documentIds = [];
+//     const quizIds = [];
+//     const activityIds = [];
+
+//     // Fetch current user analytics to check existing badges
+//     const currentUserAnalytics = await UserAnalyticsModel.findOne({ userId });
+//     const existingBadges = currentUserAnalytics
+//       ? currentUserAnalytics.badges.map((badge) => badge.name)
+//       : [];
+
+//     // Fetch user progress
+//     const userProgress = await UserProgressModel.findOne({ userId });
+
+//     if (
+//       analyticsData.coursesAnalytics &&
+//       Array.isArray(analyticsData.coursesAnalytics)
+//     ) {
+//       for (const course of analyticsData.coursesAnalytics) {
+//         let totalCourseTime = 0;
+//         let totalCoursePoints = 0;
+
+//         if (
+//           course.courseId &&
+//           course.lessonsAnalytics &&
+//           Array.isArray(course.lessonsAnalytics)
+//         ) {
+//           courseIds.push(course.courseId);
+
+//           const courseData = await CourseModel.findById(course.courseId);
+//           const courseProgress = userProgress.coursesProgress.find(
+//             (cp) => cp.courseId.toString() === course.courseId
+//           );
+
+//           for (const lesson of course.lessonsAnalytics) {
+//             let totalLessonTime = 0;
+//             let totalLessonPoints = 0;
+
+//             if (lesson.lessonId) {
+//               lessonIds.push(lesson.lessonId);
+
+//               const lessonData = courseData.lessons.id(lesson.lessonId);
+//               const lessonProgress = courseProgress?.lessonsProgress.find(
+//                 (lp) => lp.lessonId.toString() === lesson.lessonId
+//               );
+
+//               // Handle Document Analytics
+//               if (
+//                 lesson.documentsAnalytics &&
+//                 Array.isArray(lesson.documentsAnalytics)
+//               ) {
+//                 for (const document of lesson.documentsAnalytics) {
+//                   if (document.documentId) {
+//                     documentIds.push(document.documentId);
+
+//                     const documentProgress =
+//                       lessonProgress?.documentsProgress.find(
+//                         (dp) => dp.documentId.toString() === document.documentId
+//                       );
+
+//                     // Only update if not already finished
+//                     if (!documentProgress || documentProgress.dateFinished !== null) {
+//                       totalLessonTime += document.timeSpent;
+//                       totalLessonPoints += document.pointsEarned;
+
+//                       updateObject[
+//                         `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].documentsAnalytics.$[document].timeSpent`
+//                       ] = document.timeSpent;
+//                       updateObject[
+//                         `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].documentsAnalytics.$[document].pointsEarned`
+//                       ] = document.pointsEarned;
+//                     }
+//                     const documentData = lessonData.documents.id(
+//                       document.documentId
+//                     );
+
+//                     if (
+//                       documentData &&
+//                       documentData.badges &&
+//                       !existingBadges.includes(documentData.badges) &&
+//                       documentProgress &&
+//                       documentProgress.dateFinished
+//                     ) {
+//                       badgesToAward.push({
+//                         name: documentData.badges,
+//                         description: `Completed document ${documentData.title}`,
+//                       });
+//                     }
+//                   }
+//                 }
+//               }
+
+//               // Handle Quiz Analytics
+//               if (
+//                 lesson.quizzesAnalytics &&
+//                 Array.isArray(lesson.quizzesAnalytics)
+//               ) {
+//                 for (const quiz of lesson.quizzesAnalytics) {
+//                   if (quiz.quizId) {
+//                     quizIds.push(quiz.quizId);
+
+//                     const quizProgress = lessonProgress?.quizzesProgress.find(
+//                       (qp) => qp.quizId.includes(quiz.quizId)
+//                     );
+
+//                     // Only update if not already finished
+//                     if (!quizProgress || quizProgress.dateFinished !== null) {
+//                       totalLessonTime += quiz.timeSpent;
+//                       totalLessonPoints += quiz.pointsEarned;
+
+//                       updateObject[
+//                         `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].quizzesAnalytics.$[quiz].timeSpent`
+//                       ] = quiz.timeSpent;
+//                       updateObject[
+//                         `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].quizzesAnalytics.$[quiz].pointsEarned`
+//                       ] = quiz.pointsEarned;
+//                     }
+//                     const quizData = lessonData.quiz.id(quiz.quizId);
+
+//                     if (
+//                       quizData &&
+//                       quizData.badges &&
+//                       !existingBadges.includes(quizData.badges) &&
+//                       quizProgress &&
+//                       quizProgress.dateFinished
+//                     ) {
+//                       badgesToAward.push({
+//                         name: quizData.badges,
+//                         description: `Completed quiz in ${lessonData.title}`,
+//                       });
+//                     }
+//                   }
+//                 }
+//               }
+
+//               // Handle Activity Analytics
+//               if (
+//                 lesson.activitiesAnalytics &&
+//                 Array.isArray(lesson.activitiesAnalytics)
+//               ) {
+//                 for (const activity of lesson.activitiesAnalytics) {
+//                   if (activity.activityId) {
+//                     activityIds.push(activity.activityId);
+
+//                     const activityProgress =
+//                       lessonProgress?.activitiesProgress.find(
+//                         (ap) => ap.activityId.toString() === activity.activityId
+//                       );
+//                     // Only update if not already finished
+//                     if (!activityProgress || activityProgress.dateFinished !== null) {
+//                       totalLessonTime += activity.timeSpent;
+//                       totalLessonPoints += activity.pointsEarned;
+
+//                       updateObject[
+//                         `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].activitiesAnalytics.$[activity].timeSpent`
+//                       ] = activity.timeSpent;
+//                       updateObject[
+//                         `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].activitiesAnalytics.$[activity].pointsEarned`
+//                       ] = activity.pointsEarned;
+//                     }
+//                     const activityData = lessonData.activities.id(
+//                       activity.activityId
+//                     );
+
+//                     if (
+//                       activityData &&
+//                       activityData.badges &&
+//                       !existingBadges.includes(activityData.badges) &&
+//                       activityProgress &&
+//                       activityProgress.dateFinished
+//                     ) {
+//                       badgesToAward.push({
+//                         name: activityData.badges,
+//                         description: `Completed activity in ${lessonData.title}`,
+//                       });
+//                     }
+//                   }
+//                 }
+//               }
+
+//               // Update Lesson Analytics
+//               updateObject[
+//                 `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].totalTimeSpent`
+//               ] = totalLessonTime;
+//               updateObject[
+//                 `coursesAnalytics.$[course].lessonsAnalytics.$[lesson].totalPointsEarned`
+//               ] = totalLessonPoints;
+
+//               // Award lesson badge if lesson is finished
+//               if (
+//                 lessonData &&
+//                 lessonData.badges &&
+//                 !existingBadges.includes(lessonData.badges) &&
+//                 lessonProgress &&
+//                 lessonProgress.dateFinished
+//               ) {
+//                 badgesToAward.push({
+//                   name: lessonData.badges,
+//                   description: `Completed lesson ${lessonData.title}`,
+//                 });
+//               }
+
+//               // Accumulate to course totals
+//               totalCourseTime += totalLessonTime;
+//               totalCoursePoints += totalLessonPoints;
+//             }
+//           }
+
+//           // Award course badge if course is finished
+//           if (
+//             courseData &&
+//             courseData.badges &&
+//             !existingBadges.includes(courseData.badges) &&
+//             courseProgress &&
+//             courseProgress.dateFinished
+//           ) {
+//             badgesToAward.push({
+//               name: courseData.badges,
+//               description: `Completed course ${courseData.title}`,
+//             });
+//           }
+//         }
+
+//         // Update Course Analytics
+//         totalCourseTimeSpent += totalCourseTime;
+//         totalCoursePointsEarned += totalCoursePoints;
+//         updateObject[`coursesAnalytics.$[course].totalTimeSpent`] =
+//           totalCourseTime;
+//         updateObject[`coursesAnalytics.$[course].totalPointsEarned`] =
+//           totalCoursePoints;
+//       }
+//     }
+
+//     // Update overall user analytics
+//     updateObject.totalTimeSpent = totalCourseTimeSpent;
+//     updateObject.totalPointsEarned = totalCoursePointsEarned;
+
+//     const arrayFilters = [];
+//     if (courseIds.length)
+//       arrayFilters.push({ "course.courseId": { $in: courseIds } });
+//     if (lessonIds.length)
+//       arrayFilters.push({ "lesson.lessonId": { $in: lessonIds } });
+//     if (documentIds.length)
+//       arrayFilters.push({ "document.documentId": { $in: documentIds } });
+//     if (quizIds.length) arrayFilters.push({ "quiz.quizId": { $in: quizIds } });
+//     if (activityIds.length)
+//       arrayFilters.push({ "activity.activityId": { $in: activityIds } });
+
+//     const updatedAnalytics = await UserAnalyticsModel.findOneAndUpdate(
+//       { userId },
+//       {
+//         $inc: updateObject,
+//         $push: { badges: { $each: badgesToAward } },
+//       },
+//       {
+//         new: true,
+//         upsert: true,
+//         arrayFilters,
+//       }
+//     );
+
+//     res.status(200).json(updatedAnalytics);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 
 //10/21/24
 // const updateUserAnalytics = async (req, res) => {

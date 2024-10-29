@@ -9,7 +9,7 @@ const LeaderboardStudents = ({ students, classId }) => {
   const [sortBy, setSortBy] = useState("points");
   const [mode, setMode] = useState("light");
   const [currentPage, setCurrentPage] = useState(1);
-  const studentsPerPage = 10; // Customize the number of students per page
+  const studentsPerPage = 10;
   
   const userRole = useSelector((state) => state.user.userDetails.role);
 
@@ -69,10 +69,8 @@ const LeaderboardStudents = ({ students, classId }) => {
     });
   }, [students, sortBy, scoresData, votesData]);
 
-  // Calculate the total number of pages
   const totalPages = Math.ceil(sortedStudents.length / studentsPerPage);
 
-  // Get the students for the current page
   const currentStudents = sortedStudents.slice(
     (currentPage - 1) * studentsPerPage,
     currentPage * studentsPerPage
@@ -80,6 +78,13 @@ const LeaderboardStudents = ({ students, classId }) => {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
+  };
+
+  const getMedalEmoji = (index) => {
+    if (index === 0) return "🥇";
+    if (index === 1) return "🥈";
+    if (index === 2) return "🥉";
+    return "";
   };
 
   return (
@@ -119,6 +124,7 @@ const LeaderboardStudents = ({ students, classId }) => {
         <ul className="space-y-3 sm:space-y-4">
           {currentStudents.map((student, index) => {
             const studentId = student._id;
+            const overallIndex = sortedStudents.findIndex(s => s._id === studentId);
 
             const { data: scoresData, isFetching } =
               useGetScoreByStudentIdQuery(studentId);
@@ -165,13 +171,7 @@ const LeaderboardStudents = ({ students, classId }) => {
                           repeatType: "reverse",
                         }}
                       >
-                        {index === 0
-                          ? "🥇"
-                          : index === 1
-                          ? "🥈"
-                          : index === 2
-                          ? "🥉"
-                          : ""}
+                        {getMedalEmoji(overallIndex)}
                       </motion.div>
                     )}
                     <div className="flex-grow sm:flex-grow-0">
@@ -216,47 +216,45 @@ const LeaderboardStudents = ({ students, classId }) => {
         </motion.p>
       )}
 
-      {/* Pagination Controls */}
       <div className="mt-8 flex flex-wrap justify-center items-center space-x-6 sm:space-x-4 space-y-2 sm:space-y-0">
-  <button
-    onClick={() => handlePageChange(currentPage - 1)}
-    disabled={currentPage === 1}
-    className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold shadow-md transition-transform transform hover:scale-105 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center space-x-2"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      className="w-4 h-4 sm:w-5 sm:h-5"
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-    </svg>
-    <span className="hidden sm:inline">Previous</span>
-  </button>
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold shadow-md transition-transform transform hover:scale-105 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center space-x-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            className="w-4 h-4 sm:w-5 sm:h-5"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          <span className="hidden sm:inline">Previous</span>
+        </button>
 
-  <span className="text-sm sm:text-md font-bold text-gray-700">
-    Page {currentPage} of {totalPages}
-  </span>
+        <span className="text-sm sm:text-md font-bold text-gray-700">
+          Page {currentPage} of {totalPages}
+        </span>
 
-  <button
-    onClick={() => handlePageChange(currentPage + 1)}
-    disabled={currentPage === totalPages}
-    className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold shadow-md transition-transform transform hover:scale-105 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center space-x-2"
-  >
-    <span className="hidden sm:inline">Next</span>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      className="w-4 h-4 sm:w-5 sm:h-5"
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-    </svg>
-  </button>
-</div>
-
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold shadow-md transition-transform transform hover:scale-105 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center space-x-2"
+        >
+          <span className="hidden sm:inline">Next</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            className="w-4 h-4 sm:w-5 sm:h-5"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
     </div>
   );
 };
