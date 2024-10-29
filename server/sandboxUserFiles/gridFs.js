@@ -9,18 +9,6 @@ import {
   sandboxBucket,
   signatureBucket,
 } from "../config/database.js";
-// Import from the central database file
-
-// const teacherImageStorage = new GridFsStorage({
-//   url: process.env.MONGODB_URL,
-//   file: (req, file) => {
-//     return {
-//       bucketName: "teacher", // Bucket for teacher images
-//       filename: file.originalname,
-//     };
-//   },
-// });
-// const teacherImageUpload = multer({ storage: teacherImageStorage });
 
 const assignmentStorage = new GridFsStorage({
   url: process.env.MONGODB_URL,

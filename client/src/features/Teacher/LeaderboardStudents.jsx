@@ -8,6 +8,9 @@ import { useGetUserVoteQuery } from "../QnA/questionService";
 const LeaderboardStudents = ({ students, classId }) => {
   const [sortBy, setSortBy] = useState("points");
   const [mode, setMode] = useState("light");
+  const [currentPage, setCurrentPage] = useState(1);
+  const studentsPerPage = 10; // Customize the number of students per page
+  
   const userRole = useSelector((state) => state.user.userDetails.role);
 
   useEffect(() => {
@@ -40,15 +43,23 @@ const LeaderboardStudents = ({ students, classId }) => {
         const userVoteA = votesData.find((item) => item.id === a._id);
         const qnaPointsA = (userVoteA?.totalVotes || 0) * 5;
         const submissionPointsA =
-          scoresDataA?.scores?.reduce((acc, score) => acc + (score.grade || 0), 0) || 0;
-        const totalPointsA = (a.totalPointsEarned || 0) + qnaPointsA + submissionPointsA;
+          scoresDataA?.scores?.reduce(
+            (acc, score) => acc + (score.grade || 0),
+            0
+          ) || 0;
+        const totalPointsA =
+          (a.totalPointsEarned || 0) + qnaPointsA + submissionPointsA;
 
         const scoresDataB = scoresData.find((item) => item.id === b._id);
         const userVoteB = votesData.find((item) => item.id === b._id);
         const qnaPointsB = (userVoteB?.totalVotes || 0) * 5;
         const submissionPointsB =
-          scoresDataB?.scores?.reduce((acc, score) => acc + (score.grade || 0), 0) || 0;
-        const totalPointsB = (b.totalPointsEarned || 0) + qnaPointsB + submissionPointsB;
+          scoresDataB?.scores?.reduce(
+            (acc, score) => acc + (score.grade || 0),
+            0
+          ) || 0;
+        const totalPointsB =
+          (b.totalPointsEarned || 0) + qnaPointsB + submissionPointsB;
 
         return totalPointsB - totalPointsA;
       } else if (sortBy === "name") {
@@ -57,6 +68,19 @@ const LeaderboardStudents = ({ students, classId }) => {
       return 0;
     });
   }, [students, sortBy, scoresData, votesData]);
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(sortedStudents.length / studentsPerPage);
+
+  // Get the students for the current page
+  const currentStudents = sortedStudents.slice(
+    (currentPage - 1) * studentsPerPage,
+    currentPage * studentsPerPage
+  );
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   return (
     <div
@@ -91,22 +115,21 @@ const LeaderboardStudents = ({ students, classId }) => {
         </motion.select>
       </motion.div>
 
-      {sortedStudents.length > 0 ? (
+      {currentStudents.length > 0 ? (
         <ul className="space-y-3 sm:space-y-4">
-          {sortedStudents.map((student, index) => {
+          {currentStudents.map((student, index) => {
             const studentId = student._id;
-            
-            const { data: scoresData, isFetching } = useGetScoreByStudentIdQuery(studentId);
-            const { data: userVote, refetch: refetchVotes } = useGetUserVoteQuery({
-              userId: studentId
-            });
-          
+
+            const { data: scoresData, isFetching } =
+              useGetScoreByStudentIdQuery(studentId);
+            const { data: userVote } =
+              useGetUserVoteQuery({ userId: studentId });
+
             const qnaPoints = userVote?.totalVotes * 5;
-       
-            const submissionPoints = !scoresData ? 0 : scoresData?.scores.reduce((acc, score) => {
-              return acc + (score.grade || 0);
-            }, 0);
-            
+            const submissionPoints = !scoresData
+              ? 0
+              : scoresData?.scores.reduce((acc, score) => acc + (score.grade || 0), 0);
+
             return (
               <Link
                 key={student._id}
@@ -151,35 +174,30 @@ const LeaderboardStudents = ({ students, classId }) => {
                           : ""}
                       </motion.div>
                     )}
-                  <div className="flex-grow sm:flex-grow-0">
-  <p
-    className="text-lg sm:text-xl font-semibold"
-    style={{
-      fontSize: student.username.length > 20 ? '0.9rem' : '1.1rem', // Smaller font for long names
-      maxWidth: '180px', // Adjust max width as needed
-      wordBreak: 'break-word', // Allows breaking into a new line
-      lineHeight: '1.2', // Adjust line height for better readability
-    }}
-  >
-    {student.username}
-  </p>
-  {userRole === "teacher" && (
-    <p
-      className="text-xs sm:text-sm text-gray-600"
-      style={{
-        maxWidth: '180px', // Adjust as needed
-        wordBreak: 'break-word', // Breaks long emails onto the next line if needed
-        lineHeight: '1.2',
-      }}
-    >
-      {student.email}
-    </p>
-  )}
-</div>
+                    <div className="flex-grow sm:flex-grow-0">
+                      <p
+                        className="text-lg sm:text-xl font-semibold"
+                        style={{
+                          fontSize:
+                            student.username.length > 20 ? "0.9rem" : "1.1rem",
+                          maxWidth: "180px",
+                          wordBreak: "break-word",
+                          lineHeight: "1.2",
+                        }}
+                      >
+                        {student.username}
+                      </p>
+                      {userRole === "teacher" && (
+                        <p className="text-xs sm:text-sm text-gray-600">
+                          {student.email}
+                        </p>
+                      )}
+                    </div>
                   </div>
                   {sortBy === "points" && (
                     <div className="text-base sm:text-lg font-bold w-full sm:w-auto text-right">
-                      {student.totalPointsEarned + submissionPoints + qnaPoints} Points
+                      {student.totalPointsEarned + submissionPoints + qnaPoints}{" "}
+                      Points
                     </div>
                   )}
                 </motion.li>
@@ -197,6 +215,48 @@ const LeaderboardStudents = ({ students, classId }) => {
           No students have joined this class yet.
         </motion.p>
       )}
+
+      {/* Pagination Controls */}
+      <div className="mt-8 flex flex-wrap justify-center items-center space-x-6 sm:space-x-4 space-y-2 sm:space-y-0">
+  <button
+    onClick={() => handlePageChange(currentPage - 1)}
+    disabled={currentPage === 1}
+    className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold shadow-md transition-transform transform hover:scale-105 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center space-x-2"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      className="w-4 h-4 sm:w-5 sm:h-5"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+    </svg>
+    <span className="hidden sm:inline">Previous</span>
+  </button>
+
+  <span className="text-sm sm:text-md font-bold text-gray-700">
+    Page {currentPage} of {totalPages}
+  </span>
+
+  <button
+    onClick={() => handlePageChange(currentPage + 1)}
+    disabled={currentPage === totalPages}
+    className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold shadow-md transition-transform transform hover:scale-105 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center space-x-2"
+  >
+    <span className="hidden sm:inline">Next</span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      className="w-4 h-4 sm:w-5 sm:h-5"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+</div>
+
     </div>
   );
 };

@@ -136,11 +136,7 @@ export const deleteSubmission = async (req, res) => {
       // Access the MongoDB database
       const db = mongoose.connection.db;
 
-      // Delete the file metadata from GridFS (assignment.files)
-      await db.collection("assignment.files").deleteOne({ _id: fileId });
-
-      // Delete chunks associated with the file (assignment.chunks)
-      await db.collection("assignment.chunks").deleteMany({ files_id: fileId });
+      await assignmentBucket.delete(submission.zipFile);
     }
 
     // Delete the submission record
@@ -162,7 +158,9 @@ export const getStudentScores = async (req, res) => {
     // Validate if the student exists and has the correct role
     const student = await UserModel.findById(studentId);
     if (!student || student.role !== "student") {
-      return res.status(404).json({ error: "Student not found or invalid role" });
+      return res
+        .status(404)
+        .json({ error: "Student not found or invalid role" });
     }
 
     // Find all submissions for the specified studentId
@@ -179,7 +177,7 @@ export const getStudentScores = async (req, res) => {
     }
 
     // Extract only grades from the submissions
-    const scores = submissions.map(submission => ({
+    const scores = submissions.map((submission) => ({
       assignmentId: submission.assignmentId._id, // or just submission.assignmentId if not populated
       assignmentTitle: submission.assignmentId.title, // Use title from populated assignment
       grade: submission.grade,

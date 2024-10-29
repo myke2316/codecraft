@@ -1,10 +1,11 @@
 import ActivityAssignment from "../../models/teacherFunction/activityAssignmentModel.js";
 
 import mongoose from "mongoose";
-import { gfs, upload, gridfsBucket } from "../../sandboxUserFiles/gridFs.js";
+import { gfs, upload, gridfsBucket, assignmentBucket } from "../../sandboxUserFiles/gridFs.js";
 import { GridFSBucket } from "mongodb";
 import ClassModel from "../../models/classModel.js";
 import UserModel from "../../models/userModel.js";
+import Submission from "../../models/teacherFunction/submissionModel.js";
 
 // Controller to handle creating a new assignment
 
@@ -136,6 +137,28 @@ export const deleteAssignment = async (req, res) => {
       return res.status(404).json({ message: "Assignment not found" });
     }
 
+    //Deletes all the submission files or zip files to avoid storage, but keeps the user data
+    // Fetch all submissions for the assignment
+    const submissions = await Submission.find({ assignmentId });
+
+    // Loop through each submission to delete the zipFile if it exists
+    for (const submission of submissions) {
+      if (submission.zipFile) {
+        // If the submission is graded, only delete the zipFile
+        if (submission.status === 'graded') {
+          await assignmentBucket.delete(submission.zipFile);
+        } else {
+          // If the submission is not graded, delete the submission and its zipFile
+          await assignmentBucket.delete(submission.zipFile); // Delete zipFile if it exists
+          await Submission.findByIdAndDelete(submission._id); // Delete the submission
+        }
+      } else {
+        // If there's no zipFile and the submission is not graded, delete the submission
+        if (submission.status !== 'graded') {
+          await Submission.findByIdAndDelete(submission._id);
+        }
+      }
+    }
     // Delete the assignment
     await ActivityAssignment.findByIdAndDelete(assignmentId);
 
@@ -168,7 +191,6 @@ export const deleteAssignment = async (req, res) => {
   }
 };
 
-
 export const editAssignment = async (req, res) => {
   const {
     assignmentId,
@@ -178,7 +200,7 @@ export const editAssignment = async (req, res) => {
     instructions,
     target,
     editForAll,
-    classId // ID of the specific class to update if target is 'specific'
+    classId, // ID of the specific class to update if target is 'specific'
   } = req.body;
   const file = req.file;
 
@@ -204,10 +226,11 @@ export const editAssignment = async (req, res) => {
       const deleteOldImageIfUnused = async (imageId) => {
         if (imageId) {
           // Check if the old image is still used by any assignments
-          const assignmentsUsingOldImage = await ActivityAssignment.countDocuments({
-            expectedOutputImage: imageId,
-            target: { $ne: "specific" } // Check assignments that are not specific
-          });
+          const assignmentsUsingOldImage =
+            await ActivityAssignment.countDocuments({
+              expectedOutputImage: imageId,
+              target: { $ne: "specific" }, // Check assignments that are not specific
+            });
 
           if (assignmentsUsingOldImage === 0) {
             await gridfsBucket.delete(new mongoose.Types.ObjectId(imageId));
@@ -261,7 +284,10 @@ export const editAssignment = async (req, res) => {
 
         return res
           .status(200)
-          .json({ message: "Assignments updated for all classes", assignments });
+          .json({
+            message: "Assignments updated for all classes",
+            assignments,
+          });
       } else {
         return res.status(400).json({ message: "Invalid target specified" });
       }
@@ -279,7 +305,10 @@ export const editAssignment = async (req, res) => {
 
         return res
           .status(200)
-          .json({ message: "Assignments updated for all classes", assignments });
+          .json({
+            message: "Assignments updated for all classes",
+            assignments,
+          });
       } else if (target === "specific" || !editForAll) {
         const updatedAssignment = await ActivityAssignment.findByIdAndUpdate(
           assignmentId,
@@ -306,8 +335,6 @@ export const editAssignment = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
-
-
 
 //already working for the text fields and/or date fields, but not on image fields
 // export const editAssignment = async (req, res) => {

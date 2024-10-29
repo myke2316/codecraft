@@ -112,6 +112,7 @@ function TeacherAssignment({ setDialogOpen, refreshAssignments }) {
             handleBlur,
             errors,
             touched,
+            isSubmitting
           }) => (
             <Form>
               <Grid container spacing={2}>
@@ -250,7 +251,7 @@ function TeacherAssignment({ setDialogOpen, refreshAssignments }) {
                 )}
 
                 <Grid item xs={12}>
-                  <Button variant="contained" color="primary" type="submit">
+                  <Button variant="contained" color="primary" type="submit" disabled={isSubmitting}>
                     Save Assignment
                   </Button>
                 </Grid>

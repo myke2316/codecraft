@@ -7,6 +7,14 @@ import QuizSubmissionModel from "../models/quizSubmissionModel.js";
 import UserAnalyticsModel from "../models/userAnalyticsModel.js";
 import Submission from "../models/teacherFunction/submissionModel.js";
 import CertificateModel from "../models/certificationModel.js";
+import ActivityAssignment from "../models/teacherFunction/activityAssignmentModel.js";
+import {
+  gfs,
+  upload,
+  gridfsBucket,
+  assignmentBucket,
+} from "../sandboxUserFiles/gridFs.js";
+import mongoose from "mongoose";
 
 const fetchAllClass = asyncHandler(async (req, res) => {
   try {
@@ -50,12 +58,31 @@ const removeStudentFromClass = asyncHandler(async (req, res) => {
     await UserAnalyticsModel.deleteMany({
       userId: studentId,
     });
-    await Submission.deleteMany({
-      studentId: studentId,
-    });
+
     await CertificateModel.deleteMany({
       studentId: studentId,
     });
+  
+    const submissions = await Submission.find({studentId});
+    // Loop through each submission
+    for (const submission of submissions) {
+      if (submission.zipFile) {
+        try {
+          // Delete zipFile from GridFS only if it exists
+          await assignmentBucket.delete(submission.zipFile);
+          console.log("deleting bucket");
+        } catch (error) {
+          console.error(
+            `Error deleting zipFile for submission ${submission._id}: `,
+            error
+          );
+          // Handle specific error if necessary (e.g., log it or notify the user)
+        }
+      }
+      // Delete the submission record
+      await Submission.findByIdAndDelete(submission._id);
+    }
+
     res
       .status(200)
       .json({ message: "Student removed from class", data: classData });
@@ -209,6 +236,47 @@ const deleteClass = asyncHandler(async (req, res) => {
     await ActivitySubmissionModel.deleteMany({ userId: { $in: students } });
     await QuizSubmissionModel.deleteMany({ userId: { $in: students } });
     await UserAnalyticsModel.deleteMany({ userId: { $in: students } });
+
+    // Find and delete all assignments associated with the class
+    const assignments = await ActivityAssignment.find({ classId });
+    for (const assignment of assignments) {
+      if (assignment.expectedOutputImage) {
+        // Delete file and chunks associated with the image
+        await gridfsBucket.delete(assignment.expectedOutputImage);
+      }
+      await ActivityAssignment.findByIdAndDelete(assignment._id);
+    }
+
+
+    const submissions = await Submission.find({ classId }); 
+
+    // Loop through each submission to delete the zipFile if it exists
+    for (const submission of submissions) {
+      if (submission.zipFile) {
+        try {
+          await assignmentBucket.delete(submission.zipFile); // Delete zipFile if it exists
+          console.log(`Successfully deleted zipFile for submission: ${submission._id}`);
+        } catch (error) {
+          console.error(
+            `Error deleting zipFile for submission ${submission._id}: `,
+            error
+          );
+        }
+      } else {
+        console.log(`No zipFile found for submission: ${submission._id}`);
+      }
+    
+      // Delete the submission record
+      try {
+        await Submission.findByIdAndDelete(submission._id); // Delete the submission
+        console.log(`Successfully deleted submission: ${submission._id}`);
+      } catch (error) {
+        console.error(
+          `Error deleting submission ${submission._id}: `,
+          error
+        );
+      }
+    }
 
     res
       .status(200)

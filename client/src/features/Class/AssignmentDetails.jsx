@@ -51,7 +51,7 @@ function AssignmentDetails() {
   const navigate = useNavigate();
 
   const [fetchAssignmentById, { isLoading, isError, error }] = useFetchAssignmentByIdMutation();
-  const [submitAssignment] = useSubmitAssignmentMutation();
+  const [submitAssignment,{isLoading:isLoadingAssignment}] = useSubmitAssignmentMutation();
   const [deleteSubmission] = useDeleteSubmissionMutation();
 
   const {
@@ -333,6 +333,7 @@ function AssignmentDetails() {
         flexDirection: 'column',
         gap: '16px' // Spacing between form elements for better usability
       }}
+      isLoadingAssignment={isLoadingAssignment}
     />
   )}
 </Card>
@@ -437,7 +438,7 @@ function SubmissionDetails({
 }
 
 
-function SubmissionForm({ onFileChange, onSubmit, errorMessage }) {
+function SubmissionForm({ onFileChange, onSubmit, errorMessage,isLoadingAssignment }) {
   return (
     <Box className="space-y-4">
       <FormControl fullWidth>
@@ -460,6 +461,7 @@ function SubmissionForm({ onFileChange, onSubmit, errorMessage }) {
         startIcon={<CloudUpload />}
         onClick={onSubmit}
         fullWidth
+        disabled={isLoadingAssignment}
       >
         Submit
       </Button>

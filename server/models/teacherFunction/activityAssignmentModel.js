@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
-import UserModel from "../userModel.js";  // Import UserModel to validate the teacher
+import UserModel from "../userModel.js"; // Import UserModel to validate the teacher
 
-  
 const activityAssignmentSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -21,7 +20,7 @@ const activityAssignmentSchema = new mongoose.Schema({
   },
   classId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Class",  // This references the Class model by name
+    ref: "Class", // This references the Class model by name
     required: [true, "Class ID is required"],
   },
   instructions: {
@@ -32,10 +31,11 @@ const activityAssignmentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Image",
     required: [false, "Expected output image reference is optional"],
-  },  target: {
+  },
+  target: {
     type: String,
     enum: ["all", "specific"],
-    default: "all"
+    default: "all",
   },
   teacherId: {
     type: mongoose.Schema.Types.ObjectId,

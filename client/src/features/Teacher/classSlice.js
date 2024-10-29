@@ -1,12 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { logout } from "../LoginRegister/userSlice";
 
-const initialState = {
-  class: localStorage.getItem("class")
-    ? JSON.parse(localStorage.getItem("class"))
-    : [],
-};
+// const initialState = {
+//   class: localStorage.getItem("class")
+//     ? JSON.parse(localStorage.getItem("class"))
+//     : [],
+// };
 
+
+const storedClass = localStorage.getItem("class");
+
+if (storedClass === "undefined") {
+  localStorage.removeItem("class");
+}
+
+const initialState = {
+  class: storedClass !== undefined ? JSON.parse(storedClass) : [],
+};
 const storage = localStorage.getItem("class");
 
 const classSlice = createSlice({
