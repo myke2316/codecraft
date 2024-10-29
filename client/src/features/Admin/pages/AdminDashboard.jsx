@@ -21,7 +21,7 @@ import AdminAnalyticsChart from "./AdminDashboardFiles/AdminAnalyticsChart";
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#FFD700', // Yellow
+      main: 'rgb(110, 97, 171)', // Yellow
     },
     secondary: {
       main: '#000000', // Black
@@ -47,7 +47,7 @@ const theme = createTheme({
     MuiDrawer: {
       styleOverrides: {
         paper: {
-          backgroundColor: '#000000',
+          backgroundColor: 'rgb(110, 97, 171)',
           color: '#FFFFFF',
         },
       },
@@ -161,11 +161,29 @@ const AdminDashboard = () => {
           ) : (
             <Container maxWidth="xl">
               <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
-                    <AdminOverview userAnalytics={userAnalytics} users={users} />
-                  </Paper>
-                </Grid>
+              <Grid item xs={12}>
+                <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
+                <Box 
+                  sx={{ 
+                    width: '100%', 
+                    height: '90px', 
+                    backgroundColor: 'rgb(110, 97, 171)', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    marginBottom: "10px",
+                    borderRadius: "3px"
+                  }}
+                >
+
+    <Typography variant="h4" gutterBottom className="mb-6 text-black-800 font-bold"   sx={{ color: 'white' }}>
+          User Analytics
+        </Typography>
+              </Box>
+                  <AdminOverview userAnalytics={userAnalytics} users={users} />
+                </Paper>
+              </Grid>
+
                 <Grid item xs={12}>
                   <Paper elevation={3} sx={{ p: 3 }}>
                     <AdminAnalyticsChart userAnalytics={userAnalytics} classesData={classesData} userProgress={userProgress} users = {users} />

@@ -436,52 +436,95 @@ function AdminAnalyticsChart({
 
   return (
 <Container maxWidth={false} className="p-6 bg-gray-100">
-      <Typography variant="h4" component="h1" className="mb-6 text-gray-800 font-bold">
-        Admin Analytics Dashboard
-      </Typography>
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
-          <Paper elevation={3} className="p-4 h-full">
-            <Typography variant="h6" className="mb-4 text-gray-700">
-              Course Completion Overview
-            </Typography>
-            <Box className="h-64">
-              <PieChartCompletion data={courseCompletionData} />
-            </Box>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper elevation={3} className="p-4">
-            <Typography variant="h6" className="mb-4 text-gray-700">
-              Users per Course
-            </Typography>
-            <Box className="h-[400px]"> {/* Increased height */}
-              <CourseActiveChart activeUsersPerCourse={activeUsersPerCourse} />
-            </Box>
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper elevation={3} className="p-4">
-            <Typography variant="h6" className="mb-4 text-gray-700">
-              Active Users Over Time
-            </Typography>
-            <Box className="h-[500px]"> {/* Increased height */}
-              <ActiveUsersChart data={activeUsersData} />
-            </Box>
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper elevation={3} className="p-4">
-            <Typography variant="h6" className="mb-4 text-gray-700">
-              Average Time Spent per Course
-            </Typography>
-            <Box className="h-[400px]">
-              <AverageTimeSpentChart userAnalytics={userAnalytics} />
-            </Box>
-          </Paper>
-        </Grid>
-      </Grid>
-    </Container>
+<Box 
+                  sx={{ 
+                    width: '100%', 
+                    height: '90px', 
+                    backgroundColor: 'rgb(110, 97, 171)', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    marginBottom: "10px",
+                    borderRadius: "3px"
+                  }}
+                >
+    <Typography variant="h4" component="h1" className="mb-6 text-white-800 font-bold"   sx={{ color: 'white' }}>
+    Admin Analytics Dashboard
+    </Typography>
+  </Box>
+  
+ 
+  <Grid container spacing={4}>
+    <Grid item xs={12} md={6}>
+      <Paper elevation={3} className="p-4 h-full">
+        <Typography variant="h5" className="mb-6 text-black-800 font-bold" sx={{textAlign: "center"}}>
+          Course Completion Overview
+        </Typography>
+        <Box className="h-64">
+          <PieChartCompletion data={courseCompletionData} />
+        </Box>
+      </Paper>
+    </Grid>
+    <Grid item xs={12} md={6}>
+      <Paper elevation={3} className="p-4">
+      <Typography variant="h5" className="mb-6 text-black-800 font-bold" sx={{textAlign: "center"}}>
+          Users Per Course
+        </Typography>
+        <Box className="h-[400px]">
+          <CourseActiveChart activeUsersPerCourse={activeUsersPerCourse} />
+        </Box>
+      </Paper>
+    </Grid>
+    <Grid item xs={12}>
+      <Paper elevation={3} className="p-4">
+      <Box 
+                  sx={{ 
+                    width: '100%', 
+                    height: '80px', 
+                    backgroundColor: 'rgb(110, 97, 171)', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    marginBottom: "10px",
+                    borderRadius: "3px"
+                  }}
+                >
+
+    <Typography variant="h5" gutterBottom className="mb-6 text-black-800 font-bold"   sx={{ color: 'white' }}>
+         Average Users Overtime
+        </Typography>
+              </Box>
+        <Box className="h-[500px]">
+          <ActiveUsersChart data={activeUsersData} />
+        </Box>
+      </Paper>
+    </Grid>
+    <Grid item xs={12}>
+      <Paper elevation={3} className="p-4">
+      <Box 
+                  sx={{ 
+                    width: '100%', 
+                    height: '80px', 
+                    backgroundColor: 'rgb(110, 97, 171)', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    marginBottom: "10px",
+                    borderRadius: "3px"
+                  }}
+                >
+
+    <Typography variant="h5" gutterBottom className="mb-6 text-black-800 font-bold"   sx={{ color: 'white' }}>
+         Average Time Spent Per Course
+        </Typography>
+        </Box>
+        <Box className="h-[400px]">
+          <AverageTimeSpentChart userAnalytics={userAnalytics} />
+        </Box>
+      </Paper>
+    </Grid>
+  </Grid>
+</Container>
   );
 }
 

@@ -184,9 +184,14 @@ function AdminQna() {
   };
 
   return (
-    <Box className="p-6 min-h-screen">
+    <Box className="p-6 min-h-screen" sx={{ 
+    mt: 4, 
+    backgroundColor: 'white', 
+    boxShadow: 3, // This applies a default shadow from MUI's theme
+    borderRadius: 2 // Optional: adds rounded corners
+  }}>
       <Typography variant="h4" className="mb-7 p-5 font-bold">
-        Manage Questions
+        Manage Q&A
       </Typography>
       <Grid container spacing={3} className="mb-6">
         <Grid item xs={12} md={4}>
@@ -244,12 +249,12 @@ function AdminQna() {
             <TableContainer component={Paper}>
               <Table>
                 <TableHead>
-                  <TableRow>
-                    <TableCell>Title</TableCell>
-                    <TableCell>Author</TableCell>
-                    <TableCell>Date Requested</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell align="center">Actions</TableCell>
+                <TableRow sx={{bgcolor: 'rgb(110, 97, 171)', color: "white"}}>
+                    <TableCell sx={{color: "white"}}>Title</TableCell>
+                    <TableCell sx={{color: "white"}}>Author</TableCell>
+                    <TableCell sx={{color: "white"}}>Date Requested</TableCell>
+                    <TableCell sx={{color: "white"}}>Status</TableCell>
+                    <TableCell sx={{color: "white"}} align="center">Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

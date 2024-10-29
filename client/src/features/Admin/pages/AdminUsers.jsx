@@ -22,6 +22,7 @@ import {
   Typography,
   Grid,
   Box,
+  TablePagination,
 } from "@mui/material";
 import {
   useDeleteUserMutation,
@@ -164,9 +165,43 @@ export default function AdminUsers() {
     return `${days}d ${hours}h ${minutes}m ${seconds}s`;
   };
 
+
+  // Pagination states
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [deletedPage, setDeletedPage] = useState(0);
+  const [deletedRowsPerPage, setDeletedRowsPerPage] = useState(5);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const handleChangeDeletedPage = (event, newPage) => {
+    setDeletedPage(newPage);
+  };
+
+  const handleChangeDeletedRowsPerPage = (event) => {
+    setDeletedRowsPerPage(parseInt(event.target.value, 10));
+    setDeletedPage(0);
+  };
+
   return (
-    <Container maxWidth="lg" sx={{ mt: 4 }}>
-      <Typography variant="h4" gutterBottom>
+    <Container 
+      maxWidth="lg" 
+      sx={{ 
+        p: 4,
+        mt: 4, 
+        backgroundColor: 'background.paper', 
+        boxShadow: 3,
+        borderRadius: 2
+      }}
+    >
+      <Typography variant="h4" gutterBottom sx={{padding: 3}}>
         Manage Users
       </Typography>
 
@@ -202,33 +237,35 @@ export default function AdminUsers() {
       <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: 3 }}>
         <Table>
           <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Username</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Role</TableCell>
-              <TableCell align="center">Actions</TableCell>
+            <TableRow sx={{bgcolor: 'primary.main', color: "white"}}>
+              <TableCell sx={{color: "white"}}>ID</TableCell>
+              <TableCell sx={{color: "white"}}>Username</TableCell>
+              <TableCell sx={{color: "white"}}>Email</TableCell>
+              <TableCell sx={{color: "white"}}>Role</TableCell>
+              <TableCell sx={{color: "white"}} align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredUsers.length > 0 ? (
-              filteredUsers.map((user) => (
-                <TableRow key={user._id}>
-                  <TableCell>{user._id}</TableCell>
-                  <TableCell>{user.username}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.role}</TableCell>
-                  <TableCell align="center">
-                    <Button
-                      variant="contained"
-                      color="error"
-                      onClick={() => handleOpenDialog(user)}
-                    >
-                      Remove
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))
+              filteredUsers
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((user) => (
+                  <TableRow key={user._id}>
+                    <TableCell>{user._id}</TableCell>
+                    <TableCell>{user.username}</TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell>{user.role}</TableCell>
+                    <TableCell align="center">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleOpenDialog(user)}
+                      >
+                        Remove
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
             ) : (
               <TableRow>
                 <TableCell colSpan={5} align="center">
@@ -239,56 +276,67 @@ export default function AdminUsers() {
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={filteredUsers.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
 
       <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
         Deleted Users
       </Typography>
-      <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: 3 }}>
+      <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: 3}}>
         <Table>
           <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Username</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Role</TableCell>
-              <TableCell>Time Until Deletion</TableCell>
-              <TableCell align="center">Actions</TableCell>
+            <TableRow sx={{bgcolor: 'primary.main', color: "white"}}>
+              <TableCell sx={{color: "white"}}>ID</TableCell>
+              <TableCell sx={{color: "white"}}>Username</TableCell>
+              <TableCell sx={{color: "white"}}>Email</TableCell>
+              <TableCell sx={{color: "white"}}>Role</TableCell>
+              <TableCell sx={{color: "white"}}>Time Until Deletion</TableCell>
+              <TableCell sx={{color: "white"}} align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredDeletedUsers.length > 0 ? (
-              filteredDeletedUsers.map((user) => (
-                <TableRow key={user._id}>
-                  <TableCell>{user._id}</TableCell>
-                  <TableCell>{user.username}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.role}</TableCell>
-                  <TableCell>
-                    {getRemainingTime(user.deleteExpiresAt)}
-                  </TableCell>
-                  <TableCell align="center">
-                    <Box display="flex" justifyContent="center" alignItems="center">
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => handleRestoreUser(user._id)}
-                        disabled={isLoadingUndeleteUser}
-                      >
-                        Restore
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={() => handleOpenPermanentDeleteDialog(user)}
-                        disabled={isLoadingPermanentDelete}
-                        sx={{ ml: 2 }}
-                      >
-                        Delete
-                      </Button>
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              ))
+              filteredDeletedUsers
+                .slice(deletedPage * deletedRowsPerPage, deletedPage * deletedRowsPerPage + deletedRowsPerPage)
+                .map((user) => (
+                  <TableRow key={user._id}>
+                    <TableCell>{user._id}</TableCell>
+                    <TableCell>{user.username}</TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell>{user.role}</TableCell>
+                    <TableCell>
+                      {getRemainingTime(user.deleteExpiresAt)}
+                    </TableCell>
+                    <TableCell align="center">
+                      <Box display="flex" justifyContent="center" alignItems="center">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() => handleRestoreUser(user._id)}
+                          disabled={isLoadingUndeleteUser}
+                        >
+                          Restore
+                        </Button>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          onClick={() => handleOpenPermanentDeleteDialog(user)}
+                          disabled={isLoadingPermanentDelete}
+                          sx={{ ml: 2 }}
+                        >
+                          Delete
+                        </Button>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                ))
             ) : (
               <TableRow>
                 <TableCell colSpan={6} align="center">
@@ -299,6 +347,15 @@ export default function AdminUsers() {
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={filteredDeletedUsers.length}
+        rowsPerPage={deletedRowsPerPage}
+        page={deletedPage}
+        onPageChange={handleChangeDeletedPage}
+        onRowsPerPageChange={handleChangeDeletedRowsPerPage}
+      />
 
       <Dialog
         open={open}
@@ -308,7 +365,8 @@ export default function AdminUsers() {
         <DialogTitle id="confirm-delete-dialog">Confirm Delete</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this user?
+            Are you sure you want to delete this user? This action cannot be
+            undone, and all associated data will be permanently deleted.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -317,7 +375,7 @@ export default function AdminUsers() {
           </Button>
           <Button
             onClick={handleRemoveUser}
-            color="secondary"
+            color="primary"
             variant="contained"
             disabled={isLoadingDeleteUser}
           >

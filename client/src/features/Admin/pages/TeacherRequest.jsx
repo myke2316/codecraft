@@ -120,8 +120,17 @@ const TeacherRequest = () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      <Typography variant="h4" gutterBottom>
+    <Container 
+    maxWidth="lg" 
+    sx={{ 
+      mt: 4, 
+      backgroundColor: 'white', 
+      boxShadow: 3, // This applies a default shadow from MUI's theme
+      borderRadius: 2, // Optional: adds rounded corners
+      padding: 3
+    }}
+  >
+      <Typography variant="h4" gutterBottom >
         Pending Teacher Requests
       </Typography>
 
@@ -151,11 +160,11 @@ const TeacherRequest = () => {
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
-            <TableRow>
-              <TableCell><Typography variant="subtitle2">ID</Typography></TableCell>
-              <TableCell><Typography variant="subtitle2">Username</Typography></TableCell>
-              <TableCell><Typography variant="subtitle2">Email</Typography></TableCell>
-              <TableCell><Typography variant="subtitle2">Actions</Typography></TableCell>
+            <TableRow sx={{bgcolor: 'rgb(110, 97, 171)', color: "white"}}>
+              <TableCell sx={{color: "white"}}><Typography variant="subtitle2">ID</Typography></TableCell>
+              <TableCell sx={{color: "white"}}><Typography variant="subtitle2">Username</Typography></TableCell>
+              <TableCell sx={{color: "white"}}><Typography variant="subtitle2">Email</Typography></TableCell>
+              <TableCell sx={{color: "white"}}><Typography variant="subtitle2">Actions</Typography></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
