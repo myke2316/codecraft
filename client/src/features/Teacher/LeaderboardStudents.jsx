@@ -26,48 +26,44 @@ const LeaderboardStudents = ({ students, classId }) => {
     localStorage.setItem("theme", newMode);
   };
 
-  const scoresData = students.map((student) => ({
-    id: student._id,
-    ...useGetScoreByStudentIdQuery(student._id).data,
-  }));
+  // Create a mapping of student IDs to scores and votes
+  const studentData = students.map(student => {
+    const scoreData = useGetScoreByStudentIdQuery(student._id);
+    const voteData = useGetUserVoteQuery({ userId: student._id });
 
-  const votesData = students.map((student) => ({
-    id: student._id,
-    ...useGetUserVoteQuery({ userId: student._id }).data,
-  }));
+    return {
+      student,
+      scoreData,
+      voteData
+    };
+  });
 
   const sortedStudents = useMemo(() => {
-    return [...students].sort((a, b) => {
+    return [...studentData].sort((a, b) => {
       if (sortBy === "points") {
-        const scoresDataA = scoresData.find((item) => item.id === a._id);
-        const userVoteA = votesData.find((item) => item.id === a._id);
-        const qnaPointsA = (userVoteA?.totalVotes || 0) * 5;
-        const submissionPointsA =
-          scoresDataA?.scores?.reduce(
-            (acc, score) => acc + (score.grade || 0),
-            0
-          ) || 0;
-        const totalPointsA =
-          (a.totalPointsEarned || 0) + qnaPointsA + submissionPointsA;
+        const submissionPointsA = a.scoreData.data?.scores.reduce(
+          (acc, score) => acc + (score.grade || 0),
+          0
+        ) || 0;
 
-        const scoresDataB = scoresData.find((item) => item.id === b._id);
-        const userVoteB = votesData.find((item) => item.id === b._id);
-        const qnaPointsB = (userVoteB?.totalVotes || 0) * 5;
-        const submissionPointsB =
-          scoresDataB?.scores?.reduce(
-            (acc, score) => acc + (score.grade || 0),
-            0
-          ) || 0;
-        const totalPointsB =
-          (b.totalPointsEarned || 0) + qnaPointsB + submissionPointsB;
+        const qnaPointsA = (a.voteData.data?.totalVotes || 0) * 5;
+        const totalPointsA = (a.student.totalPointsEarned || 0) + qnaPointsA + submissionPointsA;
+
+        const submissionPointsB = b.scoreData.data?.scores.reduce(
+          (acc, score) => acc + (score.grade || 0),
+          0
+        ) || 0;
+
+        const qnaPointsB = (b.voteData.data?.totalVotes || 0) * 5;
+        const totalPointsB = (b.student.totalPointsEarned || 0) + qnaPointsB + submissionPointsB;
 
         return totalPointsB - totalPointsA;
       } else if (sortBy === "name") {
-        return a.username.localeCompare(b.username);
+        return a.student.username.localeCompare(b.student.username);
       }
       return 0;
     });
-  }, [students, sortBy, scoresData, votesData]);
+  }, [studentData, sortBy]);
 
   const totalPages = Math.ceil(sortedStudents.length / studentsPerPage);
 
@@ -122,28 +118,19 @@ const LeaderboardStudents = ({ students, classId }) => {
 
       {currentStudents.length > 0 ? (
         <ul className="space-y-3 sm:space-y-4">
-          {currentStudents.map((student, index) => {
-            const studentId = student._id;
-            const overallIndex = sortedStudents.findIndex(s => s._id === studentId);
+          {currentStudents.map((data, index) => {
+            const { student, scoreData, voteData } = data;
+            const overallIndex = sortedStudents.findIndex(s => s.student._id === student._id);
 
-            const { data: scoresData, isFetching } =
-              useGetScoreByStudentIdQuery(studentId);
-            const { data: userVote } =
-              useGetUserVoteQuery({ userId: studentId });
-
-            const qnaPoints = userVote?.totalVotes * 5;
-            const submissionPoints = !scoresData
+            const qnaPoints = voteData.data?.totalVotes * 5;
+            const submissionPoints = !scoreData.data
               ? 0
-              : scoresData?.scores.reduce((acc, score) => acc + (score.grade || 0), 0);
+              : scoreData.data.scores.reduce((acc, score) => acc + (score.grade || 0), 0);
 
             return (
               <Link
                 key={student._id}
-                to={
-                  userRole === "teacher"
-                    ? `/${classId}/class/students/${student._id}`
-                    : null
-                }
+                to={userRole === "teacher" ? `/${classId}/class/students/${student._id}` : null}
                 className="block"
               >
                 <motion.li
@@ -220,39 +207,19 @@ const LeaderboardStudents = ({ students, classId }) => {
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold shadow-md transition-transform transform hover:scale-105 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center space-x-2"
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold transition-colors duration-200 hover:bg-blue-600 disabled:opacity-50"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            className="w-4 h-4 sm:w-5 sm:h-5"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          <span className="hidden sm:inline">Previous</span>
+          Previous
         </button>
-
-        <span className="text-sm sm:text-md font-bold text-gray-700">
+        <span className="text-sm">
           Page {currentPage} of {totalPages}
         </span>
-
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold shadow-md transition-transform transform hover:scale-105 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center space-x-2"
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold transition-colors duration-200 hover:bg-blue-600 disabled:opacity-50"
         >
-          <span className="hidden sm:inline">Next</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            className="w-4 h-4 sm:w-5 sm:h-5"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
+          Next
         </button>
       </div>
     </div>

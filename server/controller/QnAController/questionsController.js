@@ -176,6 +176,38 @@ export const updateAnswer = async (req, res) => {
   }
 };
 
+export const updateAnswerStatus = async (req, res) => {
+  const { status } = req.body;
+  const { answerId } = req.params;
+
+  try {
+    // Find the question that contains the answer with the provided answerId
+    const question = await QuestionModel.findOne({ "answers._id": answerId });
+    if (!question) {
+      return res.status(404).json({ message: "Answer not found" });
+    }
+
+    // Find the answer within the question
+    const answer = question.answers.id(answerId);
+    if (!answer) {
+      return res.status(404).json({ message: "Answer not found" });
+    }
+
+
+
+    // Update only the status
+    answer.status = status;
+    answer.updatedAt = Date.now();
+
+    // Save the changes to the question document
+    const updatedQuestion = await question.save();
+    res.json(updatedQuestion);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 // Delete a question
 export const deleteQuestion = async (req, res) => {
   const { id } = req.params;
@@ -319,7 +351,29 @@ export const getQuestionVotes = async (req, res) => {
   }
 };
 
+export const fetchAnswers = async (req, res) => {
+  try {
+    // Fetch all questions
+    const questions = await QuestionModel.find().populate('author', 'username');
 
+    // Extract all answers from the questions
+    const answers = questions.reduce((acc, question) => {
+      const answersWithQuestionInfo = question.answers.map(answer => ({
+        ...answer.toObject(),
+        questionTitle: question.title,
+        questionId: question._id
+      }));
+      return [...acc, ...answersWithQuestionInfo];
+    }, []);
+
+    // Sort answers by creation date (newest first)
+    answers.sort((a, b) => b.createdAt - a.createdAt);
+
+    res.json(answers);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 // Vote on an answer
 export const voteAnswer = async (req, res) => {

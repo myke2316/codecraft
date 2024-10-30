@@ -65,7 +65,7 @@ const AdminOverview = ({ users }) => {
     
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} md={3}>
-          <StatCard title="Total Users" value={totalUsers - totalAdmin} icon={PeopleAltIcon} />
+          <StatCard title="Total Users(No roles included)" value={totalUsers - totalAdmin} icon={PeopleAltIcon} />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <StatCard title="Total Students" value={totalStudents} icon={SchoolIcon} />

@@ -43,7 +43,7 @@ const AdminSidebar = () => {
       icon: <SchoolIcon />,
       path: "/admin-teacherRequest",
     },
-    { text: "Manage Questions", icon: <QuestionAnswerIcon />, path: "/admin-qna" },
+    { text: "Manage Forum", icon: <QuestionAnswerIcon />, path: "/admin-qna" },
     { text: "Manage Certificate", icon: <Article />, path: "/certificate/admin/manage" },
   ];
 

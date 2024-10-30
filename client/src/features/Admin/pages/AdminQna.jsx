@@ -26,19 +26,24 @@ import {
   Card,
   CardContent,
   Grid,
+  Tabs,
+  Tab,
+  Alert,
 } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import DeleteIcon from "@mui/icons-material/Delete";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
+import RestoreIcon from "@mui/icons-material/Restore";
 import {
   useFetchQuestionsMutation,
   useUpdateQuestionMutation,
-  useDeleteQuestionMutation,
   useFetchQuestionByIdMutation,
+  useUpdateAnswerStatusMutation,
+  useFetchAnswersMutation,
 } from "../../QnA/questionService";
+import Restore from "@mui/icons-material/Restore";
 
 const CodeBlock = ({ code, language }) => (
   <Box
@@ -50,7 +55,7 @@ const CodeBlock = ({ code, language }) => (
       p: 2,
       overflowX: "auto",
       mt: 1,
-      '& code': {
+      "& code": {
         fontFamily: 'Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
       },
     }}
@@ -61,95 +66,108 @@ const CodeBlock = ({ code, language }) => (
 
 function AdminQna() {
   const [questions, setQuestions] = useState([]);
+  const [answers, setAnswers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filteredQuestions, setFilteredQuestions] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
   const [statusFilter, setStatusFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [currentTab, setCurrentTab] = useState(0);
 
   const [fetchQuestions] = useFetchQuestionsMutation();
   const [updateQuestion] = useUpdateQuestionMutation();
-  const [deleteQuestion] = useDeleteQuestionMutation();
   const [fetchQuestionById] = useFetchQuestionByIdMutation();
+  const [updateAnswerStatus] = useUpdateAnswerStatusMutation();
+  const [fetchAnswers] = useFetchAnswersMutation();
 
-  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [openQuestionDialog, setOpenQuestionDialog] = useState(false);
+  const [openAnswerDialog, setOpenAnswerDialog] = useState(false);
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const [currentAction, setCurrentAction] = useState(null);
-  const [questionId, setQuestionId] = useState(null);
+  const [itemId, setItemId] = useState(null);
 
   useEffect(() => {
-    const getQuestions = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetchQuestions().unwrap();
-        setQuestions(response && response.length > 0 ? response : []);
+        const questionsResponse = await fetchQuestions().unwrap();
+        setQuestions(
+          questionsResponse && questionsResponse.length > 0
+            ? questionsResponse
+            : []
+        );
+        const answersResponse = await fetchAnswers().unwrap();
+        setAnswers(
+          answersResponse && answersResponse.length > 0 ? answersResponse : []
+        );
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching questions:", error);
+        console.error("Error fetching data:", error);
         setLoading(false);
       }
     };
 
-    getQuestions();
-  }, [fetchQuestions]);
+    fetchData();
+  }, [fetchQuestions, fetchAnswers]);
 
   useEffect(() => {
-    let filtered = questions;
+    let filtered = currentTab === 0 ? questions : answers;
     if (statusFilter !== "all") {
-      filtered = filtered.filter((q) => q.status === statusFilter);
+      filtered = filtered.filter((item) => item.status === statusFilter);
     }
     if (searchTerm) {
       filtered = filtered.filter(
-        (q) =>
-          q.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          q.author.username.toLowerCase().includes(searchTerm.toLowerCase())
+        (item) =>
+          item.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.content?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.author?.username
+            ?.toLowerCase()
+            .includes(searchTerm.toLowerCase())
       );
     }
-    setFilteredQuestions(filtered);
-  }, [questions, statusFilter, searchTerm]);
+    setFilteredItems(filtered);
+  }, [questions, answers, statusFilter, searchTerm, currentTab]);
 
   const handleAction = async () => {
     try {
-      if (currentAction === "accept") {
-        await updateQuestion({ questionId, status: "accepted" }).unwrap();
+      if (currentTab === 0) {
+        // Question actions
+        await updateQuestion({
+          questionId: itemId,
+          status: currentAction,
+        }).unwrap();
         setQuestions((prevQuestions) =>
           prevQuestions.map((question) =>
-            question._id === questionId
-              ? { ...question, status: "accepted" }
+            question._id === itemId
+              ? { ...question, status: currentAction }
               : question
           )
         );
-      } else if (currentAction === "deny") {
-        await updateQuestion({ questionId, status: "denied" }).unwrap();
-        setQuestions((prevQuestions) =>
-          prevQuestions.map((question) =>
-            question._id === questionId
-              ? { ...question, status: "denied" }
-              : question
+      } else {
+        // Answer actions
+        const res = await updateAnswerStatus({
+          answerId: itemId,
+          status: currentAction,
+        }).unwrap();
+        console.log(res);
+        setAnswers((prevAnswers) =>
+          prevAnswers.map((answer) =>
+            answer._id === itemId
+              ? { ...answer, status: currentAction }
+              : answer
           )
-        );
-      } else if (currentAction === "delete") {
-        await deleteQuestion(questionId).unwrap();
-        setQuestions((prevQuestions) =>
-          prevQuestions.filter((question) => question._id !== questionId)
         );
       }
       handleCloseDialog();
     } catch (error) {
-      console.error(`Error ${currentAction} question:`, error);
+      console.error(`Error ${currentAction} item:`, error);
     }
   };
 
   const handleOpenConfirmDialog = (action, id) => {
     setCurrentAction(action);
-    setQuestionId(id);
+    setItemId(id);
     setOpenConfirmDialog(true);
-  };
-
-  const handleOpenDeleteDialog = (action, id) => {
-    setCurrentAction(action);
-    setQuestionId(id);
-    setOpenDeleteDialog(true);
   };
 
   const handleOpenQuestionDialog = async (id) => {
@@ -162,37 +180,77 @@ function AdminQna() {
     }
   };
 
+  const handleOpenAnswerDialog = async (answer) => {
+    setSelectedAnswer(answer);
+    try {
+      const question = await fetchQuestionById(answer.questionId).unwrap();
+      setSelectedQuestion(question);
+    } catch (error) {
+      console.error("Error fetching question details:", error);
+    }
+    setOpenAnswerDialog(true);
+  };
+
   const handleCloseDialog = () => {
     setOpenConfirmDialog(false);
-    setOpenDeleteDialog(false);
     setOpenQuestionDialog(false);
-    setQuestionId(null);
+    setOpenAnswerDialog(false);
+    setItemId(null);
     setCurrentAction(null);
     setSelectedQuestion(null);
+    setSelectedAnswer(null);
   };
 
   const handleRefresh = async () => {
     setLoading(true);
     try {
-      const response = await fetchQuestions().unwrap();
-      setQuestions(response && response.length > 0 ? response : []);
+      const questionsResponse = await fetchQuestions().unwrap();
+      setQuestions(
+        questionsResponse && questionsResponse.length > 0
+          ? questionsResponse
+          : []
+      );
+      const answersResponse = await fetchAnswers().unwrap();
+      setAnswers(
+        answersResponse && answersResponse.length > 0 ? answersResponse : []
+      );
     } catch (error) {
-      console.error("Error refetching questions:", error);
+      console.error("Error refetching data:", error);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Box className="p-6 min-h-screen" sx={{ 
-    mt: 4, 
-    backgroundColor: 'white', 
-    boxShadow: 3, // This applies a default shadow from MUI's theme
-    borderRadius: 2 // Optional: adds rounded corners
-  }}>
+    <Box
+      className="p-6 min-h-screen"
+      sx={{
+        mt: 4,
+        backgroundColor: "white",
+        boxShadow: 3,
+        borderRadius: 2,
+      }}
+    >
       <Typography variant="h4" className="mb-7 p-5 font-bold">
-        Manage Questions
+        Manage Community Forum
       </Typography>
+      <Tabs
+        value={currentTab}
+        onChange={(e, newValue) => setCurrentTab(newValue)}
+        className="mb-4"
+      >
+        <Tab label="Questions" />
+        <Tab label="Answers" />
+      </Tabs>
+      <Alert sx={{ mb: "20px" }} severity = "warning">
+        Denied Users will be automatically deleted in 10 hours
+      </Alert>
+      {currentTab === 1 && (
+        <Alert sx={{ mb: "20px" }} severit="info">
+          Note: Answers are publicly published when status is either Pending or
+          Approved
+        </Alert>
+      )}
       <Grid container spacing={3} className="mb-6">
         <Grid item xs={12} md={4}>
           <FormControl fullWidth variant="outlined">
@@ -206,7 +264,7 @@ function AdminQna() {
             >
               <MenuItem value="all">All</MenuItem>
               <MenuItem value="pending">Pending</MenuItem>
-              <MenuItem value="accepted">Accepted</MenuItem>
+              <MenuItem value="accepted">Approved</MenuItem>
               <MenuItem value="denied">Denied</MenuItem>
             </Select>
           </FormControl>
@@ -214,7 +272,7 @@ function AdminQna() {
         <Grid item xs={12} md={6}>
           <TextField
             fullWidth
-            label="Search by Title or Username"
+            label="Search"
             variant="outlined"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -241,44 +299,64 @@ function AdminQna() {
             <Box className="flex justify-center p-6">
               <CircularProgress />
             </Box>
-          ) : filteredQuestions.length === 0 ? (
-            <Typography variant="h6" align="center" className="p-6 text-gray-600">
-              No questions available.
+          ) : filteredItems.length === 0 ? (
+            <Typography
+              variant="h6"
+              align="center"
+              className="p-6 text-gray-600"
+            >
+              No items available.
             </Typography>
           ) : (
             <TableContainer component={Paper}>
               <Table>
                 <TableHead>
-                <TableRow sx={{bgcolor: 'rgb(110, 97, 171)', color: "white"}}>
-                    <TableCell sx={{color: "white"}}>Title</TableCell>
-                    <TableCell sx={{color: "white"}}>Author</TableCell>
-                    <TableCell sx={{color: "white"}}>Date Requested</TableCell>
-                    <TableCell sx={{color: "white"}}>Status</TableCell>
-                    <TableCell sx={{color: "white"}} align="center">Actions</TableCell>
+                  <TableRow
+                    sx={{ bgcolor: "rgb(110, 97, 171)", color: "white" }}
+                  >
+                    <TableCell sx={{ color: "white" }}>
+                      {currentTab === 0 ? "Title" : "Content"}
+                    </TableCell>
+                    <TableCell sx={{ color: "white" }}>Author</TableCell>
+                    <TableCell sx={{ color: "white" }}>Date</TableCell>
+                    <TableCell sx={{ color: "white" }}>Status</TableCell>
+                    <TableCell sx={{ color: "white" }} align="center">
+                      Actions
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {filteredQuestions.map((question) => (
-                    <TableRow key={question._id}>
+                  {filteredItems.map((item) => (
+                    <TableRow key={item._id}>
                       <TableCell>
                         <Button
-                          onClick={() => handleOpenQuestionDialog(question._id)}
+                          onClick={() =>
+                            currentTab === 0
+                              ? handleOpenQuestionDialog(item._id)
+                              : handleOpenAnswerDialog(item)
+                          }
                           color="primary"
                         >
-                          {question.title}
+                          {currentTab === 0
+                            ? item.title
+                            : item.content.substring(0, 50) + "..."}
                         </Button>
                       </TableCell>
-                      <TableCell>{question.author?.username}</TableCell>
+                      {console.log(item)}
+                      <TableCell>{item.author?.username}</TableCell>
                       <TableCell>
-                        {new Date(question.createdAt).toLocaleDateString()}
+                        {new Date(item.createdAt).toLocaleDateString()}
                       </TableCell>
                       <TableCell>
                         <Chip
-                          label={question.status.charAt(0).toUpperCase() + question.status.slice(1)}
+                          label={
+                            item.status.charAt(0).toUpperCase() +
+                            item.status.slice(1)
+                          }
                           color={
-                            question.status === "accepted"
+                            item.status === "accepted"
                               ? "success"
-                              : question.status === "denied"
+                              : item.status === "denied"
                               ? "error"
                               : "default"
                           }
@@ -286,24 +364,31 @@ function AdminQna() {
                       </TableCell>
                       <TableCell align="center">
                         <IconButton
-                          onClick={() => handleOpenConfirmDialog("accept", question._id)}
+                          onClick={() =>
+                            handleOpenConfirmDialog("accepted", item._id)
+                          }
                           color="primary"
-                          disabled={question.status === "accepted"}
+                          disabled={item.status === "accepted"}
                         >
                           <CheckIcon />
                         </IconButton>
                         <IconButton
-                          onClick={() => handleOpenConfirmDialog("deny", question._id)}
-                          color="error"
-                          disabled={question.status === "denied"}
+                          onClick={() =>
+                            handleOpenConfirmDialog("pending", item._id)
+                          }
+                          color="primary"
+                          disabled={item.status === "pending"}
                         >
-                          <CloseIcon />
+                          <RestoreIcon />
                         </IconButton>
                         <IconButton
-                          onClick={() => handleOpenDeleteDialog("delete", question._id)}
+                          onClick={() =>
+                            handleOpenConfirmDialog("denied", item._id)
+                          }
                           color="error"
+                          disabled={item.status === "denied"}
                         >
-                          <DeleteIcon />
+                          <CloseIcon />
                         </IconButton>
                       </TableCell>
                     </TableRow>
@@ -315,12 +400,21 @@ function AdminQna() {
         </CardContent>
       </Card>
 
-      <Dialog open={openQuestionDialog} onClose={handleCloseDialog} maxWidth="md" fullWidth>
+      <Dialog
+        open={openQuestionDialog}
+        onClose={handleCloseDialog}
+        maxWidth="md"
+        fullWidth
+      >
         <DialogTitle>Question Details</DialogTitle>
         <DialogContent>
           {selectedQuestion ? (
             <>
-              <Typography variant="h5" component="div" className="mb-4 font-bold">
+              <Typography
+                variant="h5"
+                component="div"
+                className="mb-4 font-bold"
+              >
                 {selectedQuestion.title}
               </Typography>
               <Typography variant="body1" className="mb-6 leading-relaxed">
@@ -328,35 +422,47 @@ function AdminQna() {
               </Typography>
               {selectedQuestion.codeBlocks.length > 0 && (
                 <Box className="mb-6">
-                  <Typography variant="h6" component="div" className="mb-2 font-semibold">
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    className="mb-2 font-semibold"
+                  >
                     Code Blocks:
                   </Typography>
                   {selectedQuestion.codeBlocks.map((block, index) => (
-                    <Box key={index} className="mb-4 border border-gray-300 rounded-md p-4 bg-gray-50">
-                      <CodeBlock code={block.content} language={block.language} />
+                    <Box
+                      key={index}
+                      className="mb-4 border border-gray-300 rounded-md p-4 bg-gray-50"
+                    >
+                      <CodeBlock
+                        code={block.content}
+                        language={block.language}
+                      />
                     </Box>
                   ))}
                 </Box>
               )}
               {selectedQuestion.tags.length > 0 && (
                 <Box className="mt-4">
-                  <Typography variant="h6" component="div" className="mb-2 font-semibold">
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    className="mb-2 font-semibold"
+                  >
                     Tags:
                   </Typography>
                   <Box className="flex flex-wrap gap-2">
                     {selectedQuestion.tags.map((tag, index) => (
-                      <Chip
-                        key={index}
-                        label={tag}
-                        variant="outlined"
-                      />
+                      <Chip key={index} label={tag} variant="outlined" />
                     ))}
                   </Box>
                 </Box>
               )}
               <Box className="mt-6 flex gap-2">
                 <Button
-                  onClick={() => handleOpenConfirmDialog("accept", selectedQuestion._id)}
+                  onClick={() =>
+                    handleOpenConfirmDialog("accepted", selectedQuestion._id)
+                  }
                   variant="contained"
                   color="primary"
                   startIcon={<CheckIcon />}
@@ -365,7 +471,9 @@ function AdminQna() {
                   Accept
                 </Button>
                 <Button
-                  onClick={() => handleOpenConfirmDialog("deny", selectedQuestion._id)}
+                  onClick={() =>
+                    handleOpenConfirmDialog("denied", selectedQuestion._id)
+                  }
                   variant="contained"
                   color="error"
                   startIcon={<CloseIcon />}
@@ -373,13 +481,124 @@ function AdminQna() {
                 >
                   Deny
                 </Button>
+              </Box>
+            </>
+          ) : (
+            <Box className="flex justify-center p-6">
+              <CircularProgress />
+            </Box>
+          )}
+        </DialogContent>
+        <Divider />
+        <DialogActions className="p-4">
+          <Button onClick={handleCloseDialog} variant="contained">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={openAnswerDialog}
+        onClose={handleCloseDialog}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle>Answer Details</DialogTitle>
+        <DialogContent>
+          {selectedAnswer && selectedQuestion ? (
+            <>
+              <Typography
+                variant="h6"
+                component="div"
+                className="mb-4 font-bold"
+              >
+                Related Question: {selectedQuestion.title}
+              </Typography>
+              <Typography variant="body2" className="mb-2">
+                Question Author: {selectedQuestion.author?.username}
+              </Typography>
+              <Typography variant="body2" className="mb-4">
+                Question Created:{" "}
+                {new Date(selectedQuestion.createdAt).toLocaleString()}
+              </Typography>
+              {selectedQuestion.codeBlocks.length > 0 && (
+                <Box className="mb-6">
+                  <Typography
+                    variant="subtitle1"
+                    component="div"
+                    className="mb-2 font-semibold"
+                  >
+                    Question Code Blocks:
+                  </Typography>
+                  {selectedQuestion.codeBlocks.map((block, index) => (
+                    <Box
+                      key={index}
+                      className="mb-4 border border-gray-300  rounded-md p-4 bg-gray-50"
+                    >
+                      <CodeBlock
+                        code={block.content}
+                        language={block.language}
+                      />
+                    </Box>
+                  ))}
+                </Box>
+              )}
+              <Divider className="my-4" />
+              <Typography
+                variant="h6"
+                component="div"
+                className="mb-4 font-bold"
+              >
+                Answer:
+              </Typography>
+              <Typography variant="body1" className="mb-6 leading-relaxed">
+                {selectedAnswer.content}
+              </Typography>
+              {selectedAnswer.codeBlocks &&
+                selectedAnswer.codeBlocks.length > 0 && (
+                  <Box className="mb-6">
+                    <Typography
+                      variant="subtitle1"
+                      component="div"
+                      className="mb-2 font-semibold"
+                    >
+                      Answer Code Blocks:
+                    </Typography>
+                    {selectedAnswer.codeBlocks.map((block, index) => (
+                      <Box
+                        key={index}
+                        className="mb-4 border border-gray-300 rounded-md p-4 bg-gray-50"
+                      >
+                        <CodeBlock
+                          code={block.content}
+                          language={block.language}
+                        />
+                      </Box>
+                    ))}
+                  </Box>
+                )}
+              <Box className="mt-6 flex gap-2">
                 <Button
-                  onClick={() => handleOpenDeleteDialog("delete", selectedQuestion._id)}
-                  variant="outlined"
-                  color="error"
-                  startIcon={<DeleteIcon />}
+                  onClick={() =>
+                    handleOpenConfirmDialog("accepted", selectedAnswer._id)
+                  }
+                  variant="contained"
+                  color="primary"
+                  startIcon={<CheckIcon />}
+                  disabled={selectedAnswer.status === "accepted"}
                 >
-                  Delete
+                  Accept
+                </Button>
+                <Button
+                  onClick={() =>
+                    handleOpenConfirmDialog("denied", selectedAnswer._id)
+                  }
+                  variant="contained"
+                  color="error"
+                  startIcon={<CloseIcon />}
+                  disabled={selectedAnswer.status === "denied"}
+                >
+                  Deny
                 </Button>
               </Box>
             </>
@@ -399,40 +618,27 @@ function AdminQna() {
 
       <Dialog open={openConfirmDialog} onClose={handleCloseDialog}>
         <DialogTitle>
-          {currentAction === "accept"
-            ? "Accept Question"
-            : currentAction === "deny"
-            ? "Deny Question"
-            : "Delete Question"}
+          {currentAction === "accepted" ? "Accept Item" : "Deny Item"}
         </DialogTitle>
         <DialogContent>
           <Typography className="mt-4">
-            Are you sure you want to {currentAction} this question?
+            Are you sure you want to{" "}
+            {currentAction === "accepted"
+              ? "accept"
+              : currentAction === "deny"
+              ? "deny"
+              : "revert"}{" "}
+            this {currentTab === 0 ? "question" : "answer"}?
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog}>
-            Cancel
-          </Button>
-          <Button onClick={handleAction} variant="contained" color={currentAction === "accept" ? "primary" : "error"}>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
+          <Button
+            onClick={handleAction}
+            variant="contained"
+            color={currentAction === "accepted" ? "primary" : "error"}
+          >
             Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-      <Dialog open={openDeleteDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Delete Question</DialogTitle>
-        <DialogContent>
-          <Typography className="mt-4">
-            Are you sure you want to delete this question? This action cannot be undone.
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog}>
-            Cancel
-          </Button>
-          <Button onClick={handleAction} color="error" variant="contained">
-            Delete
           </Button>
         </DialogActions>
       </Dialog>

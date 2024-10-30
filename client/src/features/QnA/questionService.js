@@ -43,6 +43,13 @@ export const questionService = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    updateAnswerStatus: builder.mutation({
+      query: ({ answerId, status }) => ({
+        url: `${QNA_URL}/answers/${answerId}/status`,
+        method: "PUT",
+        body: { status },
+      }),
+    }),
     deleteQuestion: builder.mutation({
       query: (id) => ({
         url: `${QNA_URL}/delete/${id}`,
@@ -54,6 +61,12 @@ export const questionService = apiSlice.injectEndpoints({
         url: `${QNA_URL}/delete/${questionId}/${answerId}`,
         method: "DELETE",
         body: { authorId },
+      }),
+    }),
+    fetchAnswers: builder.mutation({
+      query: () => ({
+        url: `${QNA_URL}/question-answers`,
+        method: "GET",
       }),
     }),
     fetchAnswerById: builder.query({
@@ -76,18 +89,19 @@ export const questionService = apiSlice.injectEndpoints({
       }),
     }),
     voteAnswer: builder.mutation({
-      query: ({ questionId, answerId,userId,vote }) => ({
+      query: ({ questionId, answerId, userId, vote }) => ({
         url: `${QNA_URL}/questions/${questionId}/answers/${answerId}/vote`,
         method: "POST",
         body: { userId, vote }, // Send the vote payload
       }),
     }),
     getAnswerVote: builder.query({
-      query: ({ questionId,answerId }) => ({
+      query: ({ questionId, answerId }) => ({
         url: `${QNA_URL}/questions/${questionId}/answers/${answerId}/allVote`,
         method: "GET",
       }),
-    }),getUserVote: builder.query({
+    }),
+    getUserVote: builder.query({
       query: ({ userId }) => ({
         url: `${QNA_URL}/questions/answer/${userId}/allVote`,
         method: "GET",
@@ -97,7 +111,11 @@ export const questionService = apiSlice.injectEndpoints({
 });
 
 export const {
-  useVoteAnswerMutation,useGetAnswerVoteQuery,useGetUserVoteQuery,
+  useFetchAnswersMutation,
+  useUpdateAnswerStatusMutation,
+  useVoteAnswerMutation,
+  useGetAnswerVoteQuery,
+  useGetUserVoteQuery,
   useGetQuestionVoteQuery,
   useVoteQuestionMutation,
   useFetchQuestionsMutation,

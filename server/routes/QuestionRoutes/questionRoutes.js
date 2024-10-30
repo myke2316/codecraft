@@ -14,7 +14,8 @@ import {
   getQuestionVotes,
   getAnswerVotes,
   getUserVotes,
- 
+  updateAnswerStatus,
+  fetchAnswers,
 } from "../../controller/QnAController/questionsController.js";
 
 const router = express.Router();
@@ -47,9 +48,14 @@ router.delete("/delete/:questionId/:answerId", deleteAnswer);
 router.get("/questions/:questionId/answers/:answerId", getAnswerById);
 
 //VOTING ROUTERS
-router.post('/questions/:questionId/vote', voteQuestion);
-router.get('/questions/:questionId/allVote', getQuestionVotes);
-router.post('/questions/:questionId/answers/:answerId/vote', voteAnswer);
-router.get('/questions/:questionId/answers/:answerId/allVote', getAnswerVotes);
-router.get('/questions/answer/:userId/allVote', getUserVotes)
+router.post("/questions/:questionId/vote", voteQuestion);
+router.get("/questions/:questionId/allVote", getQuestionVotes);
+router.post("/questions/:questionId/answers/:answerId/vote", voteAnswer);
+router.get("/questions/:questionId/answers/:answerId/allVote", getAnswerVotes);
+router.get("/questions/answer/:userId/allVote", getUserVotes);
+router.put(
+  "/answers/:answerId/status",
+  updateAnswerStatus
+);
+router.get("/question-answers", fetchAnswers);
 export { router as questionRouter };

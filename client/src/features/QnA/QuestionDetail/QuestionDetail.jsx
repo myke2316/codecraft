@@ -111,7 +111,7 @@ const QuestionDetail = () => {
       </Box>
     );
   }
-
+  
   return (
     <Box className=" px-7 max-w-8xl mx-auto my-8">
       {/* <QuestionHeader question={question} currentUserId={userId}/> */}
