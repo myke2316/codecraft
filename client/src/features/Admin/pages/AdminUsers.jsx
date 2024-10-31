@@ -32,7 +32,7 @@ import {
 } from "../../LoginRegister/userService";
 import { toast } from "react-toastify";
 
-export default function AdminUsers() {
+export default function Component() {
   const [users, setUsers] = useState([]);
   const [deletedUsers, setDeletedUsers] = useState([]);
   const [roleFilter, setRoleFilter] = useState("all");
@@ -41,13 +41,14 @@ export default function AdminUsers() {
   const [open, setOpen] = useState(false);
   const [permanentDeleteOpen, setPermanentDeleteOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [userDelete, { isLoading: isLoadingDeleteUser }] = useDeleteUserMutation();
-  const [userUndelete, { isLoading: isLoadingUndeleteUser }] = useUndeleteUserMutation();
-  const [permanentlyDeleteUser, { isLoading: isLoadingPermanentDelete }] = usePermanentDeleteMutation();
+  const [userDelete] = useDeleteUserMutation();
+  const [userUndelete] = useUndeleteUserMutation();
+  const [permanentlyDeleteUser] = usePermanentDeleteMutation();
 
-  useEffect(() => {
-    fetchUsers();
-  }, [roleFilter]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [deletedPage, setDeletedPage] = useState(0);
+  const [deletedRowsPerPage, setDeletedRowsPerPage] = useState(5);
 
   const fetchUsers = useCallback(async () => {
     try {
@@ -98,12 +99,10 @@ export default function AdminUsers() {
     }
   };
 
-
   const handleRemoveUser = async () => {
     try {
       if (selectedUser) {
         const result = await userDelete(selectedUser._id).unwrap();
-        console.log(result)
         toast.success("Successfully deleted user!");
         setUsers(users.filter((user) => user._id !== selectedUser._id));
         setDeletedUsers((prevDeletedUsers) => [
@@ -117,7 +116,7 @@ export default function AdminUsers() {
       toast.error("Failed to delete user.");
     }
   };
-console.log(deletedUsers)
+
   const handleRestoreUser = async (userId) => {
     try {
       await userUndelete(userId).unwrap();
@@ -137,10 +136,13 @@ console.log(deletedUsers)
 
   const handleFilterChange = (event) => {
     setRoleFilter(event.target.value);
+    setPage(0);
   };
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value.toLowerCase());
+    setPage(0);
+    setDeletedPage(0);
   };
 
   const filteredUsers = users.filter((user) => {
@@ -154,11 +156,11 @@ console.log(deletedUsers)
     return matchesRole && matchesSearch;
   });
 
-  const filteredDeletedUsers = deletedUsers?.filter((user) =>
+  const filteredDeletedUsers = deletedUsers.filter((user) =>
     user.username.toLowerCase().includes(searchQuery)
   );
 
-  const getRemainingTime =useCallback((deleteExpiresAt) => {
+  const getRemainingTime = useCallback((deleteExpiresAt) => {
     if (!deleteExpiresAt) return "N/A";
     const now = new Date();
     const expiresAt = new Date(deleteExpiresAt);
@@ -173,13 +175,6 @@ console.log(deletedUsers)
 
     return `${days}d ${hours}h ${minutes}m ${seconds}s`;
   }, []);
-
-
-  // Pagination states
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [deletedPage, setDeletedPage] = useState(0);
-  const [deletedRowsPerPage, setDeletedRowsPerPage] = useState(5);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -200,16 +195,7 @@ console.log(deletedUsers)
   };
 
   return (
-    <Container 
-      maxWidth="lg" 
-      sx={{ 
-        p: 4,
-        mt: 4, 
-        backgroundColor: 'background.paper', 
-        boxShadow: 3,
-        borderRadius: 2
-      }}
-    >
+    <Container maxWidth="lg" sx={{ p: 4, mt: 4, backgroundColor: 'background.paper', boxShadow: 3, borderRadius: 2 }}>
       <Typography variant="h4" gutterBottom sx={{padding: 3}}>
         Manage Users
       </Typography>
@@ -330,7 +316,6 @@ console.log(deletedUsers)
                           variant="contained"
                           color="primary"
                           onClick={() => handleRestoreUser(user._id)}
-                          disabled={isLoadingUndeleteUser}
                         >
                           Restore
                         </Button>
@@ -338,7 +323,6 @@ console.log(deletedUsers)
                           variant="contained"
                           color="secondary"
                           onClick={() => handleOpenPermanentDeleteDialog(user)}
-                          disabled={isLoadingPermanentDelete}
                           sx={{ ml: 2 }}
                         >
                           Delete
@@ -386,7 +370,6 @@ console.log(deletedUsers)
             onClick={handleRemoveUser}
             color="primary"
             variant="contained"
-            disabled={isLoadingDeleteUser}
           >
             Delete
           </Button>
@@ -412,7 +395,6 @@ console.log(deletedUsers)
             onClick={handlePermanentlyDeleteUser}
             color="error"
             variant="contained"
-            disabled={isLoadingPermanentDelete}
           >
             Permanently Delete
           </Button>

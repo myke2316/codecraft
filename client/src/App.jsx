@@ -68,7 +68,7 @@ import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <BrowserRouter>
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={Ad} />
+      <ToastContainer/>
       <Routes>
         <Route path="reset-password/:resetToken" element={<ResetPassword />} />
         <Route element={<AppLayout />}>

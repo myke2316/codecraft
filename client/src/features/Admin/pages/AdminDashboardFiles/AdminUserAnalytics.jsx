@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { 
   Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, 
   TableSortLabel, TablePagination, Paper, MenuItem, Select, InputLabel, FormControl,
@@ -8,12 +8,23 @@ import SearchIcon from '@mui/icons-material/Search';
 import { formatTime } from '../../../../utils/formatTime';
 import { useGetScoreByStudentIdQuery } from '../../../Class/submissionAssignmentService';
 import { useGetUserVoteQuery } from '../../../QnA/questionService';
+
 const AdminUserAnalytics = ({ userAnalytics, users }) => {
   const [sortDirection, setSortDirection] = useState('desc');
   const [orderBy, setOrderBy] = useState('totalPointsEarned'); 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [searchTerm, setSearchTerm] = useState('');
+
+  const userScores = useGetScoreByStudentIdQuery(userAnalytics.map(user => user.userId));
+  const userVotes = useGetUserVoteQuery({ userId: userAnalytics.map(user => user.userId) });
+
+  const userMap = useMemo(() => {
+    return users.reduce((acc, user) => {
+      acc[user._id] = user.username;
+      return acc;
+    }, {});
+  }, [users]);
 
   const handleRequestSort = (property) => {
     const isAsc = orderBy === property && sortDirection === 'asc';
@@ -30,17 +41,17 @@ const AdminUserAnalytics = ({ userAnalytics, users }) => {
     setPage(0);
   };
 
-  const userMap = users.reduce((acc, user) => {
-    acc[user._id] = user.username;
-    return acc;
-  }, {});
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    setPage(0);
+  };
 
-  const getUserAnalyticsData = () => {
+  const getUserAnalyticsData = useMemo(() => {
     const uniqueUsers = new Map();
 
     userAnalytics.forEach(user => {
-      const { data: scoresData } = useGetScoreByStudentIdQuery(user.userId);
-      const { data: userVote } = useGetUserVoteQuery({ userId: user.userId });
+      const scoresData = userScores.data?.[user.userId];
+      const userVote = userVotes.data?.[user.userId];
 
       const qnaPoints = (userVote?.totalVotes || 0) * 5;
       const submissionPoints = (scoresData?.scores?.reduce((acc, score) => acc + (score.grade || 0), 0) || 0);
@@ -57,19 +68,24 @@ const AdminUserAnalytics = ({ userAnalytics, users }) => {
       }
     });
 
-    return Array.from(uniqueUsers.values())
-      .filter(user => user.username?.toLowerCase().includes(searchTerm.toLowerCase()))
-      .sort((a, b) => {
-        const aTotal = (a.totalPointsEarned || 0) + (a.combinedScore || 0);
-        const bTotal = (b.totalPointsEarned || 0) + (b.combinedScore || 0);
+    return Array.from(uniqueUsers.values());
+  }, [userAnalytics, userScores.data, userVotes.data, userMap]);
 
-        if (aTotal < bTotal) return sortDirection === 'asc' ? -1 : 1;
-        if (aTotal > bTotal) return sortDirection === 'asc' ? 1 : -1;
-        return 0;
-      });
-  };
+  const filteredData = useMemo(() => {
+    return getUserAnalyticsData.filter(user => 
+      user.username?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [getUserAnalyticsData, searchTerm]);
 
-  const paginatedData = getUserAnalyticsData().slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  const sortedData = useMemo(() => {
+    return filteredData.sort((a, b) => {
+      const aValue = a[orderBy] || 0;
+      const bValue = b[orderBy] || 0;
+      return sortDirection === 'asc' ? aValue - bValue : bValue - aValue;
+    });
+  }, [filteredData, orderBy, sortDirection]);
+
+  const paginatedData = sortedData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
     <Card elevation={3} className="overflow-hidden">
@@ -98,7 +114,7 @@ const AdminUserAnalytics = ({ userAnalytics, users }) => {
               variant="outlined"
               placeholder="Search by username"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={handleSearch}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -165,9 +181,9 @@ const AdminUserAnalytics = ({ userAnalytics, users }) => {
         </TableContainer>
         <Box className="mt-4">
           <TablePagination
-            rowsPerPageOptions={[5, 10,25]}
+            rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={getUserAnalyticsData().length}
+            count={filteredData.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

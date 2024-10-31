@@ -20,7 +20,8 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { toast } from "react-toastify";
 
 const languageOptions = ["html", "css", "javascript", "php"];
 
@@ -43,16 +44,21 @@ export default function EditAnswerPage() {
   useEffect(() => {
     if (answer) {
       setContent(answer.content);
-      setCodeBlocks(answer.codeBlocks.map(block => ({
-        ...block,
-        language: block.language.toLowerCase()
-      })));
+      setCodeBlocks(
+        answer.codeBlocks.map((block) => ({
+          ...block,
+          language: block.language.toLowerCase(),
+        }))
+      );
     }
   }, [answer]);
 
   const handleCodeBlockChange = (index, field, value) => {
     const newCodeBlocks = [...codeBlocks];
-    newCodeBlocks[index] = { ...newCodeBlocks[index], [field]: value.toLowerCase() };
+    newCodeBlocks[index] = {
+      ...newCodeBlocks[index],
+      [field]: value.toLowerCase(),
+    };
     setCodeBlocks(newCodeBlocks);
   };
 
@@ -66,15 +72,18 @@ export default function EditAnswerPage() {
   };
 
   const handleSubmit = async (e) => {
+   
     e.preventDefault();
     try {
-      await updateAnswer({
+      const res = await updateAnswer({
         questionId,
         answerId,
         content,
         codeBlocks,
         authorId,
       }).unwrap();
+    
+      toast.success("Successfully posted answer.");
       navigate(`/qna/${authorId}/question/${questionId}`);
     } catch (err) {
       console.error("Failed to update answer:", err);
@@ -87,7 +96,12 @@ export default function EditAnswerPage() {
 
   if (isFetching) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+      >
         <CircularProgress />
       </Box>
     );
@@ -103,8 +117,12 @@ export default function EditAnswerPage() {
 
   return (
     <Paper elevation={3} className="p-6 max-w-4xl mx-auto mt-8">
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
-      
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={4}
+      >
         <Typography variant="h4" component="h1">
           Edit Answer
         </Typography>
@@ -130,12 +148,19 @@ export default function EditAnswerPage() {
         />
         {codeBlocks.map((block, index) => (
           <Paper key={index} elevation={2} className="p-4 mb-4">
-            <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              mb={2}
+            >
               <FormControl variant="outlined" className="w-1/3">
                 <InputLabel>Language</InputLabel>
                 <Select
                   value={block.language}
-                  onChange={(e) => handleCodeBlockChange(index, "language", e.target.value)}
+                  onChange={(e) =>
+                    handleCodeBlockChange(index, "language", e.target.value)
+                  }
                   label="Language"
                 >
                   {languageOptions.map((lang) => (
@@ -158,7 +183,9 @@ export default function EditAnswerPage() {
               height="200px"
               language={block.language}
               value={block.content}
-              onChange={(value) => handleCodeBlockChange(index, "content", value || "")}
+              onChange={(value) =>
+                handleCodeBlockChange(index, "content", value || "")
+              }
               theme="vs-dark"
               options={{
                 minimap: { enabled: false },

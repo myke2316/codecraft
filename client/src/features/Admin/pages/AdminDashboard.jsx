@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { 
-  Container, Grid, Paper, Typography, Box, CircularProgress, 
-  AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText
+import {
+  Container,
+  Grid,
+  Paper,
+  Typography,
+  Box,
+  CircularProgress,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import MenuIcon from '@mui/icons-material/Menu';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import {
-  useFetchAllClassesMutation,
-} from "../../Teacher/classService";
+import MenuIcon from "@mui/icons-material/Menu";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PeopleIcon from "@mui/icons-material/People";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import { useFetchAllClassesMutation } from "../../Teacher/classService";
 import { useAggregateAllAnalyticsMutation } from "../../Student/userAnalyticsService";
 import { useGetAllProgressMutation } from "../../Student/studentCourseProgressService";
 import { useGetAllUserMutation } from "../../LoginRegister/userService";
@@ -21,34 +31,34 @@ import AdminAnalyticsChart from "./AdminDashboardFiles/AdminAnalyticsChart";
 const theme = createTheme({
   palette: {
     primary: {
-      main: 'rgb(110, 97, 171)', // Yellow
+      main: "rgb(110, 97, 171)", // Yellow
     },
     secondary: {
-      main: '#000000', // Black
+      main: "#000000", // Black
     },
     background: {
-      default: '#F5F5F5', // Light gray
-      paper: '#FFFFFF', // White
+      default: "#F5F5F5", // Light gray
+      paper: "#FFFFFF", // White
     },
     text: {
-      primary: '#000000', // Black
-      secondary: '#333333', // Dark gray
+      primary: "#000000", // Black
+      secondary: "#333333", // Dark gray
     },
   },
   components: {
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: '#FFD700',
-          color: '#000000',
+          backgroundColor: "#FFD700",
+          color: "#000000",
         },
       },
     },
     MuiDrawer: {
       styleOverrides: {
         paper: {
-          backgroundColor: 'rgb(110, 97, 171)',
-          color: '#FFFFFF',
+          backgroundColor: "rgb(110, 97, 171)",
+          color: "#FFFFFF",
         },
       },
     },
@@ -56,7 +66,6 @@ const theme = createTheme({
 });
 
 const AdminDashboard = () => {
-  
   const [classesData, setClassesData] = useState([]);
   const [userAnalytics, setUserAnalytics] = useState([]);
   const [userProgress, setUserProgress] = useState([]);
@@ -105,10 +114,16 @@ const AdminDashboard = () => {
 
   const drawerContent = (
     <List>
-      {['Dashboard', 'Users', 'Analytics'].map((text, index) => (
+      {["Dashboard", "Users", "Analytics"].map((text, index) => (
         <ListItem button key={text}>
           <ListItemIcon>
-            {index === 0 ? <DashboardIcon /> : index === 1 ? <PeopleIcon /> : <BarChartIcon />}
+            {index === 0 ? (
+              <DashboardIcon />
+            ) : index === 1 ? (
+              <PeopleIcon />
+            ) : (
+              <BarChartIcon />
+            )}
           </ListItemIcon>
           <ListItemText primary={text} />
         </ListItem>
@@ -118,7 +133,7 @@ const AdminDashboard = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: "flex" }}>
         <AppBar position="fixed">
           <Toolbar>
             <IconButton
@@ -155,46 +170,67 @@ const AdminDashboard = () => {
           }}
         >
           {isLoading ? (
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100vh",
+              }}
+            >
               <CircularProgress />
             </Box>
           ) : (
             <Container maxWidth="xl">
               <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
-                <Box 
-                  sx={{ 
-                    width: '100%', 
-                    height: '90px', 
-                    backgroundColor: 'rgb(110, 97, 171)', 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center',
-                    marginBottom: "10px",
-                    borderRadius: "3px"
-                  }}
-                >
-
-    <Typography variant="h4" gutterBottom className="mb-6 text-black-800 font-bold"   sx={{ color: 'white' }}>
-          User Analytics
-        </Typography>
-              </Box>
-                  <AdminOverview userAnalytics={userAnalytics} users={users} />
-                </Paper>
-              </Grid>
+                <Grid item xs={12}>
+                  <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
+                    <Box
+                      sx={{
+                        width: "100%",
+                        height: "90px",
+                        backgroundColor: "rgb(110, 97, 171)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginBottom: "10px",
+                        borderRadius: "3px",
+                      }}
+                    >
+                      <Typography
+                        variant="h4"
+                        gutterBottom
+                        className="mb-6 text-black-800 font-bold"
+                        sx={{ color: "white" }}
+                      >
+                        User Analytics
+                      </Typography>
+                    </Box>
+                    <AdminOverview
+                      userAnalytics={userAnalytics}
+                      users={users}
+                    />
+                  </Paper>
+                </Grid>
 
                 <Grid item xs={12}>
                   <Paper elevation={3} sx={{ p: 3 }}>
-                    <AdminAnalyticsChart userAnalytics={userAnalytics} classesData={classesData} userProgress={userProgress} users = {users} />
+                    <AdminAnalyticsChart
+                      userAnalytics={userAnalytics}
+                      classesData={classesData}
+                      userProgress={userProgress}
+                      users={users}
+                    />
                   </Paper>
                 </Grid>
                 <Grid item xs={12}>
                   <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
-                    <AdminUserAnalytics userAnalytics={userAnalytics} users={users} />
+                    <AdminUserAnalytics
+                      userAnalytics={userAnalytics}
+                      users={users}
+                    />
                   </Paper>
                 </Grid>
-             
               </Grid>
             </Container>
           )}
@@ -205,5 +241,3 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
-
-

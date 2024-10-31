@@ -31,6 +31,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { useSelector } from "react-redux";
 import { formatDate } from "../../../utils/formatDate";
+import { toast } from "react-toastify";
 
 const defaultProfilePicture =
   "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=";
@@ -90,6 +91,7 @@ export default function AnswerItem({
         questionId: currentQuestion._id,
         authorId: currentQuestion.author._id,
       }).unwrap();
+      toast.success("Answer deleted successfully.")
       setSuccessMessage("Successfully deleted the answer.");
       setIsFading(true);
       fetchQuestionData();
