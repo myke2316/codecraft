@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Container,
   Table,
@@ -49,18 +49,22 @@ export default function AdminUsers() {
     fetchUsers();
   }, [roleFilter]);
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
       const usersResponse = await getAllUser();
       const activeUsers = usersResponse.data.filter((user) => !user.isDeleted);
       const removedUsers = usersResponse.data.filter((user) => user.isDeleted);
-
+  
       setUsers(activeUsers);
       setDeletedUsers(removedUsers);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
-  };
+  }, [getAllUser]);
+  
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
   const handleOpenDialog = (user) => {
     setSelectedUser(user);
@@ -94,15 +98,17 @@ export default function AdminUsers() {
     }
   };
 
+
   const handleRemoveUser = async () => {
     try {
       if (selectedUser) {
-        await userDelete(selectedUser._id).unwrap();
+        const result = await userDelete(selectedUser._id).unwrap();
+        console.log(result)
         toast.success("Successfully deleted user!");
         setUsers(users.filter((user) => user._id !== selectedUser._id));
         setDeletedUsers((prevDeletedUsers) => [
           ...prevDeletedUsers,
-          { ...selectedUser, isDeleted: true },
+          { ...result.user, isDeleted: true },
         ]);
         handleCloseDialog();
       }
@@ -111,7 +117,7 @@ export default function AdminUsers() {
       toast.error("Failed to delete user.");
     }
   };
-
+console.log(deletedUsers)
   const handleRestoreUser = async (userId) => {
     try {
       await userUndelete(userId).unwrap();
@@ -141,16 +147,19 @@ export default function AdminUsers() {
     const matchesRole =
       roleFilter === "all"
         ? user.role !== "admin"
+        : roleFilter === "no_role"
+        ? !user.role
         : user.role === roleFilter;
     const matchesSearch = user.username.toLowerCase().includes(searchQuery);
     return matchesRole && matchesSearch;
   });
 
-  const filteredDeletedUsers = deletedUsers.filter((user) =>
+  const filteredDeletedUsers = deletedUsers?.filter((user) =>
     user.username.toLowerCase().includes(searchQuery)
   );
 
-  const getRemainingTime = (deleteExpiresAt) => {
+  const getRemainingTime =useCallback((deleteExpiresAt) => {
+    if (!deleteExpiresAt) return "N/A";
     const now = new Date();
     const expiresAt = new Date(deleteExpiresAt);
     const timeDiff = expiresAt - now;
@@ -163,7 +172,7 @@ export default function AdminUsers() {
     const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
 
     return `${days}d ${hours}h ${minutes}m ${seconds}s`;
-  };
+  }, []);
 
 
   // Pagination states
@@ -226,6 +235,7 @@ export default function AdminUsers() {
               <MenuItem value="all">All (Exclude Admin)</MenuItem>
               <MenuItem value="teacher">Teachers</MenuItem>
               <MenuItem value="student">Students</MenuItem>
+              <MenuItem value="no_role">No Role</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -254,7 +264,7 @@ export default function AdminUsers() {
                     <TableCell>{user._id}</TableCell>
                     <TableCell>{user.username}</TableCell>
                     <TableCell>{user.email}</TableCell>
-                    <TableCell>{user.role}</TableCell>
+                    <TableCell>{user.role || "No Role"}</TableCell>
                     <TableCell align="center">
                       <Button
                         variant="contained"
@@ -365,8 +375,7 @@ export default function AdminUsers() {
         <DialogTitle id="confirm-delete-dialog">Confirm Delete</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this user? This action cannot be
-            undone, and all associated data will be permanently deleted.
+            Are you sure you want to delete this user?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

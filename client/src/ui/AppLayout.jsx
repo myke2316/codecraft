@@ -38,7 +38,7 @@ function AppLayout() {
       <div>
         <main>
           <Outlet />
-          <ToastContainer />
+          {/* <ToastContainer /> */}
         </main>
       </div>
       <FooterLayout />

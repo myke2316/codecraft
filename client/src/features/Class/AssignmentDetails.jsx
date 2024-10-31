@@ -20,7 +20,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Accordion,
-  useMediaQuery,
+  useMediaQuery,IconButton,Collapse,Dialog,DialogTitle,DialogContent,DialogActions,
 } from "@mui/material";
 import { ArrowBack, CloudUpload, Delete, Download, ExpandMore } from "@mui/icons-material";
 import { BACKEND_URL, BASE_URLS } from "../../constants";
@@ -33,7 +33,11 @@ import {
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useTheme } from "@emotion/react";
-
+import DownloadIcon from "@mui/icons-material/Download";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 function AssignmentDetails() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -166,7 +170,7 @@ function AssignmentDetails() {
   Back to Assignments
 </Button>
       <Grid container spacing={4}>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={12}>
   <Card variant="outlined" className="p-6">
     <Typography
       variant="h4"
@@ -263,7 +267,7 @@ function AssignmentDetails() {
   )}
 </Grid>
 
-    <Grid item xs={12} md={4}>
+    <Grid item xs={12} md={12}>
  <Card variant="outlined" className="p-6">
   <Typography
     variant="h5"
@@ -357,54 +361,133 @@ function SubmissionDetails({
   score,
   submissionId,
   onDelete,
-  isPastDue
+  isPastDue,
 }) {
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [isFeedbackVisible, setFeedbackVisible] = useState(false);
+
+  const handleDeleteClick = () => {
+    setShowDeleteDialog(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    onDelete();
+    setShowDeleteDialog(false);
+  };
+
+  const handleDeleteCancel = () => {
+    setShowDeleteDialog(false);
+  };
+
+  const toggleFeedbackVisibility = () => {
+    setFeedbackVisible((prev) => !prev);
+  };
+
   return (
     <Box
-      className="space-y-4"
       sx={{
-        fontSize: { xs: '0.875rem', md: '1rem' }, // Responsive font size for all text
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px' // Ensures spacing between elements
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        fontSize: { xs: "0.875rem", md: "1rem" },
+        padding: { xs: 2, md: 3 },
+        borderRadius: 2,
+        boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.1)",
       }}
     >
-      <Typography variant="subtitle1" className="font-semibold">
-        Submitted File: {submittedFileName}
+      <Typography
+        variant="h6"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 1,
+          fontWeight: "bold",
+          fontSize: { xs: "1rem", md: "1.25rem" },
+        }}
+      >
+        <CheckCircleIcon color="primary" /> Submitted File:{" "}
+        <Typography variant="body1" component="span">
+          {submittedFileName}
+        </Typography>
       </Typography>
+
       <Typography
         variant="subtitle1"
-        className={`font-semibold ${
-          gradingStatus === "graded" ? "text-green-600" : "text-yellow-600"
-        }`}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 1,
+          color: gradingStatus === "graded" ? "green" : "orange",
+          fontWeight: 500,
+        }}
       >
+        {gradingStatus === "graded" ? (
+          <CheckCircleIcon color="success" />
+        ) : (
+          <HourglassEmptyIcon color="warning" />
+        )}
         Status: {gradingStatus === "graded" ? "Graded" : "Not Graded"}
       </Typography>
-      <Typography variant="subtitle1" className="font-semibold">
-        Feedback: {feedback || "No feedback"}
-      </Typography>
-      <Typography variant="subtitle1" className="font-semibold">
-        Score: {score !== null ? score : "Not scored"}
+
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+          Feedback:
+        </Typography>
+        <IconButton
+          onClick={toggleFeedbackVisibility}
+          sx={{
+            transition: "transform 0.3s",
+            transform: isFeedbackVisible ? "rotate(180deg)" : "rotate(0deg)",
+          }}
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+      </Box>
+
+      <Collapse in={isFeedbackVisible}>
+        <Typography
+          variant="body2"
+          sx={{
+            color: feedback ? "text.primary" : "text.secondary",
+            ml: 4,
+          }}
+        >
+          {feedback || "No feedback provided"}
+        </Typography>
+      </Collapse>
+
+      <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+        Score:{" "}
+        <Typography
+          variant="body2"
+          component="span"
+          color={score !== null ? "text.primary" : "text.secondary"}
+        >
+          {score !== null ? score : "Not scored yet"}
+        </Typography>
       </Typography>
 
       <Box
-        className="flex space-x-4"
         sx={{
-          flexWrap: 'wrap', // Ensures buttons wrap on smaller screens
-          gap: '8px', // Adds spacing between buttons
-          justifyContent: { xs: 'center', sm: 'flex-start' } // Centers on smaller screens
+          display: "flex",
+          flexDirection: { xs: "column", sm: "row" },
+          gap: 2,
+          alignItems: "center",
+          justifyContent: { xs: "center", sm: "flex-start" },
+          mt: 2,
         }}
       >
         <Button
           variant="contained"
-          startIcon={<Download />}
+          color="primary"
+          startIcon={<DownloadIcon />}
           href={`${BACKEND_URL}/api/student-submit/download/submission/${submissionId}`}
           target="_blank"
           sx={{
-            fontSize: { xs: '0.75rem', sm: '0.875rem', md: '1rem' }, // Responsive font size for button
-            padding: { xs: '6px 8px', sm: '8px 12px', md: '10px 16px' }, // Adjust padding for button
-            minWidth: 0, // Ensures buttons don't grow too large
-            whiteSpace: 'nowrap' // Prevents button text from wrapping
+            fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
+            padding: { xs: "8px 16px", sm: "10px 20px" },
+            minWidth: 120,
+            whiteSpace: "nowrap",
           }}
         >
           Download
@@ -414,13 +497,13 @@ function SubmissionDetails({
           <Button
             variant="outlined"
             color="error"
-            startIcon={<Delete />}
-            onClick={onDelete}
+            startIcon={<DeleteIcon />}
+            onClick={handleDeleteClick}
             sx={{
-              fontSize: { xs: '0.75rem', sm: '0.875rem', md: '1rem' }, // Responsive font size for delete button
-              padding: { xs: '6px 8px', sm: '8px 12px', md: '10px 16px' }, // Adjust padding for button
-              minWidth: 0, // Ensures button doesn't become too wide
-              whiteSpace: 'nowrap' // Prevents button text from wrapping
+              fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
+              padding: { xs: "8px 16px", sm: "10px 20px" },
+              minWidth: 120,
+              whiteSpace: "nowrap",
             }}
           >
             Delete
@@ -429,13 +512,37 @@ function SubmissionDetails({
       </Box>
 
       {isPastDue && (
-        <Typography variant="body2" color="error">
+        <Typography
+          variant="body2"
+          color="error"
+          sx={{ mt: 2, fontStyle: "italic" }}
+        >
           The due date has passed. You cannot modify or delete your submission.
         </Typography>
       )}
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={showDeleteDialog} onClose={handleDeleteCancel}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <Typography>
+            Are you sure you want to delete this submission? This action cannot
+            be undone.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteCancel} color="inherit">
+            Cancel
+          </Button>
+          <Button onClick={handleDeleteConfirm} color="error" variant="contained">
+            Confirm Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
+
 
 
 function SubmissionForm({ onFileChange, onSubmit, errorMessage,isLoadingAssignment }) {

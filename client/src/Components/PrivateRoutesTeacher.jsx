@@ -45,7 +45,7 @@ function PrivateRoutesTeacher() {
       <>
         {" "}
         <Outlet />
-        <ToastContainer />
+        {/* <ToastContainer /> */}
       </>
     ) : (
       <Navigate to="/" replace />

@@ -41,12 +41,12 @@ const userSchema = new mongoose.Schema(
 
 /** ---MIDDLEWARES--- **/
 
-//Compares password to hashed password when Logging In
+
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-//Hash the password when making a new user or user registration.
+
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();

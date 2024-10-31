@@ -87,7 +87,7 @@ const TeacherStudentDashboard = ({ userAnalytics, userProgress }) => {
     <ThemeProvider theme={theme}>
       {" "}
       <Container maxWidth="100%" style={{ padding: "20px" }}>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} pt={3}>
           <Grid item xs={12} md={12}>
             <TeacherPlayerDashboard
               totalPoints={totalPoints + assignmentGrades + qnaPoints}
@@ -109,7 +109,7 @@ const TeacherStudentDashboard = ({ userAnalytics, userProgress }) => {
             </Paper>
           </Grid>
         </Grid>
-        <Grid item xs={12} md={12}>
+        <Grid item xs={12} md={12} pt={3}>
           <Paper elevation={3} style={{ padding: "5px", height: "100%" }}>
             {" "}
             <Typography variant="h6" align="center">
@@ -122,7 +122,7 @@ const TeacherStudentDashboard = ({ userAnalytics, userProgress }) => {
             <TeacherCompletionTimelineChart userProgress={userProgress} />
           </Paper>
         </Grid>
-        <Grid item xs={12} md={12}>
+        <Grid item xs={12} md={12} pt={3}>
           {" "}
           <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
             {" "}

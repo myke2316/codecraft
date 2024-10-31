@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,useLocation } from "react-router-dom";
 import { useLogoutMutation } from "../../LoginRegister/userService";
 import { toast } from "react-toastify";
 import { logout } from "../../LoginRegister/userSlice";
@@ -60,10 +60,11 @@ export default function AuthorizedSidebar({
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isVerySmall = useMediaQuery("(max-height: 500px)");
   const isSmalls = useMediaQuery("(max-width: 1024px)");
+  const location = useLocation(); // Add useLocation to get the current URL path
   const handleDrawerToggle = () => {
     setOpen(!open);
   };
-console.log(userInfo)
+  console.log(userInfo);
   useEffect(() => {
     if (isSmalls) {
       setOpen(false); // Close the drawer if the screen is small
@@ -190,15 +191,17 @@ console.log(userInfo)
             }}
           >
             {/* Image placed above the text */}
-         {open &&    <img
-              src="/new.png"
-              alt="Logo"
-              style={{
-                width: "80px", // Adjust size as necessary
-                height: "70px",
-                marginBottom: "8px", // Space between the image and text
-              }}
-            />}
+            {open && (
+              <img
+                src="/new.png"
+                alt="Logo"
+                style={{
+                  width: "80px", // Adjust size as necessary
+                  height: "70px",
+                  marginBottom: "8px", // Space between the image and text
+                }}
+              />
+            )}
 
             {/* Inline text "<CodeCraft />" */}
             <span style={{ display: "inline-flex", alignItems: "center" }}>
@@ -316,31 +319,20 @@ console.log(userInfo)
         </List>
         <Box sx={{ flexGrow: 1 }} />
         <Divider sx={{ bgcolor: mode === "light" ? "#e0e0e0" : "#000" }} />
-        {/* <Box sx={{ p: 2 }}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={mode === "dark"}
-                onChange={toggleTheme}
-                icon={<Brightness7 />}
-                checkedIcon={<Brightness4 />}
-              />
-            }
-            label={
-              <Typography
-                sx={{ fontFamily: "Poppins, sans-serif", fontSize: "0.875rem" }}
-              >
-                {mode === "dark" ? "Dark Mode" : "Light Mode"}
-              </Typography>
-            }
-          />
-        </Box> */}
-        {(userInfo.isDeleted || userInfo?.[0]?.isDeleted || userInfo?.userData?.[0]?.isDeleted)&& (
+       
+        {(userInfo.isDeleted ||
+          userInfo?.[0]?.isDeleted ||
+          userInfo?.userData?.[0]?.isDeleted) && (
           <Alert severity="warning">
             <AlertTitle>Account Deletion Notice</AlertTitle>
             Your account has been marked for deletion and will be permanently
-            deleted in <strong>
-              {formatDate(userInfo.deleteExpiresAt || userInfo[0]?.deleteExpiresAt || userInfo.userData[0].deleteExpiresAt)}
+            deleted in{" "}
+            <strong>
+              {formatDate(
+                userInfo.deleteExpiresAt ||
+                  userInfo[0]?.deleteExpiresAt ||
+                  userInfo.userData[0].deleteExpiresAt
+              )}
             </strong>{" "}
             (15 days). Please contact support if you think this is an error.
           </Alert>

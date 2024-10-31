@@ -15,6 +15,7 @@ import {
   InputLabel,
   Typography,
   Box,
+  Alert,
 } from "@mui/material";
 import {
   Add as AddIcon,
@@ -81,6 +82,7 @@ const AnswerForm = ({
         <Typography variant="h6" component="div">
           Add Answer
         </Typography>
+        <Alert severity="warning">Your answer is being monitored by the admin, please be careful with your answer.</Alert>
       </DialogTitle>
       <Formik
         initialValues={initialValues}

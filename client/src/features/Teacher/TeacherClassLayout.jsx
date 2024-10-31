@@ -387,7 +387,7 @@ export default function TeacherClassLayout() {
           )}
         </Box>
         <Outlet />
-        <ToastContainer />
+        {/* <ToastContainer /> */}
       </Box>
 
       {/* Dialog for announcement details */}

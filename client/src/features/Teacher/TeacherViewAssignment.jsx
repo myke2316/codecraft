@@ -160,7 +160,7 @@ function TeacherViewAssignment() {
         Back to Assignments
       </Button>
       <Grid container spacing={4}>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={12}>
   <Card variant="outlined" className="p-6">
     <Typography
       variant="h4"
@@ -257,7 +257,7 @@ function TeacherViewAssignment() {
   )}
 </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={12}>
           <Card variant="outlined" className="p-6">
             <Typography variant="h5" gutterBottom className="font-semibold">
               Student Submissions

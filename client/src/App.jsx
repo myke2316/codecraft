@@ -63,10 +63,12 @@ import CertificationPage from "./features/Course/CertificationPage";
 import ClassStudentHome from "./features/Class/ClassStudentHome";
 import { ThemeProvider } from "@emotion/react";
 import ManageCertificate from "./features/Course/ManageCertificate";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={Ad} />
       <Routes>
         <Route path="reset-password/:resetToken" element={<ResetPassword />} />
         <Route element={<AppLayout />}>

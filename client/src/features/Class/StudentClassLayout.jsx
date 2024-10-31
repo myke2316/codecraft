@@ -400,7 +400,7 @@ export default function StudentClassLayout() {
           )}
         </Box>
         <Outlet />
-        <ToastContainer />
+        {/* <ToastContainer /> */}
       </Box>
 
       {/* Dialog for announcement details */}
@@ -490,7 +490,7 @@ export default function StudentClassLayout() {
         </DialogActions>
       </Dialog>
 
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </Box>
   );
 }

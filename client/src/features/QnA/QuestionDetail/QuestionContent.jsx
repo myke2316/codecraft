@@ -18,7 +18,8 @@ import {
   DialogContentText,
   DialogTitle,
   useMediaQuery,
-  useTheme,Alert
+  useTheme,
+  Alert
 } from "@mui/material";
 import {
   ThumbUp as ThumbUpIcon,
@@ -41,6 +42,7 @@ import {
   useGetAnswerVoteQuery,
   useDeleteQuestionMutation,
 } from "../questionService";
+import { toast } from "react-toastify";
 
 const QuestionContent = ({
   question,
@@ -50,7 +52,7 @@ const QuestionContent = ({
 }) => {
   const [voteCount, setVoteCount] = useState(0);
   const [userVote, setUserVote] = useState(0);
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); // Added delete dialog state
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const isOwner = question.author._id === currentUserId;
   const navigate = useNavigate();
   const [deleteQuestion] = useDeleteQuestionMutation();
@@ -59,18 +61,13 @@ const QuestionContent = ({
   });
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const isVoted = question?.votes?.some(
-    (v) => v.user?._id.toString() === currentUserId
-  );
-  const voteStatus = question?.votes?.find(
-    (v) => v.user?._id.toString() === currentUserId
-  );
 
   useEffect(() => {
     if (voteData) {
       setVoteCount(voteData.voteCount);
     }
   }, [voteData]);
+
   const [voteQuestion] = useVoteQuestionMutation();
 
   useEffect(() => {
@@ -79,7 +76,8 @@ const QuestionContent = ({
       (v) => v.user?._id.toString() === currentUserId
     );
     setUserVote(userVote ? userVote.vote : 0);
-  }, [question]);
+  }, [question, currentUserId]);
+
   const handleVote = async (vote) => {
     if (isOwner) return;
 
@@ -98,18 +96,20 @@ const QuestionContent = ({
       console.error("Failed to vote:", error);
     }
   };
+
   const onBack = () => {
     navigate(`/qna/${currentUserId}`);
   };
 
   const handleDelete = async () => {
-    setDeleteDialogOpen(true); // Open delete dialog
+    setDeleteDialogOpen(true);
   };
 
   const confirmDelete = async () => {
     try {
       await deleteQuestion(question._id).unwrap();
       setDeleteDialogOpen(false);
+      toast.success("Successfully Deleted Container")
       navigate(`/qna/${currentUserId}`);
     } catch (error) {
       console.error("Failed to delete question:", error);
@@ -121,174 +121,181 @@ const QuestionContent = ({
   };
 
   return (
-    <Card className="w-full max-w-8xl mb-8 mx-auto bg-card text-card-foreground shadow-lg hover:shadow-xl transition-shadow duration-300">
-      {question.status==="pending" && <Alert severity="warning">Question waiting for admin approval.</Alert>}
-      <CardHeader
-        avatar={
-          <Avatar
-            src={question.author.avatar}
-            className="bg-primary text-primary-foreground"
+    <Box className="relative w-full max-w-8xl mb-8 mx-auto">
+      <IconButton
+        onClick={onBack}
+        className="absolute top-4 left-4 z-10"
+        color="primary"
+        aria-label="back"
+      >
+        <ArrowBackIcon />
+      </IconButton>
+      <Card className="bg-card text-card-foreground shadow-lg hover:shadow-xl transition-shadow duration-300">
+        {question.status === "pending" && (
+          <Alert severity="warning">Question waiting for admin approval.</Alert>
+        )}
+        {console.log(question)}
+         {question.status === "denied" && (
+          <Alert severity="error">Question is denied and will be automatically deleted, please delete this question.</Alert>
+        )}
+        <CardHeader
+          avatar={
+            <Avatar
+              src={question.author.avatar}
+              className="bg-primary text-primary-foreground"
+            >
+              {!question.author.avatar && <PersonIcon />}
+            </Avatar>
+          }
+          title={
+            <Box className="flex items-center justify-between">
+              <Typography variant="subtitle1" className="font-semibold">
+                {question.author.username}
+              </Typography>
+              {isOwner && (
+                <Box>
+                  <Tooltip title="Edit question">
+                    <IconButton
+                      onClick={handleEdit}
+                      size="small"
+                      className="text-muted-foreground hover:text-primary"
+                    >
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Delete question">
+                    <IconButton
+                      onClick={handleDelete}
+                      size="small"
+                      className="text-muted-foreground hover:text-destructive"
+                    >
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
+              )}
+            </Box>
+          }
+          subheader={
+            <Box className="flex items-center text-muted-foreground">
+              <AccessTimeIcon fontSize="small" className="mr-1" />
+              <Typography variant="caption">
+                Asked on {new Date(question.createdAt).toLocaleString()}
+              </Typography>
+            </Box>
+          }
+        />
+        <CardContent className="p-6">
+          <Typography variant="h5" component="h1" className="font-bold mb-4">
+            {question.title}
+          </Typography>
+          <Typography
+            variant="body1"
+            className="mb-6 whitespace-pre-line leading-relaxed"
           >
-            {!question.author.avatar && <PersonIcon />}
-          </Avatar>
-        }
-        title={
-          <Box className="flex items-center justify-between">
-            <Typography variant="subtitle1" className="font-semibold">
-              {question.author.username}
-            </Typography>
-            {isOwner && (
-              <Box>
-                <Tooltip title="Edit question">
-                  <IconButton
-                    onClick={handleEdit}
-                    size="small"
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    <EditIcon fontSize="small" />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Delete question">
-                  <IconButton
-                    onClick={handleDelete}
-                    size="small"
-                    className="text-muted-foreground hover:text-destructive"
-                  >
-                    <DeleteIcon fontSize="small" />
-                  </IconButton>
-                </Tooltip>
+            {question.content}
+          </Typography>
+
+          {question.codeBlocks.map((block, index) => (
+            <Card
+              key={index}
+              variant="outlined"
+              className="mb-6 overflow-hidden border-border"
+            >
+              <CardHeader
+                avatar={<CodeIcon className="text-muted-foreground" />}
+                title={
+                  <Typography variant="subtitle2" className="font-medium">
+                    {block.language.toUpperCase()}
+                  </Typography>
+                }
+                className="py-2 px-4 bg-muted"
+              />
+              <SyntaxHighlighter
+                language={block.language}
+                style={vscDarkPlus}
+                customStyle={{ margin: 0, borderRadius: 0, fontSize: "0.9rem" }}
+              >
+                {block.content}
+              </SyntaxHighlighter>
+            </Card>
+          ))}
+
+          <Box className="mt-6 flex flex-wrap gap-2">
+            {question.tags.map((tag) => (
+              <Chip
+                key={tag}
+                label={tag.toUpperCase()}
+                variant="outlined"
+                size="small"
+                className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 transition-colors cursor-pointer"
+              />
+            ))}
+          </Box>
+        </CardContent>
+
+        <Divider />
+
+        <CardActions className="p-4 flex flex-col sm:flex-row justify-between items-center">
+          <Box className="flex flex-wrap justify-center sm:justify-start gap-2 mb-4 sm:mb-0">
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<AddIcon />}
+              onClick={handleClickOpen}
+              size={isMobile ? "small" : "medium"}
+            >
+              Add Answer
+            </Button>
+            <Button
+              variant="outlined"
+              color="secondary"
+              startIcon={<RefreshIcon />}
+              onClick={fetchQuestionData}
+              size={isMobile ? "small" : "medium"}
+            >
+              Refresh
+            </Button>
+          </Box>
+          <Box className="flex items-center">
+            {isOwner ? (
+              <Tooltip title="You cannot vote on your own question" arrow>
+                <Typography
+                  variant="caption"
+                  className="italic bg-warning text-warning-foreground px-2 py-1 rounded"
+                >
+                  Voting disabled for own question
+                </Typography>
+              </Tooltip>
+            ) : (
+              <Box className="flex items-center">
+                <IconButton
+                  onClick={() => handleVote(-1)}
+                  color={userVote === -1 ? "error" : "default"}
+                  size="small"
+                  className="hover:bg-destructive/10"
+                >
+                  <ThumbDownIcon fontSize="small" />
+                </IconButton>
+                <Typography
+                  variant="body2"
+                  className="mx-2 font-bold min-w-[20px] text-center"
+                >
+                  {voteCount}
+                </Typography>
+                <IconButton
+                  onClick={() => handleVote(1)}
+                  color={userVote === 1 ? "primary" : "default"}
+                  size="small"
+                  className="hover:bg-primary/10"
+                >
+                  <ThumbUpIcon fontSize="small" />
+                </IconButton>
               </Box>
             )}
           </Box>
-        }
-        subheader={
-          <Box className="flex items-center text-muted-foreground">
-            <AccessTimeIcon fontSize="small" className="mr-1" />
-            <Typography variant="caption">
-              Asked on {new Date(question.createdAt).toLocaleString()}
-            </Typography>
-          </Box>
-        }
-      />
-      <CardContent className="p-6">
-        <Typography variant="h5" component="h1" className="font-bold mb-4">
-          {question.title}
-        </Typography>
-        <Typography
-          variant="body1"
-          className="mb-6 whitespace-pre-line leading-relaxed"
-        >
-          {question.content}
-        </Typography>
-
-        {question.codeBlocks.map((block, index) => (
-          <Card
-            key={index}
-            variant="outlined"
-            className="mb-6 overflow-hidden border-border"
-          >
-            <CardHeader
-              avatar={<CodeIcon className="text-muted-foreground" />}
-              title={
-                <Typography variant="subtitle2" className="font-medium">
-                  {block.language.toUpperCase()}
-                </Typography>
-              }
-              className="py-2 px-4 bg-muted"
-            />
-            <SyntaxHighlighter
-              language={block.language}
-              style={vscDarkPlus}
-              customStyle={{ margin: 0, borderRadius: 0, fontSize: "0.9rem" }}
-            >
-              {block.content}
-            </SyntaxHighlighter>
-          </Card>
-        ))}
-
-        <Box className="mt-6 flex flex-wrap gap-2">
-          {question.tags.map((tag) => (
-            <Chip
-              key={tag}
-              label={tag.toUpperCase()}
-              variant="outlined"
-              size="small"
-              className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 transition-colors cursor-pointer"
-            />
-          ))}
-        </Box>
-      </CardContent>
-
-      <Divider />
-
-      <CardActions className="p-4 flex flex-col sm:flex-row justify-between items-center">
-        <Box className="flex flex-wrap justify-center sm:justify-start gap-2 mb-4 sm:mb-0">
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<AddIcon />}
-            onClick={handleClickOpen}
-            size={isMobile ? "small" : "medium"}
-          >
-            Add Answer
-          </Button>
-          <Button
-            variant="outlined"
-            color="secondary"
-            startIcon={<RefreshIcon />}
-            onClick={fetchQuestionData}
-            size={isMobile ? "small" : "medium"}
-          >
-            Refresh
-          </Button>
-          <Button
-            variant="outlined"
-            color="inherit"
-            startIcon={<ArrowBackIcon />}
-            onClick={onBack}
-            size={isMobile ? "small" : "medium"}
-          >
-            Back
-          </Button>
-        </Box>
-        <Box className="flex items-center">
-          {isOwner ? (
-            <Tooltip title="You cannot vote on your own question" arrow>
-              <Typography
-                variant="caption"
-                className="italic bg-warning text-warning-foreground px-2 py-1 rounded"
-              >
-                Voting disabled for own question
-              </Typography>
-            </Tooltip>
-          ) : (
-            <Box className="flex items-center">
-              <IconButton
-                onClick={() => handleVote(-1)}
-                color={userVote === -1 ? "error" : "default"}
-                size="small"
-                className="hover:bg-destructive/10"
-              >
-                <ThumbDownIcon fontSize="small" />
-              </IconButton>
-              <Typography
-                variant="body2"
-                className="mx-2 font-bold min-w-[20px] text-center"
-              >
-                {voteCount}
-              </Typography>
-              <IconButton
-                onClick={() => handleVote(1)}
-                color={userVote === 1 ? "primary" : "default"}
-                size="small"
-                className="hover:bg-primary/10"
-              >
-                <ThumbUpIcon fontSize="small" />
-              </IconButton>
-            </Box>
-          )}
-        </Box>
-      </CardActions>
+        </CardActions>
+      </Card>
       <Dialog
         open={deleteDialogOpen}
         onClose={() => setDeleteDialogOpen(false)}
@@ -311,7 +318,7 @@ const QuestionContent = ({
           </Button>
         </DialogActions>
       </Dialog>
-    </Card>
+    </Box>
   );
 };
 

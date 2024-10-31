@@ -31,10 +31,17 @@ export const courseService = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getProgressData: builder.query({
+      query: () => ({
+        url: `${PROGRESS_URL}/getAllProgress`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
 export const {
+  useGetProgressDataQuery,
   useCreateUserProgressMutation,
   useFetchUserProgressMutation,
   useUpdateUserProgressMutation,

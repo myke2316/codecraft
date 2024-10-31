@@ -47,6 +47,7 @@ const AdminOverview = ({ users }) => {
   const [totalTeachers, setTotalTeachers] = useState(0);
   const [totalTeachersRequest, setTotalTeachersRequest] = useState(0);
   const [totalAdmin, setTotalAdmin] = useState(0);
+  
   useEffect(() => {
     setTotalUsers(users.length);
 
@@ -59,13 +60,13 @@ const AdminOverview = ({ users }) => {
     setTotalAdmin(adminCount);
     setTotalTeachersRequest(teacherRequestCount)
   }, [users]);
-
+  
   return (
     <Container maxWidth="lg">
     
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} md={3}>
-          <StatCard title="Total Users(No roles included)" value={totalUsers - totalAdmin} icon={PeopleAltIcon} />
+          <StatCard title="Total Users" value={totalStudents + totalTeachers} icon={PeopleAltIcon} />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <StatCard title="Total Students" value={totalStudents} icon={SchoolIcon} />

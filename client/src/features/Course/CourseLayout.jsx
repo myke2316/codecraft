@@ -28,7 +28,7 @@ function CourseLayout() {
         </Box>
       </Box>
 
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </Box>
   );
 }

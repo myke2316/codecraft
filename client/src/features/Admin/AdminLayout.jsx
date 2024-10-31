@@ -46,7 +46,7 @@ const AdminLayout = () => {
         >
           <Box sx={{ py: 6, px: 4, flexGrow: 1 }}>
             <Outlet />
-            <ToastContainer />
+            {/* <ToastContainer /> */}
           </Box>
           <AdminFooter />
         </Box>

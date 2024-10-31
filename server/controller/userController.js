@@ -505,6 +505,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     // Respond with success message
     res.status(200).json({
       message: "User soft-deleted. Will be fully removed after 15 days.",
+      user
     });
   } catch (error) {
     console.log(error);

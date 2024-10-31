@@ -618,16 +618,20 @@ function AdminQna() {
 
       <Dialog open={openConfirmDialog} onClose={handleCloseDialog}>
         <DialogTitle>
-          {currentAction === "accepted" ? "Accept Item" : "Deny Item"}
+          {currentAction === "accepted"
+              ? "Approve Item"
+              : currentAction === "denied"
+              ? "Deny Item "
+              : "Revert Item"}
         </DialogTitle>
         <DialogContent>
           <Typography className="mt-4">
             Are you sure you want to{" "}
             {currentAction === "accepted"
-              ? "accept"
-              : currentAction === "deny"
-              ? "deny"
-              : "revert"}{" "}
+              ? "approve "
+              : currentAction === "denied"
+              ? "deny "
+              : "revert "}
             this {currentTab === 0 ? "question" : "answer"}?
           </Typography>
         </DialogContent>

@@ -23,6 +23,7 @@ import {
   useUpdateQuestionMutation,
 } from "../questionService";
 import { Editor } from "@monaco-editor/react";
+import { toast } from "react-toastify";
 
 const EditQuestionPage = () => {
   const { id } = useParams();
@@ -95,6 +96,7 @@ const EditQuestionPage = () => {
       console.log(result);
       setSnackbarMessage("Question updated successfully!");
       setOpenSnackbar(true);
+      toast.success("Successfully edited question.")
       navigate(`/qna/${authorId}/question/${question._id}`);
     } catch (error) {
       console.log(error);
