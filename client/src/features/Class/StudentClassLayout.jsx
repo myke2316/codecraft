@@ -133,13 +133,20 @@ export default function StudentClassLayout() {
           <Typography
             variant="body2"
             color="white"
-            sx={{ fontWeight: "500" }}
+            sx={{
+              backgroundColor: alpha(theme.palette.common.white, 0.15),
+              p: 0.5,
+              borderRadius: "8px",
+              fontWeight: "600",
+              display: "inline-flex",
+              alignItems: "center",
+            }}
           >
             Teacher: {teacherName || "Loading..."}
           </Typography>
         </Box>
-
-        <Typography
+          {/* Removed to avoid user seeing new codes to avoid giving to others. */}
+        {/* <Typography
           variant="body2"
           sx={{
             backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -160,7 +167,7 @@ export default function StudentClassLayout() {
               <ContentCopyIcon fontSize="small" />
             </IconButton>
           </Tooltip>
-        </Typography>
+        </Typography> */}
       </Box>
 
       <Divider sx={{ mb: 2 }} />

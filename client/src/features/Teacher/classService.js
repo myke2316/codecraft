@@ -58,14 +58,24 @@ export const classService = apiSlice.injectEndpoints({
     }),
     fetchCompletedStudents: builder.query({
       query: (classId) => ({
-        url: classId ? `${CLASS_URL}/fetchCompletedStudents/${classId}` : `${CLASS_URL}/fetchCompletedStudents`,
+        url: classId
+          ? `${CLASS_URL}/fetchCompletedStudents/${classId}`
+          : `${CLASS_URL}/fetchCompletedStudents`,
         method: "GET",
+      }),
+    }),
+    updateInviteCode: builder.mutation({
+      query: (data) => ({
+        url: `${CLASS_URL}/class/update-invite-code`,
+        method: "PUT",
+        body: data,
       }),
     }),
   }),
 });
 
 export const {
+  useUpdateInviteCodeMutation,
   useFetchCompletedStudentsQuery,
   useDeleteClassMutation,
   useFetchClassByIdMutation,

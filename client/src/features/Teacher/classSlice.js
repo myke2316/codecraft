@@ -74,6 +74,14 @@ const classSlice = createSlice({
         localStorage.setItem("class", JSON.stringify(state.class));
       }
     },
+    updateInviteCodeReducer: (state, action) => {
+      const { classId, newInviteCode } = action.payload;
+      const classToUpdate = state.class.find((c) => c._id === classId);
+      if (classToUpdate) {
+        classToUpdate.inviteCode = newInviteCode; // Update only the invite code
+        localStorage.setItem("class", JSON.stringify(state.class));
+      }
+    },
     
     leaveClass: (state, action) => {
       state.class = [];
@@ -100,6 +108,6 @@ export const {
   removeStudentReducer,
   updateClass,
   updateClassStudent,
-  leaveClass,
+  leaveClass,updateInviteCodeReducer
 } = classSlice.actions;
 export default classSlice.reducer;

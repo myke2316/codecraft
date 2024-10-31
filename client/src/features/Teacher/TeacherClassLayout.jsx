@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, useNavigate, useParams } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
   Typography,
@@ -20,6 +20,7 @@ import {
   Tooltip,
   useMediaQuery,
   Drawer,
+  TextField,
 } from "@mui/material";
 import {
   Refresh,
@@ -33,16 +34,22 @@ import {
   Menu as MenuIcon,
   ChevronLeft,
 } from "@mui/icons-material";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { useGetAnnouncementsByClassQuery } from "./announcementService";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import EditIcon from "@mui/icons-material/Edit";
+import { useUpdateInviteCodeMutation } from "./classService";
+import { updateInviteCodeReducer } from "./classSlice";
 
+const generateInviteCode = () => {
+  return Math.random().toString(36).substring(2, 10).toUpperCase();
+};
 export default function TeacherClassLayout() {
   const navigate = useNavigate();
   const { classId } = useParams();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
+  const dispatch = useDispatch()
   // Get class information from Redux state
   const classInfo = useSelector((state) => state.class.class);
 
@@ -83,6 +90,43 @@ export default function TeacherClassLayout() {
   const handleCloseDialog = () => {
     setOpenDialog(false);
     setSelectedAnnouncement(null);
+  };
+
+  const [editOpen, setEditOpen] = useState(false);
+  const [newInviteCode, setNewInviteCode] = useState(inviteCode);
+  const [updateInviteCode, { isLoading: isLoadingUpdateInviteCode }] =
+    useUpdateInviteCodeMutation();
+  const [updatedInviteCode, setUpdatedInviteCode] = useState();
+  async function handleEditInviteCode() {
+    if (newInviteCode.length !== 8) {
+      toast.error("Invite code must be exactly 8 characters long.");
+      return;
+    }
+    try {
+     const res =  await updateInviteCode({ classId, newInviteCode }).unwrap();
+     const resInviteCode = res.class.inviteCode
+     dispatch(updateInviteCodeReducer({ classId, newInviteCode }));
+     console.log(resInviteCode)
+      toast.success("Invite code updated successfully!");
+     setUpdatedInviteCode(resInviteCode)
+      setEditOpen(false);
+    } catch (error) {
+      console.error("Failed to update invite code:", error);
+      toast.error("Failed to update invite code.");
+    }
+  }
+
+  const handleEditClick = () => {
+    setEditOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setEditOpen(false);
+  };
+
+  const handleGenerateCode = () => {
+    const generatedCode = generateInviteCode();
+    setNewInviteCode(generatedCode);
   };
 
   // If no class is found, show a loading spinner or a message
@@ -136,7 +180,7 @@ export default function TeacherClassLayout() {
             alignItems: "center",
           }}
         >
-          Invite Code: {inviteCode}
+          Invite Code: {!updatedInviteCode ? inviteCode : updatedInviteCode}
           <Tooltip title={copied ? "Copied!" : "Copy Invite Code"}>
             <IconButton
               onClick={handleCopy}
@@ -146,7 +190,49 @@ export default function TeacherClassLayout() {
               <ContentCopyIcon fontSize="small" />
             </IconButton>
           </Tooltip>
+          <Tooltip title="Edit Invite Code">
+            <IconButton
+              onClick={handleEditClick}
+              size="small"
+              sx={{ ml: 1, color: "inherit" }}
+            >
+              <EditIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
         </Typography>
+
+        <Dialog open={editOpen} onClose={handleDialogClose}>
+          <DialogTitle>Edit Invite Code</DialogTitle>
+          <DialogContent>
+            <TextField
+              variant="outlined"
+              value={newInviteCode}
+              onChange={(e) =>
+                setNewInviteCode(e.target.value.toUpperCase().slice(0, 8))
+              }
+              helperText="Invite code must be exactly 8 characters."
+              fullWidth
+              inputProps={{
+                maxLength: 8,
+              }}
+            />
+            <Button onClick={handleGenerateCode} sx={{ mt: 2 }}>
+              Generate New Code
+            </Button>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleDialogClose} color="inherit">
+              Cancel
+            </Button>
+            <Button
+              onClick={handleEditInviteCode}
+              color="primary"
+              variant="contained"
+            >
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Box>
 
       <Divider sx={{ mb: 2 }} />

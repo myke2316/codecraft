@@ -9,6 +9,7 @@ import {
   joinClass,
   removeStudentFromClass,
   updateClassName,
+  updateInviteCode,
 } from "../controller/classController.js";
 
 const router = express.Router();
@@ -22,4 +23,5 @@ router.put("/updateClass", updateClassName);
 router.delete("/remove-student", removeStudentFromClass);
 router.delete("/delete-class/:classId", deleteClass);
 router.get("/completed-students/:classId?", fetchCompletedStudents);
+router.put("/class/update-invite-code", updateInviteCode);
 export { router as classRouter };

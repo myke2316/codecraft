@@ -124,13 +124,14 @@ const QuestionContent = ({
     <Box className="relative w-full max-w-8xl mb-8 mx-auto">
       <IconButton
         onClick={onBack}
-        className="absolute top-4 left-4 z-10"
-        color="primary"
+        className=""
+        color="#6e61ab"
         aria-label="back"
       >
         <ArrowBackIcon />
       </IconButton>
       <Card className="bg-card text-card-foreground shadow-lg hover:shadow-xl transition-shadow duration-300">
+        
         {question.status === "pending" && (
           <Alert severity="warning">Question waiting for admin approval.</Alert>
         )}

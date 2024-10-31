@@ -137,7 +137,10 @@ function StudentClassContainer() {
           >
             Embark on a journey of knowledge and discovery
           </MotionTypography>
-          <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+
+          {/* Again removed for student not to know if the teacher changed the invitecode , only way to know is for the teacher to give them their invite codes. */}
+
+          {/* <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
             <Chip
               icon={<School sx={{ color: "#fff !important" }} />}
               label={`Invite Code: ${userClass.inviteCode}`}
@@ -180,7 +183,7 @@ function StudentClassContainer() {
                 </AnimatePresence>
               </IconButton>
             </Tooltip>
-          </Box>
+          </Box> */}
         </MotionBox>
         <CardContent sx={{ bgcolor: "#fff", p: 4 }}>
           <Box display="flex" flexDirection="column" gap={2}>

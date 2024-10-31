@@ -20,7 +20,9 @@ import {
   LinearProgress,
   Alert,
   CircularProgress,
+  useMediaQuery,useTheme
 } from "@mui/material";
+
 
 const QuizContent = ({ quiz }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -31,7 +33,8 @@ const QuizContent = ({ quiz }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const user = useSelector((state) => state.user.userDetails);
   const userId = user._id;
   const [updateUserProgress, { isLoading: isLoadingUpdateUserProgress }] =
@@ -48,7 +51,11 @@ const QuizContent = ({ quiz }) => {
   const quizSubmissionData = useSelector(
     (state) => state.userQuizSubmission.quizSubmissions
   );
-  const isLoading = isLoadingUpdateUserProgress || isLoadingUpdateUserAnalytics || isLoadingUpdateQuizSubmission || isSubmitting;
+  const isLoading =
+    isLoadingUpdateUserProgress ||
+    isLoadingUpdateUserAnalytics ||
+    isLoadingUpdateQuizSubmission ||
+    isSubmitting;
   const course = quizSubmissionData.courses.find(
     (course) => course.courseId === courseId
   );
@@ -63,7 +70,6 @@ const QuizContent = ({ quiz }) => {
       setStartTime(new Date().getTime());
     }
   }, [quizId, quiz, answers]);
-
 
   // Check if all quizzes are answered
   useEffect(() => {
@@ -98,34 +104,38 @@ const QuizContent = ({ quiz }) => {
   );
 
   const [score, setScore] = useState(0); // New state for score
-  
+
   const quizSubmissions = useSelector(
     (state) => state.userQuizSubmission.quizSubmissions
   );
   const quizSubmission = quizSubmissions.courses.find(
     (course) => course.courseId === courseId
   );
-  const lessonSubmission = quizSubmission?.lessons.find((lesson) => lesson.lessonId === lessonId);
+  const lessonSubmission = quizSubmission?.lessons.find(
+    (lesson) => lesson.lessonId === lessonId
+  );
 
-  const currentQuizQuestion = lessonSubmission?.quizzes.find(q => q.quizId ===quizId)
-  const isQuestionAnswered = currentQuizQuestion.selectedOption !== null
-  console.log(currentQuizQuestion)
-async function handleNext(){
-  if (currentQuestionIndex < quiz.length - 1) {
-    setStartTime(null);
-    setTimer(0);
-    navigate(
-      `/course/${courseId}/lesson/${lessonId}/quiz/${
-        quiz[currentQuestionIndex + 1]._id
-      }`
-    );
-    setCurrentQuestionIndex(currentQuestionIndex + 1);
-    setSelectedOption(null);
-  } else {
-    setShowResults(true);
-    navigate(`/course/${courseId}/lesson/${lessonId}/quiz/results`);
+  const currentQuizQuestion = lessonSubmission?.quizzes.find(
+    (q) => q.quizId === quizId
+  );
+  const isQuestionAnswered = currentQuizQuestion.selectedOption !== null;
+  console.log(currentQuizQuestion);
+  async function handleNext() {
+    if (currentQuestionIndex < quiz.length - 1) {
+      setStartTime(null);
+      setTimer(0);
+      navigate(
+        `/course/${courseId}/lesson/${lessonId}/quiz/${
+          quiz[currentQuestionIndex + 1]._id
+        }`
+      );
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setSelectedOption(null);
+    } else {
+      setShowResults(true);
+      navigate(`/course/${courseId}/lesson/${lessonId}/quiz/results`);
+    }
   }
-}
 
   async function handleSubmitAnswer() {
     if (isSubmitting) return;
@@ -137,7 +147,7 @@ async function handleNext(){
       selectedOption,
       correctAnswer: currentQuestion.correctAnswer,
     };
-    
+
     setAnswers(newAnswers);
 
     if (selectedOption === currentQuestion.correctAnswer) {
@@ -216,8 +226,8 @@ async function handleNext(){
         );
       } catch (error) {
         console.error(error);
-      }finally{
-        setIsSubmitting(false)
+      } finally {
+        setIsSubmitting(false);
       }
     } else {
       try {
@@ -278,11 +288,10 @@ async function handleNext(){
         setTimer(0);
         setShowResults(true);
         navigate(`/course/${courseId}/lesson/${lessonId}/quiz/results`);
-   
       } catch (error) {
         console.error(error);
-      }finally{
-        setIsSubmitting(false)
+      } finally {
+        setIsSubmitting(false);
       }
     }
   }
@@ -316,7 +325,7 @@ async function handleNext(){
   return (
     <Box
       sx={{
-        p: 4,
+        p: isMobile ? 2 : 4,
         maxWidth: "600px",
         margin: "0 auto",
         boxShadow: 3,
@@ -325,22 +334,32 @@ async function handleNext(){
       }}
     >
       {/* Progress Bar */}
-      
+
       <div className="progress-bar">
         <div style={{ width: progressBarWidth }} />
       </div>
       {/* Question */}
-      <Typography variant="h5" fontWeight="bold" mb={3}>
+      <Typography
+        variant="h5"
+        fontWeight="bold"
+        mb={3}
+        fontSize={isMobile ? "1rem" : "1.5rem"}
+      >
         {currentQuestion?.question}
       </Typography>
       {isQuestionAnswered && (
         <Alert severity="info" sx={{ mb: 2 }}>
-          You have already answered this question. Your selected answer was: {currentQuizQuestion.selectedOption}
+          You have already answered this question. Your selected answer was:{" "}
+          {currentQuizQuestion.selectedOption}
         </Alert>
       )}
       {/* Options */}
       <RadioGroup
-        value={isQuestionAnswered ? currentQuizQuestion.selectedOption : selectedOption}
+        value={
+          isQuestionAnswered
+            ? currentQuizQuestion.selectedOption
+            : selectedOption
+        }
         onChange={(e) => setSelectedOption(e.target.value)}
       >
         {currentQuestion?.options.map((option, index) => (
@@ -348,11 +367,18 @@ async function handleNext(){
             key={index}
             value={option}
             control={<Radio color="primary" />}
-            label={<Typography variant="body1">{option}</Typography>}
+            label={
+              <Typography
+                variant="body1"
+                fontSize={isMobile ? "0.9rem" : "1rem"}
+              >
+                {option}
+              </Typography>
+            }
             sx={{
               mb: 2,
               borderRadius: 1,
-              p: 2,
+              p: isMobile ? 1 : 2,
               "&:hover": { bgcolor: "#f0f0f0" },
             }}
             disabled={isQuestionAnswered || isLoading}
@@ -361,12 +387,23 @@ async function handleNext(){
       </RadioGroup>
 
       {/* Button Group */}
-      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4 }}>
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          justifyContent: "space-between",
+          alignItems: isMobile ? "stretch" : "center",
+          mt: 4,
+          gap: isMobile ? 2 : 0,
+        }}
+      >
         <Button
           variant="contained"
           color="secondary"
           onClick={handleBack}
           disabled={currentQuestionIndex === 0 || isLoading}
+          fullWidth={isMobile}
         >
           Back
         </Button>
@@ -384,7 +421,7 @@ async function handleNext(){
             )}
           </Button>
         )}
-       {isQuestionAnswered && (
+        {isQuestionAnswered && (
           <Button
             variant="contained"
             color="primary"

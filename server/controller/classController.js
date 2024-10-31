@@ -322,7 +322,49 @@ const fetchCompletedStudents = asyncHandler(async (req, res) => {
   }
 });
 
+
+const updateInviteCode = asyncHandler(async (req, res) => {
+  const { classId, newInviteCode } = req.body;
+
+  // Check if the invite code is provided
+  if (!newInviteCode) {
+    return res.status(400).json({ error: "New invite code is required" });
+  }
+
+  try {
+    // Check if the new invite code already exists in any other class
+    const inviteCodeExists = await ClassModel.findOne({ inviteCode: newInviteCode });
+    if (inviteCodeExists) {
+      return res.status(400).json({ error: "Invite code already exists" });
+    }
+
+    // Find and update the class with the new invite code
+    const updatedClass = await ClassModel.findByIdAndUpdate(
+      classId,
+      { inviteCode: newInviteCode },
+      { new: true }
+    );
+
+    if (!updatedClass) {
+      return res.status(404).json({ error: "Class not found" });
+    }
+
+    res.status(200).json({
+      message: "Invite code updated successfully",
+      class: updatedClass,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to update invite code" });
+    throw new Error("Failed to update invite code");
+  }
+});
+
+
+
+
 export {
+  updateInviteCode,
   fetchCompletedStudents,
   deleteClass,
   createClass,
