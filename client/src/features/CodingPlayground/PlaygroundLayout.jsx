@@ -1,7 +1,8 @@
 import { Box, ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import PlaygroundSidebar from "./PlaygroundSidebar";
 import PlaygroundCompiler from "./PlaygroundCompiler";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 function PlaygroundLayout() {
   const [runCode, setRunCode] = useState(false);
@@ -9,7 +10,7 @@ function PlaygroundLayout() {
   const [openTabs, setOpenTabs] = useState([]);
   const [activeFile, setActiveFile] = useState(null);
   const [mode, setMode] = useState('dark');
-
+  const files = useSelector((state) => state.sandboxFiles.files);
   const theme = useMemo(
     () =>
       createTheme({
@@ -42,6 +43,19 @@ function PlaygroundLayout() {
       }),
     [mode],
   );
+  useEffect(() => {
+    setOpenTabs((prevTabs) => {
+      const updatedTabs = prevTabs.filter((tab) =>
+        files.some((file) => file.name === tab.name)
+      );
+      return updatedTabs;
+    });
+
+    // Update activeFile if it was deleted
+    if (activeFile && !files.some((file) => file.name === activeFile.name)) {
+      setActiveFile(null);
+    }
+  }, [files]);
 
   const handleRunCode = () => {
     setRunCode(true);

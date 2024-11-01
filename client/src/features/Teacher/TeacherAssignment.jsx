@@ -196,7 +196,7 @@ function TeacherAssignment({ setDialogOpen, refreshAssignments }) {
                       required
                     >
                       <MenuItem value="all">All Classes</MenuItem>
-                      <MenuItem value="specific">Specific Class</MenuItem>
+                      <MenuItem value="specific">This Class</MenuItem>
                     </Field>
                     <ErrorMessage name="target">
                       {(msg) => <Typography color="error">{msg}</Typography>}

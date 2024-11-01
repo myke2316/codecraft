@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Grid } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { BACKEND_URL } from "../../constants";
 
 function Certificate({
@@ -13,8 +13,10 @@ function Certificate({
 }) {
   return (
     <Box
-      className="max-w-4xl mx-auto p-8 bg-white  relative overflow-hidden"
-      style={{
+      className="relative bg-white overflow-hidden"
+      sx={{
+        width: "1200px",
+        height: "900px",
         fontFamily: "'Arial', sans-serif",
         backgroundImage: "url('/cert.bg')",
         backgroundSize: "cover",
@@ -24,7 +26,7 @@ function Certificate({
       {/* Geometric Shapes */}
       <Box
         className="absolute inset-0"
-        style={{
+        sx={{
           backgroundImage: "url('/certbg.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -32,97 +34,97 @@ function Certificate({
       />
 
       {/* Certificate Content */}
-      <Box className="relative z-10">
+      <Box className="relative z-10 h-full flex flex-col justify-between p-16">
         {/* Certificate Header */}
-        <Box className="text-center mb-8">
+        <Box className="text-center">
           <Typography
             variant="h3"
             className="font-bold text-gray-800"
-            style={{ fontFamily: "'Times New Roman', serif", fontSize: "2.5rem" }}
+            sx={{ fontFamily: "'Times New Roman', serif", fontSize: "48px" }}
           >
             CERTIFICATE
           </Typography>
           <Typography
             variant="h4"
             className="font-bold text-gray-800 mt-2"
-            style={{ fontFamily: "'Times New Roman', serif", fontSize: "2rem" }}
+            sx={{ fontFamily: "'Times New Roman', serif", fontSize: "36px" }}
           >
             OF ACHIEVEMENT
           </Typography>
-          <Typography className="text-gray-600 mt-2" style={{ fontSize: "1rem" }}>
+          <Typography sx={{ fontSize: "24px", color: "#666" }}>
             PRESENTED BY CODECRAFT
           </Typography>
         </Box>
 
         {/* Certificate Body */}
-        <Box className="text-center mb-8">
-          <Typography className="text-gray-600 mb-4" style={{ fontSize: "1.1rem" }}>
+        <Box className="text-center">
+          <Typography sx={{ fontSize: "28px", color: "#666", mb: 4 }}>
             PROUDLY PRESENTED TO
           </Typography>
           <Typography
             variant="h4"
             className="font-bold text-purple-700 mb-6"
-            style={{ fontFamily: "'Arial Black', sans-serif", fontSize: "2.5rem" }}
+            sx={{ fontFamily: "'Arial Black', sans-serif", fontSize: "48px" }}
           >
             {name}
           </Typography>
-          <Typography className="text-black" style={{ fontSize: "1rem" }}>
+          <Typography sx={{ fontSize: "24px", color: "#000" }}>
             This certifies that {name} has successfully completed the full course on
           </Typography>
           <Typography
             variant="h5"
             className="font-bold text-black my-2"
-            style={{ fontFamily: "'Arial', sans-serif" }}
+            sx={{ fontFamily: "'Arial', sans-serif", fontSize: "32px" }}
           >
             Beginner Web Development
           </Typography>
-          <Typography className="text-black" style={{ fontSize: "1rem" }}>
+          <Typography sx={{ fontSize: "24px", color: "#000" }}>
             as of {dateFinished}, demonstrating exceptional dedication and hard work.
-           
-          </Typography>  <Typography className="text-black" style={{ fontSize: "1rem" }}>
-          We proudly congratulate them on this well-deserved achievement
+          </Typography>
+          <Typography sx={{ fontSize: "24px", color: "#000" }}>
+            We proudly congratulate them on this well-deserved achievement
           </Typography>
         </Box>
 
         {/* Certificate Footer */}
-        <Grid container justifyContent="space-between" spacing={4} className="mt-12">
+        <Box sx={{ display: "flex", justifyContent: "space-between", mt: 8 }}>
           {/* Signature Section */}
-          <Grid item xs={5} textAlign="center">
-            <Box className="border-b border-gray-400 pb-2 mb-2">
+          <Box sx={{ textAlign: "center", width: "30%" }}>
+            <Box sx={{ borderBottom: "1px solid #666", pb: 2, mb: 2 }}>
               <img
                 src={`${BACKEND_URL}/certificate/signatures/${teacherSignature}`}
                 alt="Teacher Signature"
-                className="mx-auto h-12 object-contain"
+                style={{ height: "60px", objectFit: "contain", margin: "0 auto" }}
               />
             </Box>
-            <Typography className="font-bold text-black text-sm">
+            <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
               {teacherSignatureDetails} - Professor
             </Typography>
-          </Grid>
-          <Grid item xs={2} textAlign="center">
+          </Box>
+          <Box sx={{ textAlign: "center", width: "30%" }}>
             <img
               src="/certqr.png"
               alt="QR Code"
-              className="mx-auto h-24 w-24 object-contain"
+              style={{ height: "120px", width: "120px", objectFit: "contain", margin: "0 auto" }}
             />
-          </Grid>
-          <Grid item xs={5} textAlign="center">
-            <Box className="border-b border-gray-400 pb-2 mb-2">
+          </Box>
+          <Box sx={{ textAlign: "center", width: "30%" }}>
+            <Box sx={{ borderBottom: "1px solid #666", pb: 2, mb: 2 }}>
               <img
                 src={`${BACKEND_URL}/certificate/signatures/${adminSignature}`}
                 alt="Admin Signature"
-                className="mx-auto h-12 object-contain"
+                style={{ height: "60px", objectFit: "contain", margin: "0 auto" }}
               />
             </Box>
-            <Typography className="font-bold text-black text-sm">
+            <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
               {adminSignatureDetails} - Admin/Dean CICS
             </Typography>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
 
         {/* Verification ID */}
-        <Box className="mt-8 text-center">
-          <Typography className="text-gray-600 text-sm">
+        <Box sx={{ textAlign: "center", mt: 4 }}>
+          <Typography sx={{ color: "#666", fontSize: "18px" }}>
             VERIFICATION ID: {verificationId}
           </Typography>
         </Box>

@@ -248,11 +248,11 @@ function SignUp() {
             username: Yup.string()
               .matches(
                 /^(?=.{5,100}$)([A-Za-z]+(?:[-'\s][A-Za-z]+)*)(?:\s+[A-Za-z]\.)?(?:\s+[A-Za-z]+)*(?:\s+(?:Jr\.|Sr\.|II|III|IV|V))?$/,
-                "Please enter a valid full name (e.g., 'John A. Doe Jr.', 'Mary-Jane Smith', John D. Doe)"
+                "Please enter a valid full name or name (e.g., 'John A. Doe Jr.', 'Mary-Jane Smith', John D. Doe)"
               )
-              .min(5, "Full name must be at least 8 characters long")
-              .max(50, "Full name must be at most 50 characters long")
-              .required("Full Name is Required"),
+              .min(5, "Full name or name must be at least 8 characters long")
+              .max(50, "Full name or name must be at most 50 characters long")
+              .required("Full Name or name is Required"),
             password: Yup.string()
               .min(8, "Password too short")
               .max(20, "Password too long")

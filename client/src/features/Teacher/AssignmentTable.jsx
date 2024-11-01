@@ -414,7 +414,7 @@ function AssignmentTable({ onCreate, assignments, refreshAssignments }) {
                     onBlur={handleBlur}
                   >
                     <MenuItem value="all">All Classes</MenuItem>
-                    <MenuItem value="specific">Specific Class</MenuItem>
+                    <MenuItem value="specific">This Class</MenuItem>
                   </Select>
                   <ErrorMessage name="target" component="div" />
                 </FormControl>

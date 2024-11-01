@@ -275,7 +275,7 @@ export default function Component() {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={filteredUsers.length}
+        count={filteredUsers.length -1}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

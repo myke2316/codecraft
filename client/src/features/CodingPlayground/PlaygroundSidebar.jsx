@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   List,
@@ -63,6 +63,63 @@ const PlaygroundSidebar = ({
   const username = userInfo.username || userInfo.name;
   const navigate = useNavigate();
   const classData = useSelector((state) => state.class.class);
+
+  const [hasInitialized, setHasInitialized] = useState(false);
+
+  useEffect(() => {
+    if (!hasInitialized && files.length === 0) {
+      createInitialFiles();
+      setHasInitialized(true);
+    }
+  }, [hasInitialized, files]);
+
+  const createInitialFiles = () => {
+    const initialFiles = [
+      {
+        name: 'index.html',
+        content: `<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+      <h1 class="title">Hello World! </h1>
+      <p id="currentTime"></p>
+      <script src="script.js"></script>
+  </body>
+</html>`
+      },
+      {
+        name: 'styles.css',
+        content: `body{
+  padding: 25px;
+}
+.title {
+  color: #5C6AC4;
+}`
+      },
+      {
+        name: 'script.js',
+        content: `function showTime() {
+  document.getElementById('currentTime').innerHTML = new Date().toUTCString();
+}
+showTime();
+setInterval(function () {
+  showTime();
+}, 1000);`
+      }
+    ];
+
+    initialFiles.forEach(file => {
+      dispatch(addFile({
+        name: file.name,
+        extension: file.name.split('.').pop(),
+        content: file.content,
+      }));
+    });
+  };
+
   const handleCreateFile = () => {
     if (!newFileName.trim()) return;
     const fileExtension = newFileName.split(".").pop();
@@ -77,13 +134,23 @@ const PlaygroundSidebar = ({
     let defaultContent = "";
     switch (fileExtension) {
       case "html":
-        defaultContent = "<!-- New HTML File -->";
+        defaultContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New HTML File</title>
+</head>
+<body>
+    
+</body>
+</html>`;
         break;
       case "css":
         defaultContent = "/* New CSS File */";
         break;
       case "js":
-        defaultContent = "// New JavaScript File - Only for DOM Manipulation - No Consoles.";
+        defaultContent = "// New JavaScript File";
         break;
       default:
         break;
@@ -232,36 +299,36 @@ const PlaygroundSidebar = ({
                 },
               }}
               onClick={() =>
-                userInfo.role === "teacher" ? navigate(-1) : navigate(`/studentClass/${classData._id}/classHome`)
+                userInfo.role === "teacher"
+                  ? navigate(-1)
+                  : navigate(`/studentClass/${classData._id}/classHome`)
               }
             >
               Home
             </Button>
           </Box>
           <Typography
-  variant="h5"
-  sx={{
-    display: 'flex',
-    alignItems: 'center', // Vertically aligns the image and text
-    color: mode === 'light' ? '#333333' : '#ecf0f1',
-    fontWeight: 'light',
-  }}
->
-  {/* Adjusted img styling */}
-  <img
-    src="/new.png"
-    alt="Logo"
-    style={{
-      width: '25px', // Set fixed width for consistency
-      height: '25px', // Set fixed height for consistency
-      marginRight: '10px', // Add some space between image and text
-    }}
-  />
-  {/* Styled text with color */}
-  <span style={{ color: '#928fce' }}>&lt;</span>
-  CodeCraft
-  <span style={{ color: '#928fce' }}>/&gt;</span>
-</Typography>
+            variant="h5"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              color: mode === "light" ? "#333333" : "#ecf0f1",
+              fontWeight: "light",
+            }}
+          >
+            <img
+              src="/new.png"
+              alt="Logo"
+              style={{
+                width: "25px",
+                height: "25px",
+                marginRight: "10px",
+              }}
+            />
+            <span style={{ color: "#928fce" }}>&lt;</span>
+            CodeCraft
+            <span style={{ color: "#928fce" }}>/&gt;</span>
+          </Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "space-around", mb: 2 }}>
           <Tooltip title="Create New File">
@@ -361,7 +428,8 @@ const PlaygroundSidebar = ({
                   />
                   <IconButton
                     color="error"
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       setFileToDeleteIndex(index);
                       setOpenConfirmDialog(true);
                     }}
@@ -376,7 +444,10 @@ const PlaygroundSidebar = ({
           </Collapse>
         </List>
         <Divider
-          sx={{ bgcolor: mode === "light" ? "#e0e0e0" : "#95a5a6", my: 2 }}
+          sx={{ 
+            bgcolor: mode === "light" ? "#e0e0e0" : "#95a5a6",
+            my: 2,
+          }}
         />
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
           <Button

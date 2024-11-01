@@ -4,7 +4,7 @@ import { Editor } from "@monaco-editor/react";
 import { Box, Tabs, Tab, IconButton, useTheme, Tooltip } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { FaExternalLinkAlt } from "react-icons/fa"; 
-import { setFileContent, removeFile } from "./sandboxSlice";
+import { setFileContent } from "./sandboxSlice";
 
 const PlaygroundCompiler = ({
   runCode,
@@ -12,13 +12,11 @@ const PlaygroundCompiler = ({
   activeFile,
   setActiveFile,
   setOpenTabs,
-  setDrawerOpen,
-  drawerOpen
 }) => {
   const dispatch = useDispatch();
   const files = useSelector((state) => state.sandboxFiles.files);
   const theme = useTheme();
-  const [leftPaneWidth, setLeftPaneWidth] = useState(50); // Initial width in percentage
+  const [leftPaneWidth, setLeftPaneWidth] = useState(50);
   const containerRef = useRef(null);
   const resizerRef = useRef(null);
   const iframeRef = useRef(null);
@@ -29,45 +27,51 @@ const PlaygroundCompiler = ({
       const { name } = activeFile;
       const file = files.find((f) => f.name === name);
       if (file) {
-        setFileContent({ fileName: name, content: file.content });
+        dispatch(setFileContent({ fileName: name, content: file.content }));
       }
     }
   }, [activeFile, files, dispatch]);
 
   useEffect(() => {
     if (runCode) {
-      let htmlCode = files.find((file) => file.name.endsWith(".html"))?.content || "";
-      const cssCode = files.find((file) => file.name.endsWith(".css"))?.content || "";
-      const jsCode = files.find((file) => file.name.endsWith(".js"))?.content || "";
+      const htmlFile = files.find((file) => file.name.endsWith(".html"));
+      if (htmlFile) {
+        let htmlContent = htmlFile.content;
+        
+        // Process CSS links
+        const cssLinks = htmlContent.match(/<link.*?href=["'](.*?)["'].*?>/g) || [];
+        cssLinks.forEach(link => {
+          const href = link.match(/href=["'](.*?)["']/)[1];
+          const cssFile = files.find(file => file.name === href);
+          if (cssFile) {
+            htmlContent = htmlContent.replace(link, `<style>${cssFile.content}</style>`);
+          }
+        });
 
-      const blobUrlMap = files.reduce((map, file) => {
-        if (file.name.match(/\.(png|jpg|jpeg|gif)$/i)) {
-          map[file.name] = file.content;
+        // Process JS scripts
+        const jsScripts = htmlContent.match(/<script.*?src=["'](.*?)["'].*?><\/script>/g) || [];
+        jsScripts.forEach(script => {
+          const src = script.match(/src=["'](.*?)["']/)[1];
+          const jsFile = files.find(file => file.name === src);
+          if (jsFile) {
+            htmlContent = htmlContent.replace(script, `<script>${jsFile.content}</script>`);
+          }
+        });
+
+        // Process image sources
+        const imgTags = htmlContent.match(/<img.*?src=["'](.*?)["'].*?>/g) || [];
+        imgTags.forEach(img => {
+          const src = img.match(/src=["'](.*?)["']/)[1];
+          const imageFile = files.find(file => file.name === src);
+          if (imageFile) {
+            htmlContent = htmlContent.replace(src, imageFile.content);
+          }
+        });
+
+        setIframeContent(htmlContent);
+        if (iframeRef.current) {
+          iframeRef.current.srcdoc = htmlContent;
         }
-        return map;
-      }, {});
-
-      let processedHtmlCode = htmlCode;
-      Object.keys(blobUrlMap).forEach((fileName) => {
-        processedHtmlCode = processedHtmlCode.replace(
-          new RegExp(fileName, "g"),
-          blobUrlMap[fileName]
-        );
-      });
-
-      const content = `
-        <html>
-          <head>
-            <style>${cssCode}</style>
-          </head>
-          <body>
-            ${processedHtmlCode}
-            <script>${jsCode}<\/script>
-          </body>
-        </html>`;
-      setIframeContent(content);
-      if (iframeRef.current) {
-        iframeRef.current.srcdoc = content;
       }
     }
   }, [runCode, files]);
@@ -157,7 +161,6 @@ const PlaygroundCompiler = ({
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
     
-    // Disable pointer events on iframe while resizing
     if (iframeRef.current) {
       iframeRef.current.style.pointerEvents = "none";
     }
@@ -167,7 +170,7 @@ const PlaygroundCompiler = ({
     if (containerRef.current) {
       const containerRect = containerRef.current.getBoundingClientRect();
       const newLeftPaneWidth = ((e.clientX - containerRect.left) / containerRect.width) * 100;
-      setLeftPaneWidth(Math.min(Math.max(newLeftPaneWidth, 20), 80)); // Limit between 20% and 80%
+      setLeftPaneWidth(Math.min(Math.max(newLeftPaneWidth, 20), 80));
     }
   }, []);
 
@@ -175,7 +178,6 @@ const PlaygroundCompiler = ({
     document.removeEventListener("mousemove", handleMouseMove);
     document.removeEventListener("mouseup", handleMouseUp);
     
-    // Re-enable pointer events on iframe after resizing
     if (iframeRef.current) {
       iframeRef.current.style.pointerEvents = "auto";
     }

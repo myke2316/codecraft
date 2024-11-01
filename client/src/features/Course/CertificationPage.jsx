@@ -1,3 +1,4 @@
+import React, { useState, useRef, useEffect } from "react";
 import {
   Button,
   Typography,
@@ -7,12 +8,10 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import Certificate from "./Certificate";
-import Certificatev2 from "./Certificatev2";
 import { useCompleteCourseMutation } from "../LoginRegister/userService";
 import {
   useCreateCertificateMutation,
@@ -23,17 +22,14 @@ import {
 const CertificationPage = () => {
   const [open, setOpen] = useState(false);
   const certificateRef = useRef(null);
+  const [scale, setScale] = useState(1);
   
-  // User Information
   const user = useSelector((state) => state.user.userDetails);
-  const userProgress = useSelector(
-    (state) => state.studentProgress.userProgress
-  );
+  const userProgress = useSelector((state) => state.studentProgress.userProgress);
+  const classId = useSelector((state) => state.class.class._id);
+  const userId = user._id;
 
- 
-  // Date of Completion
-  const lastCourse =
-    userProgress.coursesProgress[userProgress.coursesProgress.length - 1];
+  const lastCourse = userProgress.coursesProgress[userProgress.coursesProgress.length - 1];
   const dateFinished = lastCourse?.dateFinished;
   const formattedDate = new Date(dateFinished).toLocaleDateString("en-US", {
     month: "2-digit",
@@ -41,90 +37,87 @@ const CertificationPage = () => {
     year: "2-digit",
   });
 
-  // Necessary Data for certificate (Editable)
-  const certificateData = {
-    name: user.username,
-    course: "Web Development - Beginner",
-    description: 'Completed the "Beginner Web Development Course',
-    dateOfCompletion: formattedDate,
-    signatureDetails: "Sir Eddie Bucad",
-    signature: "/esignature.png",
-  };
-
-  const classId = useSelector((state) => state.class.class._id);
-  const studentId = useSelector((state) => state.user.userDetails._id);
-  const userId = useSelector((state) => state.user.userDetails._id);
-  const {data: signatureData} = useGetSignatureForStudentQuery({userId, classId});
-  console.log(signatureData)
+  const { data: signatureData } = useGetSignatureForStudentQuery({ userId, classId });
   const [completeCourse] = useCompleteCourseMutation();
   const [createCertificate] = useCreateCertificateMutation();
-  const {
-    data: certificateFetch,
-    isLoading: isCertificateLoading,
-    refetch: refetchCertificate,
-  } = useGetCertificateQuery(userId);
+  const { data: certificateFetch } = useGetCertificateQuery(userId);
 
-  // Open Dialog
   const handleOpen = async () => {
-    const updateUserCompleteCourse = await completeCourse(userId).unwrap();
-    const createCertificateRes = await createCertificate({
-      studentId,
+    await completeCourse(userId).unwrap();
+    await createCertificate({
+      studentId: userId,
       dateFinished,
       classId,
     });
-  
     setOpen(true);
   };
 
-  // Close Dialog
   const handleClose = () => {
     setOpen(false);
   };
 
+  useEffect(() => {
+    const updateScale = () => {
+      if (certificateRef.current) {
+        const containerWidth = certificateRef.current.offsetWidth;
+        const newScale = containerWidth / 1200; // 1200px is the certificate width
+        setScale(newScale);
+      }
+    };
 
-const downloadImage = () => {
-  html2canvas(certificateRef.current, {
-    useCORS: true, // Enable CORS to load external images
-    allowTaint: false,
-  }).then((canvas) => {
-    const link = document.createElement("a");
-    link.href = canvas.toDataURL("image/png");
-    link.download = "certificate.png";
-    link.click();
-  });
-};
+    updateScale();
+    window.addEventListener('resize', updateScale);
+    return () => window.removeEventListener('resize', updateScale);
+  }, [open]);
 
-const downloadPDF = () => {
-  html2canvas(certificateRef.current, {
-    useCORS: true, // Enable CORS to load external images
-    allowTaint: false,
-  }).then((canvas) => {
-    const imgData = canvas.toDataURL("image/png");
+  const downloadImage = () => {
+    const certificateElement = certificateRef.current;
+    if (!certificateElement) return;
 
-    // Get canvas dimensions
-    const imgWidth = canvas.width;
-    const imgHeight = canvas.height;
+    const originalTransform = certificateElement.style.transform;
+    certificateElement.style.transform = 'none';
 
-    // Create a jsPDF instance in landscape mode
-    const pdf = new jsPDF("landscape");
+    html2canvas(certificateElement, {
+      useCORS: true,
+      allowTaint: false,
+      width: 1200,
+      height: 900,
+      scale: 2,
+    }).then((canvas) => {
+      certificateElement.style.transform = originalTransform;
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = "certificate.png";
+      link.click();
+    });
+  };
 
-    // Calculate the width and height of the image to maintain the aspect ratio
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-    const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
-    const newWidth = imgWidth * ratio;
-    const newHeight = imgHeight * ratio;
+  const downloadPDF = () => {
+    const certificateElement = certificateRef.current;
+    if (!certificateElement) return;
 
-    // Center the image in the PDF
-    const xOffset = (pageWidth - newWidth) / 2;
-    const yOffset = (pageHeight - newHeight) / 2;
+    const originalTransform = certificateElement.style.transform;
+    certificateElement.style.transform = 'none';
 
-    // Add the image to the PDF
-    pdf.addImage(imgData, "PNG", xOffset, yOffset, newWidth, newHeight);
-    pdf.save("certificate.pdf");
-  });
-};
-console.log(signatureData)
+    html2canvas(certificateElement, {
+      useCORS: true,
+      allowTaint: false,
+      width: 1200,
+      height: 900,
+      scale: 2,
+    }).then((canvas) => {
+      certificateElement.style.transform = originalTransform;
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF({
+        orientation: "landscape",
+        unit: "px",
+        format: [1200, 900]
+      });
+
+      pdf.addImage(imgData, "PNG", 0, 0, 1200, 900);
+      pdf.save("certificate.pdf");
+    });
+  };
 
   return (
     <Box
@@ -133,8 +126,9 @@ console.log(signatureData)
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        minHeight: "100vh",
         textAlign: "center",
+        p: 2,
       }}
     >
       <Typography variant="h3" fontWeight="bold" mb={4}>
@@ -147,23 +141,52 @@ console.log(signatureData)
         Get Certificate
       </Button>
 
-      {/* Dialog for Certificate */}
-      <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+      <Dialog 
+        open={open} 
+        onClose={handleClose} 
+        maxWidth={false}
+        PaperProps={{
+          sx: {
+            width: '100%',
+            maxWidth: '100vw',
+            height: 'auto',
+            maxHeight: '90vh',
+            m: 0,
+          }
+        }}
+      >
         <DialogTitle>Certificate of Completion</DialogTitle>
         <DialogContent>
-          {/* Ref for certificate content */}
-          <div ref={certificateRef}>
-            <Certificate
-              name={certificateData.name}
-              dateFinished={certificateData.dateOfCompletion}
-              course={certificateData.course}
-              adminSignature={signatureData?.adminSignature?.signatureId}
-              adminSignatureDetails={signatureData?.adminSignature?.name}
-              teacherSignature={signatureData?.teacherSignature?.signatureId}
-              teacherSignatureDetails={signatureData?.teacherSignature?.name}
-              verificationId = {certificateFetch?.certificate?.verificationId}
-            />
-          </div>
+          <Box 
+            sx={{ 
+              width: '100%', 
+              height: '100%', 
+              overflow: 'auto',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <div 
+              ref={certificateRef}
+              style={{
+                width: '1200px',
+                height: '900px',
+                transform: `scale(${scale})`,
+                transformOrigin: 'top left',
+              }}
+            >
+              <Certificate
+                name={user.username}
+                dateFinished={formattedDate}
+                adminSignature={signatureData?.adminSignature?.signatureId}
+                adminSignatureDetails={signatureData?.adminSignature?.name}
+                teacherSignature={signatureData?.teacherSignature?.signatureId}
+                teacherSignatureDetails={signatureData?.teacherSignature?.name}
+                verificationId={certificateFetch?.certificate?.verificationId}
+              />
+            </div>
+          </Box>
         </DialogContent>
         <DialogActions>
           <Button onClick={downloadImage} variant="contained" color="secondary">

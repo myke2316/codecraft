@@ -253,7 +253,7 @@ function SignUpForm() {
           {({ field, meta }) => (
             <TextField
               {...field}
-              label="Full Name"
+              label="Name or Full Name"
               fullWidth
               variant="outlined"
               error={meta.touched && !!meta.error}
