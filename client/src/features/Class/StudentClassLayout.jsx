@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, useNavigate, useParams } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
   Button,
@@ -21,7 +21,7 @@ import {
   useMediaQuery,
   Drawer,
 } from "@mui/material";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import {
   Refresh,
   Notifications,
@@ -34,12 +34,19 @@ import { useGetAnnouncementsByClassQuery } from "../Teacher/announcementService"
 import { useGetUserMutation } from "../LoginRegister/userService";
 import "react-quill/dist/quill.snow.css";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { leaveClass } from "../Teacher/classSlice";
+import { resetProgress } from "../Student/studentCourseProgressSlice";
+import { resetAnalytics } from "../Student/userAnalyticsSlice";
+import { resetActivity } from "../Course/CodingActivity/activitySubmissionSlice";
+import { resetQuiz } from "../Course/Quiz/quizSubmissionSlice";
+import { logout } from "../LoginRegister/userSlice";
+import { useFetchClassByIdMutation } from "../Teacher/classService";
 
 export default function StudentClassLayout() {
   const navigate = useNavigate();
   const { classId } = useParams();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const classDetails = useSelector((state) => state.class.class);
   const [getUser] = useGetUserMutation();
   const [teacherName, setTeacherName] = useState("");
@@ -48,12 +55,76 @@ export default function StudentClassLayout() {
     isLoading,
     refetch,
   } = useGetAnnouncementsByClassQuery(classId);
-
+  const user = useSelector((state) => state.user.userDetails);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
   const [copied, setCopied] = useState(false);
   const inviteCode = classDetails.inviteCode || "N/A";
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
+
+  const [fetchClass, { isLoading: fetchingClass }] = useFetchClassByIdMutation();
+
+  //new useeffect to check if the class is deleted
+  useEffect(() => {
+    const checkIfClassExists = async () => {
+      try {
+        const classResponse = await fetchClass(classId).unwrap();
+        console.log(classResponse);
+        // If classResponse is an empty object, treat it as "not found"
+        if (!classResponse || Object.keys(classResponse).length === 0) {
+          toast.info("The class has been deleted. Please re-login.");
+          dispatch(logout());
+          navigate("/");
+        }
+      } catch (error) {
+        if (error?.status === 404) {
+          // Handle specific 404 error for class not found
+          toast.info("The class has been deleted. Please re-login.");
+          dispatch(logout());
+          navigate("/");
+        } else {
+          // Handle other errors (e.g., network issues)
+          console.error("Error fetching class:", error);
+          toast.error("An error occurred while checking the class status.");
+        }
+      }
+    };
+
+    if (classId) {
+      checkIfClassExists();
+    }
+  }, [classId, fetchClass, navigate]);
+
+  const dispatch = useDispatch();
+  console.log(classDetails);
+  // New useEffect to check if student is still in the class
+  useEffect(() => {
+    const checkStudentInClass = () => {
+      if (!classDetails || !user) return;
+
+      const studentsList = Array.isArray(classDetails)
+        ? classDetails[0]?.students || []
+        : classDetails.students || [];
+
+      const isStudentInClass = studentsList.includes(user._id);
+
+      if (!isStudentInClass) {
+        // Student is not in the class, perform cleanup
+        dispatch(logout());
+
+        // Notify the user
+        toast.info(
+          "You have been removed from this class. Please re-login",
+          {}
+        );
+
+        // Redirect to home or another appropriate page
+        navigate(`/${user._id}`);
+      }
+    };
+
+    checkStudentInClass();
+  }, [classDetails, user, dispatch, navigate, classId]);
 
   const handleSidebarToggle = () => {
     setSidebarOpen(!sidebarOpen);
@@ -145,7 +216,7 @@ export default function StudentClassLayout() {
             Teacher: {teacherName || "Loading..."}
           </Typography>
         </Box>
-          {/* Removed to avoid user seeing new codes to avoid giving to others. */}
+        {/* Removed to avoid user seeing new codes to avoid giving to others. */}
         {/* <Typography
           variant="body2"
           sx={{
@@ -323,7 +394,7 @@ export default function StudentClassLayout() {
             keepMounted: true,
           }}
           sx={{
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 280 },
+            "& .MuiDrawer-paper": { boxSizing: "border-box", width: 280 },
           }}
         >
           {sidebarContent}
@@ -338,12 +409,16 @@ export default function StudentClassLayout() {
             overflowY: "auto",
             overflowX: "hidden",
             bgcolor: "background.paper",
-            borderRight: sidebarOpen ?`1px solid ${theme.palette.divider}` : undefined,
+            borderRight: sidebarOpen
+              ? `1px solid ${theme.palette.divider}`
+              : undefined,
             transition: theme.transitions.create("width", {
               easing: theme.transitions.easing.sharp,
               duration: theme.transitions.duration.leavingScreen,
             }),
-            boxShadow: sidebarOpen ? "5px 0 15px rgba(0, 0, 0, 0.1)" : undefined
+            boxShadow: sidebarOpen
+              ? "5px 0 15px rgba(0, 0, 0, 0.1)"
+              : undefined,
           }}
         >
           <Box sx={{ visibility: sidebarOpen ? "visible" : "hidden" }}>
@@ -353,22 +428,24 @@ export default function StudentClassLayout() {
       )}
 
       {/* Toggle button for sidebar */}
-     {!isMobile && ( <IconButton
-        onClick={handleSidebarToggle}
-        sx={{
-          position: "fixed",
-          right: 16,
-          top: 16,
-          zIndex: theme.zIndex.drawer + 1,
-          backgroundColor: "#928fce",
-          color: "white",
-          '&:hover': {
-            backgroundColor: "#6e61ab",
-          },
-        }}
-      >
-        {sidebarOpen ? <ChevronLeft /> : <MenuIcon />}
-      </IconButton>)}
+      {!isMobile && (
+        <IconButton
+          onClick={handleSidebarToggle}
+          sx={{
+            position: "fixed",
+            right: 16,
+            top: 16,
+            zIndex: theme.zIndex.drawer + 1,
+            backgroundColor: "#928fce",
+            color: "white",
+            "&:hover": {
+              backgroundColor: "#6e61ab",
+            },
+          }}
+        >
+          {sidebarOpen ? <ChevronLeft /> : <MenuIcon />}
+        </IconButton>
+      )}
 
       {/* Main content */}
       <Box
@@ -377,20 +454,20 @@ export default function StudentClassLayout() {
           flexGrow: 1,
           p: { xs: 2, sm: 3 },
           width: {
-            xs: '100%',
+            xs: "100%",
             md: `calc(100% - ${sidebarOpen ? 280 : 0}px)`,
           },
           ml: {
             xs: 0,
-            md: sidebarOpen ? '280px' : 0,
+            md: sidebarOpen ? "280px" : 0,
           },
-          transition: 'margin 0.3s, width 0.3s',
+          transition: "margin 0.3s, width 0.3s",
         }}
       >
         <Box
           sx={{
-            display: 'flex',
-            alignItems: 'center',
+            display: "flex",
+            alignItems: "center",
             mb: 2,
           }}
         >

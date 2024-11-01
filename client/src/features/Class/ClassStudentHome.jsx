@@ -28,11 +28,13 @@ import {
 import ClassOverview from "../Teacher/ClassOverview";
 import LeaderboardStudents from "../Teacher/LeaderboardStudents";
 import {
+  Alert,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  TextField,
   Typography,
 } from "@mui/material";
 import { resetAnalytics } from "../Student/userAnalyticsSlice";
@@ -59,11 +61,10 @@ function ClassStudentHome() {
   const [getAllAnalytics] = useGetAllAnalyticsMutation();
   const [createUserProgress, { isLoading }] = useCreateUserProgressMutation();
 
-
- 
   const [fetchUserProgress, { isLoading: isLoadingFetch }] =
     useFetchUserProgressMutation();
   const user = useSelector((state) => state.user.userDetails);
+ 
   useEffect(() => {
     const fetchUsersAndAnalytics = async () => {
       try {
@@ -139,9 +140,13 @@ function ClassStudentHome() {
 
     fetchUsersAndAnalytics();
   }, [classId, getAllUsers, getAllAnalytics]);
+  
   const userProgress = useSelector(
     (state) => state.studentProgress.userProgress
   );
+
+
+
   //HANDLE START COURSE
   async function handleOnClick() {
     try {
@@ -198,43 +203,60 @@ function ClassStudentHome() {
 
   //HANDLE LEAVE CLASS
   const [openDialog, setOpenDialog] = useState(false);
-  const [studentToRemove, setStudentToRemove] = useState(null);
+  const [confirmationStep, setConfirmationStep] = useState(1);
+  const [confirmationText, setConfirmationText] = useState("");
   const [removeStudent] = useRemoveStudentMutation();
 
-  async function handleLeaveClass(studentToRemove) {
-    try {
-      const data = await removeStudent({
-        classId,
-        studentId: studentToRemove,
-      }).unwrap();
-      console.log(data);
-      setStudents(
-        students.filter((student) => student._id !== studentToRemove)
-      );
-      dispatch(updateClassStudent(data.data));
+  async function handleLeaveClass() {
+    if (confirmationText === "REMOVESTUDENT123") {
+      try {
+        const data = await removeStudent({
+          classId,
+          studentId: user._id,
+        }).unwrap();
+        console.log(data);
+        setStudents(
+          students.filter((student) => student._id !== user._id)
+        );
+        dispatch(updateClassStudent(data.data));
 
-      dispatch(resetQuiz());
-      dispatch(resetAnalytics());
-      dispatch(resetProgress());
-      dispatch(resetActivity());
-      dispatch(leaveClass());
-      toast.success("Leaved class successfully!");
-      navigate("/");
-      setOpenDialog(false); // Close the dialog
-    } catch (error) {
-      console.log(error);
-      toast.error("Failed to remove student.");
+        dispatch(resetQuiz());
+        dispatch(resetAnalytics());
+        dispatch(resetProgress());
+        dispatch(resetActivity());
+        dispatch(leaveClass());
+        toast.success("Leaved class successfully!");
+        navigate("/");
+        setOpenDialog(false); // Close the dialog
+      } catch (error) {
+        console.log(error);
+        toast.error("Failed to remove student.");
+      }
+    } else {
+      toast.error("Incorrect confirmation text. Please try again.");
     }
   }
 
-  const handleOpenDialog = (studentId) => {
-    setStudentToRemove(studentId);
+  const handleOpenDialog = () => {
+  
     setOpenDialog(true);
+    setConfirmationStep(1);
+    setConfirmationText("");
   };
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
     setStudentToRemove(null);
+    setConfirmationStep(1);
+    setConfirmationText("");
+  };
+
+  const handleNextStep = () => {
+    setConfirmationStep(2);
+  };
+
+  const handleConfirmationTextChange = (event) => {
+    setConfirmationText(event.target.value);
   };
 
   if (loading)
@@ -256,27 +278,53 @@ function ClassStudentHome() {
 
       {/* Leaderboard Section */}
 
-      <LeaderboardStudents students={students} classId={classId}  />
+      <LeaderboardStudents students={students} classId={classId} />
 
       {/* Confirmation Dialog */}
       <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Confirm Removal</DialogTitle>
+        <DialogTitle>
+          {confirmationStep === 1 ? "Confirm Removal" : "Final Confirmation"}
+        </DialogTitle>
         <DialogContent>
-          <Typography variant="body1">
-            Are you sure you want to leave class. Any progress won't be saved.
-          </Typography>
+          {confirmationStep === 1 ? (
+            <Typography variant="body1">
+              Are you sure you want to leave the class? Any progress won't be saved.
+            </Typography>
+          ) : (
+            <>
+              <Typography variant="body1" gutterBottom>
+                To confirm leaving the class, please type "REMOVESTUDENT123" below:
+                <Alert severity="warning">Leaving the class will log you out</Alert>
+              </Typography>
+              <TextField
+                autoFocus
+                margin="dense"
+                fullWidth
+                value={confirmationText}
+                onChange={handleConfirmationTextChange}
+                variant="outlined"
+              />
+            </>
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog} color="primary">
             Cancel
           </Button>
-          <Button
-            onClick={() => handleLeaveClass(user._id)}
-            color="secondary"
-            variant="contained"
-          >
-            Remove
-          </Button>
+          {confirmationStep === 1 ? (
+            <Button onClick={handleNextStep} color="secondary" variant="contained">
+              Next
+            </Button>
+          ) : (
+            <Button
+              onClick={handleLeaveClass}
+              color="secondary"
+              variant="contained"
+              disabled={confirmationText !== "REMOVESTUDENT123"}
+            >
+              Leave Class
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </div>

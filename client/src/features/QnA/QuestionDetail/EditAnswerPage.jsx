@@ -24,7 +24,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { toast } from "react-toastify";
 
 const languageOptions = ["html", "css", "javascript", "php"];
-
+const MAX_CODE_BLOCKS = 6;
 export default function EditAnswerPage() {
   const { questionId, answerId } = useParams();
   const navigate = useNavigate();
@@ -34,12 +34,17 @@ export default function EditAnswerPage() {
     data: answer,
     isLoading: isFetching,
     error,
+    refetch,
   } = useFetchAnswerByIdQuery({ questionId, answerId });
 
   const [content, setContent] = useState("");
   const [codeBlocks, setCodeBlocks] = useState([
     { language: "html", content: "" },
   ]);
+
+  useEffect(() => {
+    refetch();
+  }, [authorId]);
 
   useEffect(() => {
     if (answer) {
@@ -63,7 +68,11 @@ export default function EditAnswerPage() {
   };
 
   const addCodeBlock = () => {
-    setCodeBlocks([...codeBlocks, { language: "html", content: "" }]);
+    if (codeBlocks.length < MAX_CODE_BLOCKS) {
+      setCodeBlocks([...codeBlocks, { language: "html", content: "" }]);
+    } else {
+      toast.warning(`Maximum of ${MAX_CODE_BLOCKS} code blocks allowed.`);
+    }
   };
 
   const removeCodeBlock = (index) => {
@@ -72,7 +81,6 @@ export default function EditAnswerPage() {
   };
 
   const handleSubmit = async (e) => {
-   
     e.preventDefault();
     try {
       const res = await updateAnswer({
@@ -82,10 +90,11 @@ export default function EditAnswerPage() {
         codeBlocks,
         authorId,
       }).unwrap();
-    
+
       toast.success("Successfully posted answer.");
       navigate(`/qna/${authorId}/question/${questionId}`);
     } catch (err) {
+      toast.error("Question Validation Failed");
       console.error("Failed to update answer:", err);
     }
   };
@@ -201,6 +210,7 @@ export default function EditAnswerPage() {
             onClick={addCodeBlock}
             variant="contained"
             color="primary"
+            disabled={codeBlocks.length >= MAX_CODE_BLOCKS}
           >
             Add Code Block
           </Button>

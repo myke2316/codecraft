@@ -10,7 +10,11 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { removeStudentReducer, updateClass, updateClassNameReducer } from "./classSlice";
+import {
+  removeStudentReducer,
+  updateClass,
+  updateClassNameReducer,
+} from "./classSlice";
 import { useGetAllUserMutation } from "../LoginRegister/userService";
 import { useGetAllAnalyticsMutation } from "../Student/userAnalyticsService";
 import {
@@ -20,6 +24,7 @@ import {
   DialogActions,
   Button,
   Typography,
+  TextField,
 } from "@mui/material";
 
 // Validation schema for Formik
@@ -46,6 +51,8 @@ function TeacherEditClass() {
   const [openRemoveStudentDialog, setOpenRemoveStudentDialog] = useState(false);
   const [openDeleteClassDialog, setOpenDeleteClassDialog] = useState(false);
   const [studentToRemove, setStudentToRemove] = useState(null);
+  const [confirmationStep, setConfirmationStep] = useState(1);
+  const [confirmationText, setConfirmationText] = useState("");
 
   useEffect(() => {
     const fetchClassDetails = async () => {
@@ -116,25 +123,38 @@ function TeacherEditClass() {
   };
 
   const handleRemoveStudent = async () => {
-    try {
-      const data = await removeStudent({ classId, studentId: studentToRemove }).unwrap();
-      console.log(data)
-      setStudents(students.filter((student) => student._id !== studentToRemove));
-      dispatch(updateClass({ classId, updatedClass: data.data }))
-      toast.success("Student removed successfully!");
-      setOpenRemoveStudentDialog(false); // Close the dialog
-    } catch (error) {
-      toast.error("Failed to remove student.");
+    if (confirmationText === "REMOVESTUDENTFROMCLASS") {
+      try {
+        const data = await removeStudent({
+          classId,
+          studentId: studentToRemove,
+        }).unwrap();
+        console.log(data);
+        setStudents(
+          students.filter((student) => student._id !== studentToRemove)
+        );
+        dispatch(updateClass({ classId, updatedClass: data.data }));
+        toast.success("Student removed successfully!");
+        setOpenRemoveStudentDialog(false); // Close the dialog
+      } catch (error) {
+        toast.error("Failed to remove student.");
+      }
+    } else {
+      toast.error("Incorrect confirmation text. Please try again.");
     }
   };
 
   const handleDeleteClass = async () => {
-    try {
-      await deleteClass(classId).unwrap();
-      toast.success("Class deleted successfully!");
-      navigate("/classes"); // Redirect to a different page after deletion
-    } catch (error) {
-      toast.error("Failed to delete class.");
+    if (confirmationText === "DELETECLASSPERMANENTLY") {
+      try {
+        await deleteClass(classId).unwrap();
+        toast.success("Class deleted successfully!");
+        navigate("/classes"); // Redirect to a different page after deletion
+      } catch (error) {
+        toast.error("Failed to delete class.");
+      }
+    } else {
+      toast.error("Incorrect confirmation text. Please try again.");
     }
   };
 
@@ -147,15 +167,28 @@ function TeacherEditClass() {
     setOpenRemoveStudentDialog(false);
     setStudentToRemove(null);
   };
-
   const handleOpenDeleteClassDialog = () => {
-    setOpenDeleteClassDialog(true);
+  setOpenDeleteClassDialog(true);
+  setConfirmationStep(1);
+  setConfirmationText("");
+};
+
+const handleCloseDeleteClassDialog = () => {
+  setOpenDeleteClassDialog(false);
+  setConfirmationStep(1);
+  setConfirmationText("");
+};
+
+
+
+  const handleNextStep = () => {
+    setConfirmationStep(2);
   };
 
-  const handleCloseDeleteClassDialog = () => {
-    setOpenDeleteClassDialog(false);
+  const handleConfirmationTextChange = (event) => {
+    setConfirmationText(event.target.value);
   };
-
+  
   if (!selectedClass) {
     return (
       <div className="text-center text-red-600 mt-10">Class not found.</div>
@@ -202,7 +235,9 @@ function TeacherEditClass() {
                       <span className="font-medium">{student.username}</span>
                       <button
                         type="button"
-                        onClick={() => handleOpenRemoveStudentDialog(student._id)}
+                        onClick={() =>
+                          handleOpenRemoveStudentDialog(student._id)
+                        }
                         className="text-red-600 font-semibold hover:text-red-800 transition duration-200"
                       >
                         Remove
@@ -242,36 +277,106 @@ function TeacherEditClass() {
       </Formik>
 
       {/* Remove Student Confirmation Dialog */}
-      <Dialog open={openRemoveStudentDialog} onClose={handleCloseRemoveStudentDialog}>
-        <DialogTitle>Confirm Removal</DialogTitle>
+      <Dialog
+        open={openRemoveStudentDialog}
+        onClose={handleCloseRemoveStudentDialog}
+      >
+        <DialogTitle>
+          {confirmationStep === 1 ? "Confirm Removal" : "Final Confirmation"}
+        </DialogTitle>
         <DialogContent>
-          <Typography variant="body1">Are you sure you want to remove this student?</Typography>
+          {confirmationStep === 1 ? (
+            <Typography variant="body1">
+              Are you sure you want to remove this student from the class?
+            </Typography>
+          ) : (
+            <>
+              <Typography variant="body1" gutterBottom>
+                To confirm removing the student, please type
+                "REMOVESTUDENTFROMCLASS" below:
+              </Typography>
+              <TextField
+                autoFocus
+                margin="dense"
+                fullWidth
+                value={confirmationText}
+                onChange={handleConfirmationTextChange}
+                variant="outlined"
+              />
+            </>
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseRemoveStudentDialog} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleRemoveStudent} color="secondary">
-            Remove
-          </Button>
+          {confirmationStep === 1 ? (
+            <Button
+              onClick={handleNextStep}
+              color="secondary"
+              variant="contained"
+            >
+              Next
+            </Button>
+          ) : (
+            <Button
+              onClick={handleRemoveStudent}
+              color="secondary"
+              variant="contained"
+              disabled={confirmationText !== "REMOVESTUDENTFROMCLASS"}
+            >
+              Remove Student
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
 
       {/* Delete Class Confirmation Dialog */}
       <Dialog open={openDeleteClassDialog} onClose={handleCloseDeleteClassDialog}>
-        <DialogTitle>Confirm Deletion</DialogTitle>
-        <DialogContent>
-          <Typography variant="body1">Are you sure you want to delete this class?</Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDeleteClassDialog} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleDeleteClass} color="secondary">
-            Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
+  <DialogTitle>
+    {confirmationStep === 1 ? "Confirm Class Deletion" : "Final Confirmation"}
+  </DialogTitle>
+  <DialogContent>
+    {confirmationStep === 1 ? (
+      <Typography variant="body1">
+        Are you sure you want to delete this class? This action cannot be undone.
+      </Typography>
+    ) : (
+      <>
+        <Typography variant="body1" gutterBottom>
+          To confirm deleting the class, please type "DELETECLASSPERMANENTLY" below:
+        </Typography>
+        <TextField
+          autoFocus
+          margin="dense"
+          fullWidth
+          value={confirmationText}
+          onChange={handleConfirmationTextChange}
+          variant="outlined"
+        />
+      </>
+    )}
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={handleCloseDeleteClassDialog} color="primary">
+      Cancel
+    </Button>
+    {confirmationStep === 1 ? (
+      <Button onClick={handleNextStep} color="secondary" variant="contained">
+        Next
+      </Button>
+    ) : (
+      <Button
+        onClick={handleDeleteClass}
+        color="secondary"
+        variant="contained"
+        disabled={confirmationText !== "DELETECLASSPERMANENTLY"}
+      >
+        Delete Class
+      </Button>
+    )}
+  </DialogActions>
+</Dialog>
     </div>
   );
 }

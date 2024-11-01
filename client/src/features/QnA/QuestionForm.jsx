@@ -4,8 +4,6 @@ import {
   Button,
   MenuItem,
   IconButton,
-  Snackbar,
-  Alert,
   Typography,
   Chip,
   Box,
@@ -14,31 +12,40 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useCreateQuestionMutation } from "./questionService";
 import { Editor } from "@monaco-editor/react";
-import {toast} from 'react-toastify'
+import { toast } from "react-toastify";
+
+const MAX_CODE_BLOCKS = 6;
+const MAX_TAGS = 10;
+
 const QuestionForm = ({ userId, onSubmitSuccess }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [tags, setTags] = useState([]);
   const [customTag, setCustomTag] = useState("");
-  const [codeBlocks, setCodeBlocks] = useState([{ language: "javascript", content: "" }]);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [codeBlocks, setCodeBlocks] = useState([
+    { language: "html", content: "" },
+  ]);
 
   const predefinedTags = ["html", "css", "javascript", "php"];
 
-  const handleTagChange = (event) => {
-    setTags(event.target.value);
-  };
-
-  const handleAddCustomTag = () => {
-    if (customTag && !tags.includes(customTag)) {
-      setTags([...tags, customTag]);
+  const handleAddTag = (newTag) => {
+    const normalizedNewTag = newTag.toLowerCase();
+    if (
+      normalizedNewTag &&
+      !tags.some((tag) => tag.toLowerCase() === normalizedNewTag) &&
+      tags.length < MAX_TAGS
+    ) {
+      setTags([...tags, normalizedNewTag]);
       setCustomTag("");
+    } else if (tags.length >= MAX_TAGS) {
+      toast.warning(`Maximum of ${MAX_TAGS} tags allowed.`);
+    } else if (tags.some((tag) => tag.toLowerCase() === normalizedNewTag)) {
+      toast.warning("This tag already exists.");
     }
   };
 
   const handleRemoveTag = (tagToRemove) => {
-    setTags(tags.filter((tag) => tag !== tagToRemove));
+    setTags(tags.filter((tag) => tag.toLowerCase() !== tagToRemove.toLowerCase()));
   };
 
   const handleCodeBlockChange = (index, field, value) => {
@@ -48,7 +55,11 @@ const QuestionForm = ({ userId, onSubmitSuccess }) => {
   };
 
   const handleAddCodeBlock = () => {
-    setCodeBlocks([...codeBlocks, { language: "javascript", content: "" }]);
+    if (codeBlocks.length < MAX_CODE_BLOCKS) {
+      setCodeBlocks([...codeBlocks, { language: "html", content: "" }]);
+    } else {
+      toast.warning(`Maximum of ${MAX_CODE_BLOCKS} code blocks allowed.`);
+    }
   };
 
   const handleRemoveCodeBlock = (index) => {
@@ -60,6 +71,10 @@ const QuestionForm = ({ userId, onSubmitSuccess }) => {
     useCreateQuestionMutation();
 
   const handleSubmit = async () => {
+    if (!title.trim() || !content.trim()) {
+      toast.error("Title and content are required.");
+      return;
+    }
     try {
       await createQuestion({
         title,
@@ -69,9 +84,7 @@ const QuestionForm = ({ userId, onSubmitSuccess }) => {
         authorId: userId,
       }).unwrap();
 
-      setSnackbarMessage("Question posted for review successfully!");
-      setOpenSnackbar(true);
-      toast.success("Question posted for admin approval!")
+      toast.success("Question posted for admin approval!");
       setTitle("");
       setContent("");
       setTags([]);
@@ -81,13 +94,8 @@ const QuestionForm = ({ userId, onSubmitSuccess }) => {
         onSubmitSuccess();
       }
     } catch (error) {
-      setSnackbarMessage("Error posting question. Please try again.");
-      setOpenSnackbar(true);
+      toast.error("Error posting question. Please try again.");
     }
-  };
-
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
   };
 
   const editorOptions = {
@@ -120,8 +128,10 @@ const QuestionForm = ({ userId, onSubmitSuccess }) => {
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />
+      <Typography variant="subtitle1" className="mb-2">
+        Tags ({tags.length}/{MAX_TAGS})
+      </Typography>
       <Box className="mb-4">
-        <Typography variant="subtitle1" className="mb-2">Tags</Typography>
         <Box className="flex flex-wrap gap-2 mb-2">
           {tags.map((tag) => (
             <Chip
@@ -142,23 +152,24 @@ const QuestionForm = ({ userId, onSubmitSuccess }) => {
           />
           <Button
             variant="outlined"
-            onClick={handleAddCustomTag}
-            disabled={!customTag}
+            onClick={() => handleAddTag(customTag)}
+            disabled={!customTag || tags.length >= MAX_TAGS}
           >
             Add Tag
           </Button>
         </Box>
+    
         <Typography variant="caption" className="mt-2 block">
-          Select from predefined tags or add your own
+          Select from predefined tags or add your own (max {MAX_TAGS})
         </Typography>
         <Box className="flex flex-wrap gap-2 mt-2">
           {predefinedTags.map((tag) => (
             <Chip
               key={tag}
               label={tag.toUpperCase()}
-              onClick={() => !tags.includes(tag) && setTags([...tags, tag])}
+              onClick={() => handleAddTag(tag)}
               size="small"
-              color={tags.includes(tag) ? "primary" : "default"}
+              color={tags.some((t) => t.toLowerCase() === tag.toLowerCase()) ? "primary" : "default"}
             />
           ))}
         </Box>
@@ -167,7 +178,10 @@ const QuestionForm = ({ userId, onSubmitSuccess }) => {
       {codeBlocks.map((codeBlock, index) => (
         <div key={index} className="mb-6 bg-gray-100 p-4 rounded-lg">
           <div className="flex justify-between items-center mb-2">
-            <Typography variant="subtitle1" className="font-semibold text-gray-700">
+            <Typography
+              variant="subtitle1"
+              className="font-semibold text-gray-700"
+            >
               Code Block {index + 1}
             </Typography>
             <IconButton
@@ -204,45 +218,33 @@ const QuestionForm = ({ userId, onSubmitSuccess }) => {
               language={codeBlock.language}
               value={codeBlock.content}
               options={editorOptions}
-              onChange={(value) => handleCodeBlockChange(index, "content", value)}
+              onChange={(value) =>
+                handleCodeBlockChange(index, "content", value)
+              }
             />
           </div>
         </div>
       ))}
-    <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
-      <Button
-        variant="outlined"
-        color="primary"
-        startIcon={<AddCircleIcon />}
-        onClick={handleAddCodeBlock}
-        className="mb-2 sm:mb-0"
-      >
-        Add Code Block
-      </Button>
-      <Button 
-        variant="contained" 
-        color="primary" 
-        onClick={handleSubmit}
-        disabled={isLoadingCreateQuestion}
-      >
-        {isLoadingCreateQuestion ? "Submitting..." : "Submit Question"}
-      </Button>
-    </div>
-
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          severity={snackbarMessage.includes("Error") ? "error" : "success"}
-          variant="filled"
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
+        <Button
+          variant="outlined"
+          color="primary"
+          startIcon={<AddCircleIcon />}
+          onClick={handleAddCodeBlock}
+          className="mb-2 sm:mb-0"
+          disabled={codeBlocks.length >= MAX_CODE_BLOCKS}
         >
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
+          Add Code Block
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSubmit}
+          disabled={isLoadingCreateQuestion}
+        >
+          {isLoadingCreateQuestion ? "Submitting..." : "Submit Question"}
+        </Button>
+      </div>
     </div>
   );
 };

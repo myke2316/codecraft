@@ -4,11 +4,16 @@ import { useNavigate } from "react-router";
 import { useLogoutMutation } from "../../features/LoginRegister/userService";
 import { logout } from "../../features/LoginRegister/userSlice";
 import StudentClass from "./StudentClass";
+import { useEffect } from "react";
 
 function StudentsHome() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userClass = useSelector((state) => state.user.userDetails);
+  const classDetails = useSelector(state => state.class.class)
+
+
+
 
   // const [logoutApi] = useLogoutMutation();
 

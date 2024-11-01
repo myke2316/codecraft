@@ -17,20 +17,19 @@ import {
   Box,
   Alert,
 } from "@mui/material";
-import {
-  Add as AddIcon,
-  Delete as DeleteIcon,
-} from "@mui/icons-material";
+import { Add as AddIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { Editor } from "@monaco-editor/react";
 
 const validationSchema = Yup.object().shape({
   answerContent: Yup.string().required("Answer is required"),
-  codeBlocks: Yup.array().of(
-    Yup.object().shape({
-      language: Yup.string().required("Language is required"),
-      content: Yup.string().required("Code content is required"),
-    })
-  ),
+  codeBlocks: Yup.array()
+    .of(
+      Yup.object().shape({
+        language: Yup.string().required("Language is required"),
+        content: Yup.string().required("Code content is required"),
+      })
+    )
+    .max(6, "Maximum of 6 code blocks allowed"),
 });
 
 const AnswerForm = ({
@@ -46,22 +45,6 @@ const AnswerForm = ({
   const initialValues = {
     answerContent: answerContent,
     codeBlocks: codeBlocks,
-  };
-  const handleAnswerChange = (e) => setAnswerContent(e.target.value);
-
-  const handleCodeBlockChange = (index, field, value) => {
-    const newCodeBlocks = [...codeBlocks];
-    newCodeBlocks[index][field] = value;
-    setCodeBlocks(newCodeBlocks);
-  };
-
-  const handleAddCodeBlock = () => {
-    setCodeBlocks([...codeBlocks, { language: "html", content: "" }]);
-  };
-
-  const handleRemoveCodeBlock = (index) => {
-    const newCodeBlocks = codeBlocks.filter((_, i) => i !== index);
-    setCodeBlocks(newCodeBlocks);
   };
 
   const editorOptions = {
@@ -82,7 +65,10 @@ const AnswerForm = ({
         <Typography variant="h6" component="div">
           Add Answer
         </Typography>
-        <Alert severity="warning">Your answer is being monitored by the admin, please be careful with your answer.</Alert>
+        <Alert severity="warning">
+          Your answer is being monitored by the admin, please be careful with
+          your answer.
+        </Alert>
       </DialogTitle>
       <Formik
         initialValues={initialValues}
@@ -90,7 +76,7 @@ const AnswerForm = ({
         onSubmit={handleSubmitAnswer}
         enableReinitialize
       >
-        {({ errors, touched, values, setFieldValue,isSubmitting  }) => (
+        {({ errors, touched, values, setFieldValue, isSubmitting }) => (
           <Form>
             <DialogContent>
               <Field
@@ -104,44 +90,66 @@ const AnswerForm = ({
                 margin="normal"
                 error={touched.answerContent && errors.answerContent}
                 helperText={touched.answerContent && errors.answerContent}
-                value={answerContent}
                 onChange={(e) => {
-                  handleAnswerChange(e);
                   setFieldValue("answerContent", e.target.value);
+                  setAnswerContent(e.target.value);
                 }}
               />
-            <FieldArray name="codeBlocks">
+              <FieldArray name="codeBlocks">
                 {({ push, remove }) => (
                   <Box>
                     {values.codeBlocks.map((codeBlock, index) => (
-                      <Box key={index} className="mb-6 bg-gray-100 p-4 rounded-lg">
+                      <Box
+                        key={index}
+                        className="mb-6 bg-gray-100 p-4 rounded-lg"
+                      >
                         <Box className="flex justify-between items-center mb-2">
-                          <Typography variant="subtitle1" className="font-semibold text-gray-700">
+                          <Typography
+                            variant="subtitle1"
+                            className="font-semibold text-gray-700"
+                          >
                             Code Block {index + 1}
                           </Typography>
-                          <IconButton onClick={() => remove(index)} color="error" size="small">
+                          <IconButton
+                            onClick={() => {
+                              remove(index);
+                              setCodeBlocks(values.codeBlocks.filter((_, i) => i !== index));
+                            }}
+                            color="error"
+                            size="small"
+                          >
                             <DeleteIcon />
                           </IconButton>
                         </Box>
-                        <FormControl fullWidth variant="outlined" margin="normal">
+                        <FormControl
+                          fullWidth
+                          variant="outlined"
+                          margin="normal"
+                        >
                           <InputLabel>Language</InputLabel>
                           <Field
                             as={Select}
                             name={`codeBlocks.${index}.language`}
                             label="Language"
-                            error={touched.codeBlocks?.[index]?.language && errors.codeBlocks?.[index]?.language}
+                            error={
+                              touched.codeBlocks?.[index]?.language &&
+                              errors.codeBlocks?.[index]?.language
+                            }
                           >
-                            {["html", "css", "javascript", "php"].map((lang) => (
-                              <MenuItem key={lang} value={lang}>
-                                {lang.toUpperCase()}
-                              </MenuItem>
-                            ))}
+                            {["html", "css", "javascript", "php"].map(
+                              (lang) => (
+                                <MenuItem key={lang} value={lang}>
+                                  {lang.toUpperCase()}
+                                </MenuItem>
+                              )
+                            )}
                           </Field>
-                          {touched.codeBlocks?.[index]?.language && errors.codeBlocks?.[index]?.language && (
-                            <Typography color="error" variant="caption">
-                              {errors.codeBlocks[index].language}
-                            </Typography>
-                          )}
+                          {touched.codeBlocks?.[index]?.language &&
+                            errors.codeBlocks?.[index]?.language && (
+                              <Typography color="error" variant="caption">
+                                {errors.codeBlocks[index].language}
+                              </Typography>
+                            )}
                         </FormControl>
                         <Box className="mt-2 border border-gray-300 rounded-md overflow-hidden">
                           <Editor
@@ -149,25 +157,50 @@ const AnswerForm = ({
                             language={codeBlock.language}
                             value={codeBlock.content}
                             options={editorOptions}
-                            onChange={(value) => setFieldValue(`codeBlocks.${index}.content`, value)}
+                            onChange={(value) => {
+                              setFieldValue(
+                                `codeBlocks.${index}.content`,
+                                value
+                              );
+                              const newCodeBlocks = [...values.codeBlocks];
+                              newCodeBlocks[index].content = value;
+                              setCodeBlocks(newCodeBlocks);
+                            }}
                           />
                         </Box>
-                        {touched.codeBlocks?.[index]?.content && errors.codeBlocks?.[index]?.content && (
-                          <Typography color="error" variant="caption">
-                            {errors.codeBlocks[index].content}
-                          </Typography>
-                        )}
+                        {touched.codeBlocks?.[index]?.content &&
+                          errors.codeBlocks?.[index]?.content && (
+                            <Typography color="error" variant="caption">
+                              {errors.codeBlocks[index].content}
+                            </Typography>
+                          )}
                       </Box>
                     ))}
-                    <Button
-                      startIcon={<AddIcon />}
-                      onClick={() => push({ language: "javascript", content: "" })}
-                      variant="outlined"
-                      color="primary"
-                      className="mt-2"
-                    >
-                      Add Code Block
-                    </Button>
+                    {values.codeBlocks.length < 6 && (
+                      <Button
+                        startIcon={<AddIcon />}
+                        onClick={() => {
+                          const newCodeBlock = { language: "html", content: "" };
+                          push(newCodeBlock);
+                          setCodeBlocks([...values.codeBlocks, newCodeBlock]);
+                        }}
+                        variant="outlined"
+                        color="primary"
+                        className="mt-2"
+                      >
+                        Add Code Block
+                      </Button>
+                    )}
+                    {errors.codeBlocks &&
+                      typeof errors.codeBlocks === "string" && (
+                        <Typography
+                          color="error"
+                          variant="caption"
+                          className="mt-2 block"
+                        >
+                          {errors.codeBlocks}
+                        </Typography>
+                      )}
                   </Box>
                 )}
               </FieldArray>
@@ -176,8 +209,15 @@ const AnswerForm = ({
               <Button onClick={handleClose} color="inherit">
                 Cancel
               </Button>
-              <Button type="submit" variant="contained" color="primary" disabled={isLoadingAddAnswer}>
-                {isLoadingAddAnswer || isSubmitting ? "Submitting..." : "Submit"}
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={isLoadingAddAnswer}
+              >
+                {isLoadingAddAnswer || isSubmitting
+                  ? "Submitting..."
+                  : "Submit"}
               </Button>
             </DialogActions>
           </Form>

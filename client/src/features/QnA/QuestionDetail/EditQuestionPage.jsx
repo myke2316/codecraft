@@ -4,8 +4,6 @@ import {
   Button,
   MenuItem,
   IconButton,
-  Snackbar,
-  Alert,
   Typography,
   Chip,
   Box,
@@ -25,6 +23,9 @@ import {
 import { Editor } from "@monaco-editor/react";
 import { toast } from "react-toastify";
 
+const MAX_TAGS = 5;
+const MAX_CODE_BLOCKS = 6;
+
 const EditQuestionPage = () => {
   const { id } = useParams();
   const location = useLocation();
@@ -38,8 +39,6 @@ const EditQuestionPage = () => {
   const [tags, setTags] = useState([]);
   const [customTag, setCustomTag] = useState("");
   const [codeBlocks, setCodeBlocks] = useState([{ language: "javascript", content: "" }]);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
   const authorId = useSelector((state) => state.user.userDetails._id);
 
   const predefinedTags = ["html", "css", "javascript", "php"];
@@ -48,24 +47,29 @@ const EditQuestionPage = () => {
     if (question) {
       setTitle(question.title);
       setContent(question.content);
-      setTags(question.tags);
+      setTags(question.tags.map(tag => tag.toLowerCase()));
       setCodeBlocks(question.codeBlocks);
     }
   }, [question]);
 
-  const handleTagChange = (event) => {
-    setTags(event.target.value);
-  };
-
-  const handleAddCustomTag = () => {
-    if (customTag && !tags.includes(customTag)) {
-      setTags([...tags, customTag]);
+  const handleAddTag = (newTag) => {
+    const normalizedNewTag = newTag.toLowerCase();
+    if (
+      normalizedNewTag &&
+      !tags.some((tag) => tag.toLowerCase() === normalizedNewTag) &&
+      tags.length < MAX_TAGS
+    ) {
+      setTags([...tags, normalizedNewTag]);
       setCustomTag("");
+    } else if (tags.length >= MAX_TAGS) {
+      toast.warning(`Maximum of ${MAX_TAGS} tags allowed.`);
+    } else if (tags.some((tag) => tag.toLowerCase() === normalizedNewTag)) {
+      toast.warning("This tag already exists.");
     }
   };
 
   const handleRemoveTag = (tagToRemove) => {
-    setTags(tags.filter((tag) => tag !== tagToRemove));
+    setTags(tags.filter((tag) => tag.toLowerCase() !== tagToRemove.toLowerCase()));
   };
 
   const handleCodeBlockChange = (index, field, value) => {
@@ -75,7 +79,11 @@ const EditQuestionPage = () => {
   };
 
   const handleAddCodeBlock = () => {
-    setCodeBlocks([...codeBlocks, { language: "javascript", content: "" }]);
+    if (codeBlocks.length < MAX_CODE_BLOCKS) {
+      setCodeBlocks([...codeBlocks, { language: "javascript", content: "" }]);
+    } else {
+      toast.warning(`Maximum of ${MAX_CODE_BLOCKS} code blocks allowed.`);
+    }
   };
 
   const handleRemoveCodeBlock = (index) => {
@@ -83,30 +91,38 @@ const EditQuestionPage = () => {
     setCodeBlocks(newCodeBlocks);
   };
 
+  const validateCodeBlocks = (blocks) => {
+    return blocks.filter(block => block.content.trim() !== "");
+  };
+
   const handleSubmit = async () => {
+    if (!title.trim() || !content.trim()) {
+      toast.error("Title and content are required.");
+      return;
+    }
+
+    const validCodeBlocks = validateCodeBlocks(codeBlocks);
+    if (validCodeBlocks.length !== codeBlocks.length) {
+      const removedBlocks = codeBlocks.length - validCodeBlocks.length;
+      toast.warning(`${removedBlocks} empty code block(s) will be removed.`);
+    }
+
     try {
       const result = await updateQuestion({
         questionId: question._id,
         title,
         content,
         tags,
-        codeBlocks,
+        codeBlocks: validCodeBlocks,
         authorId,
       }).unwrap();
       console.log(result);
-      setSnackbarMessage("Question updated successfully!");
-      setOpenSnackbar(true);
-      toast.success("Successfully edited question.")
+      toast.success("Question updated successfully!");
       navigate(`/qna/${authorId}/question/${question._id}`);
     } catch (error) {
-      console.log(error);
-      setSnackbarMessage("Error updating question. Please try again.");
-      setOpenSnackbar(true);
+      console.error(error);
+      toast.error("Error updating question. Please try again.");
     }
-  };
-
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
   };
 
   const handleBack = () => {
@@ -124,7 +140,7 @@ const EditQuestionPage = () => {
   };
 
   return (
-    <Box className=" mx-auto px-4 py-8">
+    <Box className="mx-auto px-4 py-8">
       <Button
         startIcon={<ArrowBackIcon />}
         onClick={handleBack}
@@ -137,35 +153,37 @@ const EditQuestionPage = () => {
           <Typography variant="h4" className="mb-6 text-foreground dark:text-foreground-dark">
             Edit Question
           </Typography>
-       <Box className="flex flex-col gap-2">
-       <TextField
-            label="Title"
-            variant="outlined"
-            fullWidth
-            className="mb-4"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            InputProps={{
-              className: "bg-input dark:bg-input-dark text-foreground dark:text-foreground-dark",
-            }}
-          />
-          <TextField
-            label="Content"
-            variant="outlined"
-            fullWidth
-            multiline
-            rows={4}
-            className="mb-4"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            InputProps={{
-              className: "bg-input dark:bg-input-dark text-foreground dark:text-foreground-dark",
-            }}
-          />
-       </Box>
+          <Box className="flex flex-col gap-2">
+            <TextField
+              label="Title"
+              variant="outlined"
+              fullWidth
+              className="mb-4"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              InputProps={{
+                className: "bg-input dark:bg-input-dark text-foreground dark:text-foreground-dark",
+              }}
+              required
+            />
+            <TextField
+              label="Content"
+              variant="outlined"
+              fullWidth
+              multiline
+              rows={4}
+              className="mb-4"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              InputProps={{
+                className: "bg-input dark:bg-input-dark text-foreground dark:text-foreground-dark",
+              }}
+              required
+            />
+          </Box>
           <Box className="mb-4">
             <Typography variant="subtitle1" className="mb-2 text-foreground dark:text-foreground-dark">
-              Tags
+              Tags ({tags.length}/{MAX_TAGS})
             </Typography>
             <Box className="flex flex-wrap gap-2 mb-2">
               {tags.map((tag) => (
@@ -191,24 +209,24 @@ const EditQuestionPage = () => {
               />
               <Button
                 variant="outlined"
-                onClick={handleAddCustomTag}
-                disabled={!customTag}
+                onClick={() => handleAddTag(customTag)}
+                disabled={!customTag || tags.length >= MAX_TAGS}
                 className="text-primary dark:text-primary-dark"
               >
                 Add Tag
               </Button>
             </Box>
             <Typography variant="caption" className="mt-2 block text-muted dark:text-muted-dark">
-              Select from predefined tags or add your own
+              Select from predefined tags or add your own (max {MAX_TAGS})
             </Typography>
             <Box className="flex flex-wrap gap-2 mt-2">
               {predefinedTags.map((tag) => (
                 <Chip
                   key={tag}
                   label={tag.toUpperCase()}
-                  onClick={() => !tags.includes(tag) && setTags([...tags, tag])}
+                  onClick={() => handleAddTag(tag)}
                   size="small"
-                  color={tags.includes(tag) ? "primary" : "default"}
+                  color={tags.some((t) => t.toLowerCase() === tag.toLowerCase()) ? "primary" : "default"}
                   className="cursor-pointer bg-secondary text-secondary-foreground dark:bg-secondary-dark dark:text-secondary-foreground-dark"
                 />
               ))}
@@ -272,6 +290,7 @@ const EditQuestionPage = () => {
             startIcon={<AddCircleIcon />}
             onClick={handleAddCodeBlock}
             className="text-primary dark:text-primary-dark"
+            disabled={codeBlocks.length >= MAX_CODE_BLOCKS}
           >
             Add Code Block
           </Button>
@@ -285,21 +304,6 @@ const EditQuestionPage = () => {
           </Button>
         </CardActions>
       </Card>
-
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          severity={snackbarMessage.includes("Error") ? "error" : "success"}
-          variant="filled"
-        >
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
     </Box>
   );
 };
