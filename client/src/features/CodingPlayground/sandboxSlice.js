@@ -25,7 +25,7 @@ const sandboxSlice = createSlice({
       // Check for duplicates
       const fileExists = state.files.some((file) => file.name === name);
       if (fileExists) {
-        alert(`A file with the name "${name}" already exists.`);
+      
         return; // Exit if duplicate
       }
 
