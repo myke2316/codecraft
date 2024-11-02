@@ -11,6 +11,7 @@ function Certificate({
   adminSignatureDetails,
   verificationId,
 }) {
+
   return (
     <Box
       className="relative bg-white overflow-hidden"

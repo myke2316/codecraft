@@ -6,13 +6,19 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { startOfDay, endOfDay, parseISO, isWithinInterval, isBefore, isAfter, addDays } from 'date-fns';
+import { useFetchActiveUserLogsQuery } from './activeUserLogService';
 
-function ActiveUsersChart({ data }) {
+function ActiveUsersChart() {
   const theme = useTheme();
   const [startDate, setStartDate] = useState(startOfDay(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)));
   const [endDate, setEndDate] = useState(endOfDay(new Date()));
   const [error, setError] = useState('');
-
+    const {
+    data,
+    isLoading: dataLoading,
+    refetch,
+  }  = useFetchActiveUserLogsQuery()
+  console.log(data)
   const handleStartDateChange = (newValue) => {
     if (!newValue) {
       setError('Start date cannot be empty');
@@ -156,7 +162,7 @@ function ActiveUsersChart({ data }) {
               <Legend wrapperStyle={{ fontSize: 10, bottom: 0 }} />
               <Line
                 type="monotone"
-                dataKey="activeUsers"
+                dataKey="activeUserCount"
                 stroke={theme.palette.primary.main}
                 strokeWidth={2}
                 dot={{ r: 3 }}

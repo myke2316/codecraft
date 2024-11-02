@@ -9,8 +9,9 @@ const LeaderboardStudents = ({ students, classId }) => {
   const [sortBy, setSortBy] = useState("points");
   const [mode, setMode] = useState("light");
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState(""); // State for search term
   const studentsPerPage = 10;
-  
+
   const userRole = useSelector((state) => state.user.userDetails.role);
 
   useEffect(() => {
@@ -38,6 +39,7 @@ const LeaderboardStudents = ({ students, classId }) => {
     };
   });
 
+  // Memoized sorted students
   const sortedStudents = useMemo(() => {
     return [...studentData].sort((a, b) => {
       if (sortBy === "points") {
@@ -65,9 +67,16 @@ const LeaderboardStudents = ({ students, classId }) => {
     });
   }, [studentData, sortBy]);
 
-  const totalPages = Math.ceil(sortedStudents.length / studentsPerPage);
+  // Filtered students based on the search term
+  const filteredStudents = useMemo(() => {
+    return sortedStudents.filter(data =>
+      data.student.username.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [sortedStudents, searchTerm]);
 
-  const currentStudents = sortedStudents.slice(
+  const totalPages = Math.ceil(filteredStudents.length / studentsPerPage);
+
+  const currentStudents = filteredStudents.slice(
     (currentPage - 1) * studentsPerPage,
     currentPage * studentsPerPage
   );
@@ -90,6 +99,24 @@ const LeaderboardStudents = ({ students, classId }) => {
       } p-4 sm:p-6 rounded-lg shadow-md transition-colors duration-300`}
     >
       <h2 className="text-xl sm:text-2xl font-semibold mb-4">Students</h2>
+
+      {/* Search Input */}
+      <motion.div className="mb-4">
+        <label htmlFor="search" className="block text-sm font-bold mb-2">
+          Search:
+        </label>
+        <motion.input
+          id="search"
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className={`p-2 sm:p-3 w-full border rounded-lg shadow-sm transition-transform duration-200 focus:ring-2 focus:ring-blue-400 ${
+            mode === "light"
+              ? "bg-gray-50 border-gray-300 text-gray-700"
+              : "bg-gray-700 border-gray-600 text-white"
+          }`}
+        />
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -193,31 +220,25 @@ const LeaderboardStudents = ({ students, classId }) => {
           })}
         </ul>
       ) : (
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="text-gray-500"
-        >
-          No students have joined this class yet.
-        </motion.p>
+        <p>No students found.</p>
       )}
 
-      <div className="mt-8 flex flex-wrap justify-center items-center space-x-6 sm:space-x-4 space-y-2 sm:space-y-0">
+      {/* Pagination Controls */}
+      <div className="flex justify-between items-center mt-4">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold transition-colors duration-200 hover:bg-blue-600 disabled:opacity-50"
+          className="p-2 bg-blue-500 text-white rounded-lg disabled:opacity-50"
         >
           Previous
         </button>
-        <span className="text-sm">
+        <span>
           Page {currentPage} of {totalPages}
         </span>
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold transition-colors duration-200 hover:bg-blue-600 disabled:opacity-50"
+          className="p-2 bg-blue-500 text-white rounded-lg disabled:opacity-50"
         >
           Next
         </button>

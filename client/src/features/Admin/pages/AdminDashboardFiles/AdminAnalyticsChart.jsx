@@ -130,6 +130,12 @@ function AdminAnalyticsChart({
       daysData.push({ date: formattedDate, activeUsers: newActiveCount });
     }
 
+// for (let i = 1; i < daysData.length; i++) {
+//   if (daysData[i].activeUsers < daysData[i - 1].activeUsers) {
+//     daysData[i].activeUsers = daysData[i - 1].activeUsers;
+//   }
+// }
+
     return daysData;
   }, [userProgress]);
 

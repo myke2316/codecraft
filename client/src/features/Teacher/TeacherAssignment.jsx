@@ -28,7 +28,7 @@ const validationSchema = Yup.object({
   dueDate: Yup.date()
     .required("Due date is required")
     .min(new Date(), "Due date cannot be in the past"),
-  instructions: Yup.string().required("Instructions are required"),
+  instructions: Yup.string().required("Instructions are required").max(2000, "Instruction cannot exceed 2000 characters"),
   target: Yup.string()
     .required("Target is required")
     .oneOf(["all", "specific"], "Invalid target"),

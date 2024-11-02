@@ -16,7 +16,7 @@ const createCertificate = asyncHandler(async (req, res) => {
     studentId,
     classId,
   });
-
+  console.log(existingCertificate)
   if (existingCertificate) {
     res.status(400);
     throw new Error("Certificate already exists for this student in the class");

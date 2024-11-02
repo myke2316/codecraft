@@ -42,7 +42,7 @@ const targetClassOptions = [
 
 const AnnouncementSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
-  content: Yup.string().required("Content is required"),
+  content: Yup.string().required("Content is required").max(4000, "Content cannot exceed 4000 characters"),
   targetClass: Yup.string().required("Target class is required"),
 });
 

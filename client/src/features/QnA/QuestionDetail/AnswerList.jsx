@@ -4,7 +4,7 @@ import { FormControl, InputLabel, Select, MenuItem, Button, ToggleButton, Toggle
 
 const AnswerList = ({ answers, currentUserId, questionAuthorId, question, fetchQuestionData }) => {
   const [sortBy, setSortBy] = useState("date");
-  const [sortOrder, setSortOrder] = useState("desc");
+  const [sortOrder, setSortOrder] = useState("asc");
   const [filter, setFilter] = useState("all");
 
   const filteredAnswers = answers.filter((answer) => {

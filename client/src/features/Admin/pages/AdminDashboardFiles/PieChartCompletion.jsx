@@ -8,7 +8,7 @@ const COLORS = ['#056275', '#4b3987'];
 
 function PieChartCompletion({ data }) {
   const theme = useTheme();
-  console.log(data)
+ 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
