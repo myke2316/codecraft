@@ -149,7 +149,7 @@ function SignUp() {
                 "Please enter a valid given name (e.g., 'John', 'Mary-Jane', 'Maria Alexandria')"
               )
               .min(2, "Given name must be at least 2 characters long")
-              .max(30, "Given name must be at most 30 characters long")
+              .max(20, "Given name must be at most 20 characters long")
               .required("Given name is required"),
             middleinitial: Yup.string()
               .matches(
@@ -164,7 +164,7 @@ function SignUp() {
                 "Please enter a valid last name (e.g., 'Castillo', 'De La Cruz')"
               )
               .min(2, "Last name must be at least 2 characters long")
-              .max(25, "Last name must be at most 25 characters long")
+              .max(18, "Last name must be at most 18 characters long")
               .required("Last name is required"),
             password: Yup.string()
               .min(8, "Password too short")

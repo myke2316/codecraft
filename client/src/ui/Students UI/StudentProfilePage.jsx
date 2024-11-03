@@ -182,7 +182,7 @@ function StudentProfilePage() {
         "Please enter a valid given name (e.g., 'John', 'Mary-Jane', 'Maria Alexandria')"
       )
       .min(2, "Given name must be at least 2 characters long")
-      .max(20, "Given name must be at most 30 characters long")
+      .max(20, "Given name must be at most 20 characters long")
       .required("Given name is required"),
     middleInitial: Yup.string()
       .matches(
@@ -197,7 +197,7 @@ function StudentProfilePage() {
         "Please enter a valid last name (e.g., 'Castillo', 'De La Cruz')"
       )
       .min(2, "Last name must be at least 2 characters long")
-      .max(20, "Last name must be at most 25 characters long")
+      .max(18, "Last name must be at most 18 characters long")
       .required("Last name is required"),
   });
 
@@ -389,6 +389,7 @@ function StudentProfilePage() {
                     />
                   )}
                 </Field>
+
                 <Button
                   type="submit"
                   variant="contained"
@@ -397,27 +398,14 @@ function StudentProfilePage() {
                 >
                   Submit
                 </Button>
+                <Button onClick={() => setOpenDialog(false)} color="inherit"  sx={{ mt: 2, ml:2 }}>
+                  Cancel
+                </Button>
               </DialogContent>
             </Form>
           )}
         </Formik>
-        <DialogActions>
-          <Button onClick={() => setOpenDialog(false)} color="inherit">
-            Cancel
-          </Button>
-          <Button
-            onClick={handleEditUsername}
-            variant="contained"
-            color="primary"
-            sx={{
-              borderRadius: "8px",
-              textTransform: "none",
-              fontWeight: "bold",
-            }}
-          >
-            Save
-          </Button>
-        </DialogActions>
+        <DialogActions></DialogActions>
       </Dialog>
       {/* Delete User Confirmation Dialog */}
       <Dialog

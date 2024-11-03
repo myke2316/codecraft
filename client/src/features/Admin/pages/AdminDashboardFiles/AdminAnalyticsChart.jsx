@@ -194,7 +194,7 @@ function AdminAnalyticsChart({
       activeUsers: courseActiveUsersMap[courseId],
     }));
   }, [users, userProgress]);
-
+  console.log(activeUsersPerCourse)
   return (
     <Container maxWidth={false} className="p-6 bg-gray-100">
       <Box
