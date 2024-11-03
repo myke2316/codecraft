@@ -249,11 +249,61 @@ function SignUpForm() {
           )}
         </Field>
 
-        <Field name="username">
+        <Field name="givenname">
           {({ field, meta }) => (
             <TextField
               {...field}
-              label="Name or Full Name"
+              label="Given Name"
+              fullWidth
+              variant="outlined"
+              error={meta.touched && !!meta.error}
+              helperText={meta.touched && meta.error ? meta.error : ""}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: '#3f51b5',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#303f9f',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#1a237e',
+                  },
+                },
+              }}
+            />
+          )}
+        </Field>
+        <Field name="middleinitial">
+          {({ field, meta }) => (
+            <TextField
+              {...field}
+              label="Middle Initial"
+              fullWidth
+              variant="outlined"
+              error={meta.touched && !!meta.error}
+              helperText={meta.touched && meta.error ? meta.error : ""}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: '#3f51b5',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#303f9f',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#1a237e',
+                  },
+                },
+              }}
+            />
+          )}
+        </Field>
+        <Field name="lastname">
+          {({ field, meta }) => (
+            <TextField
+              {...field}
+              label="Last Name"
               fullWidth
               variant="outlined"
               error={meta.touched && !!meta.error}

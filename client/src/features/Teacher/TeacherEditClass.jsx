@@ -29,7 +29,13 @@ import {
 
 // Validation schema for Formik
 const validationSchema = Yup.object({
-  newClassName: Yup.string().required("Class Name is required"),
+  newClassName: Yup.string()
+    .required("Class Name is required")
+    .max(30, "Class Name cannot exceed 30 characters.")
+    .matches(
+      /^[a-zA-Z0-9 ]*$/,
+      "Class name can only contain letters, numbers, and spaces"
+    ),
 });
 
 function TeacherEditClass() {
@@ -168,18 +174,16 @@ function TeacherEditClass() {
     setStudentToRemove(null);
   };
   const handleOpenDeleteClassDialog = () => {
-  setOpenDeleteClassDialog(true);
-  setConfirmationStep(1);
-  setConfirmationText("");
-};
+    setOpenDeleteClassDialog(true);
+    setConfirmationStep(1);
+    setConfirmationText("");
+  };
 
-const handleCloseDeleteClassDialog = () => {
-  setOpenDeleteClassDialog(false);
-  setConfirmationStep(1);
-  setConfirmationText("");
-};
-
-
+  const handleCloseDeleteClassDialog = () => {
+    setOpenDeleteClassDialog(false);
+    setConfirmationStep(1);
+    setConfirmationText("");
+  };
 
   const handleNextStep = () => {
     setConfirmationStep(2);
@@ -188,7 +192,7 @@ const handleCloseDeleteClassDialog = () => {
   const handleConfirmationTextChange = (event) => {
     setConfirmationText(event.target.value);
   };
-  
+
   if (!selectedClass) {
     return (
       <div className="text-center text-red-600 mt-10">Class not found.</div>
@@ -332,51 +336,62 @@ const handleCloseDeleteClassDialog = () => {
       </Dialog>
 
       {/* Delete Class Confirmation Dialog */}
-      <Dialog open={openDeleteClassDialog} onClose={handleCloseDeleteClassDialog}>
-  <DialogTitle>
-    {confirmationStep === 1 ? "Confirm Class Deletion" : "Final Confirmation"}
-  </DialogTitle>
-  <DialogContent>
-    {confirmationStep === 1 ? (
-      <Typography variant="body1">
-        Are you sure you want to delete this class? This action cannot be undone.
-      </Typography>
-    ) : (
-      <>
-        <Typography variant="body1" gutterBottom>
-          To confirm deleting the class, please type "DELETECLASSPERMANENTLY" below:
-        </Typography>
-        <TextField
-          autoFocus
-          margin="dense"
-          fullWidth
-          value={confirmationText}
-          onChange={handleConfirmationTextChange}
-          variant="outlined"
-        />
-      </>
-    )}
-  </DialogContent>
-  <DialogActions>
-    <Button onClick={handleCloseDeleteClassDialog} color="primary">
-      Cancel
-    </Button>
-    {confirmationStep === 1 ? (
-      <Button onClick={handleNextStep} color="secondary" variant="contained">
-        Next
-      </Button>
-    ) : (
-      <Button
-        onClick={handleDeleteClass}
-        color="secondary"
-        variant="contained"
-        disabled={confirmationText !== "DELETECLASSPERMANENTLY"}
+      <Dialog
+        open={openDeleteClassDialog}
+        onClose={handleCloseDeleteClassDialog}
       >
-        Delete Class
-      </Button>
-    )}
-  </DialogActions>
-</Dialog>
+        <DialogTitle>
+          {confirmationStep === 1
+            ? "Confirm Class Deletion"
+            : "Final Confirmation"}
+        </DialogTitle>
+        <DialogContent>
+          {confirmationStep === 1 ? (
+            <Typography variant="body1">
+              Are you sure you want to delete this class? This action cannot be
+              undone.
+            </Typography>
+          ) : (
+            <>
+              <Typography variant="body1" gutterBottom>
+                To confirm deleting the class, please type
+                "DELETECLASSPERMANENTLY" below:
+              </Typography>
+              <TextField
+                autoFocus
+                margin="dense"
+                fullWidth
+                value={confirmationText}
+                onChange={handleConfirmationTextChange}
+                variant="outlined"
+              />
+            </>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDeleteClassDialog} color="primary">
+            Cancel
+          </Button>
+          {confirmationStep === 1 ? (
+            <Button
+              onClick={handleNextStep}
+              color="secondary"
+              variant="contained"
+            >
+              Next
+            </Button>
+          ) : (
+            <Button
+              onClick={handleDeleteClass}
+              color="secondary"
+              variant="contained"
+              disabled={confirmationText !== "DELETECLASSPERMANENTLY"}
+            >
+              Delete Class
+            </Button>
+          )}
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

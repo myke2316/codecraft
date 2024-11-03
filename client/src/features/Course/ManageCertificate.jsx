@@ -45,13 +45,6 @@ import { formatDate } from "../../utils/formatDate";
 function ManageCertificate() {
   const { data, error, isLoading } = useUserCompletedCourseQuery();
   const [fetchUserAnalytics] = useFetchUserAnalyticsMutation();
-  const [studentsWithPoints, setStudentsWithPoints] = useState([]);
-  const [filterClass, setFilterClass] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
-  const classDetails = useSelector((state) => state.class.class);
-  const location = useLocation();
-  const isAdmin = location.pathname.includes("/certificate/admin/manage");
-  const [openDialog, setOpenDialog] = useState(false);
   const [createSignature] = useCreateSignatureMutation();
   const [updateSignature] = useUpdateSignatureMutation();
   const userDetails = useSelector((state) => state.user.userDetails);
@@ -60,7 +53,17 @@ function ManageCertificate() {
     isLoading: isSignatureLoading,
     refetch: refetchSignature,
   } = useGetSignatureQuery(userDetails._id);
-  console.log(data);
+
+  const [studentsWithPoints, setStudentsWithPoints] = useState([]);
+  const [filterClass, setFilterClass] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [openDialog, setOpenDialog] = useState(false);
+  const [sortOption, setSortOption] = useState("date");
+
+  const classDetails = useSelector((state) => state.class.class);
+  const location = useLocation();
+  const isAdmin = location.pathname.includes("/certificate/admin/manage");
+
   useEffect(() => {
     const fetchPoints = async () => {
       if (data?.users?.length) {
@@ -71,24 +74,16 @@ function ManageCertificate() {
                 userId: student._id,
               }).unwrap();
               const totalPoints = analyticsResponse.coursesAnalytics.reduce(
-                (acc, course) => {
-                  return acc + (course.totalPointsEarned || 0);
-                },
+                (acc, course) => acc + (course.totalPointsEarned || 0),
                 0
               );
-              return {
-                ...student,
-                totalPoints,
-              };
+              return { ...student, totalPoints };
             } catch (error) {
               console.error(
                 `Error fetching analytics for student ${student._id}:`,
                 error
               );
-              return {
-                ...student,
-                totalPoints: 0,
-              };
+              return { ...student, totalPoints: 0 };
             }
           })
         );
@@ -99,13 +94,39 @@ function ManageCertificate() {
     fetchPoints();
   }, [data, fetchUserAnalytics]);
 
-  const handleUploadClick = () => {
-    setOpenDialog(true);
-  };
+  const filteredStudents = useMemo(() => {
+    return studentsWithPoints
+      .filter((student) => {
+        if (isAdmin) return true;
+        if (filterClass === "all")
+          return classDetails.some((cls) => cls.students.includes(student._id));
+        return classDetails
+          .find((cls) => cls._id === filterClass)
+          ?.students.includes(student._id);
+      })
+      .filter(
+        (student) =>
+          student.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          student.email.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+  }, [studentsWithPoints, isAdmin, filterClass, classDetails, searchQuery]);
 
-  const handleClose = () => {
-    setOpenDialog(false);
-  };
+  const sortedStudents = useMemo(() => {
+    const studentsCopy = [...filteredStudents];
+    if (sortOption === "date") {
+      studentsCopy.sort(
+        (a, b) =>
+          new Date(b.courseDateFinished || b.updatedAt) -
+          new Date(a.courseDateFinished || a.updatedAt)
+      );
+    } else if (sortOption === "points") {
+      studentsCopy.sort((a, b) => b.totalPoints - a.totalPoints);
+    }
+    return studentsCopy;
+  }, [filteredStudents, sortOption]);
+
+  const handleUploadClick = () => setOpenDialog(true);
+  const handleClose = () => setOpenDialog(false);
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Title is required"),
@@ -146,25 +167,6 @@ function ManageCertificate() {
     }
   };
 
-  // Filter and search logic for students
-  const filteredStudents = useMemo(() => {
-    return studentsWithPoints
-      .filter((student) => {
-        if (isAdmin) return true;
-        if (filterClass === "all")
-          return classDetails.some((cls) => cls.students.includes(student._id));
-        return classDetails
-          .find((cls) => cls._id === filterClass)
-          ?.students.includes(student._id);
-      })
-      .filter(
-        (student) =>
-          student.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          student.email.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-  }, [studentsWithPoints, isAdmin, filterClass, classDetails, searchQuery]);
-
-  console.log(filteredStudents);
   if (isLoading || isSignatureLoading) {
     return (
       <div className="flex justify-center items-center h-64">
@@ -172,23 +174,6 @@ function ManageCertificate() {
       </div>
     );
   }
-
-  const [sortOption, setSortOption] = useState("date");
-  // Sorting the students based on the selected option
-  const sortedStudents = useMemo(() => {
-    const studentsCopy = [...filteredStudents];
-    if (sortOption === "date") {
-      studentsCopy.sort(
-        (a, b) =>
-          new Date(b.courseDateFinished || b.updatedAt) -
-          new Date(a.courseDateFinished || a.updatedAt)
-      );
-    } else if (sortOption === "points") {
-      studentsCopy.sort((a, b) => b.totalPoints - a.totalPoints);
-    }
-    return studentsCopy;
-  }, [filteredStudents, sortOption]);
-
   return (
     <div className="p-6">
       <div className="mb-4">
@@ -365,10 +350,10 @@ function ManageCertificate() {
           )}
         </Formik>
       </Dialog>
- 
+
       {/* Filter and Search Section */}
-    {/* Sort by Date and Points */}
-    <div className="flex items-center mb-4 space-x-4">
+      {/* Sort by Date and Points */}
+      <div className="flex items-center mb-4 space-x-4">
         <FormControl variant="outlined">
           <InputLabel>Sort by</InputLabel>
           <Select
@@ -381,7 +366,7 @@ function ManageCertificate() {
           </Select>
         </FormControl>
 
-        {userDetails.role === 'teacher' ? (
+        {userDetails.role === "teacher" ? (
           <FormControl variant="outlined">
             <InputLabel>Filter by Class</InputLabel>
             <Select
@@ -407,7 +392,7 @@ function ManageCertificate() {
           fullWidth
         />
       </div>
- 
+
       {sortedStudents.length === 0 ? (
         <Typography variant="body1" className="text-center mt-4 text-gray-500">
           No students found.
@@ -416,12 +401,18 @@ function ManageCertificate() {
         <TableContainer component={Paper} elevation={3}>
           <Table stickyHeader>
             <TableHead>
-              <TableRow>
-                <TableCell className="bg-gray-100 font-bold">#</TableCell>
-                <TableCell className="bg-gray-100 font-bold">Student Name</TableCell>
-                <TableCell className="bg-gray-100 font-bold">Email</TableCell>
-                <TableCell className="bg-gray-100 font-bold">Total Points</TableCell>
-                <TableCell className="bg-gray-100 font-bold">Date Finished</TableCell>
+              <TableRow >
+                <TableCell  sx={{ bgcolor: "rgb(110, 97, 171)", color: "white" }}>#</TableCell>
+                <TableCell  sx={{ bgcolor: "rgb(110, 97, 171)", color: "white" }}>
+                  Student Name
+                </TableCell>
+                <TableCell  sx={{ bgcolor: "rgb(110, 97, 171)", color: "white" }}>Email</TableCell>
+                <TableCell  sx={{ bgcolor: "rgb(110, 97, 171)", color: "white" }}>
+                  Total Points
+                </TableCell>
+                <TableCell  sx={{ bgcolor: "rgb(110, 97, 171)", color: "white" }}>
+                  Date Finished
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -435,7 +426,9 @@ function ManageCertificate() {
                   <TableCell>{student.email}</TableCell>
                   <TableCell>{student.totalPoints} Points</TableCell>
                   <TableCell>
-                    {student?.courseDateFinished ? formatDate(student?.courseDateFinished) : formatDate(student?.updatedAt)}
+                    {student?.courseDateFinished
+                      ? formatDate(student?.courseDateFinished)
+                      : formatDate(student?.updatedAt)}
                   </TableCell>
                 </TableRow>
               ))}

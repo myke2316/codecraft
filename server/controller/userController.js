@@ -25,7 +25,7 @@ const editUsername = asyncHandler(async (req, res) => {
     // Check if the new username is already taken
     const existingUser = await UserModel.findOne({ username: newUsername });
     if (existingUser) {
-      return res.status(400).json({ error: "Username already taken." });
+      return res.status(400).json({ error: "Name already taken." });
     }
 
     // Find the user by ID and update their username

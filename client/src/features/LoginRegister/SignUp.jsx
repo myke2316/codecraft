@@ -1,119 +1,3 @@
-// import { Formik } from "formik";
-// import SignUpForm from "./SignUpForm";
-// import * as Yup from "yup";
-// import { Link, useNavigate } from "react-router-dom";
-// import { useRegisterMutation } from "./userService";
-// import { useDispatch, useSelector } from "react-redux";
-// import { toast } from "react-toastify";
-// import { setCredentials } from "./userSlice";
-// import { useEffect } from "react";
-// import { useGetCourseDataMutation } from "../Class/courseService";
-// import { setCourse } from "../Class/courseSlice";
-// import { Box, Typography, Button } from "@mui/material";
-
-// function SignUp() {
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-
-//   const [register] = useRegisterMutation();
-//   const userDetails = useSelector((state) => state.user.userDetails);
-
-//   const [fetchCourseData] = useGetCourseDataMutation();
-
-//   async function handleRegister(values) {
-//     const { emailaddress, username, password, role } = values;
-
-//     try {
-//       const res = await register({
-//         email: emailaddress,
-//         username,
-//         password,
-//         role,
-//       }).unwrap();
-//       dispatch(setCredentials({ ...res }));
-//       fetchCourse();
-//     } catch (error) {
-//       toast.error(error?.data?.error || error?.error);
-//     }
-//   }
-
-//   async function fetchCourse() {
-//     try {
-//       const courseData = await fetchCourseData().unwrap();
-//       dispatch(setCourse(courseData || []));
-//     } catch (error) {
-//       toast.error(error?.response?.data?.message || error.message);
-//     }
-//   }
-
-//   useEffect(() => {
-//     if (userDetails) {
-//       if (userDetails.role === "student") {
-//         toast.success("Register Complete!");
-//         navigate(`/${userDetails._id}`);
-//       } else {
-//         toast.success("Register Complete!");
-//         navigate(`/classes`);
-//       }
-//     }
-//   }, [userDetails]);
-
-//   return (
-//     <Box
-//       sx={{
-//         display: "flex",
-//         flexDirection: "column",
-//         alignItems: "center",
-//         justifyContent: "center",
-//         minHeight: "80vh",
-//       }}
-//     >
-//       <Typography variant="h3" component="h1" gutterBottom>
-//         Sign Up
-//       </Typography>
-
-//       <Formik
-//         initialValues={{
-//           emailaddress: "",
-//           username: "",
-//           password: "",
-//           role: "",
-//           confirmpassword: "",
-//         }}
-//         validationSchema={Yup.object({
-//           emailaddress: Yup.string()
-//             .email("Invalid Email")
-//             .required("Email is Required"),
-//           username: Yup.string()
-//             .matches(/^[a-zA-Z\s]+$/, "Only letters are allowed.")
-//             .min(5, "Username too short")
-//             .max(40, "Username too long")
-//             .required("Username is Required"),
-//           password: Yup.string()
-//             .min(8, "Password too short")
-//             .max(20, "Password too long")
-//             .required("Password is Required"),
-//           confirmpassword: Yup.string()
-//             .oneOf([Yup.ref("password"), null], "Passwords do not match")
-//             .required("Confirm Password is Required"),
-//           role: Yup.string().required("Role is Required"),
-//         })}
-//         onSubmit={handleRegister}
-//       >
-//         <SignUpForm />
-//       </Formik>
-
-//       <Typography variant="body1" sx={{ mt: 2 }}>
-//         Already have an account?{" "}
-//         <Link to="/login" style={{ color: "blue" }}>
-//           Login here
-//         </Link>
-//       </Typography>
-//     </Box>
-//   );
-// }
-
-// export default SignUp;
 import React, { useEffect } from "react";
 import { Formik } from "formik";
 import SignUpForm from "./SignUpForm";
@@ -140,12 +24,18 @@ function SignUp() {
   const [fetchCourseData] = useGetCourseDataMutation();
 
   async function handleRegister(values) {
-    const { emailaddress, username, password, role } = values;
-
+    const { emailaddress, givenname, middleinitial, lastname, password, role } =
+      values;
+    const username = middleinitial
+      ? `${givenname} ${middleinitial.toUpperCase()} ${lastname}`
+      : `${givenname} ${lastname}`;
     try {
       const res = await register({
         email: emailaddress,
         username,
+        givenname,
+        middleinitial,
+        lastname,
         password,
         role,
       }).unwrap();
@@ -245,14 +135,37 @@ function SignUp() {
             emailaddress: Yup.string()
               .email("Invalid Email")
               .required("Email is Required"),
-            username: Yup.string()
+            // username: Yup.string()
+            //   .matches(
+            //     /^(?=.{3,100}$)([A-Za-z]+(?:[-'\s][A-Za-z]+)*)(?:\s+[A-Za-z]\.)?(?:\s+[A-Za-z]+)*(?:\s+(?:Jr\.|Sr\.|II|III|IV|V))?$/,
+            //     "Please enter a valid full name or name (e.g., 'John A. Doe Jr.', 'Mary-Jane Smith', John D. Doe)"
+            //   )
+            //   .min(3, "Full name or name must be at least 3 characters long")
+            //   .max(50, "Full name or name must be at most 50 characters long")
+            //   .required("Full Name or name is Required"),
+            givenname: Yup.string()
               .matches(
-                /^(?=.{5,100}$)([A-Za-z]+(?:[-'\s][A-Za-z]+)*)(?:\s+[A-Za-z]\.)?(?:\s+[A-Za-z]+)*(?:\s+(?:Jr\.|Sr\.|II|III|IV|V))?$/,
-                "Please enter a valid full name or name (e.g., 'John A. Doe Jr.', 'Mary-Jane Smith', John D. Doe)"
+                /^[A-Za-z]+(?:[-'\s][A-Za-z]+)*$/,
+                "Please enter a valid given name (e.g., 'John', 'Mary-Jane', 'Maria Alexandria')"
               )
-              .min(5, "Full name or name must be at least 8 characters long")
-              .max(50, "Full name or name must be at most 50 characters long")
-              .required("Full Name or name is Required"),
+              .min(2, "Given name must be at least 2 characters long")
+              .max(30, "Given name must be at most 30 characters long")
+              .required("Given name is required"),
+            middleinitial: Yup.string()
+              .matches(
+                /^[A-Za-z]?$/,
+                "Please enter a valid middle initial (e.g., 'A', 'B') or leave blank"
+              )
+              .max(1, "Middle initial must be a single letter")
+              .notRequired(),
+            lastname: Yup.string()
+              .matches(
+                /^[A-Za-z]+(?:[-'\s][A-Za-z]+)*$/,
+                "Please enter a valid last name (e.g., 'Castillo', 'De La Cruz')"
+              )
+              .min(2, "Last name must be at least 2 characters long")
+              .max(25, "Last name must be at most 25 characters long")
+              .required("Last name is required"),
             password: Yup.string()
               .min(8, "Password too short")
               .max(20, "Password too long")
