@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import {
@@ -25,13 +25,22 @@ import {
   Button,
   Typography,
   TextField,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  TableSortLabel,
+  Pagination,
 } from "@mui/material";
+import { Search as SearchIcon } from "@mui/icons-material";
 
-// Validation schema for Formik
 const validationSchema = Yup.object({
   newClassName: Yup.string()
     .required("Class Name is required")
-    .max(30, "Class Name cannot exceed 30 characters.")
+    .max(25, "Class Name cannot exceed 25 characters.")
     .matches(
       /^[a-zA-Z0-9 ]*$/,
       "Class name can only contain letters, numbers, and spaces"
@@ -46,19 +55,23 @@ function TeacherEditClass() {
   const [fetchClassById] = useFetchClassByIdMutation();
   const [getAllUsers] = useGetAllUserMutation();
   const [getAllAnalytics] = useGetAllAnalyticsMutation();
-  const [deleteClass] = useDeleteClassMutation(); // Assuming you have this mutation
+  const [deleteClass] = useDeleteClassMutation();
   const navigate = useNavigate();
   const [initialClassName, setInitialClassName] = useState("");
   const [students, setStudents] = useState([]);
   const dispatch = useDispatch();
   const [removeStudent] = useRemoveStudentMutation();
 
-  // States for dialogs
   const [openRemoveStudentDialog, setOpenRemoveStudentDialog] = useState(false);
   const [openDeleteClassDialog, setOpenDeleteClassDialog] = useState(false);
   const [studentToRemove, setStudentToRemove] = useState(null);
   const [confirmationStep, setConfirmationStep] = useState(1);
   const [confirmationText, setConfirmationText] = useState("");
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+  const [page, setPage] = useState(1);
+  const [rowsPerPage] = useState(10);
 
   useEffect(() => {
     const fetchClassDetails = async () => {
@@ -122,7 +135,7 @@ function TeacherEditClass() {
         })
       );
       toast.success("Class name updated successfully!");
-      navigate(`/${classId}/class/classHome`); // Redirect back to the class page
+      navigate(`/${classId}/class/classHome`);
     } catch (error) {
       toast.error(error?.data?.error || "Failed to update class name");
     }
@@ -135,13 +148,14 @@ function TeacherEditClass() {
           classId,
           studentId: studentToRemove,
         }).unwrap();
-        console.log(data);
         setStudents(
           students.filter((student) => student._id !== studentToRemove)
         );
         dispatch(updateClass({ classId, updatedClass: data.data }));
         toast.success("Student removed successfully!");
-        setOpenRemoveStudentDialog(false); // Close the dialog
+        setConfirmationStep(1);
+        setConfirmationText("");
+        setOpenRemoveStudentDialog(false);
       } catch (error) {
         toast.error("Failed to remove student.");
       }
@@ -155,7 +169,7 @@ function TeacherEditClass() {
       try {
         await deleteClass(classId).unwrap();
         toast.success("Class deleted successfully!");
-        navigate("/classes"); // Redirect to a different page after deletion
+        navigate("/classes");
       } catch (error) {
         toast.error("Failed to delete class.");
       }
@@ -173,6 +187,7 @@ function TeacherEditClass() {
     setOpenRemoveStudentDialog(false);
     setStudentToRemove(null);
   };
+
   const handleOpenDeleteClassDialog = () => {
     setOpenDeleteClassDialog(true);
     setConfirmationStep(1);
@@ -193,6 +208,44 @@ function TeacherEditClass() {
     setConfirmationText(event.target.value);
   };
 
+  const filteredAndSortedStudents = useMemo(() => {
+    let studentsToDisplay = students.filter((student) =>
+      student.username.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    if (sortConfig.key) {
+      studentsToDisplay.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key])
+          return sortConfig.direction === "asc" ? -1 : 1;
+        if (a[sortConfig.key] > b[sortConfig.key])
+          return sortConfig.direction === "asc" ? 1 : -1;
+        return 0;
+      });
+    }
+
+    return studentsToDisplay;
+  }, [students, searchQuery, sortConfig]);
+
+  const paginatedStudents = useMemo(() => {
+    const startIndex = (page - 1) * rowsPerPage;
+    return filteredAndSortedStudents.slice(
+      startIndex,
+      startIndex + rowsPerPage
+    );
+  }, [filteredAndSortedStudents, page, rowsPerPage]);
+
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
   if (!selectedClass) {
     return (
       <div className="text-center text-red-600 mt-10">Class not found.</div>
@@ -200,7 +253,7 @@ function TeacherEditClass() {
   }
 
   return (
-    <div className="p-6 max-w-2xl mx-auto bg-white shadow-lg rounded-lg">
+    <div className="p-6 max-w-8xl mx-auto bg-white shadow-lg rounded-lg">
       <h1 className="text-4xl font-bold mb-6 text-gray-800">Edit Class</h1>
       <Formik
         initialValues={{ newClassName: initialClassName }}
@@ -229,58 +282,139 @@ function TeacherEditClass() {
             </div>
             <div className="space-y-4">
               <h2 className="text-2xl font-semibold text-gray-700">Students</h2>
-              {students.length > 0 ? (
-                <ul className="space-y-2">
-                  {students.map((student) => (
-                    <li
-                      key={student._id}
-                      className="flex justify-between items-center p-2 bg-gray-100 rounded-md"
-                    >
-                      <span className="font-medium">{student.username}</span>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          handleOpenRemoveStudentDialog(student._id)
-                        }
-                        className="text-red-600 font-semibold hover:text-red-800 transition duration-200"
-                      >
-                        Remove
-                      </button>
-                    </li>
-                  ))}
-                </ul>
+              <div className="flex items-center mb-4">
+                <TextField
+                  variant="outlined"
+                  placeholder="Search students..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="mr-2"
+                  InputProps={{
+                    startAdornment: (
+                      <SearchIcon className="text-gray-400 mr-2" />
+                    ),
+                  }}
+                />
+              </div>
+              {paginatedStudents.length > 0 ? (
+                <>
+                  <TableContainer component={Paper}>
+                    <Table>
+                      <TableHead>
+                        <TableRow
+                          sx={{ bgcolor: "rgb(110, 97, 171)", color: "white" }}
+                        >
+                          <TableCell>
+                            <TableSortLabel
+                              active={sortConfig.key === "username"}
+                              direction={
+                                sortConfig.key === "username"
+                                  ? sortConfig.direction
+                                  : "asc"
+                              }
+                              onClick={() => requestSort("username")}
+                              sx={{ color: "white" }}
+                            >
+                              Username
+                            </TableSortLabel>
+                          </TableCell>
+                          <TableCell sx={{ color: "white" }}>Email</TableCell>
+                          
+                          <TableCell sx={{ color: "white" }}>Action</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {paginatedStudents.map((student) => (
+                          <TableRow key={student._id}>
+                            <TableCell>{student.username}</TableCell>
+                            <TableCell>{student.email}</TableCell>
+                          
+                           
+                            <TableCell>
+                              <Button
+                                onClick={() =>
+                                  handleOpenRemoveStudentDialog(student._id)
+                                }
+                                color="secondary"
+                              >
+                                Remove
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <div className="flex justify-center mt-4">
+                    <Pagination
+                      count={Math.ceil(
+                        filteredAndSortedStudents.length / rowsPerPage
+                      )}
+                      page={page}
+                      onChange={handleChangePage}
+                      color="primary"
+                    />
+                  </div>
+                </>
               ) : (
                 <div className="text-gray-600">No students in this class.</div>
               )}
             </div>
-            <div className="flex justify-end space-x-4">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="bg-blue-600 text-white font-semibold px-4 py-2 rounded-md shadow-sm hover:bg-blue-700 transition duration-200"
-              >
-                Update Class Name
-              </button>
-              <button
-                type="button"
-                onClick={() => navigate(`/${classId}/class/classHome`)}
-                className="bg-gray-600 text-white font-semibold px-4 py-2 rounded-md shadow-sm hover:bg-gray-700 transition duration-200"
-              >
-                Done
-              </button>
-              <button
-                type="button"
-                onClick={handleOpenDeleteClassDialog}
-                className="bg-red-600 text-white font-semibold px-4 py-2 rounded-md shadow-sm hover:bg-red-700 transition duration-200"
-              >
-                Delete Class
-              </button>
-            </div>
+            <div
+      className="flex flex-col md:flex-row justify-end space-y-4 md:space-y-0 md:space-x-4"
+      style={{ padding: '1rem' }} // Add padding for better spacing
+    >
+      <Button
+        type="submit"
+        disabled={isSubmitting}
+        variant="contained"
+        sx={{
+          backgroundColor: "#6e61ab", // Set custom background color
+          color: "#fff", // Optional: Set text color for better contrast
+          padding: '12px',
+          fontSize: { xs: '0.9rem', md: '1rem' },
+          '&:hover': {
+            backgroundColor: "#8f9ed8", // Optional: Darker shade on hover
+          },
+        }}
+      >
+        Update Class Name
+      </Button>
+      <Button
+        onClick={() => navigate(`/${classId}/class/classHome`)}
+        variant="contained"
+        sx={{
+          backgroundColor: "#4b3987", // Set custom background color
+          color: "#fff", // Optional: Set text color for better contrast
+          padding: '12px',
+          fontSize: { xs: '0.9rem', md: '1rem' },
+          '&:hover': {
+            backgroundColor: "#8f9ed8", // Optional: Darker shade on hover
+          },
+        }}
+      >
+        Done
+      </Button>
+      <Button
+        onClick={handleOpenDeleteClassDialog}
+        variant="contained"
+        sx={{
+          backgroundColor: "	#6e61ab", // Set custom background color
+          color: "#fff", // Optional: Set text color for better contrast
+          padding: '12px',
+          fontSize: { xs: '0.9rem', md: '1rem' },
+          '&:hover': {
+            backgroundColor: "#8f9ed8", // Optional: Darker shade on hover
+          },
+        }}
+      >
+        Delete Class
+      </Button>
+    </div>
           </Form>
         )}
       </Formik>
 
-      {/* Remove Student Confirmation Dialog */}
       <Dialog
         open={openRemoveStudentDialog}
         onClose={handleCloseRemoveStudentDialog}
@@ -335,7 +469,6 @@ function TeacherEditClass() {
         </DialogActions>
       </Dialog>
 
-      {/* Delete Class Confirmation Dialog */}
       <Dialog
         open={openDeleteClassDialog}
         onClose={handleCloseDeleteClassDialog}
