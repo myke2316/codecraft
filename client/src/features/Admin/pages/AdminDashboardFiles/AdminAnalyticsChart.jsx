@@ -139,61 +139,143 @@ function AdminAnalyticsChart({
     return daysData;
   }, [userProgress]);
 
-  const activeUsersPerCourse = useMemo(() => {
-    if (!users || !userProgress) {
-      return [];
-    }
+  // const activeUsersPerCourse = useMemo(() => {
+  //   if (!users || !userProgress) {
+  //     return [];
+  //   }
+   
+  //   const courseActiveUsersMap = {};
 
-    const courseActiveUsersMap = {};
+  //   users.forEach((user) => {
+  //     const userProgressEntry = userProgress.find(
+  //       (up) => up.userId.toString() === user._id.toString()
+  //     );
+  //       console.log(userProgressEntry)
+  //     if (userProgressEntry) {
+  //       let userIsActiveInACourse = false;
 
-    users.forEach((user) => {
-      const userProgressEntry = userProgress.find(
-        (up) => up.userId.toString() === user._id.toString()
-      );
+  //       userProgressEntry.coursesProgress.forEach((courseProgress) => {
+  //         if (userIsActiveInACourse) return;
 
-      if (userProgressEntry) {
-        let userIsActiveInACourse = false;
+  //         const courseId = courseProgress.courseId.toString();
 
-        userProgressEntry.coursesProgress.forEach((courseProgress) => {
-          if (userIsActiveInACourse) return;
+  //         if (!courseActiveUsersMap[courseId]) {
+  //           courseActiveUsersMap[courseId] = [];
+  //         }
 
-          const courseId = courseProgress.courseId.toString();
+  //         let hasUnfinishedItems = false;
 
-          if (!courseActiveUsersMap[courseId]) {
-            courseActiveUsersMap[courseId] = [];
-          }
+  //         courseProgress.lessonsProgress.forEach((lesson) => {
+  //           if (!lesson.dateFinished) hasUnfinishedItems = true;
 
-          let hasUnfinishedItems = false;
+  //           lesson.documentsProgress.forEach((document) => {
+  //             if (!document.dateFinished) hasUnfinishedItems = true;
+  //           });
 
-          courseProgress.lessonsProgress.forEach((lesson) => {
-            if (!lesson.dateFinished) hasUnfinishedItems = true;
+  //           lesson.quizzesProgress.forEach((quiz) => {
+  //             if (!quiz.dateFinished) hasUnfinishedItems = true;
+  //           });
 
-            lesson.documentsProgress.forEach((document) => {
-              if (!document.dateFinished) hasUnfinishedItems = true;
-            });
+  //           lesson.activitiesProgress.forEach((activity) => {
+  //             if (!activity.dateFinished) hasUnfinishedItems = true;
+  //           });
+  //         });
 
-            lesson.quizzesProgress.forEach((quiz) => {
-              if (!quiz.dateFinished) hasUnfinishedItems = true;
-            });
+  //         if (hasUnfinishedItems) {
+  //           courseActiveUsersMap[courseId].push(user._id);
+  //           userIsActiveInACourse = true;
+  //         }
+  //       });
+  //     }
+  //   });
 
-            lesson.activitiesProgress.forEach((activity) => {
-              if (!activity.dateFinished) hasUnfinishedItems = true;
+  //   return Object.keys(courseActiveUsersMap).map((courseId) => ({
+  //     courseId,
+  //     activeUsers: courseActiveUsersMap[courseId],
+  //   }));
+  // }, [users, userProgress]);
+
+    const activeUsersPerCourse = useMemo(() => {
+      if (!users || !userProgress) {
+        return [];
+      }
+     
+      const courseActiveUsersMap = {};
+      const userLatestActivity = {};
+  
+      users.forEach((user) => {
+        const userProgressEntry = userProgress.find(
+          (up) => up.userId.toString() === user._id.toString()
+        );
+  
+        if (userProgressEntry) {
+          let latestDate = null;
+          let latestCourseId = null;
+  
+          userProgressEntry.coursesProgress.forEach((courseProgress) => {
+            const courseId = courseProgress.courseId.toString();
+  
+            // Initialize the course in the map if it doesn't exist
+            if (!courseActiveUsersMap[courseId]) {
+              courseActiveUsersMap[courseId] = new Set();
+            }
+  
+            const checkAndUpdateLatest = (date) => {
+              if (date && (!latestDate || new Date(date) > latestDate)) {
+                latestDate = new Date(date);
+                latestCourseId = courseId;
+              }
+            };
+  
+            // Check course level
+            checkAndUpdateLatest(courseProgress.dateFinished);
+  
+            courseProgress.lessonsProgress.forEach((lesson) => {
+              // Check lesson level
+              checkAndUpdateLatest(lesson.dateFinished);
+  
+              // Check documents
+              lesson.documentsProgress.forEach((document) => {
+                checkAndUpdateLatest(document.dateFinished);
+              });
+  
+              // Check quizzes
+              lesson.quizzesProgress.forEach((quiz) => {
+                checkAndUpdateLatest(quiz.dateFinished);
+              });
+  
+              // Check activities
+              lesson.activitiesProgress.forEach((activity) => {
+                checkAndUpdateLatest(activity.dateFinished);
+              });
             });
           });
-
-          if (hasUnfinishedItems) {
-            courseActiveUsersMap[courseId].push(user._id);
-            userIsActiveInACourse = true;
+  
+          // If we found activity for this user, store it
+          if (latestCourseId) {
+            userLatestActivity[user._id.toString()] = { courseId: latestCourseId, date: latestDate };
+          }
+        }
+      });
+  
+      // Now assign users to their most recent active course
+      Object.entries(userLatestActivity).forEach(([userId, { courseId }]) => {
+        // Remove the user from all other courses
+        Object.keys(courseActiveUsersMap).forEach((cId) => {
+          if (cId !== courseId) {
+            courseActiveUsersMap[cId].delete(userId);
           }
         });
-      }
-    });
-
-    return Object.keys(courseActiveUsersMap).map((courseId) => ({
-      courseId,
-      activeUsers: courseActiveUsersMap[courseId],
-    }));
-  }, [users, userProgress]);
+        // Add the user to their most recent course
+        courseActiveUsersMap[courseId].add(userId);
+      });
+  
+      return Object.keys(courseActiveUsersMap).map((courseId) => ({
+        courseId,
+        activeUsers: Array.from(courseActiveUsersMap[courseId]),
+      }));
+    }, [users, userProgress]);
+  
   console.log(activeUsersPerCourse)
   return (
     <Container maxWidth={false} className="p-6 bg-gray-100">
