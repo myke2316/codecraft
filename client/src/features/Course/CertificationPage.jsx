@@ -7,29 +7,36 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Paper,
+  Grid,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import Certificate from "./Certificate";
 import { useCompleteCourseMutation } from "../LoginRegister/userService";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle"; // Icon for completion
 import {
   useCreateCertificateMutation,
   useGetCertificateQuery,
   useGetSignatureForStudentQuery,
 } from "./certificateService";
-
+import { motion } from "framer-motion";
+import confetti from "canvas-confetti"; // Import confetti
 const CertificationPage = () => {
   const [open, setOpen] = useState(false);
   const certificateRef = useRef(null);
   const [scale, setScale] = useState(1);
-  
+
   const user = useSelector((state) => state.user.userDetails);
-  const userProgress = useSelector((state) => state.studentProgress.userProgress);
+  const userProgress = useSelector(
+    (state) => state.studentProgress.userProgress
+  );
   const classId = useSelector((state) => state.class.class._id);
   const userId = user._id;
 
-  const lastCourse = userProgress.coursesProgress[userProgress.coursesProgress.length - 1];
+  const lastCourse =
+    userProgress.coursesProgress[userProgress.coursesProgress.length - 1];
   const dateFinished = lastCourse?.dateFinished;
   const formattedDate = new Date(dateFinished).toLocaleDateString("en-US", {
     month: "2-digit",
@@ -37,12 +44,16 @@ const CertificationPage = () => {
     year: "2-digit",
   });
 
-  const { data: signatureData } = useGetSignatureForStudentQuery({ userId, classId });
+  const { data: signatureData } = useGetSignatureForStudentQuery({
+    userId,
+    classId,
+  });
   const [completeCourse] = useCompleteCourseMutation();
   const [createCertificate] = useCreateCertificateMutation();
   const { data: certificateFetch } = useGetCertificateQuery(userId);
 
   const handleOpen = async () => {
+   
     await completeCourse(userId).unwrap();
     await createCertificate({
       studentId: userId,
@@ -66,8 +77,8 @@ const CertificationPage = () => {
     };
 
     updateScale();
-    window.addEventListener('resize', updateScale);
-    return () => window.removeEventListener('resize', updateScale);
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
   }, [open]);
 
   const downloadImage = () => {
@@ -75,7 +86,7 @@ const CertificationPage = () => {
     if (!certificateElement) return;
 
     const originalTransform = certificateElement.style.transform;
-    certificateElement.style.transform = 'none';
+    certificateElement.style.transform = "none";
 
     html2canvas(certificateElement, {
       useCORS: true,
@@ -97,7 +108,7 @@ const CertificationPage = () => {
     if (!certificateElement) return;
 
     const originalTransform = certificateElement.style.transform;
-    certificateElement.style.transform = 'none';
+    certificateElement.style.transform = "none";
 
     html2canvas(certificateElement, {
       useCORS: true,
@@ -111,14 +122,39 @@ const CertificationPage = () => {
       const pdf = new jsPDF({
         orientation: "landscape",
         unit: "px",
-        format: [1200, 900]
+        format: [1200, 900],
       });
 
       pdf.addImage(imgData, "PNG", 0, 0, 1200, 900);
       pdf.save("certificate.pdf");
     });
   };
+  const launchConfetti = () => {
+    const duration = 2; // duration of confetti animation in seconds
+    const animationEnd = Date.now() + duration * 1000;
 
+    (function frame() {
+      // Fire confetti at random positions on the canvas
+      confetti({
+        startVelocity: 10,
+        spread: 200,
+        ticks: 40,
+        zIndex: 0,
+        origin: {
+          x: Math.random(),
+          y: Math.random() - 0.2, // Start slightly above the top
+        },
+      });
+
+      // Continue firing confetti until the duration ends
+      if (Date.now() < animationEnd) {
+        requestAnimationFrame(frame);
+      }
+    })();
+  };
+  useEffect(() => {
+    launchConfetti();
+  }, []);
   return (
     <Box
       sx={{
@@ -131,49 +167,108 @@ const CertificationPage = () => {
         p: 2,
       }}
     >
-      <Typography variant="h3" fontWeight="bold" mb={4}>
-        Congratulations!
-      </Typography>
-      <Typography variant="h5" mb={4}>
-        You have successfully completed the course.
-      </Typography>
-      <Button variant="contained" color="primary" onClick={handleOpen}>
-        Get Certificate
-      </Button>
+              <Paper
+        elevation={10}
+        sx={{
+          padding: { xs: 4, md: 5 }, // Responsive padding
+          borderRadius: 3,
+          textAlign: "center",
+          maxWidth: 600,
+          width: "90%",
+          zIndex: 1,
+          background: "linear-gradient(135deg, #3f51b5, #928fce)",
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          <Typography
+            variant="h3"
+            fontWeight="bold"
+            mb={2}
+            sx={{ color: "#FFF", letterSpacing: 2, fontSize: { xs: '1.1rem', md: '2.5rem' } }} // Responsive font size
+          >
+            Congratulations!
+          </Typography>
+        </motion.div>
 
-      <Dialog 
-        open={open} 
-        onClose={handleClose} 
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+        >
+          <Typography
+            variant="h6"
+            mb={4}
+            sx={{ color: "#FFF", fontWeight: 400, fontSize: { xs: "1rem", md: "1.5rem" } }} // Responsive font size
+          >
+            You have successfully completed the course! Congratulations!
+          </Typography>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.4 }}
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleOpen}
+            sx={{
+              padding: "12px 24px",
+              borderRadius: 25,
+              fontWeight: "bold",
+              fontSize: { xs: "0.9rem", md: "1rem" }, // Responsive font size
+              "&:hover": {
+                backgroundColor: "#1976D2",
+                transform: "scale(1.05)",
+                boxShadow: "0px 0px 10px rgba(25, 118, 210, 0.4)",
+              },
+            }}
+          >
+            Get Your Certificate
+          </Button>
+        </motion.div>
+
+       
+      </Paper>
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
         maxWidth={false}
         PaperProps={{
           sx: {
-            width: '100%',
-            maxWidth: '100vw',
-            height: 'auto',
-            maxHeight: '90vh',
+            width: "100%",
+            maxWidth: "100vw",
+            height: "auto",
+            maxHeight: "90vh",
             m: 0,
-          }
+          },
         }}
       >
         <DialogTitle>Certificate of Completion</DialogTitle>
         <DialogContent>
-          <Box 
-            sx={{ 
-              width: '100%', 
-              height: '100%', 
-              overflow: 'auto',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+          <Box
+            sx={{
+              width: "100%",
+              height: "100%",
+              overflow: "auto",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            <div 
+            <div
               ref={certificateRef}
               style={{
-                width: '1200px',
-                height: '900px',
+                width: "1200px",
+                height: "900px",
                 transform: `scale(${scale})`,
-                transformOrigin: 'top left',
+                transformOrigin: "top left",
               }}
             >
               <Certificate
