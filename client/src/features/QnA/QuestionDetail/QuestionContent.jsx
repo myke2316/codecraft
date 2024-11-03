@@ -19,7 +19,7 @@ import {
   DialogTitle,
   useMediaQuery,
   useTheme,
-  Alert
+  Alert,
 } from "@mui/material";
 import {
   ThumbUp as ThumbUpIcon,
@@ -109,7 +109,7 @@ const QuestionContent = ({
     try {
       await deleteQuestion(question._id).unwrap();
       setDeleteDialogOpen(false);
-      toast.success("Successfully Deleted Container")
+      toast.success("Successfully Deleted Question");
       navigate(`/qna/${currentUserId}`);
     } catch (error) {
       console.error("Failed to delete question:", error);
@@ -131,13 +131,15 @@ const QuestionContent = ({
         <ArrowBackIcon />
       </IconButton>
       <Card className="bg-card text-card-foreground shadow-lg hover:shadow-xl transition-shadow duration-300">
-        
         {question.status === "pending" && (
           <Alert severity="warning">Question waiting for admin approval.</Alert>
         )}
         {console.log(question)}
-         {question.status === "denied" && (
-          <Alert severity="error">Question is denied and will be automatically deleted, please delete this question.</Alert>
+        {question.status === "denied" && (
+          <Alert severity="error">
+            Question is denied and will be automatically deleted, please delete
+            this question.
+          </Alert>
         )}
         <CardHeader
           avatar={
@@ -212,13 +214,19 @@ const QuestionContent = ({
                 }
                 className="py-2 px-4 bg-muted"
               />
-              <SyntaxHighlighter
-                language={block.language}
-                style={vscDarkPlus}
-                customStyle={{ margin: 0, borderRadius: 0, fontSize: "0.9rem" }}
-              >
-                {block.content}
-              </SyntaxHighlighter>
+              <div style={{ maxHeight: "300px", overflowY: "auto" }}>
+                <SyntaxHighlighter
+                  language={block.language}
+                  style={vscDarkPlus}
+                  customStyle={{
+                    margin: 0,
+                    borderRadius: 0,
+                    fontSize: "0.9rem",
+                  }}
+                >
+                  {block.content}
+                </SyntaxHighlighter>
+              </div>
             </Card>
           ))}
 

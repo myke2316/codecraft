@@ -183,6 +183,7 @@ export default function AnswerItem({
                 size="small"
                 className="mb-2"
               />
+                <div style={{ maxHeight: "300px", overflowY: "auto" }}>
               <SyntaxHighlighter
                 language={block.language}
                 style={atomDark}
@@ -197,6 +198,7 @@ export default function AnswerItem({
               >
                 {formatCode(block.content)}
               </SyntaxHighlighter>
+              </div>
             </Box>
           ))}
           {answer.author._id === user._id && answer.status === "pending" && (
