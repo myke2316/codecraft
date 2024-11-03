@@ -30,6 +30,7 @@ import {
   Home,
   Brightness4,
   Brightness7,
+  Download,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { addFile, removeFile } from "./sandboxSlice";
@@ -366,7 +367,7 @@ setInterval(function () {
               onClick={handleExportFiles}
               sx={{ color: mode === "light" ? "#1976d2" : "#e67e22" }}
             >
-              <FaFileExport />
+              <Download />
             </IconButton>
           </Tooltip>
         </Box>
@@ -452,7 +453,7 @@ setInterval(function () {
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
           <Button
             variant="contained"
-            startIcon={<Save />}
+            startIcon={<Download />}
             sx={{
               bgcolor: mode === "light" ? "#1976d2" : "#6e61ab",
               color: mode === "light" ? "#ffffff" : "#ecf0f1",

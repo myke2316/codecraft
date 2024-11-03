@@ -25,6 +25,7 @@ import { toast } from "react-toastify";
 
 const languageOptions = ["html", "css", "javascript", "php"];
 const MAX_CODE_BLOCKS = 6;
+const MAX_CONTENT_LENGTH = 200;
 export default function EditAnswerPage() {
   const { questionId, answerId } = useParams();
   const navigate = useNavigate();
@@ -154,6 +155,8 @@ export default function EditAnswerPage() {
           fullWidth
           required
           className="mb-4"
+          inputProps={{ maxLength: MAX_CONTENT_LENGTH }}
+          helperText={`${content.length}/${MAX_CONTENT_LENGTH} characters`}
         />
         {codeBlocks.map((block, index) => (
           <Paper key={index} elevation={2} className="p-4 mb-4">

@@ -16,7 +16,8 @@ import { toast } from "react-toastify";
 
 const MAX_CODE_BLOCKS = 6;
 const MAX_TAGS = 10;
-
+const MAX_TITLE_LENGTH = 50;
+const MAX_CONTENT_LENGTH = 1000;
 const QuestionForm = ({ userId, onSubmitSuccess }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -45,7 +46,9 @@ const QuestionForm = ({ userId, onSubmitSuccess }) => {
   };
 
   const handleRemoveTag = (tagToRemove) => {
-    setTags(tags.filter((tag) => tag.toLowerCase() !== tagToRemove.toLowerCase()));
+    setTags(
+      tags.filter((tag) => tag.toLowerCase() !== tagToRemove.toLowerCase())
+    );
   };
 
   const handleCodeBlockChange = (index, field, value) => {
@@ -117,6 +120,8 @@ const QuestionForm = ({ userId, onSubmitSuccess }) => {
         className="mb-4"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        inputProps={{ maxLength: MAX_TITLE_LENGTH }}
+        helperText={`${title.length}/${MAX_TITLE_LENGTH} characters`}
       />
       <TextField
         label="Content"
@@ -127,6 +132,8 @@ const QuestionForm = ({ userId, onSubmitSuccess }) => {
         className="mb-4"
         value={content}
         onChange={(e) => setContent(e.target.value)}
+        inputProps={{ maxLength: MAX_CONTENT_LENGTH }}
+        helperText={`${content.length}/${MAX_CONTENT_LENGTH} characters`}
       />
       <Typography variant="subtitle1" className="mb-2">
         Tags ({tags.length}/{MAX_TAGS})
@@ -158,7 +165,7 @@ const QuestionForm = ({ userId, onSubmitSuccess }) => {
             Add Tag
           </Button>
         </Box>
-    
+
         <Typography variant="caption" className="mt-2 block">
           Select from predefined tags or add your own (max {MAX_TAGS})
         </Typography>
@@ -169,7 +176,11 @@ const QuestionForm = ({ userId, onSubmitSuccess }) => {
               label={tag.toUpperCase()}
               onClick={() => handleAddTag(tag)}
               size="small"
-              color={tags.some((t) => t.toLowerCase() === tag.toLowerCase()) ? "primary" : "default"}
+              color={
+                tags.some((t) => t.toLowerCase() === tag.toLowerCase())
+                  ? "primary"
+                  : "default"
+              }
             />
           ))}
         </Box>

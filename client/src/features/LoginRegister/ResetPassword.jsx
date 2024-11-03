@@ -34,7 +34,7 @@ function ResetPassword() {
           validationSchema={Yup.object({
             password: Yup.string()
               .min(8, "Password too short.")
-              .max(20, "Password too long")
+              .max(30, "Password too long")
               .required("Password is required."),
             confirmPassword: Yup.string()
               .oneOf([Yup.ref("password"), null], "Passwords must match.")

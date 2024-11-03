@@ -21,7 +21,7 @@ import { Add as AddIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { Editor } from "@monaco-editor/react";
 
 const validationSchema = Yup.object().shape({
-  answerContent: Yup.string().required("Answer is required"),
+  answerContent: Yup.string().required("Answer is required").max(200,"Answer cannot exceed 200 characters"),
   codeBlocks: Yup.array()
     .of(
       Yup.object().shape({
@@ -89,7 +89,8 @@ const AnswerForm = ({
                 variant="outlined"
                 margin="normal"
                 error={touched.answerContent && errors.answerContent}
-                helperText={touched.answerContent && errors.answerContent}
+                helperText={`${answerContent.length}/200 characters`}
+               
                 onChange={(e) => {
                   setFieldValue("answerContent", e.target.value);
                   setAnswerContent(e.target.value);

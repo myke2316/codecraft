@@ -41,8 +41,8 @@ const targetClassOptions = [
 ];
 
 const AnnouncementSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
-  content: Yup.string().required("Content is required").max(4000, "Content cannot exceed 4000 characters"),
+  title: Yup.string().required("Title is required").max(50,"Title is too long. 50 characters is only allowed for title"),
+  content: Yup.string().required("Content is required").max(1500, "Content cannot exceed 1500 characters"),
   targetClass: Yup.string().required("Target class is required"),
 });
 
@@ -197,7 +197,7 @@ function TeacherAnnouncement() {
             <TableBody>
               {announcements.map((announcement) => (
                 <TableRow key={announcement._id}>
-                  <TableCell>{announcement.title}</TableCell>
+                  <TableCell>{announcement?.title?.substring(0, 35) + "..."}</TableCell>
                   <TableCell>
                     {announcement.target === "all"
                       ? "All Classes"

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useUserCompletedCourseQuery } from "../LoginRegister/userService";
 import { useFetchUserAnalyticsMutation } from "../Student/userAnalyticsService";
 import {
@@ -147,25 +147,24 @@ function ManageCertificate() {
   };
 
   // Filter and search logic for students
-  const filteredStudents = studentsWithPoints
-    .filter((student) => {
-      if (isAdmin) {
-        return true; // Admin sees all students
-      } else if (filterClass === "all") {
-        return classDetails.some((cls) => cls.students.includes(student._id));
-      } else {
+  const filteredStudents = useMemo(() => {
+    return studentsWithPoints
+      .filter((student) => {
+        if (isAdmin) return true;
+        if (filterClass === "all")
+          return classDetails.some((cls) => cls.students.includes(student._id));
         return classDetails
           .find((cls) => cls._id === filterClass)
           ?.students.includes(student._id);
-      }
-    })
-    .filter((student) => {
-      return (
-        student.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        student.email.toLowerCase().includes(searchQuery.toLowerCase())
+      })
+      .filter(
+        (student) =>
+          student.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          student.email.toLowerCase().includes(searchQuery.toLowerCase())
       );
-    });
-console.log(filteredStudents)
+  }, [studentsWithPoints, isAdmin, filterClass, classDetails, searchQuery]);
+
+  console.log(filteredStudents);
   if (isLoading || isSignatureLoading) {
     return (
       <div className="flex justify-center items-center h-64">
@@ -174,13 +173,21 @@ console.log(filteredStudents)
     );
   }
 
-  // if (error) {
-  //   return (
-  //     <div className="text-red-500 text-center">
-  //       Error fetching students: {error.message}
-  //     </div>
-  //   );
-  // }
+  const [sortOption, setSortOption] = useState("date");
+  // Sorting the students based on the selected option
+  const sortedStudents = useMemo(() => {
+    const studentsCopy = [...filteredStudents];
+    if (sortOption === "date") {
+      studentsCopy.sort(
+        (a, b) =>
+          new Date(b.courseDateFinished || b.updatedAt) -
+          new Date(a.courseDateFinished || a.updatedAt)
+      );
+    } else if (sortOption === "points") {
+      studentsCopy.sort((a, b) => b.totalPoints - a.totalPoints);
+    }
+    return studentsCopy;
+  }, [filteredStudents, sortOption]);
 
   return (
     <div className="p-6">
@@ -358,24 +365,39 @@ console.log(filteredStudents)
           )}
         </Formik>
       </Dialog>
-
+ 
       {/* Filter and Search Section */}
-      <div className="flex items-center mb-4 space-x-4">
-        {userDetails.role === 'teacher' ? (<FormControl variant="outlined">
-          <InputLabel>Filter by Class</InputLabel>
+    {/* Sort by Date and Points */}
+    <div className="flex items-center mb-4 space-x-4">
+        <FormControl variant="outlined">
+          <InputLabel>Sort by</InputLabel>
           <Select
-            value={filterClass}
-            onChange={(e) => setFilterClass(e.target.value)}
-            label="Filter by Class"
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+            label="Sort by"
           >
-            <MenuItem value="all">All Classes</MenuItem>
-            {classDetails?.map((cls) => (
-              <MenuItem key={cls._id} value={cls._id}>
-                {cls.className}
-              </MenuItem>
-            ))}
+            <MenuItem value="date">Date Finished</MenuItem>
+            <MenuItem value="points">Total Points</MenuItem>
           </Select>
-        </FormControl>): null}
+        </FormControl>
+
+        {userDetails.role === 'teacher' ? (
+          <FormControl variant="outlined">
+            <InputLabel>Filter by Class</InputLabel>
+            <Select
+              value={filterClass}
+              onChange={(e) => setFilterClass(e.target.value)}
+              label="Filter by Class"
+            >
+              <MenuItem value="all">All Classes</MenuItem>
+              {classDetails?.map((cls) => (
+                <MenuItem key={cls._id} value={cls._id}>
+                  {cls.className}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        ) : null}
 
         <TextField
           label="Search by Name or Email"
@@ -385,8 +407,8 @@ console.log(filteredStudents)
           fullWidth
         />
       </div>
-
-      {filteredStudents.length === 0 ? (
+ 
+      {sortedStudents.length === 0 ? (
         <Typography variant="body1" className="text-center mt-4 text-gray-500">
           No students found.
         </Typography>
@@ -396,20 +418,14 @@ console.log(filteredStudents)
             <TableHead>
               <TableRow>
                 <TableCell className="bg-gray-100 font-bold">#</TableCell>
-                <TableCell className="bg-gray-100 font-bold">
-                  Student Name
-                </TableCell>
+                <TableCell className="bg-gray-100 font-bold">Student Name</TableCell>
                 <TableCell className="bg-gray-100 font-bold">Email</TableCell>
-                <TableCell className="bg-gray-100 font-bold">
-                  Total Points
-                </TableCell>
-                <TableCell className="bg-gray-100 font-bold">
-                  Date Finished
-                </TableCell>
+                <TableCell className="bg-gray-100 font-bold">Total Points</TableCell>
+                <TableCell className="bg-gray-100 font-bold">Date Finished</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredStudents.map((student, index) => (
+              {sortedStudents.map((student, index) => (
                 <TableRow
                   key={student._id}
                   className="hover:bg-gray-50 transition duration-300"
@@ -419,7 +435,7 @@ console.log(filteredStudents)
                   <TableCell>{student.email}</TableCell>
                   <TableCell>{student.totalPoints} Points</TableCell>
                   <TableCell>
-                    {student?.courseDateFinished ? formatDate(student?.courseDateFinished) :formatDate(student?.updatedAt)}
+                    {student?.courseDateFinished ? formatDate(student?.courseDateFinished) : formatDate(student?.updatedAt)}
                   </TableCell>
                 </TableRow>
               ))}

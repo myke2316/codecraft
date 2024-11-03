@@ -242,7 +242,7 @@ function AdminQna() {
         <Tab label="Questions" />
         <Tab label="Answers" />
       </Tabs>
-      <Alert sx={{ mb: "20px" }} severity = "warning">
+      <Alert sx={{ mb: "20px" }} severity="warning">
         Denied Users will be automatically deleted in 10 hours
       </Alert>
       {currentTab === 1 && (
@@ -337,9 +337,21 @@ function AdminQna() {
                           }
                           color="primary"
                         >
-                          {currentTab === 0
-                            ? item.title
-                            : item.content.substring(0, 50) + "..."}
+                          <Typography
+                            variant="button"
+                            noWrap
+                            sx={{
+                              maxWidth: "100%",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              display: "inline-block",
+                            }}
+                          >
+                            {currentTab === 0
+                              ? item?.title?.substring(0, 50) + "..."
+                              : item?.content?.substring(0, 50) + "..."}
+                          </Typography>
                         </Button>
                       </TableCell>
                       {console.log(item)}
@@ -619,10 +631,10 @@ function AdminQna() {
       <Dialog open={openConfirmDialog} onClose={handleCloseDialog}>
         <DialogTitle>
           {currentAction === "accepted"
-              ? "Approve Item"
-              : currentAction === "denied"
-              ? "Deny Item "
-              : "Revert Item"}
+            ? "Approve Item"
+            : currentAction === "denied"
+            ? "Deny Item "
+            : "Revert Item"}
         </DialogTitle>
         <DialogContent>
           <Typography className="mt-4">

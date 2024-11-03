@@ -25,7 +25,8 @@ import { toast } from "react-toastify";
 
 const MAX_TAGS = 5;
 const MAX_CODE_BLOCKS = 6;
-
+const MAX_TITLE_LENGTH = 50;
+const MAX_CONTENT_LENGTH = 1000;
 const EditQuestionPage = () => {
   const { id } = useParams();
   const location = useLocation();
@@ -165,6 +166,8 @@ const EditQuestionPage = () => {
                 className: "bg-input dark:bg-input-dark text-foreground dark:text-foreground-dark",
               }}
               required
+              inputProps={{ maxLength: MAX_TITLE_LENGTH }}
+        helperText={`${title.length}/${MAX_TITLE_LENGTH} characters`}
             />
             <TextField
               label="Content"
@@ -179,6 +182,8 @@ const EditQuestionPage = () => {
                 className: "bg-input dark:bg-input-dark text-foreground dark:text-foreground-dark",
               }}
               required
+              inputProps={{ maxLength: MAX_CONTENT_LENGTH }}
+              helperText={`${content.length}/${MAX_CONTENT_LENGTH} characters`}
             />
           </Box>
           <Box className="mb-4">

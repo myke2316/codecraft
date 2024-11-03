@@ -269,7 +269,7 @@ const QuestionList = ({ userId }) => {
                         variant="h6"
                         className="font-bold mb-2 text-blue-600 hover:text-blue-800"
                       >
-                        {question.title}
+                        {question?.title?.substring(0,40) + "..."}
                       </Typography>
                       <Box className="flex flex-wrap gap-1 mb-3">
                         {question.tags.map((tag) => (

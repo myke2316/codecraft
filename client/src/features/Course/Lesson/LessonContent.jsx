@@ -47,9 +47,11 @@ function LessonContent() {
   const quizSubmission = quizSubmissions.courses.find(
     (course) => course.courseId === courseId
   );
-  const lessonSubmission = quizSubmission?.lessons.find((lesson) => lesson.lessonId === lessonId);
- 
-  console.log(lessonSubmission)
+  const lessonSubmission = quizSubmission?.lessons.find(
+    (lesson) => lesson.lessonId === lessonId
+  );
+
+  console.log(lessonSubmission);
   const courses = useSelector((state) => state.course.courseData);
   const userProgress = useSelector(
     (state) => state.studentProgress.userProgress
@@ -107,23 +109,25 @@ function LessonContent() {
   ).length;
 
   const totalDocuments = lesson.documents.length;
-  const totalQuizzes = 1;
+  const totalQuizzes = lesson.quiz.length > 0 ? 1 : 0;
   const totalActivities = lesson.activities.length;
   const totalItems = totalDocuments + totalQuizzes + totalActivities;
   const completedItems =
     completedDocuments + completedQuiz + completedActivities;
   const progressPercentage = (completedItems / totalItems) * 100;
+
   const quizProgress = lessonProgress.quizzesProgress[0];
   const quizScore = quizProgress?.locked
     ? "Locked"
     : `${quizProgress?.pointsEarned} Points Earned`;
 
-
-  const quizAnswerCheck = lessonSubmission.quizzes.every(q => q.selectedOption !== null)
-  console.log(quizAnswerCheck)
+  const quizAnswerCheck = lessonSubmission.quizzes.every(
+    (q) => q.selectedOption !== null
+  );
+  console.log(quizAnswerCheck);
 
   const handleClick = (id) => navigate(`document/${id}`);
-  
+
   const handleQuizClick = () => navigate(`quiz/${quiz[0]._id}`);
   const handleActivityClick = (id) => navigate(`activity/${id}`);
 
@@ -332,191 +336,210 @@ function LessonContent() {
 
           {/* Quiz */}
           {quiz.length > 0 && (
-  <Grid item xs={12} md={6}>
-    <Card className="overflow-hidden shadow-md h-full">
-      <CardContent>
-        <Box className="flex justify-between items-center mb-4">
-          <Typography variant="h5" className="font-semibold text-gray-700">
-            Quiz
-          </Typography>
-          <IconButton onClick={() => toggleSection("quiz")} size="small">
-            {expandedSections.quiz ? <ExpandLess /> : <ExpandMore />}
-          </IconButton>
-        </Box>
-        <AnimatePresence>
-          {expandedSections.quiz && (
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              variants={listItemVariants}
-              transition={{ duration: 0.3 }}
-            >
-              <Box className="flex flex-col sm:flex-row items-start p-4 rounded-lg transition-all duration-300 bg-white hover:bg-gray-50 shadow-sm">
-                <QuizIcon className="mr-4 text-yellow-500" />
-                <Box className="flex-1">
-                  <Typography
-                    variant="subtitle1"
-                    className="font-semibold overflow-hidden whitespace-nowrap text-ellipsis"
-                    title="Take the Quiz" // Show full title on hover
-                  >
-                    Take the Quiz
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    className="text-gray-600 overflow-hidden whitespace-nowrap text-ellipsis"
-                    title={
-                      quizProgress?.locked
-                        ? "Locked"
-                        : quizAnswerCheck
-                        ? "Finished"
-                        : "In Progress"
-                    } // Show full status on hover
-                  >
-                    Status:{" "}
-                    {quizProgress?.locked
-                      ? "Locked"
-                      : quizAnswerCheck
-                      ? "Finished"
-                      : "In Progress"}
-                  </Typography>
-                </Box>
-                <Button
-                  variant="contained"
-                  color={
-                    quizProgress?.locked ? "inherit" : "secondary"
-                  }
-                  onClick={
-                    quizProgress?.locked ? null : handleQuizClick
-                  }
-                  disabled={quizProgress?.locked}
-                  className="transition-all duration-300 hover:scale-105 w-full sm:w-auto mt-2 sm:mt-0"
-                >
-                  {quizProgress?.locked
-                    ? "Locked"
-                    : quizAnswerCheck
-                    ? "Review Quiz"
-                    : "Take Quiz"}
-                </Button>
-              </Box>
-            </motion.div>
+            <Grid item xs={12} md={6}>
+              <Card className="overflow-hidden shadow-md h-full">
+                <CardContent>
+                  <Box className="flex justify-between items-center mb-4">
+                    <Typography
+                      variant="h5"
+                      className="font-semibold text-gray-700"
+                    >
+                      Quiz
+                    </Typography>
+                    <IconButton
+                      onClick={() => toggleSection("quiz")}
+                      size="small"
+                    >
+                      {expandedSections.quiz ? <ExpandLess /> : <ExpandMore />}
+                    </IconButton>
+                  </Box>
+                  <AnimatePresence>
+                    {expandedSections.quiz && (
+                      <motion.div
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                        variants={listItemVariants}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <Box className="flex flex-col sm:flex-row items-start p-4 rounded-lg transition-all duration-300 bg-white hover:bg-gray-50 shadow-sm">
+                          <QuizIcon className="mr-4 text-yellow-500" />
+                          <Box className="flex-1">
+                            <Typography
+                              variant="subtitle1"
+                              className="font-semibold overflow-hidden whitespace-nowrap text-ellipsis"
+                              title="Take the Quiz" // Show full title on hover
+                            >
+                              Take the Quiz
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              className="text-gray-600 overflow-hidden whitespace-nowrap text-ellipsis"
+                              title={
+                                quizProgress?.locked
+                                  ? "Locked"
+                                  : quizAnswerCheck
+                                  ? "Finished"
+                                  : "In Progress"
+                              } // Show full status on hover
+                            >
+                              Status:{" "}
+                              {quizProgress?.locked
+                                ? "Locked"
+                                : quizAnswerCheck
+                                ? "Finished"
+                                : "In Progress"}
+                            </Typography>
+                          </Box>
+                          <Button
+                            variant="contained"
+                            color={
+                              quizProgress?.locked ? "inherit" : "secondary"
+                            }
+                            onClick={
+                              quizProgress?.locked ? null : handleQuizClick
+                            }
+                            disabled={quizProgress?.locked}
+                            className="transition-all duration-300 hover:scale-105 w-full sm:w-auto mt-2 sm:mt-0"
+                          >
+                            {quizProgress?.locked
+                              ? "Locked"
+                              : quizAnswerCheck
+                              ? "Review Quiz"
+                              : "Take Quiz"}
+                          </Button>
+                        </Box>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </CardContent>
+              </Card>
+            </Grid>
           )}
-        </AnimatePresence>
-      </CardContent>
-    </Card>
-  </Grid>
-)}
-
 
           {/* Coding Activities */}
           {activities.length > 0 && (
-  <Grid item xs={12} md={6}>
-    <Card className="overflow-hidden shadow-md h-full">
-      <CardContent>
-        <Box className="flex justify-between items-center mb-4">
-          <Typography variant="h5" className="font-semibold text-gray-700">
-            Coding Activities
-          </Typography>
-          <IconButton onClick={() => toggleSection("activities")} size="small">
-            {expandedSections.activities ? <ExpandLess /> : <ExpandMore />}
-          </IconButton>
-        </Box>
-        <AnimatePresence>
-          {expandedSections.activities && (
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              variants={{
-                visible: { transition: { staggerChildren: 0.1 } },
-              }}
-            >
-              {activities.map((activity) => {
-                const activityProgress =
-                  lessonProgress.activitiesProgress.find(
-                    (ap) => ap.activityId.toString() === activity._id.toString()
-                  );
-                return (
-                  <motion.div
-                    key={activity._id}
-                    variants={listItemVariants}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <Box
-                      className={`flex flex-col sm:flex-row items-start p-4 rounded-lg mb-4 transition-all duration-300 ${
-                        activityProgress?.locked
-                          ? "bg-gray-200"
-                          : "bg-white hover:bg-gray-50"
-                      } shadow-sm`}
+            <Grid item xs={12} md={6}>
+              <Card className="overflow-hidden shadow-md h-full">
+                <CardContent>
+                  <Box className="flex justify-between items-center mb-4">
+                    <Typography
+                      variant="h5"
+                      className="font-semibold text-gray-700"
                     >
-                      <Code className="mr-4 text-green-500" />
-                      <Box className="flex-1">
-                        <Typography
-                          variant="subtitle1"
-                          className="font-semibold overflow-hidden whitespace-nowrap text-ellipsis"
-                          title={activity.title} // Show full title on hover
-                        >
-                          {activity.title}
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          className="flex items-center text-gray-600 overflow-hidden whitespace-nowrap text-ellipsis"
-                          title={
-                            activityProgress?.locked
-                              ? "Locked"
-                              : activityProgress?.dateFinished !== null
-                              ? "Completed"
-                              : "In Progress"
-                          } // Show full status on hover
-                        >
-                          {activityProgress?.locked ? (
-                            <>
-                              <Lock className="w-4 h-4 mr-1" /> Locked
-                            </>
-                          ) : activityProgress?.dateFinished ? (
-                            <>
-                              <CheckCircle className="w-4 h-4 mr-1 text-green-500" />{" "}
-                              Completed
-                            </>
-                          ) : (
-                            <>
-                              <AccessTime className="w-4 h-4 mr-1 text-yellow-500" />{" "}
-                              In Progress
-                            </>
-                          )}
-                        </Typography>
-                      </Box>
-                      <Button
-                        variant="contained"
-                        color={
-                          activityProgress?.locked ? "inherit" : "secondary"
-                        }
-                        onClick={
-                          activityProgress?.locked
-                            ? null
-                            : () => handleActivityClick(activity._id)
-                        }
-                        disabled={activityProgress?.locked}
-                        className="transition-all duration-300 hover:scale-105 w-full sm:w-auto mt-2 sm:mt-0"
+                      Coding Activities
+                    </Typography>
+                    <IconButton
+                      onClick={() => toggleSection("activities")}
+                      size="small"
+                    >
+                      {expandedSections.activities ? (
+                        <ExpandLess />
+                      ) : (
+                        <ExpandMore />
+                      )}
+                    </IconButton>
+                  </Box>
+                  <AnimatePresence>
+                    {expandedSections.activities && (
+                      <motion.div
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                        variants={{
+                          visible: { transition: { staggerChildren: 0.1 } },
+                        }}
                       >
-                        {activityProgress?.locked
-                          ? "Locked"
-                          : activityProgress?.dateFinished !== null
-                          ? "Open Activity"
-                          : "Start Activity"}
-                      </Button>
-                    </Box>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
+                        {activities.map((activity) => {
+                          const activityProgress =
+                            lessonProgress.activitiesProgress.find(
+                              (ap) =>
+                                ap.activityId.toString() ===
+                                activity._id.toString()
+                            );
+                          return (
+                            <motion.div
+                              key={activity._id}
+                              variants={listItemVariants}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <Box
+                                className={`flex flex-col sm:flex-row items-start p-4 rounded-lg mb-4 transition-all duration-300 ${
+                                  activityProgress?.locked
+                                    ? "bg-gray-200"
+                                    : "bg-white hover:bg-gray-50"
+                                } shadow-sm`}
+                              >
+                                <Code className="mr-4 text-green-500" />
+                                <Box className="flex-1">
+                                  <Typography
+                                    variant="subtitle1"
+                                    className="font-semibold overflow-hidden whitespace-nowrap text-ellipsis"
+                                    title={activity.title} // Show full title on hover
+                                  >
+                                    {activity.title}
+                                  </Typography>
+                                  <Typography
+                                    variant="body2"
+                                    className="flex items-center text-gray-600 overflow-hidden whitespace-nowrap text-ellipsis"
+                                    title={
+                                      activityProgress?.locked
+                                        ? "Locked"
+                                        : activityProgress?.dateFinished !==
+                                          null
+                                        ? "Completed"
+                                        : "In Progress"
+                                    } // Show full status on hover
+                                  >
+                                    {activityProgress?.locked ? (
+                                      <>
+                                        <Lock className="w-4 h-4 mr-1" /> Locked
+                                      </>
+                                    ) : activityProgress?.dateFinished ? (
+                                      <>
+                                        <CheckCircle className="w-4 h-4 mr-1 text-green-500" />{" "}
+                                        Completed
+                                      </>
+                                    ) : (
+                                      <>
+                                        <AccessTime className="w-4 h-4 mr-1 text-yellow-500" />{" "}
+                                        In Progress
+                                      </>
+                                    )}
+                                  </Typography>
+                                </Box>
+                                <Button
+                                  variant="contained"
+                                  color={
+                                    activityProgress?.locked
+                                      ? "inherit"
+                                      : "secondary"
+                                  }
+                                  onClick={
+                                    activityProgress?.locked
+                                      ? null
+                                      : () => handleActivityClick(activity._id)
+                                  }
+                                  disabled={activityProgress?.locked}
+                                  className="transition-all duration-300 hover:scale-105 w-full sm:w-auto mt-2 sm:mt-0"
+                                >
+                                  {activityProgress?.locked
+                                    ? "Locked"
+                                    : activityProgress?.dateFinished !== null
+                                    ? "Open Activity"
+                                    : "Start Activity"}
+                                </Button>
+                              </Box>
+                            </motion.div>
+                          );
+                        })}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </CardContent>
+              </Card>
+            </Grid>
           )}
-        </AnimatePresence>
-      </CardContent>
-    </Card>
-  </Grid>
-)}
-
         </Grid>
       </Box>
     </ThemeProvider>

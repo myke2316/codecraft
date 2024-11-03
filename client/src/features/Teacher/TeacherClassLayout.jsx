@@ -167,7 +167,7 @@ export default function TeacherClassLayout() {
             color: "white",
           }}
         >
-          {selectedClass.className || "Class Name"}
+          {selectedClass?.className?.substring(0, 10) + "..." || "Class Name"}
         </Typography>
         <Typography
           variant="body2"

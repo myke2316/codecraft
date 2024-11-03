@@ -256,10 +256,12 @@ function SignUp() {
             password: Yup.string()
               .min(8, "Password too short")
               .max(20, "Password too long")
-              .required("Password is Required"),
+              .required("Password is Required")
+              .matches(/^\S*$/, "Password cannot contain spaces"),
             confirmpassword: Yup.string()
               .oneOf([Yup.ref("password"), null], "Passwords do not match")
-              .required("Confirm Password is Required"),
+              .required("Confirm Password is Required")
+              .matches(/^\S*$/, "Password cannot contain spaces"),
             role: Yup.string().required("Role is Required"),
           })}
           onSubmit={handleRegister}

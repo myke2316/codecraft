@@ -218,7 +218,7 @@ const ClassLists = () => {
                     transition={{ delay: 0.2, duration: 0.5 }}
                     sx={{ fontWeight: "bold", mb: 2, position: "relative" }}
                   >
-                    {classItem.className}
+                    {classItem?.className?.substring(0, 10) + "..."}
                   </MotionTypography>
                   <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
                     <Tooltip title={copiedId === classItem._id ? "Copied!" : "Copy Invite Code"} arrow>

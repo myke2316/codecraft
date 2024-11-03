@@ -24,7 +24,7 @@ const generateInviteCode = () => {
 };
 
 const validationSchema = Yup.object({
-  className: Yup.string().required("Class Name is required"),
+  className: Yup.string().required("Class Name is required").max(20, "Class name cannot exceed 20 characters"),
   inviteCode: Yup.string().required("Invite Code is required"),
 });
 

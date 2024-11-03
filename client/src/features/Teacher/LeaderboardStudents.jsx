@@ -203,7 +203,7 @@ const LeaderboardStudents = ({ students, classId }) => {
                       </p>
                       {userRole === "teacher" && (
                         <p className="text-xs sm:text-sm text-gray-600">
-                          {student.email}
+                          {/* {student.email} */}
                         </p>
                       )}
                     </div>
