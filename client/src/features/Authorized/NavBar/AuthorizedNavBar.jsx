@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate,useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useLogoutMutation } from "../../LoginRegister/userService";
 import { toast } from "react-toastify";
 import { logout } from "../../LoginRegister/userSlice";
@@ -37,7 +37,7 @@ import {
 } from "@mui/icons-material";
 import { motion, AnimatePresence } from "framer-motion";
 import { formatDate } from "../../../utils/formatDate";
-
+import DashboardIcon from '@mui/icons-material/Dashboard';
 const drawerVariants = {
   open: { width: 240, transition: { duration: 0.3 } },
   closed: { width: 60, transition: { duration: 0.3 } },
@@ -116,10 +116,16 @@ export default function AuthorizedSidebar({
       items = [
         { text: "Classes", icon: <ClassIcon />, link: "/classes" },
         {
+          text: "Classes Dashboard",
+          icon: <DashboardIcon />,
+          link: "/classes/dashboard",
+        },
+        {
           text: "Manage Certificate",
           icon: <Article />,
           link: "/certificate/teacher/manage",
         },
+
         {
           text: "Forum",
           icon: <QnAIcon />,
@@ -319,7 +325,7 @@ export default function AuthorizedSidebar({
         </List>
         <Box sx={{ flexGrow: 1 }} />
         <Divider sx={{ bgcolor: mode === "light" ? "#e0e0e0" : "#000" }} />
-       
+
         {(userInfo.isDeleted ||
           userInfo?.[0]?.isDeleted ||
           userInfo?.userData?.[0]?.isDeleted) && (

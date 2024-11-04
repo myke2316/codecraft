@@ -319,7 +319,7 @@ function TeacherEditClass() {
                             </TableSortLabel>
                           </TableCell>
                           <TableCell sx={{ color: "white" }}>Email</TableCell>
-                          
+
                           <TableCell sx={{ color: "white" }}>Action</TableCell>
                         </TableRow>
                       </TableHead>
@@ -328,8 +328,7 @@ function TeacherEditClass() {
                           <TableRow key={student._id}>
                             <TableCell>{student.username}</TableCell>
                             <TableCell>{student.email}</TableCell>
-                          
-                           
+
                             <TableCell>
                               <Button
                                 onClick={() =>
@@ -361,56 +360,56 @@ function TeacherEditClass() {
               )}
             </div>
             <div
-      className="flex flex-col md:flex-row justify-end space-y-4 md:space-y-0 md:space-x-4"
-      style={{ padding: '1rem' }} // Add padding for better spacing
-    >
-      <Button
-        type="submit"
-        disabled={isSubmitting}
-        variant="contained"
-        sx={{
-          backgroundColor: "#6e61ab", // Set custom background color
-          color: "#fff", // Optional: Set text color for better contrast
-          padding: '12px',
-          fontSize: { xs: '0.9rem', md: '1rem' },
-          '&:hover': {
-            backgroundColor: "#8f9ed8", // Optional: Darker shade on hover
-          },
-        }}
-      >
-        Update Class Name
-      </Button>
-      <Button
-        onClick={() => navigate(`/${classId}/class/classHome`)}
-        variant="contained"
-        sx={{
-          backgroundColor: "#4b3987", // Set custom background color
-          color: "#fff", // Optional: Set text color for better contrast
-          padding: '12px',
-          fontSize: { xs: '0.9rem', md: '1rem' },
-          '&:hover': {
-            backgroundColor: "#8f9ed8", // Optional: Darker shade on hover
-          },
-        }}
-      >
-        Done
-      </Button>
-      <Button
-        onClick={handleOpenDeleteClassDialog}
-        variant="contained"
-        sx={{
-          backgroundColor: "	#6e61ab", // Set custom background color
-          color: "#fff", // Optional: Set text color for better contrast
-          padding: '12px',
-          fontSize: { xs: '0.9rem', md: '1rem' },
-          '&:hover': {
-            backgroundColor: "#8f9ed8", // Optional: Darker shade on hover
-          },
-        }}
-      >
-        Delete Class
-      </Button>
-    </div>
+              className="flex flex-col md:flex-row justify-end space-y-4 md:space-y-0 md:space-x-4"
+              style={{ padding: "1rem" }} // Add padding for better spacing
+            >
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                variant="contained"
+                sx={{
+                  backgroundColor: "#6e61ab", // Set custom background color
+                  color: "#fff", // Optional: Set text color for better contrast
+                  padding: "12px",
+                  fontSize: { xs: "0.9rem", md: "1rem" },
+                  "&:hover": {
+                    backgroundColor: "#8f9ed8", // Optional: Darker shade on hover
+                  },
+                }}
+              >
+                Update Class Name
+              </Button>
+              <Button
+                onClick={() => navigate(`/${classId}/class/classHome`)}
+                variant="contained"
+                sx={{
+                  backgroundColor: "#4b3987", // Set custom background color
+                  color: "#fff", // Optional: Set text color for better contrast
+                  padding: "12px",
+                  fontSize: { xs: "0.9rem", md: "1rem" },
+                  "&:hover": {
+                    backgroundColor: "#8f9ed8", // Optional: Darker shade on hover
+                  },
+                }}
+              >
+                Done
+              </Button>
+              <Button
+                onClick={handleOpenDeleteClassDialog}
+                variant="contained"
+                sx={{
+                  backgroundColor: "	#6e61ab", // Set custom background color
+                  color: "#fff", // Optional: Set text color for better contrast
+                  padding: "12px",
+                  fontSize: { xs: "0.9rem", md: "1rem" },
+                  "&:hover": {
+                    backgroundColor: "#8f9ed8", // Optional: Darker shade on hover
+                  },
+                }}
+              >
+                Delete Class
+              </Button>
+            </div>
           </Form>
         )}
       </Formik>

@@ -5,7 +5,10 @@ import { useNavigate } from "react-router";
 import {
   useLogoutMutation,
   useEditUsernameMutation,
+  useDeleteUserMutation,
+  usePermanentDeleteMutation,
 } from "../../features/LoginRegister/userService";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { logout, editUsername } from "../../features/LoginRegister/userSlice";
 import {
   Container,
@@ -25,13 +28,15 @@ import {
   IconButton,
   Tooltip,
   Fade,
+  Alert,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import EditIcon from "@mui/icons-material/Edit";
-import LogoutIcon from "@mui/icons-material/Logout";
 import EmailIcon from "@mui/icons-material/Email";
 import BadgeIcon from "@mui/icons-material/Badge";
 import SchoolIcon from "@mui/icons-material/School";
+import * as Yup from "yup";
+import { formatDate } from "../../utils/formatDate";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -75,9 +80,11 @@ function TeacherProfilePage() {
   const user = useSelector((state) => state.user.userDetails);
   const [logoutApi] = useLogoutMutation();
   const [editUsernameApi] = useEditUsernameMutation();
-
-  const [newUsername, setNewUsername] = useState(user.username || "");
   const [openDialog, setOpenDialog] = useState(false);
+  const [userDelete] = useDeleteUserMutation();
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [confirmationText, setConfirmationText] = useState("");
+  const [permanentlyDeleteUser] = usePermanentDeleteMutation();
 
   async function handleLogout() {
     try {
@@ -90,8 +97,26 @@ function TeacherProfilePage() {
     }
   }
 
-  async function handleEditUsername(e) {
-    e.preventDefault();
+  const handleRemoveUser = async () => {
+    try {
+      await permanentlyDeleteUser(user._id).unwrap();
+      toast.success("User permanently deleted!");
+      dispatch(logout());
+      navigate("/login");
+    } catch (error) {
+      console.error("Error permanently deleting user:", error);
+      toast.error("Failed to permanently delete user.");
+    } finally {
+      setOpenDeleteDialog(false);
+      setConfirmationText("");
+    }
+  };
+
+  async function handleEditUsername(values) {
+    const { givenName, middleInitial, lastName } = values;
+    const newUsername = middleInitial
+      ? `${givenName} ${middleInitial.toUpperCase()} ${lastName}`
+      : `${givenName} ${lastName}`;
     try {
       await editUsernameApi({
         userId: user._id,
@@ -101,9 +126,36 @@ function TeacherProfilePage() {
       toast.success("Username updated successfully");
       setOpenDialog(false);
     } catch (error) {
-      toast.error("Failed to update username. Please try again.");
+      console.log(error);
+      toast.error(error.data.error);
     }
   }
+
+  const validationSchema = Yup.object().shape({
+    givenName: Yup.string()
+      .matches(
+        /^[A-Za-z]+(?:[-'\s][A-Za-z]+)*$/,
+        "Please enter a valid given name (e.g., 'John', 'Mary-Jane', 'Maria Alexandria')"
+      )
+      .min(2, "Given name must be at least 2 characters long")
+      .max(20, "Given name must be at most 20 characters long")
+      .required("Given name is required"),
+    middleInitial: Yup.string()
+      .matches(
+        /^[A-Za-z]?$/,
+        "Please enter a valid middle initial (e.g., 'A', 'B') or leave blank"
+      )
+      .max(1, "Middle initial must be a single letter")
+      .notRequired(),
+    lastName: Yup.string()
+      .matches(
+        /^[A-Za-z]+(?:[-'\s][A-Za-z]+)*$/,
+        "Please enter a valid last name (e.g., 'Castillo', 'De La Cruz')"
+      )
+      .min(2, "Last name must be at least 2 characters long")
+      .max(18, "Last name must be at most 18 characters long")
+      .required("Last name is required"),
+  });
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
@@ -124,10 +176,12 @@ function TeacherProfilePage() {
                   color="#6e61ab"
                   onClick={() => setOpenDialog(true)}
                   sx={{ mt: 1 }}
+                  disabled={user.isDeleted || user?.[0]?.isDeleted || user?.userData?.[0]?.isDeleted}
                 >
                   <EditIcon />
                 </IconButton>
               </Tooltip>
+              
             </StyledPaper>
           </Grid>
           <Grid item xs={12} md={8}>
@@ -165,48 +219,123 @@ function TeacherProfilePage() {
                   </InfoItem>
                 </Grid>
               </Grid>
-            
             </StyledPaper>
           </Grid>
         </Grid>
       </Fade>
 
-      <Dialog 
-        open={openDialog} 
+      <Dialog
+        open={openDialog}
         onClose={() => setOpenDialog(false)}
         PaperProps={{
           style: {
-            borderRadius: '16px',
-            padding: '16px',
+            borderRadius: "16px",
+            padding: "16px",
           },
         }}
       >
         <DialogTitle>Edit Username</DialogTitle>
+        <Formik
+          initialValues={{
+            givenName: "",
+            middleInitial: "",
+            lastName: "",
+          }}
+          validationSchema={validationSchema}
+          onSubmit={handleEditUsername}
+        >
+          {({ errors, touched }) => (
+            <Form>
+              <DialogContent>
+                <Field name="givenName">
+                  {({ field }) => (
+                    <TextField
+                      {...field}
+                      label="New Given Name"
+                      variant="outlined"
+                      fullWidth
+                      error={touched.givenName && !!errors.givenName}
+                      helperText={touched.givenName && errors.givenName}
+                      sx={{ mt: 2 }}
+                    />
+                  )}
+                </Field>
+                <Field name="middleInitial">
+                  {({ field }) => (
+                    <TextField
+                      {...field}
+                      label="New Middle Initial"
+                      variant="outlined"
+                      fullWidth
+                      error={touched.middleInitial && !!errors.middleInitial}
+                      helperText={touched.middleInitial && errors.middleInitial}
+                      sx={{ mt: 2 }}
+                    />
+                  )}
+                </Field>
+                <Field name="lastName">
+                  {({ field }) => (
+                    <TextField
+                      {...field}
+                      label="New Last Name"
+                      variant="outlined"
+                      fullWidth
+                      error={touched.lastName && !!errors.lastName}
+                      helperText={touched.lastName && errors.lastName}
+                      sx={{ mt: 2 }}
+                    />
+                  )}
+                </Field>
+
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  sx={{ mt: 2 }}
+                >
+                  Submit
+                </Button>
+                <Button onClick={() => setOpenDialog(false)} color="inherit" sx={{ mt: 2, ml: 2 }}>
+                  Cancel
+                </Button>
+              </DialogContent>
+            </Form>
+          )}
+        </Formik>
+      </Dialog>
+
+      {/* Delete User Confirmation Dialog */}
+      <Dialog
+        open={openDeleteDialog}
+        onClose={() => setOpenDeleteDialog(false)}
+      >
+        <DialogTitle>Confirm Deletion</DialogTitle>
         <DialogContent>
+          <Typography>
+            Are you sure you want to delete your account? This action cannot be
+            undone.{" "}
+            <Alert severity="error">All of your data will be removed.</Alert>{" "}
+            Please type the confirmation text to proceed deleting the account.
+          </Typography>
           <TextField
-            label="New Username"
-            variant="outlined"
+            autoFocus
+            margin="dense"
+            label="Type DELETEACCOUNTCONFIRMATION"
+            type="text"
             fullWidth
-            value={newUsername}
-            onChange={(e) => setNewUsername(e.target.value)}
-            sx={{ mt: 2 }}
+            variant="outlined"
+            value={confirmationText}
+            onChange={(e) => setConfirmationText(e.target.value)}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenDialog(false)} color="inherit">
-            Cancel
-          </Button>
-          <Button 
-            onClick={handleEditUsername} 
-            variant="contained" 
-            color="primary"
-            sx={{
-              borderRadius: '8px',
-              textTransform: 'none',
-              fontWeight: 'bold',
-            }}
+          <Button onClick={() => setOpenDeleteDialog(false)}>Cancel</Button>
+          <Button
+            onClick={handleRemoveUser}
+            color="error"
+            disabled={confirmationText !== "DELETEACCOUNTCONFIRMATION"}
           >
-            Save
+            Delete
           </Button>
         </DialogActions>
       </Dialog>

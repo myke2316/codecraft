@@ -256,6 +256,7 @@ function ManageCertificate() {
                   label="Name"
                   fullWidth
                   variant="outlined"
+                  inputProps={{ maxLength: 40 }}
                 />
                 {errors.teacherName && touched.teacherName && (
                   <div className="text-red-500">{errors.teacherName}</div>
@@ -401,16 +402,30 @@ function ManageCertificate() {
         <TableContainer component={Paper} elevation={3}>
           <Table stickyHeader>
             <TableHead>
-              <TableRow >
-                <TableCell  sx={{ bgcolor: "rgb(110, 97, 171)", color: "white" }}>#</TableCell>
-                <TableCell  sx={{ bgcolor: "rgb(110, 97, 171)", color: "white" }}>
+              <TableRow>
+                <TableCell
+                  sx={{ bgcolor: "rgb(110, 97, 171)", color: "white" }}
+                >
+                  #
+                </TableCell>
+                <TableCell
+                  sx={{ bgcolor: "rgb(110, 97, 171)", color: "white" }}
+                >
                   Student Name
                 </TableCell>
-                <TableCell  sx={{ bgcolor: "rgb(110, 97, 171)", color: "white" }}>Email</TableCell>
-                <TableCell  sx={{ bgcolor: "rgb(110, 97, 171)", color: "white" }}>
+                <TableCell
+                  sx={{ bgcolor: "rgb(110, 97, 171)", color: "white" }}
+                >
+                  Email
+                </TableCell>
+                <TableCell
+                  sx={{ bgcolor: "rgb(110, 97, 171)", color: "white" }}
+                >
                   Total Points
                 </TableCell>
-                <TableCell  sx={{ bgcolor: "rgb(110, 97, 171)", color: "white" }}>
+                <TableCell
+                  sx={{ bgcolor: "rgb(110, 97, 171)", color: "white" }}
+                >
                   Date Finished
                 </TableCell>
               </TableRow>

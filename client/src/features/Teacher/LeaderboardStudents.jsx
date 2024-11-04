@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useGetScoreByStudentIdQuery } from "../Class/submissionAssignmentService";
 import { useGetUserVoteQuery } from "../QnA/questionService";
@@ -11,7 +11,7 @@ const LeaderboardStudents = ({ students, classId }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState(""); // State for search term
   const studentsPerPage = 10;
-
+ 
   const userRole = useSelector((state) => state.user.userDetails.role);
 
   useEffect(() => {
@@ -28,14 +28,14 @@ const LeaderboardStudents = ({ students, classId }) => {
   };
 
   // Create a mapping of student IDs to scores and votes
-  const studentData = students.map(student => {
+  const studentData = students.map((student) => {
     const scoreData = useGetScoreByStudentIdQuery(student._id);
     const voteData = useGetUserVoteQuery({ userId: student._id });
 
     return {
       student,
       scoreData,
-      voteData
+      voteData,
     };
   });
 
@@ -43,21 +43,25 @@ const LeaderboardStudents = ({ students, classId }) => {
   const sortedStudents = useMemo(() => {
     return [...studentData].sort((a, b) => {
       if (sortBy === "points") {
-        const submissionPointsA = a.scoreData.data?.scores.reduce(
-          (acc, score) => acc + (score.grade || 0),
-          0
-        ) || 0;
+        const submissionPointsA =
+          a.scoreData.data?.scores.reduce(
+            (acc, score) => acc + (score.grade || 0),
+            0
+          ) || 0;
 
         const qnaPointsA = (a.voteData.data?.totalVotes || 0) * 5;
-        const totalPointsA = (a.student.totalPointsEarned || 0) + qnaPointsA + submissionPointsA;
+        const totalPointsA =
+          (a.student.totalPointsEarned || 0) + qnaPointsA + submissionPointsA;
 
-        const submissionPointsB = b.scoreData.data?.scores.reduce(
-          (acc, score) => acc + (score.grade || 0),
-          0
-        ) || 0;
+        const submissionPointsB =
+          b.scoreData.data?.scores.reduce(
+            (acc, score) => acc + (score.grade || 0),
+            0
+          ) || 0;
 
         const qnaPointsB = (b.voteData.data?.totalVotes || 0) * 5;
-        const totalPointsB = (b.student.totalPointsEarned || 0) + qnaPointsB + submissionPointsB;
+        const totalPointsB =
+          (b.student.totalPointsEarned || 0) + qnaPointsB + submissionPointsB;
 
         return totalPointsB - totalPointsA;
       } else if (sortBy === "name") {
@@ -69,7 +73,7 @@ const LeaderboardStudents = ({ students, classId }) => {
 
   // Filtered students based on the search term
   const filteredStudents = useMemo(() => {
-    return sortedStudents.filter(data =>
+    return sortedStudents.filter((data) =>
       data.student.username.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [sortedStudents, searchTerm]);
@@ -147,17 +151,26 @@ const LeaderboardStudents = ({ students, classId }) => {
         <ul className="space-y-3 sm:space-y-4">
           {currentStudents.map((data, index) => {
             const { student, scoreData, voteData } = data;
-            const overallIndex = sortedStudents.findIndex(s => s.student._id === student._id);
+            const overallIndex = sortedStudents.findIndex(
+              (s) => s.student._id === student._id
+            );
 
             const qnaPoints = voteData.data?.totalVotes * 5;
             const submissionPoints = !scoreData.data
               ? 0
-              : scoreData.data.scores.reduce((acc, score) => acc + (score.grade || 0), 0);
+              : scoreData.data.scores.reduce(
+                  (acc, score) => acc + (score.grade || 0),
+                  0
+                );
 
             return (
               <Link
                 key={student._id}
-                to={userRole === "teacher" ? `/${classId}/class/students/${student._id}` : null}
+                to={
+                  userRole === "teacher"
+                    ? `/${classId}/class/students/${student._id}`
+                    : null
+                }
                 className="block"
               >
                 <motion.li

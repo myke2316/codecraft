@@ -64,6 +64,7 @@ import ClassStudentHome from "./features/Class/ClassStudentHome";
 import { ThemeProvider } from "@emotion/react";
 import ManageCertificate from "./features/Course/ManageCertificate";
 import { ToastContainer } from "react-toastify";
+import ClassesDashboard from "./features/Teacher/ClassesDashboard";
 
 function App() {
   return (
@@ -130,7 +131,15 @@ function App() {
               element={<ManageCertificate />}
               path="/certificate/teacher/manage"
             />
+             <Route
+              element={<ClassesDashboard />}
+              path="/classes/dashboard"
+            />
             <Route path="/classes" element={<ClassLists />} />
+            <Route
+                path="/profile/students/:studentId"
+                element={<StudentTeacherProfile />}
+              />
             <Route element={<TeacherClassLayout />} path="/:classId/class/*">
               <Route
                 path="students/:studentId"

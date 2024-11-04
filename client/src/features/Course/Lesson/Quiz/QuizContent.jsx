@@ -22,6 +22,7 @@ import {
   CircularProgress,
   useMediaQuery,useTheme
 } from "@mui/material";
+import { toast } from "react-toastify";
 
 
 const QuizContent = ({ quiz }) => {
@@ -226,6 +227,9 @@ const QuizContent = ({ quiz }) => {
         );
       } catch (error) {
         console.error(error);
+      
+          toast.error("Please wait before submitting the answer")
+     
       } finally {
         setIsSubmitting(false);
       }
