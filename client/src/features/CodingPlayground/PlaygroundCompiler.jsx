@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Editor } from "@monaco-editor/react";
 import { Box, Tabs, Tab, IconButton, useTheme, Tooltip } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { FaExternalLinkAlt } from "react-icons/fa"; 
+import { FaExternalLinkAlt } from "react-icons/fa";
 import { setFileContent } from "./sandboxSlice";
 
 const PlaygroundCompiler = ({
@@ -37,32 +37,41 @@ const PlaygroundCompiler = ({
       const htmlFile = files.find((file) => file.name.endsWith(".html"));
       if (htmlFile) {
         let htmlContent = htmlFile.content;
-        
+
         // Process CSS links
-        const cssLinks = htmlContent.match(/<link.*?href=["'](.*?)["'].*?>/g) || [];
-        cssLinks.forEach(link => {
+        const cssLinks =
+          htmlContent.match(/<link.*?href=["'](.*?)["'].*?>/g) || [];
+        cssLinks.forEach((link) => {
           const href = link.match(/href=["'](.*?)["']/)[1];
-          const cssFile = files.find(file => file.name === href);
+          const cssFile = files.find((file) => file.name === href);
           if (cssFile) {
-            htmlContent = htmlContent.replace(link, `<style>${cssFile.content}</style>`);
+            htmlContent = htmlContent.replace(
+              link,
+              `<style>${cssFile.content}</style>`
+            );
           }
         });
 
         // Process JS scripts
-        const jsScripts = htmlContent.match(/<script.*?src=["'](.*?)["'].*?><\/script>/g) || [];
-        jsScripts.forEach(script => {
+        const jsScripts =
+          htmlContent.match(/<script.*?src=["'](.*?)["'].*?><\/script>/g) || [];
+        jsScripts.forEach((script) => {
           const src = script.match(/src=["'](.*?)["']/)[1];
-          const jsFile = files.find(file => file.name === src);
+          const jsFile = files.find((file) => file.name === src);
           if (jsFile) {
-            htmlContent = htmlContent.replace(script, `<script>${jsFile.content}</script>`);
+            htmlContent = htmlContent.replace(
+              script,
+              `<script>${jsFile.content}</script>`
+            );
           }
         });
 
         // Process image sources
-        const imgTags = htmlContent.match(/<img.*?src=["'](.*?)["'].*?>/g) || [];
-        imgTags.forEach(img => {
+        const imgTags =
+          htmlContent.match(/<img.*?src=["'](.*?)["'].*?>/g) || [];
+        imgTags.forEach((img) => {
           const src = img.match(/src=["'](.*?)["']/)[1];
-          const imageFile = files.find(file => file.name === src);
+          const imageFile = files.find((file) => file.name === src);
           if (imageFile) {
             htmlContent = htmlContent.replace(src, imageFile.content);
           }
@@ -82,12 +91,18 @@ const PlaygroundCompiler = ({
       setActiveFile(selectedTab);
     }
   };
-
   const closeTab = (fileName) => {
-    setOpenTabs((prevTabs) => prevTabs.filter((tab) => tab.name !== fileName));
-    if (activeFile && activeFile.name === fileName) {
-      setActiveFile(openTabs[0] || null);
-    }
+    setOpenTabs((prevTabs) => {
+      const updatedTabs = prevTabs.filter((tab) => tab.name !== fileName);
+
+      if (updatedTabs.length === 0) {
+        setActiveFile(null); // Set to null when no tabs remain
+      } else if (activeFile && activeFile.name === fileName) {
+        setActiveFile(updatedTabs[0]); // Set to the first tab in the updated list
+      }
+
+      return updatedTabs;
+    });
   };
 
   const handleEditorChange = (value) => {
@@ -138,7 +153,7 @@ const PlaygroundCompiler = ({
         height="100%"
         language={language}
         value={value}
-        theme={theme.palette.mode === 'light' ? "vs-light" : "vs-dark"}
+        theme={theme.palette.mode === "light" ? "vs-light" : "vs-dark"}
         onChange={handleEditorChange}
         options={{
           automaticLayout: true,
@@ -148,8 +163,8 @@ const PlaygroundCompiler = ({
           fontSize: 16,
           quickSuggestions: true,
           scrollbar: {
-            vertical: 'hidden',
-            horizontal: 'hidden',
+            vertical: "hidden",
+            horizontal: "hidden",
           },
         }}
       />
@@ -160,7 +175,7 @@ const PlaygroundCompiler = ({
     e.preventDefault();
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
-    
+
     if (iframeRef.current) {
       iframeRef.current.style.pointerEvents = "none";
     }
@@ -169,7 +184,8 @@ const PlaygroundCompiler = ({
   const handleMouseMove = useCallback((e) => {
     if (containerRef.current) {
       const containerRect = containerRef.current.getBoundingClientRect();
-      const newLeftPaneWidth = ((e.clientX - containerRect.left) / containerRect.width) * 100;
+      const newLeftPaneWidth =
+        ((e.clientX - containerRect.left) / containerRect.width) * 100;
       setLeftPaneWidth(Math.min(Math.max(newLeftPaneWidth, 20), 80));
     }
   }, []);
@@ -177,7 +193,7 @@ const PlaygroundCompiler = ({
   const handleMouseUp = useCallback(() => {
     document.removeEventListener("mousemove", handleMouseMove);
     document.removeEventListener("mouseup", handleMouseUp);
-    
+
     if (iframeRef.current) {
       iframeRef.current.style.pointerEvents = "auto";
     }
@@ -199,8 +215,20 @@ const PlaygroundCompiler = ({
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100vh", overflow: "hidden" }}>
-      <Box sx={{ bgcolor: theme.palette.background.paper, color: theme.palette.text.primary }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+        overflow: "hidden",
+      }}
+    >
+      <Box
+        sx={{
+          bgcolor: theme.palette.background.paper,
+          color: theme.palette.text.primary,
+        }}
+      >
         <Tabs
           value={activeFile ? activeFile.name : false}
           onChange={handleTabChange}
@@ -233,11 +261,11 @@ const PlaygroundCompiler = ({
         </Tabs>
       </Box>
 
-      <Box 
+      <Box
         ref={containerRef}
-        sx={{ 
-          display: "flex", 
-          flexGrow: 1, 
+        sx={{
+          display: "flex",
+          flexGrow: 1,
           overflow: "hidden",
           position: "relative",
         }}

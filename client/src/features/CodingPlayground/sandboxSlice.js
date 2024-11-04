@@ -25,7 +25,6 @@ const sandboxSlice = createSlice({
       // Check for duplicates
       const fileExists = state.files.some((file) => file.name === name);
       if (fileExists) {
-      
         return; // Exit if duplicate
       }
 
@@ -64,6 +63,28 @@ const sandboxSlice = createSlice({
       state.files = [];
       localStorage.setItem("sandboxFiles", JSON.stringify(state.files));
     },
+    renameFile: (state, action) => {
+      const { oldName, newName } = action.payload;
+
+      // Check for duplicate new name
+      const fileExists = state.files.some((file) => file.name === newName);
+      if (fileExists) {
+        alert(`A file with the name "${newName}" already exists.`);
+        return;
+      }
+
+      // Find and rename the file
+      const file = state.files.find((f) => f.name === oldName);
+      if (file) {
+        file.name = newName;
+        // Update file extension if necessary
+        const newExtension = newName.split(".").pop();
+        if (newExtension !== file.fileExtension) {
+          file.fileExtension = newExtension;
+        }
+        localStorage.setItem("sandboxFiles", JSON.stringify(state.files));
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(logout, (state) => {
@@ -74,8 +95,13 @@ const sandboxSlice = createSlice({
 });
 
 // Export actions
-export const { setFileContent, addFile, setFileName, removeFile, resetSandbox } =
-  sandboxSlice.actions;
+export const {
+  setFileContent,renameFile,
+  addFile,
+  setFileName,
+  removeFile,
+  resetSandbox,
+} = sandboxSlice.actions;
 
 // Export reducer
 export default sandboxSlice.reducer;

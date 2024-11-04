@@ -19,6 +19,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { FaFileImport, FaFileExport, FaPlus } from "react-icons/fa";
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import {
   Save,
   ExpandLess,
@@ -33,7 +34,7 @@ import {
   Download,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { addFile, removeFile } from "./sandboxSlice";
+import { addFile, removeFile, renameFile } from "./sandboxSlice";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import { motion } from "framer-motion";
@@ -67,6 +68,11 @@ const PlaygroundSidebar = ({
 
   const [hasInitialized, setHasInitialized] = useState(false);
 
+  // for file rename:
+  const [renameDialogOpen, setRenameDialogOpen] = useState(false);
+  const [fileToRename, setFileToRename] = useState(null);
+  const [newName, setNewName] = useState("");
+
   useEffect(() => {
     if (!hasInitialized && files.length === 0) {
       createInitialFiles();
@@ -77,7 +83,7 @@ const PlaygroundSidebar = ({
   const createInitialFiles = () => {
     const initialFiles = [
       {
-        name: 'index.html',
+        name: "index.html",
         content: `<!DOCTYPE html>
 <html>
   <head>
@@ -89,35 +95,37 @@ const PlaygroundSidebar = ({
       <p id="currentTime"></p>
       <script src="script.js"></script>
   </body>
-</html>`
+</html>`,
       },
       {
-        name: 'styles.css',
+        name: "styles.css",
         content: `body{
   padding: 25px;
 }
 .title {
   color: #5C6AC4;
-}`
+}`,
       },
       {
-        name: 'script.js',
+        name: "script.js",
         content: `function showTime() {
   document.getElementById('currentTime').innerHTML = new Date().toUTCString();
 }
 showTime();
 setInterval(function () {
   showTime();
-}, 1000);`
-      }
+}, 1000);`,
+      },
     ];
 
-    initialFiles.forEach(file => {
-      dispatch(addFile({
-        name: file.name,
-        extension: file.name.split('.').pop(),
-        content: file.content,
-      }));
+    initialFiles.forEach((file) => {
+      dispatch(
+        addFile({
+          name: file.name,
+          extension: file.name.split(".").pop(),
+          content: file.content,
+        })
+      );
     });
   };
 
@@ -265,7 +273,16 @@ setInterval(function () {
       setOpenConfirmDialog(false);
     }
   };
-
+  const handleRenameFile = () => {
+    if (fileToRename && newName.trim()) {
+      dispatch(
+        renameFile({ oldName: fileToRename.name, newName: newName.trim() })
+      );
+      setRenameDialogOpen(false);
+      setFileToRename(null);
+      setNewName("");
+    }
+  };
   return (
     <Box sx={{ position: "relative" }}>
       <motion.div
@@ -424,9 +441,24 @@ setInterval(function () {
                   onClick={() => handleFileClick(file)}
                 >
                   <ListItemText
-                    primary={file.name}
+                    primary={file.name.substring(0,10) + "..."}
                     sx={{ color: mode === "light" ? "#333333" : "#ecf0f1" }}
+                    title={file.name}
                   />
+                  {/* EDIT/RENAME BUTTON FOR EACH FILE */}
+                  <IconButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setFileToRename(file);
+                      setNewName(file.name);
+                      setRenameDialogOpen(true);
+                    }}
+                  >
+                    <DriveFileRenameOutlineIcon
+                      sx={{ color: mode === "light" ? "#4b3987" : "#928fce" }}
+                    />
+                  </IconButton>
+                  {/* DELETE BUTTON FOR EACH FILE */}
                   <IconButton
                     color="error"
                     onClick={(e) => {
@@ -445,7 +477,7 @@ setInterval(function () {
           </Collapse>
         </List>
         <Divider
-          sx={{ 
+          sx={{
             bgcolor: mode === "light" ? "#e0e0e0" : "#95a5a6",
             my: 2,
           }}
@@ -522,6 +554,33 @@ setInterval(function () {
             sx={{ color: mode === "light" ? "#d32f2f" : "#e74c3c" }}
           >
             Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+{/* DIALOG FOR FILE RENAME */}
+      <Dialog
+        open={renameDialogOpen}
+        onClose={() => setRenameDialogOpen(false)}
+      >
+        <DialogTitle>Rename File</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="New File Name"
+            type="text"
+            fullWidth
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setRenameDialogOpen(false)} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleRenameFile} color="primary">
+            Rename
           </Button>
         </DialogActions>
       </Dialog>

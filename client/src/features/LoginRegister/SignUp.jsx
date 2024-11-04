@@ -26,17 +26,16 @@ function SignUp() {
   async function handleRegister(values) {
     const { emailaddress, givenname, middleinitial, lastname, password, role } =
       values;
-      
+
     // Helper function to capitalize the first letter of each word
     const capitalizeWords = (str) => {
       return str
-        .toLowerCase() 
+        .toLowerCase()
         .split(" ")
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize first letter
-        .join(" "); 
+        .join(" ");
     };
 
- 
     const formattedGivenName = capitalizeWords(givenname.trim());
     const formattedLastName = capitalizeWords(lastname.trim());
     const formattedMiddleInitial = middleinitial
@@ -151,8 +150,13 @@ function SignUp() {
           }}
           validationSchema={Yup.object({
             emailaddress: Yup.string()
-              .email("Invalid Email")
-              .required("Email is Required"),
+              .email("Invalid email format")
+              .required("Email is required")
+              .max(65, "Email must be at most 65 characters")
+              .matches(
+                /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|g\.batstate-u\.edu\.ph)$/,
+                "Email must be from Gmail, Yahoo, or g.batstate-u.edu.ph domains only"
+              ),
             // username: Yup.string()
             //   .matches(
             //     /^(?=.{3,100}$)([A-Za-z]+(?:[-'\s][A-Za-z]+)*)(?:\s+[A-Za-z]\.)?(?:\s+[A-Za-z]+)*(?:\s+(?:Jr\.|Sr\.|II|III|IV|V))?$/,

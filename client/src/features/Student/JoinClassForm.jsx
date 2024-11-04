@@ -108,6 +108,7 @@ function JoinClassForm() {
                 helperText={<ErrorMessage name="inviteCode" />}
                 className="bg-white rounded-md"
                 placeholder="Enter your class invite code"
+                inputProps={{ maxLength: 8 }}
               />
             )}
           </Field>

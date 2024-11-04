@@ -442,12 +442,12 @@ const CodingActivity = ({
       setCssCode("");
       setJsCode("");
       setOutput("");
-      setIsSubmitting(false)
+      setIsSubmitting(false);
       resetTimer();
     } catch (error) {
       console.error("Error submitting code:", error);
-    }finally{
-      setIsSubmitting(false)
+    } finally {
+      setIsSubmitting(false);
     }
   }, [
     activity,
@@ -520,11 +520,11 @@ const CodingActivity = ({
         language,
       });
 
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     } catch (error) {
       console.error("Error checking code:", error);
-    }finally{
-      setIsSubmitting(false)
+    } finally {
+      setIsSubmitting(false);
     }
   }, [
     activity,
@@ -814,7 +814,8 @@ const CodingActivity = ({
             disabled={
               activitySubmission?.tries === 0 ||
               (activitySubmission?.timeTaken &&
-                (userAnalytics || userAnalytics?.timeSpent)) || isSubmitting
+                (userAnalytics || userAnalytics?.timeSpent)) ||
+              isSubmitting
             }
             sx={{
               backgroundColor:
@@ -840,8 +841,9 @@ const CodingActivity = ({
               : handleOpenDialog
           }
           disabled={
-            activitySubmission?.timeTaken &&
-            (userAnalytics || userAnalytics?.timeSpent) || isSubmitting
+            (activitySubmission?.timeTaken &&
+              (userAnalytics || userAnalytics?.timeSpent)) ||
+            isSubmitting
           }
           sx={{
             backgroundColor: "#8b5cf6",
