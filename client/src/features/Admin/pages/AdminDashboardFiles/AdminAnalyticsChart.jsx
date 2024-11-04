@@ -195,86 +195,89 @@ function AdminAnalyticsChart({
   //   }));
   // }, [users, userProgress]);
 
-    const activeUsersPerCourse = useMemo(() => {
-      if (!users || !userProgress) {
-        return [];
-      }
-     
-      const courseActiveUsersMap = {};
-      const userLatestActivity = {};
+  const activeUsersPerCourse = useMemo(() => {
+    if (!users || !userProgress) {
+      return [];
+    }
+   
+    const courseActiveUsersMap = {};
+    const userLatestActivity = {};
   
-      users.forEach((user) => {
-        const userProgressEntry = userProgress.find(
-          (up) => up.userId.toString() === user._id.toString()
-        );
+    const isCourseCompleted = (courseProgress) => {
+      return courseProgress.courseCompleted || courseProgress.lessonsProgress.every(lesson => 
+        lesson.dateFinished &&
+        lesson.documentsProgress.every(doc => doc.dateFinished) &&
+        lesson.quizzesProgress.every(quiz => quiz.dateFinished) &&
+        lesson.activitiesProgress.every(activity => activity.dateFinished)
+      );
+    };
   
-        if (userProgressEntry) {
-          let latestDate = null;
-          let latestCourseId = null;
+    users.forEach((user) => {
+      const userProgressEntry = userProgress.find(
+        (up) => up.userId.toString() === user._id.toString()
+      );
   
-          userProgressEntry.coursesProgress.forEach((courseProgress) => {
-            const courseId = courseProgress.courseId.toString();
+      if (userProgressEntry) {
+        let latestDate = null;
+        let latestCourseId = null;
   
-            // Initialize the course in the map if it doesn't exist
-            if (!courseActiveUsersMap[courseId]) {
-              courseActiveUsersMap[courseId] = new Set();
+        userProgressEntry.coursesProgress.forEach((courseProgress) => {
+          const courseId = courseProgress.courseId.toString();
+  
+          if (!courseActiveUsersMap[courseId]) {
+            courseActiveUsersMap[courseId] = new Set();
+          }
+  
+          if (isCourseCompleted(courseProgress)) {
+            return;
+          }
+  
+          const checkAndUpdateLatest = (date) => {
+            if (date && (!latestDate || new Date(date) > latestDate)) {
+              latestDate = new Date(date);
+              latestCourseId = courseId;
             }
+          };
   
-            const checkAndUpdateLatest = (date) => {
-              if (date && (!latestDate || new Date(date) > latestDate)) {
-                latestDate = new Date(date);
-                latestCourseId = courseId;
-              }
-            };
+          checkAndUpdateLatest(courseProgress.dateFinished);
   
-            // Check course level
-            checkAndUpdateLatest(courseProgress.dateFinished);
+          courseProgress.lessonsProgress.forEach((lesson) => {
+            checkAndUpdateLatest(lesson.dateFinished);
   
-            courseProgress.lessonsProgress.forEach((lesson) => {
-              // Check lesson level
-              checkAndUpdateLatest(lesson.dateFinished);
+            lesson.documentsProgress.forEach((document) => {
+              checkAndUpdateLatest(document.dateFinished);
+            });
   
-              // Check documents
-              lesson.documentsProgress.forEach((document) => {
-                checkAndUpdateLatest(document.dateFinished);
-              });
+            lesson.quizzesProgress.forEach((quiz) => {
+              checkAndUpdateLatest(quiz.dateFinished);
+            });
   
-              // Check quizzes
-              lesson.quizzesProgress.forEach((quiz) => {
-                checkAndUpdateLatest(quiz.dateFinished);
-              });
-  
-              // Check activities
-              lesson.activitiesProgress.forEach((activity) => {
-                checkAndUpdateLatest(activity.dateFinished);
-              });
+            lesson.activitiesProgress.forEach((activity) => {
+              checkAndUpdateLatest(activity.dateFinished);
             });
           });
-  
-          // If we found activity for this user, store it
-          if (latestCourseId) {
-            userLatestActivity[user._id.toString()] = { courseId: latestCourseId, date: latestDate };
-          }
-        }
-      });
-  
-      // Now assign users to their most recent active course
-      Object.entries(userLatestActivity).forEach(([userId, { courseId }]) => {
-        // Remove the user from all other courses
-        Object.keys(courseActiveUsersMap).forEach((cId) => {
-          if (cId !== courseId) {
-            courseActiveUsersMap[cId].delete(userId);
-          }
         });
-        // Add the user to their most recent course
-        courseActiveUsersMap[courseId].add(userId);
-      });
   
-      return Object.keys(courseActiveUsersMap).map((courseId) => ({
-        courseId,
-        activeUsers: Array.from(courseActiveUsersMap[courseId]),
-      }));
-    }, [users, userProgress]);
+        if (latestCourseId) {
+          userLatestActivity[user._id.toString()] = { courseId: latestCourseId, date: latestDate };
+        }
+      }
+    });
+  
+    Object.entries(userLatestActivity).forEach(([userId, { courseId }]) => {
+      const userProgressEntry = userProgress.find(up => up.userId.toString() === userId);
+      const courseProgress = userProgressEntry.coursesProgress.find(cp => cp.courseId.toString() === courseId);
+      
+      if (!isCourseCompleted(courseProgress)) {
+        courseActiveUsersMap[courseId].add(userId);
+      }
+    });
+  
+    return Object.keys(courseActiveUsersMap).map((courseId) => ({
+      courseId,
+      activeUsers: Array.from(courseActiveUsersMap[courseId]),
+    }));
+  }, [users, userProgress]);
   
   console.log(activeUsersPerCourse)
   return (
