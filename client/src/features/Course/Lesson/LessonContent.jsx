@@ -124,7 +124,6 @@ function LessonContent() {
   const quizAnswerCheck = lessonSubmission.quizzes.every(
     (q) => q.selectedOption !== null
   );
-  console.log(quizAnswerCheck);
 
   const handleClick = (id) => navigate(`document/${id}`);
 
@@ -465,7 +464,7 @@ function LessonContent() {
                             >
                               <Box
                                 className={`flex flex-col sm:flex-row items-start p-4 rounded-lg mb-4 transition-all duration-300 ${
-                                  activityProgress?.locked
+                                  !quizAnswerCheck || activityProgress?.locked
                                     ? "bg-gray-200"
                                     : "bg-white hover:bg-gray-50"
                                 } shadow-sm`}
@@ -483,7 +482,9 @@ function LessonContent() {
                                     variant="body2"
                                     className="flex items-center text-gray-600 overflow-hidden whitespace-nowrap text-ellipsis"
                                     title={
-                                      activityProgress?.locked
+                                      !quizAnswerCheck
+                                        ? "Locked"
+                                        : activityProgress?.locked
                                         ? "Locked"
                                         : activityProgress?.dateFinished !==
                                           null
@@ -491,7 +492,11 @@ function LessonContent() {
                                         : "In Progress"
                                     } // Show full status on hover
                                   >
-                                    {activityProgress?.locked ? (
+                                    {!quizAnswerCheck ? (
+                                      <>
+                                        <Lock className="w-4 h-4 mr-1" /> Locked
+                                      </>
+                                    ) : activityProgress?.locked ? (
                                       <>
                                         <Lock className="w-4 h-4 mr-1" /> Locked
                                       </>
@@ -520,10 +525,14 @@ function LessonContent() {
                                       ? null
                                       : () => handleActivityClick(activity._id)
                                   }
-                                  disabled={activityProgress?.locked}
+                                  disabled={
+                                    !quizAnswerCheck || activityProgress?.locked
+                                  }
                                   className="transition-all duration-300 hover:scale-105 w-full sm:w-auto mt-2 sm:mt-0"
                                 >
-                                  {activityProgress?.locked
+                                  {!quizAnswerCheck
+                                    ? "Locked"
+                                    : activityProgress?.locked
                                     ? "Locked"
                                     : activityProgress?.dateFinished !== null
                                     ? "Open Activity"

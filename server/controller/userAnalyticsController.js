@@ -82,7 +82,7 @@ const updateUserAnalytics = async (req, res) => {
     // Check if the last update was less than 5 seconds ago
     const now = Date.now();
     const lastUpdate = lastUpdateMap.get(userId) || 0;
-    if (now - lastUpdate < 5000) {
+    if (now - lastUpdate < 3000) {
       return res.status(429).json({ message: "Please wait before updating again" });
     }
 

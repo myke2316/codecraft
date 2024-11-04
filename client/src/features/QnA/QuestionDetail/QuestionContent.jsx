@@ -267,22 +267,14 @@ const QuestionContent = ({
             </Button>
           </Box>
           <Box className="flex items-center">
-            {isOwner ? (
-              <Tooltip title="You cannot vote on your own question" arrow>
-                <Typography
-                  variant="caption"
-                  className="italic bg-warning text-warning-foreground px-2 py-1 rounded"
-                >
-                  Voting disabled for own question
-                </Typography>
-              </Tooltip>
-            ) : (
+       
               <Box className="flex items-center">
                 <IconButton
                   onClick={() => handleVote(-1)}
                   color={userVote === -1 ? "error" : "default"}
                   size="small"
                   className="hover:bg-destructive/10"
+                  disabled={isOwner}
                 >
                   <ThumbDownIcon fontSize="small" />
                 </IconButton>
@@ -296,12 +288,13 @@ const QuestionContent = ({
                   onClick={() => handleVote(1)}
                   color={userVote === 1 ? "primary" : "default"}
                   size="small"
-                  className="hover:bg-primary/10"
+                  className="hover:bg-primary/10" 
+                  disabled={isOwner}
                 >
                   <ThumbUpIcon fontSize="small" />
                 </IconButton>
               </Box>
-            )}
+            
           </Box>
         </CardActions>
       </Card>

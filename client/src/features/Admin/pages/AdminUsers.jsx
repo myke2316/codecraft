@@ -55,14 +55,14 @@ export default function Component() {
       const usersResponse = await getAllUser();
       const activeUsers = usersResponse.data.filter((user) => !user.isDeleted);
       const removedUsers = usersResponse.data.filter((user) => user.isDeleted);
-  
+
       setUsers(activeUsers);
       setDeletedUsers(removedUsers);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
   }, [getAllUser]);
-  
+
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
@@ -91,7 +91,9 @@ export default function Component() {
     try {
       await permanentlyDeleteUser(selectedUser._id).unwrap();
       toast.success("User permanently deleted!");
-      setDeletedUsers(deletedUsers.filter((user) => user._id !== selectedUser._id));
+      setDeletedUsers(
+        deletedUsers.filter((user) => user._id !== selectedUser._id)
+      );
       handleClosePermanentDeleteDialog();
     } catch (error) {
       console.error("Error permanently deleting user:", error);
@@ -195,8 +197,17 @@ export default function Component() {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ p: 4, mt: 4, backgroundColor: 'background.paper', boxShadow: 3, borderRadius: 2 }}>
-      <Typography variant="h4" gutterBottom sx={{padding: 3}}>
+    <Container
+      maxWidth="lg"
+      sx={{
+        p: 4,
+        mt: 4,
+        backgroundColor: "background.paper",
+        boxShadow: 3,
+        borderRadius: 2,
+      }}
+    >
+      <Typography variant="h4" gutterBottom sx={{ padding: 3 }}>
         Manage Users
       </Typography>
 
@@ -233,12 +244,14 @@ export default function Component() {
       <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: 3 }}>
         <Table>
           <TableHead>
-            <TableRow sx={{bgcolor: 'primary.main', color: "white"}}>
-              <TableCell sx={{color: "white"}}>ID</TableCell>
-              <TableCell sx={{color: "white"}}>Username</TableCell>
-              <TableCell sx={{color: "white"}}>Email</TableCell>
-              <TableCell sx={{color: "white"}}>Role</TableCell>
-              <TableCell sx={{color: "white"}} align="center">Actions</TableCell>
+            <TableRow sx={{ bgcolor: "primary.main", color: "white" }}>
+              <TableCell sx={{ color: "white" }}>ID</TableCell>
+              <TableCell sx={{ color: "white" }}>Username</TableCell>
+              <TableCell sx={{ color: "white" }}>Email</TableCell>
+              <TableCell sx={{ color: "white" }}>Role</TableCell>
+              <TableCell sx={{ color: "white" }} align="center">
+                Actions
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -250,7 +263,15 @@ export default function Component() {
                     <TableCell>{user._id}</TableCell>
                     <TableCell>{user.username}</TableCell>
                     <TableCell>{user.email}</TableCell>
-                    <TableCell>{user.role || "No Role"}{user.role === "teacher" && user.approved === "declined" && "-Declined"}</TableCell>
+                    <TableCell>
+                      {user.role || "No Role"}
+                      {user.role === "teacher" &&
+                        (user.approved === "declined"
+                          ? "-Declined"
+                          : user.approved === "false"
+                          ? "-For Approval"
+                          : "")}
+                    </TableCell>
                     <TableCell align="center">
                       <Button
                         variant="contained"
@@ -275,7 +296,7 @@ export default function Component() {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={filteredUsers.length -1}
+        count={filteredUsers.length - 1}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -285,22 +306,27 @@ export default function Component() {
       <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
         Deleted Users
       </Typography>
-      <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: 3}}>
+      <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: 3 }}>
         <Table>
           <TableHead>
-            <TableRow sx={{bgcolor: 'primary.main', color: "white"}}>
-              <TableCell sx={{color: "white"}}>ID</TableCell>
-              <TableCell sx={{color: "white"}}>Username</TableCell>
-              <TableCell sx={{color: "white"}}>Email</TableCell>
-              <TableCell sx={{color: "white"}}>Role</TableCell>
-              <TableCell sx={{color: "white"}}>Time Until Deletion</TableCell>
-              <TableCell sx={{color: "white"}} align="center">Actions</TableCell>
+            <TableRow sx={{ bgcolor: "primary.main", color: "white" }}>
+              <TableCell sx={{ color: "white" }}>ID</TableCell>
+              <TableCell sx={{ color: "white" }}>Username</TableCell>
+              <TableCell sx={{ color: "white" }}>Email</TableCell>
+              <TableCell sx={{ color: "white" }}>Role</TableCell>
+              <TableCell sx={{ color: "white" }}>Time Until Deletion</TableCell>
+              <TableCell sx={{ color: "white" }} align="center">
+                Actions
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredDeletedUsers.length > 0 ? (
               filteredDeletedUsers
-                .slice(deletedPage * deletedRowsPerPage, deletedPage * deletedRowsPerPage + deletedRowsPerPage)
+                .slice(
+                  deletedPage * deletedRowsPerPage,
+                  deletedPage * deletedRowsPerPage + deletedRowsPerPage
+                )
                 .map((user) => (
                   <TableRow key={user._id}>
                     <TableCell>{user._id}</TableCell>
@@ -311,7 +337,11 @@ export default function Component() {
                       {getRemainingTime(user.deleteExpiresAt)}
                     </TableCell>
                     <TableCell align="center">
-                      <Box display="flex" justifyContent="center" alignItems="center">
+                      <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
                         <Button
                           variant="contained"
                           color="primary"
@@ -381,10 +411,14 @@ export default function Component() {
         onClose={handleClosePermanentDeleteDialog}
         aria-labelledby="confirm-permanent-delete-dialog"
       >
-        <DialogTitle id="confirm-permanent-delete-dialog">Warning: Permanent Deletion</DialogTitle>
+        <DialogTitle id="confirm-permanent-delete-dialog">
+          Warning: Permanent Deletion
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            You are about to permanently delete this user. This action cannot be undone, and all associated data will be irretrievably lost. Are you absolutely sure you want to proceed?
+            You are about to permanently delete this user. This action cannot be
+            undone, and all associated data will be irretrievably lost. Are you
+            absolutely sure you want to proceed?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

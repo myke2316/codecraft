@@ -162,7 +162,7 @@ function CourseSidebar() {
             (cp) => cp.courseId.toString() === course._id.toString()
           );
           if (!courseProgress) return null;
-
+            console.log(userProgress)
           const progress = calculateProgress(courseProgress);
             console.log(course)
           return (
