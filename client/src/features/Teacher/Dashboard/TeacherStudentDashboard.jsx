@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid, Paper, Typography } from "@mui/material";
+import { Container, Grid, IconButton, Paper, Typography } from "@mui/material";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import TeacherCourseProgress from "./TeacherCourseProgress";
@@ -11,11 +11,13 @@ import TeacherOverallPerformanceTable from "./TeacherOverallPerformanceTable";
 import TeacherAnalyticsCharts from "./TeacherAnalyticsCharts";
 import PlayerDashboard from "../../Student/StudentDashboard/PlayerDashboard";
 import TeacherPlayerDashboard from "./TeacherPlayerDashboard";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useGetUserMutation } from "../../LoginRegister/userService";
 import { useGetScoreByStudentIdQuery } from "../../Class/submissionAssignmentService";
 import { useGetUserVoteQuery } from "../../QnA/questionService";
 import { useFetchUserAnalyticsMutation } from "../../Student/userAnalyticsService";
+import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
+
 const theme = createTheme();
 // const userAnalytics = useSelector((state) => state.userAnalytics.userAnalytics);
 
@@ -28,7 +30,7 @@ const TeacherStudentDashboard = ({ userAnalytics, userProgress }) => {
   const [assignmentGrades, setAssignmentGrades] = useState(0);
   const { studentId } = useParams();
   const userId = studentId;
-  const [userBadges , setUserBadges] = useState([])
+  const [userBadges, setUserBadges] = useState([]);
   const { data: scoresData, isFetching } =
     useGetScoreByStudentIdQuery(studentId);
   const [fetchUserAnalytics] = useFetchUserAnalyticsMutation();
@@ -38,7 +40,7 @@ const TeacherStudentDashboard = ({ userAnalytics, userProgress }) => {
         const analyticsResponse = await fetchUserAnalytics({
           userId: studentId,
         }).unwrap();
-        setUserBadges(analyticsResponse?.badges)
+        setUserBadges(analyticsResponse?.badges);
       } catch (error) {
         console.error(
           `Error fetching analytics for student ${studentId}:`,
@@ -82,12 +84,20 @@ const TeacherStudentDashboard = ({ userAnalytics, userProgress }) => {
 
     fetchUser();
   }, [getUser, studentId]);
-
+  const navigate = useNavigate();
   return (
     <ThemeProvider theme={theme}>
       {" "}
+      <IconButton
+        onClick={() => navigate(-1)}
+        className=""
+        color="#6e61ab"
+        aria-label="back"
+      >
+        <ArrowBackIcon />
+      </IconButton>
       <Container maxWidth="100%" style={{ padding: "20px" }}>
-        <Grid container spacing={3} pt={3}>
+        <Grid container spacing={3} pt={1}>
           <Grid item xs={12} md={12}>
             <TeacherPlayerDashboard
               totalPoints={totalPoints + assignmentGrades + qnaPoints}

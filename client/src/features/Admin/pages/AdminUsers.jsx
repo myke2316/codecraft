@@ -250,7 +250,7 @@ export default function Component() {
                     <TableCell>{user._id}</TableCell>
                     <TableCell>{user.username}</TableCell>
                     <TableCell>{user.email}</TableCell>
-                    <TableCell>{user.role || "No Role"}</TableCell>
+                    <TableCell>{user.role || "No Role"}{user.role === "teacher" && user.approved === "declined" && "-Declined"}</TableCell>
                     <TableCell align="center">
                       <Button
                         variant="contained"

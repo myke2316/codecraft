@@ -26,9 +26,27 @@ function SignUp() {
   async function handleRegister(values) {
     const { emailaddress, givenname, middleinitial, lastname, password, role } =
       values;
-    const username = middleinitial
-      ? `${givenname} ${middleinitial.toUpperCase()} ${lastname}`
-      : `${givenname} ${lastname}`;
+      
+    // Helper function to capitalize the first letter of each word
+    const capitalizeWords = (str) => {
+      return str
+        .toLowerCase() 
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize first letter
+        .join(" "); 
+    };
+
+ 
+    const formattedGivenName = capitalizeWords(givenname.trim());
+    const formattedLastName = capitalizeWords(lastname.trim());
+    const formattedMiddleInitial = middleinitial
+      ? `${middleinitial.toUpperCase()}`
+      : "";
+
+    // Construct the username
+    const username = formattedMiddleInitial
+      ? `${formattedGivenName} ${formattedMiddleInitial} ${formattedLastName}`
+      : `${formattedGivenName} ${formattedLastName}`;
     try {
       const res = await register({
         email: emailaddress,

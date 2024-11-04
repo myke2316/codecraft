@@ -130,15 +130,52 @@ function ManageCertificate() {
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Title is required"),
-    teacherName: Yup.string().required("Name is required"),
+    teacherName: Yup.string()
+      .matches(
+        /^(?=.{3,100}$)([A-Za-z]+(?:[-'\s][A-Za-z]+)*)(?:\s+[A-Za-z]\.)?(?:\s+[A-Za-z]+)*(?:\s+(?:Jr\.|Sr\.|II|III|IV|V))?$/,
+        "Please enter a valid full name or name (e.g., 'John A. Doe Jr.', 'Mary-Jane Smith', John D. Doe)"
+      )
+      .min(3, "Full name or name must be at least 3 characters long")
+      .max(50, "Full name or name must be at most 50 characters long")
+      .required("Full Name or name is Required"),
+
     signature: Yup.mixed().nullable(),
   });
 
   const handleFormSubmit = async (values, { setSubmitting, resetForm }) => {
+    class FullNameFormatter {
+      constructor(fullName) {
+        this.fullName = fullName;
+      }
+
+      capitalizeWord(word) {
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      }
+
+      getFormattedName() {
+        const nameParts = this.fullName.split(" ");
+        const formattedParts = nameParts.map((part, index) => {
+          if (
+            index > 0 &&
+            (part.toLowerCase() === "de" ||
+              part.toLowerCase() === "la" ||
+              part.toLowerCase() === "y")
+          ) {
+            return part.toLowerCase(); // Keep these parts lowercase
+          }
+          return this.capitalizeWord(part); // Capitalize other parts
+        });
+        return formattedParts.join(" ");
+      }
+    }
     try {
       const formData = new FormData();
       formData.append("userId", userDetails._id);
-      formData.append("name", `${values.title} ${values.teacherName}`);
+
+      const formatter = new FullNameFormatter(`${values.teacherName}`);
+      const formattedName = formatter.getFormattedName();
+      console.log(values.teacherName)
+      formData.append("name", `${values.title} ${formattedName}`);
       formData.append("role", userDetails.role);
 
       if (values.signature) {
@@ -243,6 +280,7 @@ function ManageCertificate() {
                     <MenuItem value="Mrs.">Mrs.</MenuItem>
                     <MenuItem value="Ms.">Ms.</MenuItem>
                     <MenuItem value="Dr.">Dr.</MenuItem>
+                    <MenuItem value="Asst Prof">Asst. Prof</MenuItem>
                   </Field>
                   {errors.title && touched.title && (
                     <div className="text-red-500">{errors.title}</div>

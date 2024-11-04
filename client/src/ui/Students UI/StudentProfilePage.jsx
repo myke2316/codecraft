@@ -158,9 +158,25 @@ function StudentProfilePage() {
 
   async function handleEditUsername(values) {
     const { givenName, middleInitial, lastName } = values;
-    const newUsername = middleInitial
-      ? `${givenName} ${middleInitial.toUpperCase()} ${lastName}`
-      : `${givenName} ${lastName}`;
+    // Helper function to capitalize the first letter of each word
+    const capitalizeWords = (str) => {
+      return str
+        .toLowerCase()
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize first letter
+        .join(" ");
+    };
+
+    const formattedGivenName = capitalizeWords(givenName.trim());
+    const formattedLastName = capitalizeWords(lastName.trim());
+    const formattedMiddleInitial = middleInitial
+      ? `${middleInitial.toUpperCase()}`
+      : "";
+
+    // Construct the username
+    const newUsername = formattedMiddleInitial
+      ? `${formattedGivenName} ${formattedMiddleInitial} ${formattedLastName}`
+      : `${formattedGivenName} ${formattedLastName}`;
     try {
       await editUsernameApi({
         userId: user._id,
@@ -398,7 +414,11 @@ function StudentProfilePage() {
                 >
                   Submit
                 </Button>
-                <Button onClick={() => setOpenDialog(false)} color="inherit"  sx={{ mt: 2, ml:2 }}>
+                <Button
+                  onClick={() => setOpenDialog(false)}
+                  color="inherit"
+                  sx={{ mt: 2, ml: 2 }}
+                >
                   Cancel
                 </Button>
               </DialogContent>

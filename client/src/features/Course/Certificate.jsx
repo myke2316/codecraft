@@ -118,7 +118,7 @@ function Certificate({
               />
             </Box>
             <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
-              {adminSignatureDetails} - Admin/Dean CICS
+              {adminSignatureDetails} - Admin
             </Typography>
           </Box>
         </Box>
