@@ -26,7 +26,7 @@ import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AdminHeader from "./AdminHeader";
 import { Article } from "@mui/icons-material";
-
+import FolderCopyIcon from "@mui/icons-material/FolderCopy";
 const AdminSidebar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -39,12 +39,21 @@ const AdminSidebar = () => {
     { text: "Dashboard", icon: <DashboardIcon />, path: "/admin-dashboard" },
     { text: "Manage Users", icon: <PeopleIcon />, path: "/admin-users" },
     {
+      text: "Content Management",
+      icon: <FolderCopyIcon />,
+      path: "/content-management",
+    },
+    {
       text: "Teacher Requests",
       icon: <SchoolIcon />,
       path: "/admin-teacherRequest",
     },
     { text: "Manage Forum", icon: <QuestionAnswerIcon />, path: "/admin-qna" },
-    { text: "Manage Certificate", icon: <Article />, path: "/certificate/admin/manage" },
+    {
+      text: "Manage Certificate",
+      icon: <Article />,
+      path: "/certificate/admin/manage",
+    },
   ];
 
   const toggleDrawer = () => {

@@ -65,11 +65,12 @@ import { ThemeProvider } from "@emotion/react";
 import ManageCertificate from "./features/Course/ManageCertificate";
 import { ToastContainer } from "react-toastify";
 import ClassesDashboard from "./features/Teacher/ClassesDashboard";
+import CmsLayout from "./features/Admin/ContentManagement/CmsLayout";
 
 function App() {
   return (
     <BrowserRouter>
-      <ToastContainer/>
+      <ToastContainer />
       <Routes>
         <Route path="reset-password/:resetToken" element={<ResetPassword />} />
         <Route element={<AppLayout />}>
@@ -131,15 +132,12 @@ function App() {
               element={<ManageCertificate />}
               path="/certificate/teacher/manage"
             />
-             <Route
-              element={<ClassesDashboard />}
-              path="/classes/dashboard"
-            />
+            <Route element={<ClassesDashboard />} path="/classes/dashboard" />
             <Route path="/classes" element={<ClassLists />} />
             <Route
-                path="/profile/students/:studentId"
-                element={<StudentTeacherProfile />}
-              />
+              path="/profile/students/:studentId"
+              element={<StudentTeacherProfile />}
+            />
             <Route element={<TeacherClassLayout />} path="/:classId/class/*">
               <Route
                 path="students/:studentId"
@@ -169,6 +167,10 @@ function App() {
             <Route
               element={<ManageCertificate />}
               path="/certificate/admin/manage"
+            />
+            <Route
+              element={<CmsLayout />}
+              path="/content-management"
             />
             <Route path="/admin-teacherRequest" element={<TeacherRequest />} />
             <Route path="/admin-qna" element={<AdminQna />} />
