@@ -8,7 +8,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Toolbar,
   Divider,
   useMediaQuery,
   useTheme,
@@ -18,42 +17,31 @@ import {
   DialogContent,
   DialogActions,
   Button,
+  IconButton,
 } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import SchoolIcon from "@mui/icons-material/School";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import AdminHeader from "./AdminHeader";
-import { Article } from "@mui/icons-material";
+import { Article, Menu as MenuIcon } from "@mui/icons-material";
 import FolderCopyIcon from "@mui/icons-material/FolderCopy";
+
 const AdminSidebar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [open, setOpen] = useState(!isMobile);
-  const [dialogOpen, setDialogOpen] = useState(false); // For managing the logout confirmation dialog
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const menuItems = [
     { text: "Dashboard", icon: <DashboardIcon />, path: "/admin-dashboard" },
     { text: "Manage Users", icon: <PeopleIcon />, path: "/admin-users" },
-    {
-      text: "Content Management",
-      icon: <FolderCopyIcon />,
-      path: "/content-management",
-    },
-    {
-      text: "Teacher Requests",
-      icon: <SchoolIcon />,
-      path: "/admin-teacherRequest",
-    },
+    { text: "Content Management", icon: <FolderCopyIcon />, path: "/content-management" },
+    { text: "Teacher Requests", icon: <SchoolIcon />, path: "/admin-teacherRequest" },
     { text: "Manage Forum", icon: <QuestionAnswerIcon />, path: "/admin-qna" },
-    {
-      text: "Manage Certificate",
-      icon: <Article />,
-      path: "/certificate/admin/manage",
-    },
+    { text: "Manage Certificate", icon: <Article />, path: "/certificate/admin/manage" },
   ];
 
   const toggleDrawer = () => {
@@ -61,22 +49,27 @@ const AdminSidebar = () => {
   };
 
   const handleLogoutClick = () => {
-    setDialogOpen(true); // Open the confirmation dialog
+    setDialogOpen(true);
   };
 
   const handleConfirmLogout = () => {
-    dispatch(logout()); // Dispatch logout action
-    setDialogOpen(false); // Close the confirmation dialog
-    if (isMobile) toggleDrawer(); // Close the sidebar if on mobile
+    dispatch(logout());
+    setDialogOpen(false);
+    if (isMobile) toggleDrawer();
   };
 
   const handleCancelLogout = () => {
-    setDialogOpen(false); // Close the confirmation dialog
+    setDialogOpen(false);
   };
 
   const drawerContent = (
     <>
-      <Toolbar />
+      <Box sx={{ display: 'flex', alignItems: 'center', padding: 2 }}>
+        <IconButton onClick={toggleDrawer} sx={{ mr: 2 }}>
+          <MenuIcon />
+        </IconButton>
+      </Box>
+      <Divider />
       <List>
         {menuItems.map((item) => (
           <ListItem
@@ -108,10 +101,7 @@ const AdminSidebar = () => {
                 minWidth: 0,
                 mr: open ? 3 : "auto",
                 justifyContent: "center",
-                color:
-                  location.pathname === item.path
-                    ? theme.palette.primary.contrastText
-                    : "inherit",
+                color: location.pathname === item.path ? theme.palette.primary.contrastText : "inherit",
               }}
             >
               {item.icon}
@@ -125,7 +115,7 @@ const AdminSidebar = () => {
         <Divider sx={{ my: 1 }} />
         <ListItem
           button
-          onClick={handleLogoutClick} // Trigger confirmation dialog on logout click
+          onClick={handleLogoutClick}
           sx={{
             minHeight: 48,
             justifyContent: open ? "initial" : "center",
@@ -149,7 +139,6 @@ const AdminSidebar = () => {
         </ListItem>
       </List>
 
-      {/* Logout Confirmation Dialog */}
       <Dialog
         open={dialogOpen}
         onClose={handleCancelLogout}
@@ -175,52 +164,45 @@ const AdminSidebar = () => {
   );
 
   return (
-    <>
-      <AdminHeader toggleDrawer={toggleDrawer} />
-      <Box sx={{ display: "flex" }}>
-        {isMobile ? (
-          <Drawer
-            variant="temporary"
-            open={open}
-            onClose={toggleDrawer}
-            ModalProps={{
-              keepMounted: true,
-            }}
-            sx={{
-              display: { xs: "block", sm: "none" },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-                width: 240,
-                backgroundColor: theme.palette.background.default,
-                color: theme.palette.text.primary,
-                transition: "width 0.3s ease",
-              },
-            }}
-          >
-            {drawerContent}
-          </Drawer>
-        ) : (
-          <Drawer
-            variant="permanent"
-            open={open}
-            sx={{
-              width: open ? 240 : 72,
-              flexShrink: 0,
-              transition: "width 0.3s ease",
-              [`& .MuiDrawer-paper`]: {
-                width: open ? 240 : 72,
-                boxSizing: "border-box",
-                backgroundColor: theme.palette.background.default,
-                color: theme.palette.text.primary,
-                transition: "width 0.3s ease",
-              },
-            }}
-          >
-            {drawerContent}
-          </Drawer>
-        )}
-      </Box>
-    </>
+    <Box sx={{ display: "flex" }}>
+      <IconButton
+        color="inherit"
+        aria-label="open drawer"
+        edge="start"
+        onClick={toggleDrawer}
+        sx={{
+          position: 'fixed',
+          left: 16,
+          top: 16,
+          zIndex: theme.zIndex.drawer + 2,
+          display: { sm: 'none' },
+        }}
+      >
+        <MenuIcon />
+      </IconButton>
+      <Drawer
+        variant={isMobile ? "temporary" : "permanent"}
+        open={open}
+        onClose={toggleDrawer}
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile.
+        }}
+        sx={{
+          width: open ? 240 : 72,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: {
+            width: open ? 240 : 72,
+            boxSizing: "border-box",
+            backgroundColor: theme.palette.background.default,
+            color: theme.palette.text.primary,
+            transition: "width 0.3s ease",
+            overflowX: "hidden",
+          },
+        }}
+      >
+        {drawerContent}
+      </Drawer>
+    </Box>
   );
 };
 

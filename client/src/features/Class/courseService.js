@@ -15,7 +15,50 @@ export const courseService = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    updateCourseTitle: builder.mutation({
+      query: (data) => ({
+        url: `${COURSE_URL}/update-course-title`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+    updateLessonTitle: builder.mutation({
+      query: (data) => ({
+        url: `${COURSE_URL}/update-lesson-title`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+    updateDocument: builder.mutation({
+      query: (data) => ({
+        url: `${COURSE_URL}/update-document`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+    updateQuiz: builder.mutation({
+      query: (data) => ({
+        url: `${COURSE_URL}/update-quiz`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+    updateActivity: builder.mutation({
+      query: (data) => ({
+        url: `${COURSE_URL}/update-activity`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useGetCourseDataMutation,useGetCourseDataQQuery } = courseService;
+export const {
+  useUpdateCourseTitleMutation,
+  useUpdateQuizMutation,
+  useUpdateActivityMutation,
+  useUpdateLessonTitleMutation,
+  useGetCourseDataMutation,
+  useGetCourseDataQQuery,
+  useUpdateDocumentMutation,
+} = courseService;

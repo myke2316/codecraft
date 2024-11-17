@@ -22,13 +22,10 @@ const theme = createTheme({
 const AdminLayout = () => {
   const [open, setOpen] = useState(true);
 
-
-
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex', minHeight: '100vh' }}>
         <CssBaseline />
-
         <AdminSidebar open={open} />
         <Box
           component="main"
@@ -44,13 +41,13 @@ const AdminLayout = () => {
             flexDirection: 'column',
           }}
         >
-          <Box sx={{ py: 6, px: 4, flexGrow: 1 }}>
+          <Box sx={{ flexGrow: 1 }}>
             <Outlet />
-            {/* <ToastContainer /> */}
           </Box>
-          <AdminFooter />
+          {/* <AdminFooter /> */}
         </Box>
       </Box>
+   
     </ThemeProvider>
   );
 };

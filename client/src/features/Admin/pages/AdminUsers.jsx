@@ -200,11 +200,13 @@ export default function Component() {
     <Container
       maxWidth="lg"
       sx={{
-        p: 4,
-        mt: 4,
+      
         backgroundColor: "background.paper",
         boxShadow: 3,
-        borderRadius: 2,
+        borderRadius: 2, flexGrow: 1,
+        p: 3,
+        width: { sm: `calc(100% - ${240}px)` },
+        mt: 2,
       }}
     >
       <Typography variant="h4" gutterBottom sx={{ padding: 3 }}>

@@ -259,25 +259,34 @@ const updateDocument = async (req, res) => {
             break;
 
           case "code":
-            // For "code", both code and language are required, so set them
             if (code && language) {
               existingContent.code = code;
               existingContent.language = language;
+
+              // Check if the language is CSS and if supportingCode is provided
+              if (language === "testCaseSentences" && !supportingCode) {
+                throw new Error("Supporting code is required for CSS language");
+              }
+              // Assign supportingCode if provided
+              if (language === "CSS") {
+                existingContent.supportingCode = supportingCode;
+              } else {
+                existingContent.supportingCode = undefined;
+              }
             } else {
               throw new Error("Code and language are required for code type");
             }
-            // Clear out fields that are not used by code type
             existingContent.text = undefined;
-            existingContent.supportingCode = undefined;
             break;
-
           case "codeconsole":
             // For "codeconsole", code and language are required
             if (code && language) {
               existingContent.code = code;
               existingContent.language = language;
             } else {
-              throw new Error("Code and language are required for codeconsole type");
+              throw new Error(
+                "Code and language are required for codeconsole type"
+              );
             }
             // Clear out fields that are not used by codeconsole type
             existingContent.text = undefined;
@@ -291,7 +300,9 @@ const updateDocument = async (req, res) => {
               existingContent.language = language;
               existingContent.supportingCode = supportingCode;
             } else {
-              throw new Error("Code, language, and supportingCode are required for javascriptweb type");
+              throw new Error(
+                "Code, language, and supportingCode are required for javascriptweb type"
+              );
             }
             // Clear out fields that are not used by javascriptweb type
             existingContent.text = undefined;
@@ -314,13 +325,11 @@ const updateDocument = async (req, res) => {
   }
 };
 
-
-
 export {
   getAllCourse,
   updateCourseTitle,
   updateLessonTitle,
   updateQuiz,
   updateActivity,
-  updateDocument
+  updateDocument,
 };

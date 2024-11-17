@@ -134,39 +134,13 @@ const AdminDashboard = () => {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: "flex" }}>
-        <AppBar position="fixed">
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={toggleDrawer}
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap component="div">
-              Admin Dashboard
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          variant="temporary"
-          open={drawerOpen}
-          onClose={toggleDrawer}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-        >
-          {drawerContent}
-        </Drawer>
         <Box
           component="main"
           sx={{
             flexGrow: 1,
             p: 3,
             width: { sm: `calc(100% - ${240}px)` },
-            mt: 8,
+            mt: 2,
           }}
         >
           {isLoading ? (
