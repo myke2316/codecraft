@@ -107,9 +107,9 @@ export default function CmsEditDocument({ open, onClose, document: initialDocume
                 ))}
               </Select>
             </FormControl>
-            <IconButton onClick={() => handleRemoveContent(index)}>
+            {/* <IconButton onClick={() => handleRemoveContent(index)}>
               <DeleteIcon />
-            </IconButton>
+            </IconButton> */}
           </Box>
           {item.type === 'sentence' && (
             <TextField
@@ -199,9 +199,9 @@ export default function CmsEditDocument({ open, onClose, document: initialDocume
           Content
         </Typography>
         {memoizedContent}
-        <Button startIcon={<AddIcon />} onClick={handleAddContent}>
+        {/* <Button startIcon={<AddIcon />} onClick={handleAddContent}>
           Add Content
-        </Button>
+        </Button> */}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>

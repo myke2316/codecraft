@@ -124,20 +124,20 @@ export default function CmsEditQuiz({ open, onClose, quiz: initialQuiz, courseId
                   margin="dense"
                   variant="outlined"
                 />
-                <IconButton onClick={() => handleRemoveOption(index)}>
+                {/* <IconButton onClick={() => handleRemoveOption(index)}>
                   <DeleteIcon />
-                </IconButton>
+                </IconButton> */}
               </Box>
             </ListItem>
           ))}
         </List>
-        <Button 
+        {/* <Button 
           startIcon={<AddIcon />} 
           onClick={handleAddOption}
           disabled={quiz.options.length >= 5}
         >
           Add Option
-        </Button>
+        </Button> */}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>

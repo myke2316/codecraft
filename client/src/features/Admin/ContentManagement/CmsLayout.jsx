@@ -357,9 +357,9 @@ export default function CmsLayout() {
                 <IconButton size="small" className="text-blue-500">
                   <EditIcon onClick={() => handleEditItem(doc, "document", currentCourseId, selectedItem._id)} fontSize="small" />
                 </IconButton>
-                <IconButton size="small" className="text-red-500">
+                {/* <IconButton size="small" className="text-red-500">
                   <DeleteIcon fontSize="small" />
-                </IconButton>
+                </IconButton> */}
               </Box>
             )}
           </ListItem>
@@ -383,9 +383,9 @@ export default function CmsLayout() {
                 <IconButton size="small" className="text-blue-500">
                   <EditIcon onClick={() => handleEditItem(quizItem, "quiz", currentCourseId, selectedItem._id)} fontSize="small" />
                 </IconButton>
-                <IconButton size="small" className="text-red-500">
+                {/* <IconButton size="small" className="text-red-500">
                   <DeleteIcon fontSize="small" />
-                </IconButton>
+                </IconButton> */}
               </Box>
             )}
           </ListItem>
@@ -409,9 +409,9 @@ export default function CmsLayout() {
                 <IconButton size="small" className="text-blue-500">
                   <EditIcon onClick={() => handleEditItem(activity, "activity", currentCourseId, selectedItem._id)} fontSize="small" />
                 </IconButton>
-                <IconButton size="small" className="text-red-500">
+                {/* <IconButton size="small" className="text-red-500">
                   <DeleteIcon fontSize="small" />
-                </IconButton>
+                </IconButton> */}
               </Box>
             )}
           </ListItem>
