@@ -105,7 +105,7 @@ export default function CmsEditQuiz({ open, onClose, quiz: initialQuiz, courseId
           required
         />
         <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-          Options (Max 5)
+          Options (Max 4)
         </Typography>
         <List>
           {quiz.options.map((option, index) => (

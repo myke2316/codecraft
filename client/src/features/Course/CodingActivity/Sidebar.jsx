@@ -23,6 +23,7 @@ import {
   useTheme,
   DialogActions,
   Button,
+  Alert,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -218,6 +219,7 @@ export default function Sidebar({ courseId, lessonId, userProgress }) {
                           gutterBottom
                           sx={{ fontWeight: 600 }}
                         >
+                          <Alert severity="warning">Expected image may not be the same, if admin edited the activity.</Alert>
                           <strong>Expected Output Image:</strong>
                         </Typography>
                         <Zoom in={true}>

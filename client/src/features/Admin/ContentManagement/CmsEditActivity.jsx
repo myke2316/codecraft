@@ -298,14 +298,16 @@ export default function Component({ open, onClose, activity: initialActivity, co
                 <Button onClick={() => handleAddRequiredPair(testCaseIndex)} startIcon={<AddIcon />}>
                   Add Required Pair
                 </Button>
-                {/* <TextField
+                {/* <Alert severity='info'></Alert>
+                <TextField
                   label="Expected Image URL"
                   fullWidth
                   value={testCase.expectedImage}
                   onChange={(e) => handleTestCaseChange(testCaseIndex, 'expectedImage', e.target.value)}
                   margin="dense"
-                /> */}
-             
+                />
+                <img src={testCase.expectedImage} />
+              */}
               </Box>
             </ListItem>
           ))}
