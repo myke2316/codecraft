@@ -48,7 +48,8 @@ const ActivityPage = () => {
       setOutput(output);
       
     } catch (error) {
-      setOutput(`Error: ${error.message}`);
+      
+      setOutput(`${error.response.data.output} or Infinite Loops`);
     }
   };
 
